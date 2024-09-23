@@ -1,0 +1,16 @@
+{
+  "name": "@ala/test1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ala/test2": "workspace:^1.0.0"
+  }
+}

@@ -1,0 +1,9 @@
+lockfileVersion: 5.4
+
+importers:
+
+  packages/test1:
+    specifiers:
+      '@ala/test2': workspace:^1.0.0
+    dependencies:
+      '@ala/test2': link:../test2
