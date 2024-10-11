@@ -1,0 +1,53 @@
+{
+    "headerFormat": "{type}({scope}): {subject}",
+    "commitTypes": [
+        {
+            "description": "新功能",
+            "value": "1）feat"
+        },
+        {
+            "description": "BUG修复",
+            "value": "2）fix"
+        },
+        {
+            "description": "辅助工具更改或者无法分类的提交",
+            "value": "3）chore"
+        },
+        {
+            "description": "优化性能",
+            "value": "4）perf"
+        },
+        {
+            "description": "不修复错误也不增加功能的重构代码",
+            "value": "5）refactor"
+        },
+        {
+            "description": "更新代码格式",
+            "value": "6）style"
+        },
+        {
+            "description": "添加测试用例",
+            "value": "7）test"
+        },
+        {
+            "description": "更新文档",
+            "value": "8）docs"
+        },
+        {
+            "description": "更新CI发版代码",
+            "value": "9）ci"
+        },
+        {
+            "description": "更新构建依赖等模块",
+            "value": "10）build"
+        }
+    ],
+    "skipScope": false,
+    "skipTicketId": true,
+    "subjectMaxLength": 70,
+    "subjectMinLength": 3,
+    "typeQuestion": "请选择提交类型：",
+    "scopeQuestion": "请输入改动范围：",
+    "subjectQuestion": "请输入简要提交信息：",
+    "bodyQuestion": "请输入详细提交信息（可跳过）："
+}
