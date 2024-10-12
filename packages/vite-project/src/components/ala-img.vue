@@ -5,16 +5,24 @@ defineProps<{ src: string }>()
 </script>
 
 <template>
-  
+  <div>
+    <h2>这是一幅图片，标题颜色是红色</h2>
+  </div>
   <img :src="src" class="ala-img" />
 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+div{
+  h2{
+    color: red
+  }
+}
+
 img{
   width: 200px;
   height: 100px;
-  background: rgb(255, 0, 0,0.1);
+  background: #ff00001a;
   padding: 50px;
 }
 </style>
