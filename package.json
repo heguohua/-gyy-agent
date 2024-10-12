@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "vp": "pnpm -F @ala/vite-project dev",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint": "pnpm -F @ala/vite-project lint"
   },
   "lint-staged": {
-    "*.{js,ts, vue}": "eslint"
+    "*.{js,ts, vue}": "pnpm lint"
   },
   "config": {
     "commitizen": {

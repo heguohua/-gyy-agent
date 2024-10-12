@@ -3,43 +3,43 @@
     "commitTypes": [
         {
             "description": "新功能",
-            "value": "1）feat"
+            "value": "feat"
         },
         {
             "description": "BUG修复",
-            "value": "2）fix"
+            "value": "fix"
         },
         {
             "description": "辅助工具更改或者无法分类的提交",
-            "value": "3）chore"
+            "value": "chore"
         },
         {
             "description": "优化性能",
-            "value": "4）perf"
+            "value": "perf"
         },
         {
             "description": "不修复错误也不增加功能的重构代码",
-            "value": "5）refactor"
+            "value": "refactor"
         },
         {
             "description": "更新代码格式",
-            "value": "6）style"
+            "value": "style"
         },
         {
             "description": "添加测试用例",
-            "value": "7）test"
+            "value": "test"
         },
         {
             "description": "更新文档",
-            "value": "8）docs"
+            "value": "docs"
         },
         {
             "description": "更新CI发版代码",
-            "value": "9）ci"
+            "value": "ci"
         },
         {
             "description": "更新构建依赖等模块",
-            "value": "10）build"
+            "value": "build"
         }
     ],
     "skipScope": false,
