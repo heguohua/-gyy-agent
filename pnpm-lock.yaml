@@ -33,12 +33,14 @@ importers:
       eslint-plugin-promise: ^7.1.0
       eslint-plugin-vue: ^9.29.0
       globals: ^15.11.0
+      pinia: ^2.2.4
       scss: ^0.2.4
       typescript: ^5.5.3
       typescript-eslint: ^8.8.1
       vite: ^5.4.8
       vue: ^3.5.10
     dependencies:
+      pinia: 2.2.4_6ela44dmnmnxeqpaf4bw63fg5i
       vue: 3.5.11_typescript@5.6.3
     devDependencies:
       '@eslint/js': 9.12.0
@@ -70,6 +72,7 @@ importers:
       eslint-plugin-promise: ^7.1.0
       eslint-plugin-vue: ^9.29.0
       globals: ^15.11.0
+      pinia: ^2.2.4
       scss: ^0.2.4
       typescript: ^5.5.3
       typescript-eslint: ^8.8.1
@@ -77,6 +80,7 @@ importers:
       vue: ^3.5.10
       vue-router: ^4.4.5
     dependencies:
+      pinia: 2.2.4_6ela44dmnmnxeqpaf4bw63fg5i
       vue: 3.5.11_typescript@5.6.3
     devDependencies:
       '@eslint/js': 9.12.0
@@ -1166,7 +1170,6 @@ packages:
 
   /@vue/devtools-api/6.6.4:
     resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
-    dev: true
 
   /@vue/language-core/2.1.6_typescript@5.6.3:
     resolution: {integrity: sha512-MW569cSky9R/ooKMh6xa2g1D0AtRKbL56k83dzus/bx//RDJk24RHWkMzbAlXjMdDNyxAaagKPRquBIxkxlCkg==}
@@ -3681,6 +3684,24 @@ packages:
     hasBin: true
     dev: true
 
+  /pinia/2.2.4_6ela44dmnmnxeqpaf4bw63fg5i:
+    resolution: {integrity: sha512-K7ZhpMY9iJ9ShTC0cR2+PnxdQRuwVIsXDO/WIEV/RnMC/vmSoKDTKW/exNQYPI+4ij10UjXqdNiEHwn47McANQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.3.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      typescript: 5.6.3
+      vue: 3.5.11_typescript@5.6.3
+      vue-demi: 0.14.10_vue@3.5.11
+    dev: false
+
   /possible-typed-array-names/1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
@@ -4395,6 +4416,21 @@ packages:
   /vscode-uri/3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
     dev: true
+
+  /vue-demi/0.14.10_vue@3.5.11:
+    resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.5.11_typescript@5.6.3
+    dev: false
 
   /vue-eslint-parser/9.4.3_eslint@9.12.0:
     resolution: {integrity: sha512-2rYRLWlIpaiN8xbPiDyXZXRgLGOtWxERV7ND5fFAv5qo1D2N9Fu9MNajBNc6o13lZ+24DAWCkQCvj4klgmcITg==}
