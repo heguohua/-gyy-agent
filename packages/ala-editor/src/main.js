@@ -20,6 +20,9 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 app.use(ElementPlus)
 
+// 注册 icon
+import { Icon } from '@iconify/vue'
+app.component('icon',Icon)
 
 // 挂载整个应用到app容器中
 app.mount('#app')
