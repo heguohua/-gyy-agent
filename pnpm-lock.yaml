@@ -20,6 +20,56 @@ importers:
       husky: 9.1.6
       lint-staged: 15.2.10
 
+  packages/ala-demo:
+    specifiers:
+      '@eslint/js': ^9.12.0
+      '@vitejs/plugin-vue': ^5.1.4
+      eslint: ^9.12.0
+      eslint-plugin-vue: ^9.29.0
+      globals: ^15.11.0
+      scss: ^0.2.4
+      typescript: ^5.5.3
+      typescript-eslint: ^8.8.1
+      vite: ^5.4.8
+      vue: ^3.5.10
+    dependencies:
+      vue: 3.5.11_typescript@5.6.3
+    devDependencies:
+      '@eslint/js': 9.12.0
+      '@vitejs/plugin-vue': 5.1.4_vite@5.4.8+vue@3.5.11
+      eslint: 9.12.0
+      eslint-plugin-vue: 9.29.0_eslint@9.12.0
+      globals: 15.11.0
+      scss: 0.2.4
+      typescript: 5.6.3
+      typescript-eslint: 8.8.1_p3zbhba4sltptls2m7e5rbssxm
+      vite: 5.4.8
+
+  packages/ala-editor:
+    specifiers:
+      '@eslint/js': ^9.12.0
+      '@vitejs/plugin-vue': ^5.1.4
+      eslint: ^9.12.0
+      eslint-plugin-vue: ^9.29.0
+      globals: ^15.11.0
+      scss: ^0.2.4
+      typescript: ^5.5.3
+      typescript-eslint: ^8.8.1
+      vite: ^5.4.8
+      vue: ^3.5.10
+    dependencies:
+      vue: 3.5.11_typescript@5.6.3
+    devDependencies:
+      '@eslint/js': 9.12.0
+      '@vitejs/plugin-vue': 5.1.4_vite@5.4.8+vue@3.5.11
+      eslint: 9.12.0
+      eslint-plugin-vue: 9.29.0_eslint@9.12.0
+      globals: 15.11.0
+      scss: 0.2.4
+      typescript: 5.6.3
+      typescript-eslint: 8.8.1_p3zbhba4sltptls2m7e5rbssxm
+      vite: 5.4.8
+
   packages/test1:
     specifiers:
       '@ala/test2': workspace:^1.0.0
@@ -750,6 +800,7 @@ packages:
     resolution: {integrity: sha512-0KXvIJQMOImLCVCz9uvvdPgfyWo93aHHp8ui3FrtOP57svqrF/roSSR5pjqL2hcMp0ljeGlU4q9o/rQaAQ3AYA==}
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -758,6 +809,7 @@ packages:
     resolution: {integrity: sha512-it2BW6kKFVh8xk/BnHfakEeoLPv8STIISekpoF+nBgWM4d55CZKc7T4Dx1pEbTnYm/xEKMgy1MNtYuoA8RFIWw==}
     cpu: [arm]
     os: [linux]
+    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -766,6 +818,7 @@ packages:
     resolution: {integrity: sha512-i0xTLXjqap2eRfulFVlSnM5dEbTVque/3Pi4g2y7cxrs7+a9De42z4XxKLYJ7+OhE3IgxvfQM7vQc43bwTgPwA==}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -774,6 +827,7 @@ packages:
     resolution: {integrity: sha512-9E6MKUJhDuDh604Qco5yP/3qn3y7SLXYuiC0Rpr89aMScS2UAmK1wHP2b7KAa1nSjWJc/f/Lc0Wl1L47qjiyQw==}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -782,6 +836,7 @@ packages:
     resolution: {integrity: sha512-2XFFPJ2XMEiF5Zi2EBf4h73oR1V/lycirxZxHZNc93SqDN/IWhYYSYj8I9381ikUFXZrz2v7r2tOVk2NBwxrWw==}
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -790,6 +845,7 @@ packages:
     resolution: {integrity: sha512-M3Dg4hlwuntUCdzU7KjYqbbd+BLq3JMAOhCKdBE3TcMGMZbKkDdJ5ivNdehOssMCIokNHFOsv7DO4rlEOfyKpg==}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -798,6 +854,7 @@ packages:
     resolution: {integrity: sha512-mjBaoo4ocxJppTorZVKWFpy1bfFj9FeCMJqzlMQGjpNPY9JwQi7OuS1axzNIk0nMX6jSgy6ZURDZ2w0QW6D56g==}
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -806,6 +863,7 @@ packages:
     resolution: {integrity: sha512-ZXFk7M72R0YYFN5q13niV0B7G8/5dcQ9JDp8keJSfr3GoZeXEoMHP/HlvqROA3OMbMdfr19IjCeNAnPUG93b6A==}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -814,6 +872,7 @@ packages:
     resolution: {integrity: sha512-w1i+L7kAXZNdYl+vFvzSZy8Y1arS7vMgIy8wusXJzRrPyof5LAb02KGr1PD2EkRcl73kHulIID0M501lN+vobQ==}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -1008,7 +1067,7 @@ packages:
       vite: ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.4.8_kx3mztx4eqe26ipadk376a4yim
+      vite: 5.4.8
       vue: 3.5.11_typescript@5.6.3
     dev: true
 
@@ -2754,6 +2813,11 @@ packages:
       boolbase: 1.0.0
     dev: true
 
+  /ometa/0.2.2:
+    resolution: {integrity: sha512-LZuoK/yjU3FvrxPjUXUlZ1bavCfBPqauA7fsNdwi+AVhRdyk2IzgP3JRnevvjzQ6fKHdUw8YISshf53FmpHrng==}
+    engines: {node: '>= 0.2.0'}
+    dev: true
+
   /once/1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
     dependencies:
@@ -3108,6 +3172,13 @@ packages:
       source-map-js: 1.2.1
     dev: true
 
+  /scss/0.2.4:
+    resolution: {integrity: sha512-4u8V87F+Q/upVhUmhPnB4C1R11xojkRkWjExL2v0CX2EXTg18VrKd+9JWoeyCp2VEMdSpJsyAvVU+rVjogh51A==}
+    engines: {node: '>= 0.2.0'}
+    dependencies:
+      ometa: 0.2.2
+    dev: true
+
   /semver/7.6.3:
     resolution: {integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==}
     engines: {node: '>=10'}
@@ -3374,6 +3445,44 @@ packages:
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+    dev: true
+
+  /vite/5.4.8:
+    resolution: {integrity: sha512-FqrItQ4DT1NC4zCUqMB4c4AZORMKIa0m8/URVCZ77OZ/QSNeJ54bU1vrFADbDsuwfIPcgknRkmqakQcgnL4GiQ==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || >=20.0.0
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.21.5
+      postcss: 8.4.47
+      rollup: 4.24.0
+    optionalDependencies:
+      fsevents: 2.3.3
     dev: true
 
   /vite/5.4.8_kx3mztx4eqe26ipadk376a4yim:
