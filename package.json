@@ -10,12 +10,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "vp": "pnpm -F @ala/vite-project dev",
     "prepare": "husky",
-    "lint": "pnpm -F @ala/vite-project lint",
     "led": "pnpm -F @ala/ala-editor lint",
-    "lde": "pnpm -F @ala/ala-demo lint"
+    "lde": "pnpm -F @ala/ala-demo lint",
+    "lint": "pnpm led && pnpm lde"
   },
   "lint-staged": {
-    "*.{js,ts, vue}": "pnpm lint"
+    "*.{ts,vue}": "pnpm lint"
   },
   "config": {
     "commitizen": {

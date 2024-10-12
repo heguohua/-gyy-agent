@@ -5,7 +5,7 @@ import pluginVue from "eslint-plugin-vue";
 
 
 export default [
-  { files: ["src/**/*.js","src/**/*.ts","src/**/*.vue"] },
+  { files: ["src/**/*.ts","src/**/*.vue"] },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
@@ -15,5 +15,12 @@ export default [
     rules:{
       "vue/multi-word-component-names":"off"
     }
-  }
+  },
+  { 
+    languageOptions: { 
+      globals: {
+        "module": "writable"
+      } 
+    } 
+  },
 ];
