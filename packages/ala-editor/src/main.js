@@ -6,9 +6,20 @@ import App from './App.vue'
 import './style.css'
 // 引入路由器
 import router from './router'
+
+
+
+
 // 创建一个应用
 const app = createApp(App)
 // 使用路由器
 app.use(router)
+
+// 集成 element-plus
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+app.use(ElementPlus)
+
+
 // 挂载整个应用到app容器中
 app.mount('#app')
