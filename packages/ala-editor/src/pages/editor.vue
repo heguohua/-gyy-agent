@@ -4,7 +4,6 @@
         <EditorHeader/>
         <div class="container">
             <EditorBlock/>
-            <EditorRender/>
             <EditorConfig/>
         </div>
     </div>
