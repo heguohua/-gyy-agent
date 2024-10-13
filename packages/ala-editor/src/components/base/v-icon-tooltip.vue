@@ -31,6 +31,7 @@ defineProps({
 .icon {
   user-select: none;
 }
+
 .image-box {
   cursor: pointer;
   width: 26px;
@@ -42,10 +43,12 @@ defineProps({
   align-items: center;
   flex-shrink: 0;
   transition: all 0.2s linear;
+
   &:hover {
     background: var(--color-icon-hover);
     transition: all 0.2s linear;
   }
+
   .image {
     width: 100%;
     height: 100%;
