@@ -9,7 +9,8 @@
     "de": "pnpm -F @ala/ala-demo dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "vp": "pnpm -F @ala/vite-project dev",
-    "prepare": "husky",
+    "i": "pnpm install -r",
+    "clean": "sh clean.sh",
     "led": "pnpm -F @ala/ala-editor lint",
     "lde": "pnpm -F @ala/ala-demo lint",
     "lint": "pnpm led && pnpm lde"
@@ -32,6 +33,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "cz-vinyl": "^2.5.4",
     "husky": "^9.1.6",
-    "lint-staged": "^15.2.10"
+    "lint-staged": "^15.2.10",
+    "rimraf": "^6.0.1"
   }
 }
