@@ -11,6 +11,8 @@ declare module 'vue' {
     EditorConfig: typeof import('./src/components/editor/editor-config.vue')['default']
     EditorHeader: typeof import('./src/components/editor/editor-header.vue')['default']
     EditorRender: typeof import('./src/components/editor/editor-render.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

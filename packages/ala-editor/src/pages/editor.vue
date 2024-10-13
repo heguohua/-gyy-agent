@@ -1,23 +1,24 @@
- 
 <template>
     <div class="editor">
-        <EditorHeader/>
+        <EditorHeader />
+
         <div class="container">
-            <EditorBlock/>
-            <EditorConfig/>
+            <EditorBlock />
+            <EditorRender />
+            <EditorConfig />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-// import { ref } from 'vue'
-// import EditorBlock from '@/components/editor/editor-block.vue'
-// import EditorHeader from '@/components/editor/editor-header.vue'
 
 // State
 
 
 // Methods
+
+const a = ref(1)
+console.log(a);
 
 </script>
 

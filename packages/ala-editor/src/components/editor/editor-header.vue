@@ -17,7 +17,6 @@
         发布
       </el-button>
     </div>
-
   </div>
 </template>
 
