@@ -6,7 +6,9 @@
             <EditorBlock />
             <EditorRender />
             <EditorConfig />
+
         </div>
+
     </div>
 </template>
 
@@ -19,6 +21,8 @@
 
 const a = ref(1)
 console.log(a);
+
+
 
 </script>
 
