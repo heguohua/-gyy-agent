@@ -2,10 +2,11 @@
 </script>
 
 <template>
-  <RouterView/>
+  <!-- <el-config-provider :locale="elLocale"> -->
+    <RouterView />
+  <!-- </el-config-provider> -->
+
+
 </template>
 
-<style scoped>
-
-
-</style>
+<style scoped></style>
