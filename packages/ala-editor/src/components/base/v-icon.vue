@@ -5,6 +5,7 @@
 <script lang="ts" setup>
 import iconConfig, { type ConfigIcon } from '@/config/icons'
 import { computed } from 'vue'
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const props = defineProps({
   icon: {

@@ -12,10 +12,8 @@
 
 <script setup lang="ts">
 // import { ref } from 'vue'
-import EditorBlock from '../components/editor/editor-block.vue';
-import EditorConfig from '../components/editor/editor-config.vue';
-import EditorHeader from '../components/editor/editor-header.vue';
-import EditorRender from '../components/editor/editor-render.vue';
+import EditorBlock from '@/components/editor/editor-block.vue'
+import EditorHeader from '@/components/editor/editor-header.vue'
 
 // State
 
