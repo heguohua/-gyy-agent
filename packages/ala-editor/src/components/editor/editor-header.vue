@@ -1,14 +1,14 @@
 <template>
   <div class="header">
     <div class="header-left">
-      <div class="back" >
+      <div class="back">
         <v-icon-tooltip content="返回" icon="back" />
         <div class="header-title">页面</div>
       </div>
       <div class="line"></div>
     </div>
     <div class="header-right">
-      <el-button >
+      <el-button>
         <v-icon icon="preview" />
         预览
       </el-button>
