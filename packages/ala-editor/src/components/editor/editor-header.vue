@@ -23,6 +23,17 @@
 
 <script setup lang="ts">
 
+import { reactive } from 'vue';
+
+
+const a = ref(1)
+console.log(a)
+console.log(a);
+const b=reactive(3)
+const c=reactive(9)
+console.log(c);
+
+
 </script>
 
 <style scoped lang="scss"></style>
