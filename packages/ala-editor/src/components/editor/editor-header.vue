@@ -29,24 +29,34 @@
 import { alaConsts } from '@/config/alaConsts';
 import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
 import { languages } from '@/utils/i18n/languages';
+import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 
 let currentlanguage = ref(lstore.getItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME))
 
+/**
+ * 切换语言包
+ */
 const changLanguage = () => {
-  
   interface vmt {
     data: {
       messages: {}
     }
   }
+  /**
+   * 加载新的语言包，并切换语言
+   */
+  const messages = i18n.global.messages as vmt["data"]
+  if (!(currentlanguage.value in messages)) {
+    fetchLocaleMessages(currentlanguage.value).then((data) => {
+      const { data: { messages } } = data as vmt;
+      Object.assign(i18n.global.messages, messages)
+      i18n.global.locale = currentlanguage.value
+    })
+  } else {
+    logger.info("语言包已存在", currentlanguage.value)
+  }
 
-  fetchLocaleMessages(currentlanguage.value).then((data) => {
-    const { data:{messages} } = data as vmt;
-    Object.assign(i18n.global.messages, messages)
-    i18n.global.locale = currentlanguage.value
-  })
-  
 }
 
 </script>

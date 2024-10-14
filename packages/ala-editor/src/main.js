@@ -17,7 +17,7 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 
 import i18n from './utils/i18n/i18n';
-// 引入 i18n
+// 注册 i18n
 app.use(i18n);
 // 向element-plus注册i18n
 app.use(ElementPlus, {

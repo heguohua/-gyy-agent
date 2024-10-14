@@ -7,21 +7,22 @@ import { logger } from '../logger';
 import { alaConsts } from '@/config/alaConsts';
 /**
  * 动态获取对应语言的国际化语言包
- * @param lang 
- * @returns 
+ * @param lang
+ * @returns
  */
-export async function fetchLocaleMessages(lang?:string) {
+export async function fetchLocaleMessages(lang?: string) {
   try {
     // 调用方传递了语言类型，首先将语言类型存储到 local storage
-    if(lang){
+    if (lang) {
       lstore.setItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME, lang);
+    }else{
+      lang = lstore.getItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME);
     }
     // 如果local storage中没有获取到语言类型，则设置默认语言为简体中文
     if (!lang) {
       lstore.setItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME, 'zh_CN');
+      lang = 'zh_CN';
     }
-    lang = lstore.getItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME);
-    lang = lang ? lang : 'zh_CN';
     const response = await req.get('/editor/api/locale', { language: lang });
     return response;
   } catch (error) {
@@ -32,19 +33,20 @@ export async function fetchLocaleMessages(lang?:string) {
 }
 
 // 假设从后台获取的语言包格式为 { zh_CN: {}, en: {} }
-interface vmt{
-  data:{
-    messages:{}
-  }
+interface vmt {
+  data: {
+    messages: {};
+  };
 }
 
-const {data:{messages}} = await fetchLocaleMessages() as vmt;
+const {
+  data: { messages },
+} = (await fetchLocaleMessages()) as vmt;
 
 const i18n = createI18n({
   locale: lstore.getItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME), // 默认语言
   fallbackLocale: 'en',
   messages, // 后台返回的语言包
 });
-
 
 export default i18n;
