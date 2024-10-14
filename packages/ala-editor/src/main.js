@@ -1,5 +1,5 @@
 // 引入createApp用于创建应用
-import { createApp } from 'vue';
+import { createApp, reactive } from 'vue';
 // 引入App根组件
 import App from './App.vue';
 // 引入全局css文件
@@ -25,19 +25,22 @@ app.component('icon', Icon);
 const pinia = createPinia();
 app.use(pinia);
 
-
 // 挂载整个应用到app容器中
 app.mount('#app');
 
 // 集成自定义的 GlobalProperties
 import { logger } from './utils/logger';
-import {queryLoveMessage} from "./utils/tuwei"
+import { queryLoveMessage } from './utils/tuwei';
+const user = reactive({
+  username: '春',
+  age: 34,
+});
 logger.logg(
-`
+  `
 
     App started successfully。
 
-    Happy your life for one word：${ await queryLoveMessage()}
+    Happy your life for one word：${await queryLoveMessage()}
 
 `
 );
