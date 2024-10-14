@@ -31,10 +31,7 @@ app.mount('#app');
 // 集成自定义的 GlobalProperties
 import { logger } from './utils/logger';
 import { queryLoveMessage } from './utils/tuwei';
-const user = reactive({
-  username: '春',
-  age: 34,
-});
+
 logger.logg(
   `
 
