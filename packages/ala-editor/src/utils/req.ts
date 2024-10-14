@@ -3,13 +3,13 @@
 import axios from 'axios';
 
 //创建一个axios实例
-const request = axios.create({
+const axiosInstance = axios.create({
   baseURL: '',
   timeout: 20000,
 });
 
 // 添加请求拦截器
-request.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   function (config) {
     // 请求地址携带时间戳
     const _t = new Date().getTime();
@@ -19,8 +19,8 @@ request.interceptors.request.use(
     config.headers['token'] = localStorage.getItem('token') || '';
 
     // 在发送请求之前做些什么
-    console.log('我要准备请求啦------');
-    console.log('请求配置', config);
+    //console.log('我要准备请求啦------');
+    //console.log('请求配置', config);
 
     return config;
   },
@@ -31,11 +31,11 @@ request.interceptors.request.use(
 );
 
 // 添加响应拦截器
-request.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   function (response) {
     // 对响应数据做点什么
-    console.log('接收到响应数据------');
-    console.log('响应数据', response);
+    //console.log('接收到响应数据------');
+    //console.log('响应数据', response);
     if (response.status === 200) {
       return Promise.resolve(response.data);
     } else {
@@ -88,7 +88,7 @@ request.interceptors.response.use(
     } else {
       error.message = '连接到服务器失败';
     }
-    console.log('网络错误信息：', error.message);
+    //console.log('网络错误信息：', error.message);
 
     return Promise.reject(error);
   },
@@ -101,7 +101,7 @@ request.interceptors.response.use(
  * */
 export function get(url: string, params = {}) {
   return new Promise((resolve, reject) => {
-    request({
+    axiosInstance({
       url: url,
       method: 'get',
       params: params,
@@ -122,7 +122,7 @@ export function get(url: string, params = {}) {
  * */
 export function post(url: string, params = {}) {
   return new Promise((resolve, reject) => {
-    request({
+    axiosInstance({
       url: url,
       method: 'post',
       data: params,

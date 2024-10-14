@@ -3,6 +3,12 @@
     "module": "es2022",
     "strict": true,
     "target": "es2022",
-    "outDir": "dist"
+    "outDir": "dist",
+    "moduleResolution": "Node",
+    "baseUrl": "./", // 这里需要配置
+    "paths": {
+      "@/*": ["./src/*"] // 这里需要配置
+    },
+    "allowSyntheticDefaultImports": true
   }
 }

@@ -35,6 +35,14 @@ const dc = defineConfig(({ command }) => {
         '@': ph,
       },
     },
+    server: {
+      proxy: {
+        '/tuwei': {
+          target: 'https://api.uomg.com/api/rand.qinghua?format=json', // 目标服务器地址
+          changeOrigin: true, // 允许跨域
+        }
+      }
+    }
   };
 });
 
