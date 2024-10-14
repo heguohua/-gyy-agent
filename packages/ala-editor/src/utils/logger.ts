@@ -26,7 +26,7 @@ export class Logger {
    * @param message 主日志信息
    * @param optionalParams 可选【多条】日志信息
    */
-  log(message: any, ...optionalParams: any[]) {
+  info(message: any, ...optionalParams: any[]) {
     const timestamp = date.getCurrentDateTime();
     const file_name = this.getCallerFileName();
 
@@ -46,7 +46,7 @@ export class Logger {
    * @param message 主日志信息
    * @param optionalParams 可选【多条】日志信息
    */
-  loge(message: any, ...optionalParams: any[]) {
+  error(message: any, ...optionalParams: any[]) {
     const timestamp = date.getCurrentDateTime();
     const file_name = this.getCallerFileName();
 
@@ -66,7 +66,7 @@ export class Logger {
    * @param message 主日志信息
    * @param optionalParams 可选【多条】日志信息
    */
-  logw(message: any, ...optionalParams: any[]) {
+  warn(message: any, ...optionalParams: any[]) {
     const timestamp = date.getCurrentDateTime();
     const file_name = this.getCallerFileName();
 
@@ -87,7 +87,7 @@ export class Logger {
    * @param message 主日志信息
    * @param optionalParams 可选【多条】日志信息
    */
-  logg(message: any, ...optionalParams: any[]) {
+  success(message: any, ...optionalParams: any[]) {
     const timestamp = date.getCurrentDateTime();
     const file_name = this.getCallerFileName();
 

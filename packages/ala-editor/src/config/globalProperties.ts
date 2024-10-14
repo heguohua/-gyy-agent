@@ -21,7 +21,7 @@ export class GlobalProperties {
     if (!gps.hasOwnProperty(key)) {
       gps[key] = value;
     }else{
-        logger.logw(`Property of [ ${key} ] already exists`)
+        logger.warn(`Property of [ ${key} ] already exists`)
     }
   }
 

@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use(
   function (config) {
     // 请求地址携带时间戳
     const _t = new Date().getTime();
-    config.url += `?${_t}`;
+    config.url += `?ts=${_t}`;
 
     // 请求头携带token
     config.headers['token'] = localStorage.getItem('token') || '';

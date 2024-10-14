@@ -15,7 +15,14 @@ app.use(router);
 // 集成 element-plus
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
-app.use(ElementPlus);
+import i18n from './utils/i18n/i18n';
+
+app.use(ElementPlus, {
+  i18n: (key, value) => i18n.global.t(key, value),
+});
+
+console.log(i18n.global);
+
 
 // 注册 icon
 import { Icon } from '@iconify/vue';
@@ -25,6 +32,9 @@ app.component('icon', Icon);
 const pinia = createPinia();
 app.use(pinia);
 
+// 引入并使用 i18n
+app.use(i18n);
+
 // 挂载整个应用到app容器中
 app.mount('#app');
 
@@ -32,12 +42,12 @@ app.mount('#app');
 import { logger } from './utils/logger';
 import { queryLoveMessage } from './utils/tuwei';
 
-logger.logg(
+logger.success(
   `
 
     App started successfully。
 
     Happy your life for one word：${await queryLoveMessage()}
 
-`
+`,
 );

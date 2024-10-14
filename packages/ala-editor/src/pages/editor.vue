@@ -43,7 +43,7 @@ import { logger } from '@/utils/logger';
 
 async function getLoveMessage() {
     const msg = await queryLoveMessage()
-    logger.log(msg)
+    logger.info(msg)
 }
 
 
