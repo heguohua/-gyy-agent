@@ -8,6 +8,11 @@ const languages: Record<string, unknown> = {
       yulan: '预览',
     },
   },
+  en: {
+    button: {
+      yulan: 'Preview',
+    },
+  },
 };
 export default [
   // 获取国际化语言包接口
@@ -22,9 +27,11 @@ export default [
       // 有就返回成功信息
       const resp: Record<string, any> = {
         code: 200,
-        data: {},
+        data: {
+          "messages":{}
+        },
       };
-      resp.data[language] = language_package;
+      resp.data.messages[language] = language_package;
       return resp;
     },
   },

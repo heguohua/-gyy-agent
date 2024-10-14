@@ -13,6 +13,8 @@ declare module 'vue' {
     EditorRender: typeof import('./src/components/editor/editor-render.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElOption: typeof import('element-plus/es')['ElOption']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
