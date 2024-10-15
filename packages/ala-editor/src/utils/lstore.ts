@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 16:24:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 11:16:24
+ * @LastEditTime: 2024-10-15 15:02:28
  * @FilePath: /low-coding/packages/ala-editor/src/utils/lstore.ts
  * @Description: local storage快捷操作工具类
  *

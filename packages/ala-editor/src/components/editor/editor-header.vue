@@ -1,3 +1,13 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-12 20:21:09
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 14:16:52
+ * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
   <div class="header">
     <div class="header-left">
@@ -7,6 +17,7 @@
       </div>
       <div class="line"></div>
     </div>
+    
     <div class="header-right">
       <el-button>
         <v-icon icon="preview" />
@@ -32,9 +43,7 @@ import { languages } from '@/utils/i18n/languages';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 
-let currentlanguage = ref(lstore.getItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME))
-
-
+let currentlanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 /**
  * 切换语言包
  */
@@ -62,4 +71,8 @@ const changLanguage = () => {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+img {
+  background: red
+}
+</style>
