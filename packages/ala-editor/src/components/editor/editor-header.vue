@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 14:16:52
+ * @LastEditTime: 2024-10-15 15:04:32
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -27,7 +27,7 @@
         <v-icon icon="publish" />
         发布
       </el-button>
-      <el-select v-model="currentlanguage" placeholder="请选择" @change="changLanguage">
+      <el-select v-model="currentLanguage" placeholder="请选择" @change="changLanguage">
         <el-option v-for="(value, key) in languages" :key="key" :label="value" :value="key">
         </el-option>
       </el-select>
@@ -43,7 +43,7 @@ import { languages } from '@/utils/i18n/languages';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 
-let currentlanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
+let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 /**
  * 切换语言包
  */
@@ -57,14 +57,14 @@ const changLanguage = () => {
    * 加载新的语言包，并切换语言
    */
   const messages = i18n.global.messages as vmt["data"]
-  if (!(currentlanguage.value in messages)) {
-    fetchLocaleMessages(currentlanguage.value).then((data) => {
+  if (!(currentLanguage.value in messages)) {
+    fetchLocaleMessages(currentLanguage.value).then((data) => {
       const { data: { messages } } = data as vmt;
       Object.assign(i18n.global.messages, messages)
-      i18n.global.locale = currentlanguage.value
+      i18n.global.locale = currentLanguage.value
     })
   } else {
-    logger.info("语言包已存在", currentlanguage.value)
+    logger.info("语言包已存在", currentLanguage.value)
   }
 
 }
