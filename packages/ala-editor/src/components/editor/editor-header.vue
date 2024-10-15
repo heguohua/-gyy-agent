@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 15:04:32
+ * @LastEditTime: 2024-10-15 16:55:45
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -65,8 +65,8 @@ const changLanguage = () => {
     })
   } else {
     logger.info("语言包已存在", currentLanguage.value)
+    i18n.global.locale = currentLanguage.value
   }
-
 }
 
 </script>
