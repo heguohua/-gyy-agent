@@ -1,12 +1,21 @@
 <template>
+
   <el-select :model-value="model" :style="styles" :teleported="false" @change="change">
     <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
   </el-select>
+
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
 
+/**
+ * TODO: 用于待办事项
+ * ! 用于重要或警告信息
+ * ? 用于疑问或需要确认的内容
+ * * 用于强调或重要说明
+ * 其他普通注释
+ */
 const props = defineProps({
   options: {
     type: Array,
@@ -42,17 +51,21 @@ const change = (value: string) => {
   top: 34px !important;
   left: 0 !important;
 }
+
 :deep(.el-popper__arrow) {
   display: none;
 }
+
 :deep(.el-select-dropdown__list) {
   padding: 3px 0;
 }
+
 :deep(.el-select-dropdown__item) {
   border-radius: var(--border-radius);
   margin: 0 3px;
   padding: 0 44px 0 8px;
 }
+
 :deep(&.is-hovering) {
   background-color: var(--color-block-hover);
 }
@@ -60,16 +73,20 @@ const change = (value: string) => {
 :deep(.el-select__wrapper) {
   box-shadow: none !important;
 }
+
 :deep(.el-select__wrapper:hover) {
   box-shadow: none !important;
 }
+
 :deep(.el-select__wrapper) {
   min-height: 28px;
   background-color: var(--color-block-hover);
 }
+
 :deep(.el-select__wrapper.is-hovering) {
   background-color: var(--color-block-hover);
 }
+
 :deep(.el-select__wrapper.is-focused) {
   background-color: var(--color-block-hover);
 }

@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-14 11:04:17
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:15:40
+ * @FilePath: /low-coding/packages/ala-editor/src/utils/logger.ts
+ * @Description: 日志工具类，提供info、warn、success和error 4种类型日志
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 import { date } from './date';
 
 // utils/Logger.ts

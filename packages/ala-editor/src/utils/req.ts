@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-13 20:59:28
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:16:50
+ * @FilePath: /low-coding/packages/ala-editor/src/utils/req.ts
+ * @Description: axios 使用工具类
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 // utils/request.ts
 
 import axios from 'axios';

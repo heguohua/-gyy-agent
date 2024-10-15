@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-14 11:46:15
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:22:19
+ * @FilePath: /low-coding/packages/ala-editor/src/config/globalProperties.ts
+ * @Description: 全局唯一的 vue属性配置项 共享 工具类
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 import { logger } from '@/utils/logger';
 import { App, AppConfig } from 'vue';
 

@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-14 16:28:41
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:21:59
+ * @FilePath: /low-coding/packages/ala-editor/src/config/alaConsts.ts
+ * @Description: 全局唯一的 常量类
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 export class alaConsts {
   private static readonly PREFIX = 'ala_';
 

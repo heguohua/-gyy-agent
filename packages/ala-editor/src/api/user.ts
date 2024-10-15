@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-13 21:28:58
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:23:50
+ * @FilePath: /low-coding/packages/ala-editor/src/api/user.ts
+ * @Description: 用户登录模拟api接口
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 import { get, post } from '@/utils/req';
 
 const api = {

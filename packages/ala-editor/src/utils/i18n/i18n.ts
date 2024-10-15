@@ -1,21 +1,31 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-14 16:22:03
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:15:18
+ * @FilePath: /low-coding/packages/ala-editor/src/utils/i18n/i18n.ts
+ * @Description: 国际化语言包help工具类
+ *
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved.
+ */
 // i18n.ts
-import { createI18n, LocaleMessages, VueMessageType } from 'vue-i18n';
+import { createI18n } from 'vue-i18n';
 import lstore from '../lstore';
-import { languages } from './languages';
 import req from '../req';
 import { logger } from '../logger';
 import { alaConsts } from '@/config/alaConsts';
+
 /**
- * 动态获取对应语言的国际化语言包
- * @param lang
- * @returns
+ * @description: 动态获取对应语言的国际化语言包
+ * @param {string} lang 语言类型
+ * @return {*}
  */
 export async function fetchLocaleMessages(lang?: string) {
   try {
     // 调用方传递了语言类型，首先将语言类型存储到 local storage
     if (lang) {
       lstore.setItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME, lang);
-    }else{
+    } else {
       lang = lstore.getItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME);
     }
     // 如果local storage中没有获取到语言类型，则设置默认语言为简体中文

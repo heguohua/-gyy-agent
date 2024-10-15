@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-14 11:14:52
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:19:27
+ * @FilePath: /low-coding/packages/ala-editor/src/utils/date.ts
+ * @Description: 时间工具类
+ *
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved.
+ */
 //日期工具类
 //局部导入dayjs
 import dayjs from 'dayjs';

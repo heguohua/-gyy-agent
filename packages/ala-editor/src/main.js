@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-12 16:06:36
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:20:51
+ * @FilePath: /low-coding/packages/ala-editor/src/main.js
+ * @Description: 应用启动入口文件
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 // 引入createApp用于创建应用
 import { createApp, reactive } from 'vue';
 // 引入App根组件

@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-14 09:10:44
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:21:18
+ * @FilePath: /low-coding/packages/ala-editor/src/store/ala-store.ts
+ * @Description: 全局统一的 状态共享 工具类
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 import { defineStore } from 'pinia';
 
 interface StoreInterface<T> {

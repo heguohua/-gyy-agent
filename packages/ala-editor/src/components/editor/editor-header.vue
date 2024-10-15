@@ -34,6 +34,7 @@ import lstore from '@/utils/lstore';
 
 let currentlanguage = ref(lstore.getItem(alaConsts.I18N_LOCALSTORAGE_KEY_NAME))
 
+
 /**
  * 切换语言包
  */

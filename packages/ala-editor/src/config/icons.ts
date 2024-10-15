@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-12 20:44:04
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-15 11:23:11
+ * @FilePath: /low-coding/packages/ala-editor/src/config/icons.ts
+ * @Description: 应用使用的所有 ICON 图标文件
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 const icon = {
     // 基础组件图标
     row: 'fluent:layout-row-two-16-regular',
