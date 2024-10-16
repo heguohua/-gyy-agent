@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 10:22:59
+ * @LastEditTime: 2024-10-16 15:29:53
  * @FilePath: /low-coding/packages/ala-editor/src/pages/editor.vue
  * @Description: 
  * 
@@ -61,7 +61,7 @@ async function getLoveMessage() {
 </script>
 
 <style scoped lang="scss">
-.edit {
+.editor {
     width: 100%;
     overflow-x: hidden;
     user-select: none;
