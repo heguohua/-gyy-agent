@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 11:16:50
+ * @LastEditTime: 2024-10-16 09:16:15
  * @FilePath: /low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -53,8 +53,9 @@ axiosInstance.interceptors.response.use(
     }
   },
   function (error) {
+    const response = error.response;
     // 对响应错误做点什么
-    if (error && error.response) {
+    if (error && response) {
       switch (error.response.status) {
         case 400:
           error.message = '错误请求';

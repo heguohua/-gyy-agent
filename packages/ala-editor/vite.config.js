@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-12 16:06:36
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-16 10:58:27
+ * @FilePath: /low-coding/packages/ala-editor/vite.config.js
+ * @Description:
+ *
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved.
+ */
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
@@ -18,6 +28,7 @@ const dc = defineConfig(({ command }) => {
       AutoImport({
         imports: ['vue', 'vue-router', 'pinia'],
         dts: true,
+        deep: true,
         resolvers: [ElementPlusResolver()],
       }),
       Components({
@@ -40,9 +51,9 @@ const dc = defineConfig(({ command }) => {
         '/tuwei': {
           target: 'https://api.uomg.com/api/rand.qinghua?format=json', // 目标服务器地址
           changeOrigin: true, // 允许跨域
-        }
-      }
-    }
+        },
+      },
+    },
   };
 });
 

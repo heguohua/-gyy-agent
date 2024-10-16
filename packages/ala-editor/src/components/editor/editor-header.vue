@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 16:55:45
+ * @LastEditTime: 2024-10-16 11:26:53
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -12,22 +12,23 @@
   <div class="header">
     <div class="header-left">
       <div class="back">
-        <v-icon-tooltip content="返回" icon="back" />
-        <div class="header-title">页面</div>
+        <v-icon-tooltip :content="$t('icon.back')" icon="back" />
+        <div class="header-title">{{ $t('p_editor.list_page') }}</div>
       </div>
       <div class="line"></div>
     </div>
-    
+
     <div class="header-right">
       <el-button>
         <v-icon icon="preview" />
-        预览-{{ $t('button.yulan') }}
+        {{ $t('button.yulan') }}
       </el-button>
       <el-button type="primary">
         <v-icon icon="publish" />
-        发布
+        {{ $t('button.fabu') }}
       </el-button>
-      <el-select v-model="currentLanguage" placeholder="请选择" @change="changLanguage">
+      <el-select v-model="currentLanguage" :placeholder="$t('common.select_placeholder')" @change="changLanguage"
+        class="languages">
         <el-option v-for="(value, key) in languages" :key="key" :label="value" :value="key">
         </el-option>
       </el-select>
@@ -57,22 +58,72 @@ const changLanguage = () => {
    * 加载新的语言包，并切换语言
    */
   const messages = i18n.global.messages as vmt["data"]
-  if (!(currentLanguage.value in messages)) {
-    fetchLocaleMessages(currentLanguage.value).then((data) => {
+  let currentLanguageValue = currentLanguage.value
+  if (!(currentLanguageValue in messages)) {
+    fetchLocaleMessages(currentLanguageValue).then((data) => {
+      logger.info(`即将加载并切换语言包 [ ${currentLanguageValue} ]`)
       const { data: { messages } } = data as vmt;
       Object.assign(i18n.global.messages, messages)
-      i18n.global.locale = currentLanguage.value
+      i18n.global.locale = currentLanguageValue
     })
   } else {
-    logger.info("语言包已存在", currentLanguage.value)
-    i18n.global.locale = currentLanguage.value
+    logger.info("语言包已存在", currentLanguageValue)
+    i18n.global.locale = currentLanguageValue
   }
 }
 
 </script>
 
 <style scoped lang="scss">
-img {
-  background: red
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 500;
+  height: var(--edit-header-height);
+  background: white;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .back {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 16px;
+      flex-shrink: 0;
+
+      .header-title {
+        font-size: 14px;
+        padding-left: 4px;
+      }
+    }
+
+    .line {
+      width: 1px;
+      height: 20px;
+      border-left: 1px solid var(--color-border);
+      padding-right: 16px;
+    }
+  }
+
+  .header-right {
+    position: relative;
+    padding-right: 16px;
+    display: flex;
+
+    .languages {
+      min-width: 150px;
+      margin-left: 12px;
+    }
+  }
 }
 </style>

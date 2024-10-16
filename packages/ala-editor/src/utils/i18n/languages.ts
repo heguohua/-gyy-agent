@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 16:47:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 11:13:44
+ * @LastEditTime: 2024-10-16 11:04:59
  * @FilePath: /low-coding/packages/ala-editor/src/utils/i18n/languages.ts
  * @Description: 国际化语言包分类枚举类
  * 
@@ -10,6 +10,6 @@
  */
 export enum languages {
   zh_CN = '中文',
-  en = '英语',
-  ru = '俄语',
+  en = 'English',
+  ru = 'Русский язык',
 }

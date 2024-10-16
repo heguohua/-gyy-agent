@@ -1,3 +1,13 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-09-01 10:33:39
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-16 09:41:44
+ * @FilePath: /low-coding/packages/ala-editor/src/components/base/v-icon-tooltip.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
   <div class="icon">
     <el-tooltip class="tip" effect="dark" :content="content" :placement="placement" :hide-after="0">

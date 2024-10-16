@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 11:20:51
+ * @LastEditTime: 2024-10-16 10:43:36
  * @FilePath: /low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -25,7 +25,7 @@ app.use(router);
 // 集成 element-plus
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
-
+import './assets/styles/main.scss'
 import i18n from './utils/i18n/i18n';
 // 注册 i18n
 app.use(i18n);

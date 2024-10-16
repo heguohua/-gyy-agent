@@ -1,3 +1,13 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-12 17:45:51
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-16 10:22:59
+ * @FilePath: /low-coding/packages/ala-editor/src/pages/editor.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
     <div class="editor">
         <EditorHeader />
@@ -51,9 +61,21 @@ async function getLoveMessage() {
 </script>
 
 <style scoped lang="scss">
-.editor {
+.edit {
+    width: 100%;
+    overflow-x: hidden;
+    user-select: none;
+    --edit-header-height: 64px;
+    --edit-block-width: 300px;
+
     .container {
-        background-color: red;
+        display: flex;
+        width: 100%;
+        min-width: 100%;
+
+        &.mobile-background {
+            background: var(--color-bg);
+        }
     }
 }
 </style>
