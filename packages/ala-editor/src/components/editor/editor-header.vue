@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 17:41:31
+ * @LastEditTime: 2024-10-16 19:02:26
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -47,7 +47,6 @@ import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 
 const { global: { t } } = i18n
-// const {  locale  } = toRefs(i18n)
 
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 
@@ -79,9 +78,6 @@ const changLanguage = () => {
 }
 
 const viewport = ref<Viewport>('desktop')
-
-console.log(i18n);
-
 
 // watch(locale, () => {
 //   console.log("locale", locale);
