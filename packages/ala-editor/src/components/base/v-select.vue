@@ -1,3 +1,13 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-09-01 10:33:39
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-16 17:10:14
+ * @FilePath: /low-coding/packages/ala-editor/src/components/base/v-select.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
 
   <el-select :model-value="model" :style="styles" :teleported="false" @change="change">
@@ -8,6 +18,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import i18n from '@/utils/i18n/i18n';
 
 /**
  * TODO: 用于待办事项
@@ -16,25 +27,17 @@ import { computed } from 'vue'
  * * 用于强调或重要说明
  * 其他普通注释
  */
+
 const props = defineProps({
   options: {
-    type: Array,
-    default: () => [
-      {
-        value: 'desktop',
-        label: '桌面端',
-      },
-      {
-        value: 'mobile',
-        label: '移动端',
-      },
-    ],
+    type: Array<{ value: string, label: string }>,
   },
   width: {
     type: Number,
-    default: 90,
+    default: 100,
   },
 })
+
 
 const styles = computed(() => ({ width: props.width + 'px' }))
 
@@ -76,11 +79,6 @@ const change = (value: string) => {
 
 :deep(.el-select__wrapper:hover) {
   box-shadow: none !important;
-}
-
-:deep(.el-select__wrapper) {
-  min-height: 28px;
-  background-color: var(--color-block-hover);
 }
 
 :deep(.el-select__wrapper.is-hovering) {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 17:10:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 10:18:02
+ * @LastEditTime: 2024-10-16 15:55:07
  * @FilePath: /low-coding/packages/ala-editor/mock/utils/i18n/i18n.ts
  * @Description: i18n 国际化语言包模拟数据
  *
@@ -14,21 +14,37 @@ import { logger } from '@/utils/logger';
 
 const languages: Record<string, unknown> = {
   zh_CN: {
+    // 公共部分
+    common: {
+      select_placeholder: '请选择',
+      app_type: {
+        desktop: "桌面端",
+        mobile: "移动端",
+      }
+    },
+    // 按钮
     button: {
       yulan: '预览',
       fabu: '发布',
     },
+    // icon hover 文字
     icon: {
       back: '返回',
     },
+    // 功能模块，命名规则“p_功能模块英文名”，例如 p_editor、p_user、p_role 等
     p_editor: {
       list_page: '列表页面',
     },
-    common: {
-      select_placeholder: '请选择',
-    },
   },
   en: {
+    // 公共部分
+    common: {
+      select_placeholder: 'Please Select',
+      app_type: {
+        desktop: "Desktop",
+        mobile: "Mobile",
+      }
+    },
     button: {
       yulan: 'Preview',
       fabu: 'Publish',
@@ -39,9 +55,7 @@ const languages: Record<string, unknown> = {
     p_editor: {
       list_page: 'List Page',
     },
-    common: {
-      select_placeholder: 'Please Select',
-    },
+
   },
 };
 export default [

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 10:43:36
+ * @LastEditTime: 2024-10-16 16:38:43
  * @FilePath: /low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 

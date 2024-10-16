@@ -57,6 +57,7 @@ const i18n = createI18n({
   locale: lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME), // 默认语言
   fallbackLocale: 'zh_CN',
   messages, // 后台返回的语言包
+  globalInjection: true
 });
 
 export default i18n;

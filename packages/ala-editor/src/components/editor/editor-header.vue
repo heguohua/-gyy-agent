@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 11:26:53
+ * @LastEditTime: 2024-10-16 17:41:31
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -16,6 +16,7 @@
         <div class="header-title">{{ $t('p_editor.list_page') }}</div>
       </div>
       <div class="line"></div>
+      <v-select v-model="viewport" :options="app_types" />
     </div>
 
     <div class="header-right">
@@ -39,12 +40,17 @@
 <script setup lang="ts">
 
 import { alaConsts } from '@/config/alaConsts';
+import { Viewport } from '@/types/edit';
 import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
 import { languages } from '@/utils/i18n/languages';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 
+const { global: { t } } = i18n
+// const {  locale  } = toRefs(i18n)
+
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
+
 /**
  * 切换语言包
  */
@@ -71,6 +77,29 @@ const changLanguage = () => {
     i18n.global.locale = currentLanguageValue
   }
 }
+
+const viewport = ref<Viewport>('desktop')
+
+console.log(i18n);
+
+
+// watch(locale, () => {
+//   console.log("locale", locale);
+
+// })
+let app_types = computed(() => {
+  return [
+    {
+      value: 'desktop',
+      label: t('common.app_type.desktop'),
+    },
+    {
+      value: 'mobile',
+      label: t('common.app_type.mobile'),
+    },
+  ]
+})
+
 
 </script>
 
