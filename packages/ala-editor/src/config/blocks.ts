@@ -1,0 +1,103 @@
+import { BlockSchema, BlockSchemaKeys } from "./schemas";
+
+export interface BaseBlock {
+    /**
+     * 组件ID
+     */
+    id: string,
+    /**
+     * 组件类型编码
+     */
+    code: string,
+    /**
+     * 组件名字
+     */
+    name: string,
+    /**
+     * 组件图标
+     */
+    icon: string,
+    /**
+     * 组件是否可嵌套
+     */
+    nested?: boolean,
+    /**
+     * 子组件
+     */
+    children?: BaseBlock[][],
+    /**
+     * 组件属性表单
+     */
+    formData?: BlockSchema[BlockSchemaKeys] | Object,
+}
+
+export const baseBlocks: BaseBlock[] = [
+    {
+        id: "",
+        name: "图片",
+        code: "ala-image",
+        icon: "image",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "视频",
+        code: "ala-video",
+        icon: "video",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "文本",
+        code: "ala-text",
+        icon: "text",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "幻灯片",
+        code: "ala-swiper",
+        icon: "swiper",
+        formData: {},
+    }, {
+        id: "",
+        name: "留白",
+        code: "ala-blank",
+        icon: "blank",
+        formData: {},
+    },
+]
+export const seniorBlocks: BaseBlock[] = [
+    {
+        id: "",
+        name: "多行",
+        code: "ala-row",
+        icon: "row",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "多列",
+        code: "ala-column",
+        icon: "column",
+        formData: {},
+    },
+]
+
+export const canvasBlocks: BaseBlock[] = [
+    {
+        id: "",
+        name: "图片",
+        code: "ala-image",
+        icon: "image",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "文本",
+        code: "ala-column",
+        icon: "column",
+        formData: {},
+    },
+]
+

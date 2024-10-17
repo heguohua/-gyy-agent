@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 16:38:43
+ * @LastEditTime: 2024-10-17 17:26:48
  * @FilePath: /low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -42,6 +42,10 @@ app.component('icon', Icon);
 // 集成 pinia
 const pinia = createPinia();
 app.use(pinia);
+
+// 集成 vuedraggable
+import Draggable from "vuedraggable"
+app.component('draggable', Draggable);
 
 
 // 挂载整个应用到app容器中

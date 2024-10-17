@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 11:17:11
+ * @LastEditTime: 2024-10-17 17:23:56
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -24,14 +24,17 @@
         <div class="right">
             <el-collapse v-model="activeNames" @change="handleChange">
                 <el-collapse-item :title="$t('p_editor.block.base.baseBlock')" name="1">
-                    <div class="">
-                        ddd
-                    </div>
+                    <editor-block-drag :list="baseBlocks" :sort="false"
+                        :group="{ name: 'dragGroup', pull: 'clone', put: false }">
+
+                    </editor-block-drag>
+
                 </el-collapse-item>
                 <el-collapse-item :title="$t('p_editor.block.base.seniorBlock')" name="2">
-                    <div class="">
-                        eee
-                    </div>
+                    <editor-block-drag :list="seniorBlocks" :sort="false"
+                        :group="{ name: 'dragGroup', pull: 'clone', put: false }">
+
+                    </editor-block-drag>
                 </el-collapse-item>
             </el-collapse>
 
@@ -43,7 +46,7 @@
 import { ref } from 'vue'
 import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
 const { global: { t } } = i18n
-
+import { baseBlocks, seniorBlocks } from "@/config/blocks"
 // State
 interface Menu {
     icon: string,
@@ -68,8 +71,7 @@ console.log('menuList:', menuList);
 
 const activeMenu = ref(0)
 const activeNames = ref(["1", "2"])
-const baseBlockList = ref([])
-const seniorBlockList = ref([])
+
 
 const handleChange = () => {
 

@@ -2,74 +2,93 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 10:51:42
+ * @LastEditTime: 2024-10-17 17:29:29
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-block-drag.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="editor-block">
-        <div class="left">
-            <div class="menu-item" v-for="{ index, item } in menuList" :key="index"
-                :class="{ 'is-active': index === activeMenu }" @click="activeMenu = index">
-
-                <!-- <v-icon class="menu-icon" :icon="index === activeMenu ? item.iconActive : item.icon" /> -->
-
-                <div class="menu-name">
-                    {{ item.name }}
+    <draggable :list="list" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
+        class="edit-block-drag" :clone="clone" :move="move">
+        <template #item="{ element }">
+            <div class="block-item">
+                <v-icon class="block-icon" :icon="element.icon" />
+                <div class="block-name" v-html="element.name">
                 </div>
             </div>
+        </template>
+    </draggable>
 
-        </div>
-        <div class="right">
-            <el-collapse v-model="activeNames" @change="handleChange">
-                <el-collapse-item title="Consistency" name="1">
-                    <div class="">
-                        ddd
-                    </div>
-                </el-collapse-item>
-                <el-collapse-item title="Feedback" name="2">
-                    <div class="">
-                        eee
-                    </div>
-                </el-collapse-item>
-            </el-collapse>
-
-        </div>
-    </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { move, clone } from "@/components/editor/nested"
+
+
 // State
-interface Menu {
-    icon: string,
-    iconActive: string,
-    name: string,
-}
-const menuList = ref([
-    {
-        icon: "block",
-        iconActive: "blockActive",
-        name: "组件"
-    },
-    {
-        icon: "kit",
-        iconActive: "kitActive",
-        name: "套件"
-    }
-])
-
-const activeMenu = ref(0)
-const activeNames = ref(["1", "2"])
-const baseBlockList = ref([])
-const seniorBlockList = ref([])
-
 
 // Methods
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.edit-block-drag {
+    display: flex;
+    flex-wrap: wrap;
+
+    .block-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        cursor: grab;
+        width: 33.333%;
+        aspect-ratio: 1 / 1;
+        text-align: center;
+        padding: 10px;
+        border-radius: var(--border-radius);
+
+        &:active {
+            cursor: grabbing;
+        }
+
+        &:hover {
+            background: var(--color-block-hover);
+            border: 1px solid var(--color-border);
+        }
+
+        .block-icon {
+            width: 20px;
+            height: 20px;
+            margin: 0 auto;
+        }
+
+        .block-name {
+            font-size: 14px;
+            line-height: 14px;
+            padding-top: 4px;
+            white-space: nowrap;
+        }
+    }
+}
+
+.ghost-class {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    background: var(--color-active-bg);
+    border: 1px solid var(--color-active-text);
+
+    img,
+    svg {
+        width: 20px;
+        height: 20px;
+        margin: 0 auto;
+    }
+}
+</style>
