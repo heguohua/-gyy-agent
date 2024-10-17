@@ -9,10 +9,13 @@ declare module 'vue' {
   export interface GlobalComponents {
     A: typeof import('./src/components/base/a.vue')['default']
     EditorBlock: typeof import('./src/components/editor/editor-block.vue')['default']
+    EditorBlockDrag: typeof import('./src/components/editor/editor-block-drag.vue')['default']
     EditorConfig: typeof import('./src/components/editor/editor-config.vue')['default']
     EditorHeader: typeof import('./src/components/editor/editor-header.vue')['default']
     EditorRender: typeof import('./src/components/editor/editor-render.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCollapse: typeof import('element-plus/es')['ElCollapse']
+    ElCollapseItem: typeof import('element-plus/es')['ElCollapseItem']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
