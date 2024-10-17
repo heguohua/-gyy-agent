@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 17:10:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 15:55:07
+ * @LastEditTime: 2024-10-17 13:58:48
  * @FilePath: /low-coding/packages/ala-editor/mock/utils/i18n/i18n.ts
  * @Description: i18n 国际化语言包模拟数据
  *
@@ -34,6 +34,18 @@ const languages: Record<string, unknown> = {
     // 功能模块，命名规则“p_功能模块英文名”，例如 p_editor、p_user、p_role 等
     p_editor: {
       list_page: '列表页面',
+      block: {
+        base: {
+          name: "组件",
+          baseBlock: "基础组件",
+          seniorBlock: "高级组件"
+        },
+        kit: {
+          name: "套件",
+          baseBlock: "基础套件",
+          seniorBlock: "高级套件"
+        },
+      }
     },
   },
   en: {
@@ -54,6 +66,18 @@ const languages: Record<string, unknown> = {
     },
     p_editor: {
       list_page: 'List Page',
+      block: {
+        base: {
+          name: "Blocks",
+          baseBlock: "Base Blocks",
+          seniorBlock: "Senior Blocks"
+        },
+        kit: {
+          name: "Kits",
+          baseBlock: "Base Kits",
+          seniorBlock: "Senior Kits"
+        },
+      }
     },
 
   },

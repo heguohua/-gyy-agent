@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 10:59:54
+ * @LastEditTime: 2024-10-17 11:17:11
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -23,12 +23,12 @@
         </div>
         <div class="right">
             <el-collapse v-model="activeNames" @change="handleChange">
-                <el-collapse-item title="基础组件" name="1">
+                <el-collapse-item :title="$t('p_editor.block.base.baseBlock')" name="1">
                     <div class="">
                         ddd
                     </div>
                 </el-collapse-item>
-                <el-collapse-item title="高级组件" name="2">
+                <el-collapse-item :title="$t('p_editor.block.base.seniorBlock')" name="2">
                     <div class="">
                         eee
                     </div>
@@ -41,6 +41,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
+const { global: { t } } = i18n
 
 // State
 interface Menu {
@@ -48,18 +50,20 @@ interface Menu {
     iconActive: string,
     name: string,
 }
-const menuList = ref([
-    {
-        icon: "block",
-        iconActive: "blockActive",
-        name: "组件"
-    },
-    {
-        icon: "kit",
-        iconActive: "kitActive",
-        name: "套件"
-    }
-])
+const menuList = computed(() => {
+    return [
+        {
+            icon: "block",
+            iconActive: "blockActive",
+            name: t("p_editor.block.base.name")
+        },
+        {
+            icon: "kit",
+            iconActive: "kitActive",
+            name: t("p_editor.block.kit.name")
+        }
+    ]
+})
 console.log('menuList:', menuList);
 
 const activeMenu = ref(0)
@@ -67,7 +71,9 @@ const activeNames = ref(["1", "2"])
 const baseBlockList = ref([])
 const seniorBlockList = ref([])
 
+const handleChange = () => {
 
+}
 // Methods
 
 </script>
