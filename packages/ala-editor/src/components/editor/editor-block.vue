@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 17:23:56
+ * @LastEditTime: 2024-10-17 20:32:56
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -25,14 +25,14 @@
             <el-collapse v-model="activeNames" @change="handleChange">
                 <el-collapse-item :title="$t('p_editor.block.base.baseBlock')" name="1">
                     <editor-block-drag :list="baseBlocks" :sort="false"
-                        :group="{ name: 'dragGroup', pull: 'clone', put: false }">
+                        :group="{ name: dragGroup, pull: 'clone', put: false }">
 
                     </editor-block-drag>
 
                 </el-collapse-item>
                 <el-collapse-item :title="$t('p_editor.block.base.seniorBlock')" name="2">
                     <editor-block-drag :list="seniorBlocks" :sort="false"
-                        :group="{ name: 'dragGroup', pull: 'clone', put: false }">
+                        :group="{ name: dragGroup, pull: 'clone', put: false }">
 
                     </editor-block-drag>
                 </el-collapse-item>
@@ -47,6 +47,7 @@ import { ref } from 'vue'
 import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
 const { global: { t } } = i18n
 import { baseBlocks, seniorBlocks } from "@/config/blocks"
+import { dragGroup } from './nested';
 // State
 interface Menu {
     icon: string,

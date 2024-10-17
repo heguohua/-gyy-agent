@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 19:02:26
+ * @LastEditTime: 2024-10-17 20:14:10
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -40,7 +40,7 @@
 <script setup lang="ts">
 
 import { alaConsts } from '@/config/alaConsts';
-import { Viewport } from '@/types/edit';
+import { Viewport } from '@/types/editorType';
 import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
 import { languages } from '@/utils/i18n/languages';
 import { logger } from '@/utils/logger';

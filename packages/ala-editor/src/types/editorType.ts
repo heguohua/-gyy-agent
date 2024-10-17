@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-16 16:55:10
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 16:55:58
- * @FilePath: /low-coding/packages/ala-editor/src/types/edit.ts
+ * @LastEditTime: 2024-10-17 19:55:33
+ * @FilePath: /low-coding/packages/ala-editor/src/types/editor.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -46,3 +46,6 @@ export interface BaseBlock {
    */
   parent?: string
 }
+
+
+export type BaseBlockNull = BaseBlock | null

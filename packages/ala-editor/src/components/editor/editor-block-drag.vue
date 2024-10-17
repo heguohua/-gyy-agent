@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 17:29:29
+ * @LastEditTime: 2024-10-17 20:32:29
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-block-drag.vue
  * @Description: 
  * 
@@ -23,10 +23,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 
-import { move, clone } from "@/components/editor/nested"
+import { move, clone, dragGroup } from "@/components/editor/nested"
 
+defineProps({
+    list: {
+        type: Array,
+        required: true,
+        default: () => []
+    },
+    group: {
+        type: [String, Object],
+        default: 'group'
+    },
+    sort: {
+        type: Boolean,
+        default: false
+    }
+})
 
 // State
 
