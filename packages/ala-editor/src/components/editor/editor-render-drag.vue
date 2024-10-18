@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 14:58:59
+ * @LastEditTime: 2024-10-18 16:16:28
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 
-import { move, clone, dragGroup } from "@/components/editor/nested"
+import { move, clone } from "@/components/editor/nested"
 
 import { useEditorStore } from "@/store/editorStore"
 

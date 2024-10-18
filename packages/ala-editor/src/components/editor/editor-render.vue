@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 15:54:50
+ * @LastEditTime: 2024-10-18 16:07:43
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -18,7 +18,6 @@
                 <v-icon class="icon" icon="dragBlank" />
             </template>
         </el-empty>
-        <pro-table title="标题"></pro-table>
     </div>
 </template>
 

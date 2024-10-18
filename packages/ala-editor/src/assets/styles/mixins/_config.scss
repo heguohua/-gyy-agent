@@ -1,0 +1,30 @@
+$namespace: 'ala';
+
+@mixin b($block) {
+    $B: $namespace + '-' + $block !global;
+
+    .#{$B} {
+        @content;
+    }
+}
+
+
+
+@mixin e($element) {
+    $E: & + "--" + $element !global;
+
+    .#{$E} {
+        @content
+    }
+}
+
+
+@mixin m($modifier) {
+    $M: & + "__" + $modifier !global;
+
+    .#{$M} {
+        @content
+    }
+}
+
+
