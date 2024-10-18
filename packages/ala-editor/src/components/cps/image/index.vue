@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 18:44:42
+ * @LastEditTime: 2024-10-18 19:07:11
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/index.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
     <div>
       <h2>这是一幅图片，标题颜色是红色</h2>
     </div>
-    <img :src="src" v-bind="$attrs" :class="bem('--img')" :style="styles" />
+    <img :src="src" v-bind="$attrs" :class="[bem('--img'), bem('inactive')]" :style="styles" />
   </div>
 </template>
 <script lang="ts">
@@ -65,10 +65,19 @@ export default defineComponent({
 
 <style scoped lang="scss">
 
-@include b("image"){
-  .image{
-    background:red;
+/**
+* bem 示例
+*/
+@include b("image") {
+  @include e("img") {
+    background: red;
+  }
+
+  @include m("inactive") {
+    background: green;
+    cursor: pointer;
   }
 }
+
 
 </style>

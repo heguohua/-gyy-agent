@@ -13,8 +13,8 @@ $namespace: 'ala';
 @mixin e($element) {
     $E: & + "--" + $element !global;
 
-    .#{$E} {
-        @content
+    #{$E} {
+        @content;
     }
 }
 
@@ -22,7 +22,7 @@ $namespace: 'ala';
 @mixin m($modifier) {
     $M: & + "__" + $modifier !global;
 
-    .#{$M} {
+    #{$M} {
         @content
     }
 }
