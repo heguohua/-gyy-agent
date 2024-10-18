@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 21:49:26
+ * @LastEditTime: 2024-10-18 22:27:19
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/index.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
     <ala-link v-if="src" :to="link" target="_blank">
       <img :src="src" v-bind="$attrs" :class="[bem('--img'), bem('inactive')]" :style="styles" />
     </ala-link>
-    <div v-else>
+    <div v-else class="no-image">
       <ala-empty description="暂无图片，请上传"></ala-empty>
     </div>
   </div>
@@ -70,15 +70,20 @@ export default defineComponent({
 * bem 示例
 */
 @include b("image") {
-    @include e("img") {
-        background: red;
-    }
 
-    @include m("inactive") {
-        background: green;
-        cursor: pointer;
-    }
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  margin: 0 auto;
+  @include res(height, 295, 295);
+
+  .no-image {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    @include res(height, 295, 295);
+  }
 }
-
-
 </style>

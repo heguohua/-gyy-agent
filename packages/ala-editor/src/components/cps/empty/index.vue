@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 21:45:58
+ * @LastEditTime: 2024-10-18 22:16:42
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/empty/index.vue
  * @Description: 
  * 
@@ -11,8 +11,8 @@
 
 <template>
   <div :class="classes">
-    <img :src="src" v-bind="$attrs" :class="[bem('--img'), bem('empty')]" />
-    <div class="description" v-html="description">
+    <img :src="src" v-bind="$attrs" :class="[bem('--img')]" />
+    <div :class="[bem('--description')]" v-html="description">
 
     </div>
   </div>
@@ -23,7 +23,7 @@ import { logger } from '@/utils/logger';
 import { defineComponent } from 'vue'
 import { createNamespace } from '@/components/cps/utils/createNamespace';
 import { blockProps } from './props';
-import noDataImage from '../../../assets/images/no-data.png';
+import noDataImage from '@/assets/images/no-data.png';
 
 const { name, bem } = createNamespace("empty")
 
@@ -36,11 +36,14 @@ export default defineComponent({
 
     const classes = computed(() => [bem()])
 
-    const { image, description } = toRefs(props)
+    const { image, description } = props
 
-    const src = computed(() => image ? image : noDataImage)
+    const src = computed(() => {
+      const data = image ? image : noDataImage
+      return data
+    })
     console.log(src);
-    
+
 
     return {
       bem,
@@ -60,17 +63,17 @@ export default defineComponent({
   text-align: center;
   margin: 0 auto;
 
-  .image {
+  @include e("img") {
     object-fit: cover;
     display: block;
     margin: 0 auto;
     @include res(width, 120, 80);
   }
 
-  .description {
+  @include e('description') {
     color: #909399;
-    // @include res(font-size, 16, 16);
-    // @include res(margin-top, 16, 16);
+    @include res(font-size, 16, 16);
+    @include res(margin-top, 16, 16);
   }
 
 }

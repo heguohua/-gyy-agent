@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 21:09:08
+ * @LastEditTime: 2024-10-18 22:12:41
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/link/index.vue
  * @Description: 
  * 
@@ -33,6 +33,7 @@ export default defineComponent({
 
     const classes = computed(() => [bem()])
 
+    // const { to, target } = toRefs(props)
     const { to, target } = toRefs(props)
 
     const isExternalLink = computed(() => {

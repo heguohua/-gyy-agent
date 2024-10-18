@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 16:16:28
+ * @LastEditTime: 2024-10-18 22:11:03
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -15,7 +15,6 @@
             <div class="element">
                 <div class="block-render" :class="activeClass(element)"
                     @click.stop="editorStore.setCurrentSelect(element)">
-                    {{ element }}
                     <component :is="renderComponentCode(element)" :data="element.formData"
                         :viewport="editorStore.viewport" />
                 </div>
