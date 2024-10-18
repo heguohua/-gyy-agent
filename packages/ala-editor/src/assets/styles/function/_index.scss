@@ -1,0 +1,5 @@
+@use 'sass:math'
+
+@function px2vh($px) {
+    @return math.div($px, 375)*100vh
+}

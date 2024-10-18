@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 20:14:10
+ * @LastEditTime: 2024-10-18 09:53:53
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -150,5 +150,6 @@ let app_types = computed(() => {
       margin-left: 12px;
     }
   }
+  
 }
 </style>

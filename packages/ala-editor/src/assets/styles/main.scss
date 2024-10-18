@@ -1,7 +1,10 @@
-@import './base/animate';
+@use './base/animate';
 
-@import './base/reset';
 
-@import './mixins/index';
+@use './mixins/index';
 
-@import './variables/color';
+@use './variables/color';
+
+@use './mixins';
+
+@use './base/reset';

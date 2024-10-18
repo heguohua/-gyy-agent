@@ -10,3 +10,56 @@
 .el-popper {
   border-radius: var(--border-radius);
 }
+
+
+// mobile
+@mixin mb {
+  @media (max-width:1023.9px) {
+    @content;
+  }
+}
+
+// mobile
+@mixin mb-ctr {
+  @container (max-width:1023.9px) {
+    @content;
+  }
+}
+
+// pc
+@mixin mb {
+  @media (min-width:1024px) {
+    @content;
+  }
+
+  @container (min-width:1024px) {
+    @content;
+  }
+}
+
+@mixin res($property, $pc: null, $mobile: null) {
+  $pcValue: if(unitless($pc), #{$pc}px, #{$pc});
+  $mobileValue: if(unitless($mobile), px2vh($mobile), #{$mobile});
+  $mobilContainerValue: if(unitless($mobile), #{$mobile}px, #{$mobile});
+
+  @if(exists($pc)) {
+    @include pc {
+      #{$property}:#{$pcValue} // font-size: 20px
+    }
+  }
+
+  @if(exists($mobile)) {
+    @include mb-ctr {
+      #{$property}:#{$mobilContainerValue} // font-size: 20px
+    }
+
+    @include mb {
+      #{$property}:#{$mobileValue} // font-size: 20px
+    }
+  }
+}
+
+// 使用示例
+// @include res(font-size,20,12)
+// @include res(font-size,20px,12px)
+
