@@ -1,4 +1,14 @@
-import { BlockSchema, BlockSchemaKeys } from "./schemas";
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-10-17 15:34:39
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-10-18 10:42:08
+ * @FilePath: /low-coding/packages/ala-editor/src/config/blocks.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
+import { BlockSchemas, BlockSchemaKeys } from "./schemas";
 
 export interface BaseBlock {
     /**
@@ -28,7 +38,7 @@ export interface BaseBlock {
     /**
      * 组件属性表单
      */
-    formData?: BlockSchema[BlockSchemaKeys] | Object,
+    formData?: BlockSchemas[BlockSchemaKeys] | Object,
 }
 
 export const baseBlocks: BaseBlock[] = [

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 11:17:40
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/schema.ts
+ * @LastEditTime: 2024-10-18 10:56:12
+ * @FilePath: /low-coding/packages/ala-editor/src/components/cps/file/schema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -54,17 +54,32 @@ const style = Type.String({
 
 })
 
-const schema = Type.Object({
-    display: schemaAllViewport(display),
-    src: schemaAllViewport(src),
-    link: schemaAllViewport(link),
-    width: schemaAllViewport(width),
-    height: schemaAllViewport(height),
-    style: schemaAllViewport(style),
-})
+const imageSchema = {
+    file: Type.Object(
+        {
+            display: schemaAllViewport(display),
+            src: schemaAllViewport(src),
+            style: schemaAllViewport(style),
+        }
+    )
+}
+
+const schema = Type.Object(imageSchema)
 
 
-export type AlaImageSchema = Static<typeof schema>
+// const schema = {
+//     image: Type.Object({
+//         display: schemaAllViewport(display),
+//         src: schemaAllViewport(src),
+//         link: schemaAllViewport(link),
+//         width: schemaAllViewport(width),
+//         height: schemaAllViewport(height),
+//         style: schemaAllViewport(style),
+//     })
+// }
+
+
+export type AlaFileSchema = Static<typeof schema>
 
 export default schema
 

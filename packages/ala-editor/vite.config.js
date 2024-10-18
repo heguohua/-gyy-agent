@@ -15,6 +15,7 @@ import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { viteMockServe } from 'vite-plugin-mock';
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 const ph = path.resolve(__dirname, './src');
 console.log('src path is :', ph);
@@ -40,6 +41,7 @@ const dc = defineConfig(({ command }) => {
         mockPath: 'mock', // 指定 mock 文件夹路径
         enable: command === 'serve',
       }),
+      vueDevTools(),
     ],
     resolve: {
       alias: {

@@ -47,11 +47,16 @@ app.use(pinia);
 import Draggable from "vuedraggable"
 app.component('draggable', Draggable);
 
+// 全局注册自定义组件
+// 导入要全局注册的组件
+import AlaImage from '@/components/cps/image/index.vue';
+
+app.component("ala-image", AlaImage)
 
 // 挂载整个应用到app容器中
 app.mount('#app');
 
-// 集成自定义的 GlobalProperties
+// 打印启动日志
 import { logger } from './utils/logger';
 import { queryLoveMessage } from './utils/tuwei';
 

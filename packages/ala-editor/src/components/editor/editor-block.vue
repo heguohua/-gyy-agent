@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 20:32:56
+ * @LastEditTime: 2024-10-18 11:23:02
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -68,7 +68,6 @@ const menuList = computed(() => {
         }
     ]
 })
-console.log('menuList:', menuList);
 
 const activeMenu = ref(0)
 const activeNames = ref(["1", "2"])
