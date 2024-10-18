@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 19:07:11
+ * @LastEditTime: 2024-10-18 21:49:26
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/index.vue
  * @Description: 
  * 
@@ -11,10 +11,12 @@
 
 <template>
   <div :class="classes">
-    <div>
-      <h2>这是一幅图片，标题颜色是红色</h2>
+    <ala-link v-if="src" :to="link" target="_blank">
+      <img :src="src" v-bind="$attrs" :class="[bem('--img'), bem('inactive')]" :style="styles" />
+    </ala-link>
+    <div v-else>
+      <ala-empty description="暂无图片，请上传"></ala-empty>
     </div>
-    <img :src="src" v-bind="$attrs" :class="[bem('--img'), bem('inactive')]" :style="styles" />
   </div>
 </template>
 <script lang="ts">
@@ -64,19 +66,18 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-
 /**
 * bem 示例
 */
 @include b("image") {
-  @include e("img") {
-    background: red;
-  }
+    @include e("img") {
+        background: red;
+    }
 
-  @include m("inactive") {
-    background: green;
-    cursor: pointer;
-  }
+    @include m("inactive") {
+        background: green;
+        cursor: pointer;
+    }
 }
 
 

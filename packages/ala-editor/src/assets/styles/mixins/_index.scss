@@ -1,16 +1,4 @@
-:root {
-  --border-radius: 6px;
-}
-
-:root {
-  --el-border-radius-base: var(--border-radius);
-  --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.06);
-}
-
-.el-popper {
-  border-radius: var(--border-radius);
-}
-
+@use 'sass:math';
 
 // mobile
 @mixin mb {
@@ -27,7 +15,7 @@
 }
 
 // pc
-@mixin mb {
+@mixin pc {
   @media (min-width:1024px) {
     @content;
   }
@@ -38,9 +26,9 @@
 }
 
 @mixin res($property, $pc: null, $mobile: null) {
-  $pcValue: if(unitless($pc), #{$pc}px, #{$pc});
-  $mobileValue: if(unitless($mobile), px2vh($mobile), #{$mobile});
-  $mobilContainerValue: if(unitless($mobile), #{$mobile}px, #{$mobile});
+  $pcValue: if(math.is-unitless($pc), #{$pc}px, #{$pc});
+  $mobileValue: if(math.is-unitless($mobile), px2vh($mobile), #{$mobile});
+  $mobilContainerValue: if(math.is-unitless($mobile), #{$mobile}px, #{$mobile});
 
   @if(exists($pc)) {
     @include pc {
