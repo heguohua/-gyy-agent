@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 17:26:48
+ * @LastEditTime: 2024-10-18 16:00:46
  * @FilePath: /low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -49,9 +49,10 @@ app.component('draggable', Draggable);
 
 // 全局注册自定义组件
 // 导入要全局注册的组件
-import AlaImage from '@/components/cps/image/index.vue';
+import ProTable from '@/components/cps/image/index.vue';
+app.component('pro-table', ProTable)
 
-app.component("ala-image", AlaImage)
+// app.component("ala-image", AlaImage)
 
 // 挂载整个应用到app容器中
 app.mount('#app');
