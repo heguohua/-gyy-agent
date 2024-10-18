@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 10:42:08
+ * @LastEditTime: 2024-10-18 22:32:28
  * @FilePath: /low-coding/packages/ala-editor/src/config/blocks.ts
  * @Description: 
  * 
