@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 22:34:50
+ * @LastEditTime: 2024-10-18 23:05:42
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/index.vue
  * @Description: 
  * 
@@ -10,8 +10,10 @@
 -->
 
 <template>
-  <div :class="classes">
-   
+  <div :class="classes" :styles="styles">
+    <div class="item" v-for="{ item, index } in cols" :key="index" :styles="itemStyle(item)">
+      <slot :item="itemComputed(index)" :index="index"></slot>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -32,14 +34,21 @@ export default defineComponent({
 
     const classes = computed(() => [bem()])
 
-    const { data, viewport } = toRefs(props)
-    const display = computed(() => data.value?.display?.[viewport.value] || '');
+    const { data, viewport, children } = toRefs(props)
+    const cols = computed(() => data.value?.cols?.[viewport.value] || '');
+    const background = computed(() => data.value?.background?.[viewport.value] || '');
+    const styles = computed(() => { background: background.value })
+    const itemStyle = computed(() => (item: number) => { width: item * 100 + '%' })
 
+    const itemComputed = computed(() => (index: number) => children.value?.[viewport.value]?.value || [])
 
     return {
       bem,
       classes,
-
+      itemStyle,
+      styles,
+      cols,
+      itemComputed
     }
 
   }
@@ -52,6 +61,11 @@ export default defineComponent({
 * bem 示例
 */
 @include b("column") {
+  display: flex;
+  justify-content: center;
 
+  .item {
+    min-height: 240px;
+  }
 }
 </style>

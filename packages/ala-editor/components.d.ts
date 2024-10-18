@@ -10,7 +10,7 @@ declare module 'vue' {
     A: typeof import('./src/components/base/a.vue')['default']
     AlaImg: typeof import('./src/components/cps/image/ala-img.vue')['default']
     Column: typeof import('./src/components/cps/column/index.vue')['default']
-    ComponentTemplete: typeof impo./src/components/cps/component-templete/index.vuee/index.vue')['default']
+    ComponentTemplete: typeof import('./src/components/cps/component-templete/index.vue')['default']
     copy: typeof import('./src/components/cps/image copy/index.vue')['default']
     EditorBlock: typeof import('./src/components/editor/editor-block.vue')['default']
     EditorBlockDrag: typeof import('./src/components/editor/editor-block-drag.vue')['default']
