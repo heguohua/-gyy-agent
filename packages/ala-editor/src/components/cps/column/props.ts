@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 22:52:15
+ * @LastEditTime: 2024-10-19 09:35:33
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/props.ts
  * @Description: 
  * 
@@ -23,6 +23,8 @@ export type AlaColumnProps = {
     },
 }
 
+export type AlaColumnPropsChildrenList = any[][]
+
 
 export const blockProps = {
     data: {
@@ -39,13 +41,8 @@ export const blockProps = {
         })
     },
     children: {
-        type: Object,
-        default: () => {
-            return {
-                desktop: [[], []],
-                mobile: [[], []],
-            }
-        }
+        type: Array as PropType<AlaColumnPropsChildrenList>,
+        default: () => [[], []]
     },
     viewport: {
         type: String as PropType<Viewport>,

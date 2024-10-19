@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 22:43:28
+ * @LastEditTime: 2024-10-19 09:52:56
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -13,9 +13,22 @@
         class="edit-render-drag" :clone="clone" :move="move">
         <template #item="{ element }">
             <div class="element">
-                <div class="block-render" :class="activeClass(element)"
+
+                <div v-if="element.nested && level < 2" class="block-nested-render" :class="activeClass(element)"
                     @click.stop="editorStore.setCurrentSelect(element)">
                     <component :is="renderComponentCode(element)" :data="element.formData" :children="element.children"
+                        :viewport="editorStore.viewport" :key="element.id">
+                        <template #default="{ item, index }">
+                            <edit-render-drag :list="item" :level="level + 1" :group="group" class="nested-item"
+                                :class="nestedClass">
+                            </edit-render-drag>
+                        </template>
+                    </component>
+                </div>
+
+                <div v-else class="block-render" :class="activeClass(element)"
+                    @click.stop="editorStore.setCurrentSelect(element)">
+                    <component :is="renderComponentCode(element)" :data="element.formData"
                         :viewport="editorStore.viewport" />
                 </div>
             </div>
@@ -26,7 +39,7 @@
 
 <script setup lang="ts">
 
-import { move, clone } from "@/components/editor/nested"
+import { move, clone, nestedClass } from "@/components/editor/nested"
 
 import { useEditorStore } from "@/store/editorStore"
 
