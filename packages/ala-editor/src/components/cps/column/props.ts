@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 09:35:33
+ * @LastEditTime: 2024-10-19 10:41:08
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/props.ts
  * @Description: 
  * 
@@ -31,7 +31,7 @@ export const blockProps = {
         type: Object as PropType<AlaColumnProps>,
         default: () => ({
             cols: {
-                desktop: [0.5, 0.5],
+                desktop: [0.33, 0.33, 0.34],
                 mobile: [0.5, 0.5],
             },
             background: {

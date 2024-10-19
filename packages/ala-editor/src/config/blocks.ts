@@ -90,6 +90,8 @@ export const seniorBlocks: BaseBlock[] = [
         name: "多列",
         code: "ala-column",
         icon: "column",
+        nested: true,
+        children: [],
         formData: {},
     },
 ]

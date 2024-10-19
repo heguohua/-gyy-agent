@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 09:37:20
+ * @LastEditTime: 2024-10-19 10:22:11
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/index.vue
  * @Description: 
  * 
@@ -66,6 +66,7 @@ export default defineComponent({
 
   .item {
     min-height: 240px;
+    width: 100%;
   }
 }
 </style>
