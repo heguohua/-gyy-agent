@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 17:26:30
+ * @LastEditTime: 2024-10-19 21:41:10
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/index.vue
  * @Description: 
  * 
@@ -10,12 +10,15 @@
 -->
 
 <template>
-  <div :class="classes" :styles="styles">
-    <div class="item" v-for="(item, index) in cols" :key="index" :style="itemStyle(item)">
-      <slot :item="itemComputed(index)" :index="index"></slot>
+
+  <div :class="classes" :styles="background_styles">
+    <div class="item" v-for="(columnWidth, index) in columnWidths" :key="index" :style="itemStyle(columnWidth)">
+      <slot :columnBlocks="columnBlocksComputed(index)" :index="index"></slot>
     </div>
   </div>
+
 </template>
+
 <script lang="ts">
 
 import { logger } from '@/utils/logger';
@@ -39,28 +42,25 @@ export default defineComponent({
     logger.info('viewport', viewport.value);
     logger.info('children', children);
 
-
-    const cols = computed(() => {
+    const columnWidths = computed(() => {
       const columns = data.value?.cols?.[viewport.value] || [0.5, 0.5]
       return columns
     });
 
-
     const background = computed(() => data.value?.background?.[viewport.value] || '');
-
-    const styles = computed(() => { background: background.value })
+    const background_styles = () => { background: background.value }
 
     const itemStyle = computed(() => {
-      return (item: any) => {
-        const styles = { width: Number(item) * 100 + '%' }
+      return (columnWidth: any) => {
+        const styles = { width: Number(columnWidth) * 100 + '%' }
         return styles
       }
     })
 
-    const itemComputed = computed(() => {
+    const columnBlocksComputed = computed(() => {
       return (index: number) => {
         const childrens = children.value?.[index]
-        logger.info(`多列组件 index: ${index}`);
+        logger.info(`多列组件渲染 第[ ${index} ]列`);
         logger.info(`多列组件 childrens: ${childrens}`);
         return childrens || []
       }
@@ -70,9 +70,9 @@ export default defineComponent({
       bem,
       classes,
       itemStyle,
-      styles,
-      cols,
-      itemComputed
+      background_styles,
+      columnWidths,
+      columnBlocksComputed
     }
   }
 })
