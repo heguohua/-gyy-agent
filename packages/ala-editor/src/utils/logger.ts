@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:04:17
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 18:04:45
+ * @LastEditTime: 2024-10-19 18:09:17
  * @FilePath: /low-coding/packages/ala-editor/src/utils/logger.ts
  * @Description: 日志工具类，提供info、warn、success和error 4种类型日志
  * 
@@ -13,9 +13,11 @@ import { date } from './date';
 // utils/Logger.ts
 export class Logger {
   private prefix: string;
+  private env_type: string;
 
   constructor(prefix: string) {
     this.prefix = prefix;
+    this.env_type = import.meta.env?.MODE
   }
   getCallerFileName(): string {
     const stack = new Error().stack || '';
@@ -116,7 +118,7 @@ export class Logger {
   private outputConsole(message: string, optionalParams: any[]) {
 
     // 在浏览器控制台输出日志
-    if (typeof window !== 'undefined' && import.meta.env.MODE === 'dev') {
+    if (typeof window !== 'undefined' && this.env_type === 'dev') {
       console.log(message);
       if (optionalParams.length > 0) {
         optionalParams.forEach((param) => console.log(`    >> ${param}`));
@@ -126,7 +128,7 @@ export class Logger {
 
   private outputConsoleError(message: string, optionalParams: any[]) {
     // 在浏览器控制台输出日志
-    if (typeof window !== 'undefined' && import.meta.env.MODE === 'dev') {
+    if (typeof window !== 'undefined' && this.env_type === 'dev') {
       console.log(`%c${message}`, 'color: red; font-weight: bold;');
       if (optionalParams.length > 0) {
         optionalParams.forEach((param) => console.log(`%c    >> ${param}`, 'color: red;'));
@@ -136,7 +138,7 @@ export class Logger {
 
   private outputConsoleWarn(message: string, optionalParams: any[]) {
     // 在浏览器控制台输出日志
-    if (typeof window !== 'undefined' && import.meta.env.MODE === 'dev') {
+    if (typeof window !== 'undefined' && this.env_type === 'dev') {
       console.log(`%c${message}`, 'color: orange;');
       if (optionalParams.length > 0) {
         optionalParams.forEach((param) => console.log(`%c    >> ${param}`, 'color: orange;'));
@@ -145,7 +147,7 @@ export class Logger {
   }
   private outputConsoleGreen(message: string, optionalParams: any[]) {
     // 在浏览器控制台输出日志
-    if (typeof window !== 'undefined' && import.meta.env.MODE === 'dev') {
+    if (typeof window !== 'undefined' && this.env_type === 'dev') {
       console.log(`%c${message}`, 'color: green; font-weight: bold;');
       if (optionalParams.length > 0) {
         optionalParams.forEach((param) => console.log(`%c    >> ${param}`, 'color: green;'));
