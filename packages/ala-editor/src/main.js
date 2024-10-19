@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 18:15:03
+ * @LastEditTime: 2024-10-19 18:02:53
  * @FilePath: /low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -70,3 +70,4 @@ logger.success(
 
 `,
 );
+logger.info(`import.meta.env.MODE is ${import.meta.env?.MODE}`);

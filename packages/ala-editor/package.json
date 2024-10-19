@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode dev",
+    "prd": "vite --mode prd",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint ."

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 22:03:01
+ * @LastEditTime: 2024-10-19 18:02:15
  * @FilePath: /low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -16,12 +16,16 @@ import AutoImport from 'unplugin-auto-import/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { viteMockServe } from 'vite-plugin-mock';
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { logger } from './src/utils/logger.ts'
+import { loadEnv } from 'vite';
 
 const ph = path.resolve(__dirname, './src');
-console.log('src path is :', ph);
+logger.info(`src path is ${ph}`);
 
-const dc = defineConfig(({ command }) => {
-  console.log('command is :', command);
+
+const dc = defineConfig(({ command, mode }) => {
+  logger.info(`command is ${command}`);
+  logger.info(`env is .env.${mode}`);
 
   return {
     plugins: [
@@ -63,7 +67,8 @@ const dc = defineConfig(({ command }) => {
           additionalData: `@use "./src/assets/styles/vite-import.scss" as *;`,
         }
       }
-    }
+    },
+    base:loadEnv(mode, process.cwd()).VITE_APP_NAME
   };
 });
 
