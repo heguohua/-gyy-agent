@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 10:41:08
+ * @LastEditTime: 2024-10-19 11:20:04
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/props.ts
  * @Description: 
  * 
@@ -13,9 +13,9 @@ import { Viewport } from "@/types/editorType";
 import { PropType } from "vue";
 
 export type AlaColumnProps = {
-    cols?: {
-        desktop: number[],
-        mobile: number[],
+    cols: {
+        desktop: [],
+        mobile: [],
     },
     background?: {
         desktop: string,

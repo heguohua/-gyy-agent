@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 10:22:11
+ * @LastEditTime: 2024-10-19 11:26:16
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/index.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 
 <template>
   <div :class="classes" :styles="styles">
-    <div class="item" v-for="{ item, index } in cols" :key="index" :styles="itemStyle(item)">
+    <div class="item" v-for="(item, index) in cols" :key="index" :style="itemStyle(item)">
       <slot :item="itemComputed(index)" :index="index"></slot>
     </div>
   </div>
@@ -35,10 +35,29 @@ export default defineComponent({
     const classes = computed(() => [bem()])
 
     const { data, viewport, children } = toRefs(props)
-    const cols = computed(() => data.value?.cols?.[viewport.value] || [0.5, 0.5]);
+    logger.info('data', data.value);
+    logger.info('viewport', viewport.value);
+    logger.info('children', children);
+
+
+    const cols = computed(() => {
+      const columns = data.value?.cols?.[viewport.value] || [0.5, 0.5]
+      console.log('columns', columns);
+
+      return columns
+    });
+
+
     const background = computed(() => data.value?.background?.[viewport.value] || '');
     const styles = computed(() => { background: background.value })
-    const itemStyle = computed(() => (item: number) => { width: item * 100 + '%' })
+    const itemStyle = computed(() => {
+      return (item: any) => {
+        const styles = { width: item * 100 + '%' }
+        logger.error('item', item);
+        logger.error('styles', styles);
+        return styles
+      }
+    })
 
     const itemComputed = computed(() => (index: number) => children.value?.[index] || [])
 
@@ -66,7 +85,6 @@ export default defineComponent({
 
   .item {
     min-height: 240px;
-    width: 100%;
   }
 }
 </style>
