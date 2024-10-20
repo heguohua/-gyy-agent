@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 09:30:19
+ * @LastEditTime: 2024-10-20 16:41:05
  * @FilePath: /low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -22,5 +22,6 @@ export type BlockSchemas = typeof _allSchemas
 
 export type BlockSchemaKeys = keyof BlockSchemas
 
-export const blockSchema = _allSchemas
+
+export const blockSchemas = _allSchemas
 

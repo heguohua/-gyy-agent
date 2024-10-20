@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 11:55:55
+ * @LastEditTime: 2024-10-20 15:14:04
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -45,6 +45,7 @@
 <script setup lang="ts">
 
 import { move, clone, nestedClass } from "@/components/editor/nested"
+import { alaConsts } from "@/config/alaConsts";
 
 import { useEditorStore } from "@/store/useEditorStore"
 import { logger } from "@/utils/logger";
@@ -77,7 +78,7 @@ const props = defineProps({
 
 const renderComponentCode = computed(() => {
     return (element: { code: string }) => {
-        return element.code
+        return alaConsts.COMPONENT_PREFIX + element.code
     }
 })
 

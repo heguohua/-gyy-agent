@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 22:32:28
+ * @LastEditTime: 2024-10-20 15:11:17
  * @FilePath: /low-coding/packages/ala-editor/src/config/blocks.ts
  * @Description: 
  * 
@@ -45,34 +45,34 @@ export const baseBlocks: BaseBlock[] = [
     {
         id: "",
         name: "图片",
-        code: "ala-image",
+        code: "image",
         icon: "image",
         formData: {},
     },
     {
         id: "",
         name: "视频",
-        code: "ala-video",
+        code: "video",
         icon: "video",
         formData: {},
     },
     {
         id: "",
         name: "文本",
-        code: "ala-text",
+        code: "text",
         icon: "text",
         formData: {},
     },
     {
         id: "",
         name: "幻灯片",
-        code: "ala-swiper",
+        code: "swiper",
         icon: "swiper",
         formData: {},
     }, {
         id: "",
         name: "留白",
-        code: "ala-blank",
+        code: "blank",
         icon: "blank",
         formData: {},
     },
@@ -81,14 +81,14 @@ export const seniorBlocks: BaseBlock[] = [
     {
         id: "",
         name: "多行",
-        code: "ala-row",
+        code: "row",
         icon: "row",
         formData: {},
     },
     {
         id: "",
         name: "多列",
-        code: "ala-column",
+        code: "column",
         icon: "column",
         nested: true,
         children: [],
@@ -100,14 +100,14 @@ export const canvasBlocks: BaseBlock[] = [
     {
         id: "",
         name: "图片",
-        code: "ala-image",
+        code: "image",
         icon: "image",
         formData: {},
     },
     {
         id: "",
         name: "文本",
-        code: "ala-column",
+        code: "column",
         icon: "column",
         formData: {},
     },
