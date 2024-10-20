@@ -15,6 +15,8 @@ declare module 'vue' {
     EditorBlock: typeof import('./src/components/editor/editor-block.vue')['default']
     EditorBlockDrag: typeof import('./src/components/editor/editor-block-drag.vue')['default']
     EditorConfig: typeof import('./src/components/editor/editor-config.vue')['default']
+    EditorConfigBlock: typeof import('./src/components/editor/editor-config-block.vue')['default']
+    EditorConfigPage: typeof import('./src/components/editor/editor-config-page.vue')['default']
     EditorHeader: typeof import('./src/components/editor/editor-header.vue')['default']
     EditorRender: typeof import('./src/components/editor/editor-render.vue')['default']
     EditorRenderDrag: typeof import('./src/components/editor/editor-render-drag.vue')['default']

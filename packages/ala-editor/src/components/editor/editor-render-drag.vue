@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 21:12:31
+ * @LastEditTime: 2024-10-20 11:55:55
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         class="edit-render-drag" :clone="clone" :move="move">
         <template #item="{ element }">
             <div class="element">
-                {{ element }}
+                <!-- {{ element }} -->
 
                 <div v-if="element.nested && level < 2" class="block-nested-render" :class="activeClass(element)"
                     @click.stop="editorStore.setCurrentSelect(element)">
@@ -95,6 +95,10 @@ onMounted(() => {
 // State
 
 // Methods
+
+// const addedBlock = (element) => {
+//     editorStore.setCurrentSelect(element)
+// }
 
 </script>
 

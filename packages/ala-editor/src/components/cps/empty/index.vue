@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 22:16:42
+ * @LastEditTime: 2024-10-20 11:48:08
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/empty/index.vue
  * @Description: 
  * 
@@ -42,7 +42,6 @@ export default defineComponent({
       const data = image ? image : noDataImage
       return data
     })
-    console.log(src);
 
 
     return {

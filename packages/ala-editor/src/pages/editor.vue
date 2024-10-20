@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 20:48:28
+ * @LastEditTime: 2024-10-20 11:26:31
  * @FilePath: /low-coding/packages/ala-editor/src/pages/editor.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
         <div class="container">
             <EditorBlock />
             <EditorRender />
-            <!-- <EditorConfig /> -->
+            <EditorConfig />
             <!-- <button @click="getLoveMessage()">Change</button> -->
         </div>
 
