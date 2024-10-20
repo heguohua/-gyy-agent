@@ -1,8 +1,8 @@
 <template>
     <div class="editor-config" ref="target" :class="{ 'is-show': editorStore.configPanelShow }">
         <div class="icon-group">
-            <v-icon-tooltip class="" icon="expand" :content="editorStore.configPanelShow ? '收齐侧边栏' : '展开侧边栏'"
-                @click.native="panelSwitch" />
+            <v-icon-tooltip class="" :icon="editorStore.configPanelShow ? 'contract' : 'expand'"
+                :content="editorStore.configPanelShow ? '收齐侧边栏' : '展开侧边栏'" @click.native="panelSwitch" />
             <div class="content">
                 <transition-group name="fade">
                     <div :key="6666">
@@ -23,11 +23,17 @@
 
 <script setup lang="ts">
 
-import { useEditorStore } from '@/store/editorStore';
+import { useEditorStore } from '@/store/useEditorStore';
 const editorStore = useEditorStore()
 // State
 
 watch(() => editorStore.currentSelect, (value) => {
+    if (value) {
+        editorStore.setConfigPanelShow(true)
+    }
+})
+
+watch(() => editorStore.isMobileViewport, (value) => {
     if (value) {
         editorStore.setConfigPanelShow(true)
     }
@@ -83,6 +89,12 @@ const panelSwitch = () => {
             &:hover {
                 background: var(--color-icon-hover);
                 transition: all 0.2s linear;
+            }
+
+            :deep(.image-box) {
+                width: 32px;
+                height: 32px;
+                // background:red;
             }
         }
     }

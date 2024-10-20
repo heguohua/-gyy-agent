@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 17:10:14
+ * @LastEditTime: 2024-10-20 14:28:08
  * @FilePath: /low-coding/packages/ala-editor/src/components/base/v-select.vue
  * @Description: 
  * 
@@ -19,7 +19,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import i18n from '@/utils/i18n/i18n';
+import { useEditorStore } from '@/store/useEditorStore';
+import { Viewport } from '@/types/editorType';
 
+
+const editorStore = useEditorStore()
 /**
  * TODO: 用于待办事项
  * ! 用于重要或警告信息
@@ -43,8 +47,9 @@ const styles = computed(() => ({ width: props.width + 'px' }))
 
 const model = defineModel({ default: 'desktop' })
 
-const change = (value: string) => {
+const change = (value: Viewport) => {
   model.value = value
+  editorStore.setViewport(value)
 }
 </script>
 

@@ -46,7 +46,7 @@
 
 import { move, clone, nestedClass } from "@/components/editor/nested"
 
-import { useEditorStore } from "@/store/editorStore"
+import { useEditorStore } from "@/store/useEditorStore"
 import { logger } from "@/utils/logger";
 
 const editorStore = useEditorStore()

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:03:43
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 11:59:21
- * @FilePath: /low-coding/packages/ala-editor/src/store/editorStore.ts
+ * @LastEditTime: 2024-10-20 14:28:48
+ * @FilePath: /low-coding/packages/ala-editor/src/store/useEditorStore.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -24,6 +24,8 @@ export const useEditorStore = defineStore('editorStore', {
     },
     actions: {
         setViewport(value: Viewport) {
+            logger.info(`更新Viewport : ${value}`);
+            
             this.viewport = value
         },
         setCurrentSelect(value: BaseBlockNull) {
