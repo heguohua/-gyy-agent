@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 15:14:04
+ * @LastEditTime: 2024-10-21 17:51:10
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -78,7 +78,9 @@ const props = defineProps({
 
 const renderComponentCode = computed(() => {
     return (element: { code: string }) => {
-        return alaConsts.COMPONENT_PREFIX + element.code
+        const componentName = alaConsts.COMPONENT_PREFIX + element.code
+        logger.info(`editor-render-drag组件中根据组件 code[${componentName}]渲染子组件`);
+        return componentName
     }
 })
 
