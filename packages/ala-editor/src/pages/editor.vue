@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 11:26:31
+ * @LastEditTime: 2024-10-21 17:06:29
  * @FilePath: /low-coding/packages/ala-editor/src/pages/editor.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="editor">
         <EditorHeader />
 
-        <div class="container">
+        <div class="container" :class="classes">
             <EditorBlock />
             <EditorRender />
             <EditorConfig />
@@ -23,17 +23,17 @@
 </template>
 
 <script setup lang="ts">
-import { useAlaStore } from '@/store/ala-store';
-import { getUserInfo, login } from '../api/user';
 import { queryLoveMessage } from '@/utils/tuwei';
 import { logger } from '@/utils/logger';
-
+import { useEditorStore } from '@/store/useEditorStore';
 
 // State
-
+const editorStore = useEditorStore()
 
 // Methods
-
+const classes = computed(() => {
+    return { "mobile-background": editorStore.isMobileViewport }
+})
 // const a = ref(1)
 // console.log(a);
 

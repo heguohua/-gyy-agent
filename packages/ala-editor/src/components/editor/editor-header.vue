@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 09:53:53
+ * @LastEditTime: 2024-10-21 17:02:01
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -40,6 +40,7 @@
 <script setup lang="ts">
 
 import { alaConsts } from '@/config/alaConsts';
+import { useEditorStore } from '@/store/useEditorStore';
 import { Viewport } from '@/types/editorType';
 import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
 import { languages } from '@/utils/i18n/languages';
@@ -78,11 +79,13 @@ const changLanguage = () => {
 }
 
 const viewport = ref<Viewport>('desktop')
+const editorStore = useEditorStore()
 
-// watch(locale, () => {
-//   console.log("locale", locale);
+watch(viewport, (value) => {
+  editorStore.setViewport(value)
+  editorStore.setConfigPanelShow('mobile' === value)
+})
 
-// })
 let app_types = computed(() => {
   return [
     {
@@ -150,6 +153,6 @@ let app_types = computed(() => {
       margin-left: 12px;
     }
   }
-  
+
 }
 </style>

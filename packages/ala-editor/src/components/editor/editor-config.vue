@@ -33,11 +33,7 @@ watch(() => editorStore.currentSelect, (value) => {
     }
 })
 
-watch(() => editorStore.isMobileViewport, (value) => {
-    if (value) {
-        editorStore.setConfigPanelShow(true)
-    }
-})
+
 
 // Methods
 const panelSwitch = () => {

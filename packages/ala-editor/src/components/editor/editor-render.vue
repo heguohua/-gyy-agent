@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 15:50:27
+ * @LastEditTime: 2024-10-21 17:06:53
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="editor-render">
+    <div class="editor-render" :style="pageStyle" :class="pageClass">
         <editor-render-drag :list="list" :group="dragGroup" class="render">
 
         </editor-render-drag>
@@ -45,6 +45,14 @@ watch(() => editorStore.blockConfig, (value) => {
     deep: true
 })
 
+
+const pageStyle = computed(() => {
+
+})
+
+const pageClass = computed(() => {
+    return { "is-mobile": editorStore.isMobileViewport }
+})
 </script>
 
 <style scoped lang="scss">
@@ -56,6 +64,7 @@ watch(() => editorStore.blockConfig, (value) => {
     margin-left: var(--edit-block-width);
     margin-top: var(--edit-header-height);
     background: white;
+    transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
 
     &.is-mobile {
         width: 375px;
@@ -65,6 +74,7 @@ watch(() => editorStore.blockConfig, (value) => {
         margin-top: calc(var(--edit-header-height) + 20px);
         margin-bottom: 20px;
         transform: translateX(10px);
+        transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
     }
 
     .empty {
