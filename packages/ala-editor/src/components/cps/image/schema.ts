@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 11:17:40
+ * @LastEditTime: 2024-10-21 14:46:37
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/schema.ts
  * @Description: 
  * 
@@ -34,7 +34,7 @@ const width = Type.String({
     code: "config-input",
     title: "宽度",
     default: "100%",
-    placeholder: "请输入链接",
+    placeholder: "请输入宽度",
 
 })
 
@@ -42,7 +42,7 @@ const height = Type.String({
     code: "config-input",
     title: "高度",
     default: "300px",
-    placeholder: "请输入链接",
+    placeholder: "请输入高度",
 
 })
 

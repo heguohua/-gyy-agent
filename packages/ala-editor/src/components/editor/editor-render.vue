@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 16:07:43
+ * @LastEditTime: 2024-10-21 15:50:27
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -24,13 +24,26 @@
 <script setup lang="ts">
 import { BaseBlock } from '@/types/editorType';
 import { dragGroup } from './nested';
+import { useEditorStore } from '@/store/useEditorStore';
+
+const editorStore = useEditorStore()
 
 const list = ref<BaseBlock[]>([])
-
 // State
 
 
 // Methods
+watch(() => list.value, (value) => {
+    editorStore.setBlockConfig(value)
+}, {
+    deep: true
+})
+
+watch(() => editorStore.blockConfig, (value) => {
+    list.value = value
+}, {
+    deep: true
+})
 
 </script>
 

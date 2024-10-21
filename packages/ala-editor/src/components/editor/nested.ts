@@ -1,10 +1,14 @@
+import { BlockSchemaKeys, BlockSchemas } from "@/config/schemas"
+import { BaseBlock, Viewport } from "@/types/editorType"
+import { logger } from "@/utils/logger"
 import { nanoid } from "@/utils/nanoid"
+import deepmerge from "deepmerge"
 import { cloneDeep } from "lodash"
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 16:04:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 17:17:56
+ * @LastEditTime: 2024-10-21 16:42:53
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/nested.ts
  * @Description: 
  * 
@@ -52,4 +56,23 @@ export const move = (e: any) => {
  */
 export const clone = (e: object) => {
     return cloneDeep({ ...e, id: nanoid(8) })
+}
+
+
+export const findNodeById = (arr: BaseBlock[], nodeId: string, viewport: Viewport, data: object) => {
+    const array = cloneDeep(arr)
+    for (let i = 0; i < array.length; i++) {
+        const element = array[i]
+        if (element.id === nodeId) {
+            const formData = element.formData
+            if (formData) {
+                element.formData = deepmerge.all([element.formData, data])
+                return array
+            } else {
+                logger.error(`nodeId [${nodeId}],viewport[${viewport}] formData not exists! currentData :`, data);
+            }
+        }
+    }
+
+    return array
 }

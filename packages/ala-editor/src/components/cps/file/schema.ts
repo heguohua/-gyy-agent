@@ -34,7 +34,7 @@ const width = Type.String({
     code: "config-input",
     title: "宽度",
     default: "100%",
-    placeholder: "请输入链接",
+    placeholder: "请输入宽度",
 
 })
 
@@ -42,7 +42,7 @@ const height = Type.String({
     code: "config-input",
     title: "高度",
     default: "300px",
-    placeholder: "请输入链接",
+    placeholder: "请输入高度",
 
 })
 

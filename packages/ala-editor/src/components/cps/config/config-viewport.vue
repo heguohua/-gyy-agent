@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 14:57:51
+ * @LastEditTime: 2024-10-21 14:19:25
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-imput.vue
  * @Description: 
  * 
@@ -22,6 +22,15 @@ import { ref } from 'vue'
 // State
 
 const input = ref('')
+
+defineProps({
+    label: {
+        type: String
+    },
+    placeholder: {
+        type: String
+    },
+})
 
 
 // Methods
