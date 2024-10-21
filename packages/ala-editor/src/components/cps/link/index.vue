@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 21:02:10
+ * @LastEditTime: 2024-10-21 21:07:01
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/link/index.vue
  * @Description: 
  * 
@@ -32,7 +32,7 @@ defineOptions({
 const props = defineProps(blockProps)
 
 
-logger.warn("Link组件被渲染");
+logger.info("AlaLink组件被渲染");
 
 const classes = computed(() => [bem()])
 

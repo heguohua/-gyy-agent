@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 19:47:56
+ * @LastEditTime: 2024-10-21 21:21:22
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
  * @Description: 
  * 
@@ -73,13 +73,13 @@ watch(src, (value) => {
 
 
 
-const fileClick = () => {
+const fileClick = computed(() => {
     // const fileList = [""]
     // const randomIndex = Math.floor(Math.random() * fileList.length)
-    const file_src = "https://picsum.photos/400/600"
+    const file_src = "https://picsum.photos/400/600?t=" + new Date().getMilliseconds()
+    console.log(file_src)
     src.value = file_src
-}
-
+})
 
 // Methods
 

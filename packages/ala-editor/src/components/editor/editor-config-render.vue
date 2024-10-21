@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 16:49:47
+ * @LastEditTime: 2024-10-21 21:15:16
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
@@ -20,11 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { createNamespace } from '@/components/cps/utils/createNamespace';
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
-import { da } from 'element-plus/es/locale';
 
 const editorStore = useEditorStore()
 
