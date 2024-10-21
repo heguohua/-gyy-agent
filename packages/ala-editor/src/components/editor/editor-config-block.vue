@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 16:50:34
+ * @LastEditTime: 2024-10-21 19:46:44
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
@@ -35,18 +35,10 @@ const editorStore = useEditorStore()
 
 
 // Methods
-const callback = (params: { data: object, id: string }) => {
-    const { data, id } = params
-    if (!id) return
-    const blockConfig = editorStore.blockConfig || []
 
-    logger.info(`editor-config-block组件 接收到 子组件callback,即将更新editorStore中的blockConfig,nodeId[${id}],data`, data);
-
-    const newBlockConfig = findNodeById(blockConfig, id, editorStore.viewport, data)
-    editorStore.setBlockConfig(newBlockConfig)
-}
-
-
+/**
+ * 监听 editorStore 中保存的 baseBlock 变量，有变化后及时更新 config 区域的动态表单，由于涉及到 schema 相关属性读取，因此此方法略显复杂
+ */
 watch(() => editorStore.currentSelect, (currentBaseBlock) => {
 
     const code = currentBaseBlock?.code as BlockSchemaKeys
@@ -98,25 +90,28 @@ watch(() => editorStore.currentSelect, (currentBaseBlock) => {
     console.log('总properties转换后 form_items :', form_items);
 
     list.value = form_items
-    // list.value = Object.values(properties).map((oneProperty, index) => {
-    //     console.log('oneProperty', oneProperty);
-    //     console.log('Object.entries(oneProperty.properties)', Object.entries(oneProperty.properties));
-    //     // 通过 Object.entries 将对象的所有属性转换成 [[属性名,属性值],,,] 格式
-    //     return Object.fromEntries(Object.entries(oneProperty.properties).map(([propertyName, propertyValue]) => {
-    //         // console.log(key, value);
-    //         const full_properties = [propertyName, { ...(propertyValue as Object), id, key: propertyName, formData: formData ? formData[propertyName] || {} : {} }]
-    //         console.log('Object.entries(oneProperty.properties)转换后', full_properties);
-    //         return full_properties;
-    //     }))
-    // })
-
-    // console.log('list.value:', list.value);
 
 
 }, {
     immediate: true
 })
 
+/**
+ * 接受子组件传递的参数值，然后更新 editorStore 中保存的 BaseBlock[]
+ * @param params 
+ */
+const callback = (params: { data: object, id: string }) => {
+    const { data, id } = params
+    if (!id) return
+    const blockConfig = editorStore.blockConfig || []
+
+    logger.info(`editor-config-block组件 接收到 子组件callback,即将更新editorStore中的 blockConfig,nodeId[${id}],data`, data);
+
+    const newBlockConfig = findNodeById(blockConfig, id, editorStore.viewport, data)
+    logger.info(`editor-config-block组件 接收到 子组件callback,即将更新editorStore中的 blockConfig,nodeId[${id}],newBlockConfig`, newBlockConfig);
+
+    editorStore.setBlockConfig(newBlockConfig)
+}
 
 </script>
 

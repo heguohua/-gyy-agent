@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 17:45:13
+ * @LastEditTime: 2024-10-21 19:47:56
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <div class="config-files">
         <el-form-item :label="title">
-            <img v-if="url" :src="url" class="image" @click="fileClick" />
+            <img v-if="src" :src="src" class="image" @click="fileClick" />
             <div v-else class="file" @click="fileClick">
                 <v-icon class="icon" icon="upload" />
             </div>
@@ -44,17 +44,17 @@ const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
 const { title, default: defaultValue } = data.value.properties[props.viewport]
-const url = ref('')
+const src = ref('')
 
 
 watch(() => formData, (value) => {
-    url.value = value?.[props.viewport] || defaultValue
-    logger.info(`config-file组件监听到 formData 发生变化,value?.[props.viewport]`, value?.[props.viewport]);
+    logger.info(`config-files组件监听到 baseBlock 的 formData 发生变化,即将更新 src 的属性值,src=value?.[props.viewport]`, value?.[props.viewport]);
+    src.value = value?.[props.viewport] || defaultValue
 }, {
     immediate: true
 })
 
-watch(url, (value) => {
+watch(src, (value) => {
     let data = {}
     const _value = value || ''
     if (Object.values(formData || {}).length < 2) {
@@ -62,7 +62,7 @@ watch(url, (value) => {
     } else {
         data = { [props.viewport]: _value }
     }
-    logger.info(`config-file组件 input 发生变化,即将调用父组件callback, data`, data);
+    logger.info(`config-files组件 src 发生变化,即将调用父组件callback,key[${key}],id[${id}],data`, data);
     emit("callback", {
         data: {
             [key]: data
@@ -76,8 +76,8 @@ watch(url, (value) => {
 const fileClick = () => {
     // const fileList = [""]
     // const randomIndex = Math.floor(Math.random() * fileList.length)
-    const file_url = "https://picsum.photos/400/600"
-    url.value = file_url
+    const file_src = "https://picsum.photos/400/600"
+    src.value = file_src
 }
 
 

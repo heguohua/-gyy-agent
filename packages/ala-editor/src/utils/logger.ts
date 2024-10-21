@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:04:17
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 18:09:17
+ * @LastEditTime: 2024-10-21 19:24:46
  * @FilePath: /low-coding/packages/ala-editor/src/utils/logger.ts
  * @Description: 日志工具类，提供info、warn、success和error 4种类型日志
  * 
@@ -28,6 +28,9 @@ export class Logger {
       const file_name_match = fourthLine.match(/[^/?]+(?=\?)/);
       if (file_name_match) {
         file_name = file_name_match[0];
+      } else {
+        const match = fourthLine.match(/\/([^\/]+)$/);
+        file_name = match ? match[1] : 'no file name';
       }
     }
 

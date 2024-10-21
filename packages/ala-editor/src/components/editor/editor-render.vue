@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 17:55:48
+ * @LastEditTime: 2024-10-21 19:56:22
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -34,12 +34,12 @@ const list = ref<BaseBlock[]>([])
 
 
 // Methods
-watch(() => list.value, (value) => {
-    logger.info(`editor-render组件监听到 list.value 更新,即将更新 editorStore.blockConfig`, value);
-    editorStore.setBlockConfig(value)
-}, {
-    deep: true
-})
+// watch(() => list.value, (value) => {
+//     logger.info(`editor-render组件监听到 list.value 更新,即将更新 editorStore.blockConfig`, value);
+//     editorStore.setBlockConfig(value)
+// }, {
+//     deep: true
+// })
 
 watch(() => editorStore.blockConfig, (value) => {
     logger.info(`editor-render组件监听到 editorStore.blockConfig 更新,即将更新 list.value`, value);

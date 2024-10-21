@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:03:43
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 17:14:42
+ * @LastEditTime: 2024-10-21 20:12:16
  * @FilePath: /low-coding/packages/ala-editor/src/store/useEditorStore.ts
  * @Description: 
  * 
@@ -12,6 +12,7 @@ import { BaseBlock, Viewport } from '@/types/editorType'
 import { BaseBlockNull } from '@/types/editorType'
 import { defineStore } from 'pinia'
 import { logger } from '@/utils/logger'
+import { Null } from '@sinclair/typebox'
 
 export const useEditorStore = defineStore('editorStore', {
     state: () => ({
@@ -29,7 +30,7 @@ export const useEditorStore = defineStore('editorStore', {
             this.viewport = value
         },
         setCurrentSelect(value: BaseBlockNull) {
-            logger.info(`currentSelect: `, this.currentSelect);
+            logger.info(`currentSelect: `, value);
             this.currentSelect = value
         },
         setConfigPanelShow(value: boolean) {
@@ -39,6 +40,21 @@ export const useEditorStore = defineStore('editorStore', {
         setBlockConfig(value: BaseBlock[]) {
             logger.info(`更新 blockConfig : `, value);
             this.blockConfig = value
+        },
+        addBlockConfigNotExist(value: BaseBlock) {
+            logger.info(`追加 blockConfig : `, value);
+            let oldBlockConfig = undefined
+            for (let i = 0; i < this.blockConfig.length; i++) {
+                if (this.blockConfig[i].id === value.id) {
+                    oldBlockConfig = this.blockConfig[i]
+                }
+            }
+            // 不存在则添加
+            if (!oldBlockConfig) {
+                logger.error(`添加 blockConfig`, value);
+
+                this.blockConfig.push(value)
+            }
         }
     }
 }

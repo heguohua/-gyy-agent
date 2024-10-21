@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 17:51:10
+ * @LastEditTime: 2024-10-21 20:10:33
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
                 <!-- {{ element }} -->
 
                 <div v-if="element.nested && level < 2" class="block-nested-render" :class="activeClass(element)"
-                    @click.stop="editorStore.setCurrentSelect(element)">
+                    @click.stop="setCurrentSelect(element)">
 
                     <component :is="renderComponentCode(element)" :data="element.formData" :children="element.children"
                         :viewport="editorStore.viewport" :key="element.id">
@@ -31,8 +31,7 @@
 
                 </div>
 
-                <div v-else class="block-render" :class="activeClass(element)"
-                    @click.stop="editorStore.setCurrentSelect(element)">
+                <div v-else class="block-render" :class="activeClass(element)" @click.stop="setCurrentSelect(element)">
                     <component :is="renderComponentCode(element)" :data="element.formData"
                         :viewport="editorStore.viewport" />
                 </div>
@@ -48,6 +47,7 @@ import { move, clone, nestedClass } from "@/components/editor/nested"
 import { alaConsts } from "@/config/alaConsts";
 
 import { useEditorStore } from "@/store/useEditorStore"
+import { BaseBlock } from "@/types/editorType";
 import { logger } from "@/utils/logger";
 
 const editorStore = useEditorStore()
@@ -100,8 +100,17 @@ onMounted(() => {
 // Methods
 
 // const addedBlock = (element) => {
-//     editorStore.setCurrentSelect(element)
+//     setCurrentSelect(element)
 // }
+/**
+ * 1）将当前选中的 BaseBlock 存储到 editorStore 中的 currentSelect 中
+ * 2）同时将当前 BaseBlock 存储到 editorStore 中的 blockConfig[] 中（ 如果不存在则添加）
+ * @param element 
+ */
+const setCurrentSelect = (element: BaseBlock) => {
+    editorStore.setCurrentSelect(element)
+    editorStore.addBlockConfigNotExist(element)
+}
 
 </script>
 

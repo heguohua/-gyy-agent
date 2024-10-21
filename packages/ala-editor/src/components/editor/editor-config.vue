@@ -25,6 +25,7 @@
 
 import { useEditorStore } from '@/store/useEditorStore';
 const editorStore = useEditorStore()
+
 // State
 
 watch(() => editorStore.currentSelect, (value) => {
@@ -32,8 +33,6 @@ watch(() => editorStore.currentSelect, (value) => {
         editorStore.setConfigPanelShow(true)
     }
 })
-
-
 
 // Methods
 const panelSwitch = () => {
