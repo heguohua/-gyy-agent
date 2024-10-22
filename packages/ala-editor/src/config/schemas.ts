@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 16:41:05
+ * @LastEditTime: 2024-10-22 20:33:49
  * @FilePath: /low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -24,4 +24,10 @@ export type BlockSchemaKeys = keyof BlockSchemas
 
 
 export const blockSchemas = _allSchemas
+
+
+import _AlaPageSchema, { type AlaPageSchema } from '@/config/page-schemas'
+
+export type AlaPageFormSchema = AlaPageSchema
+export const pageSchemas = _AlaPageSchema
 

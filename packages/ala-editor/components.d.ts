@@ -20,7 +20,7 @@ declare module 'vue' {
     ConfigInput: typeof import('./src/components/cps/config/config-input.vue')['default']
     ConfigTextarea: typeof import('./src/components/cps/config/config-textarea.vue')['default']
     ConfigViewport: typeof import('./src/components/cps/config/config-viewport.vue')['default']
-    copy: typeof import('./src/components/cps/image copy/index.vue')['default']
+    copy: typeof import('./src/components/editor/editor-config-block copy.vue')['default']
     EditorBlock: typeof import('./src/components/editor/editor-block.vue')['default']
     EditorBlockDrag: typeof import('./src/components/editor/editor-block-drag.vue')['default']
     EditorConfig: typeof import('./src/components/editor/editor-config.vue')['default']
