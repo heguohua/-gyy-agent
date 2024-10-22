@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 09:26:01
+ * @LastEditTime: 2024-10-22 17:52:07
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -126,6 +126,9 @@ const setCurrentSelect = (element: BaseBlock) => {
     logger.info("edit-block-drag组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
 
     editorStore.setCurrentSelect(element)
+    console.log('editorStore.currentSelect:', editorStore.currentSelect);
+    console.log('element.formData === editorStore.currentSelect?.formData ?', element.formData === editorStore.currentSelect?.formData);
+
     editorStore.addBlockConfigNotExist(element)
 
 }

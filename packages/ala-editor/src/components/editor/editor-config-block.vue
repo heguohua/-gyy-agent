@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 13:57:06
+ * @LastEditTime: 2024-10-22 17:57:18
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
@@ -27,11 +27,11 @@ import { ref } from 'vue'
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import { blockSchemas, BlockSchemaKeys } from '@/config/schemas';
-import { updateCurrentBlockConfig } from './nested';
-import deepmerge from 'deepmerge';
+import { getConfigFormItemList, updateCurrentBlockConfig } from './nested';
 import { BaseBlock } from '@/types/editorType';
+import { merge } from 'lodash';
 // State
-const configFormItemList = ref<any[]>([])
+const configFormItemList = ref<BaseBlock[]>([])
 
 const editorStore = useEditorStore()
 
@@ -39,11 +39,15 @@ const editorStore = useEditorStore()
 // Methods
 
 /**
- * 监听 editorStore 中保存的 baseBlock 变量，有变化后及时更新 config 区域的动态表单，由于涉及到 schema 相关属性读取，因此此方法略显复杂
+ * 1、监听 editorStore 中保存的 baseBlock 变量，有变化后及时更新 config 区域的动态表单
+ * 2、监听 editorStore 中保存的 viewport 变量，有变化后及时更新 config 区域的动态表单
  */
-watch(() => editorStore.currentSelect, (currentBaseBlock) => {
+watch(() => editorStore.currentSelect, () => {
+    logger.info("editor-config-block中【 监听到 】editorStore中的 currentSelect 发生变化,即将重新渲染 config 区域的动态表单");
 
-    logger.info(`editor-config-block组件 【 监听到 】 editorStore.currentSelect 发生变化,即将渲染 editor-config 面板, currentBaseBlock值为`, currentBaseBlock);
+    const currentBaseBlock = editorStore.currentSelect
+
+    logger.info(`editor-config-block组件 【 监听到 】 editorStore 中 currentSelect 或 viewport 发生变化,即将渲染 editor-config 面板, currentBaseBlock值为`, currentBaseBlock);
 
     const code = currentBaseBlock?.code as BlockSchemaKeys
 
@@ -54,48 +58,35 @@ watch(() => editorStore.currentSelect, (currentBaseBlock) => {
     // 获取单个组件的属性列表
     const properties = blockSchema.properties
     if (!currentBaseBlock || !properties) {
+        logger.error("currentBaseBlock 和 properties均不存在");
         configFormItemList.value = []
         return
     }
 
     const { formData, id } = currentBaseBlock
+    console.log('formData:', formData);
+    console.log('formData === editorStore.currentSelect.formData ? ', formData === editorStore.currentSelect?.formData);
+
 
     logger.info('当前block的 baseBlock 属性：', currentBaseBlock);
-
     logger.info('当前block的 blockSchema 属性：');
     console.log('blockSchema:', properties);
-
-
-
-    // list.value = Object.values(properties).map((oneProperty, index) => {
-    //     console.log('oneProperty', oneProperty);
-    //     console.log('Object.entries(oneProperty.properties)', Object.entries(oneProperty.properties));
-    //     // 通过 Object.entries 将对象的所有属性转换成 [[属性名,属性值],,,] 格式
-    //     return Object.fromEntries(Object.entries(oneProperty.properties).map(([propertyName, propertyValue]) => {
-    //         // console.log(key, value);
-    //         const full_properties = [propertyName, { ...(propertyValue as Object), id, key: propertyName, formData: formData ? formData[propertyName] || {} : {} }]
-    //         console.log('Object.entries(oneProperty.properties)转换后', full_properties);
-    //         return full_properties;
-    //     }))
-    // })
 
     const listResult = Object.fromEntries(Object.entries(properties).map((oneProperty) => {
         // console.log(key, value);
         console.log('oneProperty', oneProperty);
         const [propertyName, propertyValue] = oneProperty
-        const full_properties = [propertyName, { ...(propertyValue as Object), id, key: propertyName, formData: formData?.[propertyName] || {} }]
+        const full_properties = [propertyName, { ...propertyValue, id, key: propertyName, formData: formData }]
         console.log('oneProperty 添加 block属性 转换后', full_properties);
         return full_properties;
     }))
 
     console.log('总properties转换后listResult:', listResult);
 
-    // const form_items = reactive([...Object.values(listResult)])
     const form_items = [...Object.values(listResult)] as BaseBlock[]
     console.log('总properties转换后 form_items :', form_items);
 
     configFormItemList.value = form_items
-
 
 }, {
     immediate: true
@@ -120,19 +111,12 @@ const callback = (params: { data: object, id: string }) => {
     // 更新 editorStore 中的 currentSelect 中 formData 属性值
     if (editorStore.currentSelect?.id === id) {
         const currentSelect = editorStore.currentSelect
-        currentSelect.formData = deepmerge.all([editorStore.currentSelect.formData, data])
+        // currentSelect.formData = deepmerge.all([editorStore.currentSelect.formData, data])
+        merge(editorStore.currentSelect.formData, data);
         logger.info(`editor-config-block组件 接收到 子组件callback,即将更新 editorStore.currentSelect 中的 formData,nodeId[${id}],formData`, currentSelect.formData);
         editorStore.setCurrentSelect(currentSelect)
     }
 }
-
-// watch(() => editorStore.viewport, (value) => {
-
-//     logger.error(`viewport 发生变化 ${value}`);
-
-//     editorStore.setCurrentSelect(editorStore.currentSelect)
-
-// })
 
 
 </script>

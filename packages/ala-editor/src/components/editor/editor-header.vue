@@ -82,7 +82,8 @@ const viewport = ref<Viewport>('desktop')
 const editorStore = useEditorStore()
 
 watch(viewport, (value) => {
-  logger.info("editor-header中切换 viewport");
+  logger.info("editor-header中切换 viewport,更新 editorStore 中的 viewport 和 configPanelShow");
+  editorStore.setViewport(value)
   editorStore.setConfigPanelShow('mobile' === value)
 })
 
