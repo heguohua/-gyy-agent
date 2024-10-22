@@ -12,7 +12,8 @@
     <div class="editor-config-render">
         <el-form label-width="auto">
             <div class="" v-for="( item, index ) in list" :key="index" :class="bem('render')" @click="">
-                <component v-if="getComponent(item)" :is="getComponent(item)" :data="item"
+                <!-- <component v-if="getComponent(item)" :is="getComponent(item)" :data="item" -->
+                <component :is="getComponent(item)" :data="item"
                     :viewport="editorStore.viewport" @callback="callback" :key="index" />
             </div>
         </el-form>
@@ -40,7 +41,7 @@ defineProps({
 const getComponent = (item: any) => {
     const code = item.properties[editorStore.viewport].code
     const title = item.properties[editorStore.viewport].title
-    logger.info(`editor-config-render中渲染动态组件, code: ${code}, title: ${title}`);
+    logger.info(`editor-config-render中渲染动态 属性表单 组件, code: ${code}, title: ${title}`);
     return code
 }
 

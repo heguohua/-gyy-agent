@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 16:49:07
+ * @LastEditTime: 2024-10-22 09:32:34
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-input.vue
  * @Description: 
  * 
@@ -45,8 +45,13 @@ const input = ref('')
 
 
 watch(() => formData, (value) => {
-    input.value = value?.[props.viewport] || defaultValue
-    logger.info(`config-input组件监听到 formData 发生变化,value?.[props.viewport]`, value?.[props.viewport]);
+
+    if (value?.[props.viewport]) {
+        logger.info(`config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 input 的属性值,input.value=value?.[props.viewport]`, value?.[props.viewport]);
+        input.value = value?.[props.viewport] || defaultValue
+    } else {
+        logger.info("config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,value?.[props.viewport]值不存在,不更新 input.value 属性值");
+    }
 }, {
     immediate: true
 })

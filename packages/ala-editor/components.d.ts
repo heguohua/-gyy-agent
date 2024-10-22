@@ -8,7 +8,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     A: typeof import('./src/components/base/a.vue')['default']
+    AlaColumn: typeof import('./src/components/cps/column/ala-column.vue')['default']
+    AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
+    AlaImage: typeof import('./src/components/cps/image/ala-image.vue')['default']
     AlaImg: typeof import('./src/components/cps/image/ala-img.vue')['default']
+    AlaLink: typeof import('./src/components/cps/link/ala-link.vue')['default']
     Column: typeof import('./src/components/cps/column/index.vue')['default']
     ComponentTemplete: typeof import('./src/components/cps/component-templete/index.vue')['default']
     ConfigFiles: typeof import('./src/components/cps/config/config-files.vue')['default']
@@ -38,8 +42,8 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Empty: typeof import('./src/components/cps/empty/index.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    Image: typeof import('./src/components/cps/image/index.vue')['default']
+    HelloWorld: typeof imp./ src / components / cps / image / ala - image.vue')['default ']
+    Image: typeof import(./src/components / cps / link / ala - link.vueue')['default ']
     Link: typeof import('./src/components/cps/link/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

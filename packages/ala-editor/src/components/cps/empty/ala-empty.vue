@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 11:48:08
+ * @LastEditTime: 2024-10-22 08:51:01
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/empty/index.vue
  * @Description: 
  * 
@@ -32,7 +32,7 @@ export default defineComponent({
   name,
   props: blockProps,
   setup(props) {
-    logger.warn("Empty组件被渲染");
+    logger.info("占位组件 Empty 被渲染");
 
     const classes = computed(() => [bem()])
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:03:43
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 20:12:16
+ * @LastEditTime: 2024-10-22 09:57:04
  * @FilePath: /low-coding/packages/ala-editor/src/store/useEditorStore.ts
  * @Description: 
  * 
@@ -12,7 +12,6 @@ import { BaseBlock, Viewport } from '@/types/editorType'
 import { BaseBlockNull } from '@/types/editorType'
 import { defineStore } from 'pinia'
 import { logger } from '@/utils/logger'
-import { Null } from '@sinclair/typebox'
 
 export const useEditorStore = defineStore('editorStore', {
     state: () => ({
@@ -51,7 +50,7 @@ export const useEditorStore = defineStore('editorStore', {
             }
             // 不存在则添加
             if (!oldBlockConfig) {
-                logger.error(`添加 blockConfig`, value);
+                logger.info(`添加 blockConfig`, value);
 
                 this.blockConfig.push(value)
             }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 19:56:22
+ * @LastEditTime: 2024-10-22 08:26:55
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -10,9 +10,12 @@
 -->
 <template>
     <div class="editor-render" :style="pageStyle" :class="pageClass">
-        <editor-render-drag :list="list" :group="dragGroup" class="render">
 
-        </editor-render-drag>
+
+        <editor-render-drag :list="list" :group="dragGroup" class="render"></editor-render-drag>
+
+
+        <!-- 以下是空列表渲染节点 -->
         <el-empty class="empty" v-if="!list?.length" description="请拖拽左侧组件到此处">
             <template #image>
                 <v-icon class="icon" icon="dragBlank" />
@@ -35,14 +38,14 @@ const list = ref<BaseBlock[]>([])
 
 // Methods
 // watch(() => list.value, (value) => {
-//     logger.info(`editor-render组件监听到 list.value 更新,即将更新 editorStore.blockConfig`, value);
+//     logger.info(`editor-render组件 【 监听到 】  list.value 更新,即将更新 editorStore.blockConfig`, value);
 //     editorStore.setBlockConfig(value)
 // }, {
 //     deep: true
 // })
 
 watch(() => editorStore.blockConfig, (value) => {
-    logger.info(`editor-render组件监听到 editorStore.blockConfig 更新,即将更新 list.value`, value);
+    logger.info(`editor-render组件 【 监听到 】  editorStore.blockConfig 更新,即将更新 list.value`, value);
     list.value = value
 }, {
     deep: true

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 17:02:01
+ * @LastEditTime: 2024-10-22 09:40:39
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -82,7 +82,6 @@ const viewport = ref<Viewport>('desktop')
 const editorStore = useEditorStore()
 
 watch(viewport, (value) => {
-  editorStore.setViewport(value)
   editorStore.setConfigPanelShow('mobile' === value)
 })
 

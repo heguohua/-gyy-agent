@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 21:05:10
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/index.vue
+ * @LastEditTime: 2024-10-22 08:53:34
+ * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/ala-image.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -34,7 +34,7 @@ defineOptions({
 const props = defineProps(blockProps)
 
 
-logger.warn("AlaImage组件被渲染");
+logger.info("AlaImage组件被渲染");
 
 const classes = computed(() => [bem()])
 

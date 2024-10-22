@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:04:17
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 19:24:46
+ * @LastEditTime: 2024-10-22 09:56:30
  * @FilePath: /low-coding/packages/ala-editor/src/utils/logger.ts
  * @Description: 日志工具类，提供info、warn、success和error 4种类型日志
  * 
@@ -122,7 +122,22 @@ export class Logger {
 
     // 在浏览器控制台输出日志
     if (typeof window !== 'undefined' && this.env_type === 'dev') {
-      console.log(message);
+
+      // 使用正则表达式匹配第一个【到最后一个】之间的所有内容
+      const regex = /【(.*?)】/;
+      const match = message.match(regex);
+
+      if (match && match[1]) {
+        // 将匹配到的内容设置为红色
+        console.log(`%c${message.substring(0, match.index)}【%c${match[1]}%c】${message.substring(match.index + match[0].length)}`,
+          '', // 匹配到的内容之前的样式（默认样式）
+          'color: red;', // 【和】之间的内容设置为红色
+          ''); // 【和】之间的内容之后的样式（默认样式）
+      } else {
+        // 如果没有匹配到【】，则直接输出原始字符串
+        console.log(message);
+      }
+
       if (optionalParams.length > 0) {
         optionalParams.forEach((param) => console.log(`    >> ${param}`));
       }
@@ -169,7 +184,9 @@ export class Logger {
       }
     }
   }
+
 }
+
 
 // function getLogLevel(): string {
 //   return import.meta.env.VITE_LOG_LEVEL || 'default';

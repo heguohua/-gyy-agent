@@ -24,14 +24,20 @@
 <script setup lang="ts">
 
 import { useEditorStore } from '@/store/useEditorStore';
+import { logger } from '@/utils/logger';
 const editorStore = useEditorStore()
 
 // State
 
 watch(() => editorStore.currentSelect, (value) => {
+
     if (value) {
+        logger.info(`editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,即将切换 editor-config 面板为 显示状态, 变化值为`,value);
         editorStore.setConfigPanelShow(true)
+    } else {
+        logger.info("editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化, 但变化值不存在,不切换 editor-config 面板显示状态");
     }
+
 })
 
 // Methods

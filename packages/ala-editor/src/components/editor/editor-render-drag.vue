@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 20:10:33
+ * @LastEditTime: 2024-10-22 09:26:01
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -11,13 +11,20 @@
 <template>
     <draggable :list="list" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
         class="edit-render-drag" :clone="clone" :move="move">
+
         <template #item="{ element }">
             <div class="element">
-                <!-- {{ element }} -->
 
+                <!-- 
+                    1、渲染嵌套组件 
+                    2、更新 editorStore.currentSelect 值 
+                -->
                 <div v-if="element.nested && level < 2" class="block-nested-render" :class="activeClass(element)"
                     @click.stop="setCurrentSelect(element)">
 
+                    <!-- 
+                        1、根据组件 code 动态嵌套组件
+                    -->
                     <component :is="renderComponentCode(element)" :data="element.formData" :children="element.children"
                         :viewport="editorStore.viewport" :key="element.id">
 
@@ -31,10 +38,17 @@
 
                 </div>
 
+                <!-- 
+                
+                    1、渲染普通组件 
+                    2、更新 editorStore.currentSelect 值 
+                 
+                -->
                 <div v-else class="block-render" :class="activeClass(element)" @click.stop="setCurrentSelect(element)">
                     <component :is="renderComponentCode(element)" :data="element.formData"
                         :viewport="editorStore.viewport" />
                 </div>
+
             </div>
         </template>
     </draggable>
@@ -79,7 +93,7 @@ const props = defineProps({
 const renderComponentCode = computed(() => {
     return (element: { code: string }) => {
         const componentName = alaConsts.COMPONENT_PREFIX + element.code
-        logger.info(`editor-render-drag组件中根据组件 code[${componentName}]渲染子组件`);
+        logger.info(`editor-render-drag组件中根据组件 code[ ${componentName} ]渲染子组件`);
         return componentName
     }
 })
@@ -108,8 +122,12 @@ onMounted(() => {
  * @param element 
  */
 const setCurrentSelect = (element: BaseBlock) => {
+
+    logger.info("edit-block-drag组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
+
     editorStore.setCurrentSelect(element)
     editorStore.addBlockConfigNotExist(element)
+
 }
 
 </script>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 19:46:44
+ * @LastEditTime: 2024-10-22 09:49:31
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
@@ -27,7 +27,9 @@ import { ref } from 'vue'
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import { blockSchemas, BlockSchemaKeys } from '@/config/schemas';
-import { findNodeById } from './nested';
+import { updateCurrentBlockConfig } from './nested';
+import deepmerge from 'deepmerge';
+import { BaseBlock } from '@/types/editorType';
 // State
 const list = ref<any[]>([])
 
@@ -41,6 +43,8 @@ const editorStore = useEditorStore()
  */
 watch(() => editorStore.currentSelect, (currentBaseBlock) => {
 
+    logger.info(`editor-config-block组件 【 监听到 】 editorStore.currentSelect 发生变化,即将渲染 editor-config 面板, currentBaseBlock值为`,currentBaseBlock);
+  
     const code = currentBaseBlock?.code as BlockSchemaKeys
 
     logger.info(`当前block code : ${code}`);
@@ -79,14 +83,15 @@ watch(() => editorStore.currentSelect, (currentBaseBlock) => {
         // console.log(key, value);
         console.log('oneProperty', oneProperty);
         const [propertyName, propertyValue] = oneProperty
-        const full_properties = [propertyName, { ...(propertyValue as Object), id, key: propertyName, formData: formData ? formData[propertyName] || {} : {} }]
+        const full_properties = [propertyName, { ...(propertyValue as Object), id, key: propertyName, formData: formData?.[propertyName] || {} }]
         console.log('oneProperty 添加 block属性 转换后', full_properties);
         return full_properties;
     }))
 
     console.log('总properties转换后listResult:', listResult);
 
-    const form_items = reactive([...Object.values(listResult)])
+    // const form_items = reactive([...Object.values(listResult)])
+    const form_items =[...Object.values(listResult)] as BaseBlock[]
     console.log('总properties转换后 form_items :', form_items);
 
     list.value = form_items
@@ -107,10 +112,17 @@ const callback = (params: { data: object, id: string }) => {
 
     logger.info(`editor-config-block组件 接收到 子组件callback,即将更新editorStore中的 blockConfig,nodeId[${id}],data`, data);
 
-    const newBlockConfig = findNodeById(blockConfig, id, editorStore.viewport, data)
+    const newBlockConfig = updateCurrentBlockConfig(blockConfig, id, editorStore.viewport, data)
     logger.info(`editor-config-block组件 接收到 子组件callback,即将更新editorStore中的 blockConfig,nodeId[${id}],newBlockConfig`, newBlockConfig);
 
     editorStore.setBlockConfig(newBlockConfig)
+
+    // 更新 editorStore 中的 currentSelect 中 formData 属性值
+    if (editorStore.currentSelect?.id === id) {
+        const currentSelect = editorStore.currentSelect
+        currentSelect.formData = deepmerge.all([editorStore.currentSelect.formData, data])
+        editorStore.setCurrentSelect(currentSelect)
+    }
 }
 
 </script>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 21:21:22
+ * @LastEditTime: 2024-10-22 09:30:32
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
  * @Description: 
  * 
@@ -41,15 +41,22 @@ const props = defineProps({
 
 
 const { data } = toRefs(props)
-const { formData, parentKey, key, id } = data.value
+const { formData: editorStoreCurrentSelect_formData, parentKey, key, id } = data.value
 
 const { title, default: defaultValue } = data.value.properties[props.viewport]
 const src = ref('')
 
+logger.info("config-files组件被渲染, formData 参数值如下:");
+console.log('formData:', editorStoreCurrentSelect_formData);
 
-watch(() => formData, (value) => {
-    logger.info(`config-files组件监听到 baseBlock 的 formData 发生变化,即将更新 src 的属性值,src=value?.[props.viewport]`, value?.[props.viewport]);
-    src.value = value?.[props.viewport] || defaultValue
+
+watch(() => editorStoreCurrentSelect_formData, (value) => {
+    if (value?.[props.viewport]) {
+        logger.info(`config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 src 的属性值,src=value?.[props.viewport]`, value?.[props.viewport]);
+        src.value = value?.[props.viewport] || defaultValue
+    } else {
+        logger.info("config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,value?.[props.viewport]值不存在,不更新 src 属性值");
+    }
 }, {
     immediate: true
 })
@@ -57,7 +64,7 @@ watch(() => formData, (value) => {
 watch(src, (value) => {
     let data = {}
     const _value = value || ''
-    if (Object.values(formData || {}).length < 2) {
+    if (Object.values(editorStoreCurrentSelect_formData || {}).length < 1) {
         data = { desktop: _value, mobile: _value }
     } else {
         data = { [props.viewport]: _value }
