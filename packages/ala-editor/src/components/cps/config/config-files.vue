@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 09:30:32
+ * @LastEditTime: 2024-10-22 10:43:22
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
  * @Description: 
  * 
@@ -22,11 +22,12 @@
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 import { ref } from 'vue'
+import { useEditorStore } from '@/store/useEditorStore';
 
 const emit = defineEmits(["callback"])
 
 // State
-
+const editorStore = useEditorStore()
 
 const props = defineProps({
     data: {
@@ -64,7 +65,9 @@ watch(() => editorStoreCurrentSelect_formData, (value) => {
 watch(src, (value) => {
     let data = {}
     const _value = value || ''
-    if (Object.values(editorStoreCurrentSelect_formData || {}).length < 1) {
+    console.log('value:', value);
+    editorStore.currentSelect?.formData
+    if (Object.values(editorStore.currentSelect?.formData || {}).length < 1) {
         data = { desktop: _value, mobile: _value }
     } else {
         data = { [props.viewport]: _value }
@@ -79,16 +82,31 @@ watch(src, (value) => {
 })
 
 
+import Image1 from '@/assets/images/p-demo/1.jpeg'
+import Image2 from '@/assets/images/p-demo/2.jpeg'
+import Image3 from '@/assets/images/p-demo/3.jpeg'
+import Image4 from '@/assets/images/p-demo/4.jpeg'
 
 const fileClick = computed(() => {
-    // const fileList = [""]
-    // const randomIndex = Math.floor(Math.random() * fileList.length)
-    const file_src = "https://picsum.photos/400/600?t=" + new Date().getMilliseconds()
-    console.log(file_src)
-    src.value = file_src
+    const fileList = [Image1, Image2, Image3, Image4]
+    const randomIndex = Math.floor(Math.random() * fileList.length)
+
+    src.value = fileList[randomIndex]
+
+    // const file_src = "https://picsum.photos/400/600?t=" + new Date().getMilliseconds()
+    // console.log(file_src)
+    // src.value = file_src
 })
 
 // Methods
+
+watch(() => editorStore.viewport, (value) => {
+    console.log('value:', value);
+    const url = editorStore.currentSelect?.formData?.src
+    if (src) {
+        src.value = url[editorStore.viewport]
+    }
+})
 
 </script>
 

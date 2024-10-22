@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 09:49:31
+ * @LastEditTime: 2024-10-22 10:33:08
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
@@ -43,8 +43,8 @@ const editorStore = useEditorStore()
  */
 watch(() => editorStore.currentSelect, (currentBaseBlock) => {
 
-    logger.info(`editor-config-block组件 【 监听到 】 editorStore.currentSelect 发生变化,即将渲染 editor-config 面板, currentBaseBlock值为`,currentBaseBlock);
-  
+    logger.info(`editor-config-block组件 【 监听到 】 editorStore.currentSelect 发生变化,即将渲染 editor-config 面板, currentBaseBlock值为`, currentBaseBlock);
+
     const code = currentBaseBlock?.code as BlockSchemaKeys
 
     logger.info(`当前block code : ${code}`);
@@ -91,7 +91,7 @@ watch(() => editorStore.currentSelect, (currentBaseBlock) => {
     console.log('总properties转换后listResult:', listResult);
 
     // const form_items = reactive([...Object.values(listResult)])
-    const form_items =[...Object.values(listResult)] as BaseBlock[]
+    const form_items = [...Object.values(listResult)] as BaseBlock[]
     console.log('总properties转换后 form_items :', form_items);
 
     list.value = form_items
