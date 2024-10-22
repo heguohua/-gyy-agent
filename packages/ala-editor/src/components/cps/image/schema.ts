@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 14:46:37
+ * @LastEditTime: 2024-10-22 13:59:15
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/schema.ts
  * @Description: 
  * 
@@ -55,12 +55,12 @@ const style = Type.String({
 })
 
 const schema = Type.Object({
-    display: schemaAllViewport(display),
+    // display: schemaAllViewport(display),
     src: schemaAllViewport(src),
     link: schemaAllViewport(link),
     width: schemaAllViewport(width),
     height: schemaAllViewport(height),
-    style: schemaAllViewport(style),
+    // style: schemaAllViewport(style),
 })
 
 

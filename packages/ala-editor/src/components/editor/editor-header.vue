@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 09:40:39
+ * @LastEditTime: 2024-10-22 13:44:10
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -82,6 +82,7 @@ const viewport = ref<Viewport>('desktop')
 const editorStore = useEditorStore()
 
 watch(viewport, (value) => {
+  logger.info("editor-header中切换 viewport");
   editorStore.setConfigPanelShow('mobile' === value)
 })
 

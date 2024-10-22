@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 14:28:08
+ * @LastEditTime: 2024-10-22 13:49:46
  * @FilePath: /low-coding/packages/ala-editor/src/components/base/v-select.vue
  * @Description: 
  * 
@@ -49,7 +49,6 @@ const model = defineModel({ default: 'desktop' })
 
 const change = (value: Viewport) => {
   model.value = value
-  editorStore.setViewport(value)
 }
 </script>
 

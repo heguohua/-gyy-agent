@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:04:17
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 09:56:30
+ * @LastEditTime: 2024-10-22 14:42:20
  * @FilePath: /low-coding/packages/ala-editor/src/utils/logger.ts
  * @Description: 日志工具类，提供info、warn、success和error 4种类型日志
  * 
@@ -26,11 +26,37 @@ export class Logger {
     if (lines.length > 3) {
       const fourthLine = lines[3].trim(); // 移除首尾空格
       const file_name_match = fourthLine.match(/[^/?]+(?=\?)/);
+
+      const file_url_match = fourthLine.match(/\((.*?)\)/);
+      const file_url = file_url_match ? file_url_match[1] : file_name;
+
       if (file_name_match) {
         file_name = file_name_match[0];
       } else {
         const match = fourthLine.match(/\/([^\/]+)$/);
         file_name = match ? match[1] : 'no file name';
+        file_name = file_name.split(':')[0]
+      }
+    }
+    return file_name.padEnd(40, ' ');
+  }
+  getCallerFileLink(): string {
+    const stack = new Error().stack || '';
+    const lines = stack.split('\n');
+    let file_name = 'no file name';
+    if (lines.length > 3) {
+      const fourthLine = lines[3].trim(); // 移除首尾空格
+      const file_name_match = fourthLine.match(/[^/?]+(?=\?)/);
+
+      const file_url_match = fourthLine.match(/\((.*?)\)/);
+      const file_url = file_url_match ? file_url_match[1] : file_name;
+
+      if (file_name_match) {
+        file_name = file_name_match[0];
+      } else {
+        const match = fourthLine.match(/\/([^\/]+)$/);
+        // file_name = match ? match[1] : 'no file name';
+        file_name = file_url
       }
     }
 
@@ -44,6 +70,7 @@ export class Logger {
   info(message: any, ...optionalParams: any[]) {
     const timestamp = date.getCurrentDateTime();
     const file_name = this.getCallerFileName();
+    const file_link = this.getCallerFileLink();
 
     message = typeof message === 'object' ? JSON.stringify(message) : message;
     const op: any = [];
@@ -52,7 +79,7 @@ export class Logger {
     });
     optionalParams = op;
 
-    const logMessage = `${timestamp} - ${this.prefix} - [ ${file_name} ] : ${message}`;
+    const logMessage = `${timestamp} - ${this.prefix} - [ ${file_name} ] : ${message}    --- ${file_link}`;
     this.outputConsole(logMessage, optionalParams);
     this.outputNodeConsole(logMessage, optionalParams);
   }
@@ -64,6 +91,7 @@ export class Logger {
   error(message: any, ...optionalParams: any[]) {
     const timestamp = date.getCurrentDateTime();
     const file_name = this.getCallerFileName();
+    const file_link = this.getCallerFileLink();
 
     message = typeof message === 'object' ? JSON.stringify(message) : message;
     const op: any = [];
@@ -72,7 +100,7 @@ export class Logger {
     });
     optionalParams = op;
 
-    const logMessage = `${timestamp} - ${this.prefix} - [ ${file_name} ] : ${message}`;
+    const logMessage = `${timestamp} - ${this.prefix} - [ ${file_name} ] : ${message}    --- ${file_link}`;
     this.outputConsoleError(logMessage, optionalParams);
     this.outputNodeConsole(logMessage, optionalParams);
   }
@@ -84,6 +112,7 @@ export class Logger {
   warn(message: any, ...optionalParams: any[]) {
     const timestamp = date.getCurrentDateTime();
     const file_name = this.getCallerFileName();
+    const file_link = this.getCallerFileLink();
 
     message = typeof message === 'object' ? JSON.stringify(message) : message;
     const op: any = [];
@@ -92,7 +121,7 @@ export class Logger {
     });
     optionalParams = op;
 
-    const logMessage = `${timestamp} - ${this.prefix} - [ ${file_name} ] : ${message}`;
+    const logMessage = `${timestamp} - ${this.prefix} - [ ${file_name} ] : ${message}    --- ${file_link}`;
     this.outputConsoleWarn(logMessage, optionalParams);
     this.outputNodeConsole(logMessage, optionalParams);
   }
@@ -105,6 +134,7 @@ export class Logger {
   success(message: any, ...optionalParams: any[]) {
     const timestamp = date.getCurrentDateTime();
     const file_name = this.getCallerFileName();
+    const file_link = this.getCallerFileLink();
 
     message = typeof message === 'object' ? JSON.stringify(message) : message;
     const op: any = [];
@@ -113,7 +143,7 @@ export class Logger {
     });
     optionalParams = op;
 
-    const logMessage = `${timestamp} - ${this.prefix} - [ ${file_name} ] : ${message}`;
+    const logMessage = `${timestamp} - ${this.prefix} - [ ${file_name} ] : ${message}    --- ${file_link}`;
     this.outputConsoleGreen(logMessage, optionalParams);
     this.outputNodeConsole(logMessage, optionalParams);
   }

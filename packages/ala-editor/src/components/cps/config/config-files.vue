@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 10:43:22
+ * @LastEditTime: 2024-10-22 11:30:52
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
  * @Description: 
  * 
@@ -100,13 +100,6 @@ const fileClick = computed(() => {
 
 // Methods
 
-watch(() => editorStore.viewport, (value) => {
-    console.log('value:', value);
-    const url = editorStore.currentSelect?.formData?.src
-    if (src) {
-        src.value = url[editorStore.viewport]
-    }
-})
 
 </script>
 

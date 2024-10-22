@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 10:33:08
+ * @LastEditTime: 2024-10-22 13:57:06
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="editor-config-block">
-        <editor-config-render :list="list" @callback="callback">
+        <editor-config-render :list="configFormItemList" @callback="callback">
             <div class="" v-if="!editorStore.currentSelect">
                 <el-empty description="请在左侧拖入组件后，点击选中组件">
                     <template #image>
@@ -31,7 +31,7 @@ import { updateCurrentBlockConfig } from './nested';
 import deepmerge from 'deepmerge';
 import { BaseBlock } from '@/types/editorType';
 // State
-const list = ref<any[]>([])
+const configFormItemList = ref<any[]>([])
 
 const editorStore = useEditorStore()
 
@@ -54,7 +54,7 @@ watch(() => editorStore.currentSelect, (currentBaseBlock) => {
     // 获取单个组件的属性列表
     const properties = blockSchema.properties
     if (!currentBaseBlock || !properties) {
-        list.value = []
+        configFormItemList.value = []
         return
     }
 
@@ -94,7 +94,7 @@ watch(() => editorStore.currentSelect, (currentBaseBlock) => {
     const form_items = [...Object.values(listResult)] as BaseBlock[]
     console.log('总properties转换后 form_items :', form_items);
 
-    list.value = form_items
+    configFormItemList.value = form_items
 
 
 }, {
@@ -121,9 +121,19 @@ const callback = (params: { data: object, id: string }) => {
     if (editorStore.currentSelect?.id === id) {
         const currentSelect = editorStore.currentSelect
         currentSelect.formData = deepmerge.all([editorStore.currentSelect.formData, data])
+        logger.info(`editor-config-block组件 接收到 子组件callback,即将更新 editorStore.currentSelect 中的 formData,nodeId[${id}],formData`, currentSelect.formData);
         editorStore.setCurrentSelect(currentSelect)
     }
 }
+
+// watch(() => editorStore.viewport, (value) => {
+
+//     logger.error(`viewport 发生变化 ${value}`);
+
+//     editorStore.setCurrentSelect(editorStore.currentSelect)
+
+// })
+
 
 </script>
 
