@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 10:40:15
+ * @LastEditTime: 2024-10-23 10:48:18
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-input.vue
  * @Description: 
  * 
@@ -48,8 +48,6 @@ const input = ref('')
 
 
 watch(() => formData, (form_data) => {
-    logger.error(`${form_data}`);
-
     if (form_data[key]?.[props.viewport]) {
         logger.info(`config-input组件 【 监听到 】 editorStore.currentSelect 的 form_data 发生变化,即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
         input.value = form_data[key][props.viewport] || defaultValue
@@ -80,7 +78,6 @@ watch(input, (value) => {
 
 
 watch(() => editorStore.globalParams, () => {
-    logger.error(`${formData}`);
 
     if (formData[key]?.[props.viewport]) {
         logger.info(`config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
