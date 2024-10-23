@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 20:52:09
+ * @LastEditTime: 2024-10-23 10:37:28
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-page.vue
  * @Description: 
  * 
@@ -24,21 +24,28 @@ import { pageSchemas } from '@/config/schemas';
 import { updateCurrentBlockConfig } from './nested';
 import { BasePage } from '@/types/editorType';
 import { merge } from 'lodash';
+import deepmerge from 'deepmerge';
 // State
-const configFormItemList = ref<BasePage[]>([])
 
 const editorStore = useEditorStore()
 
 const properties = pageSchemas.properties
 
+const configFormItemList = ref<(typeof properties)[keyof typeof properties][]>([])
+
+let form_data = editorStore.pageConfig.formData 
+const { globalParams } = toRefs(editorStore)
+merge(form_data, {globalParams})
+
 const listResult = Object.fromEntries(
     Object.entries(properties).map((property) => {
         const [key, value] = property
-        return [key, { ...value, key, formData: editorStore.pageConfig.formData }]
+        return [key, { ...value, key, formData: form_data }]
     })
 )
 
 configFormItemList.value = [...Object.values(listResult)]
+
 
 // Methods
 
@@ -47,17 +54,23 @@ configFormItemList.value = [...Object.values(listResult)]
  * 接受子组件传递的参数值，然后更新 editorStore 中保存的 BaseBlock[]
  * @param params 
  */
-const callback = (params: { data: object, id: string }) => {
+const callback = (params: { data: Record<string, any>, id: string }) => {
     const { data } = params
     logger.info(`editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,data`, data);
     const pageConfig = editorStore.pageConfig || {}
     logger.info(`editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,formData`, pageConfig);
 
     merge(pageConfig, { formData: data })
-    logger.info(`editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,合并 data 后formData`, pageConfig);
-
     editorStore.setPageConfig(pageConfig)
-    // 
+    logger.info(`editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,合并 data 后 pageConfig`, pageConfig);
+
+    const propertyName: string = Object.keys(data)[0]
+    configFormItemList.value.forEach((item) => {
+        if (item.key === propertyName) {
+            merge(item.formData[propertyName], data[propertyName])
+            logger.info(`editor-config-page组件 接收到 子组件callback,即将更新 【 表单组件 】 中的 formData,合并 data 后formData`, item.formData);
+        }
+    })
 }
 
 

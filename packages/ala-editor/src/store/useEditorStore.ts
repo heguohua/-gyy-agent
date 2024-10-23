@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:03:43
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 20:49:55
+ * @LastEditTime: 2024-10-23 10:40:44
  * @FilePath: /low-coding/packages/ala-editor/src/store/useEditorStore.ts
  * @Description: 
  * 
@@ -16,10 +16,11 @@ import { logger } from '@/utils/logger'
 export const useEditorStore = defineStore('editorStore', {
     state: () => ({
         viewport: 'desktop' as Viewport,
+        globalParams: ref<Record<string, any>>({}),
         currentSelect: null as BaseBlockNull,
         configPanelShow: false,
         blockConfig: [] as BaseBlock[],
-        pageConfig: {} as BasePage,
+        pageConfig: { formData: {} } as BasePage,
     }),
     getters: {
         isMobileViewport: (state) => state.viewport === 'mobile'
@@ -28,6 +29,7 @@ export const useEditorStore = defineStore('editorStore', {
         setViewport(value: Viewport) {
             logger.info(`更新 viewport : ${value}`);
             this.viewport = value
+            this.updateGlobalParams("viewport", value)
         },
         setCurrentSelect(value: BaseBlockNull) {
             logger.info(`currentSelect: `, value);
@@ -59,6 +61,9 @@ export const useEditorStore = defineStore('editorStore', {
 
                 this.blockConfig.push(value)
             }
+        },
+        updateGlobalParams(key: string, value: any) {
+            this.globalParams[key] = value
         }
     }
 }

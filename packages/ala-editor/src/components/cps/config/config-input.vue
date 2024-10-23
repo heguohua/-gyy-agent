@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 09:32:34
+ * @LastEditTime: 2024-10-23 10:40:15
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-input.vue
  * @Description: 
  * 
@@ -17,8 +17,10 @@
 </template>
 
 <script setup lang="ts">
+import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import { ref } from 'vue'
+const editorStore = useEditorStore()
 
 const emit = defineEmits(["callback"])
 
@@ -44,11 +46,13 @@ const { title, default: defaultValue, placeholder } = data.value.properties[prop
 const input = ref('')
 
 
-watch(() => formData, (value) => {
 
-    if (value?.[props.viewport]) {
-        logger.info(`config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 input 的属性值,input.value=value?.[props.viewport]`, value?.[props.viewport]);
-        input.value = value?.[props.viewport] || defaultValue
+watch(() => formData, (form_data) => {
+    logger.error(`${form_data}`);
+
+    if (form_data[key]?.[props.viewport]) {
+        logger.info(`config-input组件 【 监听到 】 editorStore.currentSelect 的 form_data 发生变化,即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
+        input.value = form_data[key][props.viewport] || defaultValue
     } else {
         logger.info("config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,value?.[props.viewport]值不存在,不更新 input.value 属性值");
     }
@@ -59,6 +63,7 @@ watch(() => formData, (value) => {
 watch(input, (value) => {
     let data = {}
     const _value = value || ''
+
     if (Object.values(formData || {}).length < 2) {
         data = { desktop: _value, mobile: _value }
     } else {
@@ -73,6 +78,17 @@ watch(input, (value) => {
     })
 })
 
+
+watch(() => editorStore.globalParams, () => {
+    logger.error(`${formData}`);
+
+    if (formData[key]?.[props.viewport]) {
+        logger.info(`config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
+        input.value = formData[key][props.viewport] || defaultValue
+    } else {
+        logger.info("config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,value?.[props.viewport]值不存在,不更新 input.value 属性值");
+    }
+}, { deep: true })
 
 
 

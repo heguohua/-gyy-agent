@@ -64,8 +64,6 @@ watch(() => editorStore.currentSelect, () => {
     }
 
     const { formData, id } = currentBaseBlock
-    console.log('formData:', formData);
-    console.log('formData === editorStore.currentSelect.formData ? ', formData === editorStore.currentSelect?.formData);
 
 
     logger.info('当前block的 baseBlock 属性：', currentBaseBlock);

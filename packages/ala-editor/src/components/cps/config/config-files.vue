@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 18:45:49
+ * @LastEditTime: 2024-10-23 10:32:19
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
  * @Description: 
  * 
@@ -47,18 +47,10 @@ const { formData, parentKey, key, id } = data.value
 const { title, default: defaultValue } = data.value.properties[props.viewport]
 const src = ref('')
 
-logger.info("config-files组件被渲染, formData 参数值如下:");
-console.log('formData:', formData);
-console.log('formData === editorStore.currentSelect.formData ? ', formData === editorStore.currentSelect?.formData);
+logger.info("config-files组件被渲染, formData :", formData);
 
-// const src = computed(() => {
-//     logger.info(`config-files组件 【 渲染src 】,即将更新 src 的属性值,src=`, formData.src?.[props.viewport]);
-//     return formData.src?.[props.viewport]
-// })
 
 watch(() => formData, (form_data) => {
-    console.log('formData:', formData);
-    console.log('form_data:', form_data);
 
     if (form_data.src?.[props.viewport]) {
         logger.error(`config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 src 的属性值,src=form_data.src[props.viewport]`, form_data.src?.[props.viewport]);
@@ -70,15 +62,16 @@ watch(() => formData, (form_data) => {
     immediate: true
 })
 
-watch(() => editorStore.viewport, () => {
+watch(() => editorStore.globalParams, () => {
+
     const form_data = formData
     if (form_data.src?.[props.viewport]) {
-        logger.error(`config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 src 的属性值,src=form_data.src[props.viewport]`, form_data.src?.[props.viewport]);
+        logger.error(`config-files组件 【 监听到 】 editorStore 的 globalParams 发生变化,即将更新 src 的属性值,src=form_data.src[props.viewport]`, form_data.src?.[props.viewport]);
         src.value = form_data.src?.[props.viewport] || defaultValue
     } else {
-        logger.error("config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,form_data.src?.[props.viewport]值不存在,不更新 src 属性值");
+        logger.error("config-files组件 【 监听到 】 editorStore 的 globalParams 发生变化,form_data.src?.[props.viewport]值不存在,不更新 src 属性值");
     }
-})
+}, { deep: true })
 
 watch(src, (value) => {
     let data = {}
@@ -119,10 +112,7 @@ const fileClick = computed(() => {
 // Methods
 onUpdated(() => {
     logger.error("config-files组件被更新");
-    console.log('src.value:', src.value);
-    console.log('formData:', formData);
-    console.log('data:', data);
-
+ 
 })
 
 </script>

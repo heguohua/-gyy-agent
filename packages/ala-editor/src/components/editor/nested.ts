@@ -7,7 +7,7 @@ import { cloneDeep, merge } from "lodash"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 16:04:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 17:28:48
+ * @LastEditTime: 2024-10-23 10:40:25
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/nested.ts
  * @Description: 
  * 
@@ -65,9 +65,6 @@ export const updateCurrentBlockConfig = (arr: BaseBlock[], nodeId: string, viewp
         if (element.id === nodeId) {
             const formData = element.formData
             if (formData) {
-                // console.log('element.formData:',element.formData);
-                // console.log('data:',data);
-                // element.formData = deepmerge.all([element.formData, data])
                 logger.info('currentBlockConfig element.formData更新前', element.formData);
                 merge(formData, data)
                 logger.info('currentBlockConfig element.formData更新后', element.formData);
