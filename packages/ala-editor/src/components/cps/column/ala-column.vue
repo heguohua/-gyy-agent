@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 09:16:06
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/index.vue
+ * @LastEditTime: 2024-10-23 14:07:05
+ * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/ala-column.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -61,11 +61,11 @@ export default defineComponent({
       return (index: number) => {
         const childrens = children.value?.[index]
         logger.info(`多列组件渲染 第[ ${index} ]列`);
-        logger.info(`多列组件 childrens: ${childrens}`);
+        logger.info(`多列组件 childrens: `, childrens);
         return reactive(childrens || [])
       }
     })
-    
+
     return {
       bem,
       classes,
