@@ -2,12 +2,12 @@ import { BlockSchemaKeys, BlockSchemas } from "@/config/schemas"
 import { BaseBlock, Viewport } from "@/types/editorType"
 import { logger } from "@/utils/logger"
 import { nanoid } from "@/utils/nanoid"
-import { cloneDeep, merge } from "lodash"
+import { cloneDeep, mergeWith } from "lodash"
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 16:04:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 10:40:25
+ * @LastEditTime: 2024-10-23 15:36:49
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/nested.ts
  * @Description: 
  * 
@@ -57,7 +57,11 @@ export const clone = (e: object) => {
     return cloneDeep({ ...e, id: nanoid(8) })
 }
 
-
+const customMerge = (objValue: any, srcValue: any) => {
+    if (Array.isArray(srcValue)) {
+        return srcValue; // 直接替换数组
+    }
+};
 export const updateCurrentBlockConfig = (arr: BaseBlock[], nodeId: string, viewport: Viewport, data: object) => {
     const array = cloneDeep(arr)
     for (let i = 0; i < array.length; i++) {
@@ -66,7 +70,7 @@ export const updateCurrentBlockConfig = (arr: BaseBlock[], nodeId: string, viewp
             const formData = element.formData
             if (formData) {
                 logger.info('currentBlockConfig element.formData更新前', element.formData);
-                merge(formData, data)
+                mergeWith(formData, data, customMerge)
                 logger.info('currentBlockConfig element.formData更新后', element.formData);
                 return array
             } else {

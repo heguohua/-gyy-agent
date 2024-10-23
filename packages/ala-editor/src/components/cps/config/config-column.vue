@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 15:00:40
+ * @LastEditTime: 2024-10-23 15:19:22
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-column.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="config-column">
-        <el-form-item>
+        <el-form-item :label="title">
             <div class="item" v-for="(item, index) in column" :key="index">
                 <div v-html="widthFormat(item)" class="input">
                 </div>
@@ -52,7 +52,7 @@ const emit = defineEmits(["callback"])
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
-const { default: defaultValue, minItems, maxItems } = data.value.properties[props.viewport]
+const { title, default: defaultValue, minItems, maxItems } = data.value.properties[props.viewport]
 
 const realDefaultValue = Array.from({ length: minItems }, () => defaultValue)
 
@@ -133,7 +133,7 @@ const updateNumber = (length: number) => {
     return updatedColumns
 }
 const widthFormat = (width: number) => {
-    const widthText=parseInt(String(width * 1000)) / 10 + "%"    
+    const widthText = parseInt(String(width * 1000)) / 10 + "%"
     return widthText
 }
 

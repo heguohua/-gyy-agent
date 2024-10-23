@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 09:13:37
+ * @LastEditTime: 2024-10-23 15:18:16
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/schema.ts
  * @Description: 
  * 
@@ -26,7 +26,7 @@ const cols = Type.Array(Type.Number(), {
 })
 
 const schema = Type.Object({
-    background: schemaAllViewport(background),
+    // background: schemaAllViewport(background),
     cols: schemaAllViewport(cols),
 })
 

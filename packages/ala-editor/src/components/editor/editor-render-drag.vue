@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 11:49:54
+ * @LastEditTime: 2024-10-23 16:03:07
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -23,7 +23,7 @@
                     @click.stop="setCurrentSelect(element)">
 
                     <!-- 
-                        1、根据组件 code 动态嵌套组件
+                        1、根据组件 code 动态渲染嵌套组件
                     -->
                     <component :is="renderComponentCode(element)" :data="element.formData" :children="element.children"
                         :viewport="editorStore.viewport" :key="element.id">
