@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 11:46:03
+ * @LastEditTime: 2024-10-23 15:00:40
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-column.vue
  * @Description: 
  * 
@@ -17,8 +17,8 @@
             </div>
             <div class="action-box">
                 <div class="item">
-                    <v-icon v-if="isShowRemove" class="icon" icon="subtract" @class="remove" />
-                    <v-icon v-if="isShowAdd" class="icon" icon="add" @class="add" />
+                    <v-icon v-if="isShowRemove" class="icon" icon="subtract" @click="remove" />
+                    <v-icon v-if="isShowAdd" class="icon" icon="add" @click="add" />
                 </div>
             </div>
         </el-form-item>
@@ -58,8 +58,34 @@ const realDefaultValue = Array.from({ length: minItems }, () => defaultValue)
 
 const column = ref<number[]>([])
 
-const isShowRemove = computed(() => column.value.length > minItems)
-const isShowAdd = computed(() => column.value.length < minItems)
+logger.info("config-column组件渲染, data :");
+console.log('data:', data);
+
+logger.info("config-column组件渲染, formData :", formData);
+console.log('formData:', formData);
+
+logger.info(`config-column组件渲染, defaultValue[ ${defaultValue} ]`);
+logger.info("config-column组件渲染, realDefaultValue :", realDefaultValue);
+logger.info(`config-column组件渲染, minItems[ ${minItems} ]`);
+logger.info(`config-column组件渲染, maxItems[ ${maxItems} ]`);
+
+column.value = realDefaultValue
+
+logger.info(`config-column组件渲染, column`, column);
+
+
+
+const isShowRemove = computed(() => {
+    const isShow = column.value.length > minItems
+    logger.info(`ala-column组件 表单列属性,是否显示【 移除 】按钮,isShow[ ${isShow} ]`);
+
+    return isShow
+})
+const isShowAdd = computed(() => {
+    const isShow = column.value.length < maxItems
+    logger.info(`ala-column组件 表单列属性,是否显示【 添加 】按钮,isShow[ ${isShow} ]`);
+    return isShow
+})
 
 // Methods
 
@@ -101,18 +127,35 @@ watch(column, (value) => {
     })
 })
 
-const updateNumber = (length: number) => Array.from({ length: length }, () => 1 / length)
-const widthFormat = (width: number) => parseInt(String(width * 10000)) / 100 + "%"
+const updateNumber = (length: number) => {
+    logger.info(`【 重新计算列数 】,当前 column.length: ${column.value.length},期望 column.length: ${length}`);
+    const updatedColumns = Array.from({ length: length }, () => 1 / length)
+    return updatedColumns
+}
+const widthFormat = (width: number) => {
+    const widthText=parseInt(String(width * 1000)) / 10 + "%"    
+    return widthText
+}
 
 const remove = () => {
     const { length } = column.value
-    if (length === maxItems) return
-    column.value = updateNumber(length + 1)
+    logger.info(`【 删除列 】,当前 column.length: ${length}`);
+    if (length === minItems) return
+    column.value = updateNumber(length - 1)
+    logger.info(`【 删除列 】,更新后 column: `, column.value);
+
 }
 const add = () => {
+
     const { length } = column.value
+    logger.info(`【 添加列 】,当前 column.length: ${length}`);
+
     if (length === 1) return
-    column.value = updateNumber(length - 1)
+
+    column.value = updateNumber(length + 1)
+
+    logger.info(`【 添加列 】,更新后 column: `, column.value);
+
 }
 
 </script>
@@ -171,12 +214,13 @@ const add = () => {
         }
 
         .icon {
-            width: 20px;
-            height: 20px;
             margin: 0 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 24%;
+            height: 70%;
+            padding: 4px;
 
             &:hover {
                 background-color: #5a9cf8;

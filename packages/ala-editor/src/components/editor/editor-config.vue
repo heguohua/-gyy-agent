@@ -32,7 +32,7 @@ const editorStore = useEditorStore()
 watch(() => editorStore.currentSelect, (value) => {
 
     if (value) {
-        logger.info(`editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,即将切换 editor-config 面板为 显示状态, 变化值为`,value);
+        logger.info(`editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,即将切换 editor-config 面板为 显示状态, 变化值为`, value);
         editorStore.setConfigPanelShow(true)
     } else {
         logger.info("editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化, 但变化值不存在,不切换 editor-config 面板显示状态");
@@ -64,10 +64,15 @@ const panelSwitch = () => {
         transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
     }
 
+    --icon-group-width:96%;
+    --icon-group-width-left:2%;
+
     .icon-group {
         position: absolute;
-        left: -48px;
+        // left: calc(-48px + var(--icon-group-width-left));
         top: 16px;
+        width: var(--icon-group-width);
+        margin-left: 2%;
 
         .icon {
             cursor: pointer;
@@ -82,6 +87,8 @@ const panelSwitch = () => {
             transition: all 0.2s linear;
             border: 1px solid var(--color-border);
             background: white;
+            left: -48px;
+            position: absolute;
 
             &+.icon {
                 margin-top: 10px;
@@ -104,6 +111,8 @@ const panelSwitch = () => {
         overflow-y: auto;
         width: 100%;
         height: 100%;
+        // left: calc(48px - var(--icon-group-width-left));
+        // position: relative;
 
         .title {
             padding: 14px;
@@ -117,6 +126,10 @@ const panelSwitch = () => {
 
         :deep(.el-tabs__content) {
             padding: 0;
+        }
+        :deep(.el-form-item__label-wrap){
+            width: 20%;
+            justify-content: end;
         }
     }
 }
