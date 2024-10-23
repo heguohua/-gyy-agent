@@ -49,10 +49,10 @@ const input = ref('')
 
 watch(() => formData, (form_data) => {
     if (form_data[key]?.[props.viewport]) {
-        logger.info(`config-input组件 【 监听到 】 editorStore.currentSelect 的 form_data 发生变化,即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
+        logger.info(`config-input组件 【 监听到 】 form_data 发生变化,即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
         input.value = form_data[key][props.viewport] || defaultValue
     } else {
-        logger.info("config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,value?.[props.viewport]值不存在,不更新 input.value 属性值");
+        logger.info("config-input组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 input.value 属性值");
     }
 }, {
     immediate: true
@@ -80,10 +80,10 @@ watch(input, (value) => {
 watch(() => editorStore.globalParams, () => {
 
     if (formData[key]?.[props.viewport]) {
-        logger.info(`config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
+        logger.info(`config-input组件 【 监听到 】 formData 发生变化,即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
         input.value = formData[key][props.viewport] || defaultValue
     } else {
-        logger.info("config-input组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,value?.[props.viewport]值不存在,不更新 input.value 属性值");
+        logger.info("config-input组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 input.value 属性值");
     }
 }, { deep: true })
 

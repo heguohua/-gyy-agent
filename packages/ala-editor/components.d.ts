@@ -15,6 +15,7 @@ declare module 'vue' {
     AlaLink: typeof import('./src/components/cps/link/ala-link.vue')['default']
     Column: typeof import('./src/components/cps/column/index.vue')['default']
     ComponentTemplete: typeof import('./src/components/cps/component-templete/index.vue')['default']
+    ConfigColumn: typeof import('./src/components/cps/config/config-column.vue')['default']
     ConfigFiles: typeof import('./src/components/cps/config/config-files.vue')['default']
     ConfigImput: typeof import('./src/c./src/components/cps/config/config-textarea.vue]
     ConfigInput: typeof import('./src/components/cps/config/config-input.vue')['default']

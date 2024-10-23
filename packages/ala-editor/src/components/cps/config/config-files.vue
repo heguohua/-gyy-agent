@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 10:50:48
+ * @LastEditTime: 2024-10-23 11:49:37
  * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
  * @Description: 
  * 
@@ -76,8 +76,6 @@ watch(() => editorStore.globalParams, () => {
 watch(src, (value) => {
     let data = {}
     const _value = value || ''
-    console.log('value:', value);
-    editorStore.currentSelect?.formData
     if (Object.values(editorStore.currentSelect?.formData || {}).length < 1) {
         data = { desktop: _value, mobile: _value }
     } else {
