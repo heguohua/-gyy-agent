@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 14:02:36
+ * @LastEditTime: 2024-10-23 16:25:30
  * @FilePath: /low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -16,10 +16,11 @@ import AlaColumn from '@/components/cps/column/ala-column.vue';
 
 // 注册表单组件
 import ConfigInput from '@/components/cps/config/config-input.vue';
-import ConfigViewport from '@/components/cps/config/config-viewport.vue';
 import ConfigFiles from '@/components/cps/config/config-files.vue';
 import ConfigTextarea from '@/components/cps/config/config-textarea.vue';
 import ConfigColumn from '@/components/cps/config/config-column.vue';
+import ConfigViewport from '@/components/cps/config/config-viewport.vue';
+import ConfigBaseTab from '@/components/cps/config/config-base-tab.vue';
 
 export default {
     AlaImage,
@@ -27,10 +28,12 @@ export default {
     AlaLink,
     AlaColumn,
     ConfigInput,
-    ConfigViewport,
     ConfigFiles,
     ConfigTextarea,
     ConfigColumn,
+    ConfigViewport,
+    ConfigBaseTab,
+
 }
 
 

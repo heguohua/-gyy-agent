@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 15:44:23
+ * @LastEditTime: 2024-10-23 17:34:19
  * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
@@ -111,13 +111,13 @@ const callback = (params: { data: object, id: string }) => {
     editorStore.setBlockConfig(newBlockConfig)
 
     // 更新 editorStore 中的 currentSelect 中 formData 属性值
-    // if (editorStore.currentSelect?.id === id) {
-    //     const currentSelect = editorStore.currentSelect
-    //     // currentSelect.formData = deepmerge.all([editorStore.currentSelect.formData, data])
-    //     merge(editorStore.currentSelect.formData, data);
-    //     logger.info(`editor-config-block组件 接收到 子组件callback,即将更新 editorStore.currentSelect 中的 formData,nodeId[${id}],formData`, currentSelect.formData);
-    //     editorStore.setCurrentSelect(currentSelect)
-    // }
+    if (editorStore.currentSelect?.id === id) {
+        const currentSelect = editorStore.currentSelect
+        // currentSelect.formData = deepmerge.all([editorStore.currentSelect.formData, data])
+        merge(editorStore.currentSelect.formData, data);
+        logger.info(`editor-config-block组件 接收到 子组件callback,即将更新 editorStore.currentSelect 中的 formData,nodeId[${id}],formData`, currentSelect.formData);
+        editorStore.setCurrentSelect(currentSelect)
+    }
 }
 
 
