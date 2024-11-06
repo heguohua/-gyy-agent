@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 14:36:26
- * @FilePath: /low-coding/packages/ala-editor/src/config/icons.ts
+ * @LastEditTime: 2024-11-06 21:42:45
+ * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -48,6 +48,7 @@ const icon = {
     subtract: 'fluent:subtract-16-regular',
     back: 'fluent:chevron-left-20-filled',
     save: 'fluent:document-save-20-regular',
+    phone: 'solar:phone-broken',
   }
   
   export default icon
