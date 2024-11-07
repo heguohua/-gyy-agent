@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 18:02:53
- * @FilePath: /low-coding/packages/ala-editor/src/main.js
+ * @LastEditTime: 2024-11-07 21:09:32
+ * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -53,6 +53,10 @@ import components from "@/config/alaComponents"
 Object.entries(components).forEach(([name, component]) => {
   app.component(name, component);
 });
+
+// 注册全局异常拦截器
+import errorHandler from "@/utils/errorHandler"
+errorHandler.registerErrorHandler(app)
 
 // 挂载整个应用到app容器中
 app.mount('#app');

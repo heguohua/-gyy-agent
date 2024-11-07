@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 10:01:59
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 15:36:44
+ * @LastEditTime: 2024-11-07 20:25:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/typewriter/AlaTypewriterOneLine.vue
  * @Description: 单行、多条文本、循环输入组件
  * 使用方式：
@@ -39,12 +39,17 @@ const props = defineProps({
     keepBlankSpace: {
         type: Boolean,
         default: true
+    },
+    waitTime: {
+        type: Number,
+        default: 0
     }
 })
 
 const textArray = props.textArray
 const typeInterval = props.typeInterval
 const clearInterval = props.clearInterval
+const waitTime = props.waitTime
 
 const typewriter = ref<HTMLElement>();
 const currentText = ref('');
@@ -62,7 +67,10 @@ const typeWord = (textLines: Array<string>) => {
         timer = setTimeout(typeWord, typeInterval, textArray); // 100毫秒间隔，可以根据需要调整
     } else {
         // logger.info(`即将【 清除 】第【 ${textIndex.value} 】段文字`);
-        clearText();
+        setTimeout(() => {
+            clearText();
+        }, waitTime);
+        
     }
 };
 
@@ -92,7 +100,7 @@ onMounted(() => {
 <style scoped>
 .typewriter {
     font-family: monospace;
-    white-space: pre;
+    /* white-space: pre; */
 
     /* 保持空格 */
     .blank-space {

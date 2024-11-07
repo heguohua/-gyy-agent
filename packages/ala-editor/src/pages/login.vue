@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 17:52:08
+ * @LastEditTime: 2024-11-07 21:36:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -38,9 +38,12 @@
             <!-- Left Side Text Section -->
             <div class="section-left">
                 <h2>
-                    <Typewriter :textArray="textArray" />
+                    <AlaTypewriterOneLine :textArray="titleArray" :typeInterval="50" :waitTime="10000" />
                 </h2>
-                <p>有两种类型的人会告诉你，在这个世界上你不能有所作为：那些害怕尝试的人和那些害怕你会成功的人。</p>
+                <p>
+                    <AlaTypewriterOneLine :textArray="contentArray" :typeInterval="100" :clearInterval="20"
+                    :waitTime="60000" />
+                </p>
             </div>
 
             <!-- Right Side Form Section -->
@@ -82,8 +85,8 @@
                                 </p>
                             </div>
 
-                            <button type="button" :class="submitButtonClass" class="submit-btn"
-                                @click="login()" :disabled="!loginForm.agree">登录</button>
+                            <button type="button" :class="submitButtonClass" class="submit-btn" @click="login()"
+                                :disabled="!loginForm.agree">登录</button>
                         </form>
                     </div>
 
@@ -129,7 +132,7 @@ import dianhua_400 from '/dianhua-400.png'
 import dianhua_guoji from '/dianhua-guoji.png'
 import weixin from '/weixin.png'
 import gongzhonghao from '/weixin.png'
-import Typewriter from '@/components/cps/typewriter/AlaTypewriterOneLine.vue';
+import AlaTypewriterOneLine from '@/components/cps/typewriter/AlaTypewriterOneLine.vue';
 
 
 // State  
@@ -184,8 +187,24 @@ const submitButtonClass = computed(() => {
     return loginForm.value.agree ? "submit-btn-active" : "submit-btn-disabled"
 })
 
+import u from "@/utils/u"
+
 const login = () => {
-    console.log(loginForm)
+    const lf = loginForm.value
+    u.checkNull(lf.scabbard,"请输入您的【 用户名 】")
+    u.checkNull(lf.sword,"请输入您的【 密码 】")
+    u.checkFalse(lf.agree,"请阅读协议并【 勾选 】同意")
+
+
+    // msg.html("<div style='color:red;height:200px;'>这是一段红色字体的消息</div>")
+    // msg.success("成功消息")
+    // msg.error("错误消息")
+    // msg.warn("警告消息")
+    // msg.info("提示消息")
+    // notify.success("成功消息", "这是一条很长很长的消息！！！！")
+    // notify.error("错误消息", "这是一条很长很长的消息！！！！")
+    // notify.warn("警告消息", "这是一条很长很长的消息！！！！")
+    // notify.info("提示消息", "这是一条很长很长的消息！！！！")
 
     return
 }
@@ -222,7 +241,8 @@ const websites = [
         icon: "country_ru"
     }
 ]
-const textArray = ['这是第一段话。', '这是第二段话。'];
+const titleArray = ['领先的数字化基础软件与应用开发服务商。', '为企业提供安全、稳定、高效、卓越的产品与服务，同时最大化降低IT系统建设成本。'];
+const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technologies，SAIT）一直致力于IT软件产品研发和应用侧客户服务，拥有从咨询、设计、开发、测试、运维到运营的端到端软件研发全生命周期服务能力，在金融、政务、制造、交通、教育、文旅等各行业积累了丰富的IT案例与研发经验。科爱思(深圳)科技有限公司以“为合作单位持续提供安全、稳定、高效、卓越的产品与服务，同时最大化降低IT系统建设成本”为企业使命，努力成为客户数字化建设过程中最值得信赖的合作伙伴。公司团队核心成员深耕IT行业10年+，依托微服务化业务平台、云计算平台、大数据平台、物联网平台、AI智能平台、数字孪生平台、智能运维平台和安全及隐私保护管理体系等基础能力，形成了以平台产品、工具产品和应用产品为核心的数字化技术底座，同时在产研体系管理、产品质量提升、解决方案开发、销售工具集开发和业务体系管理等方面积累了丰富的、配套化治理经验。公司自研产品、技术方案完全自主可控，打破了国际厂商和大型头部公司的技术垄断，形成了以技术创新为驱动、以制度保障为协同的，完全可独立行走、可独立落地的方法论。公司所有技术底座均经过了众多科技巨头，如中国移动、中国电信、华为、腾讯、阿里、中信集团、中国航天集团等多年、持续的安全和系统稳定性测试，以及大量项目的持续磨炼，具有行业内值得信赖的稳定度和安全性。'];
 
 
 
@@ -367,15 +387,18 @@ const textArray = ['这是第一段话。', '这是第二段话。'];
             width: 70%;
 
             h2 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
                 font-weight: bold;
                 margin-bottom: 1rem;
             }
 
             p {
-                font-size: 1rem;
-                line-height: 1.5;
+                font-size: 1.4rem;
+                line-height: 2.4rem;
                 color: #ffffff;
+                width: 80%;
+                margin: 0 auto;
+                text-align: left;
             }
         }
 
