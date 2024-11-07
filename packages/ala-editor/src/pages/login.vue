@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 11:31:22
+ * @LastEditTime: 2024-11-07 11:41:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
                 <div class="website-icon"><v-icon :icon="item.icon" class="icon" />
                     {{ item.name }}
                 </div>
-                <div class="url">{{ item.url }}</div>
+                <a class="url" target="_blank" :href="'https://' + item.url">{{ item.url }}</a>
             </div>
         </div>
         <div class="phone-number">
@@ -165,6 +165,8 @@ const remark_copyright = ref(`@Copyright 2022~${year} 科爱思(深圳)科技有
             }
 
             .url {
+                display: block;
+                color: inherit;
                 font-size: 0.9rem;
                 transition: transform 0.5s ease;
 
@@ -172,6 +174,7 @@ const remark_copyright = ref(`@Copyright 2022~${year} 科爱思(深圳)科技有
                     // color: red; 
                     cursor: pointer;
                     transform: scale(1.3);
+                    text-decoration: none;
                 }
             }
 
