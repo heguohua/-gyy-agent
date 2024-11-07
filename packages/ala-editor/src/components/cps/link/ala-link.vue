@@ -54,6 +54,7 @@ const tag = computed(() => {
 @include b("link") {
   @include e("link") {
     display: inline-block;
+    text-decoration: none;
   }
 }
 </style>

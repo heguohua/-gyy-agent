@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 11:41:15
+ * @LastEditTime: 2024-11-07 13:59:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -19,12 +19,22 @@
                 <a class="url" target="_blank" :href="'https://' + item.url">{{ item.url }}</a>
             </div>
         </div>
+        <div class="company_info">
+            <p class="name-cn">{{ systemInfo.companyNameCN }}</p>
+            <p class="name-en">{{ systemInfo.companyNameEN }}</p>
+
+        </div>
         <div class="phone-number">
+            <AlaCurrentDateTime class="current-date-time" />
             <v-icon icon="phone" class="phone-icon" />
-            <p>400-800-9202</p>
+            <p>{{ systemInfo.systemPhone }}</p>
         </div>
 
+
         <div class="container">
+            <div class="title">
+                <h1>{{ systemInfo.systemName }}</h1>
+            </div>
             <!-- Left Side Text Section -->
             <div class="section-left">
                 <h2>
@@ -36,26 +46,31 @@
             <!-- Right Side Form Section -->
             <div class="section-right">
                 <div class="login-form">
-                    <h3>注册</h3>
-                    <p>一个免费的帐户</p>
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="name">全名 *</label>
-                            <input type="text" id="name" placeholder="你叫什么名字？" required>
-                        </div>
+                    <div class="form">
+                        <div class="form-background-1">&nbsp;</div>
+                        <div class="form-background-2">&nbsp;</div>
+                        <h3>欢迎回来</h3>
+                        <form action="#" method="post">
+                            <div class="form-group">
+                                <label for="name">用户名 *</label>
+                                <input type="text" id="name" placeholder="请输入您的用户名" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="email">办公室电子邮件 *</label>
-                            <input type="email" id="email" placeholder="你的电子邮件地址是什么？" required>
-                        </div>
+                            <div class="form-group">
+                                <label for="email">密码 *</label>
+                                <input type="email" id="email" placeholder="请输入您的密码" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="company">您的公司名称 *</label>
-                            <input type="text" id="company" placeholder="你从哪里来？" required>
-                        </div>
+                            <div class="form-group agreement-group">
+                                <el-checkbox :label="''" class="agreement-label" />
+                                <p>我已阅读并同意<AlaLink class="form-link" to="/">服务协议</AlaLink>、<AlaLink class="form-link"
+                                        to="/">隐私声明</AlaLink>
+                                </p>
+                            </div>
 
-                        <button type="submit" class="submit-btn">继续</button>
-                    </form>
+                            <button type="submit" class="submit-btn">登录</button>
+                        </form>
+                    </div>
 
                 </div>
                 <div class="links">
@@ -83,9 +98,9 @@
     </div>
 
     <div class="bottom">
-        <p class="remark-cn">{{ remark_cn }}</p>
-        <p class="remark-en">{{ remark_en }}</p>
-        <p class="copyright">{{ remark_copyright }}</p>
+        <p class="remark-cn">{{ systemInfo.remark_cn }}</p>
+        <p class="remark-en">{{ systemInfo.remark_en }}</p>
+        <p class="copyright">{{ systemInfo.copyright }}</p>
     </div>
 </template>
 
@@ -99,10 +114,22 @@ import dianhua_400 from '/dianhua-400.png'
 import dianhua_guoji from '/dianhua-guoji.png'
 import weixin from '/weixin.png'
 import gongzhonghao from '/weixin.png'
-import Typewriter from '@/components/cps/typewriter/TypewriterOneLine.vue';
+import Typewriter from '@/components/cps/typewriter/AlaTypewriterOneLine.vue';
 
 
-// State
+// State  
+const year = date.getCurrentYear()
+
+const systemInfo = reactive({
+    companyNameCN: "科爱思(深圳)科技有限公司",
+    companyNameEN: "( Scenario AI Technologies (Shenzhen) Co., Ltd. )",
+    systemName: "ALA智慧云原生平台——无代码子平台",
+    systemPhone: "400-800-9202",
+    remark_cn: "科爱思(深圳)科技有限公司致力于构建透明、公开的商业合作环境，以尊重并保护合作伙伴和自身共同利益。为此，公司也希望与合作伙伴共同遵守所有适用的法律法规，包括联合国安理会、中国、美国、欧盟等，以上感谢。",
+    remark_en: "SAIT is committed to building an open, transparent business community. We value and aim to protect mutual interests of both cooperative partners and SAIT .To this end, SAIT works together with cooperative partners to comply with all applicable laws and regulations of the United Nations Security Council, China, United States, and the European Union, Thanks.",
+    copyright: `@Copyright 2022~${year} 科爱思(深圳)科技有限公司`,
+
+})
 
 const websites = [
     {
@@ -123,12 +150,8 @@ const websites = [
 ]
 const textArray = ['这是第一段话。', '这是第二段话。'];
 
-const remark_cn = ref("科爱思(深圳)科技有限公司致力于构建透明、公开的商业合作环境，以尊重并保护合作伙伴和自身共同利益。为此，公司也希望与合作伙伴共同遵守所有适用的法律法规，包括联合国安理会、中国、美国、欧盟等，以上感谢。")
-const remark_en = ref("SAIT is committed to building an open, transparent business community. We value and aim to protect mutual interests of both cooperative partners and SAIT .To this end, SAIT works together with cooperative partners to comply with all applicable laws and regulations of the United Nations Security Council, China, United States, and the European Union, Thanks.")
 
 
-const year = date.getCurrentYear()
-const remark_copyright = ref(`@Copyright 2022~${year} 科爱思(深圳)科技有限公司`)
 // Methods
 
 </script>
@@ -181,6 +204,25 @@ const remark_copyright = ref(`@Copyright 2022~${year} 科爱思(深圳)科技有
         }
     }
 
+    .company_info {
+        .name-cn {}
+
+        .name-en {}
+
+        position: absolute;
+        top: 10px;
+        margin: 0 auto;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 1.8rem;
+        transition: transform 0.5s ease;
+
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
+
     .phone-number {
         position: absolute;
         top: 10px;
@@ -190,6 +232,13 @@ const remark_copyright = ref(`@Copyright 2022~${year} 科爱思(深圳)科技有
         display: flex;
         font-weight: bold;
         align-items: center;
+
+        .current-date-time {
+            font-size: 1.2rem;
+            min-width: 290px;
+            text-align: left;
+        }
+
 
         .phone-icon {
             font-size: 1.8rem;
@@ -213,10 +262,30 @@ const remark_copyright = ref(`@Copyright 2022~${year} 科爱思(深圳)科技有
 
     }
 
+    .title {
+        h1 {}
+    }
+
     .container {
 
         display: flex;
         width: 100%;
+        flex-wrap: wrap;
+
+        .title {
+            width: 100%;
+            margin-bottom: 5rem;
+
+            h1 {
+                display: inline-block;
+
+                transition: transform 0.5s ease;
+
+                &:hover {
+                    transform: scale(1.02);
+                }
+            }
+        }
 
         .section-left {
             flex: 1;
@@ -240,80 +309,164 @@ const remark_copyright = ref(`@Copyright 2022~${year} 科爱思(深圳)科技有
 
             width: 30%;
 
+
+
+
+
             .login-form {
-                max-width: 400px;
-                background: #ffffff;
-                padding: 2rem;
-                border-radius: 10px;
-                color: #333333;
+
                 margin: 0 auto;
 
-                h3 {}
+                .form {
+                    border-radius: 10px;
+                    color: #333333;
+                    max-width: 300px;
+                    background: #ffffff;
+                    margin: 0 auto;
+                    padding: 2rem;
+                    position: relative;
 
-                p {}
+                    .form-background-1 {
+                        background: rgba(255, 255, 255, 0.4);
+                        margin: 0 auto;
+                        position: absolute;
+                        width: 116%;
+                        left: -8%;
+                        border-radius: 10px;
+                        height: 86%;
+                        top: 7%;
+                    }
 
-                form {
-                    .form-group {
-                        margin-bottom: 1rem;
+                    .form-background-2 {
+                        background: rgba(255, 255, 255, 0.2);
+                        margin: 0 auto;
+                        position: absolute;
+                        width: 132%;
+                        left: -16%;
+                        border-radius: 10px;
+                        height: 72%;
+                        top: 14%;
+                    }
 
-                        label {
-                            display: block;
-                            font-size: 0.9rem;
-                            margin-bottom: 0.5rem;
+                    h3 {
+                        position: relative;
+                        z-index: 999;
+                    }
+
+                    form {
+                        position: relative;
+                        z-index: 999;
+
+                        .form-group {
+                            margin-top: 1rem;
+
+                            label {
+                                display: block;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.4rem;
+                                text-align: left;
+                            }
+
+                            #name {}
+
+                            input {
+                                width: 100%;
+                                padding: 0.5rem;
+                                border: 1px solid #ccc;
+                                border-radius: 5px;
+                                font-size: 1rem;
+                            }
+
+                            input:focus {
+                                border-color: #00a8ff;
+                                outline: none;
+                            }
                         }
 
-                        #name {}
 
-                        input {
+
+                        .form-group {
+                            label {}
+
+                            #email {}
+
+                            .agreement-label {
+                                display: inline-block;
+
+                                :deep .el-checkbox__inner {
+                                    width: 1.1rem;
+                                    height: 1.1rem;
+                                }
+
+                                :deep .el-checkbox__inner:after {
+                                    width: 0.41rem;
+                                    height: 0.56rem;
+                                }
+                            }
+
+
+                            p {
+
+                                .link {
+                                    display: inline-block;
+                                    float: left;
+                                    text-decoration: none;
+                                }
+                            }
+
+
+                        }
+
+                        .form-group {
+                            .agreement-label {}
+
+                            p {
+                                font-size: 0.9rem;
+                                text-align: left;
+
+                                .form-link {
+                                    display: inline-block;
+                                }
+                            }
+
+
+                        }
+
+                        .agreement-group {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .submit-btn {
                             width: 100%;
-                            padding: 0.5rem;
-                            border: 1px solid #ccc;
+                            padding: 0.6rem;
+                            background-color: #399ffa;
+                            color: #ffffff;
+                            border: none;
                             border-radius: 5px;
                             font-size: 1rem;
-                        }
+                            cursor: pointer;
+                            transition: background-color 0.3s ease;
+                            margin-top: 1.4rem;
+                            transition: transform 0.5s ease;
 
-                        input:focus {
-                            border-color: #00a8ff;
-                            outline: none;
-                        }
-                    }
+                            &:hover {
+                                background-color: #5895f5;
+                                transform: scale(1.02);
+                            }
 
-                    .form-group {
-                        label {}
-
-                        #email {}
-                    }
-
-                    .form-group {
-                        label {}
-
-                        #company {}
-                    }
-
-                    .submit-btn {
-                        width: 100%;
-                        padding: 0.8rem;
-                        background-color: #00a8ff;
-                        color: #ffffff;
-                        border: none;
-                        border-radius: 5px;
-                        font-size: 1rem;
-                        cursor: pointer;
-                        transition: background-color 0.3s ease;
-
-                        :hover {
-                            background-color: #0097e6;
                         }
                     }
                 }
+
 
             }
 
             .links {
                 display: flex;
                 justify-content: center;
-                margin-top: 10px;
-                gap: 10px;
+                margin-top: 16px;
+                gap: 14px;
 
                 .link {
                     justify-items: center;
