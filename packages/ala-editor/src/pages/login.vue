@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 13:59:07
+ * @LastEditTime: 2024-11-07 17:52:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -50,25 +50,40 @@
                         <div class="form-background-1">&nbsp;</div>
                         <div class="form-background-2">&nbsp;</div>
                         <h3>欢迎回来</h3>
+
+                        <!-- <el-form ref="formRef" :model="form" :rules="rules" label-position="top" class="ala-el-form">
+                            <el-form-item label="用户名" prop="username">
+                                <el-input placeholder="请输入您的用户名" v-model="form.username" />
+                            </el-form-item>
+                            <el-form-item label="密码" prop="password">
+                                <el-input placeholder="请输入您的密码" type="password" v-model="form.password" />
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="submitForm()">提交</el-button>
+                            </el-form-item>
+                        </el-form> -->
+
                         <form action="#" method="post">
                             <div class="form-group">
-                                <label for="name">用户名 *</label>
-                                <input type="text" id="name" placeholder="请输入您的用户名" required>
+                                <label for="scabbard">用户名 <em>*</em></label>
+                                <input type="text" id="scabbard" placeholder="请输入您的用户名" v-model="loginForm.scabbard">
                             </div>
 
                             <div class="form-group">
-                                <label for="email">密码 *</label>
-                                <input type="email" id="email" placeholder="请输入您的密码" required>
+                                <label for="sword">密码 <em>*</em></label>
+                                <input type="password" id="sword" placeholder="请输入您的密码" v-model="loginForm.sword">
                             </div>
 
                             <div class="form-group agreement-group">
-                                <el-checkbox :label="''" class="agreement-label" />
+                                <el-checkbox :label="''" class="agreement-label" v-model="loginForm.agree"
+                                    @change="!loginForm.agree" />
                                 <p>我已阅读并同意<AlaLink class="form-link" to="/">服务协议</AlaLink>、<AlaLink class="form-link"
                                         to="/">隐私声明</AlaLink>
                                 </p>
                             </div>
 
-                            <button type="submit" class="submit-btn">登录</button>
+                            <button type="button" :class="submitButtonClass" class="submit-btn"
+                                @click="login()" :disabled="!loginForm.agree">登录</button>
                         </form>
                     </div>
 
@@ -118,6 +133,65 @@ import Typewriter from '@/components/cps/typewriter/AlaTypewriterOneLine.vue';
 
 
 // State  
+
+// const form = ref({
+//     username: '',
+//     password: '',
+// })
+// const formRef = ref(null);
+
+// const validateUsername = (rule, value, callback) => {
+//     console.log('validateUsername:', validateUsername);
+
+//     if (value === '') {
+//         callback(new Error('请输入用户名'));
+//     } else {
+//         callback();
+//     }
+// };
+// const rules = ref({
+//     username: [
+//         { required: true, message: '请输入用户名', trigger: 'blur' }
+//     ],
+//     password: [
+//         { required: true, message: '请输入密码', trigger: 'blur' },
+//         { min: 6, message: '密码长度不能小于6位', trigger: 'blur' }
+//     ],
+// })
+
+// const submitForm = async () => {
+//     const valid = await formRef.value.validate();
+
+//     console.log(formRef.value)
+//     console.log(valid)
+//     console.log(form)
+//     if (valid) {
+//         alert('提交成功!');
+//     } else {
+//         console.log('error submit!!');
+//         return false;
+//     }
+
+// }
+
+const loginForm = ref({
+    scabbard: "",
+    sword: "",
+    agree: true,
+})
+
+const submitButtonClass = computed(() => {
+    return loginForm.value.agree ? "submit-btn-active" : "submit-btn-disabled"
+})
+
+const login = () => {
+    console.log(loginForm)
+
+    return
+}
+
+
+
 const year = date.getCurrentYear()
 
 const systemInfo = reactive({
@@ -353,6 +427,17 @@ const textArray = ['这是第一段话。', '这是第二段话。'];
                         z-index: 999;
                     }
 
+                    // .ala-el-form {
+                    //
+                    //     :deep .el-form-item__label {
+                    //         width: 100%;
+                    //         /* 确保标签左对齐 */
+                    //         text-align: left;
+                    //         /* 调整 label 和 content 之间的间距 */
+                    //         margin-bottom: 2px;
+                    //         margin-top: 8px;
+                    //     } }
+
                     form {
                         position: relative;
                         z-index: 999;
@@ -365,7 +450,13 @@ const textArray = ['这是第一段话。', '这是第二段话。'];
                                 font-size: 0.9rem;
                                 margin-bottom: 0.4rem;
                                 text-align: left;
+
+                                em {
+                                    color: red;
+                                }
                             }
+
+                            #scabbard {}
 
                             #name {}
 
@@ -386,7 +477,11 @@ const textArray = ['这是第一段话。', '这是第二段话。'];
 
 
                         .form-group {
-                            label {}
+                            label {
+                                em {}
+                            }
+
+                            #sword {}
 
                             #email {}
 
@@ -440,7 +535,6 @@ const textArray = ['这是第一段话。', '这是第二段话。'];
                         .submit-btn {
                             width: 100%;
                             padding: 0.6rem;
-                            background-color: #399ffa;
                             color: #ffffff;
                             border: none;
                             border-radius: 5px;
@@ -450,11 +544,21 @@ const textArray = ['这是第一段话。', '这是第二段话。'];
                             margin-top: 1.4rem;
                             transition: transform 0.5s ease;
 
+
+
+                        }
+
+                        .submit-btn-active {
+                            background-color: #399ffa;
+
                             &:hover {
                                 background-color: #5895f5;
                                 transform: scale(1.02);
                             }
+                        }
 
+                        .submit-btn-disabled {
+                            background-color: #dadada;
                         }
                     }
                 }

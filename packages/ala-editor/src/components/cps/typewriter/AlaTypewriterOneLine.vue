@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 10:01:59
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 11:15:42
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/typewriter/TypewriterOneLine.vue
+ * @LastEditTime: 2024-11-07 15:36:44
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/typewriter/AlaTypewriterOneLine.vue
  * @Description: 单行、多条文本、循环输入组件
  * 使用方式：
  * 1）父组件 引入TypewriterOneLine组件；
@@ -54,25 +54,25 @@ let timer = null;
 
 const typeWord = (textLines: Array<string>) => {
 
-    logger.info(`正在【 输入 】第【 ${textIndex.value} 】段第【 ${charIndex.value} 】个字符`);
+    // logger.info(`正在【 输入 】第【 ${textIndex.value} 】段第【 ${charIndex.value} 】个字符`);
 
     if (charIndex.value < textLines[textIndex.value].length) {
         currentText.value += textLines[textIndex.value].charAt(charIndex.value);
         charIndex.value++;
         timer = setTimeout(typeWord, typeInterval, textArray); // 100毫秒间隔，可以根据需要调整
     } else {
-        logger.info(`即将【 清除 】第【 ${textIndex.value} 】段文字`);
+        // logger.info(`即将【 清除 】第【 ${textIndex.value} 】段文字`);
         clearText();
     }
 };
 
 const clearText = () => {
-    logger.info(`正在【 清除 】第【 ${textIndex.value} 】段第【 ${currentText.value.length} 】个字符`);
+    // logger.info(`正在【 清除 】第【 ${textIndex.value} 】段第【 ${currentText.value.length} 】个字符`);
     if (currentText.value.length > 0) {
         currentText.value = currentText.value.slice(0, -1);
         timer = setTimeout(clearText, clearInterval); // 100毫秒间隔，可以根据需要调整
     } else {
-        logger.info(`已输入第【 ${textIndex.value} 】段文字，即将【 输入 】第【 ${textIndex.value + 1} 】段文字`);
+        // logger.info(`已输入第【 ${textIndex.value} 】段文字，即将【 输入 】第【 ${textIndex.value + 1} 】段文字`);
         textIndex.value = (textIndex.value + 1) % textArray.length;
         charIndex.value = 0;
         typeWord(textArray);
