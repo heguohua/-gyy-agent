@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 18:02:15
- * @FilePath: /low-coding/packages/ala-editor/vite.config.js
+ * @LastEditTime: 2024-11-07 22:06:39
+ * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved.
@@ -18,6 +18,7 @@ import { viteMockServe } from 'vite-plugin-mock';
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { logger } from './src/utils/logger.ts'
 import { loadEnv } from 'vite';
+import { createHtmlPlugin } from 'vite-plugin-html';
 
 const ph = path.resolve(__dirname, './src');
 logger.info(`src path is ${ph}`);
@@ -26,6 +27,7 @@ logger.info(`src path is ${ph}`);
 const dc = defineConfig(({ command, mode }) => {
   logger.info(`command is ${command}`);
   logger.info(`env is .env.${mode}`);
+  console.log('loadEnv(mode, process.cwd()):',loadEnv(mode, process.cwd()));
 
   return {
     plugins: [
@@ -46,7 +48,13 @@ const dc = defineConfig(({ command, mode }) => {
         enable: command === 'serve',
       }),
       vueDevTools(),
-
+      createHtmlPlugin({
+        inject: {
+          data: {
+            title: loadEnv(mode, process.cwd()).VITE_APP_TITLE,
+          },
+        },
+      }),
     ],
     resolve: {
       alias: {
@@ -68,9 +76,10 @@ const dc = defineConfig(({ command, mode }) => {
         }
       }
     },
-    base:loadEnv(mode, process.cwd()).VITE_APP_NAME
+    base: ''
   };
 });
+
 
 // https://vitejs.dev/config/
 export default dc;

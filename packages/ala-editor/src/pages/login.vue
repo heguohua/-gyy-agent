@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 21:36:28
+ * @LastEditTime: 2024-11-07 22:12:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -195,6 +195,8 @@ const login = () => {
     u.checkNull(lf.sword,"请输入您的【 密码 】")
     u.checkFalse(lf.agree,"请阅读协议并【 勾选 】同意")
 
+    console.log('loginForm:',loginForm.value);
+    
 
     // msg.html("<div style='color:red;height:200px;'>这是一段红色字体的消息</div>")
     // msg.success("成功消息")
