@@ -49,6 +49,8 @@ declare module 'vue' {
     Link: typeof import('./src/components/cps/link/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Typewriter: typeof import('./src/components/cps/typewriter/TypewriterOneLine.vue')['default']
+    TypewriterOneLine: typeof import('./src/components/cps/typewriter/TypewriterOneLine.vue')['default']
     VIcon: typeof import('./src/components/base/v-icon.vue')['default']
     VIconTooltip: typeof import('./src/components/base/v-icon-tooltip.vue')['default']
     VSelect: typeof import('./src/components/base/v-select.vue')['default']

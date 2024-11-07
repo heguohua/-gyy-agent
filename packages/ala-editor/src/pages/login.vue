@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-06 22:47:33
+ * @LastEditTime: 2024-11-07 10:06:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -11,12 +11,23 @@
 <template>
     <div class="body">
 
-        <div class="phone-number"><v-icon icon="phone" class="phone" /> 400-800-9202</div>
+        <div class="websites">
+            <div class="website" v-for="(item, index) in websites" :key="index">
+                <div class="website-icon"><v-icon :icon="item.icon" class="icon" />
+                    {{ item.name }}
+                </div>
+                <div class="url">{{ item.url }}</div>
+            </div>
+        </div>
+        <div class="phone-number">
+            <v-icon icon="phone" class="phone-icon" />
+            <p>400-800-9202</p>
+        </div>  
 
         <div class="container">
             <!-- Left Side Text Section -->
             <div class="section-left">
-                <h2>我们用大眼睛看世界</h2>
+                <h2><Typewriter :textArray="textArray"/></h2>
                 <p>有两种类型的人会告诉你，在这个世界上你不能有所作为：那些害怕尝试的人和那些害怕你会成功的人。</p>
             </div>
 
@@ -74,12 +85,33 @@
 // import { ref } from 'vue'
 // import img_dianhua_400 "@/"
 
+import icon from '@/config/icons';
 import dianhua_400 from '/dianhua-400.png'
 import dianhua_guoji from '/dianhua-guoji.png'
 import weixin from '/weixin.png'
 import gongzhonghao from '/weixin.png'
+import Typewriter from '@/components/cps/typewriter/TypewriterOneLine.vue';
 
 // State
+
+const websites = [
+    {
+        name: "中文站",
+        url: "saitllm.com",
+        icon: "country_cn"
+    },
+    {
+        name: "英语站",
+        url: "en.saitllm.com",
+        icon: "country_en"
+    },
+    {
+        name: "俄语站",
+        url: "ru.saitllm.com",
+        icon: "country_ru"
+    }
+]
+const textArray = ['这是第一段话。', '这是第二段话。'];
 
 
 // Methods
@@ -96,6 +128,41 @@ import gongzhonghao from '/weixin.png'
     height: 100vh;
     color: #ffffff;
 
+    .websites {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+
+        .website {
+            .website-icon {
+                display: inline-flex;
+                align-items: center;
+                gap: 2px;
+
+                .icon {
+                    font-size: 1.2rem;
+                }
+
+
+            }
+
+            .url {
+                font-size: 0.9rem;
+                transition: transform 0.5s ease;
+
+                &:hover {
+                    // color: red; 
+                    cursor: pointer;
+                    transform: scale(1.3);
+                }
+            }
+
+        }
+    }
+
     .phone-number {
         position: absolute;
         top: 10px;
@@ -106,15 +173,30 @@ import gongzhonghao from '/weixin.png'
         font-weight: bold;
         align-items: center;
 
-        .phone {
+        .phone-icon {
             font-size: 1.8rem;
             margin-right: 0.5rem;
+            transition: transform 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.3);
+            }
+        }
+
+        p {
+            transition: transform 0.5s ease;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
         }
 
     }
 
     .container {
-        
+
         display: flex;
         width: 100%;
 
@@ -222,6 +304,7 @@ import gongzhonghao from '/weixin.png'
                         max-width: 100px;
                         border-radius: 3px;
                         transition: transform 0.5s ease;
+
                         // cursor: pointer;
                         &:hover {
                             transform: scale(1.1);
@@ -232,6 +315,24 @@ import gongzhonghao from '/weixin.png'
                     .title {
                         font-size: 0.8rem;
                     }
+                }
+
+                .link {
+                    img {}
+
+                    .title {}
+                }
+
+                .link {
+                    img {}
+
+                    .title {}
+                }
+
+                .link {
+                    img {}
+
+                    .title {}
                 }
 
             }
