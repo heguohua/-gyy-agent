@@ -13,8 +13,8 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 // 定义路由
 const routes = [
-    { path: '/',name:"list", component: () => import('../pages/login.vue') },
-    { path: '/editor',name:"editor", component: () => import('../pages/editor.vue') },
+    { path: '/',name:"list", component: () => import('../pages/login-2.vue') },
+    { path: '/editor',name:"editor", component: () => import('../pages/login.vue') },
 ];
 
 // 创建router实例
