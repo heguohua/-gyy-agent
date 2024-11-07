@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 10:06:21
+ * @LastEditTime: 2024-11-07 11:31:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -22,12 +22,14 @@
         <div class="phone-number">
             <v-icon icon="phone" class="phone-icon" />
             <p>400-800-9202</p>
-        </div>  
+        </div>
 
         <div class="container">
             <!-- Left Side Text Section -->
             <div class="section-left">
-                <h2><Typewriter :textArray="textArray"/></h2>
+                <h2>
+                    <Typewriter :textArray="textArray" />
+                </h2>
                 <p>有两种类型的人会告诉你，在这个世界上你不能有所作为：那些害怕尝试的人和那些害怕你会成功的人。</p>
             </div>
 
@@ -77,13 +79,20 @@
                 </div>
             </div>
         </div>
+
     </div>
 
+    <div class="bottom">
+        <p class="remark-cn">{{ remark_cn }}</p>
+        <p class="remark-en">{{ remark_en }}</p>
+        <p class="copyright">{{ remark_copyright }}</p>
+    </div>
 </template>
 
 <script setup>
 // import { ref } from 'vue'
 // import img_dianhua_400 "@/"
+import { date } from "@/utils/date"
 
 import icon from '@/config/icons';
 import dianhua_400 from '/dianhua-400.png'
@@ -91,6 +100,7 @@ import dianhua_guoji from '/dianhua-guoji.png'
 import weixin from '/weixin.png'
 import gongzhonghao from '/weixin.png'
 import Typewriter from '@/components/cps/typewriter/TypewriterOneLine.vue';
+
 
 // State
 
@@ -113,7 +123,12 @@ const websites = [
 ]
 const textArray = ['这是第一段话。', '这是第二段话。'];
 
+const remark_cn = ref("科爱思(深圳)科技有限公司致力于构建透明、公开的商业合作环境，以尊重并保护合作伙伴和自身共同利益。为此，公司也希望与合作伙伴共同遵守所有适用的法律法规，包括联合国安理会、中国、美国、欧盟等，以上感谢。")
+const remark_en = ref("SAIT is committed to building an open, transparent business community. We value and aim to protect mutual interests of both cooperative partners and SAIT .To this end, SAIT works together with cooperative partners to comply with all applicable laws and regulations of the United Nations Security Council, China, United States, and the European Union, Thanks.")
 
+
+const year = date.getCurrentYear()
+const remark_copyright = ref(`@Copyright 2022~${year} 科爱思(深圳)科技有限公司`)
 // Methods
 
 </script>
@@ -337,6 +352,28 @@ const textArray = ['这是第一段话。', '这是第二段话。'];
 
             }
         }
+    }
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding-bottom: 0.2rem;
+
+    .remark-cn {
+        color: rgb(255, 255, 255, 0.8);
+        font-size: 0.7rem
+    }
+
+    .remark-en {
+        color: rgb(255, 255, 255, 0.7);
+        font-size: 0.7rem
+    }
+
+    .copyright {
+        color: rgb(255, 255, 255, 0.7);
+        font-size: 0.6rem
     }
 }
 

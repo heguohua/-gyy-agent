@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:14:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 11:19:27
- * @FilePath: /low-coding/packages/ala-editor/src/utils/date.ts
+ * @LastEditTime: 2024-11-07 11:33:24
+ * @FilePath: /1-low-coding/packages/ala-editor/src/utils/date.ts
  * @Description: 时间工具类
  *
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved.
@@ -38,6 +38,14 @@ export class date {
    */
   public static getCurrentDate() {
     return dayjs(new Date()).format('YYYY-MM-DD');
+  }
+
+  /**
+   * 获取当前日期年份,时间格式为YYYY
+   * @returns {string}
+   */
+  public static getCurrentYear() {
+    return new Date().getFullYear();
   }
 
   /**
