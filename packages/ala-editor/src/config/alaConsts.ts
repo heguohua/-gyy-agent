@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 16:28:41
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 15:13:00
- * @FilePath: /low-coding/packages/ala-editor/src/config/alaConsts.ts
+ * @LastEditTime: 2024-11-08 19:54:36
+ * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaConsts.ts
  * @Description: 全局唯一的 常量类
  *
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved.
@@ -19,5 +19,10 @@ export class alaConsts {
   public static readonly COMPONENT_PREFIX = 'ala-';
 
   // 私有构造函数，防止实例化
-  private constructor() {}
+  private constructor() { }
+
+  // 临时存储用户未登录时访问的URL，待用户登录后自动跳转该URL
+  public static readonly redirect_router_name_key = alaConsts.PREFIX + 'redirect_router_name';
+
+
 }

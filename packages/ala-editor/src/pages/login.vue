@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 18:37:27
+ * @LastEditTime: 2024-11-08 20:00:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -194,11 +194,12 @@ import { get, alaPost } from '@/utils/req';
 import lstore from "@/utils/lstore";
 import router from "@/router";
 import { useAlaStore } from "@/store/ala-store";
+import { alaConsts } from "@/config/alaConsts";
 
 const alaStore = useAlaStore()
 
 const submit = async () => {
-    
+
     const lf = loginForm.value
     u.checkNull(lf.scabbard, "请输入您的【 用户名 】")
     u.checkNull(lf.sword, "请输入您的【 密码 】")
@@ -222,8 +223,15 @@ const submit = async () => {
             meta: { requiresAuth: true }
         });
 
-        // 跳转路由
-        router.push('layout')
+        const oldRouter = alaStore.get(alaConsts.redirect_router_name_key)
+        if (oldRouter) {
+            // 检测用户是否是在登录前打开了某个页面，如果是，则自动打开这个页面
+            router.push(oldRouter)
+        } else {
+            // 跳转主工作台路由
+            router.push('layout')
+        }
+
 
     })
 
@@ -242,6 +250,9 @@ const submit = async () => {
 
 
 
+onMounted(() => {
+
+})
 const year = date.getCurrentYear()
 
 const systemInfo = reactive({
