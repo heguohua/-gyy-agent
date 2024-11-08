@@ -19,6 +19,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import { logger } from './src/utils/logger.ts'
 import { loadEnv } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
+import topLevelAwait from 'vite-plugin-top-level-await';
+
 
 const ph = path.resolve(__dirname, './src');
 logger.info(`src path is ${ph}`);
@@ -27,7 +29,7 @@ logger.info(`src path is ${ph}`);
 const dc = defineConfig(({ command, mode }) => {
   logger.info(`command is ${command}`);
   logger.info(`env is .env.${mode}`);
-  console.log('loadEnv(mode, process.cwd()):',loadEnv(mode, process.cwd()));
+  console.log('loadEnv(mode, process.cwd()):', loadEnv(mode, process.cwd()));
 
   return {
     plugins: [
@@ -55,6 +57,7 @@ const dc = defineConfig(({ command, mode }) => {
           },
         },
       }),
+      topLevelAwait(),
     ],
     resolve: {
       alias: {
@@ -76,7 +79,23 @@ const dc = defineConfig(({ command, mode }) => {
         }
       }
     },
-    base: ''
+    base: '',
+    build: {
+      rollupOptions: {
+        input: 'index.html', // 确保输入文件是 index.html
+        // 使用 html 插件来自定义 index.html
+        html: {
+          // 在 head 结束标签前注入 meta 标签
+          inject: {
+            head: `
+              <meta name="author" content="Your Company Name">
+              <meta name="contact" content="contact@example.com">
+              <meta name="phone" content="123-456-7890">
+            `
+          }
+        }
+      }
+    }
   };
 });
 

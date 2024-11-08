@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --mode dev",
     "prd": "vite --mode prd",
-    "build": "vite build",
+    "build": "rimraf dist && vite build --mode prd",
     "preview": "vite preview",
     "lint": "eslint ."
   },
@@ -48,6 +48,7 @@
     "vite": "^5.4.8",
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-mock": "^3.0.2",
+    "vite-plugin-top-level-await": "^1.4.4",
     "vite-plugin-vue-devtools": "^7.5.2",
     "vue-router": "^4.4.5"
   }

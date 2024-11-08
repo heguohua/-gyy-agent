@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 21:09:32
+ * @LastEditTime: 2024-11-08 13:51:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -64,12 +64,13 @@ app.mount('#app');
 // 打印启动日志
 import { logger } from './utils/logger';
 import { queryLoveMessage } from './utils/tuwei';
+    // Happy your life for one word：${await queryLoveMessage()}
 
 logger.success(
   `
 
     App started successfully。
-
+    
     Happy your life for one word：${await queryLoveMessage()}
 
 `,
