@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 20:00:14
+ * @LastEditTime: 2024-11-08 20:36:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <label for="sword">密码 <em>*</em></label>
                                 <input type="password" id="sword" placeholder="请输入您的密码" v-model="loginForm.sword"
-                                    autocomplete="false">
+                                    autocomplete="false" @keydown.enter="submit()">
                             </div>
 
                             <div class="form-group agreement-group">

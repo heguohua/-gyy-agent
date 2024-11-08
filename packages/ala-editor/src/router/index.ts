@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:54:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 20:07:44
+ * @LastEditTime: 2024-11-08 20:34:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/router/index.ts
  * @Description: 
  * 
@@ -86,14 +86,14 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         // 用户访问的路由页面不存在
-        if (!alaStore.get("isLogined")) {
+        // if (!alaStore.get("isLogined")) {
             // 用户未登录状态下，访问了一个不存在的路由，则将这个路由存储到store中，待用户登录后自动跳转
-            alaStore.set(alaConsts.redirect_router_name_key, to.name)
-            next({ name: 'login' }); // 重定向到 login 路由
-        } else {
-            // 跳转 404 页面
-            next("404")
-        }
+        //     alaStore.set(alaConsts.redirect_router_name_key, to.name)
+        //     next({ name: 'login' }); // 重定向到 login 路由
+        // } else {
+        // 跳转 404 页面
+        next("404")
+        // }
 
     }
 
