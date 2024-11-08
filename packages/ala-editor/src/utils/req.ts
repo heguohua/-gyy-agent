@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 09:16:15
- * @FilePath: /low-coding/packages/ala-editor/src/utils/req.ts
+ * @LastEditTime: 2024-11-08 17:37:50
+ * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -11,10 +11,11 @@
 // utils/request.ts
 
 import axios from 'axios';
+import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 
 //创建一个axios实例
 const axiosInstance = axios.create({
-  baseURL: '',
   timeout: 20000,
 });
 
@@ -47,12 +48,15 @@ axiosInstance.interceptors.response.use(
     //console.log('接收到响应数据------');
     //console.log('响应数据', response);
     if (response.status === 200) {
-      return Promise.resolve(response.data);
+      return Promise.resolve(response);
     } else {
       return Promise.reject(response);
     }
   },
   function (error) {
+    logger.error("失败，失败，失败！！！！！！");
+    console.log('error:', error);
+
     const response = error.response;
     // 对响应错误做点什么
     if (error && response) {
@@ -62,6 +66,7 @@ axiosInstance.interceptors.response.use(
           break;
         case 401:
           error.message = '未授权，请重新登录';
+          notify.error("温馨提示：", "请先登录系统。")
           break;
         case 403:
           error.message = '拒绝访问';
@@ -133,6 +138,7 @@ export function get(url: string, params = {}) {
  * */
 export function post(url: string, params = {}) {
   return new Promise((resolve, reject) => {
+
     axiosInstance({
       url: url,
       method: 'post',
@@ -140,6 +146,34 @@ export function post(url: string, params = {}) {
     })
       .then((response) => {
         resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+/*
+ *  post请求:向服务器端提交数据
+ *  url:请求地址
+ *  params:参数
+ * */
+export function alaPost(url: string, params = {}) {
+  return new Promise((resolve, reject) => {
+
+    axiosInstance({
+      url: url,
+      method: 'post',
+      data: params,
+    })
+      .then((response) => {
+        const data = response.data
+        if (data.code != 200) {
+          logger.error("服务器返回错误信息", data);
+          notify.error("温馨提示：", data.msg)
+        } else {
+          resolve(response.data);
+        }
       })
       .catch((error) => {
         reject(error);

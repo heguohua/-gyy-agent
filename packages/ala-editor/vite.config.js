@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 14:22:09
+ * @LastEditTime: 2024-11-08 18:56:37
  * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -79,6 +79,11 @@ const dc = defineConfig(({ command, mode }) => {
           target: 'https://api.uomg.com/api/rand.qinghua?format=json', // 目标服务器地址
           changeOrigin: true, // 允许跨域
         },
+        '/dev': {
+          target: 'http://10.211.55.2:2009', // 目标服务器地址
+          changeOrigin: true, // 允许跨域
+          rewrite: (path) => path.replace(/^\/dev/, '')
+        },
       },
     },
     css: {
@@ -88,7 +93,7 @@ const dc = defineConfig(({ command, mode }) => {
         }
       }
     },
-    base: "/" + env.VITE_APP_NAME,
+    base: "",
 
   };
 });

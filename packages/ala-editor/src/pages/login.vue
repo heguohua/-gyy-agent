@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 22:33:21
+ * @LastEditTime: 2024-11-08 18:37:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -42,7 +42,7 @@
                 </h2>
                 <p>
                     <AlaTypewriterOneLine :textArray="contentArray" :typeInterval="100" :clearInterval="20"
-                    :waitTime="60000" />
+                        :waitTime="60000" />
                 </p>
             </div>
 
@@ -69,12 +69,14 @@
                         <form action="#" method="post">
                             <div class="form-group">
                                 <label for="scabbard">用户名 <em>*</em></label>
-                                <input type="text" id="scabbard" placeholder="请输入您的用户名" v-model="loginForm.scabbard">
+                                <input type="text" id="scabbard" placeholder="请输入您的用户名" v-model="loginForm.scabbard"
+                                    autocomplete="false">
                             </div>
 
                             <div class="form-group">
                                 <label for="sword">密码 <em>*</em></label>
-                                <input type="password" id="sword" placeholder="请输入您的密码" v-model="loginForm.sword">
+                                <input type="password" id="sword" placeholder="请输入您的密码" v-model="loginForm.sword"
+                                    autocomplete="false">
                             </div>
 
                             <div class="form-group agreement-group">
@@ -85,7 +87,7 @@
                                 </p>
                             </div>
 
-                            <button type="button" :class="submitButtonClass" class="submit-btn" @click="login()"
+                            <button type="button" :class="submitButtonClass" class="submit-btn" @click="submit()"
                                 :disabled="!loginForm.agree">登录</button>
                         </form>
                     </div>
@@ -122,7 +124,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // import { ref } from 'vue'
 // import img_dianhua_400 "@/"
 import { date } from "@/utils/date"
@@ -188,15 +190,42 @@ const submitButtonClass = computed(() => {
 })
 
 import u from "@/utils/u"
+import { get, alaPost } from '@/utils/req';
+import lstore from "@/utils/lstore";
+import router from "@/router";
+import { useAlaStore } from "@/store/ala-store";
 
-const login = () => {
-    const lf = loginForm.value
-    u.checkNull(lf.scabbard,"请输入您的【 用户名 】")
-    u.checkNull(lf.sword,"请输入您的【 密码 】")
-    u.checkFalse(lf.agree,"请阅读协议并【 勾选 】同意")
+const alaStore = useAlaStore()
 
-    console.log('loginForm:',loginForm.value);
+const submit = async () => {
     
+    const lf = loginForm.value
+    u.checkNull(lf.scabbard, "请输入您的【 用户名 】")
+    u.checkNull(lf.sword, "请输入您的【 密码 】")
+    u.checkFalse(lf.agree, "请阅读协议并【 勾选 】同意")
+
+    alaPost(u.url("/login"), lf).then((data: any) => {
+        // 登录成功
+
+        // 1、将 token 存储到 localStorage
+        lstore.setItem("token", data.data)
+
+        // 2、设置登录状态到 pina 中
+        alaStore.set("isLogined", true)
+
+        // 3、跳转 layout 页面
+        // 注册路由
+        router.addRoute({
+            path: '/layout',
+            name: 'layout',
+            component: () => import('../pages/layout.vue'),
+            meta: { requiresAuth: true }
+        });
+
+        // 跳转路由
+        router.push('layout')
+
+    })
 
     // msg.html("<div style='color:red;height:200px;'>这是一段红色字体的消息</div>")
     // msg.success("成功消息")

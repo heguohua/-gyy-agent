@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 21:28:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 11:23:50
- * @FilePath: /low-coding/packages/ala-editor/src/api/user.ts
+ * @LastEditTime: 2024-11-08 14:55:00
+ * @FilePath: /1-low-coding/packages/ala-editor/src/api/user.ts
  * @Description: 用户登录模拟api接口
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -15,19 +15,4 @@ const api = {
   users: '/api/user/info',
 };
 
-//登录
-export const login = (params: any) => {
-  return post(api.login, params).then((res: any) => {
-    if (res.code === 200) {
-      localStorage.setItem('token', res.data.token);
-    }
-    return Promise.resolve(res);
-  });
-};
 
-//获取用户信息
-export const getUserInfo = () => {
-  const token = localStorage.getItem('token');
-  if (!token) return Promise.reject(new Error('用户未登录'));
-  return get(api.users);
-};

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:46:15
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 11:22:19
- * @FilePath: /low-coding/packages/ala-editor/src/config/globalProperties.ts
+ * @LastEditTime: 2024-11-08 18:08:45
+ * @FilePath: /1-low-coding/packages/ala-editor/src/config/globalProperties.ts
  * @Description: 全局唯一的 vue属性配置项 共享 工具类
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -19,6 +19,7 @@ interface GlobalPropertyType {
 const gps: GlobalPropertyType = new Object({
   app_name: 'ala-app',
   show_log: false,
+  isLogined: false,
 });
 
 export class GlobalProperties {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 21:10:26
+ * @LastEditTime: 2024-11-08 17:33:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -10,7 +10,14 @@
  */
 import notify from "@/utils/notify"
 import WarnException from "@/utils/WarnException"
+const profile = import.meta.env.VITE_PROFILE
 export default class u {
+    /**
+     * 自动拼接访问路径代理前缀
+     */
+    public static url(url: string) {
+        return profile + url
+    }
     /**
      * 检查任一对象是否不存在
      * @param obj 
