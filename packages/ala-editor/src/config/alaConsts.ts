@@ -21,8 +21,8 @@ export class alaConsts {
   // 私有构造函数，防止实例化
   private constructor() { }
 
-  // 临时存储用户未登录时访问的URL，待用户登录后自动跳转该URL
-  public static readonly redirect_router_name_key = alaConsts.PREFIX + 'redirect_router_name';
+  // localstorage中存储用户是否登录标识的key
+  public static readonly is_logined_key = alaConsts.PREFIX + 'is_logined';
 
 
 }

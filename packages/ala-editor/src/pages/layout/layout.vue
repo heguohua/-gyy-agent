@@ -2,19 +2,24 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 20:48:44
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout.vue
+ * @LastEditTime: 2024-11-08 23:08:12
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <SidebarMenu :menuList="menuList" />
+    <div class="layout">
+        <LayoutHeader />
+        <SidebarMenu :menuList="menuList" />
+    </div>
+
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import SidebarMenu from "@/components/menu/SidebarMenu.vue"
+import LayoutHeader from "@/pages/layout/layout-header.vue"
 
 // State
 const menuList = [
@@ -113,4 +118,11 @@ const menuList = [
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.layout {
+    --layout-header-height: 50px;
+    // background: #dceafb;
+    background: #f6f8f9;
+    height: inherit;
+}
+</style>

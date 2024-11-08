@@ -1,3 +1,13 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-11-08 20:07:21
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-11-08 22:47:26
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/e-404.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
     <div class="not-found-page">
         <h1>404 - 页面未找到</h1>
@@ -8,7 +18,7 @@
 
 <script setup>
 function goBack() {
-    window.history.back();
+    window.history.go(-2);
 }
 </script>
 

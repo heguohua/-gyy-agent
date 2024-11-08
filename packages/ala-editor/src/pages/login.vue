@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 20:36:04
+ * @LastEditTime: 2024-11-08 22:44:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -212,25 +212,26 @@ const submit = async () => {
         lstore.setItem("token", data.data)
 
         // 2、设置登录状态到 pina 中
-        alaStore.set("isLogined", true)
+        // alaStore.set("isLogined", true)
+        lstore.setItem(alaConsts.is_logined_key, true)
 
         // 3、跳转 layout 页面
         // 注册路由
-        router.addRoute({
-            path: '/layout',
-            name: 'layout',
-            component: () => import('../pages/layout.vue'),
-            meta: { requiresAuth: true }
-        });
+        // router.addRoute({
+        //     path: '/layout',
+        //     name: 'layout',
+        //     component: () => import('./layout/layout.vue'),
+        //     meta: { requiresAuth: true }
+        // });
 
-        const oldRouter = alaStore.get(alaConsts.redirect_router_name_key)
-        if (oldRouter) {
-            // 检测用户是否是在登录前打开了某个页面，如果是，则自动打开这个页面
-            router.push(oldRouter)
-        } else {
-            // 跳转主工作台路由
-            router.push('layout')
-        }
+        // const oldRouter = alaStore.get(alaConsts.redirect_router_name_key)
+        // if (oldRouter) {
+        //     // 检测用户是否是在登录前打开了某个页面，如果是，则自动打开这个页面
+        //     router.push(oldRouter)
+        // } else {
+        // 跳转主工作台路由
+        router.push('layout')
+        // }
 
 
     })

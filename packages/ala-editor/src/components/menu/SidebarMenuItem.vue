@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:03:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 21:21:31
+ * @LastEditTime: 2024-11-08 21:31:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenuItem.vue
  * @Description: 
  * 
@@ -37,11 +37,16 @@ defineOptions({
 
 
 // State
-
-const props = defineProps({
-    item: Object,
+interface Menu {
+    index: string,
+    icon: string,
+    title: string,
+    children: Array<Menu>,
+}
+const props = defineProps<{
+    item: Menu,
     isCollapse: Boolean
-});
+}>();
 
 
 
