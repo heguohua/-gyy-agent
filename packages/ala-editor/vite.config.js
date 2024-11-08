@@ -33,7 +33,7 @@ const dc = defineConfig(({ command, mode }) => {
   console.log('env content:', env);
 
   const year = new Date().getFullYear();
-
+  const formattedDate = new Date().toISOString().replace('T', ' ').slice(0, 19).replace('Z', '');
 
   return {
     plugins: [
@@ -62,6 +62,7 @@ const dc = defineConfig(({ command, mode }) => {
             copyright: `@Copyright 2022~${year} 科爱思(深圳)科技有限公司`,
             keywords: "科爱思、微服务、数据中台、物联网平台、AI智能平台、大数据、云原生、AI智能体",
             description: "致力于IT软件产品研发和应用侧客户服务，拥有从咨询、设计、开发、测试、运维到运营的端到端软件研发全生命周期服务能力，在金融、政务、制造、交通、教育、文旅等各行业积累了丰富的IT案例与研发经验。",
+            formattedDate: formattedDate,
           },
         },
       }),
