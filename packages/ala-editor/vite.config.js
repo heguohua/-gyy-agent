@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 22:06:39
+ * @LastEditTime: 2024-11-08 14:22:09
  * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -29,7 +29,11 @@ logger.info(`src path is ${ph}`);
 const dc = defineConfig(({ command, mode }) => {
   logger.info(`command is ${command}`);
   logger.info(`env is .env.${mode}`);
-  console.log('loadEnv(mode, process.cwd()):', loadEnv(mode, process.cwd()));
+  const env = loadEnv(mode, process.cwd());
+  console.log('env content:', env);
+
+  const year = new Date().getFullYear();
+
 
   return {
     plugins: [
@@ -54,6 +58,10 @@ const dc = defineConfig(({ command, mode }) => {
         inject: {
           data: {
             title: loadEnv(mode, process.cwd()).VITE_APP_TITLE,
+            author: "darcy.zhang , tech.darcy.zhang@outlook.com",
+            copyright: `@Copyright 2022~${year} 科爱思(深圳)科技有限公司`,
+            keywords: "科爱思、微服务、数据中台、物联网平台、AI智能平台、大数据、云原生、AI智能体",
+            description: "致力于IT软件产品研发和应用侧客户服务，拥有从咨询、设计、开发、测试、运维到运营的端到端软件研发全生命周期服务能力，在金融、政务、制造、交通、教育、文旅等各行业积累了丰富的IT案例与研发经验。",
           },
         },
       }),
@@ -79,23 +87,8 @@ const dc = defineConfig(({ command, mode }) => {
         }
       }
     },
-    base: '',
-    build: {
-      rollupOptions: {
-        input: 'index.html', // 确保输入文件是 index.html
-        // 使用 html 插件来自定义 index.html
-        html: {
-          // 在 head 结束标签前注入 meta 标签
-          inject: {
-            head: `
-              <meta name="author" content="Your Company Name">
-              <meta name="contact" content="contact@example.com">
-              <meta name="phone" content="123-456-7890">
-            `
-          }
-        }
-      }
-    }
+    base: "/" + env.VITE_APP_NAME,
+
   };
 });
 
