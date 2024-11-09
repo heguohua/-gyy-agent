@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 18:16:32
+ * @LastEditTime: 2024-11-09 18:47:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -25,7 +25,6 @@ app.use(router);
 // 集成 element-plus
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import './assets/styles/main.scss'
 import i18n from './utils/i18n/i18n';
 // 注册 i18n
@@ -34,9 +33,7 @@ app.use(i18n);
 app.use(ElementPlus, {
   i18n: (key, value) => i18n.global.t(key, value),
 });
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component)
-}
+
 
 // 注册 icon
 import { Icon } from '@iconify/vue';
