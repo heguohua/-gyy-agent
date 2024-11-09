@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-15 15:00:03
- * @FilePath: /low-coding/packages/ala-editor/src/components/base/v-icon.vue
+ * @LastEditTime: 2024-11-09 16:23:41
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <Icon :icon="iconSrc" />
+  <Icon :icon="iconSrc" :height="height" :width="width" />
 </template>
 
 <script lang="ts" setup>
@@ -21,6 +21,12 @@ const props = defineProps({
   icon: {
     type: String,
     default: '',
+  }, height: {
+    type: String,
+    default: '20px',
+  }, width: {
+    type: String,
+    default: '20px',
   },
 })
 

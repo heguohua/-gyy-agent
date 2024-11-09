@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 22:49:17
+ * @LastEditTime: 2024-11-09 13:23:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -114,7 +114,7 @@ let app_types = computed(() => {
   left: 0;
   width: 100%;
   z-index: 500;
-  height: var(--layout-header-height);
+  height: var(--el-menu-item-height);
   background: white;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);

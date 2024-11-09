@@ -2,16 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:03:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 21:31:52
+ * @LastEditTime: 2024-11-09 16:28:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenuItem.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <el-sub-menu :index="item.index">
+    <el-sub-menu :index="item.index" class="ala-sub-menu">
         <template #title>
-            <i :class="item.icon"></i>
+            <v-icon :icon="item.icon" class="ala-icon" :height="item.height" :width="item.width" />
             <span>{{ item.title }}</span>
         </template>
         <!-- 递归调用自身来渲染子菜单 -->
@@ -19,7 +19,7 @@
             <SidebarMenuItem v-if="child.children && child.children.length" :item="child" :is-collapse="isCollapse"
                 @toggle-collapse="$emit('toggle-collapse')" />
             <el-menu-item v-else :index="child.index">
-                <i :class="child.icon"></i>
+                <v-icon :icon="item.icon" class="ala-icon" :height="item.height" :width="item.width" />
                 <span>{{ child.title }}</span>
             </el-menu-item>
         </template>
@@ -41,6 +41,8 @@ interface Menu {
     index: string,
     icon: string,
     title: string,
+    width: string,
+    height: string,
     children: Array<Menu>,
 }
 const props = defineProps<{
@@ -55,4 +57,11 @@ const emits = defineEmits(['toggle-collapse']);
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ala-sub-menu {
+    .ala-icon {
+    }
+
+    span {}
+}
+</style>

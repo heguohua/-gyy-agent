@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 23:08:12
+ * @LastEditTime: 2024-11-09 16:28:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -26,17 +26,21 @@ const menuList = [
     {
         "index": "1",
         "title": "导航一",
-        "icon": "el-icon-message",
+        "icon": "phone",
+        "width": '22px',
+        "height": '15px',
         "children": [
             {
                 "index": "1-1",
                 "title": "选项1",
-                "icon": "el-icon-circle-plus"
+                "icon": "phone",
+                "width": '22px',
+                "height": '15px',
             },
             {
                 "index": "1-2",
                 "title": "选项2",
-                "icon": "el-icon-circle-plus",
+                "icon": "phone",
                 "children": [
                     {
                         "index": "1-2-1",
@@ -120,7 +124,26 @@ const menuList = [
 
 <style scoped lang="scss">
 .layout {
-    --layout-header-height: 50px;
+
+    // 左侧菜单宽度
+    --el-aside-width: 250px;
+    // --el-menu-text-color:rgb(67, 156, 249);
+    // 未激活菜单字体颜色
+    --el-menu-text-color: #303133;
+
+    // 菜单字体大小
+    --el-menu-item-font-size: 14px;
+    // 包含子集菜单的行高
+    --el-menu-item-height: 46px;
+    --el-menu-sub-item-height: 40px;
+    // 包含子集菜单的左右padding大小
+    --el-menu-base-level-padding: 20px;
+    // 子一级菜单缩进宽度
+    --el-menu-base-level-padding: 10px;
+    --el-menu-level-padding: 10px;
+    --el-menu-level: 0;
+
+
     // background: #dceafb;
     background: #f6f8f9;
     height: inherit;
