@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 17:37:50
+ * @LastEditTime: 2024-11-09 18:33:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -13,6 +13,7 @@
 import axios from 'axios';
 import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
+import { alaConsts } from '@/config/alaConsts';
 
 //创建一个axios实例
 const axiosInstance = axios.create({
@@ -27,7 +28,7 @@ axiosInstance.interceptors.request.use(
     config.url += `?ts=${_t}`;
 
     // 请求头携带token
-    config.headers['token'] = localStorage.getItem('token') || '';
+    config.headers[alaConsts.token_name] = localStorage.getItem(alaConsts.token_name) || '';
 
     // 在发送请求之前做些什么
     //console.log('我要准备请求啦------');
@@ -65,11 +66,12 @@ axiosInstance.interceptors.response.use(
           error.message = '错误请求';
           break;
         case 401:
-          error.message = '未授权，请重新登录';
+          error.message = '未登录，请重新登录';
           notify.error("温馨提示：", "请先登录系统。")
           break;
         case 403:
-          error.message = '拒绝访问';
+          error.message = '无权限，请联系管理员。';
+          notify.error("温馨提示：", "无权限，请联系管理员。")
           break;
         case 404:
           error.message = '请求错误,未找到该资源';

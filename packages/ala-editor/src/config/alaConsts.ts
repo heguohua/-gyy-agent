@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 16:28:41
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 19:54:36
+ * @LastEditTime: 2024-11-09 18:39:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaConsts.ts
  * @Description: 全局唯一的 常量类
  *
@@ -23,6 +23,9 @@ export class alaConsts {
 
   // localstorage中存储用户是否登录标识的key
   public static readonly is_logined_key = alaConsts.PREFIX + 'is_logined';
+
+  // localStorage中存储token的名字、传递给后端 http header中的名字
+  public static readonly token_name = 'alatk';
 
 
 }

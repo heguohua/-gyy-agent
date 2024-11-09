@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 22:44:25
+ * @LastEditTime: 2024-11-09 18:28:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -209,7 +209,7 @@ const submit = async () => {
         // 登录成功
 
         // 1、将 token 存储到 localStorage
-        lstore.setItem("token", data.data)
+        lstore.setItem(alaConsts.token_name, data.data)
 
         // 2、设置登录状态到 pina 中
         // alaStore.set("isLogined", true)

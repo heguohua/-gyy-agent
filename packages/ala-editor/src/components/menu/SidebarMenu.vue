@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-09 16:27:39
+ * @LastEditTime: 2024-11-09 18:16:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -14,15 +14,15 @@
         <el-aside class="ala-aside">
             <el-menu default-active="1" class="el-menu-vertical-ala" @open="handleOpen" @close="handleClose"
                 :collapse="isCollapse">
+
                 <!-- 递归渲染菜单项 -->
-                <template v-for="item in menuList" :key="item.index">
-                    <SidebarMenuItem v-if="item.children && item.children.length" :item="item" :is-collapse="isCollapse"
-                        @toggle-collapse="toggleCollapse" />
-                    <el-menu-item v-else :index="item.index">
-                        <v-icon :icon="item.icon" class="ala-icon" :height="item.height" :width="item.width" />
-                        <span>{{ item.title }}</span>
-                    </el-menu-item>
+                <template v-for="item in menuList" :key="item.id">
+
+                    <!-- 渲染菜单 -->
+                    <SidebarMenuItem :item="item" :is-collapse="isCollapse" @toggle-collapse="toggleCollapse" />
+
                 </template>
+
             </el-menu>
             <div class="collapse-btn" @click="toggleCollapse">
                 <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i>
@@ -35,16 +35,9 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
 import SidebarMenuItem from '@/components/menu/SidebarMenuItem.vue'; // 引入递归子组件
-// State
-interface Menu {
-    index: string,
-    icon: string,
-    title: string,
-    width: string,
-    height: string,
-    children: Array<Menu>,
-}
-const props = defineProps({
+import Menu from '@/types/menuType';
+
+defineProps({
     menuList: Array<Menu>
 });
 
@@ -86,17 +79,20 @@ const toggleCollapse = () => {
         :deep .el-menu .is-opened {
             background-color: rgb(67, 156, 249, 0.1);
         }
+
         // :deep .el-sub-menu__title{
         //     padding-left: calc(var(--el-menu-base-level-padding) + var(--el-menu-level)* var(--el-menu-level-padding)) !important;
         // }
         // :deep .el-menu-item{
         //     padding-left: calc(var(--el-menu-base-level-padding) + var(--el-menu-level)* var(--el-menu-level-padding)) !important;
         // }
-        :deep .el-icon-circle-plus-outline{
-            width: 0px!important;
+        :deep .el-icon-circle-plus-outline {
+            width: 0px !important;
         }
 
         .el-menu-vertical-ala {
+            .ala-icon {}
+
             i {}
 
             span {}

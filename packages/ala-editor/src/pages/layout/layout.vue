@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-09 16:28:47
+ * @LastEditTime: 2024-11-09 18:36:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -20,95 +20,115 @@
 import { ref } from 'vue'
 import SidebarMenu from "@/components/menu/SidebarMenu.vue"
 import LayoutHeader from "@/pages/layout/layout-header.vue"
+import Menu from '@/types/menuType';
+import u from '@/utils/u';
+import { alaPost } from '@/utils/req';
+
+const menus = ref<Array<Menu>>([])
+onMounted(() => {
+    // 后台加载菜单
+    alaPost(u.url("/u/menu/list"), {}).then((data: any) => {
+        console.log('data:', data);
+
+    });
+})
 
 // State
 const menuList = [
     {
-        "index": "1",
+        "id": "0",
+        "title": "导航-0",
+        "icon": "drag",
+        "width": '22px',
+        "height": '15px'
+    },
+    {
+        "id": "1",
         "title": "导航一",
-        "icon": "phone",
+        "icon": "drag",
         "width": '22px',
         "height": '15px',
         "children": [
+
             {
-                "index": "1-1",
+                "id": "1-2",
+                "title": "选项2",
+                "icon": "phone",
+                "children": [
+                    {
+                        "id": "1-2-1",
+                        "title": "子选项1",
+                        "icon": "phone"
+                    },
+                    {
+                        "id": "1-2-2",
+                        "title": "子选项2",
+                        "icon": "phone"
+                    }
+                ]
+            },
+            {
+                "id": "1-1",
                 "title": "选项1",
                 "icon": "phone",
                 "width": '22px',
                 "height": '15px',
             },
+        ]
+    },
+    {
+        "id": "2",
+        "title": "导航二",
+        "icon": "phone",
+        "children": [
             {
-                "index": "1-2",
-                "title": "选项2",
+                "id": "2-1",
+                "title": "选项3",
+                "icon": "phone"
+            },
+            {
+                "id": "2-2",
+                "title": "选项4",
                 "icon": "phone",
                 "children": [
                     {
-                        "index": "1-2-1",
-                        "title": "子选项1",
-                        "icon": "el-icon-circle-plus-outline"
-                    },
-                    {
-                        "index": "1-2-2",
-                        "title": "子选项2",
-                        "icon": "el-icon-remove-outline"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "index": "2",
-        "title": "导航二",
-        "icon": "el-icon-menu",
-        "children": [
-            {
-                "index": "2-1",
-                "title": "选项3",
-                "icon": "el-icon-circle-plus"
-            },
-            {
-                "index": "2-2",
-                "title": "选项4",
-                "icon": "el-icon-circle-plus",
-                "children": [
-                    {
-                        "index": "2-2-1",
+                        "id": "2-2-1",
                         "title": "子选项3",
-                        "icon": "el-icon-circle-plus-outline"
+                        "icon": "phone"
                     }
                 ]
             }
         ]
     },
     {
-        "index": "3",
+        "id": "3",
         "title": "导航三",
-        "icon": "el-icon-setting",
+        "icon": "phone",
         "children": [
             {
-                "index": "3-1",
+                "id": "3-1",
                 "title": "设置一",
-                "icon": "el-icon-gear"
+                "icon": "phone"
             },
             {
-                "index": "3-2",
+                "id": "3-2",
                 "title": "设置二",
-                "icon": "el-icon-gear",
+                "icon": "phone",
                 "children": [
                     {
-                        "index": "3-2-1",
+                        "id": "3-2-1",
                         "title": "配置一",
-                        "icon": "el-icon-magic-stick"
+                        "icon": "phone"
                     },
                     {
-                        "index": "3-2-2",
+                        "id": "3-2-2",
                         "title": "配置二",
-                        "icon": "el-icon-magic-stick",
+                        "icon": "phone",
                         "children": [
                             {
-                                "index": "3-2-2-1",
+                                "id": "3-2-2-1",
                                 "title": "详细配置一",
-                                "icon": "el-icon-magic-stick"
+                                "icon": "phone"
                             }
                         ]
                     }
