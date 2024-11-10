@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 16:32:30
+ * @LastEditTime: 2024-11-10 22:22:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -12,8 +12,8 @@
     <div class="side-bar">
 
         <el-aside class="ala-aside">
-            <el-menu default-active="1" class="el-menu-vertical-ala" @open="handleOpen" @close="handleClose"
-                :collapse="isCollapse">
+            <el-menu class="el-menu-vertical-ala" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
+                >
 
                 <!-- 递归渲染菜单项 -->
                 <template v-for="item in menuList" :key="item.id">
@@ -44,16 +44,18 @@ defineProps({
 const isCollapse = ref(false);
 
 const handleOpen = (key: any, keyPath: any) => {
-    console.log(key, keyPath);
+    // console.log(key, keyPath);
 };
 
 const handleClose = (key: any, keyPath: any) => {
-    console.log(key, keyPath);
+    // console.log(key, keyPath);
 };
 
 const toggleCollapse = () => {
     isCollapse.value = !isCollapse.value;
 };
+
+
 
 
 </script>

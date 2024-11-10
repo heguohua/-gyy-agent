@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 21:08:20
+ * @LastEditTime: 2024-11-10 22:29:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -13,9 +13,11 @@
     <!-- <div v-else class="layout"> -->
     <div class="layout">
         <LayoutHeader />
-        <SidebarMenu :menuList="menus" />
-        <div class="content">
-            <RouterView />
+        <div class="content-wraper">
+            <SidebarMenu :menuList="menus" />
+            <div class="content">
+                <RouterView />
+            </div>
         </div>
     </div>
 
@@ -198,5 +200,16 @@ const menuList = [
     // background: #dceafb;
     background: #f6f8f9;
     height: inherit;
+
+    .content-wraper {
+        display: flex;
+        height: inherit;
+        .content {
+            width: calc(100% - var(--el-aside-width));
+            padding-top: var(--el-menu-item-height);
+        }
+    }
+
+
 }
 </style>

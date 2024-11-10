@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:54:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 21:55:02
+ * @LastEditTime: 2024-11-10 23:19:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/router/index.ts
  * @Description: 
  * 
@@ -52,6 +52,14 @@ const routes = [
         path: '/console',
         name: "console",
         component: () => import('../pages/layout/layout.vue'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/welcome',
+        name: "welcome",
+        component: () => import('../pages/welcome.vue'),
         meta: {
             requiresAuth: true
         }
@@ -113,7 +121,7 @@ router.beforeEach((to, from, next) => {
         // 跳转 404 页面
         // logger.warn("router.beforeEach检测到用户访问的路由页面不存在，跳转404页面");
         logger.warn("router.beforeEach检测到用户访问的路由页面不存在，不做跳转");
-        // next("404")
+        next("/welcome")
         // }
         // next(false)
 
