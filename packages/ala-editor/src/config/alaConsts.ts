@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 16:28:41
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-09 18:39:57
+ * @LastEditTime: 2024-11-10 21:44:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaConsts.ts
  * @Description: 全局唯一的 常量类
  *
@@ -27,5 +27,7 @@ export class alaConsts {
   // localStorage中存储token的名字、传递给后端 http header中的名字
   public static readonly token_name = 'alatk';
 
+  // 当前正在访问的router name存储在localstorage中的key
+  public static readonly current_router_name = alaConsts.PREFIX + 'current_router_name';
 
 }

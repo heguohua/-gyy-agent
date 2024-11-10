@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:03:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 17:32:10
+ * @LastEditTime: 2024-11-10 21:46:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenuItem.vue
  * @Description: 
  * 
@@ -44,6 +44,8 @@ import Menu from '@/types/menuType';
 import { logger } from '@/utils/logger';
 import { allMenuComponents } from '@/utils/menuRegister';
 import router from '@/router';
+import lstore from '@/utils/lstore';
+import { alaConsts } from '@/config/alaConsts';
 
 defineOptions({
     name: "SidebarMenuItem"
@@ -63,7 +65,8 @@ const handleSelect = (child: Menu) => {
     if (menu) {
         logger.info(`即将切换菜单${child.name}, menu.url[${child.url}], component name[${menu.name}], component path[${menu.component}]`);
         // router.push({ path: child.url})
-        router.push({ name: menu.name,params:child })
+        router.push({ name: menu.name, params: child })
+        lstore.setItem(alaConsts.current_router_name, menu.name)
         // router.push({ name: 'console-router-view', path: child.url })
     } else {
         logger.error(`menu.url[${child.url}]对应的菜单未在[ menuRegister.ts ]的[ allMenuComponents ]中注册`);

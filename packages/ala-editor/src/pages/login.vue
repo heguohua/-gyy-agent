@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 08:05:48
+ * @LastEditTime: 2024-11-10 21:35:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -195,8 +195,13 @@ import lstore from "@/utils/lstore";
 import router from "@/router";
 import { useAlaStore } from "@/store/ala-store";
 import { alaConsts } from "@/config/alaConsts";
+import { logger } from "@/utils/logger";
 
 const alaStore = useAlaStore()
+
+onMounted(() => {
+    logger.warn("已跳转到Login页面，执行onMounted逻辑");
+})
 
 const submit = async () => {
 
@@ -230,7 +235,8 @@ const submit = async () => {
         //     router.push(oldRouter)
         // } else {
         // 跳转主工作台路由
-        router.push('layout')
+        // router.push("/console")
+        window.location.href = "/"
         // }
 
 

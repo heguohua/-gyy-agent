@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:54:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 16:40:17
+ * @LastEditTime: 2024-11-10 21:55:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/router/index.ts
  * @Description: 
  * 
@@ -12,8 +12,6 @@
 import { useAlaStore } from '@/store/ala-store';
 import { logger } from '@/utils/logger';
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { getCurrentInstance } from 'vue';
-import { GlobalProperties } from "@/config/globalProperties"
 import { alaConsts } from '@/config/alaConsts';
 import lstore from '@/utils/lstore';
 
@@ -21,6 +19,13 @@ import lstore from '@/utils/lstore';
 const routes = [
     {
         path: '/',
+        name: "console",
+        component: () => import('../pages/layout/layout.vue'),
+        meta: {
+            requiresAuth: true
+        }
+    }, {
+        path: '/login',
         name: "login",
         component: () => import('../pages/login.vue'),
         meta: {
@@ -44,8 +49,8 @@ const routes = [
         }
     },
     {
-        path: '/layout',
-        name: "layout",
+        path: '/console',
+        name: "console",
         component: () => import('../pages/layout/layout.vue'),
         meta: {
             requiresAuth: true
@@ -65,15 +70,16 @@ router.beforeEach((to, from, next) => {
     // to: 即将要去的路由对象
     // from: 当前导航正要离开的路由
     // next: 一定要调用该方法来 resolve 这个钩子
-    const alaStore = useAlaStore()
-    logger.error("即将跳转路由");
-    console.log('to:', to);
-    console.log('from:', from);
-
-    console.log('window.location:', window.location);
-
+    logger.info(`router.beforeEach中即将跳转路由: 从 ${from.path} 到 ${to.path}`)
 
     const routeExists = router.getRoutes().some(route => route.name === to.name);
+
+    if (to.path === '/') {
+        logger.warn("router.beforeEach检测到当前访问路径为/，不做跳转");
+        return
+    } else if (to.path === '/login') {
+        lstore.removeItem(alaConsts.is_logined_key)
+    }
 
     if (routeExists) {
         // 用户访问的路由页面已存在
@@ -84,14 +90,17 @@ router.beforeEach((to, from, next) => {
             // lstore.setItem(alaConsts.is_logined_key, true)
             if (!lstore.getItem(alaConsts.is_logined_key)) {
                 // 用户未登录，重定向到登录页面
+                logger.warn("router.beforeEach检测到用户未登录，跳转登录页面");
                 next('login');
             } else {
                 // 用户已登录，放行
+                logger.warn("router.beforeEach检测到用户已登录，直接放行");
                 next();
             }
 
         } else {
             // 不需要登录即可访问，直接跳转
+            logger.warn("router.beforeEach检测到当前页面不需要登录，直接放行");
             next();
         }
     } else {
@@ -102,8 +111,11 @@ router.beforeEach((to, from, next) => {
         //     next({ name: 'login' }); // 重定向到 login 路由
         // } else {
         // 跳转 404 页面
-        next("404")
+        // logger.warn("router.beforeEach检测到用户访问的路由页面不存在，跳转404页面");
+        logger.warn("router.beforeEach检测到用户访问的路由页面不存在，不做跳转");
+        // next("404")
         // }
+        // next(false)
 
     }
 
@@ -118,4 +130,14 @@ router.beforeResolve((to, from, next) => {
 router.afterEach((to, from) => {
     // ...
 });
+
+router.isReady().then(() => {
+    // const url = window.location.href.split('#')[1];
+    // router.push(url);
+});
+
+export const toLogin = () => {
+    router.push({ name: "Login" })
+}
+
 export default router;

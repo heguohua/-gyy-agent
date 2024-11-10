@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 10:20:03
+ * @LastEditTime: 2024-11-10 21:38:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -14,6 +14,8 @@ import axios from 'axios';
 import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaConsts } from '@/config/alaConsts';
+import { toLogin } from '@/router';
+import lstore from './lstore';
 
 //创建一个axios实例
 const axiosInstance = axios.create({
@@ -55,8 +57,10 @@ axiosInstance.interceptors.response.use(
     }
   },
   function (error) {
-    logger.error("失败，失败，失败！！！！！！ 无权限URL如下：", error.config.url);
+    logger.error("失败，失败，失败！！！！！！URL如下：", error.config.url);
     console.log('error:', error);
+
+
 
     const response = error.response;
     // 对响应错误做点什么
@@ -67,6 +71,9 @@ axiosInstance.interceptors.response.use(
           break;
         case 401:
           error.message = '未登录，请重新登录';
+          window.location.href = '/login'
+          // 删除本地 localStorage中的token
+          lstore.removeItem(alaConsts.is_logined_key)
           notify.error("温馨提示：", "请先登录系统。")
           break;
         case 403:
@@ -83,7 +90,8 @@ axiosInstance.interceptors.response.use(
           error.message = '请求超时';
           break;
         case 500:
-          error.message = '服务器端出错';
+          error.message = '服务器端连接出错';
+          notify.error("温馨提示：", error.message)
           break;
         case 501:
           error.message = '网络未实现';
@@ -104,7 +112,8 @@ axiosInstance.interceptors.response.use(
           error.message = `未知错误${error.response.status}`;
       }
     } else {
-      error.message = '连接到服务器失败';
+      error.message = '服务器连接失败';
+      notify.error("温馨提示：", error.message)
     }
     //console.log('网络错误信息：', error.message);
 

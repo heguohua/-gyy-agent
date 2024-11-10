@@ -2,13 +2,15 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 17:18:34
+ * @LastEditTime: 2024-11-10 21:08:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
+    <!-- <RouterView v-if="!checkLogin" /> -->
+    <!-- <div v-else class="layout"> -->
     <div class="layout">
         <LayoutHeader />
         <SidebarMenu :menuList="menus" />
@@ -27,9 +29,20 @@ import Menu from '@/types/menuType';
 import u from '@/utils/u';
 import { alaPost } from '@/utils/req';
 import MenuUtil from '@/utils/menuRegister';
+import { logger } from '@/utils/logger';
+import lstore from '@/utils/lstore';
+import { alaConsts } from '@/config/alaConsts';
 
 const menus = ref<Array<Menu>>([])
+
+// alaPost(u.url("/u/menu/queryListForUser"), {}).then((data: any) => {
+//     console.log('data:', data);
+//     menus.value = data.data
+//     //注册动态路由
+//     MenuUtil.registerDynamicRouter(data.data)
+// });
 onMounted(() => {
+    logger.info("onMounted 渲染 layout 页面");
     // 后台加载菜单
     alaPost(u.url("/u/menu/queryListForUser"), {}).then((data: any) => {
         console.log('data:', data);
@@ -37,6 +50,18 @@ onMounted(() => {
         //注册动态路由
         MenuUtil.registerDynamicRouter(data.data)
     });
+})
+
+
+const checkLogin = computed(() => {
+    let isLogined = false;
+    if (lstore.getItem(alaConsts.is_logined_key)) {
+        isLogined = true;
+        logger.warn("用户登录状态检测：已登录，直接渲染Layout页面");
+    } else {
+        logger.warn("用户登录状态检测：未登录，渲染Login页面");
+    }
+    return isLogined;
 })
 
 // State
