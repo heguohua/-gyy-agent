@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-09 18:36:33
+ * @LastEditTime: 2024-11-10 13:01:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <div class="layout">
         <LayoutHeader />
-        <SidebarMenu :menuList="menuList" />
+        <SidebarMenu :menuList="menus" />
     </div>
 
 </template>
@@ -23,13 +23,16 @@ import LayoutHeader from "@/pages/layout/layout-header.vue"
 import Menu from '@/types/menuType';
 import u from '@/utils/u';
 import { alaPost } from '@/utils/req';
+import MenuUtil from '@/utils/menu';
 
 const menus = ref<Array<Menu>>([])
 onMounted(() => {
     // 后台加载菜单
-    alaPost(u.url("/u/menu/list"), {}).then((data: any) => {
+    alaPost(u.url("/u/menu/queryListForUser"), {}).then((data: any) => {
         console.log('data:', data);
-
+        menus.value = data.data
+        //注册动态路由
+        MenuUtil.registerDynamicRouter(data.data)
     });
 })
 
