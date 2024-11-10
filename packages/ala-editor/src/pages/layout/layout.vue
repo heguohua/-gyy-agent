@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 13:01:42
+ * @LastEditTime: 2024-11-10 17:18:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -12,6 +12,9 @@
     <div class="layout">
         <LayoutHeader />
         <SidebarMenu :menuList="menus" />
+        <div class="content">
+            <RouterView />
+        </div>
     </div>
 
 </template>
@@ -23,7 +26,7 @@ import LayoutHeader from "@/pages/layout/layout-header.vue"
 import Menu from '@/types/menuType';
 import u from '@/utils/u';
 import { alaPost } from '@/utils/req';
-import MenuUtil from '@/utils/menu';
+import MenuUtil from '@/utils/menuRegister';
 
 const menus = ref<Array<Menu>>([])
 onMounted(() => {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-09 18:16:00
+ * @LastEditTime: 2024-11-10 16:32:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -43,17 +43,19 @@ defineProps({
 
 const isCollapse = ref(false);
 
-const handleOpen = (key, keyPath) => {
+const handleOpen = (key: any, keyPath: any) => {
     console.log(key, keyPath);
 };
 
-const handleClose = (key, keyPath) => {
+const handleClose = (key: any, keyPath: any) => {
     console.log(key, keyPath);
 };
 
 const toggleCollapse = () => {
     isCollapse.value = !isCollapse.value;
 };
+
+
 </script>
 
 <style scoped lang="scss">

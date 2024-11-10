@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:54:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 22:43:55
+ * @LastEditTime: 2024-11-10 16:40:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/router/index.ts
  * @Description: 
  * 
@@ -69,7 +69,6 @@ router.beforeEach((to, from, next) => {
     logger.error("即将跳转路由");
     console.log('to:', to);
     console.log('from:', from);
-    console.log('alaStore.get("isLogined"):', alaStore.get("isLogined"));
 
     console.log('window.location:', window.location);
 

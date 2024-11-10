@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:03:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 12:52:28
+ * @LastEditTime: 2024-11-10 17:32:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenuItem.vue
  * @Description: 
  * 
@@ -22,7 +22,8 @@
 
 
             <!-- 3、如果当前节点不存在子节点，直接渲染普通菜单 -->
-            <el-menu-item v-if="!child.children || child.children.length === 0" :index="`${child.id}`">
+            <el-menu-item v-if="!child.children || child.children.length === 0" :index="`${child.id}`"
+                @click="handleSelect(child)">
                 <v-icon :icon="child.icon" :height="`${child.height || 16}px`" :width="`${child.width || 16}px`" />
                 <span>{{ child.name }}</span>
             </el-menu-item>
@@ -40,6 +41,9 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 import Menu from '@/types/menuType';
+import { logger } from '@/utils/logger';
+import { allMenuComponents } from '@/utils/menuRegister';
+import router from '@/router';
 
 defineOptions({
     name: "SidebarMenuItem"
@@ -54,7 +58,17 @@ defineProps<{
 
 // Methods
 const emits = defineEmits(['toggle-collapse']);
-
+const handleSelect = (child: Menu) => {
+    const menu = allMenuComponents[child.url]
+    if (menu) {
+        logger.info(`即将切换菜单${child.name}, menu.url[${child.url}], component name[${menu.name}], component path[${menu.component}]`);
+        // router.push({ path: child.url})
+        router.push({ name: menu.name,params:child })
+        // router.push({ name: 'console-router-view', path: child.url })
+    } else {
+        logger.error(`menu.url[${child.url}]对应的菜单未在[ menuRegister.ts ]的[ allMenuComponents ]中注册`);
+    }
+};
 </script>
 
 <style scoped lang="scss">
