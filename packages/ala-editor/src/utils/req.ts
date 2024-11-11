@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 15:56:54
+ * @LastEditTime: 2024-11-11 16:11:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -55,6 +55,10 @@ export function configAxios(app: App<Element>) {
     },
     function (error) {
       // 对请求错误做些什么
+      // 关闭滚动条
+      if (error.config.headers.sp) {
+        app.config.globalProperties.$loadingBar.exposed.hide()
+      }
       return Promise.reject(error);
     },
   );
@@ -76,6 +80,11 @@ export function configAxios(app: App<Element>) {
     function (error) {
       logger.error("失败，失败，失败！！！！！！URL如下：", error.config.url);
       console.log('error:', error);
+
+      // 关闭滚动条
+      if (error.config.headers.sp) {
+        app.config.globalProperties.$loadingBar.exposed.hide()
+      }
 
       const response = error.response;
       // 对响应错误做点什么
