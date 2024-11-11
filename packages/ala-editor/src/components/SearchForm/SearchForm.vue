@@ -1,3 +1,13 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-11-11 21:34:13
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-11-11 22:54:47
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/SearchForm/SearchForm.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
     <div class="search-form">
         <el-form :model="form" label-width="120px">

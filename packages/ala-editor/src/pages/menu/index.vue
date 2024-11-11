@@ -2,14 +2,17 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 21:34:36
+ * @LastEditTime: 2024-11-11 22:58:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <SearchForm />
+    <div class="ala-form">
+        <AlaInput v-model="ala_input" />
+    </div>
+    <!-- <SearchForm /> -->
     <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
         @expand-change="handleExpandChange">
 
@@ -44,6 +47,8 @@ import { logger } from '@/utils/logger';
 import { alaPage } from '@/utils/req';
 import u from '@/utils/u';
 
+
+const ala_input = ref("234")
 
 
 // 分页参数
