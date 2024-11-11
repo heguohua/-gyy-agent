@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 08:50:47
+ * @LastEditTime: 2024-11-11 10:38:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -85,13 +85,37 @@ watch(() => route.path, (toPath) => {
 
         }
 
-        :deep .el-menu .el-menu-item:hover {
-            background: rgb(67, 156, 249, 0.2) !important;
-            color: #fb2e4d !important;
+        :deep .el-menu-item:hover {
+            background: var(--el-menu-active-bg);
+            color: var(--el-menu-active-color) !important;
         }
 
-        :deep .el-menu .is-opened {
-            background-color: rgb(67, 156, 249, 0.1);
+        :deep .el-sub-menu .is-active,
+        :deep .el-sub-menu.is-active {
+            background-color: var(--el-menu-active-bg);
+            // font-weight: bold;
+        }
+
+        :deep .el-sub-menu .is-active {
+            font-weight: bold;
+
+            &::before {
+                /* 必须设置 content 属性，即使它是空的 */
+                content: '';
+                /* 设置绝对定位，以便可以相对于父元素定位 */
+                position: absolute;
+                /* 从父元素顶部开始 */
+                top: 0;
+                /* 从父元素左侧开始 */
+                left: 0;
+                /* 设置宽度为 5px */
+                width: var(--el-menu-active-before-width);
+                /* 设置高度等于父元素的高度 */
+                height: 100%;
+                /* 设置背景色为蓝色 */
+                background-color: var(--el-menu-active-before-bg);
+
+            }
         }
 
         // :deep .el-sub-menu__title{

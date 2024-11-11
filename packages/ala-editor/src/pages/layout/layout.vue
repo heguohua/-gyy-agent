@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 08:54:13
+ * @LastEditTime: 2024-11-11 10:00:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -188,25 +188,17 @@ const menuList = [
 
     // 左侧菜单宽度
     --el-aside-width: 250px;
-    // --el-menu-text-color:rgb(67, 156, 249);
-    // 未激活菜单字体颜色
-    --el-menu-text-color: #303133;
 
-    // 菜单字体大小
-    --el-menu-item-font-size: 14px;
-    // 包含子集菜单的行高
-    --el-menu-item-height: 46px;
-    --el-menu-sub-item-height: 40px;
-    // 包含子集菜单的左右padding大小
-    --el-menu-base-level-padding: 20px;
-    // 子一级菜单缩进宽度
-    --el-menu-base-level-padding: 10px;
-    --el-menu-level-padding: 10px;
-    --el-menu-level: 0;
+    // 修改左侧菜单右侧打开、折叠箭头样式
+    :deep .el-sub-menu__icon-arrow {
+        font-size: 1.2rem;
+        margin-top: -0.6rem;
+    }
+
 
 
     // background: #dceafb;
-    background: #f6f8f9;
+    background: var(--ala-color-bg);
     height: inherit;
 
     .content-wraper {

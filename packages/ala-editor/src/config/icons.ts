@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 09:15:20
+ * @LastEditTime: 2024-11-11 11:17:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -53,6 +53,18 @@ const icon = {
     country_cn: 'noto-v1:flag-for-flag-china',
     country_en: 'icon-park-outline:english',
     country_ru: 'lucide-lab:russian-ruble-square',
+
+    //菜单图标
+    log: 'icon-park-outline:log',
+    dict: 'streamline:dictionary-language-book',
+    menu: 'hugeicons:menu-square',
+    alaUser: 'ri:user-add-line',
+    organization: 'charm:organisation',
+    dept: 'fluent:organization-20-regular',
+    role: 'oui:app-users-roles',
+    team: 'ri:team-line',
+    sysConfig: 'icon-park-outline:setting-config',
+    
   }
   
   export default icon

@@ -10,4 +10,43 @@
   --color-edit-render-block-border: #d0d0d0;
   --color-edit-render-block-border-hover: var(--color-active-text);
   --color-config-block-bg: #f3f5f7;
+
+  // 网页背景色
+  --ala-color-bg: #F3F7FA;
+  // 表格标题背景色
+  --ala-color-bg-table-title: #FAFAFA;
+  --ala-color-border: #D8DAE1;
+  --ala-color-tips-font: #B3B5C4;
+  --ala-color-tips--heavy: #42476E;
+
+  --ala-color-blue: #1D78FF;
+
+  --ala-color-green: #11D7B2;
+  --ala-color-navy: #3D446E;
+
+  // 菜单标题
+  --ala-color-menu-font: #3D446E;
+
+  --ala-color-menu-bg-selected: #42476E;
+
+  // 覆盖 element-plus 内置样式
+  // 未激活菜单字体颜色
+  --el-menu-text-color: var(--ala-color-menu-font);
+  // 激活菜单文字颜色
+  --el-menu-active-bg: #EAF1FE;
+  --el-menu-active-color: var(--ala-color-blue);
+  --el-menu-active-before-width: 6px;// 被激活菜单前面的before元素的背景色
+  --el-menu-active-before-bg: var(--ala-color-blue);// 被激活菜单前面的before元素的背景色
+  --el-menu-item-font-size: 1.1rem;
+
+  // 包含子集菜单的行高
+  --el-menu-item-height: 3.4rem;
+  --el-menu-sub-item-height: 3rem;
+  // 包含子集菜单的左右padding大小
+  --el-menu-base-level-padding: 20px;
+  // 子一级菜单缩进宽度
+  --el-menu-base-level-padding: 10px;
+  --el-menu-level-padding: 10px;
+  --el-menu-level: 0;
+
 }
