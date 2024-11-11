@@ -65,6 +65,9 @@ const icon = {
     team: 'ri:team-line',
     sysConfig: 'icon-park-outline:setting-config',
     
+    // 数据分析
+    chart:"memory:chart-bar",
+    
   }
   
   export default icon
