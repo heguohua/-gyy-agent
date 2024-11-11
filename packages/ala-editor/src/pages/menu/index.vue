@@ -2,13 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 20:09:54
+ * @LastEditTime: 2024-11-11 21:34:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
+    <SearchForm />
     <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
         @expand-change="handleExpandChange">
 
@@ -29,9 +30,9 @@
         </el-table-column>
 
 
-        <!-- <el-pagination v-model:current-page="currentPage" :page-size="pageSize" layout="total, prev, pager, next"
-            :total="totalItems" @current-change="handlePageChange">
-        </el-pagination> -->
+        <el-pagination v-model:current-page="currentPage" :page-size="pageSize" layout="total, prev, pager, next"
+            :total="total" @current-change="handlePageChange" class="ala-page-pagination">
+        </el-pagination>
 
     </el-table>
 </template>
@@ -43,32 +44,54 @@ import { logger } from '@/utils/logger';
 import { alaPage } from '@/utils/req';
 import u from '@/utils/u';
 
+
+
 // 分页参数
 const page = ref({
     "current": 1,
     "size": 10,
+    "total": 0,
     orders: [{
         column: 'id',
         asc: false
     }]
 })
 const params = ref({
-    "current": 1,
-    "size": 10,
+
 })
+
+
+const currentPage = computed(() => {
+    return page.value.current;
+})
+
+const pageSize = computed(() => {
+    return page.value.size;
+})
+
+const total = computed(() => {
+    return page.value.total;
+})
+
 
 onMounted(() => {
     logger.info("onMounted 渲染 layout 页面");
     // 后台加载菜单
     alaPage(u.url("/u/menu/page"), page.value, params.value, true).then((data: any) => {
-        console.log('data:', data?.data?.list);
+
+        const responsePage = data.data;
+        page.value.current = responsePage.pageNum
+        page.value.size = responsePage.pageSize
+        page.value.total = responsePage.total
+
+        console.log('data:', data?.data);
         // menus.value = data.data
 
         if (data?.data?.list) {
             menusList.value = data?.data?.list
         }
 
-    
+
 
     });
 })
@@ -126,8 +149,13 @@ const handleExpandChange = (row: Row, expandedRows: any) => {
         }
     }
 };
+
+const handlePageChange = (newPage: number) => {
+    page.value.current = newPage;
+};
+
 </script>
 
 <style lang="scss" scoped>
-
+.hide-header {}
 </style>

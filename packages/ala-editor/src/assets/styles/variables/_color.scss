@@ -26,7 +26,7 @@
   --ala-color-navy: #3D446E;
 
   // 菜单标题
-  --ala-color-menu-font: #3D446E;
+  --ala-color-menu-font: var(--ala-color-navy);
 
   --ala-color-menu-bg-selected: #42476E;
 
@@ -50,4 +50,10 @@
   --el-menu-level-padding: 10px;
   --el-menu-level: 0;
 
+  // 字体颜色
+  // 默认字体颜色
+  --el-text-color-regular: var(--ala-color-navy);
+  // 表格标题颜色
+  --el-text-color-secondary: var(--ala-color-navy);
 }
+

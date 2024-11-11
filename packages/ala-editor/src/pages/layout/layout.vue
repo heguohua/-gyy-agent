@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 20:17:01
+ * @LastEditTime: 2024-11-11 21:08:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -68,6 +68,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .layout {
 
+    // 重写 element-plus样式
     // 左侧菜单宽度
     --el-aside-width: 250px;
 
@@ -75,6 +76,15 @@ onMounted(() => {
     :deep .el-sub-menu__icon-arrow {
         font-size: 1.2rem;
         margin-top: -0.6rem;
+    }
+
+    // 表格标题字体大小
+    :deep .el-table__header {
+        font-size: 1rem;
+    }
+
+    :deep .el-table__cell.el-table__expanded-cell {
+        padding: 0px 16px;
     }
 
 
