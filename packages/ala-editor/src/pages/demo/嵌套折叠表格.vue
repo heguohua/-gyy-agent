@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 17:14:18
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
+ * @LastEditTime: 2024-11-11 17:23:25
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/demo/嵌套折叠表格.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRows"
+    <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
         @expand-change="handleExpandChange">
 
 
