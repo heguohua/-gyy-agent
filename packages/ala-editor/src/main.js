@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-09 18:47:05
+ * @LastEditTime: 2024-11-11 15:01:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 // 引入createApp用于创建应用
-import { createApp, reactive } from 'vue';
+import { createApp, reactive, createVNode, render } from 'vue';
 // 引入App根组件
 import App from './App.vue';
 // 引入全局css文件
@@ -63,6 +63,24 @@ import { GlobalProperties } from "@/config/globalProperties"
 
 const gb = new GlobalProperties(app)
 app.config.globalProperties.$gb = gb
+
+// 注册VNode组件
+import LoadingBar from '@/components/LoadingBar/LoadingBar.vue';
+// 创建LoadingBar的VNode
+const loadingBarVNode = createVNode(LoadingBar);
+// 挂载LoadingBar到DOM
+const mountNode = document.createElement('div');
+document.body.appendChild(mountNode);
+render(loadingBarVNode, mountNode);
+// 将LoadingBar的引用保存在app.config.globalProperties中
+app.config.globalProperties.$loadingBar = loadingBarVNode.component;
+
+
+// 创建 并实例化 axios 对象
+import { configAxios } from './utils/req';
+configAxios(app);
+
+
 // 挂载整个应用到app容器中
 app.mount('#app');
 

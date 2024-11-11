@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 10:00:22
+ * @LastEditTime: 2024-11-11 16:06:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -47,7 +47,7 @@ const menus = ref<Array<Menu>>([])
 onMounted(() => {
     logger.info("onMounted 渲染 layout 页面");
     // 后台加载菜单
-    alaPost(u.url("/u/menu/queryListForUser"), {}).then((data: any) => {
+    alaPost(u.url("/u/menu/queryListForUser"), {}, true).then((data: any) => {
         console.log('data:', data);
         menus.value = data.data
         //注册动态路由

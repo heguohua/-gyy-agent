@@ -20,6 +20,7 @@
   --ala-color-tips--heavy: #42476E;
 
   --ala-color-blue: #1D78FF;
+  --ala-color-blue-rgb: rgb(29, 120, 255);
 
   --ala-color-green: #11D7B2;
   --ala-color-navy: #3D446E;
@@ -35,8 +36,8 @@
   // 激活菜单文字颜色
   --el-menu-active-bg: #EAF1FE;
   --el-menu-active-color: var(--ala-color-blue);
-  --el-menu-active-before-width: 6px;// 被激活菜单前面的before元素的背景色
-  --el-menu-active-before-bg: var(--ala-color-blue);// 被激活菜单前面的before元素的背景色
+  --el-menu-active-before-width: 6px; // 被激活菜单前面的before元素的背景色
+  --el-menu-active-before-bg: var(--ala-color-blue); // 被激活菜单前面的before元素的背景色
   --el-menu-item-font-size: 1.1rem;
 
   // 包含子集菜单的行高
