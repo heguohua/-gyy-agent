@@ -53,6 +53,7 @@ onMounted(() => {
         //注册动态路由
         MenuUtil.registerDynamicRouter(data.data)
 
+        // 从 localStorage 中恢复路由
         const storedPath = lstore.getItem('activeMenu');
         if (storedPath) {
             logger.warn(`从localStorage恢复路由：${storedPath}`);
