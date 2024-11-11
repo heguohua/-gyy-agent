@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 16:11:32
+ * @LastEditTime: 2024-11-11 19:30:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -13,12 +13,13 @@
 import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaConsts } from '@/config/alaConsts';
-import lstore from './lstore';
+import lstore from '@/utils/lstore';
 import { App } from 'vue';
 import { AxiosInstance } from 'axios';
 
 import axios from 'axios';
-import { log } from 'console';
+import u from '@/utils/u';
+import { date } from '@/utils/date';
 
 
 // 扩展 AxiosRequestConfig 接口，添加自定义参数
@@ -47,6 +48,17 @@ export function configAxios(app: App<Element>) {
       // 请求地址携带时间戳
       const _t = new Date().getTime();
       config.url += `?ts=${_t}`;
+      if (config.data) {
+        // 说明是post请求
+        const head = {
+          trace: u.uuid(),
+          time: date.now(),
+          // sid:"",
+          sign: "sign",
+        }
+        config.data['head'] = head
+      }
+
 
       // 请求头携带token
       config.headers[alaConsts.token_name] = localStorage.getItem(alaConsts.token_name) || '';
@@ -202,6 +214,37 @@ export function alaPost(url: string, params = {}, showProgress = false) {
       url: url,
       method: 'post',
       data: params,
+      headers: {
+        sp: showProgress
+      }
+    })
+      .then((response) => {
+        const data = response.data
+        if (data.code != 200) {
+          logger.error("服务器返回错误信息", data);
+          notify.error("温馨提示：", data.msg)
+        } else {
+          resolve(response.data);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+/*
+ *  post请求:向服务器端提交数据
+ *  url:请求地址
+ *  params:参数
+ * */
+export function alaPage(url: string, page = {}, params = {}, showProgress = false) {
+  return new Promise((resolve, reject) => {
+
+    axiosInstance({
+      url: url,
+      method: 'post',
+      data: { page, data: params },
       headers: {
         sp: showProgress
       }

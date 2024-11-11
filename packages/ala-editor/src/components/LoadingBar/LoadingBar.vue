@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 14:09:24
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 16:01:36
+ * @LastEditTime: 2024-11-11 20:14:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/LoadingBar/LoadingBar.vue
  * @Description: 
  * 
@@ -45,7 +45,7 @@ const endLoading = () => {
         dom.style.width = speed.value + '%'
         setTimeout(() => {
             isShow.value = false
-        }, 600)
+        }, 300)
     })
 }
 

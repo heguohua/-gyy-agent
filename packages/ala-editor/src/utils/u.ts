@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 17:33:05
+ * @LastEditTime: 2024-11-11 19:24:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -12,6 +12,16 @@ import notify from "@/utils/notify"
 import WarnException from "@/utils/WarnException"
 const profile = import.meta.env.VITE_PROFILE
 export default class u {
+
+    // 生成uuid
+    public static uuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = (Math.random() * 16) | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
     /**
      * 自动拼接访问路径代理前缀
      */

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:14:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 11:33:24
+ * @LastEditTime: 2024-11-11 19:30:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/date.ts
  * @Description: 时间工具类
  *
@@ -14,6 +14,15 @@ import dayjs from 'dayjs';
 type dt = 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
 
 export class date {
+
+  /**
+   * 获取毫秒数
+   * @returns 
+   */
+  public static now() {
+    return Date.now();
+  }
+
   /**
    * 校检日期格式是否为YYYY-MM-DD这种格式
    * @param date
