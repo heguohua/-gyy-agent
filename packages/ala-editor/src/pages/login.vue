@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 21:35:35
+ * @LastEditTime: 2024-11-11 08:53:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -238,6 +238,9 @@ const submit = async () => {
         // router.push("/console")
         window.location.href = "/"
         // }
+
+        // 页面加载时，从 localStorage 获取激活的菜单路径
+    
 
 
     })

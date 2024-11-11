@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 22:22:33
+ * @LastEditTime: 2024-11-11 08:50:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -13,10 +13,10 @@
 
         <el-aside class="ala-aside">
             <el-menu class="el-menu-vertical-ala" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
-                >
+                :default-active="activeMenu" router>
 
                 <!-- 递归渲染菜单项 -->
-                <template v-for="item in menuList" :key="item.id">
+                <template v-for="item in menuList" :key="item.url">
 
                     <!-- 渲染菜单 -->
                     <SidebarMenuItem :item="item" :is-collapse="isCollapse" @toggle-collapse="toggleCollapse" />
@@ -36,6 +36,8 @@
 import { ref, defineProps } from 'vue';
 import SidebarMenuItem from '@/components/menu/SidebarMenuItem.vue'; // 引入递归子组件
 import Menu from '@/types/menuType';
+import { logger } from '@/utils/logger';
+import lstore from '@/utils/lstore';
 
 defineProps({
     menuList: Array<Menu>
@@ -55,7 +57,15 @@ const toggleCollapse = () => {
     isCollapse.value = !isCollapse.value;
 };
 
+const route = useRoute();
+const activeMenu = ref('/');
 
+watch(() => route.path, (toPath) => {
+    activeMenu.value = toPath;
+    // 导航变化时，更新 localStorage
+    logger.info(`监听到路由变化，更新localStorage中的路由为：${toPath}`);
+    lstore.setItem('activeMenu', toPath);
+});
 
 
 </script>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 22:29:06
+ * @LastEditTime: 2024-11-11 08:54:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -34,6 +34,7 @@ import MenuUtil from '@/utils/menuRegister';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 import { alaConsts } from '@/config/alaConsts';
+import router from '@/router';
 
 const menus = ref<Array<Menu>>([])
 
@@ -51,6 +52,12 @@ onMounted(() => {
         menus.value = data.data
         //注册动态路由
         MenuUtil.registerDynamicRouter(data.data)
+
+        const storedPath = lstore.getItem('activeMenu');
+        if (storedPath) {
+            logger.warn(`从localStorage恢复路由：${storedPath}`);
+            router.push(storedPath)
+        }
     });
 })
 
@@ -204,6 +211,7 @@ const menuList = [
     .content-wraper {
         display: flex;
         height: inherit;
+
         .content {
             width: calc(100% - var(--el-aside-width));
             padding-top: var(--el-menu-item-height);
