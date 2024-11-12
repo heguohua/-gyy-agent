@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 16:02:46
+ * @LastEditTime: 2024-11-12 17:16:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <el-form-item :label="label" :label-position="position">
 
             <!-- 注意，注意，注意 el-date-picker 中必须使用 @update:model-value 更新数据值-->
-            <el-date-picker :model-value="model" :disabled-date="disabledDate" :type="dateType"
+            <el-date-picker  :model-value="model" :disabled-date="disabledDate" :type="dateType"
                 :placeholder="placeholder" :size="size" @update:model-value="handleChange"
                 :picker-options="pickerOptions" />
 
@@ -119,4 +119,10 @@ const disabledDate = (time: Date) => {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ala-date-picker-wrapper {
+    :deep .el-form-item__label{
+        justify-content: center;
+    }
+}
+</style>
