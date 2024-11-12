@@ -263,7 +263,7 @@ const submit = async () => {
 onMounted(() => {
 
 })
-const year = date.getCurrentYear()
+const year = date.currentYear()
 
 const systemInfo = reactive({
     companyNameCN: "科爱思(深圳)科技有限公司",

@@ -22,7 +22,7 @@ import { date } from "@/utils/date"
 const currentTime = ref<string>('');
 
 const updateDateTime = () => {
-    currentTime.value = date.getCurrentDateTime();
+    currentTime.value = date.currentDateTime_YYYY_MM_DD__HH_mm_ss();
 };
 
 // 初始更新

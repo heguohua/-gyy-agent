@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 14:05:19
+ * @LastEditTime: 2024-11-12 16:06:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -19,7 +19,7 @@
             <AlaCheckbox v-model="form.checkbox" label="多选框" :items="radioItems" />
             <AlaSelect v-model="form.select" label="下拉选" :items="radioItems" />
             <AlaSwitch v-model="form.switch" label="开关" :items="radioItems" />
-            <AlaDate v-model="form.checkbox" label="多选框" :items="radioItems" />
+            <AlaDate v-model="form.date" label="日期" placeholder="请选择日期" dateType="datetimerange" format="YYYY-MM-DD HH:mm:ss" start="2024-11-10" end="2024-11-13"/>
         </el-form>
         <button @click="showValue">console</button>
     </div>
@@ -77,6 +77,7 @@ const form = ref({
     checkbox: ["men"],
     select: "man",
     switch: true,
+    date: ["2024-11-11"],
 })
 
 const showValue = () => {

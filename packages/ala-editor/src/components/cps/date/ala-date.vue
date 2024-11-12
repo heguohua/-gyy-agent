@@ -2,31 +2,32 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 14:10:42
+ * @LastEditTime: 2024-11-12 16:02:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-wrapper">
+    <div class="ala-date-picker-wrapper">
         <el-form-item :label="label" :label-position="position">
-            <el-checkbox-group @change="handleChange" :model-value="model" class="ala-date-group">
-                <div class="ala-date--item" v-for="(item, index) in items" :key="item.value">
-                    <el-checkbox :value="item.value">{{ item.name }}</el-checkbox>
-                </div>
-            </el-checkbox-group>
+
+            <!-- 注意，注意，注意 el-date-picker 中必须使用 @update:model-value 更新数据值-->
+            <el-date-picker :model-value="model" :disabled-date="disabledDate" :type="dateType"
+                :placeholder="placeholder" :size="size" @update:model-value="handleChange"
+                :picker-options="pickerOptions" />
+
         </el-form-item>
 
     </div>
 </template>
 
 <script setup lang="ts">
+import { date } from '@/utils/date';
+import { logger } from '@/utils/logger';
 
-interface Item {
-    name: string,
-    value: string
-}
+
+const size = ref<'default' | 'large' | 'small'>('default')
 
 // State
 const props = defineProps({
@@ -42,41 +43,82 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    items: {
-        type: Array<Item>,
-        default: []
-    }
+    dateType: {
+        type: String as () => "date" | "year" | "years" | "month" | "months" | "dates" | "week" | "datetime" | "datetimerange" | "daterange" | "monthrange" | "yearrange",
+        default: 'date'
+    },
+    pickerOptions: {
+        type: Object,
+        default: {
+            firstDayOfWeek: 1
+        }
+    },
+    // 被选择日期返参格式化表达式
+    format: {
+        type: String,
+        default: 'YYYY-MM-DD'
+    },
+    // 可选择日期范围限定的开始日期
+    start: {
+        type: String,
+        default: ''
+    },
+    // 可选择日期范围限定的结束日期
+    end: {
+        type: String,
+        default: ''
+    },
 })
 
 const model = defineModel({
-    type: Array<string | number>,
-    default: []
+    type: [String, Number, Array<String>, Date] as const,
+    default: Object
 })
 
-const handleChange = (value: any) => {
+const handleChange = (value: Date | null) => {
     console.log('value:', value);
 
-    model.value = value
+    if (value) {
+        console.log('value:', value);
+
+        if (Array.isArray(value)) {
+            const dates: String[] = []
+            value.forEach((day) => {
+                const dy = date.format(day, props.format);
+                dates.push(dy)
+            })
+            console.log('dates:', dates);
+            model.value = dates
+        } else {
+            const day = date.format(value, props.format);
+            console.log('day:', day);
+            model.value = day
+        }
+
+    } else {
+        logger.error("注意，注意，注意：当前选择日期后为null");
+    }
 }
 
-const clasz = computed(() => {
-    const position = props.position
-    let claszName = ''
-    if (!position || position === 'left') {
-        claszName = 'label-left';
-    } else {
-        if (position === 'top') {
-            claszName = 'label-top';
-        }
-    }
-    console.log('claszName:', claszName);
+const disabledDate = (time: Date) => {
 
-    return claszName;
-})
+    if (props.start && props.end) {
+        return time.getTime() < new Date(props.start).getTime() || time.getTime() > new Date(props.end).getTime();
+    }
+
+    if (!props.start && props.end) {
+        return time.getTime() > new Date(props.end).getTime();
+    }
+
+    if (props.start && !props.end) {
+        return time.getTime() < new Date(props.start).getTime();
+    }
+    return false;
+
+}
+
 // Methods
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

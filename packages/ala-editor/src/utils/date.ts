@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:14:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 19:30:07
+ * @LastEditTime: 2024-11-12 15:16:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/date.ts
  * @Description: 时间工具类
  *
@@ -45,7 +45,7 @@ export class date {
    * 获取当前日期年月日,时间格式为YYYY-MM-DD
    * @returns {string}
    */
-  public static getCurrentDate() {
+  public static currentDate_YYYY_MM_DD() {
     return dayjs(new Date()).format('YYYY-MM-DD');
   }
 
@@ -53,7 +53,7 @@ export class date {
    * 获取当前日期年份,时间格式为YYYY
    * @returns {string}
    */
-  public static getCurrentYear() {
+  public static currentYear() {
     return new Date().getFullYear();
   }
 
@@ -61,8 +61,8 @@ export class date {
    * 获取当前日期年月日时分秒,时间格式为YYYY-MM-DD HH:mm:ss(24小时制,如果hh为小写表示为12小时制)
    * @returns {string}
    */
-  public static getCurrentDateTime() {
-    return dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  public static currentDateTime_YYYY_MM_DD__HH_mm_ss() {
+    return this.YYYY_MM_DD__HH_mm_ss(new Date());
   }
 
   /**
@@ -70,7 +70,7 @@ export class date {
    * @param date:为传过来的日期
    * @returns {string}
    */
-  public static getConvertDate(date: Date) {
+  public static YYYY_MM_DD(date: Date) {
     return dayjs(date).format('YYYY-MM-DD');
   }
 
@@ -79,8 +79,17 @@ export class date {
    * @param date:为传过来的日期
    * @returns {string}
    */
-  public static getConvertDateTime(date: Date) {
+  public static YYYY_MM_DD__HH_mm_ss(date: Date) {
     return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+  }
+
+  /**
+   * 将传过来的日期转换为 自定义 格式
+   * @param date:为传过来的日期
+   * @returns {string}
+   */
+  public static format(date: Date, ft: string) {
+    return dayjs(date).format(ft);
   }
 
   /**

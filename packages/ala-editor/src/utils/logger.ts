@@ -68,7 +68,7 @@ export class Logger {
    * @param optionalParams 可选【多条】日志信息
    */
   info(message: any, ...optionalParams: any[]) {
-    const timestamp = date.getCurrentDateTime();
+    const timestamp = date.currentDateTime_YYYY_MM_DD__HH_mm_ss();
     const file_name = this.getCallerFileName();
     const file_link = this.getCallerFileLink();
 
@@ -89,7 +89,7 @@ export class Logger {
    * @param optionalParams 可选【多条】日志信息
    */
   error(message: any, ...optionalParams: any[]) {
-    const timestamp = date.getCurrentDateTime();
+    const timestamp = date.currentDateTime_YYYY_MM_DD__HH_mm_ss();
     const file_name = this.getCallerFileName();
     const file_link = this.getCallerFileLink();
 
@@ -110,7 +110,7 @@ export class Logger {
    * @param optionalParams 可选【多条】日志信息
    */
   warn(message: any, ...optionalParams: any[]) {
-    const timestamp = date.getCurrentDateTime();
+    const timestamp = date.currentDateTime_YYYY_MM_DD__HH_mm_ss();
     const file_name = this.getCallerFileName();
     const file_link = this.getCallerFileLink();
 
@@ -132,7 +132,7 @@ export class Logger {
    * @param optionalParams 可选【多条】日志信息
    */
   success(message: any, ...optionalParams: any[]) {
-    const timestamp = date.getCurrentDateTime();
+    const timestamp = date.currentDateTime_YYYY_MM_DD__HH_mm_ss();
     const file_name = this.getCallerFileName();
     const file_link = this.getCallerFileLink();
 
