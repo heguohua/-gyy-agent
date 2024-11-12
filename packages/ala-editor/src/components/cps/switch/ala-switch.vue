@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 11:54:31
+ * @LastEditTime: 2024-11-12 13:59:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/ala-switch.vue
  * @Description: 
  * 
@@ -10,16 +10,11 @@
 -->
 <template>
     <div class="ala-switch-wrapper">
-        <span :class="clasz">{{ label }}</span>
-        <!-- <el-radio-group @change="handleChange" :model-value="model" class="ala-switch-group">
-            <div class="ala-switch-item" v-for="(item, index) in items" :key="item.value">
-                <el-radio :value="item.value">{{ item.name }}</el-radio>
-            </div>
-        </el-radio-group> -->
-
-        <el-switch :model-value="model" active-color="#13ce66" inactive-color="#ff4949" :active-text="activeText"
-            :inactive-text="inActiveText" @change="handleChange">
-        </el-switch>
+        <el-form-item :label="label" :label-position="position">
+            <el-switch :model-value="model" :active-color="activeColor" :inactive-color="inActiveColor"
+                :active-text="activeText" :inactive-text="inActiveText" @change="handleChange">
+            </el-switch>
+        </el-form-item>
     </div>
 </template>
 
@@ -51,16 +46,24 @@ const props = defineProps({
     inActiveText: {
         type: String,
         default: '关'
+    },
+    activeColor: {
+        type: String,
+        default: '#13ce66'
+    },
+    inActiveColor: {
+        type: String,
+        default: '#ff4949'
     }
 })
 
 const model = defineModel({
-    type: Boolean 
+    type: Boolean
 })
 
 const handleChange = (value: any) => {
-    console.log('value:',value);
-    
+    console.log('value:', value);
+
     model.value = value
 }
 

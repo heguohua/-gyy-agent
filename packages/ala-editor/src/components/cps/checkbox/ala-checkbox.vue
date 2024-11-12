@@ -10,12 +10,14 @@
 -->
 <template>
     <div class="ala-checkbox-wrapper">
-        <span :class="clasz">{{ label }}</span>
-        <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
-            <div class="ala-checkbox--item" v-for="(item, index) in items" :key="item.value">
-                <el-checkbox :value="item.value">{{ item.name }}</el-checkbox>
-            </div>
-        </el-checkbox-group>
+        <el-form-item :label="label" :label-position="position">
+            <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
+                <div class="ala-checkbox--item" v-for="(item, index) in items" :key="item.value">
+                    <el-checkbox :value="item.value">{{ item.name }}</el-checkbox>
+                </div>
+            </el-checkbox-group>
+        </el-form-item>
+
     </div>
 </template>
 
@@ -81,7 +83,7 @@ const clasz = computed(() => {
     font-size: var(--el-form-label-font-size);
     color: var(--el-text-color-regular);
 
-    
+
     align-items: center;
 
     .ala-checkbox-group {
