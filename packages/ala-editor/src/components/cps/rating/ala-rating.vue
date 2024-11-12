@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 17:17:40
+ * @LastEditTime: 2024-11-12 17:40:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/rating/ala-rating.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <div class="ala-slider-wrapper">
         <el-form-item :label="label" :label-position="position">
-            <el-rate :model-value="model" allow-half @change="handleChange"/>
+            <el-rate :model-value="model" :allow-half="allowHalf" :max="max" @change="handleChange"/>
         </el-form-item>
 
     </div>
@@ -35,10 +35,14 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    starCount: {
+    max: {
         type: Number,
         default: 0,
-    }
+    },
+    allowHalf: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 const model = defineModel({
