@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 21:08:10
+ * @LastEditTime: 2024-11-12 08:35:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -51,8 +51,10 @@ onMounted(() => {
         // 从 localStorage 中恢复路由
         const storedPath = lstore.getItem('activeMenu');
         if (storedPath) {
-            logger.warn(`从localStorage恢复路由：${storedPath}`);
-            router.push(storedPath)
+            if("/login" != storedPath){
+                logger.warn(`从localStorage恢复路由：${storedPath}`);
+                router.push(storedPath)
+            }
         }
     });
 })

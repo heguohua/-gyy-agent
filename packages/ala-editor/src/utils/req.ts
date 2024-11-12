@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 19:30:38
+ * @LastEditTime: 2024-11-12 08:34:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -107,10 +107,11 @@ export function configAxios(app: App<Element>) {
             break;
           case 401:
             error.message = '未登录，请重新登录';
-            window.location.href = '/login'
             // 删除本地 localStorage中的token
             lstore.removeItem(alaConsts.is_logined_key)
             notify.error("温馨提示：", "请先登录系统。")
+            window.location.href = '/login'
+
             break;
           case 403:
             error.message = '无权限，请联系管理员。';
