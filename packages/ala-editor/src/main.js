@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 15:01:50
+ * @LastEditTime: 2024-11-12 23:03:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -14,6 +14,7 @@ import { createApp, reactive, createVNode, render } from 'vue';
 import App from './App.vue';
 // 引入全局css文件
 import './style.css';
+import 'animate.css';
 // 引入路由器
 import router from './router';
 

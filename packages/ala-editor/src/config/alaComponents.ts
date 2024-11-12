@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 19:52:18
+ * @LastEditTime: 2024-11-12 22:17:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -25,7 +25,13 @@ import ConfigBaseTab from '@/components/cps/config/config-base-tab.vue';
 
 import AlaInput from '@/components/cps/input/ala-input.vue';
 import AlaSlider from '@/components/cps/slider/ala-slider.vue';
-
+import AlaPassword from '@/components/cps/password/ala-password.vue';
+import AlaRadio from '@/components/cps/radio/ala-radio.vue';
+import AlaCheckbox from '@/components/cps/checkbox/ala-checkbox.vue';
+import AlaSelect from '@/components/cps/select/ala-select.vue';
+import AlaSwitch from '@/components/cps/switch/ala-switch.vue';
+import AlaDate from '@/components/cps/date/ala-date.vue';
+import AlaRating from '@/components/cps/rating/ala-rating.vue';
 
 export default {
     AlaImage,
@@ -40,6 +46,13 @@ export default {
     ConfigBaseTab,
     AlaInput,
     AlaSlider,
+    AlaPassword,
+    AlaRadio,
+    AlaCheckbox,
+    AlaSelect,
+    AlaSwitch,
+    AlaDate,
+    AlaRating,
 
 }
 

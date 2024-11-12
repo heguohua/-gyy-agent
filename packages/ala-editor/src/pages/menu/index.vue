@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 20:22:59
+ * @LastEditTime: 2024-11-12 23:20:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-form">
-        <el-form :model="form" label-width="120px">
+        <el-form :model="form" label-width="80px">
             <!-- <AlaInput v-model="ala_input.name" label="文本输入框" position="right" placeholder="123"/> -->
             <!-- <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
             <AlaTextarea v-model="form.textarea" label="多行文本框" placeholder="请输入多行文本框" />
@@ -27,13 +27,39 @@
             <!-- <component :is="AlaRating" v-bind="rt" v-model="form.rating" /> -->
 
             <!-- <SearchPanel :fields="fields" /> -->
-            <div class="ala-search-item" v-for="(item, index) in fields" :key="u.uuid()">
+            <!-- <div class="ala-search-item" v-for="(item, index) in fields" :key="u.uuid()">
                 <component :is="item.name" :label="item.label" :position="item.position" :placeholder="item.placeholder"
                     v-bind="item.other" v-model="form[item.model]" />
+            </div> -->
+
+            <!-- 基础查询条件 -->
+            <div class="ala-search-base">
+                <div class="ala-search-base-item" v-for="(item, index) in basicFields" :key="u.uuid()">
+                    <component :is="item.componentName" :label="item.label" :position="item.position"
+                        :placeholder="item.placeholder" v-bind="item.other" v-model="form[item.fieldName]" />
+                </div>
+
+                <el-button type="primary" @click.prevent="query">查询</el-button>
+                <el-button type="primary">重置</el-button>
+                <!-- 高级查询条件 -->
+                <el-button type="primary" @click="toggleAdvanced">
+                    {{ advanced ? '收起高级查询' : '展开高级查询' }}
+                    <!-- <el-icon :style="{ transform: `rotate(${advanced ? 180 : 0}deg)` }">
+                        <arrow-up v-if="advanced" />
+                        <arrow-down v-else />
+                    </el-icon> -->
+                </el-button>
+
+            </div>
+
+            <div class="ala-search-advanced animate__animated animate__fadeIn " v-show="advanced">
+                <div class="ala-search-advanced-item" v-for="(item, index) in advancedFields" :key="u.uuid()">
+                    <component :is="item.componentName" :label="item.label" :position="item.position"
+                        :placeholder="item.placeholder" v-bind="item.other" v-model="form[item.fieldName]" />
+                </div>
             </div>
 
         </el-form>
-        <button @click="showValue">console</button>
     </div>
     <!-- <SearchForm /> -->
     <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
@@ -47,7 +73,6 @@
                     <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
                         :label="column.label"></el-table-column>
                 </el-table>
-
             </template>
 
         </el-table-column>
@@ -70,21 +95,10 @@ import { logger } from '@/utils/logger';
 import { alaPage } from '@/utils/req';
 import u from '@/utils/u';
 
-
-const radioItems = [
-    {
-        name: "男",
-        value: "man",
-    },
-    {
-        name: "女",
-        value: "men",
-    }
-]
-
 const form = reactive<{ [key: string]: any }>({
     input: "input",
     textarea: "textarea",
+    textarea_a: "textarea",
     password: "password",
     radio: "men",
     checkbox: ["men"],
@@ -96,37 +110,56 @@ const form = reactive<{ [key: string]: any }>({
     rating: 2,
 })
 
-const fields = [
+// 基础查询条件
+const basicFields = [
+    { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
+    { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea' },
+    { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password' },
+    { componentName: 'AlaRadio', label: '单选组件', fieldName: 'radio', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+    { componentName: 'AlaCheckbox', label: '多选组件', fieldName: 'checkbox', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+    { componentName: 'AlaSelect', label: '下拉选', fieldName: 'select', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+    { componentName: 'AlaSwitch', label: '开关', fieldName: 'switch', other: { activeText: "开", inActiveText: "关" } },
     {
-        name: 'AlaInput',
-        label: '菜单名',
-        position: 'top',
-        placeholder: '请输入菜单名',
-        model: 'input'
-    },
-    {
-        name: 'AlaSlider',
-        label: '取值范围',
-        placeholder: '请指定取值范围',
-        model: 'slider',
-        other: {
-            min: 2,
-            max: 10,
-            step: 1,
+        componentName: 'AlaDate', label: '创建时间', fieldName: 'date', other: {
+            dateType: "datetimerange",
+            format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
         }
     },
+    { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider', other: { min: 2, max: 10, step: 1, } },
+    { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating', other: { max: 8, allowHalf: true } },
 ]
 
-const showValue = () => {
+
+// 高级查询条件
+const advancedFields = [
+    { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input2' },
+    { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea2' },
+    { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password2' },
+    { componentName: 'AlaRadio', label: '单选组件', fieldName: 'radio2', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+    { componentName: 'AlaCheckbox', label: '多选组件', fieldName: 'checkbox2', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+    { componentName: 'AlaSelect', label: '下拉选', fieldName: 'select2', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+    { componentName: 'AlaSwitch', label: '开关', fieldName: 'switch2', other: { activeText: "开", inActiveText: "关" } },
+    {
+        componentName: 'AlaDate', label: '创建时间', fieldName: 'date2', other: {
+            dateType: "datetimerange",
+            format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
+        }
+    },
+    { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider2', other: { min: 2, max: 10, step: 1, } },
+    { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating2', other: { max: 8, allowHalf: true } },]
+const advanced = ref(false)
+
+// 切换高级查询条件按钮
+const toggleAdvanced = () => {
+    advanced.value = !advanced.value;
+};
+
+const query = () => {
     console.log('form.value:', form);
 }
 
 
-const rt = {
-    label: "评分2",
-    placeholder: "请点击打分2",
-    max: 8
-}
+
 
 // 分页参数
 const page = ref({
@@ -172,8 +205,6 @@ onMounted(() => {
         if (data?.data?.list) {
             menusList.value = data?.data?.list
         }
-
-
 
     });
 })
@@ -239,5 +270,55 @@ const handlePageChange = (newPage: number) => {
 </script>
 
 <style lang="scss" scoped>
+.ala-form {
+    background: #fff;
+    margin: 4px 0px;
+    border-radius: var(--border-radius);
+    padding: 8px 20px;
+
+
+    :deep .el-form-item {
+        margin-bottom: 12px;
+    }
+
+    :deep .el-form-item__label {
+        font-size: 0.9rem;
+        font-weight: bold;
+        padding-right: 6px;
+    }
+
+    :deep .el-button+.el-button {
+        margin: 0px;
+    }
+
+    .ala-search-base {
+        display: inline-flex;
+        flex-wrap: wrap;
+        column-gap: 16px;
+
+        .ala-input-wrapper {
+            min-width: 300px;
+        }
+
+        .ala-slider-wrapper {
+            min-width: 300px;
+        }
+
+        .ala-radio-wrapper {
+            min-width: 160px;
+        }
+    }
+
+    .ala-search-advanced {
+        display: inline-flex;
+        flex-wrap: wrap;
+        column-gap: 16px;
+
+        .ala-search-advanced-item {}
+    }
+
+    button {}
+}
+
 .hide-header {}
 </style>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 08:35:53
+ * @LastEditTime: 2024-11-12 23:18:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -102,6 +102,7 @@ onMounted(() => {
         .content {
             width: calc(100% - var(--el-aside-width));
             padding: var(--el-menu-item-height) 8px 0px 8px;
+            overflow-y: auto;
         }
     }
 
