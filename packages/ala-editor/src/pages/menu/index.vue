@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 13:55:05
+ * @LastEditTime: 2024-11-12 14:05:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -19,6 +19,7 @@
             <AlaCheckbox v-model="form.checkbox" label="多选框" :items="radioItems" />
             <AlaSelect v-model="form.select" label="下拉选" :items="radioItems" />
             <AlaSwitch v-model="form.switch" label="开关" :items="radioItems" />
+            <AlaDate v-model="form.checkbox" label="多选框" :items="radioItems" />
         </el-form>
         <button @click="showValue">console</button>
     </div>

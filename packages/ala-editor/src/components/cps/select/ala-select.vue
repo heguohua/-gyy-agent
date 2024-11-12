@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 13:53:48
+ * @LastEditTime: 2024-11-12 14:06:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/ala-select.vue
  * @Description: 
  * 
@@ -84,10 +84,6 @@ const clasz = computed(() => {
 
 <style scoped lang="scss">
 .ala-select-wrapper {
-  text-align: left;
-  font-size: var(--el-form-label-font-size);
-  color: var(--el-text-color-regular);
-  align-items: center;
 
   .ala-select-group {
 

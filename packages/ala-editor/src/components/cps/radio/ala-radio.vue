@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 13:51:41
+ * @LastEditTime: 2024-11-12 14:06:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -77,10 +77,6 @@ const clasz = computed(() => {
 
 <style scoped lang="scss">
 .ala-radio-wrapper {
-    text-align: left;
-    font-size: var(--el-form-label-font-size);
-    color: var(--el-text-color-regular);
-    align-items: center;
 
     .ala-radio-group {
 

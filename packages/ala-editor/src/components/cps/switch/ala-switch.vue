@@ -88,11 +88,6 @@ const clasz = computed(() => {
 
 <style scoped lang="scss">
 .ala-switch-wrapper {
-    text-align: left;
-    font-size: var(--el-form-label-font-size);
-    color: var(--el-text-color-regular);
-    align-items: center;
-
 
     .label-left {
         display: inline-block;

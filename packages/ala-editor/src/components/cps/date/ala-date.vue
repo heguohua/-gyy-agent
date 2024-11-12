@@ -2,17 +2,17 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 14:06:27
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
+ * @LastEditTime: 2024-11-12 14:03:35
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-checkbox-wrapper">
+    <div class="ala-wrapper">
         <el-form-item :label="label" :label-position="position">
-            <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
-                <div class="ala-checkbox--item" v-for="(item, index) in items" :key="item.value">
+            <el-checkbox-group @change="handleChange" :model-value="model" class="ala-date-group">
+                <div class="ala-date--item" v-for="(item, index) in items" :key="item.value">
                     <el-checkbox :value="item.value">{{ item.name }}</el-checkbox>
                 </div>
             </el-checkbox-group>
@@ -78,26 +78,11 @@ const clasz = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.ala-checkbox-wrapper {
+.ala-date-wrapper {
+    // text-align: left;
+    // font-size: var(--el-form-label-font-size);
+    // color: var(--el-text-color-regular);
 
-    align-items: center;
-
-    .ala-checkbox-group {
-        display: inline-flex;
-        gap: 16px;
-
-        :deep .el-checkbox {
-            display: inline-flex;
-            align-items: center;
-        }
-    }
-
-    .label-left {
-        display: inline-block;
-    }
-
-    .label-top {
-        display: block;
-    }
+    // align-items: center;
 }
 </style>

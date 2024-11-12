@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 09:37:19
+ * @LastEditTime: 2024-11-12 14:07:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -48,6 +48,6 @@ const handleChange = (value: string) => {
 
 <style scoped lang="scss">
 .ala-input-wrapper {
-    text-align: left;
+    
 }
 </style>

@@ -11,6 +11,7 @@ declare module 'vue' {
     AlaCheckbox: typeof import('./src/components/cps/checkbox/ala-checkbox.vue')['default']
     AlaColumn: typeof import('./src/components/cps/column/ala-column.vue')['default']
     AlaCurrentDateTime: typeof import('./src/components/cps/time/AlaCurrentDateTime.vue')['default']
+    AlaDate: typeof import('./src/components/cps/date/ala-date.vue')['default']
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
     AlaImage: typeof import('./src/components/cps/image/ala-image.vue')['default']
     AlaInput: typeof import('./src/components/cps/input/ala-input.vue')['default']
