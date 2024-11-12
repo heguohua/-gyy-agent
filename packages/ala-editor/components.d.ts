@@ -70,6 +70,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchForm: typeof import('./src/components/SearchForm/SearchForm.vue')['default']
+    SearchPanel: typeof import('./src/components/cps/search-panel/search-panel.vue')['default']
     SidebarMenu: typeof import('./src/components/menu/SidebarMenu.vue')['default']
     SidebarMenuItem: typeof import('./src/components/menu/SidebarMenuItem.vue')['default']
     VIcon: typeof import('./src/components/base/v-icon.vue')['default']

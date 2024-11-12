@@ -40,6 +40,8 @@ const model = defineModel({
 
 const handleChange = (value: string) => {
     model.value = value
+    console.log('value:',value);
+    
 }
 
 // Methods

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 19:26:21
+ * @LastEditTime: 2024-11-12 19:52:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -22,6 +22,11 @@ import ConfigColumn from '@/components/cps/config/config-column.vue';
 import ConfigViewport from '@/components/cps/config/config-viewport.vue';
 import ConfigBaseTab from '@/components/cps/config/config-base-tab.vue';
 
+
+import AlaInput from '@/components/cps/input/ala-input.vue';
+import AlaSlider from '@/components/cps/slider/ala-slider.vue';
+
+
 export default {
     AlaImage,
     AlaEmpty,
@@ -33,6 +38,8 @@ export default {
     ConfigColumn,
     ConfigViewport,
     ConfigBaseTab,
+    AlaInput,
+    AlaSlider,
 
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 17:41:17
+ * @LastEditTime: 2024-11-12 20:22:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="ala-form">
         <el-form :model="form" label-width="120px">
             <!-- <AlaInput v-model="ala_input.name" label="文本输入框" position="right" placeholder="123"/> -->
-            <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
+            <!-- <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
             <AlaTextarea v-model="form.textarea" label="多行文本框" placeholder="请输入多行文本框" />
             <AlaPassword v-model="form.password" label="密码" placeholder="请输入密码" />
             <AlaRadio v-model="form.radio" label="单选框" :items="radioItems" />
@@ -21,12 +21,16 @@
             <AlaSwitch v-model="form.switch" label="开关" :items="radioItems" />
             <AlaDate v-model="form.date" label="日期" placeholder="请选择日期" dateType="datetimerange"
                 format="YYYY-MM-DD HH:mm:ss" start="2024-11-10" end="2024-11-13" />
-            <AlaSlider v-model="form.slider" label="滑块" placeholder="请拖拽滑块" :min="0" :max="100" :range="true" />
+            <AlaSlider v-model="form.slider" label="滑块" placeholder="请拖拽滑块" :min="0" :max="100" :range="true" /> -->
 
             <!-- <AlaRating v-model="form.rating" label="评分" placeholder="请点击打分" :max="5" /> -->
-            <component :is="AlaRating" v-bind="rt"  v-model="form.rating"/>
+            <!-- <component :is="AlaRating" v-bind="rt" v-model="form.rating" /> -->
 
-
+            <!-- <SearchPanel :fields="fields" /> -->
+            <div class="ala-search-item" v-for="(item, index) in fields" :key="u.uuid()">
+                <component :is="item.name" :label="item.label" :position="item.position" :placeholder="item.placeholder"
+                    v-bind="item.other" v-model="form[item.model]" />
+            </div>
 
         </el-form>
         <button @click="showValue">console</button>
@@ -65,7 +69,7 @@ import { ElTable, ElTableColumn } from 'element-plus';
 import { logger } from '@/utils/logger';
 import { alaPage } from '@/utils/req';
 import u from '@/utils/u';
-import AlaRating from '@/components/cps/rating/ala-rating.vue';
+
 
 const radioItems = [
     {
@@ -78,7 +82,7 @@ const radioItems = [
     }
 ]
 
-const form = ref({
+const form = reactive<{ [key: string]: any }>({
     input: "input",
     textarea: "textarea",
     password: "password",
@@ -87,19 +91,40 @@ const form = ref({
     select: "man",
     switch: true,
     date: ["2024-11-11", "2024-11-12"],
-    slider: 30,
+    slider: 6,
     // slider: [30, 66],
     rating: 2,
 })
 
+const fields = [
+    {
+        name: 'AlaInput',
+        label: '菜单名',
+        position: 'top',
+        placeholder: '请输入菜单名',
+        model: 'input'
+    },
+    {
+        name: 'AlaSlider',
+        label: '取值范围',
+        placeholder: '请指定取值范围',
+        model: 'slider',
+        other: {
+            min: 2,
+            max: 10,
+            step: 1,
+        }
+    },
+]
+
 const showValue = () => {
-    console.log('form.value:', form.value);
+    console.log('form.value:', form);
 }
 
 
 const rt = {
-    label: "评分2", 
-    placeholder: "请点击打分2", 
+    label: "评分2",
+    placeholder: "请点击打分2",
     max: 8
 }
 
