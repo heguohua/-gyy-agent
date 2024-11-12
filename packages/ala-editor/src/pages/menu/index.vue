@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 16:13:39
+ * @LastEditTime: 2024-11-12 16:58:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -21,6 +21,7 @@
             <AlaSwitch v-model="form.switch" label="开关" :items="radioItems" />
             <AlaDate v-model="form.date" label="日期" placeholder="请选择日期" dateType="datetimerange"
                 format="YYYY-MM-DD HH:mm:ss" start="2024-11-10" end="2024-11-13" />
+            <AlaSlider v-model="form.slider" label="滑块" placeholder="请拖拽滑块" :min="0" :max="100" :range="true" />
         </el-form>
         <button @click="showValue">console</button>
     </div>
@@ -79,6 +80,8 @@ const form = ref({
     select: "man",
     switch: true,
     date: ["2024-11-11", "2024-11-12"],
+    slider: 30,
+    // slider: [30, 66],
 })
 
 const showValue = () => {
