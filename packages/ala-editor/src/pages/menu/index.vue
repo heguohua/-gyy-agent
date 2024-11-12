@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 11:13:49
+ * @LastEditTime: 2024-11-12 11:23:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -15,8 +15,9 @@
             <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
             <AlaTextarea v-model="form.textarea" label="多行文本框" placeholder="请输入多行文本框" />
             <AlaPassword v-model="form.password" label="密码" placeholder="请输入密码" />
-            <AlaRadio v-model="form.radio" label="单选框" :items="radioItems"  position="left"/>
-            <AlaCheckbox v-model="form.checkbox" label="多选框" :items="radioItems"   position="left"/>
+            <AlaRadio v-model="form.radio" label="单选框" :items="radioItems" position="left" />
+            <AlaCheckbox v-model="form.checkbox" label="多选框" :items="radioItems" position="left" />
+            <AlaSelect v-model="form.select" label="下拉选" :items="radioItems" position="left" />
         </el-form>
         <button @click="showValue">console</button>
     </div>
@@ -71,7 +72,8 @@ const form = ref({
     textarea: "textarea",
     password: "password",
     radio: "men",
-    checkbox: ["men"]
+    checkbox: ["men"],
+    select: "man"
 })
 
 const showValue = () => {

@@ -17,6 +17,7 @@ declare module 'vue' {
     AlaLink: typeof import('./src/components/cps/link/ala-link.vue')['default']
     AlaPassword: typeof import('./src/components/cps/password/ala-password.vue')['default']
     AlaRadio: typeof import('./src/components/cps/radio/ala-radio.vue')['default']
+    AlaSelect: typeof import('./src/components/cps/select/ala-select.vue')['default']
     AlaTextarea: typeof import('./src/components/cps/textarea/ala-textarea.vue')['default']
     AlaTypewriterOneLine: typeof import('./src/components/cps/typewriter/AlaTypewriterOneLine.vue')['default']
     ComponentTemplete: typeof import('./src/components/cps/component-templete/index.vue')['default']
