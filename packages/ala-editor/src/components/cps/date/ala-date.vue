@@ -76,10 +76,8 @@ const model = defineModel({
 })
 
 const handleChange = (value: Date | null) => {
-    console.log('value:', value);
 
     if (value) {
-        console.log('value:', value);
 
         if (Array.isArray(value)) {
             const dates: String[] = []

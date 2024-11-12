@@ -62,8 +62,6 @@ const model = defineModel({
 })
 
 const handleChange = (value: any) => {
-    console.log('value:', value);
-
     model.value = value
 }
 
