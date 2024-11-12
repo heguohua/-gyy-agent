@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 09:57:55
+ * @LastEditTime: 2024-11-12 10:12:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -15,6 +15,7 @@
             <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
             <AlaTextarea v-model="form.textarea" label="多行文本框" placeholder="请输入多行文本框" />
             <AlaPassword v-model="form.password" label="密码" placeholder="请输入密码" />
+            <AlaRadio v-model="form.radio" label="单选框" placeholder="请输入单选框" :items="radioItems" />
         </el-form>
         <button @click="showValue">console</button>
     </div>
@@ -53,10 +54,22 @@ import { logger } from '@/utils/logger';
 import { alaPage } from '@/utils/req';
 import u from '@/utils/u';
 
+const radioItems = [
+    {
+        name: "男",
+        value: "man",
+    },
+    {
+        name: "女",
+        value: "men",
+    }
+]
+
 const form = ref({
     input: "input",
     textarea: "textarea",
     password: "password",
+    radio: "men"
 })
 
 const showValue = () => {
