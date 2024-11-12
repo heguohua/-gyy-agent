@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 11:23:13
+ * @LastEditTime: 2024-11-12 11:56:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -18,6 +18,7 @@
             <AlaRadio v-model="form.radio" label="单选框" :items="radioItems" position="left" />
             <AlaCheckbox v-model="form.checkbox" label="多选框" :items="radioItems" position="left" />
             <AlaSelect v-model="form.select" label="下拉选" :items="radioItems" position="left" />
+            <AlaSwitch v-model="form.switch" label="开关" :items="radioItems" position="top" />
         </el-form>
         <button @click="showValue">console</button>
     </div>
@@ -73,7 +74,8 @@ const form = ref({
     password: "password",
     radio: "men",
     checkbox: ["men"],
-    select: "man"
+    select: "man",
+    switch: true,
 })
 
 const showValue = () => {
