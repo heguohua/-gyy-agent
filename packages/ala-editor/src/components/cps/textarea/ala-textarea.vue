@@ -2,16 +2,17 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 09:37:19
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
+ * @LastEditTime: 2024-11-12 09:47:19
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/ala-textarea.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-input-wrapper">
+    <div class="ala-textarea-wrapper">
         <el-form-item :label="label" :label-position="position">
-            <el-input :model-value="model" @input="handleChange" :placeholder="placeholder"></el-input>
+            <el-input type="textarea" autosize :model-value="model" @input="handleChange"
+                :placeholder="placeholder"></el-input>
         </el-form-item>
     </div>
 </template>
@@ -47,7 +48,7 @@ const handleChange = (value: string) => {
 </script>
 
 <style scoped lang="scss">
-.ala-input-wrapper {
+.ala-textarea-wrapper {
     text-align: left;
 }
 </style>

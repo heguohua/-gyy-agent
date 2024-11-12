@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 23:07:40
+ * @LastEditTime: 2024-11-12 09:57:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -10,9 +10,15 @@
 -->
 <template>
     <div class="ala-form">
-        <AlaInput v-model="ala_input" />
+        <el-form :model="form" label-width="120px">
+            <!-- <AlaInput v-model="ala_input.name" label="文本输入框" position="right" placeholder="123"/> -->
+            <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
+            <AlaTextarea v-model="form.textarea" label="多行文本框" placeholder="请输入多行文本框" />
+            <AlaPassword v-model="form.password" label="密码" placeholder="请输入密码" />
+        </el-form>
+        <button @click="showValue">console</button>
     </div>
-    <SearchForm />
+    <!-- <SearchForm /> -->
     <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
         @expand-change="handleExpandChange">
 
@@ -47,8 +53,15 @@ import { logger } from '@/utils/logger';
 import { alaPage } from '@/utils/req';
 import u from '@/utils/u';
 
+const form = ref({
+    input: "input",
+    textarea: "textarea",
+    password: "password",
+})
 
-const ala_input = ref("234")
+const showValue = () => {
+    console.log('form.value:', form.value);
+}
 
 
 // 分页参数
