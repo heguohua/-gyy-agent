@@ -2,20 +2,20 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 11:13:32
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
+ * @LastEditTime: 2024-11-12 11:14:19
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-radio-wrapper">
+    <div class="ala-checkbox-wrapper">
         <span :class="clasz">{{ label }}</span>
-        <el-radio-group @change="handleChange" :model-value="model" class="ala-radio-group">
-            <div class="ala-radio-item" v-for="(item, index) in items" :key="item.value">
-                <el-radio :value="item.value">{{ item.name }}</el-radio>
+        <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
+            <div class="ala-checkbox--item" v-for="(item, index) in items" :key="item.value">
+                <el-checkbox :value="item.value">{{ item.name }}</el-checkbox>
             </div>
-        </el-radio-group>
+        </el-checkbox-group>
     </div>
 </template>
 
@@ -47,10 +47,13 @@ const props = defineProps({
 })
 
 const model = defineModel({
-    type: String || Number || Boolean || undefined
+    type: Array<string | number>,
+    default: []
 })
 
 const handleChange = (value: any) => {
+    console.log('value:', value);
+
     model.value = value
 }
 
@@ -68,24 +71,24 @@ const clasz = computed(() => {
 
     return claszName;
 })
-
 // Methods
 
 </script>
 
 <style scoped lang="scss">
-.ala-radio-wrapper {
+.ala-checkbox-wrapper {
     text-align: left;
     font-size: var(--el-form-label-font-size);
     color: var(--el-text-color-regular);
+
+    
     align-items: center;
 
-    .ala-radio-group {
-
+    .ala-checkbox-group {
         display: inline-flex;
         gap: 16px;
 
-        :deep .el-radio {
+        :deep .el-checkbox {
             display: inline-flex;
             align-items: center;
         }

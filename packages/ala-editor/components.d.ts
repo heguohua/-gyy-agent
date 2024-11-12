@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     A: typeof import('./src/components/base/a.vue')['default']
+    AlaCheckbox: typeof import('./src/components/cps/checkbox/ala-checkbox.vue')['default']
     AlaColumn: typeof import('./src/components/cps/column/ala-column.vue')['default']
     AlaCurrentDateTime: typeof import('./src/components/cps/time/AlaCurrentDateTime.vue')['default']
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
