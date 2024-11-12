@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 14:07:42
+ * @LastEditTime: 2024-11-12 14:10:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/password/ala-password.vue
  * @Description: 
  * 
@@ -47,6 +47,5 @@ const handleChange = (value: string) => {
 </script>
 
 <style scoped lang="scss">
-.ala-password-wrapper {
-}
+
 </style>

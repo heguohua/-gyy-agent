@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 14:03:35
+ * @LastEditTime: 2024-11-12 14:10:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -78,11 +78,5 @@ const clasz = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.ala-date-wrapper {
-    // text-align: left;
-    // font-size: var(--el-form-label-font-size);
-    // color: var(--el-text-color-regular);
 
-    // align-items: center;
-}
 </style>

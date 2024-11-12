@@ -47,7 +47,5 @@ const handleChange = (value: string) => {
 </script>
 
 <style scoped lang="scss">
-.ala-input-wrapper {
-    
-}
+
 </style>
