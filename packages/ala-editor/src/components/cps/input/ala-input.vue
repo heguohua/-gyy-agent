@@ -44,13 +44,8 @@ const model = defineModel({
 
 const emit = defineEmits(['callback'])
 
-const fieldName = props.fieldName
-
 const handleChange = (value: string) => {
-    console.log('value:', value);
-    emit("callback", {
-        [fieldName]: value
-    })
+    model.value = value
 }
 
 // Methods

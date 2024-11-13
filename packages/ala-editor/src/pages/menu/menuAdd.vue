@@ -2,15 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 16:31:44
+ * @LastEditTime: 2024-11-13 16:41:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <AlaAddForm v-model="showDrawer" @callback="callback" @confirm="confirm" v-bind="props" :fields="basicFields"
-        :data="formData" />
+    <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData" />
 </template>
 
 <script setup lang="ts">
@@ -66,7 +65,7 @@ const basicFields = [
 
 
 // ##########################  以下是公共方法，不需要修改  #########################################
-const emit = defineEmits(["callback", "confirm"])
+const emit = defineEmits(["confirm"])
 
 const confirm = (data: any) => {
     logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
@@ -81,17 +80,13 @@ const confirm = (data: any) => {
         })
         .then(() => {
             showDrawer.value = false
-            emit('callback', data)
+            logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【确认保存】，当前表单数据为：", formData);
+
         })
         .catch(() => {
             logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【取消关闭】");
         })
 
-}
-
-const callback = (data: any) => {
-    logger.warn("新增页面 callback 接收到回调数据，即将更新表单数据", data);
-    merge(formData , data);
 }
 
 

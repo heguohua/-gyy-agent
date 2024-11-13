@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:13:12
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 15:40:49
+ * @LastEditTime: 2024-11-13 16:35:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/fieldSchemas.ts
  * @Description: 
  * 
@@ -17,7 +17,7 @@ export interface AlaField {
     other?: {
         [key: string]: any
     },
-    model: any
+    model?: any
 }
 
 export interface AlaInputField extends AlaField {
