@@ -343,6 +343,7 @@ Remove the default `border-radius` that macOS Chrome adds.
 Details at https://github.com/twbs/bootstrap/issues/24093
 */
   button {
+    outline: none;
     border-radius: var(--border-radius-button);
   }
 
@@ -351,8 +352,8 @@ Work around a Firefox/IE bug where the transparent `button` background results i
 Credit: https://github.com/suitcss/base/
 */
   button:focus {
-    outline: 1px dotted;
-    outline: 5px auto -webkit-focus-ring-color;
+    outline: none;
+    // outline: 5px auto -webkit-focus-ring-color;
   }
 
   input {

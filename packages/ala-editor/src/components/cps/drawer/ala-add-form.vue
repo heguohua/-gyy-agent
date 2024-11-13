@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 14:36:24
+ * @LastEditTime: 2024-11-13 15:03:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
  * @Description: 
  * 
@@ -35,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import { logger } from '@/utils/logger';
 import { DrawerProps, ElMessageBox } from 'element-plus';
 import { ref } from 'vue'
 
@@ -42,7 +43,14 @@ import { ref } from 'vue'
 
 
 const props = defineProps({
-
+    closeTitle: {
+        type: String,
+        default: '温馨提示：'
+    },
+    closeContent: {
+        type: String,
+        default: '您确定要关闭新增页面吗？'
+    },
 })
 
 
@@ -55,35 +63,43 @@ const emit = defineEmits(["callback"])
 
 const direction = ref<DrawerProps['direction']>('rtl')
 const radio1 = ref('Option 1')
+
+
 const handleClose = (done: () => void) => {
-    ElMessageBox.confirm('Are you sure you want to close this?')
+    ElMessageBox.confirm(
+        props.closeContent,
+        props.closeTitle,
+        {
+            confirmButtonText: '确认关闭',
+            cancelButtonText: '取消关闭',
+            type: 'warning',
+        })
         .then(() => {
             done()
         })
         .catch(() => {
-            // catch error
+            logger.info("点击右上角关闭按钮，弹出取消提示信息框，用户选择【取消关闭】");
         })
 }
+
+/**
+ * 点击取消按钮，关闭弹窗
+ */
 function cancelClick() {
     showDrawer.value = false
 }
+
+/**
+ * 点击确认按钮，弹窗消息提示框
+ */
 function confirmClick() {
-    ElMessageBox.confirm(`Are you confirm to chose ${radio1.value} ?`)
-        .then(() => {
-            showDrawer.value = false
-            emit("callback", {
-                // data: {
-                //     [key]: data
-                // },
-                // id
-                abc: 123
-            })
-        })
-        .catch(() => {
-            // catch error
-        })
-
-
+    emit("callback", {
+        // data: {
+        //     [key]: data
+        // },
+        // id
+        abc: 123
+    })
 }
 
 // Methods
