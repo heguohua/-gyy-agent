@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 17:07:56
+ * @LastEditTime: 2024-11-13 19:43:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -64,7 +64,8 @@
     </div>
     <!-- <SearchForm /> -->
     <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
-        @expand-change="handleExpandChange">
+        @expand-change="handleExpandChange" @sort-change="sortChange"
+        :default-sort="{ prop: 'id', order: 'descending' }">
 
 
         <el-table-column type="expand">
@@ -78,7 +79,8 @@
 
         </el-table-column>
 
-        <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label">
+        <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
+            sortable>
         </el-table-column>
 
 
@@ -119,11 +121,107 @@ const baseInfo = reactive({
 })
 // ############## 初始化基本数据，该部分代码不用修改 end ######################################
 
+// ############## 分页列表通用方法，该部分代码不用修改 start ######################################
 
 const showAddForm = ref(false)
 const refresh = (data: typeof form) => {
     logger.warn("list页面接收到回调数据，即将刷新数据", data);
 }
+// 切换高级查询条件按钮
+const toggleAdvanced = () => {
+    advanced.value = !advanced.value;
+};
+
+//查询按钮
+const query = () => {
+    console.log('form.value:', form);
+}
+
+
+
+
+// 分页列表通用代码
+// 分页参数
+const page = reactive({
+    "current": 1,
+    "size": 10,
+    "total": 0,
+    orders: [{
+        column: 'id',
+        asc: false
+    }]
+})
+// 查询条件
+const params = reactive({
+
+})
+
+const onePageList = ref<Array<Row>>([]);
+onMounted(() => {
+    logger.info("onMounted 渲染 menu 分页列表页面");
+
+    // 后台加载菜单
+    alaPage(u.url(url), page, params, true).then((data: any) => {
+
+        const responsePage = data.data;
+        page.current = responsePage.pageNum
+        page.size = responsePage.pageSize
+        page.total = responsePage.total
+
+        if (data?.data?.list) {
+            onePageList.value = data?.data?.list
+        }
+
+    });
+})
+const paginatedData = computed(() => {
+    const page = 1; // 当前页码
+    const pageSize = 10; // 每页显示条数
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+    return onePageList.value.slice(start, end);
+});
+
+const currentPage = computed(() => {
+    return page.current;
+})
+
+const pageSize = computed(() => {
+    return page.size;
+})
+
+const total = computed(() => {
+    return page.total;
+})
+
+// 可展开内表通用代码
+const expandedRowIds = ref<String[]>([]);
+const handleExpandChange = (row: Row, expandedRows: any) => {
+
+    const id = row.id + ''
+    if (expandedRows && expandedRows.length > 0) {
+        // 如果当前行被展开，添加到数组中
+        if (!expandedRowIds.value?.includes(id)) {
+            expandedRowIds.value.push(id);
+        }
+    } else {
+        // 如果当前行被收起，从数组中移除
+        const index = expandedRowIds.value?.indexOf(id);
+        if (index > -1) {
+            expandedRowIds.value.splice(index, 1);
+        }
+    }
+};
+
+const handlePageChange = (newPage: number) => {
+    page.current = newPage;
+};
+// ############## 分页列表通用方法，该部分代码不用修改 end ######################################
+
+
+// ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
+
+const url = "/u/menu/page"
 
 const form = reactive<{ [key: string]: any }>({
     input: "input",
@@ -181,65 +279,11 @@ const advancedFields = [
     { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating2', other: { max: 8, allowHalf: true } },]
 const advanced = ref(false)
 
-// 切换高级查询条件按钮
-const toggleAdvanced = () => {
-    advanced.value = !advanced.value;
-};
 
-const query = () => {
-    console.log('form.value:', form);
-}
+// ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 
 
-
-// 分页参数
-const page = ref({
-    "current": 1,
-    "size": 10,
-    "total": 0,
-    orders: [{
-        column: 'id',
-        asc: false
-    }]
-})
-const params = ref({
-
-})
-
-
-const currentPage = computed(() => {
-    return page.value.current;
-})
-
-const pageSize = computed(() => {
-    return page.value.size;
-})
-
-const total = computed(() => {
-    return page.value.total;
-})
-
-
-onMounted(() => {
-    logger.info("onMounted 渲染 layout 页面");
-    // 后台加载菜单
-    alaPage(u.url("/u/menu/page"), page.value, params.value, true).then((data: any) => {
-
-        const responsePage = data.data;
-        page.value.current = responsePage.pageNum
-        page.value.size = responsePage.pageSize
-        page.value.total = responsePage.total
-
-        console.log('data:', data?.data);
-        // menus.value = data.data
-
-        if (data?.data?.list) {
-            menusList.value = data?.data?.list
-        }
-
-    });
-})
 
 interface Row {
     id: number;
@@ -261,43 +305,14 @@ const columns = ref([
     { prop: 'height', label: '图标高度' },
 ]);
 
-const menusList = ref<Array<Row>>([
-]);
 
-const expandedRowIds = ref<String[]>([]);
+const sortChange = (a: any, b: any, c: any) => {
+    console.log('a:', a);
+    console.log('b:', b);
+    console.log('c:', c);
 
-const paginatedData = computed(() => {
-    // 分页逻辑
-    const page = 1; // 假设当前页码
-    const pageSize = 10; // 假设每页显示条数
-    const start = (page - 1) * pageSize;
-    const end = start + pageSize;
-    return menusList.value.slice(start, end);
-});
+}
 
-const handleExpandChange = (row: Row, expandedRows: any) => {
-
-    const id = row.id + ''
-    console.log('row:', row);
-
-    if (expandedRows && expandedRows.length > 0) {
-        // 如果当前行被展开，添加到数组中
-
-        if (!expandedRowIds.value?.includes(id)) {
-            expandedRowIds.value.push(id);
-        }
-    } else {
-        // 如果当前行被收起，从数组中移除
-        const index = expandedRowIds.value?.indexOf(id);
-        if (index > -1) {
-            expandedRowIds.value.splice(index, 1);
-        }
-    }
-};
-
-const handlePageChange = (newPage: number) => {
-    page.value.current = newPage;
-};
 
 </script>
 
@@ -307,7 +322,6 @@ const handlePageChange = (newPage: number) => {
     margin: 4px 0px;
     border-radius: var(--border-radius);
     padding: 8px 20px;
-
 
     :deep .el-form-item {
         margin-bottom: 12px;

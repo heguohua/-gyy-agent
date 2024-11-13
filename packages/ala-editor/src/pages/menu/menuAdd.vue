@@ -2,15 +2,19 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 17:23:28
+ * @LastEditTime: 2024-11-13 18:54:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
-        :closeContent="closeContent" />
+
+    <el-form :model="formData" label-width="80px">
+        <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
+            :closeContent="closeContent" />
+    </el-form>
+
 </template>
 
 <script setup lang="ts">
@@ -80,13 +84,6 @@ const saveContent = () => {
     return content
 }
 
-
-// : {
-//         type: String,
-//         default: '您确定要关闭新增页面吗？'
-//     },
-
-
 const emit = defineEmits(["confirm"])
 
 const confirm = (data: any) => {
@@ -105,7 +102,7 @@ const confirm = (data: any) => {
             logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【确认保存】按钮，当前表单数据为：", formData);
         })
         .catch(() => {
-            logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【取消关闭】按钮");
+            logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【继续编辑】按钮");
         })
 
 }

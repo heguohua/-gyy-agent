@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 17:02:20
+ * @LastEditTime: 2024-11-13 18:54:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
  * @Description: 
  * 
@@ -15,11 +15,13 @@
                 <h4>这里是标题区域</h4>
             </template>
             <template #default>
+
                 <div class="ala-search-base-item" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
                     <component :is="item.componentName" :label="item.label" :position="item.position"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
                         :fieldName="item.fieldName" />
                 </div>
+
             </template>
             <template #footer>
                 <div style="flex: auto">
@@ -66,7 +68,6 @@ const showDrawer = defineModel({
     type: Boolean,
     default: false
 })
-
 
 
 const emit = defineEmits(["confirm"])
