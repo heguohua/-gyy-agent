@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 14:07:14
+ * @LastEditTime: 2024-11-13 16:05:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 
 // State
-defineProps({
+const props = defineProps({
     label: {
         type: String,
         default: ''
@@ -31,6 +31,10 @@ defineProps({
     placeholder: {
         type: String,
         default: ''
+    },
+    fieldName: {
+        type: String,
+        default: ''
     }
 })
 
@@ -38,16 +42,19 @@ const model = defineModel({
     type: String || Number || null || undefined
 })
 
+const emit = defineEmits(['callback'])
+
+const fieldName = props.fieldName
+
 const handleChange = (value: string) => {
-    model.value = value
-    console.log('value:',value);
-    
+    console.log('value:', value);
+    emit("callback", {
+        [fieldName]: value
+    })
 }
 
 // Methods
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

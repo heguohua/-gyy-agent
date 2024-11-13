@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 15:03:14
+ * @LastEditTime: 2024-11-13 16:30:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
  * @Description: 
  * 
@@ -12,16 +12,13 @@
     <div class="ala-add-form">
         <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose">
             <template #header>
-                <h4>set title by slot</h4>
+                <h4>这里是标题区域</h4>
             </template>
             <template #default>
-                <div>
-                    <el-radio v-model="radio1" value="Option 1" size="large">
-                        Option 1
-                    </el-radio>
-                    <el-radio v-model="radio1" value="Option 2" size="large">
-                        Option 2
-                    </el-radio>
+                <div class="ala-search-base-item" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
+                    <component :is="item.componentName" :label="item.label" :position="item.position"
+                        :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
+                        @callback="callback" :fieldName="item.fieldName" />
                 </div>
             </template>
             <template #footer>
@@ -35,12 +32,13 @@
 </template>
 
 <script setup lang="ts">
+import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
+import u from '@/utils/u';
 import { DrawerProps, ElMessageBox } from 'element-plus';
 import { ref } from 'vue'
 
 // State
-
 
 const props = defineProps({
     closeTitle: {
@@ -51,19 +49,32 @@ const props = defineProps({
         type: String,
         default: '您确定要关闭新增页面吗？'
     },
+    fields: {
+        type: Array<AlaField>,
+        default: []
+    },
+    data: {
+        type: Object,
+        default: {}
+    }
 })
-
 
 const showDrawer = defineModel({
     type: Boolean,
     default: false
 })
 
-const emit = defineEmits(["callback"])
+
+
+const emit = defineEmits(["callback", "confirm"])
 
 const direction = ref<DrawerProps['direction']>('rtl')
 const radio1 = ref('Option 1')
 
+
+
+// Methods
+// ##########################  以下是公共方法，不需要修改  #########################################
 
 const handleClose = (done: () => void) => {
     ElMessageBox.confirm(
@@ -93,7 +104,7 @@ function cancelClick() {
  * 点击确认按钮，弹窗消息提示框
  */
 function confirmClick() {
-    emit("callback", {
+    emit("confirm", {
         // data: {
         //     [key]: data
         // },
@@ -102,7 +113,10 @@ function confirmClick() {
     })
 }
 
-// Methods
+const callback = (data: object) => {
+    logger.info("ala-add-form接收到表单元素数据，即将回调父页面callback，data值", data);
+    emit("callback", data)
+}
 
 </script>
 
