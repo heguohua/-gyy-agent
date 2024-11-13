@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 16:24:09
+ * @LastEditTime: 2024-11-13 16:51:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -69,7 +69,7 @@ export const allMenuComponents: MenuComponent = {
 }
 
 export default class MenuUtil {
-    
+
     static registerDynamicRouter(menus: Menu[], level = 0): void {
 
         if (menus && menus.length > 0) {
@@ -86,7 +86,7 @@ export default class MenuUtil {
                             path: menu.url,
                             name: menuComponent.name,
                             component: () => import(menuComponent.component),
-                            meta: { requiresAuth: menuComponent.requiresAuth }
+                            meta: { requiresAuth: menuComponent.requiresAuth, menuName: menu.name }
                         });
                     } else {
                         logger.error(`menu.url [ ${menu.url} ] 渲染的组件不存在，菜单名[ ${menu.name} ]`);

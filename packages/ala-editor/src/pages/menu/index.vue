@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 14:34:57
+ * @LastEditTime: 2024-11-13 17:07:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -90,17 +90,35 @@
 
 
 
-    <MenuAdd @callback="refresh" v-model="showAddForm" />
+    <MenuAdd @callback="refresh" v-model="showAddForm" v-bind="baseInfo" />
 
 </template>
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { ElTable, ElTableColumn, formMetaProps } from 'element-plus';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { logger } from '@/utils/logger';
 import { alaPage } from '@/utils/req';
 import u from '@/utils/u';
 import MenuAdd from '@/pages/menu/menuAdd.vue';
+import { useRoute } from 'vue-router';
+
+
+
+// ############## 初始化基本数据，该部分代码不用修改 start ######################################
+// 1、获取当前模块名
+const route = useRoute();
+const moduleName = route.meta.menuName as string || '';
+
+// 2、定义当前编辑对象id
+let id = 0
+
+const baseInfo = reactive({
+    moduleName,
+    id
+})
+// ############## 初始化基本数据，该部分代码不用修改 end ######################################
+
 
 const showAddForm = ref(false)
 const refresh = (data: typeof form) => {
