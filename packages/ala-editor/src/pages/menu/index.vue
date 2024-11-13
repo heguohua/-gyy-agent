@@ -2,67 +2,34 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 23:11:42
+ * @LastEditTime: 2024-11-13 23:15:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <!-- <el-form :model="form" label-width="80px"> -->
-    <!-- <AlaInput v-model="ala_input.name" label="文本输入框" position="right" placeholder="123"/> -->
-    <!-- <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
-            <AlaTextarea v-model="form.textarea" label="多行文本框" placeholder="请输入多行文本框" />
-            <AlaPassword v-model="form.password" label="密码" placeholder="请输入密码" />
-            <AlaRadio v-model="form.radio" label="单选框" :items="radioItems" />
-            <AlaCheckbox v-model="form.checkbox" label="多选框" :items="radioItems" />
-            <AlaSelect v-model="form.select" label="下拉选" :items="radioItems" />
-            <AlaSwitch v-model="form.switch" label="开关" :items="radioItems" />
-            <AlaDate v-model="form.date" label="日期" placeholder="请选择日期" dateType="datetimerange"
-                format="YYYY-MM-DD HH:mm:ss" start="2024-11-10" end="2024-11-13" />
-            <AlaSlider v-model="form.slider" label="滑块" placeholder="请拖拽滑块" :min="0" :max="100" :range="true" /> -->
-
-    <!-- <AlaRating v-model="form.rating" label="评分" placeholder="请点击打分" :max="5" /> -->
-    <!-- <component :is="AlaRating" v-bind="rt" v-model="form.rating" /> -->
-
-    <!-- <SearchPanel :fields="fields" /> -->
-    <!-- <div class="ala-search-item" v-for="(item, index) in fields" :key="u.uuid()">
-                <component :is="item.name" :label="item.label" :position="item.position" :placeholder="item.placeholder"
-                    v-bind="item.other" v-model="form[item.model]" />
-            </div> -->
-
+    <!-- 查询条件区域 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
         @showAdd="showAdd" />
 
-
-    <!-- 基础查询条件 -->
-    <!-- <div class="ala-search-base">
-                <el-button type="primary" @click="showAddForm = !showAddForm">新增</el-button>
-            </div> -->
-
-
-
-    <!-- </el-form> -->
+    <!-- 分页列表区域 -->
     <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
         @expand-change="handleExpandChange" @sort-change="sortChange"
         :default-sort="{ prop: 'id', order: 'descending' }">
 
-
         <el-table-column type="expand">
-
             <template #default="{ row }">
                 <el-table v-if="row.children" :data="row.children" style="width: 100%" row-key="id" class="hide-header">
                     <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
                         :label="column.label"></el-table-column>
                 </el-table>
             </template>
-
         </el-table-column>
 
         <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
             sortable>
         </el-table-column>
-
 
         <el-pagination v-model:current-page="currentPage" :page-size="pageSize" layout="total, prev, pager, next"
             :total="total" @current-change="handlePageChange" class="ala-page-pagination">
@@ -70,6 +37,7 @@
 
     </el-table>
 
+    <!-- 新增、编辑区域 -->
     <MenuAdd @callback="refresh" v-model="showAddForm" v-bind="baseInfo" />
 
 </template>
