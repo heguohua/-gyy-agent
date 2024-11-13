@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 23:20:03
+ * @LastEditTime: 2024-11-13 14:34:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -49,15 +49,16 @@
                         <arrow-down v-else />
                     </el-icon> -->
                 </el-button>
+                <el-button type="primary" @click="showAddForm = !showAddForm">新增</el-button>
 
             </div>
 
-            <div class="ala-search-advanced animate__animated animate__fadeIn " v-show="advanced">
+            <!-- <div class="ala-search-advanced animate__animated animate__fadeIn " v-show="advanced">
                 <div class="ala-search-advanced-item" v-for="(item, index) in advancedFields" :key="u.uuid()">
                     <component :is="item.componentName" :label="item.label" :position="item.position"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="form[item.fieldName]" />
                 </div>
-            </div>
+            </div> -->
 
         </el-form>
     </div>
@@ -86,14 +87,25 @@
         </el-pagination>
 
     </el-table>
+
+
+
+    <MenuAdd @callback="refresh" v-model="showAddForm" />
+
 </template>
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { ElTable, ElTableColumn } from 'element-plus';
+import { ElTable, ElTableColumn, formMetaProps } from 'element-plus';
 import { logger } from '@/utils/logger';
 import { alaPage } from '@/utils/req';
 import u from '@/utils/u';
+import MenuAdd from '@/pages/menu/menuAdd.vue';
+
+const showAddForm = ref(false)
+const refresh = (data: typeof form) => {
+    logger.warn("list页面接收到回调数据，即将刷新数据", data);
+}
 
 const form = reactive<{ [key: string]: any }>({
     input: "input",
@@ -109,6 +121,8 @@ const form = reactive<{ [key: string]: any }>({
     // slider: [30, 66],
     rating: 2,
 })
+
+
 
 // 基础查询条件
 const basicFields = [
@@ -139,12 +153,12 @@ const advancedFields = [
     { componentName: 'AlaCheckbox', label: '多选组件', fieldName: 'checkbox2', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
     { componentName: 'AlaSelect', label: '下拉选', fieldName: 'select2', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
     { componentName: 'AlaSwitch', label: '开关', fieldName: 'switch2', other: { activeText: "开", inActiveText: "关" } },
-    {
-        componentName: 'AlaDate', label: '创建时间', fieldName: 'date2', other: {
-            dateType: "datetimerange",
-            format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
-        }
-    },
+    // {
+    //     componentName: 'AlaDate', label: '创建时间', fieldName: 'date2', other: {
+    //         dateType: "datetimerange",
+    //         format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
+    //     }
+    // },
     { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider2', other: { min: 2, max: 10, step: 1, } },
     { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating2', other: { max: 8, allowHalf: true } },]
 const advanced = ref(false)
