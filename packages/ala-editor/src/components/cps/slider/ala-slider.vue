@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 16:57:16
+ * @LastEditTime: 2024-11-13 22:17:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/ala-slider.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-slider-wrapper">
-        <el-form-item :label="label" :label-position="position">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName">
 
             <el-slider :model-value="model" :min="min" :max="max" :step="step" :disabled="disabled" :range="range"
                 @update:model-value="handleChange" />
@@ -59,6 +59,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    fieldName: {
+        type: String,
+        default: ''
+    }
 })
 
 type NumberOrNumberArray = number | number[];

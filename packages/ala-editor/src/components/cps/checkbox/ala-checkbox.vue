@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 14:06:27
+ * @LastEditTime: 2024-11-13 22:16:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-checkbox-wrapper">
-        <el-form-item :label="label" :label-position="position">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
                 <div class="ala-checkbox--item" v-for="(item, index) in items" :key="item.value">
                     <el-checkbox :value="item.value">{{ item.name }}</el-checkbox>
@@ -45,6 +45,10 @@ const props = defineProps({
     items: {
         type: Array<Item>,
         default: []
+    },
+    fieldName: {
+        type: String,
+        default: ''
     }
 })
 

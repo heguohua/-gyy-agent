@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 14:10:06
+ * @LastEditTime: 2024-11-13 22:15:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/password/ala-password.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-password-wrapper">
-        <el-form-item :label="label" :label-position="position">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <el-input type="password" :model-value="model" @input="handleChange" :placeholder="placeholder"></el-input>
         </el-form-item>
     </div>
@@ -29,6 +29,10 @@ defineProps({
         default: 'left'
     },
     placeholder: {
+        type: String,
+        default: ''
+    },
+    fieldName: {
         type: String,
         default: ''
     }

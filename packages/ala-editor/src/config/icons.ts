@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 11:17:04
+ * @LastEditTime: 2024-11-13 22:50:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -48,6 +48,8 @@ const icon = {
     subtract: 'fluent:subtract-16-regular',
     back: 'fluent:chevron-left-20-filled',
     save: 'fluent:document-save-20-regular',
+    down: 'mingcute:arrows-down-line',
+    up: 'mingcute:arrows-up-line',
     // 系统登录页面400电话图标
     phone: 'solar:phone-broken',
     country_cn: 'noto-v1:flag-for-flag-china',

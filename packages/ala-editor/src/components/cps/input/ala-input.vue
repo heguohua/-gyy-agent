@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 16:05:23
+ * @LastEditTime: 2024-11-13 22:03:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-input-wrapper">
-        <el-form-item :label="label" :label-position="position">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <el-input :model-value="model" @input="handleChange" :placeholder="placeholder"></el-input>
         </el-form-item>
     </div>

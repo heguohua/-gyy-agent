@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 19:24:59
+ * @LastEditTime: 2024-11-13 20:57:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -10,6 +10,7 @@
  */
 import notify from "@/utils/notify"
 import WarnException from "@/utils/WarnException"
+import { cloneDeep, merge } from "lodash";
 const profile = import.meta.env.VITE_PROFILE
 export default class u {
 
@@ -63,5 +64,22 @@ export default class u {
         if (!obj) {
             throw new WarnException({ title, remark })
         }
+    }
+    /**
+     * 对象深度clone方法
+     * @param e object
+     * @returns 
+     */
+    public static cloned(obj: object) {
+        return cloneDeep({ ...obj })
+    }
+    /**
+     * 对象深度 合并 方法
+     * @param target 
+     * @param source 
+     * @returns 
+     */
+    public static merged(target: object, source: object) {
+        return merge(target, source)
     }
 }

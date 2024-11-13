@@ -2,17 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 19:43:43
+ * @LastEditTime: 2024-11-13 23:11:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-form">
-        <el-form :model="form" label-width="80px">
-            <!-- <AlaInput v-model="ala_input.name" label="文本输入框" position="right" placeholder="123"/> -->
-            <!-- <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
+    <!-- <el-form :model="form" label-width="80px"> -->
+    <!-- <AlaInput v-model="ala_input.name" label="文本输入框" position="right" placeholder="123"/> -->
+    <!-- <AlaInput v-model="form.input" label="普通文本框" placeholder="请输入普通文本框" />
             <AlaTextarea v-model="form.textarea" label="多行文本框" placeholder="请输入多行文本框" />
             <AlaPassword v-model="form.password" label="密码" placeholder="请输入密码" />
             <AlaRadio v-model="form.radio" label="单选框" :items="radioItems" />
@@ -23,46 +22,27 @@
                 format="YYYY-MM-DD HH:mm:ss" start="2024-11-10" end="2024-11-13" />
             <AlaSlider v-model="form.slider" label="滑块" placeholder="请拖拽滑块" :min="0" :max="100" :range="true" /> -->
 
-            <!-- <AlaRating v-model="form.rating" label="评分" placeholder="请点击打分" :max="5" /> -->
-            <!-- <component :is="AlaRating" v-bind="rt" v-model="form.rating" /> -->
+    <!-- <AlaRating v-model="form.rating" label="评分" placeholder="请点击打分" :max="5" /> -->
+    <!-- <component :is="AlaRating" v-bind="rt" v-model="form.rating" /> -->
 
-            <!-- <SearchPanel :fields="fields" /> -->
-            <!-- <div class="ala-search-item" v-for="(item, index) in fields" :key="u.uuid()">
+    <!-- <SearchPanel :fields="fields" /> -->
+    <!-- <div class="ala-search-item" v-for="(item, index) in fields" :key="u.uuid()">
                 <component :is="item.name" :label="item.label" :position="item.position" :placeholder="item.placeholder"
                     v-bind="item.other" v-model="form[item.model]" />
             </div> -->
 
-            <!-- 基础查询条件 -->
-            <div class="ala-search-base">
-                <div class="ala-search-base-item" v-for="(item, index) in basicFields" :key="u.uuid()">
-                    <component :is="item.componentName" :label="item.label" :position="item.position"
-                        :placeholder="item.placeholder" v-bind="item.other" v-model="form[item.fieldName]" />
-                </div>
+    <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
+        @showAdd="showAdd" />
 
-                <el-button type="primary" @click.prevent="query">查询</el-button>
-                <el-button type="primary">重置</el-button>
-                <!-- 高级查询条件 -->
-                <el-button type="primary" @click="toggleAdvanced">
-                    {{ advanced ? '收起高级查询' : '展开高级查询' }}
-                    <!-- <el-icon :style="{ transform: `rotate(${advanced ? 180 : 0}deg)` }">
-                        <arrow-up v-if="advanced" />
-                        <arrow-down v-else />
-                    </el-icon> -->
-                </el-button>
+
+    <!-- 基础查询条件 -->
+    <!-- <div class="ala-search-base">
                 <el-button type="primary" @click="showAddForm = !showAddForm">新增</el-button>
-
-            </div>
-
-            <!-- <div class="ala-search-advanced animate__animated animate__fadeIn " v-show="advanced">
-                <div class="ala-search-advanced-item" v-for="(item, index) in advancedFields" :key="u.uuid()">
-                    <component :is="item.componentName" :label="item.label" :position="item.position"
-                        :placeholder="item.placeholder" v-bind="item.other" v-model="form[item.fieldName]" />
-                </div>
             </div> -->
 
-        </el-form>
-    </div>
-    <!-- <SearchForm /> -->
+
+
+    <!-- </el-form> -->
     <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
         @expand-change="handleExpandChange" @sort-change="sortChange"
         :default-sort="{ prop: 'id', order: 'descending' }">
@@ -89,8 +69,6 @@
         </el-pagination>
 
     </el-table>
-
-
 
     <MenuAdd @callback="refresh" v-model="showAddForm" v-bind="baseInfo" />
 
@@ -124,20 +102,13 @@ const baseInfo = reactive({
 // ############## 分页列表通用方法，该部分代码不用修改 start ######################################
 
 const showAddForm = ref(false)
+const showAdd = () => {
+    showAddForm.value = true
+}
 const refresh = (data: typeof form) => {
     logger.warn("list页面接收到回调数据，即将刷新数据", data);
+    logger.warn("list页面接收到回调数据，即将刷新数据，params", params);
 }
-// 切换高级查询条件按钮
-const toggleAdvanced = () => {
-    advanced.value = !advanced.value;
-};
-
-//查询按钮
-const query = () => {
-    console.log('form.value:', form);
-}
-
-
 
 
 // 分页列表通用代码
@@ -151,12 +122,13 @@ const page = reactive({
         asc: false
     }]
 })
+
 // 查询条件
 const params = reactive({
 
 })
-
 const onePageList = ref<Array<Row>>([]);
+
 onMounted(() => {
     logger.info("onMounted 渲染 menu 分页列表页面");
 
@@ -241,7 +213,7 @@ const form = reactive<{ [key: string]: any }>({
 
 
 // 基础查询条件
-const basicFields = [
+const baseFields = [
     { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
     { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea' },
     { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password' },
@@ -249,12 +221,12 @@ const basicFields = [
     { componentName: 'AlaCheckbox', label: '多选组件', fieldName: 'checkbox', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
     { componentName: 'AlaSelect', label: '下拉选', fieldName: 'select', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
     { componentName: 'AlaSwitch', label: '开关', fieldName: 'switch', other: { activeText: "开", inActiveText: "关" } },
-    {
-        componentName: 'AlaDate', label: '创建时间', fieldName: 'date', other: {
-            dateType: "datetimerange",
-            format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
-        }
-    },
+    // {
+    //     componentName: 'AlaDate', label: '创建时间', fieldName: 'date', other: {
+    //         dateType: "datetimerange",
+    //         format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
+    //     }
+    // },
     { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider', other: { min: 2, max: 10, step: 1, } },
     { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating', other: { max: 8, allowHalf: true } },
 ]
@@ -276,8 +248,8 @@ const advancedFields = [
     //     }
     // },
     { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider2', other: { min: 2, max: 10, step: 1, } },
-    { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating2', other: { max: 8, allowHalf: true } },]
-const advanced = ref(false)
+    { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating2', other: { max: 8, allowHalf: true } },
+]
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
@@ -317,54 +289,54 @@ const sortChange = (a: any, b: any, c: any) => {
 </script>
 
 <style lang="scss" scoped>
-.ala-form {
-    background: #fff;
-    margin: 4px 0px;
-    border-radius: var(--border-radius);
-    padding: 8px 20px;
+// .ala-form {
+//     background: #fff;
+//     margin: 4px 0px;
+//     border-radius: var(--border-radius);
+//     padding: 8px 20px;
 
-    :deep .el-form-item {
-        margin-bottom: 12px;
-    }
+//     :deep .el-form-item {
+//         margin-bottom: 12px;
+//     }
 
-    :deep .el-form-item__label {
-        font-size: 0.9rem;
-        font-weight: bold;
-        padding-right: 6px;
-    }
+//     :deep .el-form-item__label {
+//         font-size: 0.9rem;
+//         font-weight: bold;
+//         padding-right: 6px;
+//     }
 
-    :deep .el-button+.el-button {
-        margin: 0px;
-    }
+//     :deep .el-button+.el-button {
+//         margin: 0px;
+//     }
 
-    .ala-search-base {
-        display: inline-flex;
-        flex-wrap: wrap;
-        column-gap: 16px;
+//     .ala-search-base {
+//         display: inline-flex;
+//         flex-wrap: wrap;
+//         column-gap: 16px;
 
-        .ala-input-wrapper {
-            min-width: 300px;
-        }
+//         .ala-input-wrapper {
+//             min-width: 300px;
+//         }
 
-        .ala-slider-wrapper {
-            min-width: 300px;
-        }
+//         .ala-slider-wrapper {
+//             min-width: 300px;
+//         }
 
-        .ala-radio-wrapper {
-            min-width: 160px;
-        }
-    }
+//         .ala-radio-wrapper {
+//             min-width: 160px;
+//         }
+//     }
 
-    .ala-search-advanced {
-        display: inline-flex;
-        flex-wrap: wrap;
-        column-gap: 16px;
+//     .ala-search-advanced {
+//         display: inline-flex;
+//         flex-wrap: wrap;
+//         column-gap: 16px;
 
-        .ala-search-advanced-item {}
-    }
+//         .ala-search-advanced-item {}
+//     }
 
-    button {}
-}
+//     button {}
+// }
 
 .hide-header {}
 </style>
