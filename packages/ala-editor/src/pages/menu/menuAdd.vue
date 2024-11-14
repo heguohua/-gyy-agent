@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 14:01:18
+ * @LastEditTime: 2024-11-14 17:04:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -10,9 +10,9 @@
 -->
 <template>
 
-    <el-form :model="formData" label-width="120px" label-position="right" :rules="rules">
+    <el-form :model="formData" label-width="120px" :rules="rules">
         <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
-            :closeContent="closeContent" />
+            :closeContent="closeContent" :columnWidth="300" :columnNum="3" labelPosition="left"/>
     </el-form>
 
 </template>

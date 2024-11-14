@@ -2,24 +2,25 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 14:11:47
+ * @LastEditTime: 2024-11-14 17:04:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-add-form">
-        <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer">
+    <div class="ala-add-form" ref="alaAddForm">
+        <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer"
+            :size="drawerWidth()">
             <template #header>
                 <h4>这里是rrr标题区域</h4>
             </template>
             <template #default>
 
-                <div class="ala-search-base-item" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
-                    <component :is="item.componentName" :label="item.label" :position="item.position"
-                        :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
-                        :fieldName="item.fieldName" />
+                <div class="ala-form-base-item" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
+                    <component :is="item.componentName" :label="item.label"
+                        :position="item.position ? item.position : labelPosition" :placeholder="item.placeholder"
+                        v-bind="item.other" v-model="data[item.fieldName]" :fieldName="item.fieldName" />
                 </div>
 
             </template>
@@ -62,6 +63,22 @@ const props = defineProps({
     data: {
         type: Object,
         default: {}
+    },
+    labelWidth: {
+        type: Number,
+        default: 120
+    },
+    columnWidth: {
+        type: Number,
+        default: 300
+    },
+    columnNum: {
+        type: Number,
+        default: 1
+    },
+    labelPosition: {
+        type: String as () => '' | 'top' | 'left' | 'right',
+        default: 'left'
     }
 })
 
@@ -117,22 +134,59 @@ function confirmClick() {
     })
 }
 
+// 计算css宽度
+// 1、动态计算 drawer 宽度
+const paddingSize = 20 * 2
+// const marginRightSize = 20
+const drawerWidth = (): string => {
 
+    let width = ''
+    // 需要考虑 labelPosition 的位置
+    if (props.labelPosition === 'left') {
+        // (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度
+        width = (props.labelWidth + props.columnWidth) * props.columnNum + paddingSize + 'px'
+    } else if (props.labelPosition === 'top') {
+        // (表单组件宽度) * 列数 + 最外层元素左右padding的宽度
+        width = (props.columnWidth) * props.columnNum + paddingSize + 'px'
+    }
+    return width
+}
+
+// 2、动态计算 form 表单列内容（ class ： ala-form-base-item ） 宽度 
+const alaAddForm = ref<HTMLElement>()
+onMounted(() => {
+    const columnGapWidth = 8
+    const dynamicWidth = computed(() => {
+
+        let width = 0
+        if (props.labelPosition === 'left') {
+            width = Math.floor(props.labelWidth + props.columnWidth - (props.columnNum - 1) * columnGapWidth / props.columnNum)
+        } else if (props.labelPosition === 'top') {
+            width = Math.floor(props.columnWidth - (props.columnNum - 1) * columnGapWidth / props.columnNum)
+        }
+
+        return width + 'px'
+    })
+
+    alaAddForm.value?.style.setProperty('--ala-form-base-item-width', dynamicWidth.value);
+})
 </script>
-<style scoped lang="scss"></style>
-<style lang="scss">
+<style scoped lang="scss">
 .ala-add-form {
     .ala-drawer {
-        h4 {
+        width: 500px !important;
+
+        h4 {}
+
+        .ala-form-base-item {
+            display: inline-block;
+            width: var(--ala-form-base-item-width);
         }
-        .ala-search-base-item {
-            width: 300px;
-            display: inline-flex;
-        }
-        div {
-        }
+
+        div {}
     }
-}</style>
+}
+</style>
 <style lang="scss">
 .ala-add-form {
     .ala-drawer {
@@ -146,6 +200,14 @@ function confirmClick() {
             padding: 4px 0px !important;
         }
 
+        .el-drawer__body {
+            text-align: left;
+            flex: none;
+            display: inline-flex;
+            column-gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .el-form-item__label {
             color: var(--el-text-color-regular);
             font-size: 0.9rem;
@@ -153,6 +215,8 @@ function confirmClick() {
             justify-content: right;
             text-align: right;
         }
+
+
     }
 }
 </style>
