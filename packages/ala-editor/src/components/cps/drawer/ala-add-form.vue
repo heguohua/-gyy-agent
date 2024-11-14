@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 13:54:22
+ * @LastEditTime: 2024-11-14 14:11:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
  * @Description: 
  * 
@@ -119,7 +119,20 @@ function confirmClick() {
 
 
 </script>
-
+<style scoped lang="scss"></style>
+<style lang="scss">
+.ala-add-form {
+    .ala-drawer {
+        h4 {
+        }
+        .ala-search-base-item {
+            width: 300px;
+            display: inline-flex;
+        }
+        div {
+        }
+    }
+}</style>
 <style lang="scss">
 .ala-add-form {
     .ala-drawer {
@@ -131,6 +144,14 @@ function confirmClick() {
             font-size: 1.1rem !important;
             background: #F9F9FA !important;
             padding: 4px 0px !important;
+        }
+
+        .el-form-item__label {
+            color: var(--el-text-color-regular);
+            font-size: 0.9rem;
+            font-weight: bold;
+            justify-content: right;
+            text-align: right;
         }
     }
 }
