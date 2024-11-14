@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 18:54:51
+ * @LastEditTime: 2024-11-14 13:54:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
  * @Description: 
  * 
@@ -10,9 +10,9 @@
 -->
 <template>
     <div class="ala-add-form">
-        <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose">
+        <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer">
             <template #header>
-                <h4>这里是标题区域</h4>
+                <h4>这里是rrr标题区域</h4>
             </template>
             <template #default>
 
@@ -36,6 +36,7 @@
 <script setup lang="ts">
 import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
+import u from '@/utils/u';
 import { DrawerProps, ElMessageBox } from 'element-plus';
 import { ref } from 'vue'
 
@@ -119,4 +120,18 @@ function confirmClick() {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+.ala-add-form {
+    .ala-drawer {
+        .el-drawer__header {
+            display: flex;
+            padding: 0px !important;
+            margin: 0px !important;
+            color: #3d446e !important;
+            font-size: 1.1rem !important;
+            background: #F9F9FA !important;
+            padding: 4px 0px !important;
+        }
+    }
+}
+</style>

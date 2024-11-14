@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 22:16:29
+ * @LastEditTime: 2024-11-14 13:32:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
                 <div class="ala-checkbox--item" v-for="(item, index) in items" :key="item.value">
-                    <el-checkbox :value="item.value">{{ item.name }}</el-checkbox>
+                    <el-checkbox :value="item.value" :id="fieldName + index">{{ item.name }}</el-checkbox>
                 </div>
             </el-checkbox-group>
         </el-form-item>

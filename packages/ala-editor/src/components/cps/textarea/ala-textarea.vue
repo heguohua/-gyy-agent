@@ -12,7 +12,7 @@
     <div class="ala-textarea-wrapper">
         <el-form-item :label="label" :label-position="position">
             <el-input type="textarea" autosize :model-value="model" @input="handleChange"
-                :placeholder="placeholder"></el-input>
+                :placeholder="placeholder" :id="fieldName"></el-input>
         </el-form-item>
     </div>
 </template>
@@ -30,6 +30,10 @@ defineProps({
         default: 'left'
     },
     placeholder: {
+        type: String,
+        default: ''
+    },
+    fieldName: {
         type: String,
         default: ''
     }

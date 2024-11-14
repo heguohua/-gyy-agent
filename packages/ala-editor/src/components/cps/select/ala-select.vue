@@ -12,7 +12,7 @@
   <div class="ala-select-wrapper">
     <!-- <span :class="clasz">{{ label }}</span>  -->
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
-      <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles">
+      <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 22:40:06
+ * @LastEditTime: 2024-11-14 13:33:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/ala-switch.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="ala-switch-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <el-switch :model-value="model" :active-color="activeColor" :inactive-color="inActiveColor"
-                :active-text="activeText" :inactive-text="inActiveText" @change="handleChange">
+                :active-text="activeText" :inactive-text="inActiveText" @change="handleChange" :id="fieldName">
             </el-switch>
         </el-form-item>
     </div>

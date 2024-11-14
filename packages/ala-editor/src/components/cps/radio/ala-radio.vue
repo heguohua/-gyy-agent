@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 22:16:09
+ * @LastEditTime: 2024-11-14 13:32:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
             <!-- <span :class="clasz">{{ label }}</span> -->
             <el-radio-group @change="handleChange" :model-value="model" class="ala-radio-group">
                 <div class="ala-radio-item" v-for="(item, index) in items" :key="item.value">
-                    <el-radio :value="item.value">{{ item.name }}</el-radio>
+                    <el-radio :value="item.value" :id="fieldName">{{ item.name }}</el-radio>
                 </div>
             </el-radio-group>
         </el-form-item>

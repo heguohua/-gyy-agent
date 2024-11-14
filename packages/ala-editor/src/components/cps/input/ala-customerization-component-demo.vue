@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 12:16:22
+ * @LastEditTime: 2024-11-14 13:31:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-customerization-component-demo.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <div class="ala-customerization-component-demo-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName" ref="formItemRef" class="clasz">
-            <input :value="model" :placeholder="placeholder" @input="handleChange" class="ala-raw-input"></input>
+            <input :value="model" :placeholder="placeholder" @input="handleChange" class="ala-raw-input" :id="fieldName"></input>
         </el-form-item>
     </div>
 </template>
@@ -21,7 +21,6 @@ import { logger } from '@/utils/logger';
 import { ElFormItem } from 'element-plus';
 
 
-debugger
 // State
 const props = defineProps({
     label: {
