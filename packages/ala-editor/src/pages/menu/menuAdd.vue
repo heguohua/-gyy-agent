@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 19:51:48
+ * @LastEditTime: 2024-11-14 10:51:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
 
-    <el-form :model="formData" label-width="80px">
+    <el-form :model="formData" label-width="80px" :rules="rules">
         <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
             :closeContent="closeContent" />
     </el-form>
@@ -107,6 +107,18 @@ const confirm = (data: any) => {
 
 }
 
+
+// 验证规则
+const rules = {
+    input: [
+        { required: true, message: '请输入用户名', trigger: 'change' },
+        { min: 6, message: '长度不能小于6位', trigger: 'change' }
+    ],
+    password: [
+        { required: true, message: '请输入密码', trigger: 'change' },
+        { min: 6, message: '密码长度不能小于6位', trigger: 'change' }
+    ]
+}
 
 </script>
 
