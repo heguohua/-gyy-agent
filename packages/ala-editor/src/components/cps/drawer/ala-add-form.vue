@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 17:04:33
+ * @LastEditTime: 2024-11-14 17:10:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer"
             :size="drawerWidth()">
             <template #header>
-                <h4>这里是rrr标题区域</h4>
+                <h4>【 {{ operationType }} 】{{ moduleName }}</h4>
             </template>
             <template #default>
 
@@ -37,7 +37,6 @@
 <script setup lang="ts">
 import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
-import u from '@/utils/u';
 import { DrawerProps, ElMessageBox } from 'element-plus';
 import { ref } from 'vue'
 
@@ -79,6 +78,10 @@ const props = defineProps({
     labelPosition: {
         type: String as () => '' | 'top' | 'left' | 'right',
         default: 'left'
+    },
+    operationType: {
+        type: String,
+        default: ''
     }
 })
 
@@ -216,7 +219,11 @@ onMounted(() => {
             text-align: right;
         }
 
-
+        .el-drawer__footer {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
     }
 }
 </style>

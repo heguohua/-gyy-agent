@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 17:04:43
+ * @LastEditTime: 2024-11-14 17:14:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 
     <el-form :model="formData" label-width="120px" :rules="rules">
         <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
-            :closeContent="closeContent" :columnWidth="300" :columnNum="3" labelPosition="left"/>
+            :closeContent="closeContent" :columnWidth="300" :columnNum="3" labelPosition="left" :moduleName="moduleName" :operationType="operationType"/>
     </el-form>
 
 </template>
@@ -76,9 +76,13 @@ const basicFields = [
 
 
 // ##########################  以下是公共方法，不需要修改  #########################################
+
+const operationType =computed(()=>{
+    return props.id === 0 ? '新增' : '编辑';
+})
+
 const closeContent = computed(() => {
-    const operationType = props.id === 0 ? '新增' : '编辑'
-    const content = `您确定要关闭【 ${operationType}${props.moduleName} 】页面吗？`
+    const content = `您确定要关闭【 ${operationType.value}${props.moduleName} 】页面吗？`
     return content
 })
 const saveContent = () => {
