@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 22:35:34
+ * @LastEditTime: 2024-11-14 23:37:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 
     <el-form :model="formData" label-width="120px" :rules="rules">
         <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
-            :closeContent="closeContent" :columnWidth="300" :columnNum="3" labelPosition="left" :moduleName="moduleName"
+            :closeContent="closeContent" :columnWidth="500" :columnNum="1" labelPosition="top" :moduleName="moduleName"
             :operationType="operationType" />
     </el-form>
 
@@ -58,6 +58,7 @@ const formData = reactive({
 
 // 基础查询条件
 const basicFields = [
+    // alaBuild('AlaCustomerizationComponentDemo', '自定义文本框','自定义文本框','customerization'),
     { componentName: 'AlaCustomerizationComponentDemo', label: '自定义文本框', placeholder: '自定义文本框', fieldName: 'customerization' },
     { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
     { componentName: 'AlaNumber', label: '数值', placeholder: '请输入数值', fieldName: 'age' },
@@ -119,7 +120,7 @@ const confirm = (data: any) => {
 
 // 验证规则
 const rules = {
-    customerization: [alaPassword()],
+    customerization: [alaPassword(), alaRequired()],
     age: [alaNumber()],
     password: [alaRequired(), alaLl8_()]
 }
