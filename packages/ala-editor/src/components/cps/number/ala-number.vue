@@ -45,7 +45,7 @@ const model = defineModel({
 
 const emit = defineEmits(['callback'])
 
-const handleChange = (value: number) => {
+const handleChange = (value: string) => {
     model.value = Number(value)
 }
 
