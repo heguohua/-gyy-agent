@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 17:14:26
+ * @LastEditTime: 2024-11-14 22:35:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -12,14 +12,16 @@
 
     <el-form :model="formData" label-width="120px" :rules="rules">
         <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
-            :closeContent="closeContent" :columnWidth="300" :columnNum="3" labelPosition="left" :moduleName="moduleName" :operationType="operationType"/>
+            :closeContent="closeContent" :columnWidth="300" :columnNum="3" labelPosition="left" :moduleName="moduleName"
+            :operationType="operationType" />
     </el-form>
 
 </template>
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-
+import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword } from '@/config/alaRules';
+import { max, min } from 'lodash';
 // State
 const showDrawer = defineModel({
     type: Boolean,
@@ -58,6 +60,7 @@ const formData = reactive({
 const basicFields = [
     { componentName: 'AlaCustomerizationComponentDemo', label: '自定义文本框', placeholder: '自定义文本框', fieldName: 'customerization' },
     { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
+    { componentName: 'AlaNumber', label: '数值', placeholder: '请输入数值', fieldName: 'age' },
     { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea' },
     // { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password' },
     { componentName: 'AlaRadio', label: '单选组件', fieldName: 'radio', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
@@ -77,7 +80,7 @@ const basicFields = [
 
 // ##########################  以下是公共方法，不需要修改  #########################################
 
-const operationType =computed(()=>{
+const operationType = computed(() => {
     return props.id === 0 ? '新增' : '编辑';
 })
 
@@ -116,18 +119,9 @@ const confirm = (data: any) => {
 
 // 验证规则
 const rules = {
-    customerization: [
-        { required: true, message: '请输入自定义内容', trigger: 'change' },
-        { min: 6, message: '长度不能小于6位', trigger: 'change' }
-    ],
-    input: [
-        { required: true, message: '请输入用户名', trigger: 'change' },
-        { min: 6, message: '长度不能小于6位', trigger: 'change' }
-    ],
-    password: [
-        { required: true, message: '请输入密码', trigger: 'change' },
-        { min: 6, message: '密码长度不能小于6位', trigger: 'change' }
-    ]
+    customerization: [alaPassword()],
+    age: [alaNumber()],
+    password: [alaRequired(), alaLl8_()]
 }
 
 </script>

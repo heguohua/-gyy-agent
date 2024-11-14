@@ -19,6 +19,7 @@ declare module 'vue' {
     AlaImage: typeof import('./src/components/cps/image/ala-image.vue')['default']
     AlaInput: typeof import('./src/components/cps/input/ala-input.vue')['default']
     AlaLink: typeof import('./src/components/cps/link/ala-link.vue')['default']
+    AlaNumber: typeof import('./src/components/cps/number/ala-number.vue')['default']
     AlaPassword: typeof import('./src/components/cps/password/ala-password.vue')['default']
     AlaRadio: typeof import('./src/components/cps/radio/ala-radio.vue')['default']
     AlaRating: typeof import('./src/components/cps/rating/ala-rating.vue')['default']
