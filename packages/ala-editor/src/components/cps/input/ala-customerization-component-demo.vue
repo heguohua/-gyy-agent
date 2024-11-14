@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 11:55:54
+ * @LastEditTime: 2024-11-14 12:16:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-customerization-component-demo.vue
  * @Description: 
  * 
@@ -10,18 +10,16 @@
 -->
 <template>
     <div class="ala-customerization-component-demo-wrapper">
-        <el-form-item :label="label" :label-position="position" :prop="fieldName" ref="formItemRef">
-            <input :value="model" :placeholder="placeholder" @input="handleChange"></input>
+        <el-form-item :label="label" :label-position="position" :prop="fieldName" ref="formItemRef" class="clasz">
+            <input :value="model" :placeholder="placeholder" @input="handleChange" class="ala-raw-input"></input>
         </el-form-item>
     </div>
 </template>
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { useFormItem } from 'element-plus';
+import { ElFormItem } from 'element-plus';
 
-const { formItem } = useFormItem()
-console.log('formItem:',formItem);
 
 debugger
 // State
@@ -48,33 +46,39 @@ const model = defineModel({
     type: String || Number || null || undefined
 })
 
-const formItemRef = ref(null)
-onMounted(() => {
-    console.log('model:', model);
 
-})
-
-watch(model, async (value) => {
-    // logger.warn("监控到自定义组件 value 发生变化", value);
-    console.log('props:',props);
-    console.log('formItemRef:',formItemRef);
-    await formItemRef?.value?.validate()
-    debugger
-    formItem?.validate?.('change');
-})
-
-const emit = defineEmits(['callback', 'update:modelValue'])
-
-const handleChange = (event:Event) => {
-    // model.value = value
-    const target = event.target as HTMLInputElement;
-    console.log('value:', target.value);
-    console.log('formItemRef:',formItemRef);
-    model.value = target.value
-}
 
 // Methods
+// 自定义组件 集成 element-plus 验证机制 
+const formItemRef = ref<InstanceType<typeof ElFormItem>>()
+watch(model, async () => {
+    await formItemRef?.value?.validate('change')
+})
 
+const handleChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    model.value = target.value
+}
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ala-customerization-component-demo-wrapper {
+    .clasz {
+        .ala-raw-input {
+            height: calc(var(--el-input-height, 32px) - 2px);
+            border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
+        }
+        :deep .el-form-item__content {
+            border: 1px solid var(--color-border);
+            box-shadow: 0 0 0 1px var(--color-border) inset;
+            padding: 1px 11px;
+        }
+    }
+
+    .is-error {
+        :deep .el-form-item__content {
+            box-shadow: 0 0 0 1px var(--el-color-danger) inset;
+        }
+    }
+}
+</style>

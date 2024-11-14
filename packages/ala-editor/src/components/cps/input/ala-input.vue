@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 11:47:30
+ * @LastEditTime: 2024-11-14 12:07:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -17,11 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { useFormItem } from 'element-plus';
 
-
-
-const formItem = useFormItem()
 // State
 const props = defineProps({
     label: {
@@ -48,10 +44,7 @@ const model = defineModel({
 
 const emit = defineEmits(['callback'])
 
-const handleChange = (value: string) => {
-
-    console.log('element-plus ===> formItem:',formItem);
-    
+const handleChange = (value: string) => {    
     model.value = value
 }
 
