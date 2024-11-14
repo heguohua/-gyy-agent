@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 10:51:56
+ * @LastEditTime: 2024-11-14 11:15:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -43,7 +43,8 @@ const props = defineProps({
 
 
 const formData = reactive({
-    input: 'input-123'
+    input: 'input-123',
+    customerization: 'customerization-123',
 })
 
 // Methods
@@ -55,6 +56,7 @@ const formData = reactive({
 
 // 基础查询条件
 const basicFields = [
+    { componentName: 'AlaCustomerizationComponentDemo', label: '自定义文本框', placeholder: '自定义文本框', fieldName: 'customerization' },
     { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
     { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea' },
     // { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password' },
@@ -110,6 +112,10 @@ const confirm = (data: any) => {
 
 // 验证规则
 const rules = {
+    customerization: [
+        { required: true, message: '请输入自定义内容', trigger: 'change' },
+        { min: 6, message: '长度不能小于6位', trigger: 'change' }
+    ],
     input: [
         { required: true, message: '请输入用户名', trigger: 'change' },
         { min: 6, message: '长度不能小于6位', trigger: 'change' }

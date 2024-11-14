@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 22:17:29
+ * @LastEditTime: 2024-11-14 11:02:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -32,8 +32,10 @@ import AlaSelect from '@/components/cps/select/ala-select.vue';
 import AlaSwitch from '@/components/cps/switch/ala-switch.vue';
 import AlaDate from '@/components/cps/date/ala-date.vue';
 import AlaRating from '@/components/cps/rating/ala-rating.vue';
+import AlaCustomerizationComponentDemo from '@/components/cps/input/ala-customerization-component-demo.vue';
 
 export default {
+    AlaCustomerizationComponentDemo,
     AlaImage,
     AlaEmpty,
     AlaLink,
