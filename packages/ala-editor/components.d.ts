@@ -8,8 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     A: typeof import('./src/components/base/a.vue')['default']
-    AlaAddForm: typeof import('./src/components/cps/drawer/ala-form-items.vue')['default']
-    AlaBaseForm: typeof import('./src/components/cps/drawer/ala-base-form.vue')['default']
+    AlaAddForm: typeof import('./src/components/cps/form/ala-form-items.vue')['default']
+    AlaBaseForm: typeof import('./src/components/cps/form/ala-base-form.vue')['default']
     AlaCheckbox: typeof import('./src/components/cps/checkbox/ala-checkbox.vue')['default']
     AlaColumn: typeof import('./src/components/cps/column/ala-column.vue')['default']
     AlaCurrentDateTime: typeof import('./src/components/cps/time/AlaCurrentDateTime.vue')['default']
@@ -17,7 +17,7 @@ declare module 'vue' {
     AlaCustomerizit: typeof import('./src/components/cps/input/ala-customerizit.vue')['default']
     AlaDate: typeof import('./src/components/cps/date/ala-date.vue')['default']
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
-    AlaFormItems: typeof import('./src/components/cps/drawer/ala-form-items.vue')['default']
+    AlaFormItems: typeof import('./src/components/cps/form/ala-form-items.vue')['default']
     AlaImage: typeof import('./src/components/cps/image/ala-image.vue')['default']
     AlaInput: typeof import('./src/components/cps/input/ala-input.vue')['default']
     AlaLink: typeof import('./src/components/cps/link/ala-link.vue')['default']
