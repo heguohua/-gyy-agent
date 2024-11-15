@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 22:13:02
+ * @LastEditTime: 2024-11-15 23:08:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -19,6 +19,7 @@
 import { logger } from '@/utils/logger';
 import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword } from '@/config/alaRules';
 import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
+import u from '@/utils/u';
 
 const props = defineProps({
     id: {
@@ -29,7 +30,8 @@ const props = defineProps({
         type: Object,
         default: {
             id: 0,
-            moduleName: "模块名称不存在"
+            moduleName: "模块名称不存在",
+            item: {}
         }
     },
 })
@@ -38,9 +40,15 @@ const props = defineProps({
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
 const url = '/u/menu/add'
 const formData = reactive({
-    pid: computed(() => props.id),// 固定格式
+    // pid: computed(() => props.id),// 固定格式
 })
 
+watch(() => props.baseInfo.item, (item) => {
+    logger.error(`观察到 baseInfo 中的 item 发生了变化`, item);
+    // u.merged(formData, item)
+    Object.assign(formData,item)
+    logger.error(`formData数据更新后`, formData);
+})
 
 // 基础表单字段
 const basicFields = [

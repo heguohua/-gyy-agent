@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 22:36:38
+ * @LastEditTime: 2024-11-15 22:49:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -144,6 +144,7 @@ const props = defineProps({
 const baseInfo = inject('baseInfo', {
     moduleName: '',
     id: 0,
+    item: Object,
     selectedList: Array<{ id: string }>
 });
 
@@ -167,11 +168,11 @@ const selectCheckboxWidth = () => {
     return props.showSelectCheckboxWidth;
 }
 
-const handleEdit = (index: number, item: { id: number }) => {
+const handleEdit = (index: number, item: any) => {
     logger.info(`点击【 编辑 】按钮，当前行数据`, item);
+    baseInfo.item = item
     logger.info(`baseInfo`, baseInfo);
-
-    baseInfo.id = item.id
+    emit("add", item)
 }
 const handleDelete = (index: number, item: { id: number }) => {
     logger.info(`点击【 删除 】按钮，当前行数据`, item);
@@ -202,7 +203,7 @@ const handleDelete = (index: number, item: { id: number }) => {
 const postData = (item: { id: number }) => {
 
     // 刷新列表数据
-    alaDelete(u.url(props.deleteUrl || ""), { id: item.id  }, false).then((data: any) => {
+    alaDelete(u.url(props.deleteUrl || ""), { id: item.id }, false).then((data: any) => {
         const response = data;
         refresh(response)
     });
@@ -211,7 +212,7 @@ const postData = (item: { id: number }) => {
 
 const handleAdd = (index: number, item: { id: number }) => {
     logger.info(`点击【 添加子级 】按钮，当前行id【 ${item.id} 】当前行数据`, item);
-    emit("add", item.id)
+    emit("add", item)
 }
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {

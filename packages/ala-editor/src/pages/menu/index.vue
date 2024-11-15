@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 22:25:23
+ * @LastEditTime: 2024-11-15 23:09:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -11,11 +11,11 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd(0)" />
+        @showAdd="showAdd({ id: 0 })" />
 
     <!-- 分页列表 -->
-    <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params" :showSelectCheckbox="false"
-        @add="showAdd" />
+    <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
+        :showSelectCheckbox="false" @add="showAdd" />
 
     <!-- 新增、编辑 -->
     <MenuAdd @refresh="refresh" v-model="showAddForm" :id="id" :baseInfo="baseInfo" />
@@ -29,6 +29,7 @@ import { useRoute } from 'vue-router';
 import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
+import u from '@/utils/u';
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
@@ -50,11 +51,11 @@ provide('baseInfo', baseInfo);
 // ############## 分页列表通用方法，该部分代码不用修改 start ######################################
 
 const showAddForm = ref(false)
-const showAdd = (selectedId: number) => {
+const showAdd = (item: { [key: string]: any }) => {
     showAddForm.value = true
-    // 判断当前用户勾选了几个菜单，如果勾选了多个，则给出提示信息
-    id.value = selectedId
-    logger.info(`新增方法接收到参数selectedId【 ${selectedId} 】，当前模块选中对象id【 ${id.value} 】`);
+    id.value = item.id
+    u.merged(baseInfo, { item })
+    logger.info(`新增方法接收到参数item.id【 ${item.id} 】，当前模块选中对象id【 ${id.value} 】`);
 
 }
 
