@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 12:46:22
+ * @LastEditTime: 2024-11-15 17:57:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -98,6 +98,15 @@ export function alaBuildInput(fieldName: string, label: string, rules?: Array<ba
  */
 export function alaBuildRawInput(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {
     const obj = alaBuild("AlaCustomerizationComponentDemo", fieldName, label, rules, placeholder)
+    return obj
+}
+/**
+ * 构建 AlaHidden 组件
+ * @param fieldName  属性名
+ * @returns 
+ */
+export function alaBuildHidden(fieldName: string,): AlaInputSchema {
+    const obj = alaBuild("AlaHidden", fieldName, "")
     return obj
 }
 
@@ -222,8 +231,8 @@ type dataTypee = "date" | "year" | "years" | "month" | "months" | "dates" | "wee
  */
 export function alaBuildDate(fieldName: string, label: string, dateType: dataTypee, format: string, rules?: Array<baseRule>, start?: string, end?: string, placeholder?: string): AlaDateSchema {
     const obj = alaBuildWithOther("AlaDate", fieldName, label, { dateType, format, start, end }, rules, placeholder)
-    console.log('date:',obj);
-    
+    console.log('date:', obj);
+
     return obj
 }
 

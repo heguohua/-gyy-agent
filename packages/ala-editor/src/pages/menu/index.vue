@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 17:39:55
+ * @LastEditTime: 2024-11-15 18:55:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -11,13 +11,14 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd" />
+        @showAdd="showAdd(0)" />
 
     <!-- 分页列表 -->
-    <PageNestingTable ref="pageRef" :url="url" :columns="columns" :params="params" />
+    <PageNestingTable ref="pageRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="false"
+        @add="showAdd" />
 
     <!-- 新增、编辑 -->
-    <MenuAdd @callback="refresh" v-model="showAddForm" />
+    <MenuAdd @callback="refresh" v-model="showAddForm" :id="id" />
 
 </template>
 
@@ -39,7 +40,8 @@ let id = ref(0)
 
 const baseInfo = reactive({
     moduleName,
-    id: id
+    id: id,
+    selectedList: Array<{ id: string }>
 })
 provide('baseInfo', baseInfo);
 
@@ -48,8 +50,12 @@ provide('baseInfo', baseInfo);
 // ############## 分页列表通用方法，该部分代码不用修改 start ######################################
 
 const showAddForm = ref(false)
-const showAdd = () => {
+const showAdd = (selectedId: number) => {
     showAddForm.value = true
+    // 判断当前用户勾选了几个菜单，如果勾选了多个，则给出提示信息
+    id.value = selectedId
+    logger.info(`新增方法接收到参数selectedId【 ${selectedId} 】，当前模块选中对象id【 ${id.value} 】`);
+
 }
 
 // 查询条件

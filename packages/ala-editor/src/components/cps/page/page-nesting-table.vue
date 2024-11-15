@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 17:42:50
+ * @LastEditTime: 2024-11-15 18:51:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -14,20 +14,24 @@
         <!-- 分页列表区域 -->
         <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
             @expand-change="handleExpandChange" @sort-change="sortChange"
-            :default-sort="{ prop: 'id', order: 'descending' }">
+            :default-sort="{ prop: 'id', order: 'descending' }" @selection-change="handleSelectedChange"
+            @current-change="handleCurrentChange">
 
             <el-table-column type="expand">
                 <template #default="{ row }">
                     <el-table v-if="row.children" :data="row.children" style="width: 100%" row-key="id"
-                        class="hide-header">
+                        class="hide-header" @selection-change="handleSelectedChange"
+                        @current-change="handleCurrentChange">
 
-                        <!-- 每一行左侧的选择按钮 -->
+                        <!-- 多选按钮 -->
                         <el-table-column type="selection" :width="selectCheckboxWidth()"
                             v-if="displaySelectCheckbox()" />
 
+                        <!-- 内嵌表列渲染 -->
                         <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
                             :label="column.label"></el-table-column>
 
+                        <!-- 内嵌表操作列 -->
                         <el-table-column label="操作">
                             <template #default="scope">
                                 <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
@@ -45,13 +49,16 @@
                 </template>
             </el-table-column>
 
+            <!-- 多选框 -->
             <el-table-column type="selection" :width="selectCheckboxWidth()" v-if="displaySelectCheckbox()" />
 
+            <!-- 主表列渲染 -->
             <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
                 sortable>
             </el-table-column>
 
 
+            <!-- 主表操作列 -->
             <el-table-column label="操作">
                 <template #default="scope">
                     <el-button size="small" @click="handleEdit(scope.$index, scope.row)" v-if="displayEditButton()">
@@ -60,6 +67,10 @@
                     <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
                         v-if="displayDeleteButton()">
                         删除
+                    </el-button>
+                    <el-button size="small" type="primary" @click="handleAdd(scope.$index, scope.row)"
+                        v-if="displayDeleteButton()">
+                        添加子级
                     </el-button>
                 </template>
             </el-table-column>
@@ -122,7 +133,8 @@ const props = defineProps({
 
 const baseInfo = inject('baseInfo', {
     moduleName: '',
-    id: 0
+    id: 0,
+    selectedList: Array<{ id: string }>
 });
 
 
@@ -149,6 +161,18 @@ const handleEdit = (index: number, item: { id: number }) => {
 const handleDelete = (index: number, item: { id: number }) => {
     logger.info(`点击【 删除 】按钮，当前行数据`, item);
 
+}
+const handleAdd = (index: number, item: { id: number }) => {
+    logger.info(`点击【 添加子级 】按钮，当前行id【 ${item.id} 】当前行数据`, item);
+    emit("add", item.id)
+}
+
+const handleSelectedChange = (items: Array<{ id: string }>) => {
+    console.log('分页列表多选items:', items);
+}
+
+const handleCurrentChange = (item: { id: string }) => {
+    console.log('分页列表单选item:', item);
 }
 
 
@@ -247,7 +271,7 @@ const handlePageChange = (newPage: number) => {
 };
 
 // Methods
-
+const emit = defineEmits(["add"])
 defineExpose({ refresh })
 
 </script>

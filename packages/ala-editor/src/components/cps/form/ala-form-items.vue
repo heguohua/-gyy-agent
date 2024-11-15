@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 15:20:37
+ * @LastEditTime: 2024-11-15 18:09:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -17,7 +17,7 @@
             </template>
             <template #default>
 
-                <div class="ala-form-base-item" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
+                <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
                     <component :is="item.componentName" :label="item.label"
                         :position="item.position ? item.position : labelPosition" :placeholder="item.placeholder"
                         v-bind="item.other" v-model="data[item.fieldName]" :fieldName="item.fieldName" />
@@ -85,6 +85,11 @@ const props = defineProps({
     }
 })
 
+
+const isHidden = (item: { componentName: string }) => {
+    return item.componentName === 'AlaHidden' ? 'ala-form-base-item-hidden' : 'ala-form-base-item'
+}
+
 const showDrawer = defineModel({
     type: Boolean,
     default: false
@@ -149,7 +154,7 @@ const drawerWidth = (): string => {
         // (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度
         width = (props.labelWidth + props.columnWidth) * props.columnNum + paddingSize + 'px'
         logger.info(`标签宽度[ ${props.labelWidth} ]，列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
-        
+
     } else if (props.labelPosition === 'top') {
         // (表单组件宽度) * 列数 + 最外层元素左右padding的宽度
         width = (props.columnWidth) * props.columnNum + paddingSize + 'px'
@@ -187,6 +192,10 @@ onMounted(() => {
         .ala-form-base-item {
             display: inline-block;
             width: var(--ala-form-base-item-width);
+        }
+
+        .ala-form-base-item-hidden {
+            display: none;
         }
 
         div {}

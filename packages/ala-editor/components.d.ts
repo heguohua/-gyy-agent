@@ -18,6 +18,7 @@ declare module 'vue' {
     AlaDate: typeof import('./src/components/cps/date/ala-date.vue')['default']
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
     AlaFormItems: typeof import('./src/components/cps/form/ala-form-items.vue')['default']
+    AlaHidden: typeof import('./src/components/cps/hidden/ala-hidden.vue')['default']
     AlaImage: typeof import('./src/components/cps/image/ala-image.vue')['default']
     AlaInput: typeof import('./src/components/cps/input/ala-input.vue')['default']
     AlaLink: typeof import('./src/components/cps/link/ala-link.vue')['default']
