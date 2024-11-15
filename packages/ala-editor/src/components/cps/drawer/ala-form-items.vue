@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 10:53:53
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
+ * @LastEditTime: 2024-11-15 13:06:22
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-form-items.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 

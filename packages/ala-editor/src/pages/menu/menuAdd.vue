@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 12:06:29
+ * @LastEditTime: 2024-11-15 13:06:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <el-form :model="formData" label-width="120px" :rules="rules">
-        <AlaAddForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
+        <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
             :closeContent="closeContent" :columnWidth="500" :columnNum="1" labelPosition="left" :moduleName="moduleName"
             :operationType="operationType" />
     </el-form>
@@ -23,6 +23,7 @@ import { logger } from '@/utils/logger';
 import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword } from '@/config/alaRules';
 import { alaBuildCheckbox, alaBuildDate, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
 import { date } from '@/utils/date';
+
 // State
 const showDrawer = defineModel({
     type: Boolean,
