@@ -1,3 +1,5 @@
+import baseRule from "./rules/baseRule"
+
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:13:12
@@ -17,7 +19,8 @@ export interface AlaField {
     other?: {
         [key: string]: any
     },
-    model?: any
+    model?: any,
+    rules?: Array<baseRule>
 }
 
 export interface AlaInputField extends AlaField {

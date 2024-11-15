@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     A: typeof import('./src/components/base/a.vue')['default']
     AlaAddForm: typeof import('./src/components/cps/drawer/ala-form-items.vue')['default']
+    AlaBaseForm: typeof import('./src/components/cps/drawer/ala-base-form.vue')['default']
     AlaCheckbox: typeof import('./src/components/cps/checkbox/ala-checkbox.vue')['default']
     AlaColumn: typeof import('./src/components/cps/column/ala-column.vue')['default']
     AlaCurrentDateTime: typeof import('./src/components/cps/time/AlaCurrentDateTime.vue')['default']
