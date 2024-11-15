@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 23:13:05
+ * @LastEditTime: 2024-11-15 22:06:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -92,7 +92,10 @@ const toggleAdvanced = () => {
 // 清空表单
 const formRef = ref()
 const clear = () => {
+    // 重置表单数据
     formRef.value.resetFields();
+    // 刷新分页列表数据
+    emit('refresh')
 }
 
 const showAdd = () => {

@@ -10,11 +10,13 @@
 <script setup lang="ts">
 import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
+import { alaPost } from '@/utils/req';
+import u from '@/utils/u';
 
 // State
 
 const props = defineProps({
-    closeTitle: {
+    tipTitle: {
         type: String,
         default: '温馨提示：'
     },
@@ -47,6 +49,9 @@ const props = defineProps({
         type: String as () => '' | 'top' | 'left' | 'right',
         default: 'left'
     },
+    url: {
+        type: String
+    },
 })
 
 
@@ -62,7 +67,7 @@ const confirm = (data: any) => {
 
     ElMessageBox.confirm(
         saveContent(),
-        props.closeTitle,
+        props.tipTitle,
         {
             confirmButtonText: '确认保存',
             cancelButtonText: '继续编辑',
@@ -71,6 +76,7 @@ const confirm = (data: any) => {
         .then(() => {
             showDrawer.value = false
             logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
+            postData(props.formData)
             emit("confirm", props.formData)
         })
         .catch(() => {
@@ -114,7 +120,20 @@ const rules = computed(() => {
     return ruless
 })
 
-const emit = defineEmits(["confirm"])
+
+const postData = (item: any) => {
+
+    // 保存数据并刷新分页列表
+    alaPost(u.url(props.url || ""), item, false).then((data: any) => {
+        const response = data;
+        console.log('response:', response);
+        emit("refresh", response)
+    });
+}
+
+
+const emit = defineEmits(["confirm", "refresh"])
+
 
 
 // ##########################  以下是冗余示例代码  #########################################

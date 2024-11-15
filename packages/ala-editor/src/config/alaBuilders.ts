@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 17:57:15
+ * @LastEditTime: 2024-11-15 20:10:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -208,8 +208,9 @@ export function alaBuildSelect(fieldName: string, label: string, items: Array<{ 
  * @param inActiveText 关闭状态文字
  * @returns 
  */
-export function alaBuildSwitch(fieldName: string, label: string, activeText: string, inActiveText: string, rules?: Array<baseRule>, placeholder?: string): AlaSwitchSchema {
-    const obj = alaBuildWithOther("AlaSwitch", fieldName, label, { activeText, inActiveText }, rules, placeholder)
+type switchValueType = Boolean | String | Number
+export function alaBuildSwitch(fieldName: string, label: string, activeText: string, inActiveText: string, activeValue?: switchValueType, inActiveValue?: switchValueType, rules?: Array<baseRule>, placeholder?: string): AlaSwitchSchema {
+    const obj = alaBuildWithOther("AlaSwitch", fieldName, label, { activeText, inActiveText, activeValue, inActiveValue }, rules, placeholder)
     return obj
 }
 

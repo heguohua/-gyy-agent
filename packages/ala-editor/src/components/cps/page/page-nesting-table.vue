@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 19:09:30
+ * @LastEditTime: 2024-11-15 22:01:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -90,7 +90,7 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { alaPage } from '@/utils/req';
+import { alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { ref } from 'vue'
 
@@ -101,10 +101,20 @@ interface Column {
 }
 
 const props = defineProps({
+    tipTitle: {
+        type: String,
+        default: '温馨提示：'
+    },
+    moduleName: {
+        type: String
+    },
     columns: {
         type: Array<Column>
     },
     url: {
+        type: String
+    },
+    deleteUrl: {
         type: String
     },
     params: {
@@ -152,6 +162,12 @@ const displayEditButton = () => {
 const displayDeleteButton = () => {
     return props.showDeleteButton;
 }
+
+const deleteContent = () => {
+    const content = `您确定要删除【 ${props.moduleName} 】信息吗？`
+    return content
+}
+
 const selectCheckboxWidth = () => {
     return props.showSelectCheckboxWidth;
 }
@@ -165,7 +181,38 @@ const handleEdit = (index: number, item: { id: number }) => {
 const handleDelete = (index: number, item: { id: number }) => {
     logger.info(`点击【 删除 】按钮，当前行数据`, item);
 
+
+
+    ElMessageBox.confirm(
+        deleteContent(),
+        props.tipTitle,
+        {
+            confirmButtonText: '确认',
+            cancelButtonText: '返回',
+            type: 'warning',
+        })
+        .then(() => {
+            logger.info("用户选择【确认】按钮，当前表单数据为：", baseInfo.id);
+            // postData(props.formData)
+            // emit("confirm", props.formData)
+        })
+        .catch(() => {
+            logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【继续编辑】按钮");
+        })
+
+
 }
+
+const postData = (item: { id: string }) => {
+
+    // 刷新列表数据
+    alaPost(u.url(props.deleteUrl || ""), item.id, false).then((data: any) => {
+        const response = data;
+        refresh(response)
+    });
+}
+
+
 const handleAdd = (index: number, item: { id: number }) => {
     logger.info(`点击【 添加子级 】按钮，当前行id【 ${item.id} 】当前行数据`, item);
     emit("add", item.id)
@@ -211,7 +258,10 @@ const page = reactive({
 const onePageList = ref<Array<any>>([]);
 
 const queryPageData = () => {
+
     // 后台加载菜单
+    logger.info(`查询分页列表数据，url【 ${props.url} 】`);
+
     alaPage(u.url(props.url || ""), page, props.params, true).then((data: any) => {
         const responsePage = data.data;
         page.current = responsePage.pageNum

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 13:33:33
+ * @LastEditTime: 2024-11-15 20:30:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/ala-switch.vue
  * @Description: 
  * 
@@ -12,7 +12,8 @@
     <div class="ala-switch-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <el-switch :model-value="model" :active-color="activeColor" :inactive-color="inActiveColor"
-                :active-text="activeText" :inactive-text="inActiveText" @change="handleChange" :id="fieldName">
+                :active-text="activeText" :inactive-text="inActiveText" :active-value="activeValue"
+                :inactive-value="inActiveValue" @change="handleChange" :id="fieldName">
             </el-switch>
         </el-form-item>
     </div>
@@ -55,6 +56,14 @@ const props = defineProps({
         type: String,
         default: '#ff4949'
     },
+    activeValue: {
+        type: [Boolean, String, Number],
+        default: 1
+    },
+    inActiveValue: {
+        type: [Boolean, String, Number],
+        default: 2
+    },
     fieldName: {
         type: String,
         default: ''
@@ -62,7 +71,8 @@ const props = defineProps({
 })
 
 const model = defineModel({
-    type: Boolean
+    // type: String || Number || Boolean,
+    type: Number || String || Boolean,
 })
 
 const handleChange = (value: any) => {

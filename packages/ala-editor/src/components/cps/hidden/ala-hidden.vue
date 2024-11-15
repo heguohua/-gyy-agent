@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 19:01:28
+ * @LastEditTime: 2024-11-15 21:34:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/hidden/ala-hidden.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="ala-hidden-wrapper">
         <!-- <el-form-item :label="label" :label-position="position" :prop="fieldName"> -->
         <el-form-item>
-            <el-input :model-value="model" type="hidden"></el-input>
+            <el-input :model-value="model" type="hidden" :id="fieldName"></el-input>
         </el-form-item>
     </div>
 </template>

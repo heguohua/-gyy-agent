@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 18:55:37
+ * @LastEditTime: 2024-11-15 22:05:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -18,7 +18,7 @@
         @add="showAdd" />
 
     <!-- 新增、编辑 -->
-    <MenuAdd @callback="refresh" v-model="showAddForm" :id="id" />
+    <MenuAdd @refresh="refresh" v-model="showAddForm" :id="id" />
 
 </template>
 
