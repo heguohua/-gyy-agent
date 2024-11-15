@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 20:57:39
+ * @LastEditTime: 2024-11-15 10:08:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -60,8 +60,8 @@ export default class u {
      * @param remark 
      * @param title 
      */
-    public static checkFalse(obj: boolean, remark: any, title = "温馨提示：") {
-        if (!obj) {
+    public static checkBoolean(obj: boolean, remark: any, title = "温馨提示：") {
+        if (obj) {
             throw new WarnException({ title, remark })
         }
     }

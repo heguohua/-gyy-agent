@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 17:10:57
+ * @LastEditTime: 2024-11-15 10:53:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-add-form.vue
  * @Description: 
  * 
@@ -224,6 +224,8 @@ onMounted(() => {
             bottom: 0px;
             right: 0px;
         }
+
+       
     }
 }
 </style>

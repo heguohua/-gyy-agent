@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 22:17:12
+ * @LastEditTime: 2024-11-15 11:29:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/ala-select.vue
  * @Description: 
  * 
@@ -59,7 +59,8 @@ const props = defineProps({
 const model = defineModel({
   type: String || Number || Boolean || undefined
 })
-const styles = computed(() => ({ width: props.width + 'px' }))
+// const styles = computed(() => ({ width: props.width + 'px' }))
+const styles = computed(() => ({}))
 
 
 
@@ -86,4 +87,10 @@ const clasz = computed(() => {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ala-select-wrapper {
+  .ala-select-group {
+    .el-select-item {}
+  }
+}
+</style>

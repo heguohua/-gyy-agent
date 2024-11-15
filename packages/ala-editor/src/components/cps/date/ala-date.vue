@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 17:16:28
+ * @LastEditTime: 2024-11-15 12:49:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -10,12 +10,12 @@
 -->
 <template>
     <div class="ala-date-picker-wrapper">
-        <el-form-item :label="label" :label-position="position">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName">
 
             <!-- 注意，注意，注意 el-date-picker 中必须使用 @update:model-value 更新数据值-->
-            <el-date-picker  :model-value="model" :disabled-date="disabledDate" :type="dateType"
+            <el-date-picker :model-value="model" :disabled-date="disabledDate" :type="dateType"
                 :placeholder="placeholder" :size="size" @update:model-value="handleChange"
-                :picker-options="pickerOptions" />
+                :picker-options="pickerOptions" :id="fieldName"/>
 
         </el-form-item>
 
@@ -65,6 +65,10 @@ const props = defineProps({
     },
     // 可选择日期范围限定的结束日期
     end: {
+        type: String,
+        default: ''
+    },
+    fieldName: {
         type: String,
         default: ''
     },
@@ -121,7 +125,7 @@ const disabledDate = (time: Date) => {
 
 <style scoped lang="scss">
 .ala-date-picker-wrapper {
-    :deep .el-form-item__label{
+    :deep .el-form-item__label {
         justify-content: center;
     }
 }

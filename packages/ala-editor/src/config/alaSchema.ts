@@ -1,8 +1,10 @@
+import baseRule from "./rules/baseRule";
+
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:59:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 23:00:26
+ * @LastEditTime: 2024-11-15 10:31:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaSchema.ts
  * @Description: 
  * 
@@ -25,6 +27,8 @@ export default interface AlaSchema {
      * 属性名
      */
     fieldName: string
+
+    rules: Array<baseRule> | undefined
 }
 
 
