@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 18:51:52
+ * @LastEditTime: 2024-11-15 19:09:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -41,6 +41,10 @@
                                 <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
                                     v-if="displayDeleteButton()">
                                     删除
+                                </el-button>
+                                <el-button size="small" type="primary" @click="handleAdd(scope.$index, scope.row)"
+                                    v-if="displayDeleteButton()">
+                                    添加子级
                                 </el-button>
                             </template>
                         </el-table-column>
