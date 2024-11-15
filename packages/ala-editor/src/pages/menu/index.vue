@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 22:05:21
+ * @LastEditTime: 2024-11-15 22:25:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
         @showAdd="showAdd(0)" />
 
     <!-- 分页列表 -->
-    <PageNestingTable ref="pageRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="false"
+    <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params" :showSelectCheckbox="false"
         @add="showAdd" />
 
     <!-- 新增、编辑 -->
@@ -74,6 +74,7 @@ const refresh = () => {
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
 const url = "/u/menu/page"
+const deleteUrl = "/u/menu/delete"
 
 // 分页列表中列属性配置
 const columns = ref([

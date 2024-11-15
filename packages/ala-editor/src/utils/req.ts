@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 08:34:09
+ * @LastEditTime: 2024-11-15 22:36:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -218,6 +218,37 @@ export function alaPost(url: string, params = {}, showProgress = false) {
       headers: {
         sp: showProgress
       }
+    })
+      .then((response) => {
+        const data = response.data
+        if (data.code != 200) {
+          logger.error("服务器返回错误信息", data);
+          notify.error("温馨提示：", data.msg)
+        } else {
+          resolve(response.data);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+/*
+ *  delete 请求:向服务器端提交数据
+ *  url:请求地址
+ *  params:参数
+ * */
+export function alaDelete(url: string, params = {}, showProgress = false) {
+  return new Promise((resolve, reject) => {
+
+    axiosInstance({
+      url: url,
+      method: 'DELETE',
+      headers: {
+        sp: showProgress
+      },
+      params
     })
       .then((response) => {
         const data = response.data

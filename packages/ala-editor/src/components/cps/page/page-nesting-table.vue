@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 22:22:39
+ * @LastEditTime: 2024-11-15 22:36:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -90,7 +90,7 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { alaPage, alaPost } from '@/utils/req';
+import { alaDelete, alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { ref } from 'vue'
 
@@ -187,9 +187,10 @@ const handleDelete = (index: number, item: { id: number }) => {
             type: 'warning',
         })
         .then(() => {
-            logger.info("用户选择【确认】按钮，当前对象id为：", item.id);
+            logger.info("用户选择【确认】按钮，即将删除数据，当前对象id为：", item.id);
             // postData(props.formData)
             // emit("confirm", props.formData)
+            postData(item)
         })
         .catch(() => {
             logger.info("用户选择【返回】按钮");
@@ -198,10 +199,10 @@ const handleDelete = (index: number, item: { id: number }) => {
 
 }
 
-const postData = (item: { id: string }) => {
+const postData = (item: { id: number }) => {
 
     // 刷新列表数据
-    alaPost(u.url(props.deleteUrl || ""), item.id, false).then((data: any) => {
+    alaDelete(u.url(props.deleteUrl || ""), { id: item.id  }, false).then((data: any) => {
         const response = data;
         refresh(response)
     });
