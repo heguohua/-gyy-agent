@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 22:01:48
+ * @LastEditTime: 2024-11-15 22:22:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -105,9 +105,6 @@ const props = defineProps({
         type: String,
         default: '温馨提示：'
     },
-    moduleName: {
-        type: String
-    },
     columns: {
         type: Array<Column>
     },
@@ -144,13 +141,11 @@ const props = defineProps({
 })
 
 // 获取数据缓存对象
-
 const baseInfo = inject('baseInfo', {
     moduleName: '',
     id: 0,
     selectedList: Array<{ id: string }>
 });
-
 
 // 操作按钮
 const displaySelectCheckbox = () => {
@@ -164,7 +159,7 @@ const displayDeleteButton = () => {
 }
 
 const deleteContent = () => {
-    const content = `您确定要删除【 ${props.moduleName} 】信息吗？`
+    const content = `您确定要删除【 ${baseInfo.moduleName} 】信息吗？`
     return content
 }
 
@@ -192,12 +187,12 @@ const handleDelete = (index: number, item: { id: number }) => {
             type: 'warning',
         })
         .then(() => {
-            logger.info("用户选择【确认】按钮，当前表单数据为：", baseInfo.id);
+            logger.info("用户选择【确认】按钮，当前对象id为：", item.id);
             // postData(props.formData)
             // emit("confirm", props.formData)
         })
         .catch(() => {
-            logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【继续编辑】按钮");
+            logger.info("用户选择【返回】按钮");
         })
 
 

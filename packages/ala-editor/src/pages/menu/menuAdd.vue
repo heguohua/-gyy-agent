@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 21:47:06
+ * @LastEditTime: 2024-11-15 22:13:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -19,20 +19,18 @@
 import { logger } from '@/utils/logger';
 import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword } from '@/config/alaRules';
 import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
-import { date } from '@/utils/date';
 
 const props = defineProps({
-    moduleName: {
-        type: String,
-        default: ''
-    },
     id: {
         type: Number,
         default: 0
     },
     baseInfo: {
         type: Object,
-        default: {}
+        default: {
+            id: 0,
+            moduleName: "模块名称不存在"
+        }
     },
 })
 
@@ -93,6 +91,9 @@ const confirm = (data: any) => {
     emit('refresh', data)
 }
 
+const moduleName = computed(() => {
+    return props.baseInfo.moduleName
+})
 
 
 // ##########################  以上是公共方法，不需要修改 end #########################################

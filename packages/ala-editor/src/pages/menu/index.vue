@@ -18,7 +18,7 @@
         @add="showAdd" />
 
     <!-- 新增、编辑 -->
-    <MenuAdd @refresh="refresh" v-model="showAddForm" :id="id" />
+    <MenuAdd @refresh="refresh" v-model="showAddForm" :id="id" :baseInfo="baseInfo" />
 
 </template>
 
