@@ -245,7 +245,7 @@ export function alaPage(url: string, page = {}, params = {}, showProgress = fals
     axiosInstance({
       url: url,
       method: 'post',
-      data: { page, data: params },
+      data: { page, body: params },
       headers: {
         sp: showProgress
       }

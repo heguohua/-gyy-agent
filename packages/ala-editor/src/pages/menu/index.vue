@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 15:08:16
+ * @LastEditTime: 2024-11-15 17:39:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -17,7 +17,7 @@
     <PageNestingTable ref="pageRef" :url="url" :columns="columns" :params="params" />
 
     <!-- 新增、编辑 -->
-    <MenuAdd @callback="refresh" v-model="showAddForm" v-bind="baseInfo" />
+    <MenuAdd @callback="refresh" v-model="showAddForm" />
 
 </template>
 
@@ -26,6 +26,8 @@ import { ref } from 'vue';
 import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
 import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
+import { logger } from '@/utils/logger';
+import { alaBuildInput } from '@/config/alaBuilders';
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
@@ -33,12 +35,14 @@ const route = useRoute();
 const moduleName = route.meta.menuName as string || '';
 
 // 2、定义当前编辑对象id
-let id = 0
+let id = ref(0)
 
 const baseInfo = reactive({
     moduleName,
-    id
+    id: id
 })
+provide('baseInfo', baseInfo);
+
 // ############## 初始化基本数据，该部分代码不用修改 end ######################################
 
 // ############## 分页列表通用方法，该部分代码不用修改 start ######################################
@@ -77,22 +81,25 @@ const columns = ref([
 
 // 基础查询条件
 const baseFields = [
-    { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
-    { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea' },
-    { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password' },
-    { componentName: 'AlaRadio', label: '单选组件', fieldName: 'radio', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-    { componentName: 'AlaCheckbox', label: '多选组件', fieldName: 'checkbox', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-    { componentName: 'AlaSelect', label: '下拉选', fieldName: 'select', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-    { componentName: 'AlaSwitch', label: '开关', fieldName: 'switch', other: { activeText: "开", inActiveText: "关" } },
-    // {
-    //     componentName: 'AlaDate', label: '创建时间', fieldName: 'date', other: {
-    //         dateType: "datetimerange",
-    //         format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
-    //     }
-    // },
-    { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider', other: { min: 2, max: 10, step: 1, } },
-    { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating', other: { max: 8, allowHalf: true } },
+    alaBuildInput("name", "菜单名"),
 ]
+// const baseFields = [
+//     { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
+//     { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea' },
+//     { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password' },
+//     { componentName: 'AlaRadio', label: '单选组件', fieldName: 'radio', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+//     { componentName: 'AlaCheckbox', label: '多选组件', fieldName: 'checkbox', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+//     { componentName: 'AlaSelect', label: '下拉选', fieldName: 'select', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
+//     { componentName: 'AlaSwitch', label: '开关', fieldName: 'switch', other: { activeText: "开", inActiveText: "关" } },
+//     // {
+//     //     componentName: 'AlaDate', label: '创建时间', fieldName: 'date', other: {
+//     //         dateType: "datetimerange",
+//     //         format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
+//     //     }
+//     // },
+//     { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider', other: { min: 2, max: 10, step: 1, } },
+//     { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating', other: { max: 8, allowHalf: true } },
+// ]
 
 
 // 高级查询条件

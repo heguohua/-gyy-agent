@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 15:03:09
+ * @LastEditTime: 2024-11-15 17:42:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -20,14 +20,48 @@
                 <template #default="{ row }">
                     <el-table v-if="row.children" :data="row.children" style="width: 100%" row-key="id"
                         class="hide-header">
+
+                        <!-- 每一行左侧的选择按钮 -->
+                        <el-table-column type="selection" :width="selectCheckboxWidth()"
+                            v-if="displaySelectCheckbox()" />
+
                         <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
                             :label="column.label"></el-table-column>
+
+                        <el-table-column label="操作">
+                            <template #default="scope">
+                                <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+                                    v-if="displayEditButton()">
+                                    编辑
+                                </el-button>
+                                <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
+                                    v-if="displayDeleteButton()">
+                                    删除
+                                </el-button>
+                            </template>
+                        </el-table-column>
+
                     </el-table>
                 </template>
             </el-table-column>
 
+            <el-table-column type="selection" :width="selectCheckboxWidth()" v-if="displaySelectCheckbox()" />
+
             <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
                 sortable>
+            </el-table-column>
+
+
+            <el-table-column label="操作">
+                <template #default="scope">
+                    <el-button size="small" @click="handleEdit(scope.$index, scope.row)" v-if="displayEditButton()">
+                        编辑
+                    </el-button>
+                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
+                        v-if="displayDeleteButton()">
+                        删除
+                    </el-button>
+                </template>
             </el-table-column>
 
             <el-pagination v-model:current-page="currentPage" :page-size="pageSize" layout="total, prev, pager, next"
@@ -51,7 +85,6 @@ interface Column {
     label: string;
 }
 
-
 const props = defineProps({
     columns: {
         type: Array<Column>
@@ -62,12 +95,68 @@ const props = defineProps({
     params: {
         type: Object
     },
+    // 是否显示 表格前面的 复选框按钮
+    showSelectCheckbox: {
+        type: Boolean,
+        default: true
+    },
+    // 是否显示 表格前面的 复选框按钮
+    showSelectCheckboxWidth: {
+        type: Number,
+        default: 55
+    },
+    // 是否显示 编辑 按钮
+    showEditButton: {
+        type: Boolean,
+        default: true
+    },
+    // 是否显示 编辑 按钮
+    showDeleteButton: {
+        type: Boolean,
+        default: true
+    },
+
 })
+
+// 获取数据缓存对象
+
+const baseInfo = inject('baseInfo', {
+    moduleName: '',
+    id: 0
+});
+
+
+// 操作按钮
+const displaySelectCheckbox = () => {
+    return props.showSelectCheckbox;
+}
+const displayEditButton = () => {
+    return props.showEditButton;
+}
+const displayDeleteButton = () => {
+    return props.showDeleteButton;
+}
+const selectCheckboxWidth = () => {
+    return props.showSelectCheckboxWidth;
+}
+
+const handleEdit = (index: number, item: { id: number }) => {
+    logger.info(`点击【 编辑 】按钮，当前行数据`, item);
+    logger.info(`baseInfo`, baseInfo);
+
+    baseInfo.id = item.id
+}
+const handleDelete = (index: number, item: { id: number }) => {
+    logger.info(`点击【 删除 】按钮，当前行数据`, item);
+
+}
+
 
 // State
 const refresh = (data: any) => {
     logger.warn("list页面接收到回调数据，即将刷新数据", data);
     logger.warn("list页面接收到回调数据，即将刷新数据，params", props.params);
+    queryPageData()
 }
 
 // 排序字段发生变化
@@ -93,12 +182,9 @@ const page = reactive({
 
 const onePageList = ref<Array<any>>([]);
 
-onMounted(() => {
-    logger.info("onMounted 渲染 menu 分页列表页面");
-
+const queryPageData = () => {
     // 后台加载菜单
     alaPage(u.url(props.url || ""), page, props.params, true).then((data: any) => {
-
         const responsePage = data.data;
         page.current = responsePage.pageNum
         page.size = responsePage.pageSize
@@ -107,9 +193,16 @@ onMounted(() => {
         if (data?.data?.list) {
             onePageList.value = data?.data?.list
         }
-
     });
+}
+
+onMounted(() => {
+    logger.info("onMounted 渲染 menu 分页列表页面");
+    queryPageData()
 })
+
+
+
 const paginatedData = computed(() => {
     const page = 1; // 当前页码
     const pageSize = 10; // 每页显示条数

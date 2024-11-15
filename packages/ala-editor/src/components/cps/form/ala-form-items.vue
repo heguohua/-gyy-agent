@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 13:06:22
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-form-items.vue
+ * @LastEditTime: 2024-11-15 15:20:37
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -148,9 +148,12 @@ const drawerWidth = (): string => {
     if (props.labelPosition === 'left') {
         // (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度
         width = (props.labelWidth + props.columnWidth) * props.columnNum + paddingSize + 'px'
+        logger.info(`标签宽度[ ${props.labelWidth} ]，列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
+        
     } else if (props.labelPosition === 'top') {
         // (表单组件宽度) * 列数 + 最外层元素左右padding的宽度
         width = (props.columnWidth) * props.columnNum + paddingSize + 'px'
+        logger.info(`列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
     }
     return width
 }
@@ -225,7 +228,10 @@ onMounted(() => {
             right: 0px;
         }
 
-       
+        .el-date-editor.el-input,
+        .el-date-editor.el-input__wrapper {
+            width: 100% !important;
+        }
     }
 }
 </style>

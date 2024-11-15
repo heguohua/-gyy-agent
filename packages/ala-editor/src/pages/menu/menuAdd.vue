@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 13:37:27
+ * @LastEditTime: 2024-11-15 15:35:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
-        :columnWidth="500" :columnNum="1" labelPosition="left" :moduleName="moduleName" />
+        :columnWidth="300" :columnNum="3" labelPosition="top" :moduleName="moduleName" />
 
 </template>
 
