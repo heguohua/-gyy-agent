@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 22:49:20
+ * @LastEditTime: 2024-11-16 10:19:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -79,11 +79,15 @@
                 </template>
             </el-table-column>
 
-            <el-pagination v-model:current-page="currentPage" :page-size="pageSize" layout="total, prev, pager, next"
-                :total="total" @current-change="handlePageChange" class="ala-page-pagination">
-            </el-pagination>
+
 
         </el-table>
+
+        <!-- 分页列表 -->
+        <el-pagination v-model:current-page="current" :page-sizes="pageSize" layout="total, prev, pager, next"
+            :total="total" @current-change="handlePageChange" class="ala-page-pagination" :pager-count="11" background>
+        </el-pagination>
+
 
     </div>
 </template>
@@ -137,6 +141,10 @@ const props = defineProps({
         type: Boolean,
         default: true
     },
+    pageSize: {
+        type: Array<Number>,
+        default: [10, 20, 30, 40, 50, 100, 200]
+    }
 
 })
 
@@ -250,6 +258,7 @@ const page = reactive({
         asc: false
     }]
 })
+const { current, total, size } = toRefs(page)
 
 
 const onePageList = ref<Array<any>>([]);
@@ -261,9 +270,9 @@ const queryPageData = () => {
 
     alaPage(u.url(props.url || ""), page, props.params, true).then((data: any) => {
         const responsePage = data.data;
-        page.current = responsePage.pageNum
-        page.size = responsePage.pageSize
-        page.total = responsePage.total
+        current.value = responsePage.pageNum
+        size.value = responsePage.pageSize
+        total.value = responsePage.total
 
         if (data?.data?.list) {
             onePageList.value = data?.data?.list
@@ -279,24 +288,14 @@ onMounted(() => {
 
 
 const paginatedData = computed(() => {
-    const page = 1; // 当前页码
-    const pageSize = 10; // 每页显示条数
-    const start = (page - 1) * pageSize;
-    const end = start + pageSize;
-    return onePageList.value.slice(start, end);
+    // const currentPage = page.current; // 当前页码
+    // const pageSize = page.size; // 每页显示条数
+    // const start = (currentPage - 1) * pageSize;
+    // const end = start + pageSize;
+    // return onePageList.value.slice(start, end);
+    return onePageList.value
 });
 
-const currentPage = computed(() => {
-    return page.current;
-})
-
-const pageSize = computed(() => {
-    return page.size;
-})
-
-const total = computed(() => {
-    return page.total;
-})
 
 // 可展开内表通用代码
 const expandedRowIds = ref<String[]>([]);
@@ -318,7 +317,12 @@ const handleExpandChange = (row: { id: string }, expandedRows: any) => {
 };
 
 const handlePageChange = (newPage: number) => {
+    console.log('newPage:', newPage);
+
     page.current = newPage;
+    console.log('current:', current);
+    queryPageData()
+
 };
 
 // Methods

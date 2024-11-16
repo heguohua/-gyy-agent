@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 23:08:14
+ * @LastEditTime: 2024-11-16 09:08:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -22,14 +22,11 @@ import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuild
 import u from '@/utils/u';
 
 const props = defineProps({
-    id: {
-        type: Number,
-        default: 0
-    },
     baseInfo: {
         type: Object,
         default: {
             id: 0,
+            pid: 0,
             moduleName: "模块名称不存在",
             item: {}
         }

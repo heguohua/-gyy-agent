@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 23:09:46
+ * @LastEditTime: 2024-11-16 09:13:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -11,14 +11,14 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: 0 })" />
+        @showAdd="showAdd({ id: 0, pid: 0 })" />
 
     <!-- 分页列表 -->
     <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" />
 
     <!-- 新增、编辑 -->
-    <MenuAdd @refresh="refresh" v-model="showAddForm" :id="id" :baseInfo="baseInfo" />
+    <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
 </template>
 
@@ -37,11 +37,10 @@ const route = useRoute();
 const moduleName = route.meta.menuName as string || '';
 
 // 2、定义当前编辑对象id
-let id = ref(0)
-
 const baseInfo = reactive({
     moduleName,
-    id: id,
+    id: 0,
+    pid: 0,
     selectedList: Array<{ id: string }>
 })
 provide('baseInfo', baseInfo);
@@ -53,10 +52,9 @@ provide('baseInfo', baseInfo);
 const showAddForm = ref(false)
 const showAdd = (item: { [key: string]: any }) => {
     showAddForm.value = true
-    id.value = item.id
     u.merged(baseInfo, { item })
-    logger.info(`新增方法接收到参数item.id【 ${item.id} 】，当前模块选中对象id【 ${id.value} 】`);
-
+    logger.info(`新增方法接收到参数【 item 】`, item);
+    logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
 }
 
 // 查询条件
