@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 10:51:37
+ * @LastEditTime: 2024-11-16 10:53:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -180,7 +180,7 @@ const handleEdit = (index: number, item: any) => {
     logger.info(`点击【 编辑 】按钮，当前行数据`, item);
     baseInfo.item = item
     logger.info(`baseInfo`, baseInfo);
-    emit("add", item)
+    emit("edit", item)
 }
 const handleDelete = (index: number, item: { id: number }) => {
     logger.info(`点击【 删除 】按钮，当前行数据`, item);
@@ -326,14 +326,13 @@ const handlePageChange = (newPage: number) => {
 };
 
 // Methods
-const emit = defineEmits(["add"])
+const emit = defineEmits(["add","edit"])
 defineExpose({ refresh })
 
 </script>
 
 <style scoped lang="scss">
 .ala-page-nesting-table {
-    .hide-header {}
 
     .ala-page-pagination {
         float: right;

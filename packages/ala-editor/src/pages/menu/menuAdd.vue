@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 09:08:38
+ * @LastEditTime: 2024-11-16 12:09:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -11,7 +11,8 @@
 <template>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
-        :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" />
+        :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url"
+        :updateUrl="updateUrl" />
 
 </template>
 
@@ -25,7 +26,7 @@ const props = defineProps({
     baseInfo: {
         type: Object,
         default: {
-            id: 0,
+            id: null,
             pid: 0,
             moduleName: "模块名称不存在",
             item: {}
@@ -36,20 +37,27 @@ const props = defineProps({
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
 const url = '/u/menu/add'
+const updateUrl = '/u/menu/update'
+// 表单数据保存对象
 const formData = reactive({
-    // pid: computed(() => props.id),// 固定格式
 })
 
 watch(() => props.baseInfo.item, (item) => {
-    logger.error(`观察到 baseInfo 中的 item 发生了变化`, item);
+    logger.info(`观察到 baseInfo 中的 item 发生了变化`, item);
     // u.merged(formData, item)
-    Object.assign(formData,item)
-    logger.error(`formData数据更新后`, formData);
+    if(!item.id){
+        u.clear(formData)
+    }
+    Object.assign(formData, item)
+    logger.info(`formData数据更新后`, formData);
+}, {
+    deep: true
 })
 
 // 基础表单字段
 const basicFields = [
     alaBuildHidden('pid'),// 固定格式
+    alaBuildHidden('id'),// 固定格式
     alaBuildSwitch('value', "菜单分类", '页面URL', '菜单', 2, 1, [alaRequired()]),
     alaBuildInput("name", "菜单名", [alaRequired()]),
     alaBuildInput("url", "路由URL", [alaRequired()]),

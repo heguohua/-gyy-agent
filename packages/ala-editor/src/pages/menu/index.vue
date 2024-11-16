@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 09:13:41
+ * @LastEditTime: 2024-11-16 12:04:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -11,11 +11,11 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: 0, pid: 0 })" />
+        @showAdd="showAdd({ id: null, pid: 0 })" />
 
     <!-- 分页列表 -->
     <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
-        :showSelectCheckbox="false" @add="showAdd" />
+        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" />
 
     <!-- 新增、编辑 -->
     <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
@@ -30,6 +30,7 @@ import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
+import { id } from 'element-plus/es/locale';
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
@@ -39,9 +40,9 @@ const moduleName = route.meta.menuName as string || '';
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
     moduleName,
-    id: 0,
-    pid: 0,
-    selectedList: Array<{ id: string }>
+    id: null,
+    selectedList: Array<{ id: string }>,
+    item: {}
 })
 provide('baseInfo', baseInfo);
 
@@ -51,10 +52,19 @@ provide('baseInfo', baseInfo);
 
 const showAddForm = ref(false)
 const showAdd = (item: { [key: string]: any }) => {
+    u.clear(baseInfo.item)
+    u.merged(baseInfo, { item: { id: null, pid: item.id } })
+    logger.info(`【新增】方法接收到参数【 item 】`, item);
+    logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    showAddForm.value = true
+}
+
+const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
     u.merged(baseInfo, { item })
-    logger.info(`新增方法接收到参数【 item 】`, item);
+    logger.info(`【编辑】方法接收到参数 item `, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    showAddForm.value = true
 }
 
 // 查询条件

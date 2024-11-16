@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 21:34:59
+ * @LastEditTime: 2024-11-16 11:14:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/hidden/ala-hidden.vue
  * @Description: 
  * 
@@ -10,7 +10,6 @@
 -->
 <template>
     <div class="ala-hidden-wrapper">
-        <!-- <el-form-item :label="label" :label-position="position" :prop="fieldName"> -->
         <el-form-item>
             <el-input :model-value="model" type="hidden" :id="fieldName"></el-input>
         </el-form-item>
@@ -40,7 +39,8 @@ const props = defineProps({
 })
 
 const model = defineModel({
-    type: Number
+    type: Number,
+    default: null
 })
 
 

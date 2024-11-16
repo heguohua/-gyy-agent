@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 20:30:33
+ * @LastEditTime: 2024-11-16 11:26:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/ala-switch.vue
  * @Description: 
  * 
@@ -71,8 +71,7 @@ const props = defineProps({
 })
 
 const model = defineModel({
-    // type: String || Number || Boolean,
-    type: Number || String || Boolean,
+    type: [Number, String, Boolean] as PropType<number | string | boolean>,
 })
 
 const handleChange = (value: any) => {

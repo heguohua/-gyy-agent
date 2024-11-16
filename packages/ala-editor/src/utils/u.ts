@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 10:08:51
+ * @LastEditTime: 2024-11-16 10:58:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -82,4 +82,19 @@ export default class u {
     public static merged(target: object, source: object) {
         return merge(target, source)
     }
+
+    /**
+     * 清空对象所有属性
+     * @param obj 
+     */
+    public static clear(obj: Record<string, any> | undefined) {
+        if (obj) {
+            Object.keys(obj).forEach(key => {
+                delete obj[key];
+            });
+        }
+
+    }
+
+
 }

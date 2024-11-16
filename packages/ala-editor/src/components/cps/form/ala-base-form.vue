@@ -26,7 +26,7 @@ const props = defineProps({
     },
     id: {
         type: Number,
-        default: 0
+        default: null
     },
     formData: {
         type: Object,
@@ -52,6 +52,9 @@ const props = defineProps({
     url: {
         type: String
     },
+    updateUrl: {
+        type: String
+    },
 })
 
 
@@ -75,19 +78,23 @@ const confirm = (data: any) => {
         })
         .then(() => {
             showDrawer.value = false
-            logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
+            logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
             postData(props.formData)
+            // 清空 formData
+            u.clear(props.formData)
+            logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，数据提交成功后当前表单数据为：", props.formData);
+
             emit("confirm", props.formData)
         })
         .catch(() => {
-            logger.info("点击【确认保存】按钮，弹出取消提示信息框，用户选择【继续编辑】按钮");
+            logger.info("点击【确认保存】按钮，弹出提示信息框，用户选择【继续编辑】按钮");
         })
 
 }
 
 
 const operationType = computed(() => {
-    return props.id === 0 ? '新增' : '编辑';
+    return !props.id ? '新增' : '编辑';
 })
 
 const closeContent = computed(() => {
@@ -124,7 +131,10 @@ const rules = computed(() => {
 const postData = (item: any) => {
 
     // 保存数据并刷新分页列表
-    alaPost(u.url(props.url || ""), item, false).then((data: any) => {
+    // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
+    const url = item.id ? props.updateUrl : props.url
+    logger.info(`新增/更新数据，url【 ${url} 】，数据对象：`, item);
+    alaPost(u.url(url || ''), item, false, item.id ? 'put' : '').then((data: any) => {
         const response = data;
         console.log('response:', response);
         emit("refresh", response)

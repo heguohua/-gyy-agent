@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 22:36:12
+ * @LastEditTime: 2024-11-16 11:31:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -208,12 +208,12 @@ export function post(url: string, params = {}) {
  *  url:请求地址
  *  params:参数
  * */
-export function alaPost(url: string, params = {}, showProgress = false) {
+export function alaPost(url: string, params = {}, showProgress = false, method?: string) {
   return new Promise((resolve, reject) => {
 
     axiosInstance({
       url: url,
-      method: 'post',
+      method: method ? method : 'post',
       data: params,
       headers: {
         sp: showProgress
