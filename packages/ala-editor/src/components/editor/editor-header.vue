@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 17:34:01
- * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-header.vue
+ * @LastEditTime: 2024-11-16 21:11:53
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -22,11 +22,11 @@
     <div class="header-right">
       <el-button>
         <v-icon icon="preview" />
-        {{ $t('button.yulan') }}
+        {{ $t('buttons.preview') }}
       </el-button>
       <el-button type="primary">
         <v-icon icon="publish" />
-        {{ $t('button.fabu') }}
+        {{ $t('buttons.publish') }}
       </el-button>
       <el-select v-model="currentLanguage" :placeholder="$t('common.select_placeholder')" @change="changLanguage"
         class="languages">

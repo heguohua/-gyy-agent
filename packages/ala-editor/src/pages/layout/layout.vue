@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 19:22:50
+ * @LastEditTime: 2024-11-16 21:26:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -36,6 +36,14 @@ import lstore from '@/utils/lstore';
 import { alaConsts } from '@/config/alaConsts';
 import router from '@/router';
 
+// 引入useLocale
+import { changLanguage, useLocale } from '@/hooks/useLocale'
+// 使用useLocale
+const { changeLocale } = useLocale()
+import { useI18n } from 'vue-i18n';
+const { getLocaleMessage } = useI18n();
+
+
 const menus = ref<Array<Menu>>([])
 
 
@@ -56,6 +64,11 @@ onMounted(() => {
                 router.push(storedPath)
             }
         }
+
+        // 切换语言
+        // 切换语言
+        changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME), getLocaleMessage, changeLocale)
+
     });
 })
 

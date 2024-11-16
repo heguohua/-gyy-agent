@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 08:53:32
+ * @LastEditTime: 2024-11-16 21:26:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -190,14 +190,10 @@ const submitButtonClass = computed(() => {
 })
 
 import u from "@/utils/u"
-import { get, alaPost } from '@/utils/req';
+import { alaPost } from '@/utils/req';
 import lstore from "@/utils/lstore";
-import router from "@/router";
-import { useAlaStore } from "@/store/ala-store";
 import { alaConsts } from "@/config/alaConsts";
 import { logger } from "@/utils/logger";
-
-const alaStore = useAlaStore()
 
 onMounted(() => {
     logger.warn("已跳转到Login页面，执行onMounted逻辑");
@@ -240,7 +236,6 @@ const submit = async () => {
         // }
 
         // 页面加载时，从 localStorage 获取激活的菜单路径
-    
 
 
     })

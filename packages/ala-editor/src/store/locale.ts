@@ -51,7 +51,7 @@ export const useLocaleStore = defineStore('locale', {
     state: () => ({
         currentLocale: {
             //当前语言
-            lang: "zh",
+            lang: "zh-CN",
             //element-plus的语言包
             elLocale: getConfig(),
         }

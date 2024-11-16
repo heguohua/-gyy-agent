@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 18:58:14
+ * @LastEditTime: 2024-11-16 21:52:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -12,23 +12,23 @@
   <div class="header">
     <div class="header-left">
       <div class="back">
-        <v-icon-tooltip :content="$t('icon.back')" icon="back" />
-        <div class="header-title">{{ $t('p_editor.list_page') }}</div>
+        <!-- <v-icon-tooltip :content="$t('icon.back')" icon="back" /> -->
+        <div class="header-title">{{ $t('system.title') }}</div>
       </div>
-      <div class="line"></div>
-      <v-select v-model="viewport" :options="app_types" />
+      <!-- <div class="line"></div> -->
+      <!-- <v-select v-model="viewport" :options="app_types" /> -->
     </div>
 
     <div class="header-right">
-      <el-button>
+      <!-- <el-button>
         <v-icon icon="preview" />
-        {{ $t('button.yulan') }}
+        {{ $t('buttons.preview') }}
       </el-button>
       <el-button type="primary">
         <v-icon icon="publish" />
-        {{ $t('button.fabu') }}
-      </el-button>
-      <el-select v-model="currentLanguage" :placeholder="$t('common.select_placeholder')" @change="changLanguage"
+        {{ $t('buttons.publish') }}
+      </el-button> -->
+      <el-select v-model="currentLanguage" :placeholder="$t('common.select_placeholder')" @change="chang"
         class="languages">
         <el-option v-for="(value, key) in languages" :key="key" :label="value" :value="key">
         </el-option>
@@ -47,69 +47,21 @@ import { languages } from '@/store/locale';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 
+// 切换语言
 // 引入useLocale
-import { useLocale } from '@/hooks/useLocale'
+import { changLanguage, useLocale } from '@/hooks/useLocale'
 // 使用useLocale
 const { changeLocale } = useLocale()
-
+import { useI18n } from 'vue-i18n';
+const { getLocaleMessage } = useI18n();
+const chang = (locale: any) => {
+  changLanguage(locale, getLocaleMessage, changeLocale)
+}
 
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 
-import { useI18n } from 'vue-i18n';
-import u from '@/utils/u';
-import { alaPost } from '@/utils/req';
-const { getLocaleMessage } = useI18n();
-
-/**
- * 切换语言
- */
-const changLanguage = (locale: any) => {
-
-  interface vmt {
-    data: {
-      messages: {}
-    }
-  }
-
-  // 切换语言环境
-  logger.warn(`正在切换语言环境，新语言【 ${locale} 】`);
-
-  const existedMessages = getLocaleMessage(locale);
-  logger.info(`当前语言【 已配置 】语言包`, existedMessages);
 
 
-  // TODO 从后台动态加载语言包并进行合并
-  const url = '/a/dict/language/list'
-  // 保存数据并刷新分页列表
-  // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
-  alaPost(u.url(url || ''), { dictCode: locale }, false).then((data: any) => {
-    const newMessages = data.data || {};
-    logger.info(`当前语言【 后台新加载 】语言包`, newMessages);
-    u.merged(existedMessages, newMessages)
-    logger.info(`当前语言【 扩充后 】语言包`, getLocaleMessage(locale));
-
-  });
-
-
-
-  changeLocale(locale)
-  /**
-   * 加载新的语言包，并切换语言
-   */
-  // const messages = i18n.global.messages as vmt["data"]
-  // let currentLanguageValue = currentLanguage.value
-  // if (!(currentLanguageValue in messages)) {
-  //   fetchLocaleMessages(currentLanguageValue).then((data) => {
-  //     logger.info(`即将加载并切换语言包 [ ${currentLanguageValue} ]`)
-  //     const { data: { messages } } = data as vmt;
-  //     Object.assign(i18n.global.messages, messages)
-  //     i18n.global.locale = currentLanguageValue
-  //   })
-  // } else {
-  //   logger.info("语言包已存在", currentLanguageValue)
-  //   i18n.global.locale = currentLanguageValue
-  // }
-}
 
 const viewport = ref<Viewport>('desktop')
 const editorStore = useEditorStore()
@@ -166,8 +118,30 @@ let app_types = computed(() => {
       flex-shrink: 0;
 
       .header-title {
-        font-size: 14px;
-        padding-left: 4px;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: transparent;
+        /* 使文字透明，以便看到背景 */
+        // background: linear-gradient(45deg, #ff9a9e 30%, #fad0c4 50%, #fad0c4 50%, #ff9a9e 70%);
+        background: linear-gradient(45deg, #00a8ff 20%, #46c1ff 50%, #6acdff 50%, #00a8ff 30%);
+        background-size: 200% 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        animation: gradientAnimation 5s ease infinite;
+      }
+
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+
+        50% {
+          background-position: 100% 50%;
+        }
+
+        100% {
+          background-position: 0% 50%;
+        }
       }
     }
 

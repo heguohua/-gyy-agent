@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:45:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 16:41:05
+ * @LastEditTime: 2024-11-16 21:19:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/hooks/useLocale.ts
  * @Description: 
  * 
@@ -11,6 +11,8 @@
 import { i18n } from '@/utils/i18n/i18n'
 import { useLocaleStore } from '@/store/locale'
 import { logger } from '@/utils/logger'
+import { alaPost } from '@/utils/req'
+import u from '@/utils/u'
 
 // 切换语言的方法
 // const setI18nLanguage = (locale: LocaleType) => {
@@ -35,7 +37,7 @@ export const useLocale = () => {
 
     // const changeLocale = async (locale: LocaleType) => {
     const changeLocale = async (locale: any) => {
-        
+
         // 获取全局的i18n实例
         const globalI18n = i18n.global
         // 设置语言
@@ -46,4 +48,33 @@ export const useLocale = () => {
     return {
         changeLocale
     }
+}
+
+
+
+/**
+ * 切换语言
+ */
+export const changLanguage = (locale: any, getLocaleMessage: Function, changeLocale: Function) => {
+
+    // 切换语言环境
+    logger.warn(`正在切换语言环境，新语言【 ${locale} 】`);
+
+    const existedMessages = getLocaleMessage(locale);
+    logger.info(`当前语言【 已配置 】语言包`, existedMessages);
+
+
+    // TODO 从后台动态加载语言包并进行合并
+    const url = '/a/dict/language/list'
+    // 保存数据并刷新分页列表
+    // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
+    alaPost(u.url(url || ''), { dictCode: locale }, false).then((data: any) => {
+        const newMessages = data.data || {};
+        logger.info(`当前语言【 后台新加载 】语言包`, newMessages);
+        u.merged(existedMessages, newMessages)
+        logger.info(`当前语言【 扩充后 】语言包`, getLocaleMessage(locale));
+
+    });
+
+    changeLocale(locale)
 }
