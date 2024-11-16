@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 10:19:18
+ * @LastEditTime: 2024-11-16 10:51:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -142,7 +142,7 @@ const props = defineProps({
         default: true
     },
     pageSize: {
-        type: Array<Number>,
+        type: Array<number>,
         default: [10, 20, 30, 40, 50, 100, 200]
     }
 
@@ -331,4 +331,23 @@ defineExpose({ refresh })
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ala-page-nesting-table {
+    .hide-header {}
+
+    .ala-page-pagination {
+        float: right;
+        margin-top: 8px;
+
+        :deep .el-pager li:not(.is-active) {
+            background-color: #fff;
+        }
+
+        :deep button[aria-disabled="false"] {
+            background-color: #fff;
+        }
+    }
+
+
+}
+</style>
