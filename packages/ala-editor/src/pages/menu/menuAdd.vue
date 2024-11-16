@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 12:09:35
+ * @LastEditTime: 2024-11-16 15:49:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -21,6 +21,7 @@ import { logger } from '@/utils/logger';
 import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword } from '@/config/alaRules';
 import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
 import u from '@/utils/u';
+import { date } from '@/utils/date';
 
 const props = defineProps({
     baseInfo: {

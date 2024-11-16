@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 23:03:44
+ * @LastEditTime: 2024-11-16 15:00:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -23,26 +23,30 @@ const app = createApp(App);
 // 使用路由器
 app.use(router);
 
+// 集成 pinia
+const pinia = createPinia();
+app.use(pinia);
+
 // 集成 element-plus
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import './assets/styles/main.scss'
-import i18n from './utils/i18n/i18n';
+// import i18n from './utils/i18n/i18n';
+import { setupI18n } from './utils/i18n/i18n'
 // 注册 i18n
-app.use(i18n);
+// app.use(i18n);
+setupI18n(app)
+
 // 向element-plus注册i18n
-app.use(ElementPlus, {
-  i18n: (key, value) => i18n.global.t(key, value),
-});
+// app.use(ElementPlus, {
+//   i18n: (key, value) => i18n.global.t(key, value),
+// });
 
 
 // 注册 icon
 import { Icon } from '@iconify/vue';
 app.component('icon', Icon);
 
-// 集成 pinia
-const pinia = createPinia();
-app.use(pinia);
 
 // 集成 vuedraggable
 import Draggable from "vuedraggable"

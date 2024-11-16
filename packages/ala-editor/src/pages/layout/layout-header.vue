@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-09 13:23:57
+ * @LastEditTime: 2024-11-16 15:57:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -42,40 +42,47 @@
 import { alaConsts } from '@/config/alaConsts';
 import { useEditorStore } from '@/store/useEditorStore';
 import { Viewport } from '@/types/editorType';
-import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
-import { languages } from '@/utils/i18n/languages';
+// import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
+import { languages } from '@/store/locale';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 
-const { global: { t } } = i18n
+// 引入useLocale
+import { useLocale } from '@/hooks/useLocale'
+// 使用useLocale
+const { changeLocale } = useLocale()
+
 
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 
 /**
- * 切换语言包
+ * 切换语言
  */
-const changLanguage = () => {
+const changLanguage = (locale: any) => {
+
   interface vmt {
     data: {
       messages: {}
     }
   }
+  // 切换语言环境
+  changeLocale(locale)
   /**
    * 加载新的语言包，并切换语言
    */
-  const messages = i18n.global.messages as vmt["data"]
-  let currentLanguageValue = currentLanguage.value
-  if (!(currentLanguageValue in messages)) {
-    fetchLocaleMessages(currentLanguageValue).then((data) => {
-      logger.info(`即将加载并切换语言包 [ ${currentLanguageValue} ]`)
-      const { data: { messages } } = data as vmt;
-      Object.assign(i18n.global.messages, messages)
-      i18n.global.locale = currentLanguageValue
-    })
-  } else {
-    logger.info("语言包已存在", currentLanguageValue)
-    i18n.global.locale = currentLanguageValue
-  }
+  // const messages = i18n.global.messages as vmt["data"]
+  // let currentLanguageValue = currentLanguage.value
+  // if (!(currentLanguageValue in messages)) {
+  //   fetchLocaleMessages(currentLanguageValue).then((data) => {
+  //     logger.info(`即将加载并切换语言包 [ ${currentLanguageValue} ]`)
+  //     const { data: { messages } } = data as vmt;
+  //     Object.assign(i18n.global.messages, messages)
+  //     i18n.global.locale = currentLanguageValue
+  //   })
+  // } else {
+  //   logger.info("语言包已存在", currentLanguageValue)
+  //   i18n.global.locale = currentLanguageValue
+  // }
 }
 
 const viewport = ref<Viewport>('desktop')
@@ -89,14 +96,14 @@ watch(viewport, (value) => {
 
 let app_types = computed(() => {
   return [
-    {
-      value: 'desktop',
-      label: t('common.app_type.desktop'),
-    },
-    {
-      value: 'mobile',
-      label: t('common.app_type.mobile'),
-    },
+    // {
+    //   value: 'desktop',
+    //   label: t('common.app_type.desktop'),
+    // },
+    // {
+    //   value: 'mobile',
+    //   label: t('common.app_type.mobile'),
+    // },
   ]
 })
 
@@ -104,11 +111,9 @@ let app_types = computed(() => {
 </script>
 
 <style scoped lang="scss">
-
-
 .header {
 
-  
+
   position: fixed;
   top: 0;
   left: 0;

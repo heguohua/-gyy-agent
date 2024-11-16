@@ -2,13 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 12:04:52
+ * @LastEditTime: 2024-11-16 15:03:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
+    <I18nTest/>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
         @showAdd="showAdd({ id: null, pid: 0 })" />
@@ -31,6 +32,7 @@ import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
+import I18nTest from '../i18n/i18n-test.vue';
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名

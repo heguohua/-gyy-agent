@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 14:13:31
+ * @LastEditTime: 2024-11-16 15:03:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/App.vue
  * @Description: APP.vue 主文件
  * 
@@ -11,8 +11,10 @@
 <template>
     <div class="ala">
         <!-- <Layout v-if="checkLogin" /> -->
-        <Layout v-if="checkLogin" />
-        <Login v-else />
+        <AlaElConfigProvider>
+            <Layout v-if="checkLogin" />
+            <Login v-else />
+        </AlaElConfigProvider>
     </div>
 </template>
 

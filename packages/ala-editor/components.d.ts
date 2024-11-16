@@ -16,6 +16,7 @@ declare module 'vue' {
     AlaCustomerizationComponentDemo: typeof import('./src/components/cps/input/ala-customerization-component-demo.vue')['default']
     AlaCustomerizit: typeof import('./src/components/cps/input/ala-customerizit.vue')['default']
     AlaDate: typeof import('./src/components/cps/date/ala-date.vue')['default']
+    AlaElConfigProvider: typeof import('./src/components/i18n/AlaElConfigProvider.vue')['default']
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
     AlaFormItems: typeof import('./src/components/cps/form/ala-form-items.vue')['default']
     AlaHidden: typeof import('./src/components/cps/hidden/ala-hidden.vue')['default']

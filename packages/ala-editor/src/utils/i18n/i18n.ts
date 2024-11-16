@@ -1,64 +1,50 @@
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
- * @Date: 2024-10-14 16:22:03
+ * @Date: 2024-11-16 14:36:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-08 16:53:14
+ * @LastEditTime: 2024-11-16 14:40:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/i18n/i18n.ts
- * @Description: 国际化语言包help工具类
- *
- * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved.
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
-// i18n.ts
-import { createI18n } from 'vue-i18n';
-import lstore from '../lstore';
-import req from '../req';
-import { logger } from '../logger';
-import { alaConsts } from '@/config/alaConsts';
+// plugins/i18n.ts
+import { useLocaleStore } from '@/store/locale'
 
-/**
- * @description: 动态获取对应语言的国际化语言包
- * @param {string} lang 语言类型
- * @return {*}
- */
-export async function fetchLocaleMessages(lang?: string) {
-  try {
-    // 调用方传递了语言类型，首先将语言类型存储到 local storage
-    if (lang) {
-      lstore.setItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME, lang);
-    } else {
-      lang = lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME);
+import en from "@/locales/en"
+import zh from "@/locales/zh"
+import { App } from 'vue'
+import { createI18n } from 'vue-i18n'
+
+export let i18n: ReturnType<typeof createI18n>
+
+// 用于创建vuei18n实例的方法
+const createI18nOptions = () => {
+
+    // 从 localeStore 中获取currentLocale
+    const localeStore = useLocaleStore()
+    const currentLocale = localeStore.getCurrentLocale
+
+    return {
+
+        //当前语言
+        locale: currentLocale.lang,
+
+        //默认语言包, 当没有匹配的语言包时使用默认语言包
+        fallbackLocale: currentLocale.lang,
+
+        //注册本地内置的语言包
+        messages: {
+            en,
+            zh,
+        },
     }
-    // 如果local storage中没有获取到语言类型，则设置默认语言为简体中文
-    if (!lang) {
-      lstore.setItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME, 'zh_CN');
-      lang = 'zh_CN';
-    }
-    // const response = await req.get('http://localhost:5173/ala-editor/editor/api/locale', { language: lang });
-    const response = {data:{messages:{}}};
-    return response;
-  } catch (error) {
-    console.log(error);
-    logger.error('获取国际化语言包失败:', error);
-    return {};
-  }
 }
 
-// 假设从后台获取的语言包格式为 { zh_CN: {}, en: {} }
-interface vmt {
-  data: {
-    messages: {};
-  };
+// 使用i18n的方法
+export const setupI18n = (app: App<Element>) => {
+    const options = createI18nOptions()
+    // i18n = createI18n(options) as I18n
+    i18n = createI18n(options)
+    app.use(i18n)
 }
-
-const {
-  data: { messages },
-} = (await fetchLocaleMessages()) as vmt;
-
-const i18n = createI18n({
-  locale: lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME), // 默认语言
-  fallbackLocale: 'zh_CN',
-  messages, // 后台返回的语言包
-  globalInjection: true
-});
-
-export default i18n;

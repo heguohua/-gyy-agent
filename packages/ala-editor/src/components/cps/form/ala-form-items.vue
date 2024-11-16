@@ -26,7 +26,7 @@
             </template>
             <template #footer>
                 <div style="flex: auto">
-                    <el-button @click="cancelClick">cancel</el-button>
+                    <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
                     <el-button type="primary" @click="confirmClick">confirm</el-button>
                 </div>
             </template>
