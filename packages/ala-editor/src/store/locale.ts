@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:23:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 15:56:22
+ * @LastEditTime: 2024-11-16 16:04:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/store/locale.ts
  * @Description: 
  * 
@@ -19,7 +19,7 @@ import { logger } from '@/utils/logger'
 
 export enum languages {
     "zh-CN" = '简体中文',
-    'zh-TW' = "繁体中文",
+    'zh-TW' = "繁體中文",
     "en" = 'English',
     "ru" = 'Русский язык',
 }
