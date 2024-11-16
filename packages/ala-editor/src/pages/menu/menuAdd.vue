@@ -12,7 +12,7 @@
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
         :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url"
-        :updateUrl="updateUrl" />
+        :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"/>
 
 </template>
 

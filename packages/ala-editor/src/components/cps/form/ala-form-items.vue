@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 16:53:16
+ * @LastEditTime: 2024-11-16 23:09:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -44,7 +44,7 @@ import { ref } from 'vue'
 // State
 
 const props = defineProps({
-    closeTitle: {
+    tipTitle: {
         type: String,
         default: '温馨提示：'
     },
@@ -101,18 +101,21 @@ const emit = defineEmits(["confirm"])
 
 const direction = ref<DrawerProps['direction']>('rtl')
 
+console.log('getCurrentInstance:', getCurrentInstance());
 
 
 // Methods
 // ##########################  以下是公共方法，不需要修改  #########################################
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const handleClose = (done: () => void) => {
     ElMessageBox.confirm(
         props.closeContent,
-        props.closeTitle,
+        props.tipTitle,
         {
-            confirmButtonText: '确认关闭',
-            cancelButtonText: '取消关闭',
+            confirmButtonText: t("buttons.confirm"),
+            cancelButtonText: t("buttons.cancel"),
             type: 'warning',
         })
         .then(() => {

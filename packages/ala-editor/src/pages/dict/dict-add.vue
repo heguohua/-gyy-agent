@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 18:10:18
+ * @LastEditTime: 2024-11-16 23:10:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/dict-add.vue
  * @Description: 
  * 
@@ -11,8 +11,8 @@
 <template>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
-        :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url"
-        :updateUrl="updateUrl" />
+        :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
+        :tipTitle="$t('pop.warm_title')" />
 
 </template>
 
@@ -46,7 +46,7 @@ const formData = reactive({
 watch(() => props.baseInfo.item, (item) => {
     logger.info(`观察到 baseInfo 中的 item 发生了变化`, item);
     // u.merged(formData, item)
-    if(!item.id){
+    if (!item.id) {
         u.clear(formData)
     }
     Object.assign(formData, item)

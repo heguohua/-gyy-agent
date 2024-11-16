@@ -39,7 +39,7 @@
                 <el-button type="primary" @click="toggleAdvanced" class="button-more">
                     <v-icon v-if="advanced" icon="up" />
                     <v-icon v-else icon="down" />
-                    {{ advanced ? '收起' : '更多' }}
+                    {{ advanced ? $t('buttons.less') : $t('buttons.more') }}
                 </el-button>
 
                 <el-button type="primary" @click="emit('refresh')">{{ $t('buttons.query') }}</el-button>

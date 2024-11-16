@@ -2,7 +2,7 @@
     <el-form :model="formData" label-width="120px" :rules="rules">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
             :closeContent="closeContent" :columnWidth="columnWidth" :columnNum="columnNum"
-            :labelPosition="labelPosition" :moduleName="moduleName" :operationType="operationType" />
+            :labelPosition="labelPosition" :moduleName="moduleName" :operationType="operationType" :tipTitle="tipTitle"/>
     </el-form>
 
 </template>
@@ -12,6 +12,8 @@ import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 // State
 
@@ -72,8 +74,8 @@ const confirm = (data: any) => {
         saveContent(),
         props.tipTitle,
         {
-            confirmButtonText: '确认保存',
-            cancelButtonText: '继续编辑',
+            confirmButtonText: t('buttons.confirm'),
+            cancelButtonText: t('buttons.cancel'),
             type: 'warning',
         })
         .then(() => {
@@ -94,7 +96,7 @@ const confirm = (data: any) => {
 
 
 const operationType = computed(() => {
-    return !props.formData?.id ? '新增' : '编辑';
+    return !props.formData?.id ? t('buttons.add') : t('buttons.edit');
 })
 
 const closeContent = computed(() => {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 22:50:23
+ * @LastEditTime: 2024-11-16 21:58:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -69,6 +69,9 @@ const icon = {
     
     // 数据分析
     chart:"memory:chart-bar",
+    
+    // 系统 logo
+    logo:"blocks-scale",
     
   }
   

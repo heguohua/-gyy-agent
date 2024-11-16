@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 19:17:29
+ * @LastEditTime: 2024-11-16 22:51:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -97,6 +97,8 @@ import { logger } from '@/utils/logger';
 import { alaDelete, alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 
 interface Column {
@@ -191,8 +193,8 @@ const handleDelete = (index: number, item: { id: number }) => {
         deleteContent(),
         props.tipTitle,
         {
-            confirmButtonText: '确认',
-            cancelButtonText: '返回',
+            confirmButtonText: t("buttons.confirm"),
+            cancelButtonText: t("buttons.cancel"),
             type: 'warning',
         })
         .then(() => {

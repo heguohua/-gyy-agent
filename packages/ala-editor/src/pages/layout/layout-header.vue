@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 21:52:28
+ * @LastEditTime: 2024-11-16 22:19:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
   <div class="header">
     <div class="header-left">
       <div class="back">
-        <!-- <v-icon-tooltip :content="$t('icon.back')" icon="back" /> -->
+        <img :src="logo" class="logo" />
         <div class="header-title">{{ $t('system.title') }}</div>
       </div>
       <!-- <div class="line"></div> -->
@@ -46,6 +46,7 @@ import { Viewport } from '@/types/editorType';
 import { languages } from '@/store/locale';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
+import logo from '@/assets/images/logo.svg'
 
 // 切换语言
 // 引入useLocale
@@ -116,6 +117,11 @@ let app_types = computed(() => {
       height: 100%;
       padding: 0 16px;
       flex-shrink: 0;
+
+      .logo {
+        width: 40px;
+        margin-right: 12px;
+      }
 
       .header-title {
         font-size: 1.4rem;

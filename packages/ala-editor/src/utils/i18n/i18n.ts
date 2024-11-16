@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:36:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 20:51:15
+ * @LastEditTime: 2024-11-16 22:36:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/i18n/i18n.ts
  * @Description: 
  * 
@@ -16,9 +16,10 @@ import zh_CN from "@/locales/zh-CN"
 import zh_TW from "@/locales/zh-TW"
 import ru from "@/locales/ru"
 import { App } from 'vue'
-import { createI18n } from 'vue-i18n'
+import { createI18n, I18n } from 'vue-i18n'
 
 export let i18n: ReturnType<typeof createI18n>
+// export let i18n: any
 
 // 用于创建vuei18n实例的方法
 const createI18nOptions = () => {
@@ -42,6 +43,8 @@ const createI18nOptions = () => {
             'zh-TW': zh_TW,
             'ru': ru,
         },
+        // 后台返回的语言包
+        globalInjection: true
 
     }
 }
