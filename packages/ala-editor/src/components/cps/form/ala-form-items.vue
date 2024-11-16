@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 18:09:27
+ * @LastEditTime: 2024-11-16 12:11:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -187,7 +187,6 @@ onMounted(() => {
     .ala-drawer {
         width: 500px !important;
 
-        h4 {}
 
         .ala-form-base-item {
             display: inline-block;
@@ -198,7 +197,6 @@ onMounted(() => {
             display: none;
         }
 
-        div {}
     }
 }
 </style>
