@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:36:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 16:33:08
+ * @LastEditTime: 2024-11-16 20:51:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/i18n/i18n.ts
  * @Description: 
  * 
@@ -12,7 +12,9 @@
 import { useLocaleStore } from '@/store/locale'
 
 import en from "@/locales/en"
-import zh_CN from "@/locales/zh-cn"
+import zh_CN from "@/locales/zh-CN"
+import zh_TW from "@/locales/zh-TW"
+import ru from "@/locales/ru"
 import { App } from 'vue'
 import { createI18n } from 'vue-i18n'
 
@@ -37,7 +39,10 @@ const createI18nOptions = () => {
         messages: {
             en,
             'zh-CN': zh_CN,
+            'zh-TW': zh_TW,
+            'ru': ru,
         },
+
     }
 }
 

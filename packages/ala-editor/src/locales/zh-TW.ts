@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:23:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 20:47:23
- * @FilePath: /1-low-coding/packages/ala-editor/src/locales/zh-cn.ts
+ * @LastEditTime: 2024-11-16 20:47:53
+ * @FilePath: /1-low-coding/packages/ala-editor/src/locales/zh-TW.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
