@@ -94,7 +94,7 @@ const confirm = (data: any) => {
 
 
 const operationType = computed(() => {
-    return !props.id ? '新增' : '编辑';
+    return !props.formData?.id ? '新增' : '编辑';
 })
 
 const closeContent = computed(() => {
