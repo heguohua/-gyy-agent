@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 12:11:54
+ * @LastEditTime: 2024-11-16 19:16:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -42,9 +42,9 @@
                     {{ advanced ? '收起' : '更多' }}
                 </el-button>
 
-                <el-button type="primary" @click="emit('refresh')">查询</el-button>
-                <el-button type="primary" @click="clear">重置</el-button>
-                <el-button type="primary" @click="showAdd">新增</el-button>
+                <el-button type="primary" @click="emit('refresh')">{{ $t('buttons.query') }}</el-button>
+                <el-button type="primary" @click="clear">{{ $t('buttons.reset') }}</el-button>
+                <el-button type="primary" @click="showAdd">{{ $t('buttons.add') }}</el-button>
             </div>
 
         </el-form>

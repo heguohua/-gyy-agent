@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 16:46:47
+ * @LastEditTime: 2024-11-16 16:53:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -28,7 +28,7 @@
                 <div style="flex: auto">
                     <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
                     <el-button type="primary" @click="confirmClick">{{ $t('buttons.save') }}</el-button>
-                    <el-button type="primary" @click="confirmClick">{{ $t('button.error') }}</el-button>
+                    <!-- <el-button type="primary" @click="confirmClick">{{ $t('button.error') }}</el-button> -->
                 </div>
             </template>
         </el-drawer>
