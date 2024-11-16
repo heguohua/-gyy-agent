@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 15:57:28
+ * @LastEditTime: 2024-11-16 16:45:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -55,6 +55,10 @@ const { changeLocale } = useLocale()
 
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 
+import { useI18n } from 'vue-i18n';
+import u from '@/utils/u';
+const { getLocaleMessage } = useI18n();
+
 /**
  * 切换语言
  */
@@ -65,7 +69,26 @@ const changLanguage = (locale: any) => {
       messages: {}
     }
   }
+
   // 切换语言环境
+  logger.warn(`正在切换语言环境，新语言【 ${locale} 】`);
+
+  const existedMessages = getLocaleMessage(locale);
+  logger.info(`当前语言【 已配置 】语言包`, existedMessages);
+
+  if (locale === 'zh-CN') {
+
+    // TODO 从后台动态加载语言包并进行合并
+
+    const newMessages = { button: { error: '这是一个错误文字' } }
+    logger.info(`当前语言【 后台新加载 】语言包`, newMessages);
+
+    u.merged(existedMessages, newMessages)
+
+    logger.info(`当前语言【 扩充后 】语言包`, getLocaleMessage(locale));
+
+  }
+
   changeLocale(locale)
   /**
    * 加载新的语言包，并切换语言

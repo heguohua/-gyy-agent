@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:36:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 14:40:17
+ * @LastEditTime: 2024-11-16 16:33:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/i18n/i18n.ts
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 import { useLocaleStore } from '@/store/locale'
 
 import en from "@/locales/en"
-import zh from "@/locales/zh"
+import zh_CN from "@/locales/zh-cn"
 import { App } from 'vue'
 import { createI18n } from 'vue-i18n'
 
@@ -31,12 +31,12 @@ const createI18nOptions = () => {
         locale: currentLocale.lang,
 
         //默认语言包, 当没有匹配的语言包时使用默认语言包
-        fallbackLocale: currentLocale.lang,
+        fallbackLocale: 'zh-CN',
 
         //注册本地内置的语言包
         messages: {
             en,
-            zh,
+            'zh-CN': zh_CN,
         },
     }
 }
