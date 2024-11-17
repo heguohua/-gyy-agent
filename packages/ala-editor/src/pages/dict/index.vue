@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 16:57:46
+ * @LastEditTime: 2024-11-17 18:34:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/index.vue
  * @Description: 
  * 
@@ -36,7 +36,10 @@ const { t } = useI18n();
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
 const route = useRoute();
-const moduleName = route.meta.menuName as string || '';
+const moduleName = computed(() => {
+    const code = route.meta.menuCode as string;
+    return t(code)
+})
 
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
@@ -91,7 +94,7 @@ const columns = computed(() => {
     return [
         { prop: 'dictLabel', label: t('module.dictionary.dictLabel') },
         { prop: 'dictValue', label: t('module.dictionary.dictValue') },
-        { prop: 'dictCode', label: t('module.dictionary.dictCode')  },
+        { prop: 'dictCode', label: t('module.dictionary.dictCode') },
         { prop: 'i18nName', label: t('module.dictionary.i18nName') },
         { prop: 'remark', label: t('module.dictionary.remark') },
         { prop: 'delFlag', label: t('module.dictionary.delFlag') },

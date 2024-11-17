@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 23:11:59
+ * @LastEditTime: 2024-11-17 18:35:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -31,13 +31,16 @@ import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
-import I18nTest from '../i18n/i18n-test.vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
 const route = useRoute();
-const moduleName = route.meta.menuName as string || '';
-
+const moduleName = computed(() => {
+    const code = route.meta.menuCode as string;
+    return t(code)
+})
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
     moduleName,

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 17:09:10
+ * @LastEditTime: 2024-11-17 17:10:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/dict-add.vue
  * @Description: 
  * 
@@ -76,14 +76,6 @@ const basicFields = computed(() => {
         alaBuildSwitch('delFlag', t('module.dictionary.delFlag'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
     ]
 })
-
-
-// { prop: 'dictLabel', label: t('module.dictionary.dictLabel') },
-//         { prop: 'dictValue', label: t('module.dictionary.dictValue') },
-//         { prop: 'dictCode', label: t('module.dictionary.dictCode')  },
-//         { prop: 'i18nName', label: t('module.dictionary.i18nName') },
-//         { prop: 'remark', label: t('module.dictionary.remark') },
-//         { prop: 'delFlag', label: t('module.dictionary.delFlag') },
 
 
 // // 基础表单字段

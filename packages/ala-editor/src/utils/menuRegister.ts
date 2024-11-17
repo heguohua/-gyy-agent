@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 11:48:54
+ * @LastEditTime: 2024-11-17 18:18:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -87,7 +87,7 @@ export default class MenuUtil {
                             // name: fn(menu.code),
                             name: menuComponent.name,
                             component: () => import(menuComponent.component),
-                            meta: { requiresAuth: menuComponent.requiresAuth, menuName: menu.name }
+                            meta: { requiresAuth: menuComponent.requiresAuth, menuName: menu.name, menuCode: menu.code }
                         });
                     } else {
                         logger.error(`menu.url [ ${menu.url} ] 渲染的组件不存在，菜单名[ ${menu.name} ]`);
