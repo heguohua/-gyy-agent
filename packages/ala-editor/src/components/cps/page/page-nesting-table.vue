@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 09:04:27
+ * @LastEditTime: 2024-11-17 17:06:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -32,7 +32,7 @@
                             :label="column.label"></el-table-column>
 
                         <!-- 内嵌表操作列 -->
-                        <el-table-column label="操作">
+                        <el-table-column :label="$t('buttons.buttons')">
                             <template #default="scope">
                                 <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
                                     v-if="displayEditButton()">
@@ -63,7 +63,7 @@
 
 
             <!-- 主表操作列 -->
-            <el-table-column label="操作">
+            <el-table-column :label="$t('buttons.buttons')">
                 <template #default="scope">
                     <el-button size="small" @click="handleEdit(scope.$index, scope.row)" v-if="displayEditButton()">
                         {{ $t('buttons.edit') }}

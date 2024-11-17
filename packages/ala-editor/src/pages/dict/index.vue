@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 23:11:53
+ * @LastEditTime: 2024-11-17 16:57:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/index.vue
  * @Description: 
  * 
@@ -30,6 +30,8 @@ import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import DictAdd from './dict-add.vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
@@ -85,14 +87,16 @@ const url = "/a/dict/page"
 const deleteUrl = "/a/dict/delete"
 
 // 分页列表中列属性配置
-const columns = ref([
-    { prop: 'dictLabel', label: '名称' },
-    { prop: 'dictValue', label: '数据值' },
-    { prop: 'dictCode', label: '字典代码' },
-    { prop: 'remark', label: '备注' },
-    { prop: 'delFlag', label: '是否删除' },
-
-]);
+const columns = computed(() => {
+    return [
+        { prop: 'dictLabel', label: t('module.dictionary.dictLabel') },
+        { prop: 'dictValue', label: t('module.dictionary.dictValue') },
+        { prop: 'dictCode', label: t('module.dictionary.dictCode')  },
+        { prop: 'i18nName', label: t('module.dictionary.i18nName') },
+        { prop: 'remark', label: t('module.dictionary.remark') },
+        { prop: 'delFlag', label: t('module.dictionary.delFlag') },
+    ]
+})
 
 // 基础查询条件
 const baseFields = [

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 23:10:42
+ * @LastEditTime: 2024-11-17 17:09:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/dict-add.vue
  * @Description: 
  * 
@@ -22,6 +22,8 @@ import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaS
 import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { date } from '@/utils/date';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const props = defineProps({
     baseInfo: {
@@ -62,15 +64,27 @@ watch(() => props.baseInfo.item, (item) => {
 //     { prop: 'delFlag', label: '是否删除' },
 
 // 基础表单字段
-const basicFields = [
-    alaBuildHidden('pid'),// 固定格式
-    alaBuildHidden('id'),// 固定格式
-    alaBuildInput("dictLabel", "字典名称", [alaRequired()]),
-    alaBuildInput("dictValue", "数据值", [alaRequired()]),
-    alaBuildInput("dictCode", "字典代码"),
-    alaBuildInput("remark", "备注"),
-    alaBuildSwitch('delFlag', "启用标志", '启用', '禁用', 2, 1, [alaRequired()]),
-]
+const basicFields = computed(() => {
+    return [
+        alaBuildHidden('pid'),// 固定格式
+        alaBuildHidden('id'),// 固定格式
+        alaBuildInput("dictLabel", t('module.dictionary.dictLabel'), [alaRequired()]),
+        alaBuildInput("dictValue", t('module.dictionary.dictValue'), [alaRequired()]),
+        alaBuildInput("dictCode", t('module.dictionary.dictCode')),
+        alaBuildInput("i18nName", t('module.dictionary.i18nName')),
+        alaBuildInput("remark", t('module.dictionary.remark')),
+        alaBuildSwitch('delFlag', t('module.dictionary.delFlag'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
+    ]
+})
+
+
+// { prop: 'dictLabel', label: t('module.dictionary.dictLabel') },
+//         { prop: 'dictValue', label: t('module.dictionary.dictValue') },
+//         { prop: 'dictCode', label: t('module.dictionary.dictCode')  },
+//         { prop: 'i18nName', label: t('module.dictionary.i18nName') },
+//         { prop: 'remark', label: t('module.dictionary.remark') },
+//         { prop: 'delFlag', label: t('module.dictionary.delFlag') },
+
 
 // // 基础表单字段
 // const basicFields = [
