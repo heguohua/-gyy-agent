@@ -59,10 +59,10 @@ watch(() => props.baseInfo.item, (item) => {
 
 // 基础表单字段
 const basicFields = computed(() => {
-    [
+    return [
         alaBuildHidden('pid'),// 固定格式
         alaBuildHidden('id'),// 固定格式
-        alaBuildSwitch('value', t('module.menu.url') + ' or ' + t('module.menu.name'), t('module.menu.url'), t('module.menu.name'), 2, 1, [alaRequired()]),
+        alaBuildSwitch('value', t('module.menu.name') + ' or ' + t('module.menu.url'), t('module.menu.url'), t('module.menu.name'), 2, 1, [alaRequired()]),
         alaBuildInput("name", t('module.menu.name'), [alaRequired()]),
         alaBuildInput("url", t('module.menu.url'), [alaRequired()]),
         alaBuildSwitch('delFlag', t('common.enable'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
