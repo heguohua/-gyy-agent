@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 14:21:40
+ * @LastEditTime: 2024-11-17 15:29:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -12,6 +12,9 @@
     <div class="side-bar">
         <div class="collapse-btn" @click="toggleCollapse">
             <!-- <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i> -->
+            <p :style="{ display: isCollapse ? 'none' : '' }" class="company">
+                {{ $t('system.company') }}
+            </p>
             <ElIcon class="collapse-icon" :class="isCollapse ? 'collapse-icon-left' : 'collapse-icon-right'">
                 <ArrowRight v-if="isCollapse" />
                 <ArrowLeft v-else />
@@ -91,6 +94,16 @@ watch(() => route.path, (toPath) => {
         border-right: 1px solid var(--el-menu-border-color);
         height: 30px;
 
+        .company {
+            display: inline-flex;
+            height: 100%;
+            align-items: center;
+            font-size: 1.1rem;
+            text-align: left;
+            float: left;
+            margin-left: 18px;
+        }
+
         .collapse-icon {
             // background-color: #d9e2ec;
             background-color: rgba(211, 220, 230, 0.7);
@@ -121,6 +134,8 @@ watch(() => route.path, (toPath) => {
     }
 
     .ala-aside {
+        .el-menu-vertical-ala {}
+
         // width: var(--ala-menu-width);
         // calc(100% - var(--collapse-btn-height))
         height: calc(100% - 30px);
@@ -176,7 +191,7 @@ watch(() => route.path, (toPath) => {
             width: 0px !important;
         }
 
-     
+
     }
 
 
