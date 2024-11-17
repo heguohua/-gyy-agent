@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 11:23:02
- * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-block.vue
+ * @LastEditTime: 2024-11-17 13:41:25
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -44,8 +44,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
-const { global: { t } } = i18n
+// import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
+// const { global: { t } } = i18n
 import { baseBlocks, seniorBlocks } from "@/config/blocks"
 import { dragGroup } from './nested';
 // State
@@ -59,12 +59,12 @@ const menuList = computed(() => {
         {
             icon: "block",
             iconActive: "blockActive",
-            name: t("p_editor.block.base.name")
+            // name: t("p_editor.block.base.name")
         },
         {
             icon: "kit",
             iconActive: "kitActive",
-            name: t("p_editor.block.kit.name")
+            // name: t("p_editor.block.kit.name")
         }
     ]
 })

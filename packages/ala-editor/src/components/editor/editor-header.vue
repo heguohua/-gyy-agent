@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 21:11:53
+ * @LastEditTime: 2024-11-17 13:40:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -42,12 +42,12 @@
 import { alaConsts } from '@/config/alaConsts';
 import { useEditorStore } from '@/store/useEditorStore';
 import { Viewport } from '@/types/editorType';
-import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
-import { languages } from '@/utils/i18n/languages';
+// import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
+// import { languages } from '@/utils/i18n/languages';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 
-const { global: { t } } = i18n
+// const { global: { t } } = i18n
 
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 
@@ -63,19 +63,19 @@ const changLanguage = () => {
   /**
    * 加载新的语言包，并切换语言
    */
-  const messages = i18n.global.messages as vmt["data"]
-  let currentLanguageValue = currentLanguage.value
-  if (!(currentLanguageValue in messages)) {
-    fetchLocaleMessages(currentLanguageValue).then((data) => {
-      logger.info(`即将加载并切换语言包 [ ${currentLanguageValue} ]`)
-      const { data: { messages } } = data as vmt;
-      Object.assign(i18n.global.messages, messages)
-      i18n.global.locale = currentLanguageValue
-    })
-  } else {
-    logger.info("语言包已存在", currentLanguageValue)
-    i18n.global.locale = currentLanguageValue
-  }
+  // const messages = i18n.global.messages as vmt["data"]
+  // let currentLanguageValue = currentLanguage.value
+  // if (!(currentLanguageValue in messages)) {
+  //   fetchLocaleMessages(currentLanguageValue).then((data) => {
+  //     logger.info(`即将加载并切换语言包 [ ${currentLanguageValue} ]`)
+  //     const { data: { messages } } = data as vmt;
+  //     Object.assign(i18n.global.messages, messages)
+  //     i18n.global.locale = currentLanguageValue
+  //   })
+  // } else {
+  //   logger.info("语言包已存在", currentLanguageValue)
+  //   i18n.global.locale = currentLanguageValue
+  // }
 }
 
 const viewport = ref<Viewport>('desktop')
@@ -91,11 +91,11 @@ let app_types = computed(() => {
   return [
     {
       value: 'desktop',
-      label: t('common.app_type.desktop'),
+      // label: t('common.app_type.desktop'),
     },
     {
       value: 'mobile',
-      label: t('common.app_type.mobile'),
+      // label: t('common.app_type.mobile'),
     },
   ]
 })

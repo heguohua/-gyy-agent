@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 10:38:24
+ * @LastEditTime: 2024-11-17 14:21:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -10,7 +10,13 @@
 -->
 <template>
     <div class="side-bar">
-
+        <div class="collapse-btn" @click="toggleCollapse">
+            <!-- <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i> -->
+            <ElIcon class="collapse-icon" :class="isCollapse ? 'collapse-icon-left' : 'collapse-icon-right'">
+                <ArrowRight v-if="isCollapse" />
+                <ArrowLeft v-else />
+            </ElIcon>
+        </div>
         <el-aside class="ala-aside">
             <el-menu class="el-menu-vertical-ala" @open="handleOpen" @close="handleClose" :collapse="isCollapse"
                 :default-active="activeMenu" router>
@@ -24,9 +30,7 @@
                 </template>
 
             </el-menu>
-            <div class="collapse-btn" @click="toggleCollapse">
-                <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i>
-            </div>
+
         </el-aside>
     </div>
 
@@ -43,7 +47,11 @@ defineProps({
     menuList: Array<Menu>
 });
 
-const isCollapse = ref(false);
+// const isCollapse = ref(false);
+const isCollapse = defineModel({
+    type: Boolean,
+    default: false
+})
 
 const handleOpen = (key: any, keyPath: any) => {
     // console.log(key, keyPath);
@@ -72,16 +80,56 @@ watch(() => route.path, (toPath) => {
 
 <style scoped lang="scss">
 .side-bar {
+
+    --collapse-btn-height: '30px';
+
     padding-top: var(--el-menu-item-height);
     height: 100%;
 
+    .collapse-btn {
+        background-color: #fff;
+        border-right: 1px solid var(--el-menu-border-color);
+        height: 30px;
+
+        .collapse-icon {
+            // background-color: #d9e2ec;
+            background-color: rgba(211, 220, 230, 0.7);
+            height: 100%;
+            color: #fff;
+            text-align: center;
+            font-size: 18px;
+            float: right;
+
+
+        }
+
+        .collapse-icon-right {
+            width: 18px;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .collapse-icon-left {
+            width: 100%;
+        }
+
+
+        &:hover {
+            cursor: pointer;
+        }
+
+    }
+
     .ala-aside {
         // width: var(--ala-menu-width);
-        height: inherit;
+        // calc(100% - var(--collapse-btn-height))
+        height: calc(100% - 30px);
+        overflow-y: auto;
+        overflow-x: hidden;
 
         :deep>ul {
             // width: inherit;
-            height: inherit;
+            height: 100%;
 
         }
 
@@ -134,25 +182,6 @@ watch(() => route.path, (toPath) => {
             i {}
 
             span {}
-        }
-
-        .collapse-btn {
-            // width: var(--ala-menu-width);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            cursor: pointer;
-            padding: 10px;
-            background-color: #d3dce6;
-            color: #fff;
-            text-align: center;
-            font-size: 20px;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-
-            .el-icon-arrow-right {}
-
-            .el-icon-arrow-left {}
         }
     }
 

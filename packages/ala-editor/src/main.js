@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 11:36:20
+ * @LastEditTime: 2024-11-17 13:29:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -28,7 +28,10 @@ const pinia = createPinia();
 app.use(pinia);
 
 // 集成 element-plus
-import ElementPlus from 'element-plus';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 import 'element-plus/dist/index.css';
 import './assets/styles/main.scss'
 // import i18n from './utils/i18n/i18n';
