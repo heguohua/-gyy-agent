@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 18:34:10
+ * @LastEditTime: 2024-11-17 20:11:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/index.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: null, pid: 0 })" />
+        @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" />
 
     <!-- 分页列表 -->
     <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
@@ -97,14 +97,16 @@ const columns = computed(() => {
         { prop: 'dictCode', label: t('module.dictionary.dictCode') },
         { prop: 'i18nName', label: t('module.dictionary.i18nName') },
         { prop: 'remark', label: t('module.dictionary.remark') },
-        { prop: 'delFlag', label: t('module.dictionary.delFlag') },
+        { prop: 'delFlag', label: t('common.enable') },
     ]
 })
 
 // 基础查询条件
-const baseFields = [
-    alaBuildInput("name", "菜单名"),
-]
+const baseFields = computed(() => {
+    return [
+        alaBuildInput("dictLabel", t('module.dictionary.dictLabel')),
+    ];
+})
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 15:49:04
+ * @LastEditTime: 2024-11-17 20:01:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -11,8 +11,8 @@
 <template>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
-        :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url"
-        :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"/>
+        :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
+        :tipTitle="$t('pop.warm_title')" />
 
 </template>
 
@@ -22,6 +22,8 @@ import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaS
 import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { date } from '@/utils/date';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const props = defineProps({
     baseInfo: {
@@ -46,7 +48,7 @@ const formData = reactive({
 watch(() => props.baseInfo.item, (item) => {
     logger.info(`观察到 baseInfo 中的 item 发生了变化`, item);
     // u.merged(formData, item)
-    if(!item.id){
+    if (!item.id) {
         u.clear(formData)
     }
     Object.assign(formData, item)
@@ -56,18 +58,20 @@ watch(() => props.baseInfo.item, (item) => {
 })
 
 // 基础表单字段
-const basicFields = [
-    alaBuildHidden('pid'),// 固定格式
-    alaBuildHidden('id'),// 固定格式
-    alaBuildSwitch('value', "菜单分类", '页面URL', '菜单', 2, 1, [alaRequired()]),
-    alaBuildInput("name", "菜单名", [alaRequired()]),
-    alaBuildInput("url", "路由URL", [alaRequired()]),
-    alaBuildSwitch('delFlag', "启用标志", '启用', '禁用', 2, 1, [alaRequired()]),
-    alaBuildInput("icon", "图标", [alaRequired()]),
-    alaBuildNumber("width", "图标宽度", [alaRequired()]),
-    alaBuildNumber("height", "图标高度", [alaRequired()]),
-    alaBuildNumber("sort", "排序值"),
-]
+const basicFields = computed(() => {
+    [
+        alaBuildHidden('pid'),// 固定格式
+        alaBuildHidden('id'),// 固定格式
+        alaBuildSwitch('value', t('module.menu.url') + ' or ' + t('module.menu.name'), t('module.menu.url'), t('module.menu.name'), 2, 1, [alaRequired()]),
+        alaBuildInput("name", t('module.menu.name'), [alaRequired()]),
+        alaBuildInput("url", t('module.menu.url'), [alaRequired()]),
+        alaBuildSwitch('delFlag', t('common.enable'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
+        alaBuildInput("icon", t('module.menu.icon'), [alaRequired()]),
+        alaBuildNumber("width", t('module.menu.width'), [alaRequired()]),
+        alaBuildNumber("height", t('module.menu.height'), [alaRequired()]),
+        alaBuildNumber("sort", t('common.sorting')),
+    ]
+})
 
 // // 基础表单字段
 // const basicFields = [

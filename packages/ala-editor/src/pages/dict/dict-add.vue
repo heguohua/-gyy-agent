@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 17:10:49
+ * @LastEditTime: 2024-11-17 19:59:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/dict-add.vue
  * @Description: 
  * 
@@ -73,7 +73,7 @@ const basicFields = computed(() => {
         alaBuildInput("dictCode", t('module.dictionary.dictCode')),
         alaBuildInput("i18nName", t('module.dictionary.i18nName')),
         alaBuildInput("remark", t('module.dictionary.remark')),
-        alaBuildSwitch('delFlag', t('module.dictionary.delFlag'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
+        alaBuildSwitch('delFlag', t('common.enable'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
     ]
 })
 

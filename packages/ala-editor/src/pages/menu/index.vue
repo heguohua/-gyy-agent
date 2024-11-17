@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 18:35:00
+ * @LastEditTime: 2024-11-17 20:09:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: null, pid: 0 })" />
+        @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" />
 
     <!-- 分页列表 -->
     <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
@@ -90,19 +90,24 @@ const url = "/u/menu/page"
 const deleteUrl = "/u/menu/delete"
 
 // 分页列表中列属性配置
-const columns = ref([
-    { prop: 'name', label: '菜单名' },
-    { prop: 'url', label: '路由URL' },
-    { prop: 'delFlag', label: '是否删除' },
-    { prop: 'icon', label: '图标名称' },
-    { prop: 'width', label: '图标宽度' },
-    { prop: 'height', label: '图标高度' },
-]);
+const columns = computed(() => {
+    return [
+        { prop: 'name', label: t('module.menu.name') },
+        { prop: 'url', label: t('module.menu.url') },
+        { prop: 'delFlag', label: t('common.enable') },
+        { prop: 'icon', label: t('module.menu.icon') },
+        { prop: 'width', label: t('module.menu.width') },
+        { prop: 'height', label: t('module.menu.height') },
+    ]
+})
+
 
 // 基础查询条件
-const baseFields = [
-    alaBuildInput("name", "菜单名"),
-]
+const baseFields = computed(() => {
+    return [
+        alaBuildInput("name", t('module.menu.name')),
+    ]
+})
 // const baseFields = [
 //     { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
 //     { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea' },

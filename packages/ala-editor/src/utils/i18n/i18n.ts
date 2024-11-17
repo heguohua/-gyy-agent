@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:36:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 22:36:42
+ * @LastEditTime: 2024-11-17 18:48:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/i18n/i18n.ts
  * @Description: 
  * 
@@ -53,6 +53,9 @@ const createI18nOptions = () => {
 export const setupI18n = (app: App<Element>) => {
     const options = createI18nOptions()
     // i18n = createI18n(options) as I18n
-    i18n = createI18n(options)
+    i18n = createI18n(options);
+    // 将i18n实例挂载到全局window对象上
+    // window['ai18n'] = i18n;
+    (window as any).ai18n = i18n;
     app.use(i18n)
 }

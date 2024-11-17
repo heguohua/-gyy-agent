@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 20:10:44
+ * @LastEditTime: 2024-11-17 18:59:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -43,7 +43,7 @@ export function alaBuild(componentName: string, fieldName: string, label: string
     return {
         componentName: componentName,
         label: label,
-        placeholder: placeholder ? placeholder : `请输入${label}`,
+        placeholder: placeholder ? placeholder : (window as any).ai18n.global.t('form.p-tip') + `${label}`,
         fieldName: fieldName,
         rules,
     }

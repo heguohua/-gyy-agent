@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 19:16:45
+ * @LastEditTime: 2024-11-17 20:12:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <div class="ala-form-wrapper">
-        <el-form ref="formRef" :model="params" label-width="80px" class="ala-form">
+        <el-form ref="formRef" :model="params" class="ala-form">
 
             <!-- 基础查询条件 -->
             <div class="ala-search-base">
@@ -73,6 +73,10 @@ const props = defineProps({
     showAddForm: {
         type: Boolean,
         default: false
+    },
+    labelWidth: {
+        type: String,
+        default: '130px'
     },
 })
 
