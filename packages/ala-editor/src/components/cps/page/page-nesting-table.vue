@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 22:51:12
+ * @LastEditTime: 2024-11-17 09:04:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -36,15 +36,15 @@
                             <template #default="scope">
                                 <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
                                     v-if="displayEditButton()">
-                                    编辑
+                                    {{ $t('buttons.edit') }}
                                 </el-button>
                                 <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
                                     v-if="displayDeleteButton()">
-                                    删除
+                                    {{ $t('buttons.delete') }}
                                 </el-button>
                                 <el-button size="small" type="primary" @click="handleAdd(scope.$index, scope.row)"
                                     v-if="displayDeleteButton()">
-                                    添加子级
+                                    {{ $t('buttons.addSub') }}
                                 </el-button>
                             </template>
                         </el-table-column>
@@ -170,7 +170,7 @@ const displayDeleteButton = () => {
 }
 
 const deleteContent = () => {
-    const content = `您确定要删除【 ${baseInfo.moduleName} 】信息吗？`
+    const content = t('pop_content.delete', { content: baseInfo.moduleName })
     return content
 }
 

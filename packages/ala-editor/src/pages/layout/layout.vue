@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 21:26:04
+ * @LastEditTime: 2024-11-17 11:38:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -41,6 +41,7 @@ import { changLanguage, useLocale } from '@/hooks/useLocale'
 // 使用useLocale
 const { changeLocale } = useLocale()
 import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const { getLocaleMessage } = useI18n();
 
 
@@ -51,10 +52,14 @@ onMounted(() => {
     logger.info("onMounted 渲染 layout 页面");
     // 后台加载菜单
     alaPost(u.url("/u/menu/queryListForUser"), {}, true).then((data: any) => {
-        console.log('data:', data);
+
+        // 先加载所有语言包
+        changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME), getLocaleMessage, changeLocale)
+
+        console.log('menus:', data);
         menus.value = data.data
         //注册动态路由
-        MenuUtil.registerDynamicRouter(data.data)
+        MenuUtil.registerDynamicRouter(data.data, t)
 
         // 从 localStorage 中恢复路由
         const storedPath = lstore.getItem('activeMenu');
@@ -64,10 +69,6 @@ onMounted(() => {
                 router.push(storedPath)
             }
         }
-
-        // 切换语言
-        // 切换语言
-        changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME), getLocaleMessage, changeLocale)
 
     });
 })

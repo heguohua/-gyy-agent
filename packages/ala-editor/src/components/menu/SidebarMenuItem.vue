@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:03:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 08:44:59
+ * @LastEditTime: 2024-11-17 11:50:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenuItem.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
         <!-- 1、先渲染当前节点 -->
         <template #title>
             <v-icon :icon="item.icon" :height="`${item.height || 16}px`" :width="`${item.width || 16}px`" />
-            <span>{{ item.name }}</span>
+            <span>{{ item.code ? $t(item.code) : item.name }}</span>
         </template>
 
         <!-- 2、直接遍历子节点并进行渲染 -->
@@ -26,7 +26,9 @@
             <el-menu-item v-if="!child.children || child.children.length === 0" :index="`${child.url}`"
                 @click="handleSelect(child)">
                 <v-icon :icon="child.icon" :height="`${child.height || 16}px`" :width="`${child.width || 16}px`" />
-                <span>{{ child.name }}</span>
+                <!-- <span>{{ child.code }}</span> -->
+                <span>{{ child.code ? $t(child.code) : child.name }}</span>
+
             </el-menu-item>
 
             <!-- 4、如果当前节点又存在子节点，那么调用自身来渲染子菜单 -->
@@ -47,6 +49,8 @@ import { allMenuComponents } from '@/utils/menuRegister';
 import router from '@/router';
 import lstore from '@/utils/lstore';
 import { alaConsts } from '@/config/alaConsts';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 defineOptions({
     name: "SidebarMenuItem"

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-13 16:51:43
+ * @LastEditTime: 2024-11-17 11:48:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -70,7 +70,7 @@ export const allMenuComponents: MenuComponent = {
 
 export default class MenuUtil {
 
-    static registerDynamicRouter(menus: Menu[], level = 0): void {
+    static registerDynamicRouter(menus: Menu[], fn: Function, level = 0): void {
 
         if (menus && menus.length > 0) {
 
@@ -84,6 +84,7 @@ export default class MenuUtil {
                     if (menuComponent) {
                         router.addRoute({
                             path: menu.url,
+                            // name: fn(menu.code),
                             name: menuComponent.name,
                             component: () => import(menuComponent.component),
                             meta: { requiresAuth: menuComponent.requiresAuth, menuName: menu.name }
@@ -96,7 +97,7 @@ export default class MenuUtil {
                     logger.warn(`[ ${menu.name} ]'s menu.url 不存在，不注册路由`);
                 }
 
-                this.registerDynamicRouter(menu.children, level + 1);
+                this.registerDynamicRouter(menu.children, fn, level + 1);
 
 
             });

@@ -2,7 +2,8 @@
     <el-form :model="formData" label-width="120px" :rules="rules">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
             :closeContent="closeContent" :columnWidth="columnWidth" :columnNum="columnNum"
-            :labelPosition="labelPosition" :moduleName="moduleName" :operationType="operationType" :tipTitle="tipTitle"/>
+            :labelPosition="labelPosition" :moduleName="moduleName" :operationType="operationType"
+            :tipTitle="tipTitle" />
     </el-form>
 
 </template>
@@ -100,11 +101,11 @@ const operationType = computed(() => {
 })
 
 const closeContent = computed(() => {
-    const content = `您确定要关闭【 ${operationType.value}${props.moduleName} 】页面吗？`
+    const content = t('pop_content.close', { content: operationType.value + ' ' + props.moduleName })
     return content
 })
 const saveContent = () => {
-    const content = `您确定要保存【 ${props.moduleName} 】信息吗？`
+    const content = t('pop_content.save', { content: props.moduleName })
     return content
 }
 

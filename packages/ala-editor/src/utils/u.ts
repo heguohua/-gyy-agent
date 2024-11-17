@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 10:58:13
+ * @LastEditTime: 2024-11-17 09:42:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -11,6 +11,7 @@
 import notify from "@/utils/notify"
 import WarnException from "@/utils/WarnException"
 import { cloneDeep, merge } from "lodash";
+import { logger } from "./logger";
 const profile = import.meta.env.VITE_PROFILE
 export default class u {
 
@@ -96,5 +97,19 @@ export default class u {
 
     }
 
+    /**
+     * 使用 params 对象中的字段变量 格式化模板字符串 source
+     * 使用示例：
+     * format("这是第一个参数{name},这是第二个参数{age}",{name:'张三'，age:18})
+     * 输出结果：这是第一个参数张三,这是第二个参数18
+     * @params obj 
+     */
+    public static format(target: string, params: { [key: string]: any }): string {
+        logger.error(`格式化字符串入参`, target, params);
+
+        return target.replace(/\{(\w+)\}/g, (_, key) => {
+            return key in params ? String(params[key]) : '';
+        })
+    }
 
 }
