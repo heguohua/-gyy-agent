@@ -80,9 +80,4 @@ const handleSelect = (child: Menu) => {
 </script>
 
 <style scoped lang="scss">
-.ala-sub-menu {
-    .ala-icon {}
-
-    span {}
-}
 </style>

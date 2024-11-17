@@ -176,13 +176,7 @@ watch(() => route.path, (toPath) => {
             width: 0px !important;
         }
 
-        .el-menu-vertical-ala {
-            .ala-icon {}
-
-            i {}
-
-            span {}
-        }
+     
     }
 
 
