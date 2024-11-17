@@ -20,12 +20,15 @@ import router from './router';
 
 // 创建一个应用
 const app = createApp(App);
-// 使用路由器
-app.use(router);
 
 // 集成 pinia
 const pinia = createPinia();
 app.use(pinia);
+
+// 使用路由器
+app.use(router);
+
+
 
 // 集成 element-plus
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'

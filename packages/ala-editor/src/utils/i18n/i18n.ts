@@ -14,6 +14,7 @@ import { useLocaleStore } from '@/store/locale'
 import en from "@/locales/en"
 import zh_CN from "@/locales/zh-CN"
 import zh_TW from "@/locales/zh-TW"
+import zh from "@/locales/zh"
 import ru from "@/locales/ru"
 import { App } from 'vue'
 import { createI18n, I18n } from 'vue-i18n'
@@ -41,6 +42,7 @@ const createI18nOptions = () => {
             en,
             'zh-CN': zh_CN,
             'zh-TW': zh_TW,
+            'zh': zh,
             'ru': ru,
         },
         // 后台返回的语言包

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 14:15:27
+ * @LastEditTime: 2024-11-17 22:30:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -16,7 +16,17 @@
         <div class="content-wraper">
             <SidebarMenu :menuList="menus" v-model="isCollapse" />
             <div class="content">
-                <RouterView />
+                <AlaTab />
+
+                <router-view v-slot="{ Component }">
+                    <keep-alive>
+                        <component :is="Component" />
+                    </keep-alive>
+                </router-view>
+
+                <!-- <KeepAlive>
+                    <RouterView />
+                </KeepAlive> -->
             </div>
         </div>
     </div>
@@ -48,13 +58,12 @@ const { getLocaleMessage } = useI18n();
 const isCollapse = ref(false)
 const collapseWidth = ref('300px')
 watch(() => isCollapse.value, (newValue) => {
-    console.log('newValue:', newValue);
     if (newValue) {
         // 说明当前面板需要调整成折叠状态
-        collapseWidth.value='44px'
+        collapseWidth.value = '44px'
     } else {
         // 说明当前面板需要调整成 非折叠 状态
-        collapseWidth.value='300px'
+        collapseWidth.value = '300px'
 
     }
 

@@ -101,8 +101,6 @@ const emit = defineEmits(["confirm"])
 
 const direction = ref<DrawerProps['direction']>('rtl')
 
-console.log('getCurrentInstance:', getCurrentInstance());
-
 
 // Methods
 // ##########################  以下是公共方法，不需要修改  #########################################

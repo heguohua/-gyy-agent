@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:45:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 21:19:20
+ * @LastEditTime: 2024-11-17 21:41:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/hooks/useLocale.ts
  * @Description: 
  * 
@@ -14,6 +14,7 @@ import { logger } from '@/utils/logger'
 import { alaPost } from '@/utils/req'
 import u from '@/utils/u'
 
+import { useAlaStore } from '@/store/ala-store'
 // 切换语言的方法
 // const setI18nLanguage = (locale: LocaleType) => {
 const setI18nLanguage = (locale: any) => {
@@ -64,17 +65,37 @@ export const changLanguage = (locale: any, getLocaleMessage: Function, changeLoc
     logger.info(`当前语言【 已配置 】语言包`, existedMessages);
 
 
-    // TODO 从后台动态加载语言包并进行合并
-    const url = '/a/dict/language/list'
-    // 保存数据并刷新分页列表
-    // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
-    alaPost(u.url(url || ''), { dictCode: locale }, false).then((data: any) => {
-        const newMessages = data.data || {};
-        logger.info(`当前语言【 后台新加载 】语言包`, newMessages);
-        u.merged(existedMessages, newMessages)
-        logger.info(`当前语言【 扩充后 】语言包`, getLocaleMessage(locale));
+    // 1、先从 pinia 缓存中加载语言包，如果没有加载到，则从服务器端加载
+    const alaStore = useAlaStore()
 
-    });
+    let messages = alaStore.get(locale);
+    if (!messages) {
 
-    changeLocale(locale)
+        const url = '/a/dict/language/list'
+        // 保存数据并刷新分页列表
+        // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
+
+        alaPost(u.url(url || ''), { dictCode: locale }, false).then((data: any) => {
+
+            const newMessages = data.data || {};
+            logger.info(`当前语言【 后台新加载 】语言包`, newMessages);
+            u.merged(existedMessages, newMessages)
+            logger.info(`当前语言【 扩充后 】语言包`, getLocaleMessage(locale));
+
+            alaStore.set(locale, newMessages)
+
+            changeLocale(locale)
+
+        });
+
+    } else {
+
+        // 直接切换，不需要加载
+        changeLocale(locale)
+
+    }
+
+
+
+
 }
