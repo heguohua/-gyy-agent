@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 15:29:26
+ * @LastEditTime: 2024-11-18 15:52:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -18,19 +18,20 @@
                 <div class="menu-name">
                     {{ item.name }}
                 </div>
+
             </div>
 
         </div>
         <div class="right">
             <el-collapse v-model="activeNames" @change="handleChange">
-                <el-collapse-item :title="$t('p_editor.block.base.baseBlock')" name="1">
+                <el-collapse-item :title="$t('module.lowcoding.baseBlock')" name="1">
                     <editor-block-drag :list="baseBlocks" :sort="false"
                         :group="{ name: dragGroup, pull: 'clone', put: false }">
 
                     </editor-block-drag>
 
                 </el-collapse-item>
-                <el-collapse-item :title="$t('p_editor.block.base.seniorBlock')" name="2">
+                <el-collapse-item :title="$t('module.lowcoding.seniorBlock')" name="2">
                     <editor-block-drag :list="seniorBlocks" :sort="false"
                         :group="{ name: dragGroup, pull: 'clone', put: false }">
 
