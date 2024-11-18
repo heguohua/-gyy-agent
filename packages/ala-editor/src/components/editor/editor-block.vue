@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 15:52:42
+ * @LastEditTime: 2024-11-18 17:39:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -10,6 +10,7 @@
 -->
 <template>
     <div class="editor-block">
+
         <div class="left">
             <div class="menu-item" v-for="( item, index ) in menuList" :key="index"
                 :class="{ 'is-active': index === activeMenu }" @click="activeMenu = index">
@@ -22,6 +23,7 @@
             </div>
 
         </div>
+
         <div class="right">
             <el-collapse v-model="activeNames" @change="handleChange">
                 <el-collapse-item :title="$t('module.lowcoding.baseBlock')" name="1">
@@ -49,6 +51,9 @@ import { ref } from 'vue'
 // const { global: { t } } = i18n
 import { baseBlocks, seniorBlocks } from "@/config/blocks"
 import { dragGroup } from './nested';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 // State
 interface Menu {
     icon: string,
@@ -60,12 +65,12 @@ const menuList = computed(() => {
         {
             icon: "block",
             iconActive: "blockActive",
-            // name: t("p_editor.block.base.name")
+            name: t("module.lowcoding.baseName")
         },
         {
             icon: "kit",
             iconActive: "kitActive",
-            // name: t("p_editor.block.kit.name")
+            name: t("module.lowcoding.kitName")
         }
     ]
 })
@@ -121,6 +126,7 @@ const handleChange = () => {
                 font-size: 14px;
                 line-height: 14px;
                 padding-top: 4px;
+                overflow-wrap: break-word;
             }
         }
     }
