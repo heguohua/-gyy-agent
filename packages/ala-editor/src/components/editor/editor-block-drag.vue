@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-17 20:32:29
- * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-block-drag.vue
+ * @LastEditTime: 2024-11-18 17:45:03
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block-drag.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -11,13 +11,16 @@
 <template>
     <draggable :list="list" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
         class="edit-block-drag" :clone="clone" :move="move">
+
         <template #item="{ element }">
+
             <div class="block-item">
                 <v-icon class="block-icon" :icon="element.icon" />
-                <div class="block-name" v-html="element.name">
-                </div>
+                <div class="block-name">{{ element.name }}</div>
             </div>
+
         </template>
+
     </draggable>
 
 </template>

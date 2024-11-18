@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 16:22:41
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/schema.ts
+ * @LastEditTime: 2024-11-18 17:53:29
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/image/schema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -64,6 +64,28 @@ const schema = Type.Object({
 })
 
 
+// type AlaImageSchema = {
+//     link: {
+//         desktop: string;
+//         mobile: string;
+//     };
+//     height: {
+//         desktop: string;
+//         mobile: string;
+//     };
+//     width: {
+//         desktop: string;
+//         mobile: string;
+//     };
+//     display: {
+//         desktop: boolean;
+//         mobile: boolean;
+//     };
+//     src: {
+//         desktop: string;
+//         mobile: string;
+//     };
+// }
 export type AlaImageSchema = Static<typeof schema>
 
 export default schema

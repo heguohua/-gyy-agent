@@ -2,15 +2,15 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 16:03:07
- * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
+ * @LastEditTime: 2024-11-18 20:25:54
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <draggable :list="list" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
-        class="edit-render-drag" :clone="clone" :move="move">
+    <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
+        class="edit-render-drag" :clone="clone" :move="move" :end="onEnd">
 
         <template #item="{ element }">
             <div class="element">
@@ -25,12 +25,12 @@
                     <!-- 
                         1、根据组件 code 动态渲染嵌套组件
                     -->
-                    <component :is="renderComponentCode(element)" :data="element.formData" :children="element.children"
-                        :viewport="editorStore.viewport" :key="element.id">
+                    <component :is="getComponentNameByCode(element)" :data="element.formData"
+                        :children="element.children" :viewport="editorStore.viewport" :key="element.id">
 
-                        <template #default="{ columnBlocks, index }">
-                            <edit-render-drag :list="columnBlocks" :level="level + 1" :group="group" class="nested-item"
-                                :class="nestedClass" :key="element.id + '-' + index">
+                        <template #default="{ childrenBlocks, index }">
+                            <edit-render-drag :blockList="childrenBlocks" :level="level + 1" :group="group"
+                                class="nested-item" :class="nestedClass" :key="element.id + '-' + index">
                             </edit-render-drag>
                         </template>
 
@@ -45,7 +45,7 @@
                  
                 -->
                 <div v-else class="block-render" :class="activeClass(element)" @click.stop="setCurrentSelect(element)">
-                    <component :is="renderComponentCode(element)" :data="element.formData"
+                    <component :is="getComponentNameByCode(element)" :data="element.formData"
                         :viewport="editorStore.viewport" />
                 </div>
 
@@ -63,6 +63,7 @@ import { alaConsts } from "@/config/alaConsts";
 import { useEditorStore } from "@/store/useEditorStore"
 import { BaseBlock } from "@/types/editorType";
 import { logger } from "@/utils/logger";
+import { endianness } from "os";
 
 const editorStore = useEditorStore()
 
@@ -71,7 +72,7 @@ defineOptions({
 })
 
 const props = defineProps({
-    list: {
+    blockList: {
         type: Array,
         required: true,
         default: () => []
@@ -90,10 +91,10 @@ const props = defineProps({
     },
 })
 
-const renderComponentCode = computed(() => {
+const getComponentNameByCode = computed(() => {
     return (element: { code: string }) => {
         const componentName = alaConsts.COMPONENT_PREFIX + element.code
-        logger.info(`editor-render-drag组件中根据组件 code[ ${componentName} ]渲染子组件`);
+        logger.info(`editor-render-drag组件中根据组件 code[ ${element.code} ]获取子组件名[ ${componentName} ]`);
         return componentName
     }
 })
@@ -128,6 +129,11 @@ const setCurrentSelect = (element: BaseBlock) => {
     editorStore.setCurrentSelect(element)
 
     editorStore.addBlockConfigNotExist(element)
+
+}
+
+const onEnd = (e: any) => {
+    console.log('拖拽元素结束e:', e);
 
 }
 

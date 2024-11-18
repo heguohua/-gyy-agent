@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 14:07:05
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/ala-column.vue
+ * @LastEditTime: 2024-11-18 18:37:20
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/column/ala-column.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -13,7 +13,7 @@
 
   <div :class="classes" :styles="background_styles">
     <div class="item" v-for="(columnWidth, index) in columnWidths" :key="index" :style="itemStyle(columnWidth)">
-      <slot :columnBlocks="columnBlocksComputed(index)" :index="index"></slot>
+      <slot :childrenBlocks="getOneChildrenBlocksByIndex(index)" :index="index"></slot>
     </div>
   </div>
 
@@ -57,12 +57,12 @@ export default defineComponent({
       }
     })
 
-    const columnBlocksComputed = computed(() => {
+    const getOneChildrenBlocksByIndex = computed(() => {
       return (index: number) => {
-        const childrens = children.value?.[index]
+        const oneChildren = children.value?.[index]
         logger.info(`多列组件渲染 第[ ${index} ]列`);
-        logger.info(`多列组件 childrens: `, childrens);
-        return reactive(childrens || [])
+        logger.info(`多列组件 oneChildren: `, oneChildren);
+        return reactive(oneChildren || [])
       }
     })
 
@@ -72,7 +72,7 @@ export default defineComponent({
       itemStyle,
       background_styles,
       columnWidths,
-      columnBlocksComputed
+      getOneChildrenBlocksByIndex: getOneChildrenBlocksByIndex
     }
   }
 })

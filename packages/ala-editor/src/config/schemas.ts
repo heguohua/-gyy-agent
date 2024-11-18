@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 20:33:49
- * @FilePath: /low-coding/packages/ala-editor/src/config/schemas.ts
+ * @LastEditTime: 2024-11-18 17:54:24
+ * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -18,8 +18,27 @@ const _allSchemas = {
     column: AlaColumnSchema
 }
 
+
+// type BlockSchemas = {
+//     image: TObject<{
+//         display: TObject<{
+//             desktop: TBoolean;
+//             mobile: TBoolean;
+//         }>;
+//         src: TObject<{
+//             desktop: TString;
+//             mobile: TString;
+//         }>;
+//         link: TObject<...>;
+//         width: TObject<...>;
+//         height: TObject<...>;
+//     }>;
+//     file: TObject<...>;
+//     column: TObject<...>;
+// }
 export type BlockSchemas = typeof _allSchemas
 
+// type BlockSchemaKeys = "file" | "image" | "column"
 export type BlockSchemaKeys = keyof BlockSchemas
 
 

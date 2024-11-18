@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-19 11:20:04
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/props.ts
+ * @LastEditTime: 2024-11-18 18:23:31
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/column/props.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -29,16 +29,18 @@ export type AlaColumnPropsChildrenList = any[][]
 export const blockProps = {
     data: {
         type: Object as PropType<AlaColumnProps>,
-        default: () => ({
-            cols: {
-                desktop: [0.33, 0.33, 0.34],
-                mobile: [0.5, 0.5],
-            },
-            background: {
-                desktop: '',
-                mobile: '',
-            },
-        })
+        default: () => {
+            return {
+                cols: {
+                    desktop: [0.33, 0.33, 0.34],
+                    mobile: [0.5, 0.5],
+                },
+                background: {
+                    desktop: '',
+                    mobile: '',
+                },
+            }
+        }
     },
     children: {
         type: Array as PropType<AlaColumnPropsChildrenList>,

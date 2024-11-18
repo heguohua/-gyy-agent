@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 08:26:55
- * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-render.vue
+ * @LastEditTime: 2024-11-18 18:55:45
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,11 +12,11 @@
     <div class="editor-render" :style="pageStyle" :class="pageClass">
 
 
-        <editor-render-drag :list="list" :group="dragGroup" class="render"></editor-render-drag>
+        <editor-render-drag :blockList="blockList" :group="dragGroup" class="render"></editor-render-drag>
 
 
         <!-- 以下是空列表渲染节点 -->
-        <el-empty class="empty" v-if="!list?.length" description="请拖拽左侧组件到此处">
+        <el-empty class="empty" v-if="!blockList?.length" description="请拖拽左侧组件到此处">
             <template #image>
                 <v-icon class="icon" icon="dragBlank" />
             </template>
@@ -32,7 +32,7 @@ import { logger } from '@/utils/logger';
 
 const editorStore = useEditorStore()
 
-const list = ref<BaseBlock[]>([])
+const blockList = ref<BaseBlock[]>([])
 // State
 
 
@@ -45,8 +45,8 @@ const list = ref<BaseBlock[]>([])
 // })
 
 watch(() => editorStore.blockConfig, (value) => {
-    logger.info(`editor-render组件 【 监听到 】  editorStore.blockConfig 更新,即将更新 list.value`, value);
-    list.value = value
+    logger.info(`editor-render组件 【 监听到 】  editorStore.blockConfig 更新,即将更新 blockList.value`, value);
+    blockList.value = value
 }, {
     deep: true
 })
