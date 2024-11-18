@@ -69,7 +69,7 @@ export const allMenuComponents: MenuComponent = {
     },
     "/editor/list": {
         name: "EditorListPage",
-        component: "../pages/lowcoding/editor.vue",
+        component: "../pages/lowcoding/index.vue",
         requiresAuth: true
     },
     "/editor/design": {
