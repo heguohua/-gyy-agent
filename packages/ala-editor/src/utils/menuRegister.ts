@@ -67,9 +67,14 @@ export const allMenuComponents: MenuComponent = {
         component: "../pages/menu/index.vue",
         requiresAuth: true
     },
-    "/editor": {
-        name: "EditorPage",
-        component: "../pages/editor.vue",
+    "/editor/list": {
+        name: "EditorListPage",
+        component: "../pages/lowcoding/editor.vue",
+        requiresAuth: true
+    },
+    "/editor/design": {
+        name: "EditorDesignPage",
+        component: "../pages/lowcoding/editor.vue",
         requiresAuth: true
     }
 }
