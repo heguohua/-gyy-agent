@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:45:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 21:41:12
+ * @LastEditTime: 2024-11-18 09:05:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/hooks/useLocale.ts
  * @Description: 
  * 
@@ -62,7 +62,6 @@ export const changLanguage = (locale: any, getLocaleMessage: Function, changeLoc
     logger.warn(`正在切换语言环境，新语言【 ${locale} 】`);
 
     const existedMessages = getLocaleMessage(locale);
-    logger.info(`当前语言【 已配置 】语言包`, existedMessages);
 
 
     // 1、先从 pinia 缓存中加载语言包，如果没有加载到，则从服务器端加载
@@ -89,6 +88,7 @@ export const changLanguage = (locale: any, getLocaleMessage: Function, changeLoc
         });
 
     } else {
+        logger.info(`不需要后台查询，直接从【 缓存 】中加载语言包`, existedMessages);
 
         // 直接切换，不需要加载
         changeLocale(locale)

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 18:18:21
+ * @LastEditTime: 2024-11-17 23:05:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -64,6 +64,11 @@ export const allMenuComponents: MenuComponent = {
     "/menu/page": {
         name: "MenuPage",
         component: "../pages/menu/index.vue",
+        requiresAuth: true
+    },
+    "/lowcoding/page": {
+        name: "LowCodingPage",
+        component: "../pages/lowcoding/index.vue",
         requiresAuth: true
     }
 }
