@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 23:05:02
+ * @LastEditTime: 2024-11-18 15:34:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -17,6 +17,7 @@ export interface MenuComponent {
         name: string,
         component: string,
         requiresAuth: boolean,
+        viewName?: string,
     }
 }
 
@@ -66,9 +67,9 @@ export const allMenuComponents: MenuComponent = {
         component: "../pages/menu/index.vue",
         requiresAuth: true
     },
-    "/lowcoding/page": {
-        name: "LowCodingPage",
-        component: "../pages/lowcoding/index.vue",
+    "/editor": {
+        name: "EditorPage",
+        component: "../pages/editor.vue",
         requiresAuth: true
     }
 }
@@ -92,7 +93,12 @@ export default class MenuUtil {
                             // name: fn(menu.code),
                             name: menuComponent.name,
                             component: () => import(menuComponent.component),
-                            meta: { requiresAuth: menuComponent.requiresAuth, menuName: menu.name, menuCode: menu.code }
+                            meta: {
+                                requiresAuth: menuComponent.requiresAuth,
+                                menuName: menu.name,
+                                menuCode: menu.code,
+                                viewName: menuComponent.viewName,
+                            },
                         });
                     } else {
                         logger.error(`menu.url [ ${menu.url} ] 渲染的组件不存在，菜单名[ ${menu.name} ]`);

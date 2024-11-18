@@ -66,9 +66,6 @@ const pageClass = computed(() => {
     container-type: inline-size;
     position: relative;
     width: 100%;
-    min-height: calc(100vh - var(--edit-header-height));
-    margin-left: var(--edit-block-width);
-    margin-top: var(--edit-header-height);
     background: white;
     transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
 

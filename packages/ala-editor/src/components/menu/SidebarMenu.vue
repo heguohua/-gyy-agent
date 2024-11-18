@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 21:46:45
+ * @LastEditTime: 2024-11-18 13:43:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -10,12 +10,13 @@
 -->
 <template>
     <div class="side-bar">
-        <div class="collapse-btn" >
+        <div class="collapse-btn">
             <!-- <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i> -->
             <p :style="{ display: isCollapse ? 'none' : '' }" class="company">
                 {{ $t('system.company') }}
             </p>
-            <ElIcon class="collapse-icon" :class="isCollapse ? 'collapse-icon-left' : 'collapse-icon-right'" @click="toggleCollapse">
+            <ElIcon class="collapse-icon" :class="isCollapse ? 'collapse-icon-left' : 'collapse-icon-right'"
+                @click="toggleCollapse">
                 <ArrowRight v-if="isCollapse" />
                 <ArrowLeft v-else />
             </ElIcon>
@@ -72,10 +73,15 @@ const route = useRoute();
 const activeMenu = ref('/');
 
 watch(() => route.path, (toPath) => {
-    activeMenu.value = toPath;
-    // 导航变化时，更新 localStorage
-    logger.info(`监听到路由变化，更新localStorage中的路由为：${toPath}`);
-    lstore.setItem('activeMenu', toPath);
+    if (toPath != '/editor') {
+        logger.info(`监听到路由变化，更新activeMenu：${toPath}`);
+        activeMenu.value = toPath;
+    }
+    // if (toPath != '/editor') {
+    //     // 导航变化时，更新 localStorage
+    //     lstore.setItem('activeMenu', toPath);
+    // }
+
 });
 
 

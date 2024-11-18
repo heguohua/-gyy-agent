@@ -2,15 +2,15 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 23:54:22
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/editor-1.vue
+ * @LastEditTime: 2024-11-18 15:38:50
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/editor.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
     <div class="editor">
-        <EditorHeader />
+        <!-- <EditorHeader /> -->
 
         <div class="container" :class="classes">
             <EditorBlock />
@@ -65,7 +65,7 @@ async function getLoveMessage() {
     width: 100%;
     overflow-x: hidden;
     user-select: none;
-    --edit-header-height: 64px;
+    --edit-header-height: 100px;
     --edit-block-width: 300px;
 
     .container {

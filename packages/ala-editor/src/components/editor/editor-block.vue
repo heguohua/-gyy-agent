@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 13:41:25
+ * @LastEditTime: 2024-11-18 15:29:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -82,9 +82,6 @@ const handleChange = () => {
 
 <style scoped lang="scss">
 .editor-block {
-    position: fixed;
-    top: var(--edit-header-height);
-    left: 0;
     flex-shrink: 0;
     background: white;
     border-right: 1px solid var(--color-border);
