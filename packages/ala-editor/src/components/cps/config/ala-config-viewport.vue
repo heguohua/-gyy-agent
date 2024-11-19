@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 09:05:51
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/config-viewport.vue
+ * @LastEditTime: 2024-11-19 13:50:59
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-viewport.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -11,11 +11,11 @@
 <template>
     <div class="config-viewport">
         <el-form-item :label="title">
-            <config-base-tab :data="list" @change="change">
+            <AlaConfigBaseTab :data="list" @change="change">
                 <template #default="{ item }">
                     <v-icon-tooltip :content="item.content" class="icon" :icon="item.icon" />
                 </template>
-            </config-base-tab>
+            </AlaConfigBaseTab>
 
 
         </el-form-item>

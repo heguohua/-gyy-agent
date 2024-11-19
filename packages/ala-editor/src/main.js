@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 13:29:08
+ * @LastEditTime: 2024-11-19 13:44:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -62,6 +62,7 @@ app.component('draggable', Draggable);
 // 导入要全局注册的组件
 import components from "@/config/alaComponents"
 Object.entries(components).forEach(([name, component]) => {
+  logger.info(`注册组件name[ ${name} ], component[ ${component.__name} ]`);
   app.component(name, component);
 });
 

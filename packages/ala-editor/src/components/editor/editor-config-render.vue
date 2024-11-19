@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 14:06:08
- * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
+ * @LastEditTime: 2024-11-19 13:46:23
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { createNamespace } from '@/components/cps/utils/createNamespace';
+import { alaConsts } from '@/config/alaConsts';
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 
@@ -42,8 +43,9 @@ const getComponent = computed(() => {
     return (item: any) => {
         const code = item.properties[editorStore.viewport].code
         const title = item.properties[editorStore.viewport].title
-        logger.info(`editor-config-render中渲染动态 属性表单 组件, code: ${code}, title: ${title}`);
-        return code
+        const componentName = alaConsts.COMPONENT_PREFIX + code
+        logger.info(`editor-config-render中渲染动态 属性表单 组件, code: ${componentName}, title: ${title}`);
+        return componentName
     }
 })
 

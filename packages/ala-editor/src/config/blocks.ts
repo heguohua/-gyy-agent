@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 12:15:20
+ * @LastEditTime: 2024-11-19 13:21:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/blocks.ts
  * @Description: 
  * 
@@ -45,7 +45,7 @@ export const baseBlocks: BaseBlock[] = [
     {
         id: "",
         name: "图片",
-        code: "config-image",
+        code: "image",
         icon: "image",
         formData: {},
     },
@@ -100,7 +100,7 @@ export const canvasBlocks: BaseBlock[] = [
     {
         id: "",
         name: "图片",
-        code: "config-image",
+        code: "image",
         icon: "image",
         formData: {},
     },

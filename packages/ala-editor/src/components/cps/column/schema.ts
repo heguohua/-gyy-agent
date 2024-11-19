@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 15:18:16
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/column/schema.ts
+ * @LastEditTime: 2024-11-19 13:09:28
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/column/schema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -30,7 +30,7 @@ const schema = Type.Object({
     cols: schemaAllViewport(cols),
 })
 
-export type AlaColumnSchema = Static<typeof schema>
+export type AlaConfigColumnSchema = Static<typeof schema>
 
 export default schema
 
