@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-20 15:11:17
- * @FilePath: /low-coding/packages/ala-editor/src/config/blocks.ts
+ * @LastEditTime: 2024-11-19 12:15:20
+ * @FilePath: /1-low-coding/packages/ala-editor/src/config/blocks.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -45,34 +45,34 @@ export const baseBlocks: BaseBlock[] = [
     {
         id: "",
         name: "图片",
-        code: "image",
+        code: "config-image",
         icon: "image",
         formData: {},
     },
     {
         id: "",
         name: "视频",
-        code: "video",
+        code: "config-video",
         icon: "video",
         formData: {},
     },
     {
         id: "",
         name: "文本",
-        code: "text",
+        code: "config-text",
         icon: "text",
         formData: {},
     },
     {
         id: "",
         name: "幻灯片",
-        code: "swiper",
+        code: "config-swiper",
         icon: "swiper",
         formData: {},
     }, {
         id: "",
         name: "留白",
-        code: "blank",
+        code: "config-blank",
         icon: "blank",
         formData: {},
     },
@@ -81,14 +81,14 @@ export const seniorBlocks: BaseBlock[] = [
     {
         id: "",
         name: "多行",
-        code: "row",
+        code: "config-row",
         icon: "row",
         formData: {},
     },
     {
         id: "",
         name: "多列",
-        code: "column",
+        code: "config-column",
         icon: "column",
         nested: true,
         children: [],
@@ -100,14 +100,14 @@ export const canvasBlocks: BaseBlock[] = [
     {
         id: "",
         name: "图片",
-        code: "image",
+        code: "config-image",
         icon: "image",
         formData: {},
     },
     {
         id: "",
         name: "文本",
-        code: "column",
+        code: "config-column",
         icon: "column",
         formData: {},
     },

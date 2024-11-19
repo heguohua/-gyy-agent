@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 17:54:10
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
+ * @LastEditTime: 2024-11-19 11:17:16
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -38,6 +38,9 @@ const props = defineProps({
         type: String,
         default: 'desktop'
     },
+    pid: {
+        type: String,
+    }
 })
 
 
@@ -47,7 +50,7 @@ const { formData, parentKey, key, id } = data.value
 const { title, default: defaultValue } = data.value.properties[props.viewport]
 const src = ref('')
 
-logger.info("config-files组件被渲染, formData :", formData);
+logger.info(`config-files组件被渲染 pid【 ${props.pid} 】, formData :`, formData);
 
 
 watch(() => formData, (form_data) => {
@@ -109,7 +112,7 @@ const fileClick = computed(() => {
 
 // Methods
 onUpdated(() => {
- 
+
 })
 
 </script>

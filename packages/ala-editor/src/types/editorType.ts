@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-16 16:55:10
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 20:34:18
- * @FilePath: /low-coding/packages/ala-editor/src/types/editorType.ts
+ * @LastEditTime: 2024-11-19 11:48:05
+ * @FilePath: /1-low-coding/packages/ala-editor/src/types/editorType.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -38,7 +38,8 @@ export interface BaseBlock {
   /**
    * 嵌套子项
    */
-  children?: BaseBlock[][]
+  // children?: BaseBlock[][]
+  children?: BaseBlock[]
   /**
    * 配置内容
    */

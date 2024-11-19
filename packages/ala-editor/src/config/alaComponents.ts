@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 17:55:29
+ * @LastEditTime: 2024-11-19 12:13:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -15,12 +15,12 @@ import AlaColumn from '@/components/cps/column/ala-column.vue';
 
 
 // 注册表单组件
-import ConfigInput from '@/components/cps/config/config-input.vue';
-import ConfigFiles from '@/components/cps/config/config-files.vue';
-import ConfigTextarea from '@/components/cps/config/config-textarea.vue';
-import ConfigColumn from '@/components/cps/config/config-column.vue';
-import ConfigViewport from '@/components/cps/config/config-viewport.vue';
-import ConfigBaseTab from '@/components/cps/config/config-base-tab.vue';
+import AlaConfigInput from '@/components/cps/config/ala-config-input.vue';
+import AlaConfigFiles from '@/components/cps/config/ala-config-files.vue';
+import AlaConfigTextarea from '@/components/cps/config/ala-config-textarea.vue';
+import AlaConfigColumn from '@/components/cps/config/ala-config-column.vue';
+import AlaConfigViewport from '@/components/cps/config/ala-config-viewport.vue';
+import AlaConfigBaseTab from '@/components/cps/config/ala-config-base-tab.vue';
 
 
 import AlaInput from '@/components/cps/input/ala-input.vue';
@@ -42,12 +42,12 @@ export default {
     AlaEmpty,
     AlaLink,
     AlaColumn,
-    ConfigInput,
-    ConfigFiles,
-    ConfigTextarea,
-    ConfigColumn,
-    ConfigViewport,
-    ConfigBaseTab,
+    AlaConfigInput,
+    AlaConfigFiles,
+    AlaConfigTextarea,
+    AlaConfigColumn,
+    AlaConfigViewport,
+    AlaConfigBaseTab,
     AlaInput,
     AlaSlider,
     AlaPassword,

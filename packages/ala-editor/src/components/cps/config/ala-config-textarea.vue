@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-21 14:30:11
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-textarea.vue
+ * @LastEditTime: 2024-11-19 12:14:47
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-textarea.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 

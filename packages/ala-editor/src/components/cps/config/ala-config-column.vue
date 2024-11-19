@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 15:19:22
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-column.vue
+ * @LastEditTime: 2024-11-19 12:13:44
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-column.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -11,7 +11,7 @@
 <template>
     <div class="config-column">
         <el-form-item :label="title">
-            <div class="item" v-for="(item, index) in column" :key="index">
+            <div class="item" v-for="(item, index) in columns" :key="index">
                 <div v-html="widthFormat(item)" class="input">
                 </div>
             </div>
@@ -42,6 +42,9 @@ const props = defineProps({
     viewport: {
         type: String,
         default: "desktop" as Viewport
+    },
+    pid: {
+        type: String,
     }
 })
 
@@ -56,9 +59,9 @@ const { title, default: defaultValue, minItems, maxItems } = data.value.properti
 
 const realDefaultValue = Array.from({ length: minItems }, () => defaultValue)
 
-const column = ref<number[]>([])
+const columns = ref<number[]>([])
 
-logger.info("config-column组件渲染, data :");
+logger.info(`config-column组件渲染 pid【 ${props.pid} 】, data :`);
 console.log('data:', data);
 
 logger.info("config-column组件渲染, formData :", formData);
@@ -69,20 +72,38 @@ logger.info("config-column组件渲染, realDefaultValue :", realDefaultValue);
 logger.info(`config-column组件渲染, minItems[ ${minItems} ]`);
 logger.info(`config-column组件渲染, maxItems[ ${maxItems} ]`);
 
-column.value = realDefaultValue
+watch(columns, (value) => {
 
-logger.info(`config-column组件渲染, column`, column);
+    if (value.length > maxItems) return
+
+    const _value = value
+    const data = { desktop: _value, mobile: _value }
+
+    logger.info(`config-column组件 columns 发生变化,即将调用父组件callback, data`, data);
+    emit("callback", {
+        data: {
+            [key]: data
+        },
+        id
+    })
+}, {
+    immediate: true
+})
+// 设置默认列数，立马触发数据更新，用于在 editorStore.blockList 中注册队列组件
+columns.value = realDefaultValue
+
+logger.info(`config-column组件渲染, column`, columns);
 
 
 
 const isShowRemove = computed(() => {
-    const isShow = column.value.length > minItems
+    const isShow = columns.value.length > minItems
     logger.info(`ala-column组件 表单列属性,是否显示【 移除 】按钮,isShow[ ${isShow} ]`);
 
     return isShow
 })
 const isShowAdd = computed(() => {
-    const isShow = column.value.length < maxItems
+    const isShow = columns.value.length < maxItems
     logger.info(`ala-column组件 表单列属性,是否显示【 添加 】按钮,isShow[ ${isShow} ]`);
     return isShow
 })
@@ -90,11 +111,10 @@ const isShowAdd = computed(() => {
 // Methods
 
 
-
 watch(() => formData, (form_data) => {
     if (form_data[key]?.[props.viewport]) {
         logger.info(`config-column组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
-        column.value = form_data[key][props.viewport] || realDefaultValue
+        columns.value = form_data[key][props.viewport] || realDefaultValue
     } else {
         logger.info("config-column组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值");
     }
@@ -105,30 +125,15 @@ watch(() => formData, (form_data) => {
 watch(() => editorStore.globalParams, () => {
     if (formData[key]?.[props.viewport]) {
         logger.info(`config-column组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, formData[key][props.viewport]);
-        column.value = formData[key][props.viewport] || realDefaultValue
+        columns.value = formData[key][props.viewport] || realDefaultValue
     } else {
         logger.info("config-column组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值");
     }
 }, { deep: true })
 
-watch(column, (value) => {
-
-    if (value.length > maxItems) return
-
-    const _value = value
-    const data = { desktop: _value, mobile: _value }
-
-    logger.info(`config-column组件 column 发生变化,即将调用父组件callback, data`, data);
-    emit("callback", {
-        data: {
-            [key]: data
-        },
-        id
-    })
-})
 
 const updateNumber = (length: number) => {
-    logger.info(`【 重新计算列数 】,当前 column.length: ${column.value.length},期望 column.length: ${length}`);
+    logger.info(`【 重新计算列数 】,当前 column.length: ${columns.value.length},期望 column.length: ${length}`);
     const updatedColumns = Array.from({ length: length }, () => 1 / length)
     return updatedColumns
 }
@@ -138,23 +143,23 @@ const widthFormat = (width: number) => {
 }
 
 const remove = () => {
-    const { length } = column.value
+    const { length } = columns.value
     logger.info(`【 删除列 】,当前 column.length: ${length}`);
     if (length === minItems) return
-    column.value = updateNumber(length - 1)
-    logger.info(`【 删除列 】,更新后 column: `, column.value);
+    columns.value = updateNumber(length - 1)
+    logger.info(`【 删除列 】,更新后 column: `, columns.value);
 
 }
 const add = () => {
 
-    const { length } = column.value
+    const { length } = columns.value
     logger.info(`【 添加列 】,当前 column.length: ${length}`);
 
     if (length === 1) return
 
-    column.value = updateNumber(length + 1)
+    columns.value = updateNumber(length + 1)
 
-    logger.info(`【 添加列 】,更新后 column: `, column.value);
+    logger.info(`【 添加列 】,更新后 column: `, columns.value);
 
 }
 

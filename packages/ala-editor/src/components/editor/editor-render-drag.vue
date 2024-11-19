@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 09:37:00
+ * @LastEditTime: 2024-11-19 11:18:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -26,12 +26,13 @@
                         1、根据组件 code 动态渲染嵌套组件
                     -->
                     <component :is="getComponentNameByCode(element)" :data="element.formData"
-                        :children="element.children" :viewport="editorStore.viewport" :key="element.id">
+                        :children="element.children" :viewport="editorStore.viewport" :key="element.id" :pid="pid">
 
                         <template #default="{ childrenBlocks, index }">
-                            <edit-render-drag :blockList="childrenBlocks" :level="level + 1" :group="group"
-                                class="nested-item" :class="nestedClass" :key="element.id + '-' + index">
-                            </edit-render-drag>
+                            <EditRenderDrag :blockList="childrenBlocks" :level="level + 1" :group="group"
+                                class="nested-item" :class="nestedClass" :key="element.id + '-' + index"
+                                :pid="element.id + '-' + index">
+                            </EditRenderDrag>
                         </template>
 
                     </component>
@@ -46,7 +47,7 @@
                 -->
                 <div v-else class="block-render" :class="activeClass(element)" @click.stop="setCurrentSelect(element)">
                     <component :is="getComponentNameByCode(element)" :data="element.formData"
-                        :viewport="editorStore.viewport" />
+                        :viewport="editorStore.viewport" :pid="pid" />
                 </div>
 
             </div>
@@ -63,12 +64,11 @@ import { alaConsts } from "@/config/alaConsts";
 import { useEditorStore } from "@/store/useEditorStore"
 import { BaseBlock } from "@/types/editorType";
 import { logger } from "@/utils/logger";
-import { endianness } from "os";
 
 const editorStore = useEditorStore()
 
 defineOptions({
-    name: 'edit-render-drag'
+    name: 'EditRenderDrag'
 })
 
 const props = defineProps({
@@ -88,6 +88,9 @@ const props = defineProps({
     level: {
         type: Number,
         default: 1,
+    },
+    pid: {
+        type: String,
     },
 })
 
@@ -124,6 +127,7 @@ onMounted(() => {
  */
 const setCurrentSelect = (element: BaseBlock) => {
 
+    element.parent = props.pid
     logger.info("edit-block-drag组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
 
     console.log('element:', element);
