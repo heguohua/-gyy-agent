@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 13:21:21
+ * @LastEditTime: 2024-11-19 15:40:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/blocks.ts
  * @Description: 
  * 
@@ -81,14 +81,14 @@ export const seniorBlocks: BaseBlock[] = [
     {
         id: "",
         name: "多行",
-        code: "config-row",
+        code: "row",
         icon: "row",
         formData: {},
     },
     {
         id: "",
         name: "多列",
-        code: "config-column",
+        code: "column",
         icon: "column",
         nested: true,
         children: [],
@@ -107,7 +107,7 @@ export const canvasBlocks: BaseBlock[] = [
     {
         id: "",
         name: "文本",
-        code: "config-column",
+        code: "column",
         icon: "column",
         formData: {},
     },

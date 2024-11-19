@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 18:55:45
+ * @LastEditTime: 2024-11-19 14:48:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="editor-render" :style="pageStyle" :class="pageClass">
 
 
-        <editor-render-drag :blockList="blockList" :group="dragGroup" class="render"></editor-render-drag>
+        <EditorRenderDrag :blockList="blockList" :group="dragGroup" class="render"></EditorRenderDrag>
 
 
         <!-- 以下是空列表渲染节点 -->

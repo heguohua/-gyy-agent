@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 13:22:12
+ * @LastEditTime: 2024-11-19 15:53:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -10,12 +10,14 @@
  */
 import imageSchema from '@/components/cps/image/schema'
 import fileSchema from '@/components/cps/file/schema'
+import configColumnSchema from '@/components/cps/column/schema'
 import columnSchema from '@/components/cps/column/schema'
 
 const _allSchemas = {
     image: imageSchema,
     configFile: fileSchema,
-    configColumn: columnSchema
+    column: columnSchema,
+    configColumnSchema: columnSchema,
 }
 
 

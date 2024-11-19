@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 12:13:44
+ * @LastEditTime: 2024-11-19 16:02:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-column.vue
  * @Description: 
  * 
@@ -86,13 +86,14 @@ watch(columns, (value) => {
         },
         id
     })
-}, {
-    immediate: true
 })
+// , {
+//     immediate: true
+// }
 // 设置默认列数，立马触发数据更新，用于在 editorStore.blockList 中注册队列组件
 columns.value = realDefaultValue
 
-logger.info(`config-column组件渲染, column`, columns);
+// logger.info(`config-column组件渲染, column`, columns);
 
 
 
