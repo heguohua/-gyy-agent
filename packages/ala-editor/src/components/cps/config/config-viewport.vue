@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 17:28:10
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/config/config-viewport.vue
+ * @LastEditTime: 2024-11-19 09:05:51
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/config-viewport.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -110,26 +110,26 @@ const change = (value: ViewportList['value']) => {
     callback(rules[value])
 }
 
-watch(() => formData, (form_data) => {
+// watch(() => formData, (form_data) => {
 
-    const _formData = form_data?.[key]
-    const defaultValueIndex = Math.max(list.value.findIndex((x) => x.value === _formData || defaultValue), 0)
+//     const _formData = form_data?.[key]
+//     const defaultValueIndex = Math.max(list.value.findIndex((x) => x.value === _formData || defaultValue), 0)
 
-    list.value[defaultValueIndex].default = true
-    change(list.value[defaultValueIndex].value)
-
-
-    // if (form_data[key]?.[props.viewport]) {
-    //     logger.info(`config-viewport组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
-    //     column.value = form_data[key][props.viewport] || realDefaultValue
-    // } else {
-    //     logger.info("config-viewport组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值");
-    // }
+//     list.value[defaultValueIndex].default = true
+//     change(list.value[defaultValueIndex].value)
 
 
-}, {
-    immediate: true
-})
+//     // if (form_data[key]?.[props.viewport]) {
+//     //     logger.info(`config-viewport组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
+//     //     column.value = form_data[key][props.viewport] || realDefaultValue
+//     // } else {
+//     //     logger.info("config-viewport组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值");
+//     // }
+
+
+// }, {
+//     immediate: true
+// })
 
 
 watch(() => editorStore.globalParams, () => {

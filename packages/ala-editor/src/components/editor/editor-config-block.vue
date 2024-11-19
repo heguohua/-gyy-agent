@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 17:34:19
- * @FilePath: /low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
+ * @LastEditTime: 2024-11-19 10:01:20
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -43,7 +43,6 @@ const editorStore = useEditorStore()
  * 2、监听 editorStore 中保存的 viewport 变量，有变化后及时更新 config 区域的动态表单
  */
 watch(() => editorStore.currentSelect, () => {
-    logger.info("editor-config-block中【 监听到 】editorStore中的 currentSelect 发生变化,即将重新渲染 config 区域的动态表单");
 
     const currentBaseBlock = editorStore.currentSelect
 
