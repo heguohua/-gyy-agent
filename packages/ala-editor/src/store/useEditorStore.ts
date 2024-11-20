@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:03:43
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 22:49:16
+ * @LastEditTime: 2024-11-20 09:37:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/store/useEditorStore.ts
  * @Description: 
  * 
@@ -41,9 +41,9 @@ export const useEditorStore = defineStore('editorStore', {
         },
         setCurrentSelect(value: BaseBlockNull) {
             logger.info(`currentSelect: `, value);
-            // this.currentSelect = value
-            // u.merged(this.currentSelect)
-            merge(this.currentSelect,value)
+            this.currentSelect = value
+            // u.merged(this.currentSelect，value)
+            // merge(this.currentSelect,value)
         },
         setConfigPanelShow(value: boolean) {
             logger.info(`更新 configPanelShow : `, value);
@@ -51,13 +51,13 @@ export const useEditorStore = defineStore('editorStore', {
         },
         setBlockConfig(value: BaseBlock[]) {
             logger.info(`更新 blockConfig : `, value);
-            // this.blockConfig = value
-            merge(this.blockConfig,value)
+            this.blockConfig = value
+            // merge(this.blockConfig,value)
         },
         setPageConfig(value: BasePage) {
             logger.info(`更新 pageConfig : `, value);
-            // this.pageConfig = value
-            merge(this.pageConfig,value)
+            this.pageConfig = value
+            // merge(this.pageConfig,value)
             
         },
         addToBlockConfigIfNotExist(block: BaseBlock) {

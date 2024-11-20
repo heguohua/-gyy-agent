@@ -90,8 +90,13 @@ export const seniorBlocks: BaseBlock[] = [
         code: "column",
         icon: "column",
         nested: true,
-        children: [],
-        formData: {},
+        children: [[],[]],
+        formData: {
+            cols: {
+                desktop: [0.5, 0.5],
+                mobile: [0.5, 0.5],
+            }
+        },
     },
 ]
 

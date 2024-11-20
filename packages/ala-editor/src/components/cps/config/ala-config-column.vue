@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 16:02:11
+ * @LastEditTime: 2024-11-20 16:42:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-column.vue
  * @Description: 
  * 
@@ -72,21 +72,6 @@ logger.info("config-column组件渲染, realDefaultValue :", realDefaultValue);
 logger.info(`config-column组件渲染, minItems[ ${minItems} ]`);
 logger.info(`config-column组件渲染, maxItems[ ${maxItems} ]`);
 
-watch(columns, (value) => {
-
-    if (value.length > maxItems) return
-
-    const _value = value
-    const data = { desktop: _value, mobile: _value }
-
-    logger.info(`config-column组件 columns 发生变化,即将调用父组件callback, data`, data);
-    emit("callback", {
-        data: {
-            [key]: data
-        },
-        id
-    })
-})
 // , {
 //     immediate: true
 // }
@@ -111,6 +96,22 @@ const isShowAdd = computed(() => {
 
 // Methods
 
+
+watch(columns, (value) => {
+
+    if (value.length > maxItems) return
+
+    const _value = value
+    const data = { desktop: _value, mobile: _value }
+
+    logger.info(`config-column组件 columns 发生变化,即将调用父组件callback, data`, data);
+    emit("callback", {
+        data: {
+            [key]: data
+        },
+        id
+    })
+})
 
 watch(() => formData, (form_data) => {
     if (form_data[key]?.[props.viewport]) {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 22:42:20
+ * @LastEditTime: 2024-11-20 09:23:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/column/ala-column.vue
  * @Description: 
  * 
@@ -45,7 +45,7 @@ export type AlaColumnProps = {
 export type AlaColumnPropsChildrenList = any[][]
 
 const props = defineProps({
-  data: {
+  formData: {
     type: Object as PropType<AlaColumnProps>,
     default: () => {
       return {
@@ -68,10 +68,10 @@ const props = defineProps({
     type: String as PropType<Viewport>,
     default: "desktop"
   },
-  id: {
+  currentId: { // 当前被渲染组件ID
     type: String,
   },
-  element: {
+  block: { // 当前被渲染组件 block
     type: Object,
   }
 })
@@ -85,18 +85,19 @@ logger.warn("AlaColumn组件被渲染");
 
 const classes = computed(() => [bem()])
 
-const { data: formData, viewport, children, element } = toRefs(props)
 
-logger.info('element?.value', element?.value);
-console.log('element?.value', element?.value);
+const { formData, viewport, children } = toRefs(props)
 
-logger.info('formData.value', formData.value);
-console.log('formData.value', formData.value);
+// logger.info('element?.value', element?.value);
+// console.log('element?.value', element?.value);
 
-logger.info('children.value', children.value);
-console.log('children.value', children.value);
+// logger.info('formData.value', formData.value);
+console.log('formData.value', formData);
 
-logger.info('viewport', viewport.value);
+// logger.info('children.value', children.value);
+// console.log('children.value', children.value);
+
+// logger.info('viewport', viewport.value);
 
 
 const columnWidths = computed(() => {
@@ -123,29 +124,25 @@ const getOneChildrenBlocksByIndex = computed(() => {
   }
 })
 
-// 发送组件初始化消息
+// // 发送组件初始化消息
 const emit = defineEmits(["init"])
-watch(() => props.id, () => {
-  logger.info(`向 editor-render-drag 组件发送初始化消息，当前组件${props.id}`);
-  console.log('ala-column中 element 元素值:',element);
-  
-  emit('init', {
-    pid: null,
-    element: props.element
+onMounted(() => {
+
+  // 组件挂载后再发送初始化消息
+  watch(() => props.currentId, () => {
+    logger.info(`向 editor-render-drag 组件【 发送初始化消息 】，当前组件${props.currentId}`);
+
+    emit('init', {
+      pid: null,
+      block: props.block,
+    })
+  }, {
+    immediate: true
   })
-}, {
-  immediate: true
+
 })
-// return {
-//   bem,
-//   classes,
-//   itemStyle,
-//   background_styles,
-//   columnWidths,
-//   getOneChildrenBlocksByIndex: getOneChildrenBlocksByIndex
-// }
-// }
-// })
+
+
 
 </script>
 

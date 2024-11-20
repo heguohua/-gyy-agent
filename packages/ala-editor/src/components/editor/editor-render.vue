@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 14:48:03
+ * @LastEditTime: 2024-11-20 08:35:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -29,6 +29,7 @@ import { BaseBlock } from '@/types/editorType';
 import { dragGroup } from './nested';
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
+import EditorRenderDrag from "./editor-render-drag.vue"
 
 const editorStore = useEditorStore()
 

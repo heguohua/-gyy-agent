@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 22:23:07
+ * @LastEditTime: 2024-11-20 17:34:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -11,9 +11,10 @@
 <template>
     <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
         class="edit-render-drag" :clone="clone" :move="move">
-
         <template #item="{ element }">
-            <div class="element">
+
+            <div class="block">
+                {{ element }}
 
                 <!-- 
                     1、渲染嵌套组件 
@@ -25,9 +26,9 @@
                     <!-- 
                         1、根据组件 code 动态渲染嵌套组件
                     -->
-                    <component :is="getComponentNameByCode(element)" :data="element.formData"
-                        :children="element.children" :viewport="editorStore.viewport" :key="element.id" :id="element.id"
-                        @init="init" :element="element">
+                    <component :is="getComponentNameByCode(element)" :key="element.id" :viewport="editorStore.viewport"
+                        :currentId="element.id" :formData="element.formData" :children="element.children" :pid="pid"
+                        :block="element" @init="init">
 
                         <template #default="{ childrenBlocks, index }">
                             <EditRenderDrag :blockList="childrenBlocks" :level="level + 1" :group="group"
@@ -47,8 +48,8 @@
                  
                 -->
                 <div v-else class="block-render" :class="activeClass(element)" @click.stop="setCurrentSelect(element)">
-                    <component :is="getComponentNameByCode(element)" :data="element.formData"
-                        :viewport="editorStore.viewport" :pid="pid" />
+                    <component :is="getComponentNameByCode(element)" :key="element.id" :viewport="editorStore.viewport"
+                        :currentId="element.id" :formData="element.formData" :pid="pid" :block="element" />
                 </div>
 
             </div>
@@ -126,64 +127,40 @@ onMounted(() => {
  * 2）同时将当前 BaseBlock 存储到 editorStore 中的 blockConfig[] 中（ 如果不存在则添加）
  * @param element 
  */
-const setCurrentSelect = (element: BaseBlock) => {
+const setCurrentSelect = (block: BaseBlock) => {
 
-    element.parent = props.pid
+    block.parent = props.pid
     logger.info("edit-block-drag组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
 
-    console.log('element:', element);
+    console.log('block:', block);
 
-    const id = element.id;
+    const id = block.id;
 
     if (id) {
         if (editorStore.currentSelect?.id != id) {
-            logger.info(`当前 被点击element 和 editorStore.currentSelect【 不相同 】，即将更新，code【 ${element.code} 】`, element);
-            editorStore.setCurrentSelect(element)
+            logger.info(`当前 被点击block 和 editorStore.currentSelect【 不相同 】，即将更新editorStore.currentSelect，code【 ${block.code} 】,block：`, block);
+            editorStore.setCurrentSelect(block)
+
+            // 向 editorStore 的 blockConfig 中追加 block
+            // tod 这里是不是都改成 拖拽后自动初始化，如果做到了自动初始化，那么这里就不用再添加到 blockConfig 中了
+            logger.info(`当前 被点击block 和 editorStore.currentSelect【 不相同 】，即将添加当前block到blockConfig，code【 ${block.code} 】，block：`, block);
+            editorStore.addToBlockConfigIfNotExist(block)
+
         } else {
-            logger.info(`当前 被点击element 和 editorStore.currentSelect【 相同 】，不执行更新操作，code【 ${element.code} 】`, element);
+            logger.info(`当前 被点击block 和 editorStore.currentSelect【 相同 】，不执行更新操作，code【 ${block.code} 】`, block);
         }
     } else {
-        logger.error(`【 注意，注意，注意 】，当前 被选中element的 id不存在 `, element);
+        logger.error(`【 注意，注意，注意 】，当前 被选中block的 id不存在 `, block);
     }
-
-    // 向 editorStore 的 blockConfig 中追加 block
-    editorStore.addToBlockConfigIfNotExist(element)
-console.log('editor-render-drag接收到element:',element);
-console.log('element.formData.cols:',element.formData.cols);
-
-    // 如果是嵌套组件，还要初始化children数组
-    // if (element.nested && element.code === 'column') {
-
-    //     const cols = element.formData?.cols.desktop || [0.5, 0.5]
-    //     const oldCols = element.children || [[], []]
-    //     if (oldCols.length > cols.length) {
-
-    //         // 说明当前用户删减了列数目
-    //         const count = oldCols.length - cols.length
-    //         logger.info(`用户【 删减了列数目 】，删减数量[ ${count}]，删减前children数据：`, element.children);
-    //         element.children?.slice(oldCols.length - count, count)
-    //         logger.info(`用户【 删减了列数目 】，删减数量[ ${count}]，删减后children数据：`, element.children);
-
-    //     } else {
-
-    //         // 说明用户增加了列数
-    //         const count = cols.length - oldCols.length
-    //         const diff = Array.from({ length: count }, () => [])
-    //         logger.info(`用户【 新增了列数目 】，删减数量[ ${count}]，新增前children数据：`, element.children);
-    //         element.children?.push(...diff)
-    //         logger.info(`用户【 新增了列数目 】，删减数量[ ${count}]，新增后children数据：`, element.children);
-
-    //     }
-    // }
 
 }
 
-const init = (data: { pid: string, element: BaseBlock }) => {
-    const { pid, element } = data
-    console.log('edit-render-drag 接收到子组件初始化回调:', data);
-    logger.info(`接收到子组件【 init 回调 】，即将回调 setCurrentSelect 方法，父组件id[ ${pid} ]，子组件id[ ${element.id} ]，子组件数据`, element);
-    setCurrentSelect(element)
-
+// 接收子组件的初始化回调事件
+const init = (data: { pid: string, block: BaseBlock }) => {
+    const { pid, block } = data
+    logger.info(`接收到子组件【 init 回调 】，即将回调 setCurrentSelect 方法，父组件id[ ${pid} ]，当前组件id[ ${block.id} ]，当前组件数据`, block);
+    console.log('接收到子组件初始化回调参数data：', data);
+    setCurrentSelect(block)
 }
 
 

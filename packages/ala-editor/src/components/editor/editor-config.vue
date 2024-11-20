@@ -38,6 +38,8 @@ watch(() => editorStore.currentSelect, (value) => {
         logger.info("editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化, 但变化值不存在,不切换 editor-config 面板显示状态");
     }
 
+},{
+    deep:true
 })
 
 // Methods
