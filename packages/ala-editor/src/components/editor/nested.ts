@@ -2,12 +2,14 @@ import { BlockSchemaKeys, BlockSchemas } from "@/config/schemas"
 import { BaseBlock, Viewport } from "@/types/editorType"
 import { logger } from "@/utils/logger"
 import { nanoid } from "@/utils/nanoid"
-import { cloneDeep, mergeWith } from "lodash"
+import { cloneDeep, isEqual, mergeWith } from "lodash"
+import { useEditorStore } from '@/store/useEditorStore';
+
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 16:04:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 18:47:21
+ * @LastEditTime: 2024-11-20 20:02:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/nested.ts
  * @Description: 
  * 
@@ -215,38 +217,71 @@ const update = (oneBlockConfig: BaseBlock, nodeId: string, viewport: Viewport, d
     }
 }
 
+
+
 /**
- * 更新 editorStore 中 blockConfig 中某个子元素 children 大小的方法
- * @param editorStoreBlockConfig 
- * @param nodeId 
- * @param viewport 
- * @param data 
- * @returns 
+ * 替换 node id
+ * @param node
+ * @returns
  */
-export const updateBlockConfigChildrenSize = (editorStoreBlockConfig: BaseBlock[], nodeId: string, viewport: Viewport, size: number) => {
-    const array = cloneDeep(editorStoreBlockConfig)
+export const replaceNodeId = (node: any) => {
+    if (!node) return node
+    const newNode = cloneDeep(node)
+    const { children } = newNode || {}
+    if (children?.length) {
+        for (let i = 0; i < children.length; i++) {
+            for (let j = 0; j < children[i].length; j++) {
+                children[i][j] = replaceNodeId(children[i][j])
+            }
+        }
+    }
+    return clone(newNode)
+}
+
+export interface FindNodeByIdCallBack {
+    array: BaseBlock[]
+    node: BaseBlock[][number]
+    index: number
+}
+
+/**
+ * 找到相应id里的FormData做更新
+ * @param arr
+ * @param nodeId
+ * @param callback
+ * @returns
+ */
+export const findNodeById = (
+    arr: BaseBlock[],
+    nodeId: string,
+    callback: (params: FindNodeByIdCallBack) => void,
+) => {
+    
+    const array = cloneDeep(arr)
+
     for (let i = 0; i < array.length; i++) {
-        const oneBlockConfig = array[i]
-        if (oneBlockConfig.id === nodeId) {
-            let children = oneBlockConfig.children
-            if (children) {
-                if (size > 0) {
-                    // 说明当前是 扩充 列数目
-                    mergeWith(children, Array.from({ length: size }, () => { }), customMerge)
-                } else {
-                    // 说明当前是 缩减 列数目
-                    // 确保n不会超出数组的长度
-                    const start = Math.max(0, children.length - size);
-                    children = children.slice(0, start);
+        const element = array[i] as any
+        if (element.id === nodeId) {
+            // 如果找到了匹配的节点，直接回调返回
+            callback({
+                array,
+                node: element,
+                index: i,
+            })
+            return array
+        }
+
+        if (element.children?.length) {
+            // 如果节点有子节点，则递归调用 findNodeById 函数
+            for (let j = 0; j < element.children.length; j++) {
+                const elementChildren = element.children[j]
+                if (!elementChildren.length) continue
+                const newChildren = findNodeById(elementChildren, nodeId, callback)
+                if (!isEqual(newChildren, elementChildren)) {
+                    // 如果子节点数组有更新，则更新当前节点的子节点数组
+                    if (newChildren) element.children[j] = newChildren
+                    return array
                 }
-
-                logger.info(`editorStore中blockConfig【 第 ${i} 个 】index元素[ id : ${oneBlockConfig.id} ] children 更新前`, oneBlockConfig.children);
-                mergeWith(oneBlockConfig, { children }, customMerge)
-                logger.info(`editorStore中blockConfig【 第 ${i} 个 】index元素[ id : ${oneBlockConfig.id} ] children 更新后`, oneBlockConfig.children);
-
-                return array
-            } else {
-                logger.error(`nodeId [${nodeId}],viewport[${viewport}] children not exists! 当前blockConfig节点数据 :`, oneBlockConfig);
             }
         }
     }
@@ -254,64 +289,3 @@ export const updateBlockConfigChildrenSize = (editorStoreBlockConfig: BaseBlock[
     return array
 }
 
-
-
-/**
- * 由于涉及到 schema 相关属性读取，因此此方法略显复杂
- */
-export const getConfigFormItemList = (editorStore, blockSchemas: BlockSchemas): any[] => {
-
-    const currentBaseBlock = editorStore.currentSelect
-
-    logger.info(`editor-config-block组件 【 监听到 】 editorStore 中 currentSelect 或 viewport 发生变化,即将渲染 editor-config 面板, currentBaseBlock值为`, currentBaseBlock);
-
-    const code = currentBaseBlock?.code as BlockSchemaKeys
-
-    logger.info(`当前block code : ${code}`);
-
-    // 根据当前基础组件的code获取当前基础组件的schema
-    const blockSchema = blockSchemas[code]
-    // 获取单个组件的属性列表
-    const properties = blockSchema.properties
-    if (!currentBaseBlock || !properties) {
-        return []
-    }
-
-    const { formData, id } = currentBaseBlock
-
-    logger.info('当前block的 baseBlock 属性：', currentBaseBlock);
-
-    logger.info('当前block的 blockSchema 属性：');
-    console.log('blockSchema:', properties);
-
-
-
-    // list.value = Object.values(properties).map((oneProperty, index) => {
-    //     console.log('oneProperty', oneProperty);
-    //     console.log('Object.entries(oneProperty.properties)', Object.entries(oneProperty.properties));
-    //     // 通过 Object.entries 将对象的所有属性转换成 [[属性名,属性值],,,] 格式
-    //     return Object.fromEntries(Object.entries(oneProperty.properties).map(([propertyName, propertyValue]) => {
-    //         // console.log(key, value);
-    //         const full_properties = [propertyName, { ...(propertyValue as Object), id, key: propertyName, formData: formData ? formData[propertyName] || {} : {} }]
-    //         console.log('Object.entries(oneProperty.properties)转换后', full_properties);
-    //         return full_properties;
-    //     }))
-    // })
-
-    const listResult = Object.fromEntries(Object.entries(properties).map((oneProperty) => {
-        // console.log(key, value);
-        console.log('oneProperty', oneProperty);
-        const [propertyName, propertyValue] = oneProperty
-        const full_properties = [propertyName, { ...(propertyValue as Object), id, key: propertyName, formData: formData?.[propertyName] || {} }]
-        console.log('oneProperty 添加 block属性 转换后', full_properties);
-        return full_properties;
-    }))
-
-    console.log('总properties转换后listResult:', listResult);
-
-    // const form_items = reactive([...Object.values(listResult)])
-    const form_items = [...Object.values(listResult)] as BaseBlock[]
-    console.log('总properties转换后 form_items :', form_items);
-
-    return form_items
-}

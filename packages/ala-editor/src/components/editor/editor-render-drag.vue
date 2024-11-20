@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 19:22:49
+ * @LastEditTime: 2024-11-20 20:04:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -71,7 +71,7 @@
 
 <script setup lang="ts">
 
-import { move, clone, nestedClass } from "@/components/editor/nested"
+import { move, clone, nestedClass, findNodeById, replaceNodeId } from "@/components/editor/nested"
 import { alaConsts } from "@/config/alaConsts";
 
 import { useEditorStore } from "@/store/useEditorStore"
@@ -177,16 +177,28 @@ const init = (data: { pid: string, block: BaseBlock }) => {
     setCurrentSelect(block)
 }
 
-const copy = (id: string) => {
-    console.log('copy ============> :', id);
 
+const handleNodeById = (arr: BaseBlock[], nodeId: string, type: 'copy' | 'clear') => {
+    return findNodeById(arr, nodeId, (params) => {
+        const { array, node, index } = params
+        if (type === 'copy') array.splice(index, 0, replaceNodeId(node))
+        if (type === 'clear') array.splice(index, 1)
+    })
+}
+
+const copy = (id: string) => {
+    if (!editorStore.blockConfig?.length) return
+    const newBlockConfig = handleNodeById(editorStore.blockConfig, id, 'copy')
+    editorStore.setCurrentSelect({})
+    editorStore.setBlockConfig(newBlockConfig)
 }
 
 const clear = (id: string) => {
-    console.log('clear ============> :', id);
-
+    if (!editorStore.blockConfig?.length) return
+    const newBlockConfig = handleNodeById(editorStore.blockConfig, id, 'clear')
+    editorStore.setCurrentSelect({})
+    editorStore.setBlockConfig(newBlockConfig)
 }
-
 
 </script>
 
