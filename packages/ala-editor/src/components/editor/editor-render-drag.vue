@@ -14,8 +14,6 @@
         <template #item="{ element }">
 
             <div class="block">
-                {{ element }}
-
                 <!-- 
                     1、渲染嵌套组件 
                     2、更新 editorStore.currentSelect 值 

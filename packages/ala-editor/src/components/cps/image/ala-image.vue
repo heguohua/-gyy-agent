@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 08:53:34
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/ala-image.vue
+ * @LastEditTime: 2024-11-20 18:50:27
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/image/ala-image.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -22,28 +22,59 @@
 <script setup lang="ts">
 
 import { logger } from '@/utils/logger';
-import { defineComponent, ref } from 'vue'
 import { createNamespace } from '@/components/cps/utils/createNamespace';
-import { blockProps } from './props';
+import { AlaImageProps } from './props';
+import { Viewport } from '@/types/editorType';
 
-const { name, bem } = createNamespace("image")
+const { bem } = createNamespace("image")
 defineOptions({
   name: "ala-image"
 })
 
-const props = defineProps(blockProps)
+const props = defineProps({
+  formData: {
+    type: Object as PropType<AlaImageProps>,
+    default: () => ({
+      display: {
+        desktop: '',
+        mobile: '',
+      },
+      src: {
+        desktop: '',
+        mobile: '',
+      },
+      link: {
+        desktop: '',
+        mobile: '',
+      },
+      width: {
+        desktop: '',
+        mobile: '',
+      },
+      height: {
+        desktop: '',
+        mobile: '',
+      },
+    })
+  },
+  viewport: {
+    type: String as PropType<Viewport>,
+    default: "desktop"
+  }
+}
+)
 
 
 logger.info("AlaImage组件被渲染");
 
 const classes = computed(() => [bem()])
 
-const { data, viewport } = toRefs(props)
-const display = computed(() => data.value?.display?.[viewport.value] || '');
-const src = computed(() => data.value?.src?.[viewport.value] || '')
-const link = computed(() => data.value?.link?.[viewport.value] || '')
-const width = computed(() => data.value?.width?.[viewport.value] || '')
-const height = computed(() => data.value?.height?.[viewport.value] || '')
+const { formData, viewport } = toRefs(props)
+const display = computed(() => formData.value?.display?.[viewport.value] || '');
+const src = computed(() => formData.value?.src?.[viewport.value] || '')
+const link = computed(() => formData.value?.link?.[viewport.value] || '')
+const width = computed(() => formData.value?.width?.[viewport.value] || '')
+const height = computed(() => formData.value?.height?.[viewport.value] || '')
 
 const styles = computed(() => {
   return { width: width.value, height: height.value }

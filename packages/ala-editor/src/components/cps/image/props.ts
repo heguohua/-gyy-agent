@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-18 17:26:15
- * @FilePath: /low-coding/packages/ala-editor/src/components/cps/image/props.ts
+ * @LastEditTime: 2024-11-20 18:50:18
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/image/props.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -68,37 +68,5 @@ export type AlaImageProps = {
         desktop: '',
         mobile: '',
     },
-}
-
-export const blockProps = {
-    data: {
-        type: Object as PropType<AlaImageProps>,
-        default: () => ({
-            display: {
-                desktop: '',
-                mobile: '',
-            },
-            src: {
-                desktop: '',
-                mobile: '',
-            },
-            link: {
-                desktop: '',
-                mobile: '',
-            },
-            width: {
-                desktop: '',
-                mobile: '',
-            },
-            height: {
-                desktop: '',
-                mobile: '',
-            },
-        })
-    },
-    viewport: {
-        type: String as PropType<Viewport>,
-        default: "desktop"
-    }
 }
 

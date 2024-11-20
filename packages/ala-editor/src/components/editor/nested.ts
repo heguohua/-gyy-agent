@@ -7,7 +7,7 @@ import { cloneDeep, mergeWith } from "lodash"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 16:04:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 18:09:53
+ * @LastEditTime: 2024-11-20 18:47:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/nested.ts
  * @Description: 
  * 
@@ -99,7 +99,7 @@ export const updateBlockConfigFormData = (editorStoreBlockConfig: BaseBlock[], n
                         if (columnChildrens && columnChildrens.length > 0) {
                             // 再循环内层查找元素
                             for (let k = 0; k < columnChildrens?.length; k++) {
-                                const rowChildren = columnChildrens[j]
+                                const rowChildren = columnChildrens[k]
                                 if (rowChildren.id === nodeId) {
                                     oneBlockConfig = rowChildren
                                     // 终止第三层循环
