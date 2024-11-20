@@ -2,14 +2,13 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 15:40:56
+ * @LastEditTime: 2024-11-19 16:44:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/blocks.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 import { BlockSchemas, BlockSchemaKeys } from "./schemas";
-
 export interface BaseBlock {
     /**
      * 组件ID

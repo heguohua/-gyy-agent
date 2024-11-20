@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 18:23:31
+ * @LastEditTime: 2024-11-19 21:43:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/column/props.ts
  * @Description: 
  * 
@@ -11,44 +11,8 @@
 
 import { Viewport } from "@/types/editorType";
 import { PropType } from "vue";
-
-export type AlaColumnProps = {
-    cols: {
-        desktop: [],
-        mobile: [],
-    },
-    background?: {
-        desktop: string,
-        mobile: string,
-    },
-}
-
-export type AlaColumnPropsChildrenList = any[][]
+import { BaseBlock } from "@/config/blocks"
 
 
-export const blockProps = {
-    data: {
-        type: Object as PropType<AlaColumnProps>,
-        default: () => {
-            return {
-                cols: {
-                    desktop: [0.33, 0.33, 0.34],
-                    mobile: [0.5, 0.5],
-                },
-                background: {
-                    desktop: '',
-                    mobile: '',
-                },
-            }
-        }
-    },
-    children: {
-        type: Array as PropType<AlaColumnPropsChildrenList>,
-        default: () => [[], []]
-    },
-    viewport: {
-        type: String as PropType<Viewport>,
-        default: "desktop"
-    }
-}
+
 

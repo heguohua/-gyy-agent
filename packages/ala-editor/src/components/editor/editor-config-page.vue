@@ -21,7 +21,7 @@ import { ref } from 'vue'
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import { pageSchemas } from '@/config/schemas';
-import { updateCurrentBlockConfig } from './nested';
+import { updateBlockConfigFormData } from './nested';
 import { BasePage } from '@/types/editorType';
 import { merge } from 'lodash';
 import deepmerge from 'deepmerge';

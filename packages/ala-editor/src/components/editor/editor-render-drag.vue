@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 11:18:13
+ * @LastEditTime: 2024-11-19 22:23:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
-        class="edit-render-drag" :clone="clone" :move="move" :end="onEnd">
+        class="edit-render-drag" :clone="clone" :move="move">
 
         <template #item="{ element }">
             <div class="element">
@@ -26,7 +26,8 @@
                         1、根据组件 code 动态渲染嵌套组件
                     -->
                     <component :is="getComponentNameByCode(element)" :data="element.formData"
-                        :children="element.children" :viewport="editorStore.viewport" :key="element.id" :pid="pid">
+                        :children="element.children" :viewport="editorStore.viewport" :key="element.id" :id="element.id"
+                        @init="init" :element="element">
 
                         <template #default="{ childrenBlocks, index }">
                             <EditRenderDrag :blockList="childrenBlocks" :level="level + 1" :group="group"
@@ -145,14 +146,47 @@ const setCurrentSelect = (element: BaseBlock) => {
         logger.error(`【 注意，注意，注意 】，当前 被选中element的 id不存在 `, element);
     }
 
-    editorStore.addBlockConfigNotExist(element)
+    // 向 editorStore 的 blockConfig 中追加 block
+    editorStore.addToBlockConfigIfNotExist(element)
+console.log('editor-render-drag接收到element:',element);
+console.log('element.formData.cols:',element.formData.cols);
+
+    // 如果是嵌套组件，还要初始化children数组
+    // if (element.nested && element.code === 'column') {
+
+    //     const cols = element.formData?.cols.desktop || [0.5, 0.5]
+    //     const oldCols = element.children || [[], []]
+    //     if (oldCols.length > cols.length) {
+
+    //         // 说明当前用户删减了列数目
+    //         const count = oldCols.length - cols.length
+    //         logger.info(`用户【 删减了列数目 】，删减数量[ ${count}]，删减前children数据：`, element.children);
+    //         element.children?.slice(oldCols.length - count, count)
+    //         logger.info(`用户【 删减了列数目 】，删减数量[ ${count}]，删减后children数据：`, element.children);
+
+    //     } else {
+
+    //         // 说明用户增加了列数
+    //         const count = cols.length - oldCols.length
+    //         const diff = Array.from({ length: count }, () => [])
+    //         logger.info(`用户【 新增了列数目 】，删减数量[ ${count}]，新增前children数据：`, element.children);
+    //         element.children?.push(...diff)
+    //         logger.info(`用户【 新增了列数目 】，删减数量[ ${count}]，新增后children数据：`, element.children);
+
+    //     }
+    // }
 
 }
 
-const onEnd = (e: any) => {
-    console.log('拖拽元素结束e:', e);
+const init = (data: { pid: string, element: BaseBlock }) => {
+    const { pid, element } = data
+    console.log('edit-render-drag 接收到子组件初始化回调:', data);
+    logger.info(`接收到子组件【 init 回调 】，即将回调 setCurrentSelect 方法，父组件id[ ${pid} ]，子组件id[ ${element.id} ]，子组件数据`, element);
+    setCurrentSelect(element)
 
 }
+
+
 
 </script>
 

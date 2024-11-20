@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 10:01:20
+ * @LastEditTime: 2024-11-19 20:29:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
@@ -27,7 +27,7 @@ import { ref } from 'vue'
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import { blockSchemas, BlockSchemaKeys } from '@/config/schemas';
-import { getConfigFormItemList, updateCurrentBlockConfig } from './nested';
+import { updateBlockConfigFormData } from './nested';
 import { BaseBlock } from '@/types/editorType';
 import { merge } from 'lodash';
 // State
@@ -100,7 +100,7 @@ const callback = (params: { data: object, id: string }) => {
 
     logger.info(`editor-config-block组件 接收到 子组件callback,即将更新editorStore中的 blockConfig,nodeId[${id}],data`, data);
 
-    const newBlockConfig = updateCurrentBlockConfig(blockConfig, id, editorStore.viewport, data)
+    const newBlockConfig = updateBlockConfigFormData(blockConfig, id, editorStore.viewport, data)
     logger.info(`editor-config-block组件 接收到 子组件callback,即将更新editorStore中的 blockConfig,nodeId[${id}],newBlockConfig`, newBlockConfig);
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-16 16:55:10
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 11:48:05
+ * @LastEditTime: 2024-11-19 22:26:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/types/editorType.ts
  * @Description: 
  * 
@@ -39,12 +39,12 @@ export interface BaseBlock {
    * 嵌套子项
    */
   // children?: BaseBlock[][]
-  children?: BaseBlock[]
+  children?: BaseBlock[][]
   /**
    * 配置内容
    */
   // formData?: Partial<>
-  formData?: BlockSchemas[BlockSchemaKeys]
+  formData: BlockSchemas[BlockSchemaKeys]
   /**
    * 父组件code
    */

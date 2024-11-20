@@ -7,8 +7,8 @@ import { cloneDeep, mergeWith } from "lodash"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 16:04:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-23 15:36:49
- * @FilePath: /low-coding/packages/ala-editor/src/components/editor/nested.ts
+ * @LastEditTime: 2024-11-19 20:34:20
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/nested.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -62,16 +62,32 @@ const customMerge = (objValue: any, srcValue: any) => {
         return srcValue; // 直接替换数组
     }
 };
-export const updateCurrentBlockConfig = (arr: BaseBlock[], nodeId: string, viewport: Viewport, data: object) => {
-    const array = cloneDeep(arr)
+
+/**
+ * 更新 editorStore 中 blockConfig 中某个子元素 formData 的方法
+ * @param editorStoreBlockConfig 
+ * @param nodeId 
+ * @param viewport 
+ * @param data 
+ * @returns 
+ */
+export const updateBlockConfigFormData = (editorStoreBlockConfig: BaseBlock[], nodeId: string, viewport: Viewport, data: object) => {
+    const array = cloneDeep(editorStoreBlockConfig)
     for (let i = 0; i < array.length; i++) {
-        const element = array[i]
-        if (element.id === nodeId) {
-            const formData = element.formData
+        const oneBlockConfig = array[i]
+        if (oneBlockConfig.id === nodeId) {
+            const formData = oneBlockConfig.formData
             if (formData) {
-                logger.info('currentBlockConfig element.formData更新前', element.formData);
+                logger.info('currentBlockConfig element.formData更新前', oneBlockConfig.formData);
                 mergeWith(formData, data, customMerge)
-                logger.info('currentBlockConfig element.formData更新后', element.formData);
+                logger.info('currentBlockConfig element.formData更新后', oneBlockConfig.formData);
+
+
+                // 更新 blockConfig 中嵌套对象的 children 数组
+                // if(){
+
+                // }
+                
                 return array
             } else {
                 logger.error(`nodeId [${nodeId}],viewport[${viewport}] formData not exists! currentData :`, data);
@@ -81,6 +97,48 @@ export const updateCurrentBlockConfig = (arr: BaseBlock[], nodeId: string, viewp
 
     return array
 }
+
+
+/**
+ * 更新 editorStore 中 blockConfig 中某个子元素 children 大小的方法
+ * @param editorStoreBlockConfig 
+ * @param nodeId 
+ * @param viewport 
+ * @param data 
+ * @returns 
+ */
+export const updateBlockConfigChildrenSize = (editorStoreBlockConfig: BaseBlock[], nodeId: string, viewport: Viewport, size: number) => {
+    const array = cloneDeep(editorStoreBlockConfig)
+    for (let i = 0; i < array.length; i++) {
+        const oneBlockConfig = array[i]
+        if (oneBlockConfig.id === nodeId) {
+            let children = oneBlockConfig.children
+            if (children) {
+                if (size > 0) {
+                    // 说明当前是 扩充 列数目
+                    mergeWith(children, Array.from({ length: size }, () => { }), customMerge)
+                } else {
+                    // 说明当前是 缩减 列数目
+                    // 确保n不会超出数组的长度
+                    const start = Math.max(0, children.length - size);
+                    children = children.slice(0, start);
+                }
+                
+                logger.info(`editorStore中blockConfig【 第 ${i} 个 】index元素[ id : ${oneBlockConfig.id} ] children 更新前`, oneBlockConfig.children);
+                mergeWith(oneBlockConfig, { children }, customMerge)
+                logger.info(`editorStore中blockConfig【 第 ${i} 个 】index元素[ id : ${oneBlockConfig.id} ] children 更新后`, oneBlockConfig.children);
+
+                return array
+            } else {
+                logger.error(`nodeId [${nodeId}],viewport[${viewport}] children not exists! 当前blockConfig节点数据 :`, oneBlockConfig);
+            }
+        }
+    }
+
+    return array
+}
+
+
 
 /**
  * 由于涉及到 schema 相关属性读取，因此此方法略显复杂

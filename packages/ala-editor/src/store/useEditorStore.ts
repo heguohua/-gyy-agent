@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:03:43
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 11:50:26
+ * @LastEditTime: 2024-11-19 22:49:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/store/useEditorStore.ts
  * @Description: 
  * 
@@ -13,6 +13,13 @@ import { BaseBlockNull } from '@/types/editorType'
 import { defineStore } from 'pinia'
 import { logger } from '@/utils/logger'
 import u from '@/utils/u'
+import { cloneDeep, merge, mergeWith } from 'lodash'
+
+const customMerge = (objValue: any, srcValue: any) => {
+    if (Array.isArray(srcValue)) {
+        return srcValue; // 直接替换数组
+    }
+};
 
 export const useEditorStore = defineStore('editorStore', {
     state: () => ({
@@ -34,7 +41,9 @@ export const useEditorStore = defineStore('editorStore', {
         },
         setCurrentSelect(value: BaseBlockNull) {
             logger.info(`currentSelect: `, value);
-            this.currentSelect = value
+            // this.currentSelect = value
+            // u.merged(this.currentSelect)
+            merge(this.currentSelect,value)
         },
         setConfigPanelShow(value: boolean) {
             logger.info(`更新 configPanelShow : `, value);
@@ -42,16 +51,19 @@ export const useEditorStore = defineStore('editorStore', {
         },
         setBlockConfig(value: BaseBlock[]) {
             logger.info(`更新 blockConfig : `, value);
-            this.blockConfig = value
+            // this.blockConfig = value
+            merge(this.blockConfig,value)
         },
         setPageConfig(value: BasePage) {
             logger.info(`更新 pageConfig : `, value);
-            this.pageConfig = value
+            // this.pageConfig = value
+            merge(this.pageConfig,value)
+            
         },
-        addBlockConfigNotExist(block: BaseBlock) {
+        addToBlockConfigIfNotExist(block: BaseBlock) {
             if (block.parent) {
-                // 说明是嵌套组件
-                // 根据 block.parent 查找嵌套父组件，然后更具索引值更新相应索引的元素
+                // 说明是被嵌套的组件
+                // 根据 block.parent 查找嵌套父组件，然后根据索引值更新相应索引的元素
                 const [pid, index] = block.parent.split('-')
                 if (pid && index) {
                     // 根据 pid 查找嵌套父组件
@@ -63,9 +75,38 @@ export const useEditorStore = defineStore('editorStore', {
                     }
                     if (parentBlock) {
                         // 根据索引更新父组件中相应组件的值
-                        if(parentBlock.children){
-                            u.merged(parentBlock.children[Number.parseInt(index)],block)
-                        }else{
+                        if (parentBlock.children && parentBlock.children.length > 0) {
+
+                            // 查找 children 数组中索引为 index 的子数组
+                            const childArray = parentBlock.children[Number.parseInt(index)]
+                            if (childArray && childArray.length > 0) {
+                                // 然后遍历子数组，根据id匹配子元素，找到了则直接更新，如果没找到则直接追加
+                                let oldBlockConfig = undefined
+                                let rowNo = null
+                                for (let j = 0; j < childArray.length; j++) {
+                                    if (childArray[j].id === block.id) {
+                                        oldBlockConfig = childArray[j]
+                                        rowNo = j
+                                    }
+                                }
+                                if (!oldBlockConfig) {
+                                    logger.info(`向 parentBlock.children 中【 追加 】 block，parent id[ ${parentBlock.id} ]，所属列[ ${index} ]，所属行[ ${index} ]`, block);
+                                    childArray.push(block)
+                                } else {
+                                    logger.info(`parentBlock.children 中已存在 id为【 ${block.id} 】的Block，parent id[ ${parentBlock.id} ]，所属列[ ${index} ]，所属行[ ${rowNo} ]`, block);
+                                }
+
+                            } else {
+                                logger.error(`【 错误，错误，错误 】parentBlock.children[index]子数组不存在，当前组件数据对象，block：`, block);
+                                logger.error(`父组件数据对象，parentBlock：`, parentBlock);
+                            }
+
+                            // logger.info(`editorStore中 id为【 ${parentBlock.id} 】的blockConfig children 更新前`, parentBlock.children);
+                            // parentBlock.children[Number.parseInt(index)] = [block, {}]
+                            // logger.info(`editorStore中 id为【 ${parentBlock.id} 】的blockConfig children 更新后`, parentBlock.children);
+
+                            // mergeWith(parentBlock.children[Number.parseInt(index)], data, customMerge)
+                        } else {
                             logger.error(`【 错误，错误，错误 】parentBlock.children数组不存在，当前组件数据对象：`, block);
                             logger.error(`父组件数据对象：`, parentBlock);
                         }
