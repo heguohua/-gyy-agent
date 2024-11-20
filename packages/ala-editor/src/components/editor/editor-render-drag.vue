@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 17:34:37
+ * @LastEditTime: 2024-11-20 19:22:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -19,8 +19,14 @@
                     2、更新 editorStore.currentSelect 值 
                 -->
                 <div v-if="element.nested && level < 2" class="block-nested-render" :class="activeClass(element)"
-                    @click.stop="setCurrentSelect(element)">
+                    @click.stop="setCurrentSelect(element)" @mouseenter="hoverId = element.id"
+                    @mouseleave="hoverId = ''">
+                    <Transition name="fade">
+                        <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
+                            @copy="copy" @clear="clear">
 
+                        </EditRenderHover>
+                    </Transition>
                     <!-- 
                         1、根据组件 code 动态渲染嵌套组件
                     -->
@@ -45,7 +51,14 @@
                     2、更新 editorStore.currentSelect 值 
                  
                 -->
-                <div v-else class="block-render" :class="activeClass(element)" @click.stop="setCurrentSelect(element)">
+                <div v-else class="block-render" :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
+                    @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''">
+                    <Transition name="fade">
+                        <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
+                            @copy="copy" @clear="clear">
+
+                        </EditRenderHover>
+                    </Transition>
                     <component :is="getComponentNameByCode(element)" :key="element.id" :viewport="editorStore.viewport"
                         :currentId="element.id" :formData="element.formData" :pid="pid" :block="element" />
                 </div>
@@ -64,6 +77,7 @@ import { alaConsts } from "@/config/alaConsts";
 import { useEditorStore } from "@/store/useEditorStore"
 import { BaseBlock } from "@/types/editorType";
 import { logger } from "@/utils/logger";
+import EditRenderHover from "./edit-render-hover.vue";
 
 const editorStore = useEditorStore()
 
@@ -93,6 +107,8 @@ const props = defineProps({
         type: String,
     },
 })
+
+const hoverId = ref('')
 
 const getComponentNameByCode = computed(() => {
     return (element: { code: string }) => {
@@ -161,6 +177,15 @@ const init = (data: { pid: string, block: BaseBlock }) => {
     setCurrentSelect(block)
 }
 
+const copy = (id: string) => {
+    console.log('copy ============> :', id);
+
+}
+
+const clear = (id: string) => {
+    console.log('clear ============> :', id);
+
+}
 
 
 </script>

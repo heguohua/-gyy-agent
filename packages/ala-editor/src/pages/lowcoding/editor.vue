@@ -67,6 +67,7 @@ async function getLoveMessage() {
     user-select: none;
     --edit-header-height: 100px;
     --edit-block-width: 300px;
+    --border-radius-editor:4px;
 
     .container {
         display: flex;

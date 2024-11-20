@@ -53,6 +53,7 @@ declare module 'vue' {
     EditorHeader: typeof import('./src/components/editor/editor-header.vue')['default']
     EditorRender: typeof import('./src/components/editor/editor-render.vue')['default']
     EditorRenderDrag: typeof import('./src/components/editor/editor-render-drag.vue')['default']
+    EditRenderHover: typeof import('./src/components/editor/edit-render-hover.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']

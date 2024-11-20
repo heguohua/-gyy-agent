@@ -81,7 +81,7 @@ const panelSwitch = () => {
             width: 32px;
             height: 32px;
             padding: 3px;
-            border-radius: var(--border-radius);
+            border-radius: var(--border-radius-editor);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -99,11 +99,14 @@ const panelSwitch = () => {
             &:hover {
                 background: var(--color-icon-hover);
                 transition: all 0.2s linear;
+                border-radius: var(--border-radius-editor);
+                
             }
 
             :deep(.image-box) {
                 width: 32px;
                 height: 32px;
+                border-radius: var(--border-radius-editor);
                 // background:red;
             }
         }
