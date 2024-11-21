@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 12:14:47
+ * @LastEditTime: 2024-11-21 13:34:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-textarea.vue
  * @Description: 
  * 
@@ -23,7 +23,7 @@ import { ref } from 'vue'
 
 const input = ref('')
 
-defineProps({
+const props = defineProps({
     label: {
         type: String
     },
@@ -33,8 +33,13 @@ defineProps({
     callback: {
         type: String
     },
+    businessType: {
+        type: String,
+        default: 'page'
+    }
 })
 
+const businessType = props.businessType
 
 // Methods
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 13:40:25
+ * @LastEditTime: 2024-11-21 13:37:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -49,6 +49,14 @@ import lstore from '@/utils/lstore';
 
 // const { global: { t } } = i18n
 
+const props = defineProps({
+  businessType: {
+    type: String,
+    default: 'page'
+  },
+})
+const businessType = props.businessType
+
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 
 /**
@@ -83,8 +91,8 @@ const editorStore = useEditorStore()
 
 watch(viewport, (value) => {
   logger.info("editor-header中切换 viewport,更新 editorStore 中的 viewport 和 configPanelShow");
-  editorStore.setViewport(value)
-  editorStore.setConfigPanelShow('mobile' === value)
+  // editorStore.setViewport(value, businessType)
+  // editorStore.setConfigPanelShow('mobile' === value)
 })
 
 let app_types = computed(() => {

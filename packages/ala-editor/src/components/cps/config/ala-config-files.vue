@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 11:17:16
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/config-files.vue
+ * @LastEditTime: 2024-11-21 14:52:42
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-files.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -40,9 +40,14 @@ const props = defineProps({
     },
     pid: {
         type: String,
+    },
+    businessType: {
+        type: String,
+        default: 'page'
     }
 })
 
+const businessType = props.businessType
 
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
@@ -50,41 +55,41 @@ const { formData, parentKey, key, id } = data.value
 const { title, default: defaultValue } = data.value.properties[props.viewport]
 const src = ref('')
 
-logger.info(`config-files组件被渲染 pid【 ${props.pid} 】, formData :`, formData);
+logger.info(`businessType【${businessType}】,config-files组件被渲染 pid【 ${props.pid} 】, formData :`, formData);
 
 
 watch(() => formData, (form_data) => {
 
     if (form_data.src?.[props.viewport]) {
-        logger.info(`config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 src 的属性值,src=form_data.src[props.viewport]`, form_data.src?.[props.viewport]);
+        logger.info(`businessType【${businessType}】,config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,即将更新 src 的属性值,src=form_data.src[props.viewport]`, form_data.src?.[props.viewport]);
         src.value = form_data.src?.[props.viewport] || defaultValue
     } else {
-        logger.info("config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,form_data.src?.[props.viewport]值不存在,不更新 src 属性值");
+        logger.info(`businessType【${businessType}】,config-files组件 【 监听到 】 editorStore.currentSelect 的 formData 发生变化,form_data.src?.[props.viewport]值不存在,不更新 src 属性值`);
     }
 }, {
     immediate: true
 })
 
-watch(() => editorStore.globalParams, () => {
+watch(() => editorStore.globalParams[businessType], () => {
 
     const form_data = formData
     if (form_data.src?.[props.viewport]) {
-        logger.info(`config-files组件 【 监听到 】 editorStore 的 globalParams 发生变化,即将更新 src 的属性值,src=form_data.src[props.viewport]`, form_data.src?.[props.viewport]);
+        logger.info(`businessType【${businessType}】,config-files组件 【 监听到 】 editorStore 的 globalParams 发生变化,即将更新 src 的属性值,src=form_data.src[props.viewport]`, form_data.src?.[props.viewport]);
         src.value = form_data.src?.[props.viewport] || defaultValue
     } else {
-        logger.info("config-files组件 【 监听到 】 editorStore 的 globalParams 发生变化,form_data.src?.[props.viewport]值不存在,不更新 src 属性值");
+        logger.info(`businessType【${businessType}】,config-files组件 【 监听到 】 editorStore 的 globalParams 发生变化,form_data.src?.[props.viewport]值不存在,不更新 src 属性值`);
     }
 }, { deep: true })
 
 watch(src, (value) => {
     let data = {}
     const _value = value || ''
-    if (Object.values(editorStore.currentSelect?.formData || {}).length < 2) {
+    if (Object.values(editorStore.currentSelect[businessType]?.formData || {}).length < 2) {
         data = { desktop: _value, mobile: _value }
     } else {
         data = { [props.viewport]: _value }
     }
-    logger.info(`config-files组件 src 发生变化,即将调用父组件callback,key[${key}],id[${id}],data`, data);
+    logger.info(`businessType【${businessType}】,config-files组件 src 发生变化,即将调用父组件callback,key[${key}],id[${id}],data`, data);
     emit("callback", {
         data: {
             [key]: data

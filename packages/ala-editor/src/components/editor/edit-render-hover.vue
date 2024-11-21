@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-20 19:10:48
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 19:37:13
+ * @LastEditTime: 2024-11-21 13:12:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/edit-render-hover.vue
  * @Description: 
  * 
@@ -26,7 +26,13 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    businessType: {
+        type: String,
+        default: 'page'
+    },
 })
+
+const businessType = props.businessType
 
 const emit = defineEmits(['copy', 'clear'])
 

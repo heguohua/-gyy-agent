@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 20:04:23
+ * @LastEditTime: 2024-11-21 14:50:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -30,7 +30,7 @@
                     <!-- 
                         1、根据组件 code 动态渲染嵌套组件
                     -->
-                    <component :is="getComponentNameByCode(element)" :key="element.id" :viewport="editorStore.viewport"
+                    <component :is="getComponentNameByCode(element)" :key="element.id" :viewport="editorStore.viewport[businessType]"
                         :currentId="element.id" :formData="element.formData" :children="element.children" :pid="pid"
                         :block="element" @init="init">
 
@@ -59,7 +59,7 @@
 
                         </EditRenderHover>
                     </Transition>
-                    <component :is="getComponentNameByCode(element)" :key="element.id" :viewport="editorStore.viewport"
+                    <component :is="getComponentNameByCode(element)" :key="element.id" :viewport="editorStore.viewport[businessType]"
                         :currentId="element.id" :formData="element.formData" :pid="pid" :block="element" />
                 </div>
 
@@ -106,7 +106,12 @@ const props = defineProps({
     pid: {
         type: String,
     },
+    businessType: {
+        type: String,
+        default: 'page'
+    },
 })
+const businessType = props.businessType
 
 const hoverId = ref('')
 
@@ -121,7 +126,7 @@ const getComponentNameByCode = computed(() => {
 
 const activeClass = computed(() => {
     return (element: { id: string }) => {
-        const id = editorStore.currentSelect?.id || ''
+        const id = editorStore.currentSelect[businessType]?.id || ''
         return { "is-active": element.id === id }
     }
 })
@@ -151,20 +156,20 @@ const setCurrentSelect = (block: BaseBlock) => {
     const id = block.id;
 
     if (id) {
-        if (editorStore.currentSelect?.id != id) {
-            logger.info(`当前 被点击block 和 editorStore.currentSelect【 不相同 】，即将更新editorStore.currentSelect，code【 ${block.code} 】,block：`, block);
-            editorStore.setCurrentSelect(block)
+        if (editorStore.currentSelect[businessType]?.id != id) {
+            logger.info(`businessType【${businessType}】,当前 被点击block 和 editorStore.currentSelect【 不相同 】，即将更新editorStore.currentSelect，code【 ${block.code} 】,block：`, block);
+            editorStore.setCurrentSelect(block, businessType)
 
             // 向 editorStore 的 blockConfig 中追加 block
             // tod 这里是不是都改成 拖拽后自动初始化，如果做到了自动初始化，那么这里就不用再添加到 blockConfig 中了
-            logger.info(`当前 被点击block 和 editorStore.currentSelect【 不相同 】，即将添加当前block到blockConfig，code【 ${block.code} 】，block：`, block);
-            editorStore.addToBlockConfigIfNotExist(block)
+            logger.info(`businessType【${businessType}】,当前 被点击block 和 editorStore.currentSelect【 不相同 】，即将添加当前block到blockConfig，code【 ${block.code} 】，block：`, block);
+            editorStore.addToBlockConfigIfNotExist(block, businessType)
 
         } else {
-            logger.info(`当前 被点击block 和 editorStore.currentSelect【 相同 】，不执行更新操作，code【 ${block.code} 】`, block);
+            logger.info(`businessType【${businessType}】,当前 被点击block 和 editorStore.currentSelect【 相同 】，不执行更新操作，code【 ${block.code} 】`, block);
         }
     } else {
-        logger.error(`【 注意，注意，注意 】，当前 被选中block的 id不存在 `, block);
+        logger.error(`businessType【${businessType}】,【 注意，注意，注意 】，当前 被选中block的 id不存在`, block);
     }
 
 }
@@ -172,7 +177,7 @@ const setCurrentSelect = (block: BaseBlock) => {
 // 接收子组件的初始化回调事件
 const init = (data: { pid: string, block: BaseBlock }) => {
     const { pid, block } = data
-    logger.info(`接收到子组件【 init 回调 】，即将回调 setCurrentSelect 方法，父组件id[ ${pid} ]，当前组件id[ ${block.id} ]，当前组件数据`, block);
+    logger.info(`businessType【${businessType}】,接收到子组件【 init 回调 】，即将回调 setCurrentSelect 方法，父组件id[ ${pid} ]，当前组件id[ ${block.id} ]，当前组件数据`, block);
     console.log('接收到子组件初始化回调参数data：', data);
     setCurrentSelect(block)
 }
@@ -187,17 +192,17 @@ const handleNodeById = (arr: BaseBlock[], nodeId: string, type: 'copy' | 'clear'
 }
 
 const copy = (id: string) => {
-    if (!editorStore.blockConfig?.length) return
-    const newBlockConfig = handleNodeById(editorStore.blockConfig, id, 'copy')
-    editorStore.setCurrentSelect({})
-    editorStore.setBlockConfig(newBlockConfig)
+    if (!editorStore.blockConfig[businessType]?.length) return
+    const newBlockConfig = handleNodeById(editorStore.blockConfig[businessType], id, 'copy')
+    editorStore.setCurrentSelect({}, businessType)
+    editorStore.setBlockConfig(newBlockConfig, businessType)
 }
 
 const clear = (id: string) => {
-    if (!editorStore.blockConfig?.length) return
-    const newBlockConfig = handleNodeById(editorStore.blockConfig, id, 'clear')
-    editorStore.setCurrentSelect({})
-    editorStore.setBlockConfig(newBlockConfig)
+    if (!editorStore.blockConfig[businessType]?.length) return
+    const newBlockConfig = handleNodeById(editorStore.blockConfig[businessType], id, 'clear')
+    editorStore.setCurrentSelect({}, businessType)
+    editorStore.setBlockConfig(newBlockConfig, businessType)
 }
 
 </script>

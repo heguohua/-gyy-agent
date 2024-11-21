@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 08:35:11
+ * @LastEditTime: 2024-11-21 14:50:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -35,7 +35,13 @@ const editorStore = useEditorStore()
 
 const blockList = ref<BaseBlock[]>([])
 // State
-
+const props = defineProps({
+    businessType: {
+        type: String,
+        default: 'page'
+    },
+})
+const businessType = props.businessType
 
 // Methods
 // watch(() => list.value, (value) => {
@@ -45,8 +51,8 @@ const blockList = ref<BaseBlock[]>([])
 //     deep: true
 // })
 
-watch(() => editorStore.blockConfig, (value) => {
-    logger.info(`editor-render组件 【 监听到 】  editorStore.blockConfig 更新,即将更新 blockList.value`, value);
+watch(() => editorStore.blockConfig[businessType], (value) => {
+    logger.info(`businessType【${businessType}】,editor-render组件 【 监听到 】  editorStore.blockConfig 更新,即将更新 blockList.value`, value);
     blockList.value = value
 }, {
     deep: true
@@ -58,7 +64,7 @@ const pageStyle = computed(() => {
 })
 
 const pageClass = computed(() => {
-    return { "is-mobile": editorStore.isMobileViewport }
+    return { "is-mobile": editorStore.isMobileViewport(businessType) }
 })
 </script>
 

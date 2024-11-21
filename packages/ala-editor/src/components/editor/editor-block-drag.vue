@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 17:45:03
+ * @LastEditTime: 2024-11-21 13:34:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block-drag.vue
  * @Description: 
  * 
@@ -29,7 +29,7 @@
 
 import { move, clone, dragGroup } from "@/components/editor/nested"
 
-defineProps({
+const props = defineProps({
     list: {
         type: Array,
         required: true,
@@ -42,8 +42,13 @@ defineProps({
     sort: {
         type: Boolean,
         default: false
-    }
+    },
+    businessType: {
+        type: String,
+        default: 'page'
+    },
 })
+const businessType = props.businessType
 
 // State
 

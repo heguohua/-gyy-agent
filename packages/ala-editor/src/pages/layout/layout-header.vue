@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 22:19:26
+ * @LastEditTime: 2024-11-21 13:37:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -69,8 +69,8 @@ const editorStore = useEditorStore()
 
 watch(viewport, (value) => {
   logger.info("editor-header中切换 viewport,更新 editorStore 中的 viewport 和 configPanelShow");
-  editorStore.setViewport(value)
-  editorStore.setConfigPanelShow('mobile' === value)
+  // editorStore.setViewport(value)
+  // editorStore.setConfigPanelShow('mobile' === value,businessType)
 })
 
 let app_types = computed(() => {

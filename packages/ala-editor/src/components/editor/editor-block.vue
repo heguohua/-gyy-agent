@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 17:43:47
+ * @LastEditTime: 2024-11-21 13:18:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -62,6 +62,14 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 // State
+const props = defineProps({
+    businessType: {
+        type: String,
+        default: 'page'
+    },
+})
+const businessType = props.businessType
+
 interface Menu {
     icon: string,
     iconActive: string,

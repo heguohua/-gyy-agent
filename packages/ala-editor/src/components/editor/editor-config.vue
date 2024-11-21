@@ -1,18 +1,18 @@
 <template>
-    <div class="editor-config" ref="target" :class="{ 'is-show': editorStore.configPanelShow }">
+    <div class="editor-config" ref="target" :class="{ 'is-show': editorStore.configPanelShow[businessType] }">
         <div class="icon-group">
-            <v-icon-tooltip class="" :icon="editorStore.configPanelShow ? 'contract' : 'expand'"
-                :content="editorStore.configPanelShow ? '收齐侧边栏' : '展开侧边栏'" @click.native="panelSwitch" />
+            <v-icon-tooltip class="" :icon="editorStore.configPanelShow[businessType] ? 'contract' : 'expand'"
+                :content="editorStore.configPanelShow[businessType] ? '收齐侧边栏' : '展开侧边栏'" @click.native="panelSwitch" />
             <div class="content">
                 <transition-group name="fade">
                     <div :key="6666">
-                        <div class="title" v-if="editorStore.currentSelect">
+                        <div class="title" v-if="editorStore.currentSelect[businessType]">
                             组件
                         </div>
                         <div class="title" v-else>
                             页面
                         </div>
-                        <editor-config-block v-if="editorStore.currentSelect" />
+                        <editor-config-block v-if="editorStore.currentSelect[businessType]" />
                         <editor-config-page v-else />
                     </div>
                 </transition-group>
@@ -28,14 +28,21 @@ import { logger } from '@/utils/logger';
 const editorStore = useEditorStore()
 
 // State
+const props = defineProps({
+    businessType: {
+        type: String,
+        default: 'page'
+    },
+})
+const businessType = props.businessType
 
-watch(() => editorStore.currentSelect, (value) => {
+watch(() => editorStore.currentSelect[businessType], (value) => {
 
     if (value) {
-        logger.info(`editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,即将切换 editor-config 面板为 显示状态, 变化值为`, value);
-        editorStore.setConfigPanelShow(true)
+        logger.info(`businessType【${businessType}】,editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,即将切换 editor-config 面板为 显示状态, 变化值为`, value);
+        editorStore.setConfigPanelShow(true, businessType)
     } else {
-        logger.info("editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化, 但变化值不存在,不切换 editor-config 面板显示状态");
+        logger.info("businessType【${businessType}】,editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,但变化值不存在,不切换 editor-config 面板显示状态");
     }
 
 },{
@@ -44,7 +51,7 @@ watch(() => editorStore.currentSelect, (value) => {
 
 // Methods
 const panelSwitch = () => {
-    editorStore.setConfigPanelShow(!editorStore.configPanelShow)
+    editorStore.setConfigPanelShow(!editorStore.configPanelShow[businessType], businessType)
 }
 
 </script>

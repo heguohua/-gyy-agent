@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 16:25:10
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 12:14:39
+ * @LastEditTime: 2024-11-21 14:54:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-base-tab.vue
  * @Description: 
  * 
@@ -34,14 +34,19 @@ const props = defineProps({
     data: {
         type: Array as () => Array<any>,
         default: () => []
+    },
+    businessType: {
+        type: String,
+        default: 'page'
     }
 })
 
 // State
+const businessType = props.businessType
 
 const { data } = toRefs(props)
 
-logger.info("config-base-tab组件渲染, data :");
+logger.info(`businessType【${businessType}】,config-base-tab组件渲染, data :`);
 console.log('data:', data);
 
 /**
@@ -52,7 +57,7 @@ const defaultItem = props.data.find((item) => {
         return item
     }
 })
-logger.info("config-base-tab组件,查找默认显示组件 item :", defaultItem);
+logger.info(`businessType【${businessType}】,config-base-tab组件,查找默认显示组件 item :`, defaultItem);
 const select = ref(defaultItem ? defaultItem?.value : '')
 
 

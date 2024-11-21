@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:03:43
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 09:37:23
+ * @LastEditTime: 2024-11-21 13:39:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/store/useEditorStore.ts
  * @Description: 
  * 
@@ -12,55 +12,75 @@ import { BaseBlock, BasePage, Viewport } from '@/types/editorType'
 import { BaseBlockNull } from '@/types/editorType'
 import { defineStore } from 'pinia'
 import { logger } from '@/utils/logger'
-import u from '@/utils/u'
-import { cloneDeep, merge, mergeWith } from 'lodash'
 
-const customMerge = (objValue: any, srcValue: any) => {
-    if (Array.isArray(srcValue)) {
-        return srcValue; // 直接替换数组
-    }
-};
+
 
 export const useEditorStore = defineStore('editorStore', {
     state: () => ({
-        viewport: 'desktop' as Viewport,
-        globalParams: ref<Record<string, any>>({}),
-        currentSelect: null as BaseBlockNull,
-        configPanelShow: false,
-        blockConfig: [] as BaseBlock[],
-        pageConfig: { formData: {} } as BasePage,
+        viewport: {
+            page: 'desktop' as Viewport,
+            form: 'desktop' as Viewport,
+            screen: 'desktop' as Viewport,
+        } as Record<string, Viewport>,
+        globalParams: {
+            page: ref<Record<string, any>>({}),
+            form: ref<Record<string, any>>({}),
+            screen: ref<Record<string, any>>({}),
+        } as Record<string, Ref<Record<string, any>>>,
+        currentSelect: {
+            page: null as BaseBlockNull,
+            form: null as BaseBlockNull,
+            screen: null as BaseBlockNull,
+        } as Record<string, BaseBlockNull>,
+        configPanelShow: {
+            page: false,
+            form: false,
+            screen: false,
+        } as Record<string, Boolean>,
+        blockConfig: {
+            page: [] as BaseBlock[],
+            form: [] as BaseBlock[],
+            screen: [] as BaseBlock[],
+        } as Record<string, BaseBlock[]>,
+        pageConfig: {
+            page: { formData: {} } as BasePage,
+            form: { formData: {} } as BasePage,
+            screen: { formData: {} } as BasePage,
+        } as Record<string, BasePage>,
     }),
     getters: {
-        isMobileViewport: (state) => state.viewport === 'mobile'
+        isMobileViewport: (state) => (type: string) => {
+            return state.viewport[type] === 'mobile'
+        }
     },
     actions: {
-        setViewport(value: Viewport) {
+        setViewport(value: Viewport, businessType: string) {
             logger.info(`更新 viewport : ${value}`);
-            this.viewport = value
-            this.updateGlobalParams("viewport", value)
+            this.viewport[businessType] = value
+            this.updateGlobalParams("viewport", value, businessType)
         },
-        setCurrentSelect(value: BaseBlockNull) {
+        setCurrentSelect(value: BaseBlockNull, businessType: string) {
             logger.info(`currentSelect: `, value);
-            this.currentSelect = value
+            this.currentSelect[businessType] = value
             // u.merged(this.currentSelect，value)
             // merge(this.currentSelect,value)
         },
-        setConfigPanelShow(value: boolean) {
+        setConfigPanelShow(value: boolean, businessType: string) {
             logger.info(`更新 configPanelShow : `, value);
-            this.configPanelShow = value
+            this.configPanelShow[businessType] = value
         },
-        setBlockConfig(value: BaseBlock[]) {
+        setBlockConfig(value: BaseBlock[], businessType: string) {
             logger.info(`更新 blockConfig : `, value);
-            this.blockConfig = value
+            this.blockConfig[businessType] = value
             // merge(this.blockConfig,value)
         },
-        setPageConfig(value: BasePage) {
+        setPageConfig(value: BasePage, businessType: string) {
             logger.info(`更新 pageConfig : `, value);
-            this.pageConfig = value
+            this.pageConfig[businessType] = value
             // merge(this.pageConfig,value)
-            
+
         },
-        addToBlockConfigIfNotExist(block: BaseBlock) {
+        addToBlockConfigIfNotExist(block: BaseBlock, businessType: string) {
             if (block.parent) {
                 // 说明是被嵌套的组件
                 // 根据 block.parent 查找嵌套父组件，然后根据索引值更新相应索引的元素
@@ -68,9 +88,10 @@ export const useEditorStore = defineStore('editorStore', {
                 if (pid && index) {
                     // 根据 pid 查找嵌套父组件
                     let parentBlock = undefined
-                    for (let i = 0; i < this.blockConfig.length; i++) {
-                        if (this.blockConfig[i].id === pid) {
-                            parentBlock = this.blockConfig[i]
+                    const bc = this.blockConfig[businessType]
+                    for (let i = 0; i < bc.length; i++) {
+                        if (bc[i].id === pid) {
+                            parentBlock = bc[i]
                         }
                     }
                     if (parentBlock) {
@@ -120,26 +141,44 @@ export const useEditorStore = defineStore('editorStore', {
             } else {
                 // 说明是非嵌套组件
                 let oldBlockConfig = undefined
-                for (let i = 0; i < this.blockConfig.length; i++) {
-                    if (this.blockConfig[i].id === block.id) {
-                        oldBlockConfig = this.blockConfig[i]
+                const bc = this.blockConfig[businessType];
+                for (let i = 0; i < bc.length; i++) {
+                    if (bc[i].id === block.id) {
+                        oldBlockConfig = bc[i]
                     }
                 }
                 // 不存在则添加
                 // todo 这里需要添加排序逻辑
                 if (!oldBlockConfig) {
                     logger.info(`向 editorStore.blockConfig中【 追加 】 block`, block);
-                    this.blockConfig.push(block)
+                    bc.push(block)
                 } else {
                     logger.info(`editorStore.blockConfig中已存在 id为【 ${block.id} 】的Block，code【 ${block.code} 】，不执行追加操作`);
                 }
             }
 
         },
-        updateGlobalParams(key: string, value: any) {
-            this.globalParams[key] = value
+        updateGlobalParams(key: string, value: any, businessType: string) {
+            this.globalParams[businessType].value[key] = value
         }
     }
 }
 )
 
+// export const useEditorStore = defineStore('editorStore', {
+//     state: () => ({
+//         viewport: {
+//             desktop: 'desktop',
+//             mobile: 'mobile'
+//         } as Record<string, Viewport>,
+//     }),
+//     getters: {
+//         isMobileViewport: (state) => state.viewport.mobile === 'mobile'
+//     },
+//     actions: {
+//         setViewport(value: Viewport, businessType: string) {
+//             logger.info(`更新 viewport 的 ${businessType} 为 : ${value}`);
+//             this.viewport[businessType] = value;
+//         },
+//     }
+// });

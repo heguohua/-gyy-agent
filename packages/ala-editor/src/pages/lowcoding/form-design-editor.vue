@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 15:38:50
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/editor.vue
+ * @LastEditTime: 2024-11-21 14:32:29
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/form-design-editor.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -13,9 +13,9 @@
         <!-- <EditorHeader /> -->
 
         <div class="container" :class="classes">
-            <EditorBlock />
-            <EditorRender />
-            <EditorConfig />
+            <EditorBlock :businessType="businessType" />
+            <EditorRender :businessType="businessType" />
+            <EditorConfig :businessType="businessType" />
             <!-- <button @click="getLoveMessage()">Change</button> -->
         </div>
 
@@ -28,11 +28,12 @@ import { logger } from '@/utils/logger';
 import { useEditorStore } from '@/store/useEditorStore';
 
 // State
+const businessType = 'form'
 const editorStore = useEditorStore()
 
 // Methods
 const classes = computed(() => {
-    return { "mobile-background": editorStore.isMobileViewport }
+    return { "mobile-background": editorStore.isMobileViewport(businessType) }
 })
 // const a = ref(1)
 // console.log(a);
@@ -67,7 +68,7 @@ async function getLoveMessage() {
     user-select: none;
     --edit-header-height: 100px;
     --edit-block-width: 300px;
-    --border-radius-editor:4px;
+    --border-radius-editor: 4px;
 
     .container {
         display: flex;
