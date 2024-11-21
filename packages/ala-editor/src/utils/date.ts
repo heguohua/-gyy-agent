@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:14:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-12 15:16:22
+ * @LastEditTime: 2024-11-21 22:21:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/date.ts
  * @Description: 时间工具类
  *
@@ -12,6 +12,36 @@
 //局部导入dayjs
 import dayjs from 'dayjs';
 type dt = 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+// "date" | "year" | "years" | "month" | "months" | "dates" | "week" | "datetime" | "datetimerange" | "daterange" | "monthrange" | "yearrange"
+export const AlaDateType = [
+  { value: "date", name: "日期" },
+  { value: "year", name: "年" },
+  { value: "years", name: "多个年份" },
+  { value: "month", name: "月份" },
+  { value: "months", name: "多个月份" },
+  { value: "dates", name: "多个日期" },
+  { value: "week", name: "周" },
+  { value: "datetime", name: "日期和时间" },
+  { value: "datetimerange", name: "日期和时间范围" },
+  { value: "daterange", name: "日范围" },
+  { value: "monthrange", name: "月范围" },
+  { value: "yearrange", name: "年范围" },
+]
+export const AlaDateFormat = [
+  { name: "YYYY-MM-DD", value: "YYYY-MM-DD" },
+  { name: "YYYY/MM/DD", value: "YYYY/MM/DD" },
+  { name: "YYYYMMDD", value: "YYYYMMDD" },
+  { name: "MM/DD/YYYY", value: "MM/DD/YYYY" },
+  { name: "DD-MM-YYYY", value: "DD-MM-YYYY" },
+  { name: "DDMMYYYY", value: "DDMMYYYY" },
+  { name: "YYYY-MM-DD HH:mm:ss", value: "YYYY-MM-DD HH:mm:ss" },
+  { name: "YYYY/MM/DD HH:mm:ss", value: "YYYY/MM/DD HH:mm:ss" },
+  { name: "YYYYMMDD HHmmss", value: "YYYYMMDD HHmmss" },
+
+  { name: "MM/DD/YYYY HH:mm:ss", value: "MM/DD/YYYY HH:mm:ss" },
+  { name: "DD-MM-YYYY HH:mm:ss", value: "DD-MM-YYYY HH:mm:ss" },
+  { name: "DDMMYYYY HHmmss", value: "DDMMYYYY HHmmss" },
+]
 
 export class date {
 
