@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 13:32:58
+ * @LastEditTime: 2024-11-21 20:17:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -22,6 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import { logger } from '@/utils/logger';
+
 
 interface Item {
     name: string,
@@ -55,6 +57,7 @@ const props = defineProps({
 const model = defineModel({
     type: String || Number || Boolean || undefined
 })
+logger.info(`bType[ $bType ],ala-radio组件被渲染, props :`, props);
 
 const handleChange = (value: any) => {
     model.value = value

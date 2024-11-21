@@ -15,6 +15,7 @@ declare module 'vue' {
     AlaConfigColumn: typeof import('./src/components/cps/config/ala-config-column.vue')['default']
     AlaConfigFiles: typeof import('./src/components/cps/config/ala-config-files.vue')['default']
     AlaConfigInput: typeof import('./src/components/cps/config/ala-config-input.vue')['default']
+    AlaConfigKeyValue: typeof import('./src/components/cps/config/ala-config-key-value.vue')['default']
     AlaConfigTextarea: typeof import('./src/components/cps/config/ala-config-textarea.vue')['default']
     AlaConfigViewport: typeof import('./src/components/cps/config/ala-config-viewport.vue')['default']
     AlaCurrentDateTime: typeof import('./src/components/cps/time/AlaCurrentDateTime.vue')['default']

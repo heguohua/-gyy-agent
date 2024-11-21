@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:05:33
+ * @LastEditTime: 2024-11-21 20:15:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-column.vue
  * @Description: 
  * 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 18:55:51
+ * @LastEditTime: 2024-11-21 20:14:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -38,11 +38,11 @@
                             :children="element.children" :pid="pid" :block="element" @init="init" :bType="bType">
 
                             <template #default="{ childrenBlocks, index }">
-                                <EditRenderDrag :blockList="childrenBlocks" :level="level + 1" :group="group"
+                                <EditRenderDragForm :blockList="childrenBlocks" :level="level + 1" :group="group"
                                     class="nested-item" :class="nestedClass"
                                     :key="bType + '-' + element.id + '-' + index" :pid="element.id + '-' + index"
                                     :bType="bType">
-                                </EditRenderDrag>
+                                </EditRenderDragForm>
                             </template>
 
                         </component>
@@ -92,7 +92,7 @@ import EditRenderHover from "./edit-render-hover.vue";
 const editorStore = useEditorStore()
 
 defineOptions({
-    name: 'EditRenderDrag'
+    name: 'EditRenderDragForm'
 })
 
 const props = defineProps({
@@ -128,7 +128,7 @@ const hoverId = ref('')
 const getComponentNameByCode = computed(() => {
     return (element: { code: string }) => {
         const componentName = alaConsts.COMPONENT_PREFIX + element.code
-        logger.info(`editor-render-drag组件中根据组件 code[ ${element.code} ]获取子组件名[ ${componentName} ]`);
+        logger.info(`editor-render-drag-form组件中根据组件 code[ ${element.code} ]获取子组件名[ ${componentName} ]`);
         return componentName
     }
 })

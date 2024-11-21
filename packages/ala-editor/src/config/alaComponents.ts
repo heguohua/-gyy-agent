@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 19:16:42
+ * @LastEditTime: 2024-11-21 19:56:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -21,6 +21,7 @@ import AlaConfigTextarea from '@/components/cps/config/ala-config-textarea.vue';
 import AlaConfigColumn from '@/components/cps/config/ala-config-column.vue';
 import AlaConfigViewport from '@/components/cps/config/ala-config-viewport.vue';
 import AlaConfigBaseTab from '@/components/cps/config/ala-config-base-tab.vue';
+import AlaConfigKeyValue from '@/components/cps/config/ala-config-key-value.vue';
 
 
 import AlaInput from '@/components/cps/input/ala-input.vue';
@@ -39,16 +40,24 @@ import AlaHidden from '@/components/cps/hidden/ala-hidden.vue';
 
 export default {
     AlaCustomerizationComponentDemo,
+
+    // 页面组件
     AlaImage,
     AlaEmpty,
     AlaLink,
     AlaColumn,
+
+    // editor-config 区域表单组件
     AlaConfigInput,
     AlaConfigFiles,
     AlaConfigTextarea,
     AlaConfigColumn,
     AlaConfigViewport,
     AlaConfigBaseTab,
+    AlaConfigKeyValue,
+
+
+    // ALA架构表单组件
     AlaInput,
     AlaTextarea,
     AlaSlider,
