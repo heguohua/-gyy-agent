@@ -33,13 +33,13 @@ const props = defineProps({
     callback: {
         type: String
     },
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     }
 })
 
-const businessType = props.businessType
+const bType = props.bType
 
 // Methods
 

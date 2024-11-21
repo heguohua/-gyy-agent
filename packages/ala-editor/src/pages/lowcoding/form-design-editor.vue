@@ -13,9 +13,9 @@
         <!-- <EditorHeader /> -->
 
         <div class="container" :class="classes">
-            <EditorBlock :businessType="businessType" />
-            <EditorRender :businessType="businessType" />
-            <EditorConfig :businessType="businessType" />
+            <EditorBlock :bType="bType" />
+            <EditorRender :bType="bType" />
+            <EditorConfig :bType="bType" />
             <!-- <button @click="getLoveMessage()">Change</button> -->
         </div>
 
@@ -28,12 +28,12 @@ import { logger } from '@/utils/logger';
 import { useEditorStore } from '@/store/useEditorStore';
 
 // State
-const businessType = 'form'
+const bType = 'form'
 const editorStore = useEditorStore()
 
 // Methods
 const classes = computed(() => {
-    return { "mobile-background": editorStore.isMobileViewport(businessType) }
+    return { "mobile-background": editorStore.isMobileViewport(bType) }
 })
 // const a = ref(1)
 // console.log(a);

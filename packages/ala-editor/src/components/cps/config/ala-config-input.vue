@@ -36,13 +36,13 @@ const props = defineProps({
         type: String,
         default: 'desktop'
     },
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     }
 })
 
-const businessType = props.businessType
+const bType = props.bType
 
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
@@ -54,10 +54,10 @@ const input = ref('')
 
 watch(() => formData, (form_data) => {
     if (form_data[key]?.[props.viewport]) {
-        logger.info(`businessType【${businessType}】,config-input组件 【 监听到 】 form_data 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
+        logger.info(`bType[ ${bType} ],config-input组件 【 监听到 】 form_data 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
         input.value = form_data[key][props.viewport] || defaultValue
     } else {
-        logger.info(`businessType【${businessType}】,config-input组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
+        logger.info(`bType[ ${bType} ],config-input组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
     }
 }, {
     immediate: true
@@ -82,13 +82,13 @@ watch(input, (value) => {
 })
 
 
-watch(() => editorStore.globalParams[businessType], () => {
+watch(() => editorStore.globalParams[bType], () => {
 
     if (formData[key]?.[props.viewport]) {
-        logger.info(`businessType【${businessType}】,config-input组件 【 监听到 】 formData 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
+        logger.info(`bType[ ${bType} ],config-input组件 【 监听到 】 formData 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
         input.value = formData[key][props.viewport] || defaultValue
     } else {
-        logger.info(`businessType【${businessType}】,config-input组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
+        logger.info(`bType[ ${bType} ],config-input组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
     }
 }, { deep: true })
 

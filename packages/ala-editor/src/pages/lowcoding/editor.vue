@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 13:03:04
+ * @LastEditTime: 2024-11-21 14:56:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/editor.vue
  * @Description: 
  * 
@@ -13,9 +13,9 @@
         <!-- <EditorHeader /> -->
 
         <div class="container" :class="classes">
-            <EditorBlock :businessType="businessType" />
-            <EditorRender :businessType="businessType" />
-            <EditorConfig :businessType="businessType" />
+            <EditorBlock :bType="bType" />
+            <EditorRender :bType="bType" />
+            <EditorConfig :bType="bType" />
             <!-- <button @click="getLoveMessage()">Change</button> -->
         </div>
 
@@ -28,12 +28,12 @@ import { logger } from '@/utils/logger';
 import { useEditorStore } from '@/store/useEditorStore';
 
 // State
-const businessType = 'page'
+const bType = 'page'
 const editorStore = useEditorStore()
 
 // Methods
 const classes = computed(() => {
-    return { "mobile-background": editorStore.isMobileViewport(businessType) }
+    return { "mobile-background": editorStore.isMobileViewport(bType) }
 })
 // const a = ref(1)
 // console.log(a);

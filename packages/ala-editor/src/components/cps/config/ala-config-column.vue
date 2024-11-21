@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 14:53:18
+ * @LastEditTime: 2024-11-21 15:05:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-column.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <div class="config-column">
         <el-form-item :label="title">
-            <div class="item" v-for="(item, index) in columns" :key="index">
+            <div class="item" v-for="(item, index) in columns" :key="bType + '-' + index">
                 <div v-html="widthFormat(item)" class="input">
                 </div>
             </div>
@@ -46,7 +46,7 @@ const props = defineProps({
     pid: {
         type: String,
     },
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     }
@@ -54,7 +54,7 @@ const props = defineProps({
 
 
 // State
-const businessType = props.businessType
+const bType = props.bType
 const emit = defineEmits(["callback"])
 
 const { data } = toRefs(props)
@@ -66,16 +66,16 @@ const realDefaultValue = Array.from({ length: minItems }, () => defaultValue)
 
 const columns = ref<number[]>([])
 
-logger.info(`businessType【${businessType}】,config-column组件渲染 pid【 ${props.pid} 】, data :`);
+logger.info(`bType[ ${bType} ],config-column组件渲染 pid【 ${props.pid} 】, data :`);
 console.log('data:', data);
 
-logger.info(`businessType【${businessType}】,config-column组件渲染, formData :`, formData);
+logger.info(`bType[ ${bType} ],config-column组件渲染, formData :`, formData);
 console.log('formData:', formData);
 
-logger.info(`businessType【${businessType}】,config-column组件渲染, defaultValue[ ${defaultValue} ]`);
-logger.info(`businessType【${businessType}】,config-column组件渲染, realDefaultValue :`, realDefaultValue);
-logger.info(`businessType【${businessType}】,config-column组件渲染, minItems[ ${minItems} ]`);
-logger.info(`businessType【${businessType}】,config-column组件渲染, maxItems[ ${maxItems} ]`);
+logger.info(`bType[ ${bType} ],config-column组件渲染, defaultValue[ ${defaultValue} ]`);
+logger.info(`bType[ ${bType} ],config-column组件渲染, realDefaultValue :`, realDefaultValue);
+logger.info(`bType[ ${bType} ],config-column组件渲染, minItems[ ${minItems} ]`);
+logger.info(`bType[ ${bType} ],config-column组件渲染, maxItems[ ${maxItems} ]`);
 
 // , {
 //     immediate: true
@@ -89,13 +89,13 @@ columns.value = realDefaultValue
 
 const isShowRemove = computed(() => {
     const isShow = columns.value.length > minItems
-    logger.info(`businessType【${businessType}】,ala-column组件 表单列属性,是否显示【 移除 】按钮,isShow[ ${isShow} ]`);
+    logger.info(`bType[ ${bType} ],ala-column组件 表单列属性,是否显示【 移除 】按钮,isShow[ ${isShow} ]`);
 
     return isShow
 })
 const isShowAdd = computed(() => {
     const isShow = columns.value.length < maxItems
-    logger.info(`businessType【${businessType}】,ala-column组件 表单列属性,是否显示【 添加 】按钮,isShow[ ${isShow} ]`);
+    logger.info(`bType[ ${bType} ],ala-column组件 表单列属性,是否显示【 添加 】按钮,isShow[ ${isShow} ]`);
     return isShow
 })
 
@@ -109,7 +109,7 @@ watch(columns, (value) => {
     const _value = value
     const data = { desktop: _value, mobile: _value }
 
-    logger.info(`businessType【${businessType}】,config-column组件 columns 发生变化,即将调用父组件callback, data`, data);
+    logger.info(`bType[ ${bType} ],config-column组件 columns 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {
         data: {
             [key]: data
@@ -120,27 +120,27 @@ watch(columns, (value) => {
 
 watch(() => formData, (form_data) => {
     if (form_data[key]?.[props.viewport]) {
-        logger.info(`businessType【${businessType}】,config-column组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
+        logger.info(`bType[ ${bType} ],config-column组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
         columns.value = form_data[key][props.viewport] || realDefaultValue
     } else {
-        logger.info(`businessType【${businessType}】,config-column组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值`);
+        logger.info(`bType[ ${bType} ],config-column组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值`);
     }
 }, {
     immediate: true
 })
 
-watch(() => editorStore.globalParams[businessType], () => {
+watch(() => editorStore.globalParams[bType], () => {
     if (formData[key]?.[props.viewport]) {
-        logger.info(`businessType【${businessType}】,config-column组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, formData[key][props.viewport]);
+        logger.info(`bType[ ${bType} ],config-column组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, formData[key][props.viewport]);
         columns.value = formData[key][props.viewport] || realDefaultValue
     } else {
-        logger.info(`businessType【${businessType}】,config-column组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值`);
+        logger.info(`bType[ ${bType} ],config-column组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值`);
     }
 }, { deep: true })
 
 
 const updateNumber = (length: number) => {
-    logger.info(`businessType【${businessType}】,【 重新计算列数 】,当前 column.length: ${columns.value.length},期望 column.length: ${length}`);
+    logger.info(`bType[ ${bType} ],【 重新计算列数 】,当前 column.length: ${columns.value.length},期望 column.length: ${length}`);
     const updatedColumns = Array.from({ length: length }, () => 1 / length)
     return updatedColumns
 }
@@ -151,22 +151,22 @@ const widthFormat = (width: number) => {
 
 const remove = () => {
     const { length } = columns.value
-    logger.info(`businessType【${businessType}】,【 删除列 】,当前 column.length: ${length}`);
+    logger.info(`bType[ ${bType} ],【 删除列 】,当前 column.length: ${length}`);
     if (length === minItems) return
     columns.value = updateNumber(length - 1)
-    logger.info(`businessType【${businessType}】,【 删除列 】,更新后 column: `, columns.value);
+    logger.info(`bType[ ${bType} ],【 删除列 】,更新后 column: `, columns.value);
 
 }
 const add = () => {
 
     const { length } = columns.value
-    logger.info(`businessType【${businessType}】,【 添加列 】,当前 column.length: ${length}`);
+    logger.info(`bType[ ${bType} ],【 添加列 】,当前 column.length: ${length}`);
 
     if (length === 1) return
 
     columns.value = updateNumber(length + 1)
 
-    logger.info(`businessType【${businessType}】,【 添加列 】,更新后 column: `, columns.value);
+    logger.info(`bType[ ${bType} ],【 添加列 】,更新后 column: `, columns.value);
 
 }
 

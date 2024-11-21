@@ -26,13 +26,13 @@ const props = defineProps({
         type: String,
         default: '',
     },
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     },
 })
 
-const businessType = props.businessType
+const bType = props.bType
 
 const emit = defineEmits(['copy', 'clear'])
 

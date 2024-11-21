@@ -43,12 +43,12 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     },
 })
-const businessType = props.businessType
+const bType = props.bType
 
 // State
 

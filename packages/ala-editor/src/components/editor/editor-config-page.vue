@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 14:49:14
+ * @LastEditTime: 2024-11-21 14:59:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-page.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="editor-config-page">
-        <editor-config-render :list="configFormItemList" @callback="callback">
+        <editor-config-render :list="configFormItemList" @callback="callback" :bType="bType">
 
         </editor-config-render>
     </div>
@@ -27,12 +27,12 @@ import { merge } from 'lodash';
 import deepmerge from 'deepmerge';
 // State
 const props = defineProps({
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     },
 })
-const businessType = props.businessType
+const bType = props.bType
 
 const editorStore = useEditorStore()
 
@@ -40,7 +40,7 @@ const properties = pageSchemas.properties
 
 const configFormItemList = ref<(typeof properties)[keyof typeof properties][]>([])
 
-let form_data = editorStore.pageConfig[businessType].formData
+let form_data = editorStore.pageConfig[bType].formData
 // const { globalParams } = toRefs(editorStore)
 // merge(form_data, { globalParams })
 const { globalParams } = toRefs(editorStore)
@@ -65,19 +65,19 @@ configFormItemList.value = [...Object.values(listResult)]
  */
 const callback = (params: { data: Record<string, any>, id: string }) => {
     const { data } = params
-    logger.info(`businessType【${businessType}】,editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,data`, data);
-    const pageConfig = editorStore.pageConfig[businessType] || {}
-    logger.info(`businessType【${businessType}】,editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,formData`, pageConfig);
+    logger.info(`bType[ ${bType} ],editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,data`, data);
+    const pageConfig = editorStore.pageConfig[bType] || {}
+    logger.info(`bType[ ${bType} ],editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,formData`, pageConfig);
 
     merge(pageConfig, { formData: data })
-    editorStore.setPageConfig(pageConfig, businessType)
-    logger.info(`businessType【${businessType}】,editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,合并 data 后 pageConfig`, pageConfig);
+    editorStore.setPageConfig(pageConfig, bType)
+    logger.info(`bType[ ${bType} ],editor-config-page组件 接收到 子组件callback,即将更新editorStore中的 pageConfig,合并 data 后 pageConfig`, pageConfig);
 
     const propertyName: string = Object.keys(data)[0]
     configFormItemList.value.forEach((item) => {
         if (item.key === propertyName) {
             merge(item.formData[propertyName], data[propertyName])
-            logger.info(`businessType【${businessType}】,editor-config-page组件 接收到 子组件callback,即将更新 【 表单组件 】 中的 formData,合并 data 后formData`, item.formData);
+            logger.info(`bType[ ${bType} ],editor-config-page组件 接收到 子组件callback,即将更新 【 表单组件 】 中的 formData,合并 data 后formData`, item.formData);
         }
     })
 }

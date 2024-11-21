@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 13:18:12
+ * @LastEditTime: 2024-11-21 15:04:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="editor-block">
 
         <div class="left">
-            <div class="menu-item" v-for="( item, index ) in menuList" :key="index"
+            <div class="menu-item" v-for="( item, index ) in menuList" :key="bType + '-' + index"
                 :class="{ 'is-active': index === activeMenu }" @click="activeMenu = index">
                 <v-icon class="menu-icon" :icon="index === activeMenu ? item.iconActive : item.icon" />
 
@@ -31,7 +31,7 @@
                 <el-collapse-item :title="$t('module.lowcoding.baseBlock')" name="1">
 
                     <editor-block-drag :list="baseBlocks" :sort="false"
-                        :group="{ name: dragGroup, pull: 'clone', put: false }">
+                        :group="{ name: dragGroup, pull: 'clone', put: false }" :bType="bType">
                     </editor-block-drag>
 
                 </el-collapse-item>
@@ -40,7 +40,7 @@
                 <el-collapse-item :title="$t('module.lowcoding.seniorBlock')" name="2">
 
                     <editor-block-drag :list="seniorBlocks" :sort="false"
-                        :group="{ name: dragGroup, pull: 'clone', put: false }">
+                        :group="{ name: dragGroup, pull: 'clone', put: false }" :bType="bType">
 
                     </editor-block-drag>
 
@@ -63,12 +63,12 @@ const { t } = useI18n();
 
 // State
 const props = defineProps({
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     },
 })
-const businessType = props.businessType
+const bType = props.bType
 
 interface Menu {
     icon: string,

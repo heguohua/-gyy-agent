@@ -54,33 +54,33 @@ export const useEditorStore = defineStore('editorStore', {
         }
     },
     actions: {
-        setViewport(value: Viewport, businessType: string) {
+        setViewport(value: Viewport, bType: string) {
             logger.info(`更新 viewport : ${value}`);
-            this.viewport[businessType] = value
-            this.updateGlobalParams("viewport", value, businessType)
+            this.viewport[bType] = value
+            this.updateGlobalParams("viewport", value, bType)
         },
-        setCurrentSelect(value: BaseBlockNull, businessType: string) {
+        setCurrentSelect(value: BaseBlockNull, bType: string) {
             logger.info(`currentSelect: `, value);
-            this.currentSelect[businessType] = value
+            this.currentSelect[bType] = value
             // u.merged(this.currentSelect，value)
             // merge(this.currentSelect,value)
         },
-        setConfigPanelShow(value: boolean, businessType: string) {
+        setConfigPanelShow(value: boolean, bType: string) {
             logger.info(`更新 configPanelShow : `, value);
-            this.configPanelShow[businessType] = value
+            this.configPanelShow[bType] = value
         },
-        setBlockConfig(value: BaseBlock[], businessType: string) {
+        setBlockConfig(value: BaseBlock[], bType: string) {
             logger.info(`更新 blockConfig : `, value);
-            this.blockConfig[businessType] = value
+            this.blockConfig[bType] = value
             // merge(this.blockConfig,value)
         },
-        setPageConfig(value: BasePage, businessType: string) {
+        setPageConfig(value: BasePage, bType: string) {
             logger.info(`更新 pageConfig : `, value);
-            this.pageConfig[businessType] = value
+            this.pageConfig[bType] = value
             // merge(this.pageConfig,value)
 
         },
-        addToBlockConfigIfNotExist(block: BaseBlock, businessType: string) {
+        addToBlockConfigIfNotExist(block: BaseBlock, bType: string) {
             if (block.parent) {
                 // 说明是被嵌套的组件
                 // 根据 block.parent 查找嵌套父组件，然后根据索引值更新相应索引的元素
@@ -88,7 +88,7 @@ export const useEditorStore = defineStore('editorStore', {
                 if (pid && index) {
                     // 根据 pid 查找嵌套父组件
                     let parentBlock = undefined
-                    const bc = this.blockConfig[businessType]
+                    const bc = this.blockConfig[bType]
                     for (let i = 0; i < bc.length; i++) {
                         if (bc[i].id === pid) {
                             parentBlock = bc[i]
@@ -141,7 +141,7 @@ export const useEditorStore = defineStore('editorStore', {
             } else {
                 // 说明是非嵌套组件
                 let oldBlockConfig = undefined
-                const bc = this.blockConfig[businessType];
+                const bc = this.blockConfig[bType];
                 for (let i = 0; i < bc.length; i++) {
                     if (bc[i].id === block.id) {
                         oldBlockConfig = bc[i]
@@ -158,8 +158,8 @@ export const useEditorStore = defineStore('editorStore', {
             }
 
         },
-        updateGlobalParams(key: string, value: any, businessType: string) {
-            this.globalParams[businessType].value[key] = value
+        updateGlobalParams(key: string, value: any, bType: string) {
+            this.globalParams[bType].value[key] = value
         }
     }
 }
@@ -176,9 +176,9 @@ export const useEditorStore = defineStore('editorStore', {
 //         isMobileViewport: (state) => state.viewport.mobile === 'mobile'
 //     },
 //     actions: {
-//         setViewport(value: Viewport, businessType: string) {
-//             logger.info(`更新 viewport 的 ${businessType} 为 : ${value}`);
-//             this.viewport[businessType] = value;
+//         setViewport(value: Viewport, bType: string) {
+//             logger.info(`更新 viewport 的 ${bType} 为 : ${value}`);
+//             this.viewport[bType] = value;
 //         },
 //     }
 // });

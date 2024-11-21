@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 09:23:50
+ * @LastEditTime: 2024-11-21 15:05:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/column/ala-column.vue
  * @Description: 
  * 
@@ -12,7 +12,8 @@
 <template>
 
   <div :class="classes" :styles="background_styles">
-    <div class="item" v-for="(columnWidth, index) in columnWidths" :key="index" :style="itemStyle(columnWidth)">
+    <div class="item" v-for="(columnWidth, index) in columnWidths" :key="bType + '-' + index"
+      :style="itemStyle(columnWidth)">
       <slot :childrenBlocks="getOneChildrenBlocksByIndex(index)" :index="index"></slot>
     </div>
   </div>
@@ -73,8 +74,15 @@ const props = defineProps({
   },
   block: { // 当前被渲染组件 block
     type: Object,
-  }
+  },
+    bType: {
+        type: String,
+        default: 'page'
+    }
 })
+
+// State
+const bType = props.bType
 
 
 // export default defineComponent({

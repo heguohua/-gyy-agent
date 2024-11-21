@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 14:51:42
+ * @LastEditTime: 2024-11-21 15:01:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-viewport.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <div class="config-viewport">
         <el-form-item :label="title">
-            <AlaConfigBaseTab :data="list" @change="change">
+            <AlaConfigBaseTab :data="list" @change="change" :bType="bType">
                 <template #default="{ item }">
                     <v-icon-tooltip :content="item.content" class="icon" :icon="item.icon" />
                 </template>
@@ -41,12 +41,12 @@ const props = defineProps({
         type: String,
         default: "desktop" as Viewport
     },
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     }
 })
-const businessType = props.businessType
+const bType = props.bType
 
 // State
 
@@ -57,13 +57,13 @@ const { formData, parentKey, key, id } = data.value
 
 const { title, default: defaultValue } = data.value.properties[props.viewport]
 
-logger.info(`businessType【${businessType}】,config-viewport组件渲染, data :`);
+logger.info(`bType[ ${bType} ],config-viewport组件渲染, data :`);
 console.log('data:', data);
 
-logger.info(`businessType【${businessType}】,config-viewport组件渲染, formData :`, formData);
+logger.info(`bType[ ${bType} ],config-viewport组件渲染, formData :`, formData);
 console.log('formData:', formData);
 
-logger.info(`businessType【${businessType}】,config-viewport组件渲染, defaultValue[ ${defaultValue} ]`);
+logger.info(`bType[ ${bType} ],config-viewport组件渲染, defaultValue[ ${defaultValue} ]`);
 
 
 interface ViewportList {
@@ -137,12 +137,12 @@ const change = (value: ViewportList['value']) => {
 // })
 
 
-watch(() => editorStore.globalParams[businessType], () => {
+watch(() => editorStore.globalParams[bType], () => {
     if (formData[key]?.[props.viewport]) {
-        logger.info(`businessType【${businessType}】,config-viewport组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, formData[key][props.viewport]);
+        logger.info(`bType[ ${bType} ],config-viewport组件 【 监听到 】 form_data 发生变化,即将更新 column 的属性值,column.value=form_data[key][props.viewport]`, formData[key][props.viewport]);
         // column.value = formData[key][props.viewport] || realDefaultValue
     } else {
-        logger.info(`businessType【${businessType}】,config-viewport组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值`);
+        logger.info(`bType[ ${bType} ],config-viewport组件 【 监听到 】 formData 发生变化,value?.[props.viewport]值不存在,不更新 column.value 属性值`);
     }
 }, { deep: true })
 

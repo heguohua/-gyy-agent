@@ -12,7 +12,7 @@
     <div class="editor-render" :style="pageStyle" :class="pageClass">
 
 
-        <EditorRenderDrag :blockList="blockList" :group="dragGroup" class="render"></EditorRenderDrag>
+        <EditorRenderDrag :blockList="blockList" :group="dragGroup" class="render" :bType="bType"></EditorRenderDrag>
 
 
         <!-- 以下是空列表渲染节点 -->
@@ -36,12 +36,12 @@ const editorStore = useEditorStore()
 const blockList = ref<BaseBlock[]>([])
 // State
 const props = defineProps({
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     },
 })
-const businessType = props.businessType
+const bType = props.bType
 
 // Methods
 // watch(() => list.value, (value) => {
@@ -51,8 +51,8 @@ const businessType = props.businessType
 //     deep: true
 // })
 
-watch(() => editorStore.blockConfig[businessType], (value) => {
-    logger.info(`businessType【${businessType}】,editor-render组件 【 监听到 】  editorStore.blockConfig 更新,即将更新 blockList.value`, value);
+watch(() => editorStore.blockConfig[bType], (value) => {
+    logger.info(`bType[ ${bType} ],editor-render组件 【 监听到 】  editorStore.blockConfig 更新,即将更新 blockList.value`, value);
     blockList.value = value
 }, {
     deep: true
@@ -64,7 +64,7 @@ const pageStyle = computed(() => {
 })
 
 const pageClass = computed(() => {
-    return { "is-mobile": editorStore.isMobileViewport(businessType) }
+    return { "is-mobile": editorStore.isMobileViewport(bType) }
 })
 </script>
 

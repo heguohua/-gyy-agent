@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 13:37:49
+ * @LastEditTime: 2024-11-21 15:03:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 
@@ -30,7 +30,7 @@
       </el-button>
       <el-select v-model="currentLanguage" :placeholder="$t('common.select_placeholder')" @change="changLanguage"
         class="languages">
-        <el-option v-for="(value, key) in languages" :key="key" :label="value" :value="key">
+        <el-option v-for="(value, key) in languages" :key="bType + '-' + key" :label="value" :value="key">
         </el-option>
       </el-select>
     </div>
@@ -50,12 +50,12 @@ import lstore from '@/utils/lstore';
 // const { global: { t } } = i18n
 
 const props = defineProps({
-  businessType: {
+  bType: {
     type: String,
     default: 'page'
   },
 })
-const businessType = props.businessType
+const bType = props.bType
 
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 
@@ -91,7 +91,7 @@ const editorStore = useEditorStore()
 
 watch(viewport, (value) => {
   logger.info("editor-header中切换 viewport,更新 editorStore 中的 viewport 和 configPanelShow");
-  // editorStore.setViewport(value, businessType)
+  // editorStore.setViewport(value, bType)
   // editorStore.setConfigPanelShow('mobile' === value)
 })
 

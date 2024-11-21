@@ -1,19 +1,19 @@
 <template>
-    <div class="editor-config" ref="target" :class="{ 'is-show': editorStore.configPanelShow[businessType] }">
+    <div class="editor-config" ref="target" :class="{ 'is-show': editorStore.configPanelShow[bType] }">
         <div class="icon-group">
-            <v-icon-tooltip class="" :icon="editorStore.configPanelShow[businessType] ? 'contract' : 'expand'"
-                :content="editorStore.configPanelShow[businessType] ? '收齐侧边栏' : '展开侧边栏'" @click.native="panelSwitch" />
+            <v-icon-tooltip class="" :icon="editorStore.configPanelShow[bType] ? 'contract' : 'expand'"
+                :content="editorStore.configPanelShow[bType] ? '收齐侧边栏' : '展开侧边栏'" @click.native="panelSwitch" />
             <div class="content">
                 <transition-group name="fade">
-                    <div :key="6666">
-                        <div class="title" v-if="editorStore.currentSelect[businessType]">
+                    <div :key="bType + 'tg'">
+                        <div class="title" v-if="editorStore.currentSelect[bType]">
                             组件
                         </div>
                         <div class="title" v-else>
                             页面
                         </div>
-                        <editor-config-block v-if="editorStore.currentSelect[businessType]" />
-                        <editor-config-page v-else />
+                        <editor-config-block v-if="editorStore.currentSelect[bType]" :bType="bType" />
+                        <editor-config-page v-else :bType="bType" />
                     </div>
                 </transition-group>
             </div>
@@ -29,29 +29,29 @@ const editorStore = useEditorStore()
 
 // State
 const props = defineProps({
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     },
 })
-const businessType = props.businessType
+const bType = props.bType
 
-watch(() => editorStore.currentSelect[businessType], (value) => {
+watch(() => editorStore.currentSelect[bType], (value) => {
 
     if (value) {
-        logger.info(`businessType【${businessType}】,editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,即将切换 editor-config 面板为 显示状态, 变化值为`, value);
-        editorStore.setConfigPanelShow(true, businessType)
+        logger.info(`bType[ ${bType} ],editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,即将切换 editor-config 面板为 显示状态, 变化值为`, value);
+        editorStore.setConfigPanelShow(true, bType)
     } else {
-        logger.info("businessType【${businessType}】,editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,但变化值不存在,不切换 editor-config 面板显示状态");
+        logger.info("bType[ ${bType} ],editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,但变化值不存在,不切换 editor-config 面板显示状态");
     }
 
-},{
-    deep:true
+}, {
+    deep: true
 })
 
 // Methods
 const panelSwitch = () => {
-    editorStore.setConfigPanelShow(!editorStore.configPanelShow[businessType], businessType)
+    editorStore.setConfigPanelShow(!editorStore.configPanelShow[bType], bType)
 }
 
 </script>
@@ -107,7 +107,7 @@ const panelSwitch = () => {
                 background: var(--color-icon-hover);
                 transition: all 0.2s linear;
                 border-radius: var(--border-radius-editor);
-                
+
             }
 
             :deep(.image-box) {
@@ -139,7 +139,8 @@ const panelSwitch = () => {
         :deep(.el-tabs__content) {
             padding: 0;
         }
-        :deep(.el-form-item__label-wrap){
+
+        :deep(.el-form-item__label-wrap) {
             width: 20%;
             justify-content: end;
         }

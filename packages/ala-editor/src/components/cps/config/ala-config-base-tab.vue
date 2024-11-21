@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 16:25:10
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 14:54:26
+ * @LastEditTime: 2024-11-21 15:08:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-base-tab.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <div class="config-base-tab">
         <div class="container">
             <div class="list">
-                <div class="item" v-for="(item, index) in data" :key="index"
+                <div class="item" v-for="(item, index) in data" :key="bType + '-' + index"
                     :class="{ 'is-active': select === item.value }" @click="tabClick(item)">
                     <slot :item="item" :index="index"></slot>
                 </div>
@@ -35,18 +35,18 @@ const props = defineProps({
         type: Array as () => Array<any>,
         default: () => []
     },
-    businessType: {
+    bType: {
         type: String,
         default: 'page'
     }
 })
 
 // State
-const businessType = props.businessType
+const bType = props.bType
 
 const { data } = toRefs(props)
 
-logger.info(`businessType【${businessType}】,config-base-tab组件渲染, data :`);
+logger.info(`bType[ ${bType} ],config-base-tab组件渲染, data :`);
 console.log('data:', data);
 
 /**
@@ -57,7 +57,7 @@ const defaultItem = props.data.find((item) => {
         return item
     }
 })
-logger.info(`businessType【${businessType}】,config-base-tab组件,查找默认显示组件 item :`, defaultItem);
+logger.info(`bType[ ${bType} ],config-base-tab组件,查找默认显示组件 item :`, defaultItem);
 const select = ref(defaultItem ? defaultItem?.value : '')
 
 
