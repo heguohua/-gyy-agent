@@ -9,7 +9,7 @@ import { useEditorStore } from '@/store/useEditorStore';
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 16:04:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 20:02:17
+ * @LastEditTime: 2024-11-21 18:50:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/nested.ts
  * @Description: 
  * 
@@ -256,7 +256,7 @@ export const findNodeById = (
     nodeId: string,
     callback: (params: FindNodeByIdCallBack) => void,
 ) => {
-    
+
     const array = cloneDeep(arr)
 
     for (let i = 0; i < array.length; i++) {
@@ -287,5 +287,24 @@ export const findNodeById = (
     }
 
     return array
+}
+
+
+
+type PropConfig = {
+    [key: string]: { [type: string]: object };
+};
+/**
+ * 从 形如 {"label":{"desktop":"1","mobile":"1"},"placeholder":{"desktop":"2","mobile":"2"},"fieldName":{"desktop":"3"}}  的对象中取相应类型的值
+ * @param config 
+ * @param type 
+ * @returns 
+ */
+export function extractProps(config: PropConfig, type: string): any {
+    const newConfig = {} as Record<string, object>;
+    for (const key in config) {
+        newConfig[key] = config[key][type];
+    }
+    return newConfig;
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 17:06:31
+ * @LastEditTime: 2024-11-21 18:55:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -66,12 +66,10 @@
                         </Transition>
                         <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
                             :viewport="editorStore.viewport[bType]" :id="element.id" :formData="element.formData"
-                            :pid="pid" :block="element" :bType="bType" :label="element.formData['label']?.desktop"
-                            :placeholder="element.formData['placeholder']?.desktop"
-                            :fieldName="element.formData['fieldName']?.desktop" @init="init" />
-                        <!-- 上述后3行代码，用于转换 baseBlock 属性到表单元素需要的 props 属性 -->
+                            :pid="pid" :block="element" :bType="bType" v-bind="extractFormItemProps(element.formData)"
+                            @init="init" />
+                        <!-- 通过 v-bind ，用于转换 baseBlock 属性到表单元素需要的 props 属性 -->
                     </div>
-
 
                 </el-form>
 
@@ -83,7 +81,7 @@
 
 <script setup lang="ts">
 
-import { move, clone, nestedClass, findNodeById, replaceNodeId } from "@/components/editor/nested"
+import { move, clone, nestedClass, findNodeById, replaceNodeId, extractProps } from "@/components/editor/nested"
 import { alaConsts } from "@/config/alaConsts";
 
 import { useEditorStore } from "@/store/useEditorStore"
@@ -219,6 +217,10 @@ const clear = (id: string) => {
 
 
 const formData = ref({})
+
+const extractFormItemProps = (item: any) => {
+    return extractProps(item, "desktop")
+}
 
 </script>
 
