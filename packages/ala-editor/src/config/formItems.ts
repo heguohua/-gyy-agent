@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:13:01
+ * @LastEditTime: 2024-11-21 21:19:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -65,6 +65,13 @@ export const baseFields: BaseBlock[] = [
         id: "",
         name: "开关",
         code: "switch",
+        icon: "video",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "滑块",
+        code: "slider",
         icon: "video",
         formData: {},
     },
