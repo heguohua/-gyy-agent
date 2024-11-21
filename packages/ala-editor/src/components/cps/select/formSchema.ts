@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 20:46:03
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/formSchema.ts
+ * @LastEditTime: 2024-11-21 21:03:55
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/formSchema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -35,6 +35,12 @@ const fieldName = Type.String({
     default: "",
 })
 
+const width = Type.String({
+    code: "config-input",
+    title: "宽度",
+    default: "",
+})
+
 
 const items = Type.Array(
     Type.Object({
@@ -53,13 +59,14 @@ const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
     placeholder: schemaAllViewport(placeholder),
+    width: schemaAllViewport(width),
     items: schemaAllViewport(items),
     fieldName: schemaAllViewport(fieldName),
     // style: schemaAllViewport(style),
 })
 
 
-export type AlaFormCheckboxSchema = Static<typeof schema>
+export type AlaFormSelectSchema = Static<typeof schema>
 
 export default schema
 
