@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 20:46:28
+ * @LastEditTime: 2024-11-21 20:54:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-key-value.vue
  * @Description: 
  * 
@@ -74,7 +74,6 @@ const items = ref<Array<Item>>([])
 const itemKey = ref('');
 const itemValue = ref('');
 const addKeyValue = () => {
-    console.log('111:', 111);
 
     if (itemKey.value && itemValue.value) {
         items.value.push({ name: itemKey.value, value: itemValue.value });

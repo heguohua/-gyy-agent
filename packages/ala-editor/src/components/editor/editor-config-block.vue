@@ -59,6 +59,7 @@ watch(() => editorStore.currentSelect[bType], () => {
     logger.info(`bType[ ${bType} ],editor-config-block组件 【 监听到 】 editorStore 中 currentSelect 或 viewport 发生变化,即将渲染 editor-config 面板, currentBaseBlock值为`, currentBaseBlock);
 
     const code = currentBaseBlock?.code as BlockSchemaKeys
+    if(!code) return
 
     logger.info(`bType[ ${bType} ],当前block code : ${code}`);
 
