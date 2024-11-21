@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 22:34:35
+ * @LastEditTime: 2024-11-21 22:41:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/formSchema.ts
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  */
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
-import { AlaDateFormat, AlaDateType, date, dateType } from "@/utils/date";
+import { AlaDateFormat, AlaDateType, date } from "@/utils/date";
 
 const label = Type.String({
     code: "config-input",
