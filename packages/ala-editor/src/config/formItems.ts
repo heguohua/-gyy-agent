@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 16:17:22
+ * @LastEditTime: 2024-11-21 19:20:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -25,6 +25,13 @@ export const baseFields: BaseBlock[] = [
         code: "input",
         icon: "video",
         formData: {},
+    },
+    {
+        id: "",
+        name: "多行输入",
+        code: "textarea",
+        icon: "video",
+        formData: {},
     }
 ]
 export const seniorFields: BaseBlock[] = [
@@ -34,7 +41,7 @@ export const seniorFields: BaseBlock[] = [
         code: "column",
         icon: "column",
         nested: true,
-        children: [[],[]],
+        children: [[], []],
         formData: {
             cols: {
                 desktop: [0.5, 0.5],

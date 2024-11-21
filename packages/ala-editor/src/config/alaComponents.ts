@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 15:40:12
+ * @LastEditTime: 2024-11-21 19:16:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -24,6 +24,7 @@ import AlaConfigBaseTab from '@/components/cps/config/ala-config-base-tab.vue';
 
 
 import AlaInput from '@/components/cps/input/ala-input.vue';
+import AlaTextarea from '@/components/cps/textarea/ala-textarea.vue';
 import AlaSlider from '@/components/cps/slider/ala-slider.vue';
 import AlaPassword from '@/components/cps/password/ala-password.vue';
 import AlaRadio from '@/components/cps/radio/ala-radio.vue';
@@ -49,6 +50,7 @@ export default {
     AlaConfigViewport,
     AlaConfigBaseTab,
     AlaInput,
+    AlaTextarea,
     AlaSlider,
     AlaPassword,
     AlaRadio,
