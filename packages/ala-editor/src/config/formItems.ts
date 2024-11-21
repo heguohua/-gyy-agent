@@ -32,6 +32,13 @@ export const baseFields: BaseBlock[] = [
         code: "textarea",
         icon: "video",
         formData: {},
+    },
+    {
+        id: "",
+        name: "密码",
+        code: "password",
+        icon: "video",
+        formData: {},
     }
 ]
 export const seniorFields: BaseBlock[] = [

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 19:13:00
+ * @LastEditTime: 2024-11-21 19:28:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -16,6 +16,8 @@ import columnSchema from '@/components/cps/column/schema'
 // 注册表单 schema
 import InputSchema from '@/components/cps/input/formSchema'
 import TextareaSchema from '@/components/cps/textarea/formSchema'
+import HiddenSchema from '@/components/cps/hidden/formSchema'
+import PasswordSchema from '@/components/cps/password/formSchema'
 
 const _allSchemas = {
     image: imageSchema,
@@ -26,6 +28,8 @@ const _allSchemas = {
     // 注册表单组件
     input: InputSchema,
     textarea: TextareaSchema,
+    hidden: HiddenSchema,
+    password: PasswordSchema,
 }
 
 
