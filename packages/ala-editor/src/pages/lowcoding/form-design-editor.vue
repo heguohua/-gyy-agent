@@ -13,7 +13,7 @@
         <!-- <EditorHeader /> -->
 
         <div class="container" :class="classes">
-            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseBlocks" :seniorBlocks="seniorBlocks" />
+            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseFields" :seniorBlocks="seniorFields" />
             <EditorRender :bType="bType" />
             <EditorConfig :bType="bType" />
             <!-- <button @click="getLoveMessage()">Change</button> -->
@@ -26,7 +26,7 @@
 import { queryLoveMessage } from '@/utils/tuwei';
 import { logger } from '@/utils/logger';
 import { useEditorStore } from '@/store/useEditorStore';
-import { baseBlocks, seniorBlocks } from "@/config/blocks"
+import { baseFields, seniorFields } from "@/config/formItems"
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
