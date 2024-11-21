@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:44:08
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/formSchema.ts
+ * @LastEditTime: 2024-11-21 21:40:36
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/rating/formSchema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -35,25 +35,14 @@ const fieldName = Type.String({
     default: "",
 })
 
-const min = Type.Number({
-    code: "config-number",
-    title: "最小值",
-    default: "",
-})
 const max = Type.Number({
     code: "config-number",
-    title: "最大值",
+    title: "最大星数",
     default: "",
 })
-const step = Type.Number({
-    code: "config-number",
-    title: "滑动步长",
-    default: "",
-})
-
-const range = Type.Boolean({
+const allowHalf = Type.Boolean({
     code: "config-boolean",
-    title: "选择范围",
+    title: "允许半分",
     default: "",
 })
 
@@ -61,16 +50,14 @@ const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
     placeholder: schemaAllViewport(placeholder),
-    min: schemaAllViewport(min),
     max: schemaAllViewport(max),
-    step: schemaAllViewport(step),
-    range: schemaAllViewport(range),
+    allowHalf: schemaAllViewport(allowHalf),
     fieldName: schemaAllViewport(fieldName),
     // style: schemaAllViewport(style),
 })
 
 
-export type AlaFormSwitchSchema = Static<typeof schema>
+export type AlaFormRatingSchema = Static<typeof schema>
 
 export default schema
 
