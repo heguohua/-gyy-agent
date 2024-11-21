@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:04:21
+ * @LastEditTime: 2024-11-21 15:47:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -56,7 +56,6 @@
 import { ref } from 'vue'
 // import i18n, { fetchLocaleMessages } from '@/utils/i18n/i18n';
 // const { global: { t } } = i18n
-import { baseBlocks, seniorBlocks } from "@/config/blocks"
 import { dragGroup } from './nested';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -67,28 +66,28 @@ const props = defineProps({
         type: String,
         default: 'page'
     },
+    menuList: {
+        type: Array<{
+            name: '',
+            icon: '',
+            iconActive: '',
+        }>,
+        default: [{
+            name: '',
+            icon: '',
+            iconActive: '',
+        }]
+    },
+    baseBlocks: {
+        type: Array,
+        default: []
+    },
+    seniorBlocks: {
+        type: Array,
+        default: []
+    },
 })
 const bType = props.bType
-
-interface Menu {
-    icon: string,
-    iconActive: string,
-    name: string,
-}
-const menuList = computed(() => {
-    return [
-        {
-            icon: "block",
-            iconActive: "blockActive",
-            name: t("module.lowcoding.baseName")
-        },
-        {
-            icon: "kit",
-            iconActive: "kitActive",
-            name: t("module.lowcoding.kitName")
-        }
-    ]
-})
 
 const activeMenu = ref(0)
 const activeNames = ref(["1", "2"])

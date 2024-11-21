@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 14:56:08
+ * @LastEditTime: 2024-11-21 15:49:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/editor.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <!-- <EditorHeader /> -->
 
         <div class="container" :class="classes">
-            <EditorBlock :bType="bType" />
+            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseBlocks" :seniorBlocks="seniorBlocks" />
             <EditorRender :bType="bType" />
             <EditorConfig :bType="bType" />
             <!-- <button @click="getLoveMessage()">Change</button> -->
@@ -26,6 +26,11 @@
 import { queryLoveMessage } from '@/utils/tuwei';
 import { logger } from '@/utils/logger';
 import { useEditorStore } from '@/store/useEditorStore';
+import { baseBlocks, seniorBlocks } from "@/config/blocks"
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
+
 
 // State
 const bType = 'page'
@@ -35,28 +40,26 @@ const editorStore = useEditorStore()
 const classes = computed(() => {
     return { "mobile-background": editorStore.isMobileViewport(bType) }
 })
-// const a = ref(1)
-// console.log(a);
 
-
-// onMounted(async () => {
-//     login({ "username": "admin", "password": "12345678" })
-//     const res = await getUserInfo()
-//     console.log('res.data', res);
-// })
-
-
-// onMounted(async () => {
-//     login({ "username": "admin", "password": "123456789" })
-//     const res = await getUserInfo()
-//     console.log('res.data', res);
-// })
-
-async function getLoveMessage() {
-    const msg = await queryLoveMessage()
-    logger.info(msg)
+interface Menu {
+    icon: string,
+    iconActive: string,
+    name: string,
 }
-
+const menuList = computed(() => {
+    return [
+        {
+            icon: "block",
+            iconActive: "blockActive",
+            name: t("module.lowcoding.baseName")
+        },
+        {
+            icon: "kit",
+            iconActive: "kitActive",
+            name: t("module.lowcoding.kitName")
+        }
+    ]
+})
 
 
 </script>
