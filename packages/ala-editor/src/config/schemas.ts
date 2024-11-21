@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:04:44
+ * @LastEditTime: 2024-11-21 21:12:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -22,6 +22,7 @@ import NumberSchema from '@/components/cps/number/formSchema'
 import RadioSchema from '@/components/cps/radio/formSchema'
 import CheckboxSchema from '@/components/cps/checkbox/formSchema'
 import SelectSchema from '@/components/cps/select/formSchema'
+import SwitchSchema from '@/components/cps/switch/formSchema'
 
 const _allSchemas = {
     image: imageSchema,
@@ -38,6 +39,7 @@ const _allSchemas = {
     radio: RadioSchema,
     checkbox: CheckboxSchema,
     select: SelectSchema,
+    switch: SwitchSchema,
 }
 
 

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:09:23
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/formSchema.ts
+ * @LastEditTime: 2024-11-21 21:11:46
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/formSchema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -35,38 +35,44 @@ const fieldName = Type.String({
     default: "",
 })
 
-const width = Type.Number({
+const activeText = Type.String({
     code: "config-input",
-    title: "宽度",
+    title: "激活文字",
+    default: "",
+})
+const activeValue = Type.String({
+    code: "config-input",
+    title: "激活值",
+    default: "",
+})
+const inActiveText = Type.String({
+    code: "config-input",
+    title: "关闭文字",
     default: "",
 })
 
+const inActiveValue = Type.String({
+    code: "config-input",
+    title: "关闭值",
+    default: "",
+})
 
-const items = Type.Array(
-    Type.Object({
-        name: Type.String(),
-        value: Type.String(),
-    }),
-    {
-        code: "config-key-value",
-        title: "选项",
-        default: [],
-    }
-);
 
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
     placeholder: schemaAllViewport(placeholder),
-    width: schemaAllViewport(width),
-    items: schemaAllViewport(items),
+    activeText: schemaAllViewport(activeText),
+    activeValue: schemaAllViewport(activeValue),
+    inActiveText: schemaAllViewport(inActiveText),
+    inActiveValue: schemaAllViewport(inActiveValue),
     fieldName: schemaAllViewport(fieldName),
     // style: schemaAllViewport(style),
 })
 
 
-export type AlaFormSelectSchema = Static<typeof schema>
+export type AlaFormSwitchSchema = Static<typeof schema>
 
 export default schema
 
