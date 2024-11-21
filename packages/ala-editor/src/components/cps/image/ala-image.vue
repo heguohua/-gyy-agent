@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 18:50:27
+ * @LastEditTime: 2024-11-21 09:24:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/image/ala-image.vue
  * @Description: 
  * 
@@ -94,7 +94,7 @@ const styles = computed(() => {
   display: block;
   object-fit: cover;
   margin: 0 auto;
-  @include res(height, 295, 295);
+  @include res(min-height, 20, 20);
 
   .no-image {
     width: 100%;
@@ -102,7 +102,7 @@ const styles = computed(() => {
     align-items: center;
     justify-content: center;
     background: #ffffff;
-    @include res(height, 295, 295);
+    @include res(min-height, 20, 20);
   }
 }
 </style>
