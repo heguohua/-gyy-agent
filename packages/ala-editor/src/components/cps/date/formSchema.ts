@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 22:10:48
+ * @LastEditTime: 2024-11-21 22:34:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/formSchema.ts
  * @Description: 
  * 
@@ -74,7 +74,7 @@ const schema = Type.Object({
 })
 
 
-export type AlaFormRatingSchema = Static<typeof schema>
+export type AlaFormDataSchema = Static<typeof schema>
 
 export default schema
 
