@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 15:34:23
+ * @LastEditTime: 2024-11-21 10:50:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -76,7 +76,17 @@ export const allMenuComponents: MenuComponent = {
         name: "EditorDesignPage",
         component: "../pages/lowcoding/editor.vue",
         requiresAuth: true
-    }
+    },
+    "/editor/formDesign": {
+        name: "FormDesignPage",
+        component: "../pages/lowcoding/form-design-editor.vue",
+        requiresAuth: true
+    },
+    "/editor/screenDesign": {
+        name: "ScreenDesignPage",
+        component: "../pages/lowcoding/screen-design-editor.vue",
+        requiresAuth: true
+    },
 }
 
 export default class MenuUtil {
