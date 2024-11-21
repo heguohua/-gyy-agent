@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 13:31:37
+ * @LastEditTime: 2024-11-21 17:19:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -10,13 +10,15 @@
 -->
 <template>
     <div class="ala-input-wrapper">
-        <el-form-item :label="label" :label-position="position" :prop="fieldName">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName" @click="ck">
             <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName"></el-input>
         </el-form-item>
     </div>
 </template>
 
 <script setup lang="ts">
+import { logger } from '@/utils/logger';
+
 
 // State
 const props = defineProps({
@@ -35,6 +37,16 @@ const props = defineProps({
     fieldName: {
         type: String,
         default: ''
+    },
+    currentId: { // 当前被渲染组件ID
+        type: String,
+    },
+    block: { // 当前被渲染组件 block
+        type: Object,
+    },
+    bType: {
+        type: String,
+        default: 'page'
     }
 })
 
@@ -42,13 +54,37 @@ const model = defineModel({
     type: String || Number || null || undefined
 })
 
-const emit = defineEmits(['callback'])
+const emit = defineEmits(['callback', "init"])
 
-const handleChange = (value: string) => {    
+const handleChange = (value: string) => {
     model.value = value
 }
 
 // Methods
+
+logger.error(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
+
+const ck = () => {
+    logger.error(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
+}
+
+
+// // 发送组件初始化消息
+if (props.bType === 'form') {
+    // 组件挂载后再发送初始化消息
+    watch(() => props.currentId, () => {
+        logger.info(`向 editor-render-drag-form 组件【 发送初始化消息 】，当前组件 id[ ${props.currentId} ]`);
+
+        emit('init', {
+            pid: null,
+            block: props.block,
+        })
+    }, {
+        immediate: true
+    })
+}
+
+
 
 </script>
 

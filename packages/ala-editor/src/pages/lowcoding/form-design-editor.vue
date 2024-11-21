@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:49:00
+ * @LastEditTime: 2024-11-21 16:27:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/form-design-editor.vue
  * @Description: 
  * 
@@ -13,8 +13,11 @@
         <!-- <EditorHeader /> -->
 
         <div class="container" :class="classes">
+
             <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseFields" :seniorBlocks="seniorFields" />
+            
             <EditorRender :bType="bType" />
+
             <EditorConfig :bType="bType" />
             <!-- <button @click="getLoveMessage()">Change</button> -->
         </div>
@@ -61,6 +64,7 @@ const menuList = computed(() => {
 })
 
 
+const formData = ref({})
 
 </script>
 
