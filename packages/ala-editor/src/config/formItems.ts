@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 22:09:18
+ * @LastEditTime: 2024-11-24 18:38:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -23,70 +23,77 @@ export const baseFields: BaseBlock[] = [
         id: "",
         name: "单行输入",
         code: "input",
-        icon: "video",
+        icon: "input",
         formData: {},
     },
     {
         id: "",
         name: "多行输入",
         code: "textarea",
-        icon: "video",
+        icon: "textarea",
         formData: {},
     },
     {
         id: "",
         name: "数值",
         code: "number",
-        icon: "video",
+        icon: "number",
         formData: {},
     },
     {
         id: "",
         name: "单选项",
         code: "radio",
-        icon: "video",
+        icon: "radio",
         formData: {},
     },
     {
         id: "",
         name: "多选项",
         code: "checkbox",
-        icon: "video",
+        icon: "checkbox",
         formData: {},
     },
     {
         id: "",
         name: "下拉选项",
         code: "select",
-        icon: "video",
+        icon: "select",
         formData: {},
     },
     {
         id: "",
         name: "开关",
         code: "switch",
-        icon: "video",
+        icon: "switch",
         formData: {},
     },
     {
         id: "",
         name: "滑块",
         code: "slider",
-        icon: "video",
+        icon: "slider",
         formData: {},
     },
     {
         id: "",
         name: "打分",
         code: "rating",
-        icon: "video",
+        icon: "star",
         formData: {},
     },
     {
         id: "",
-        name: "日期和时间",
+        name: "日期",
         code: "date",
-        icon: "video",
+        icon: "calendar",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "时间",
+        code: "date",
+        icon: "time",
         formData: {},
     },
 ]
