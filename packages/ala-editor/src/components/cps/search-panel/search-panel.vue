@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 20:12:57
+ * @LastEditTime: 2024-11-24 09:39:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -36,7 +36,7 @@
 
             <div class="buttons">
                 <!-- 高级查询条件 -->
-                <el-button type="primary" @click="toggleAdvanced" class="button-more">
+                <el-button type="primary" @click="toggleAdvanced" class="button-more" v-if="advancedFields && advancedFields.length >0">
                     <v-icon v-if="advanced" icon="up" />
                     <v-icon v-else icon="down" />
                     {{ advanced ? $t('buttons.less') : $t('buttons.more') }}
@@ -134,6 +134,7 @@ const showAdd = () => {
         .buttons {
             display: inline-flex;
             column-gap: 8px;
+            padding-left: 8px;
 
             .button-more {
                 background: none;
