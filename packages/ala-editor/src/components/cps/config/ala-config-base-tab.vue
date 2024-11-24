@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 16:25:10
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:08:44
+ * @LastEditTime: 2024-11-24 14:49:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-base-tab.vue
  * @Description: 
  * 
@@ -72,8 +72,10 @@ const tabClick = (item: any) => {
 
 <style scoped lang="scss">
 .config-base-tab {
+    width: 100%;
     .container {
-        width: 100%;
+        width: inherit;
+        padding: 0px 10%;
         background: var(--color-config-block-bg);
         border-radius: var(--border-radius);
 

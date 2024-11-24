@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:04:14
+ * @LastEditTime: 2024-11-24 14:45:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="editor-config-render">
-        <el-form label-width="auto">
+        <el-form label-width="35%">
             <div class="" v-for="( item, index ) in list" :key="bType + '-' + index" :class="bem('render')" @click="">
                 <!-- <component v-if="getComponent(item)" :is="getComponent(item)" :data="item" -->
                 <component v-if="getComponent(item)" :is="getComponent(item)" :data="item"

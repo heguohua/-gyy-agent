@@ -9,7 +9,7 @@
 
                         <div class="title-buttons">
                             <div class="title-button">
-                                操作
+                                快捷操作
                             </div>
                         </div>
 
@@ -83,7 +83,7 @@ const handleClear = () => {
     // 设置 currentSelect 为null，editor-config会自动切换配置面板为 页面配置
     editorStore.setCurrentSelect(null, bType)
     editorStore.setBlockConfig([], bType)
-    
+
 
     // editorStore.setBlockConfig(newBlockConfig, bType)
 }
@@ -112,23 +112,27 @@ const handlePublish = () => {
 <style scoped lang="scss">
 .editor-config {
 
-    --el-input-inner-height: calc(var(--el-input-height, 26px) - 2px);
-    :deep .el-form-item--default {
+    --el-input-inner-height: calc(var(--el-input-height, 24px) - 2px);
+
+    :deep .el-form-item {
         font-size: 0.8rem;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         font-size: 0.8rem;
-        .el-form-item__label-wrap{
+
+        .el-form-item__label {
             font-size: inherit;
-            width: 40%!important;
+            text-align: right;
         }
-        .el-form-item__content{
-            width: 50%!important;
-        }
-        .el-input__inner{
-            height: 26px;
-            line-height: 26px;
+
+        .el-form-item__content {}
+
+        .el-input__inner {
+            height: 24px;
+            line-height: 24px;
             font-size: inherit;
         }
+
+       
     }
 
     position: fixed;
@@ -157,6 +161,7 @@ const handlePublish = () => {
         padding: 0px 2%;
 
         .content {
+            overflow-x: hidden;
             overflow-y: auto;
             width: 100%;
             height: 100%;

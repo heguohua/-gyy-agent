@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:34:15
+ * @LastEditTime: 2024-11-24 15:02:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-number.vue
  * @Description: 
  * 
@@ -100,8 +100,15 @@ watch(() => editorStore.globalParams[bType], () => {
 
 <style scoped lang="scss">
 .config-input {
-    :deep(.el-input__wrapper) {
-        background: var(--color-config-block-bg)
+    :deep .el-input__wrapper {
+        background: var(--color-config-block-bg);
+
+        input {
+            &::placeholder {
+                font-size: 0.8rem;
+            }
+        }
     }
+
 }
 </style>

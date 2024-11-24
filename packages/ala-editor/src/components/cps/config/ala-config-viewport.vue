@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:01:02
+ * @LastEditTime: 2024-11-24 14:51:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-viewport.vue
  * @Description: 
  * 
@@ -203,13 +203,11 @@ watch(() => editorStore.globalParams[bType], () => {
         }
 
         .icon {
-            margin: 0 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 24%;
             height: 70%;
-            padding: 4px;
+            padding: 4px 0px;
 
             &:hover {
                 // background-color: #5a9cf8;

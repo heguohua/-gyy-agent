@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-16 09:41:44
- * @FilePath: /low-coding/packages/ala-editor/src/components/base/v-icon-tooltip.vue
+ * @LastEditTime: 2024-11-24 15:23:40
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon-tooltip.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,7 +12,7 @@
   <div class="icon">
     <el-tooltip class="tip" effect="dark" :content="content" :placement="placement" :hide-after="0">
       <div class="image-box">
-        <v-icon v-if="icon" class="image" :icon="icon" />
+        <v-icon v-if="icon" class="image" :icon="icon" :width="width" :height="height" />
         <slot v-else class="image" />
       </div>
     </el-tooltip>
@@ -33,6 +33,14 @@ defineProps({
   placement: {
     type: String,
     default: 'bottom',
+  },
+  height: {
+    type: String,
+    default: '20',
+  },
+  width: {
+    type: String,
+    default: '20',
   },
 })
 </script>

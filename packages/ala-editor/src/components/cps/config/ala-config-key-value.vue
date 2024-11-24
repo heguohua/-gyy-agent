@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 20:54:21
+ * @LastEditTime: 2024-11-24 15:27:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-key-value.vue
  * @Description: 
  * 
@@ -14,13 +14,14 @@
             <div class="input">
                 <el-input v-model="itemKey" placeholder="name" class="input-item" />
                 <el-input v-model="itemValue" placeholder="value" class="input-item" />
-                <v-icon-tooltip content="删除" class="icon" icon="add" @click="addKeyValue()" />
+                <v-icon-tooltip content="删除" class="icon" icon="add" @click="addKeyValue()" width="16" height="16" />
 
             </div>
             <div class="show">
                 <div v-for="(item, index) in items" :key="index" class="show-item">
                     <span>{{ item.name }}: {{ item.value }}</span>
-                    <v-icon-tooltip content="删除" class="icon" icon="delete" @click="removeKeyValue(index)" />
+                    <v-icon-tooltip content="删除" class="icon" icon="delete" @click="removeKeyValue(index)" width="12"
+                        height="12" />
                 </div>
             </div>
 
@@ -148,7 +149,10 @@ watch(() => editorStore.globalParams[bType], () => {
             margin-right: 4px;
         }
 
-        .icon {}
+        .icon {
+        }
+
+
     }
 
     .show {
@@ -157,6 +161,7 @@ watch(() => editorStore.globalParams[bType], () => {
         .show-item {
             display: flex;
             align-items: center;
+            font-size: 0.7rem;
 
             span {
                 text-align: left;
@@ -165,6 +170,7 @@ watch(() => editorStore.globalParams[bType], () => {
 
             .icon {
                 display: inline-block;
+                width: 20px;
             }
         }
 
