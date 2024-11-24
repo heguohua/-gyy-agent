@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 09:42:11
+ * @LastEditTime: 2024-11-24 11:21:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -112,4 +112,14 @@ export default class u {
         })
     }
 
+    public static resetState(obj: any) {
+        Object.keys(obj).forEach(key => {
+            // 排除原型链上的属性和索引，只清空自定义属性
+            if (obj.hasOwnProperty(key)) {
+                obj[key] = null; // 或者 state[key] = undefined; 或者 state[key] = '';
+            }
+        });
+
+
+    }
 }

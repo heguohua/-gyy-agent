@@ -45,6 +45,8 @@
 
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
+import { alaPost } from '@/utils/req';
+import u from '@/utils/u';
 const editorStore = useEditorStore()
 
 // State
@@ -76,11 +78,27 @@ const panelSwitch = () => {
 
 const handleClear = () => {
     console.log('清空: ===============');
+    //     u.resetState(editorStore.currentSelect[bType])
+    //     u.resetState(editorStore.blockConfig[bType])
+    // 设置 currentSelect 为null，editor-config会自动切换配置面板为 页面配置
+    editorStore.setCurrentSelect(null, bType)
+    editorStore.setBlockConfig([], bType)
+    
 
+    // editorStore.setBlockConfig(newBlockConfig, bType)
 }
 
 const handleSave = () => {
     console.log('保存: ===============');
+
+    // const url = item.id ? props.updateUrl : props.url
+    const url = "/l/lowcodingConfig/add"
+    const data = editorStore.blockConfig
+    logger.info(`新增/更新数据，url【 ${url} 】，数据对象：`, data);
+    alaPost(u.url(url || ''), data, false, "" ? 'put' : '').then((data: any) => {
+        const response = data;
+        console.log('response:', response);
+    });
 
 }
 
@@ -93,6 +111,26 @@ const handlePublish = () => {
 
 <style scoped lang="scss">
 .editor-config {
+
+    --el-input-inner-height: calc(var(--el-input-height, 26px) - 2px);
+    :deep .el-form-item--default {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+        font-size: 0.8rem;
+        .el-form-item__label-wrap{
+            font-size: inherit;
+            width: 40%!important;
+        }
+        .el-form-item__content{
+            width: 50%!important;
+        }
+        .el-input__inner{
+            height: 26px;
+            line-height: 26px;
+            font-size: inherit;
+        }
+    }
+
     position: fixed;
     z-index: 200;
     top: var(--edit-header-height);
