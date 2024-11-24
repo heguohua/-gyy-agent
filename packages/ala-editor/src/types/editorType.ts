@@ -59,6 +59,8 @@ export interface BasePage {
   // formData?: Partial<>
   formData?: AlaPageFormSchema[keyof AlaPageFormSchema]
 
+  id?: number
+
 }
 
 

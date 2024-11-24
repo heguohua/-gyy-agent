@@ -84,7 +84,7 @@ const handleClear = () => {
     // 设置 currentSelect 为null，editor-config会自动切换配置面板为 页面配置
     editorStore.setCurrentSelect(null, bType)
     editorStore.setBlockConfig([], bType)
-
+    editorStore.setPageConfig({}, bType)
 
     // editorStore.setBlockConfig(newBlockConfig, bType)
 }
@@ -94,22 +94,33 @@ const handleSave = () => {
 
     // const url = item.id ? props.updateUrl : props.url
     const url = "/l/lowcodingConfig/add"
+    const updateUrl = "/l/lowcodingConfig/update"
 
-    const data = {
+    const config = {
         blockConfig: { [bType]: editorStore.blockConfig[bType] },
         pageConfig: { [bType]: editorStore.pageConfig[bType] }
     }
 
-    if (data.blockConfig && data.blockConfig[bType] && data.blockConfig[bType].length > 0) {
-        logger.info(`新增/更新数据，url【 ${url} 】，数据对象：`, data);
-        alaPost(u.url(url || ''), { config: u.toString(data) }, false, "" ? 'put' : '').then((data: any) => {
-            const response = data;
-            console.log('response:', response);
+    const id = editorStore.pageConfig[bType].id
+
+    const realUrl = id ? updateUrl : url
+    console.log('id:', id);
+    console.log('realUrl:', realUrl);
+
+    if (config.blockConfig && config.blockConfig[bType] && config.blockConfig[bType].length > 0) {
+
+        const data = { config: u.tojson(config) }
+        if (id) {
+            u.merged(data, { id })
+        }
+
+        logger.info(`新增/更新数据，url【 ${url} 】，数据对象：`, config);
+        alaPost(u.url(realUrl || ''), data, false, id ? 'put' : '').then((response: any) => {
             if (response.code === 200) {
                 notify.success("温馨提示：", `保存【 ${bType} 】成功`)
             }
         });
-    }else{
+    } else {
         notify.warn("温馨提示：", `【 ${bType} 】不存在需要保存的数据！`)
     }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 15:38:52
+ * @LastEditTime: 2024-11-24 16:58:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -31,6 +31,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
+const router = useRouter()
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
@@ -68,6 +69,7 @@ const showEdit = (item: { [key: string]: any }) => {
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     // showAddForm.value = true
     // 打开form编辑页面
+    router.push({ name: "FormDesignPage", query: { type: 'edit', id: item.id } })
 }
 
 // 查询条件
