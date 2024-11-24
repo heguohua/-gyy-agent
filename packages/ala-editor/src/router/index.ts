@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:54:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 15:34:17
+ * @LastEditTime: 2024-11-24 16:43:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/router/index.ts
  * @Description: 
  * 
@@ -14,6 +14,7 @@ import { logger } from '@/utils/logger';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { alaConsts } from '@/config/alaConsts';
 import lstore from '@/utils/lstore';
+import notify from '@/utils/notify';
 
 // 定义路由
 const routes = [
@@ -108,7 +109,31 @@ router.beforeEach((to, from, next) => {
                 // } else {
                 //     next();
                 // }
-                next();
+
+                console.log('to:', to);
+                const alaStore = useAlaStore()
+                console.log('alaStore:', alaStore.get("tabList"));
+
+                // 判断当前路由是否需要进行唯一性检测，如果需要则检测是否已打开一个tab标签，如果已打开一个tab页，则给出提示信息并阻止路由跳转
+                if (to.meta.uniqueCheck) {
+
+                    const tabList = alaStore.get("tabList");
+                    const index = tabList.findIndex((item: any) => item.path == to.path)
+                    //选中的菜单项目前没有在标签页中 需要添加到标签页中
+                    if (index > -1) {
+                        notify.warn("温馨提示：", `您已打开一个名为【 ${to.meta.menuName} 】的页面，请先关闭该页面然后重复刚才操作！`)
+                        return
+                    } else {
+                        // 未打开，直接跳转
+                        next();
+                    }
+
+                } else {
+                    // 不需检测，直接跳转
+                    next();
+                }
+
+
 
             }
 

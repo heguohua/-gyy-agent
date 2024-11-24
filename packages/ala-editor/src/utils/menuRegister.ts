@@ -18,6 +18,7 @@ export interface MenuComponent {
         component: string,
         requiresAuth: boolean,
         viewName?: string,
+        uniqueCheck?: boolean,
     }
 }
 
@@ -75,17 +76,20 @@ export const allMenuComponents: MenuComponent = {
     "/editor/design": {
         name: "EditorDesignPage",
         component: "../pages/lowcoding/editor.vue",
-        requiresAuth: true
+        requiresAuth: true,
+        uniqueCheck: true,
     },
     "/editor/formDesign": {
         name: "FormDesignPage",
         component: "../pages/lowcoding/form-design-editor.vue",
-        requiresAuth: true
+        requiresAuth: true,
+        uniqueCheck: true,
     },
     "/editor/screenDesign": {
         name: "ScreenDesignPage",
         component: "../pages/lowcoding/screen-design-editor.vue",
-        requiresAuth: true
+        requiresAuth: true,
+        uniqueCheck: true,
     },
 }
 
@@ -113,6 +117,7 @@ export default class MenuUtil {
                                 menuName: menu.name,
                                 menuCode: menu.code,
                                 viewName: menuComponent.viewName,
+                                uniqueCheck: menuComponent.uniqueCheck,
                             },
                         });
                     } else {

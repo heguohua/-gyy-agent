@@ -45,6 +45,7 @@
 
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 const editorStore = useEditorStore()
@@ -93,12 +94,26 @@ const handleSave = () => {
 
     // const url = item.id ? props.updateUrl : props.url
     const url = "/l/lowcodingConfig/add"
-    const data = editorStore.blockConfig
-    logger.info(`新增/更新数据，url【 ${url} 】，数据对象：`, data);
-    alaPost(u.url(url || ''), data, false, "" ? 'put' : '').then((data: any) => {
-        const response = data;
-        console.log('response:', response);
-    });
+
+    const data = {
+        blockConfig: { [bType]: editorStore.blockConfig[bType] },
+        pageConfig: { [bType]: editorStore.pageConfig[bType] }
+    }
+
+    if (data.blockConfig && data.blockConfig[bType] && data.blockConfig[bType].length > 0) {
+        logger.info(`新增/更新数据，url【 ${url} 】，数据对象：`, data);
+        alaPost(u.url(url || ''), { config: u.toString(data) }, false, "" ? 'put' : '').then((data: any) => {
+            const response = data;
+            console.log('response:', response);
+            if (response.code === 200) {
+                notify.success("温馨提示：", `保存【 ${bType} 】成功`)
+            }
+        });
+    }else{
+        notify.warn("温馨提示：", `【 ${bType} 】不存在需要保存的数据！`)
+    }
+
+
 
 }
 
@@ -132,7 +147,7 @@ const handlePublish = () => {
             font-size: inherit;
         }
 
-       
+
     }
 
     position: fixed;

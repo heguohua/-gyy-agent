@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 11:21:41
+ * @LastEditTime: 2024-11-24 15:45:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -121,5 +121,14 @@ export default class u {
         });
 
 
+    }
+
+    /**
+     * 将对象转为json字符串
+     * @param obj 
+     * @returns 
+     */
+    public static toString(obj: any) {
+        return JSON.stringify(obj);
     }
 }
