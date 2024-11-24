@@ -6,11 +6,31 @@
             <div class="content">
                 <transition-group name="fade">
                     <div :key="bType + 'tg'">
-                        <div class="title" v-if="editorStore.currentSelect[bType]">
-                            组件
+
+                        <div class="title-buttons">
+                            <div class="title-button">
+                                操作
+                            </div>
                         </div>
-                        <div class="title" v-else>
-                            页面
+
+                        <div class="buttons">
+                            <el-button @click="handleClear()" v-if="true" class="button">
+                                清空
+                            </el-button>
+                            <el-button type="primary" @click="handleSave()" v-if="true" class="button">
+                                保存
+                            </el-button>
+                            <el-button type="primary" @click="handlePublish()" v-if="true" class="button">
+                                发布
+                            </el-button>
+                        </div>
+                        <div class="titles">
+                            <div class="title" v-if="!editorStore.currentSelect[bType]">
+                                页面配置项
+                            </div>
+                            <div class="title" v-else>
+                                组件配置项
+                            </div>
                         </div>
                         <editor-config-block v-if="editorStore.currentSelect[bType]" :bType="bType" />
                         <editor-config-page v-else :bType="bType" />
@@ -54,6 +74,21 @@ const panelSwitch = () => {
     editorStore.setConfigPanelShow(!editorStore.configPanelShow[bType], bType)
 }
 
+const handleClear = () => {
+    console.log('清空: ===============');
+
+}
+
+const handleSave = () => {
+    console.log('保存: ===============');
+
+}
+
+const handlePublish = () => {
+    console.log('发布: ===============');
+
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -68,20 +103,78 @@ const panelSwitch = () => {
     transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
     height: calc(100vh - var(--edit-header-height));
 
+    --icon-group-width: 96%;
+    --icon-group-width-left: 2%;
+
     &.is-show {
         right: 0;
         transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
     }
 
-    --icon-group-width:96%;
-    --icon-group-width-left:2%;
-
     .icon-group {
         position: absolute;
         // left: calc(-48px + var(--icon-group-width-left));
-        top: 16px;
+        top: 2px;
         width: var(--icon-group-width);
-        margin-left: 2%;
+        padding: 0px 2%;
+
+        .content {
+            overflow-y: auto;
+            width: 100%;
+            height: 100%;
+            // left: calc(48px - var(--icon-group-width-left));
+            // position: relative;
+
+
+
+            :deep(.el-tabs--border-card) {
+                border: 0;
+            }
+
+            :deep(.el-tabs__content) {
+                padding: 0;
+            }
+
+            :deep(.el-form-item__label-wrap) {
+                width: 20%;
+                justify-content: end;
+            }
+
+            div {
+                .title-buttons {
+                    background: var(--color-block-hover);
+                    font-size: 1rem;
+                    padding: 4px;
+                    margin-bottom: 12px;
+
+                    .title-button {
+                        font-weight: 400;
+                    }
+                }
+
+                .buttons {
+                    .button {
+                        padding: 0px 18px;
+                        font-size: 0.9rem;
+                        height: 28px;
+                    }
+                }
+
+                .titles {
+                    background: var(--color-block-hover);
+                    font-size: 1rem;
+                    margin: 12px 0px;
+                    padding: 4px;
+
+                    .title {
+                        font-weight: 400;
+                    }
+                }
+
+
+
+            }
+        }
 
         .icon {
             cursor: pointer;
@@ -119,31 +212,8 @@ const panelSwitch = () => {
         }
     }
 
-    .content {
-        overflow-y: auto;
-        width: 100%;
-        height: 100%;
-        // left: calc(48px - var(--icon-group-width-left));
-        // position: relative;
 
-        .title {
-            padding: 14px;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        :deep(.el-tabs--border-card) {
-            border: 0;
-        }
-
-        :deep(.el-tabs__content) {
-            padding: 0;
-        }
-
-        :deep(.el-form-item__label-wrap) {
-            width: 20%;
-            justify-content: end;
-        }
-    }
 }
+
+.is-show {}
 </style>
