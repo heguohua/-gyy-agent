@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:54:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 17:02:48
+ * @LastEditTime: 2024-11-24 18:14:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/router/index.ts
  * @Description: 
  * 
@@ -97,8 +97,8 @@ router.beforeEach((to, from, next) => {
             } else {
                 // 用户已登录，放行
                 logger.warn("router.beforeEach检测到用户已登录，直接放行");
-                console.log('from.path:', from.path);
-                console.log('to.path:', to.path);
+                // console.log('from.path:', from.path);
+                // console.log('to.path:', to.path);
 
                 // if (from.path != '/editor' && to.path === '/editor') {
                 // if (to.path === '/editor') {
@@ -110,9 +110,7 @@ router.beforeEach((to, from, next) => {
                 //     next();
                 // }
 
-                console.log('to:', to);
                 const alaStore = useAlaStore()
-                console.log('alaStore:', alaStore.get("tabList"));
                 const query = to.query as { type: string };
                 // 判断当前路由是否需要进行唯一性检测，如果需要则检测是否已打开一个tab标签，如果已打开一个tab页，则给出提示信息并阻止路由跳转
                 if (to.meta.uniqueCheck && query && query['type'] === 'edit') {

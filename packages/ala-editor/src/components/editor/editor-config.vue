@@ -84,7 +84,7 @@ const handleClear = () => {
     // 设置 currentSelect 为null，editor-config会自动切换配置面板为 页面配置
     editorStore.setCurrentSelect(null, bType)
     editorStore.setBlockConfig([], bType)
-    editorStore.setPageConfig({}, bType)
+    editorStore.setPageConfig(u.merged({}, { formData: {} }), bType)
 
     // editorStore.setBlockConfig(newBlockConfig, bType)
 }
@@ -104,8 +104,6 @@ const handleSave = () => {
     const id = editorStore.pageConfig[bType].id
 
     const realUrl = id ? updateUrl : url
-    console.log('id:', id);
-    console.log('realUrl:', realUrl);
 
     if (config.blockConfig && config.blockConfig[bType] && config.blockConfig[bType].length > 0) {
 
