@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-28 20:01:34
+ * @LastEditTime: 2024-11-28 20:13:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -87,7 +87,7 @@ const refresh = () => {
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
 const url = "/p/define/page"
-const deleteUrl = "/u/define/delete"
+const deleteUrl = "/p/define/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
