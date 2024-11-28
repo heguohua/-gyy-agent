@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-28 20:13:39
+ * @LastEditTime: 2024-11-28 20:51:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import MenuAdd from '@/pages/menu/menuAdd.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
@@ -37,6 +37,8 @@ const { t } = useI18n();
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
 const route = useRoute();
+const router = useRouter()
+
 const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
     return t(code)
@@ -60,7 +62,9 @@ const showAdd = (item: { [key: string]: any }) => {
     u.merged(baseInfo, { item: { id: null, pid: item.id } })
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    showAddForm.value = true
+
+    // /process/design
+    router.push("/process/design")
 }
 
 const showEdit = (item: { [key: string]: any }) => {
