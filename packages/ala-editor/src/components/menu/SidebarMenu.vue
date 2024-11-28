@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 13:43:10
+ * @LastEditTime: 2024-11-28 22:07:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -11,7 +11,6 @@
 <template>
     <div class="side-bar">
         <div class="collapse-btn">
-            <!-- <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i> -->
             <p :style="{ display: isCollapse ? 'none' : '' }" class="company">
                 {{ $t('system.company') }}
             </p>
@@ -77,10 +76,6 @@ watch(() => route.path, (toPath) => {
         logger.info(`监听到路由变化，更新activeMenu：${toPath}`);
         activeMenu.value = toPath;
     }
-    // if (toPath != '/editor') {
-    //     // 导航变化时，更新 localStorage
-    //     lstore.setItem('activeMenu', toPath);
-    // }
 
 });
 
@@ -140,7 +135,6 @@ watch(() => route.path, (toPath) => {
     }
 
     .ala-aside {
-        .el-menu-vertical-ala {}
 
         // width: var(--ala-menu-width);
         // calc(100% - var(--collapse-btn-height))
