@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 21:26:23
+ * @LastEditTime: 2024-11-28 21:08:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -346,9 +346,7 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
     }
 
     .company_info {
-        .name-cn {}
 
-        .name-en {}
 
         position: absolute;
         top: 10px;
@@ -403,9 +401,6 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
 
     }
 
-    .title {
-        h1 {}
-    }
 
     .container {
 
@@ -526,9 +521,6 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
                                 }
                             }
 
-                            #scabbard {}
-
-                            #name {}
 
                             input {
                                 width: 100%;
@@ -544,16 +536,7 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
                             }
                         }
 
-
-
                         .form-group {
-                            label {
-                                em {}
-                            }
-
-                            #sword {}
-
-                            #email {}
 
                             .agreement-label {
                                 display: inline-block;
@@ -574,7 +557,6 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
 
                                 .link {
                                     display: inline-block;
-                                    float: left;
                                     text-decoration: none;
                                 }
                             }
@@ -583,7 +565,6 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
                         }
 
                         .form-group {
-                            .agreement-label {}
 
                             p {
                                 font-size: 0.9rem;
@@ -662,23 +643,6 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
                     }
                 }
 
-                .link {
-                    img {}
-
-                    .title {}
-                }
-
-                .link {
-                    img {}
-
-                    .title {}
-                }
-
-                .link {
-                    img {}
-
-                    .title {}
-                }
 
             }
         }
