@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 09:42:45
+ * @LastEditTime: 2024-11-28 16:12:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -91,6 +91,50 @@ export const allMenuComponents: MenuComponent = {
         requiresAuth: true,
         uniqueCheck: true,
     },
+    "/process/design/page": {
+        name: "ProcessDesignListPage",
+        component: "../pages/process/designList.vue",
+        requiresAuth: true,
+    },
+    "/process/design": {
+        name: "ProcessDesign",
+        component: "../pages/process/design.vue",
+        requiresAuth: true,
+        uniqueCheck: true,
+    },
+    "/process/define/Page": {
+        name: "ProcessDefineListPage",
+        component: "../pages/process/defineList.vue",
+        requiresAuth: true,
+    },
+    "/process/start": {
+        name: "ProcessStartPage",
+        component: "../pages/process/start.vue",
+        requiresAuth: true,
+    },
+    "/process/my": {
+        name: "ProcessMyListPage",
+        component: "../pages/process/myList.vue",
+        requiresAuth: true,
+    },
+    "/process/myTodo": {
+        name: "ProcessMyTodoListPage",
+        component: "../pages/process/myTodoList.vue",
+        requiresAuth: true,
+    },
+    "/process/myDone": {
+        name: "ProcessMyDoneListPage",
+        component: "../pages/process/myDoneList.vue",
+        requiresAuth: true,
+        uniqueCheck: true,
+    },
+    "/process/myCopy": {
+        name: "ProcessMyCopyListPage",
+        component: "../pages/process/mySendCopyList.vue",
+        requiresAuth: true,
+        uniqueCheck: true,
+    },
+    
 }
 
 export default class MenuUtil {
