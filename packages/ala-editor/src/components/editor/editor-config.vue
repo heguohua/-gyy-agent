@@ -148,7 +148,6 @@ const handlePublish = () => {
             text-align: right;
         }
 
-        .el-form-item__content {}
 
         .el-input__inner {
             height: 24px;
@@ -282,5 +281,4 @@ const handlePublish = () => {
 
 }
 
-.is-show {}
 </style>
