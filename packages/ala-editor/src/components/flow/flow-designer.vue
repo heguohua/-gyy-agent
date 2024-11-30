@@ -126,17 +126,21 @@ watch(() => props.assigneeText, () => {
 })
 const initDoc = () => {
   const lf = unref(lfInstance)
+
   if (!lf) return
+
+  console.log('lf.extension.control:',lf?.extension.control);
+
   if (props.showDoc) {
     // 控制面板-码云
-    lf.extension.control.addItem({
-      iconClass: 'lf-control-mayu',
-      title: '',
-      text: '码云',
-      onClick: () => {
-        window.location.href = 'https://gitee.com/mldong/snakerflow-designer-vue/tree/vue3/'
-      }
-    })
+    // lf.extension.control.addItem({
+    //   iconClass: 'lf-control-mayu',
+    //   title: '',
+    //   text: '码云',
+    //   onClick: () => {
+    //     window.location.href = 'https://gitee.com/mldong/snakerflow-designer-vue/tree/vue3/'
+    //   }
+    // })
   }
 }
 // 初始化
@@ -208,6 +212,8 @@ const initOp = () => {
     lf.extension.control.removeItem('undo')
     // 删除下一步
     lf.extension.control.removeItem('redo')
+    console.log('lf.extension.control:',lf.extension.control);
+    
     initDoc()
     return
   }
