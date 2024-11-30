@@ -117,7 +117,7 @@ declare module 'vue' {
     VIcon: typeof import('./src/components/base/v-icon.vue')['default']
     VIconTooltip: typeof import('./src/components/base/v-icon-tooltip.vue')['default']
     VSelect: typeof import('./src/components/base/v-select.vue')['default']
-    VueNode: typeof import('./src/components/flow/snakerflow/task/VueNode.vue')['default']
+    VueNode: typeof import('./src/components/flow/alaflow/task/VueNode.vue')['default']
     VUpload: typeof import('./src/components/base/v-upload.vue')['default']
     WfSubProcess: typeof import('./src/components/flow/PropertySetting/wfSubProcess.vue')['default']
   }

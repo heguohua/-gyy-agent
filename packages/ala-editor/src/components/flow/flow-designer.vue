@@ -24,12 +24,12 @@ import { onMounted, Ref, ref, unref, defineProps, watch, defineExpose, defineEmi
 import { ProcessModel, PropertyEvent, WfConfig } from './types'
 import PropertySetting from './PropertySetting'
 import EventEmitter from '@logicflow/core/types/event/eventEmitter'
-import { FlowElement, FlowAdapter } from './snakerflow/index'
+import { FlowElement, FlowAdapter } from './alaflow/index'
 import { NodeTypeEnum, ColorEnum } from './enums'
 import DataDetail from './Control/DataDetail.vue'
 import ImportData from './Control/ImportData.vue'
 import HighLightData from './Control/HighLightData.vue'
-import { snakerXml2LogicFlowJson } from './snakerflow/tool'
+import { xml2LogicFlowJson } from './alaflow/tool'
 import { ElConfigProvider, version as EleVersion } from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { patternItems } from './data'
@@ -521,7 +521,7 @@ const handleImportSubmit = (str: string) => {
     data = JSON.parse(str)
   } catch {
     try {
-      data = snakerXml2LogicFlowJson(str)
+      data = xml2LogicFlowJson(str)
     } catch {
       return
     }

@@ -14,13 +14,13 @@ export const nodeStyleHandle = (_this: BaseNodeModel, style: {
   fill?: string;
   stroke?: string;
   strokeWidth?: number;
-  }) : {
-    [x: string]: any;
-    r?: number;
-    fill?: string;
-    stroke?: string;
-    strokeWidth?: number;
-    } => {
+}): {
+  [x: string]: any;
+  r?: number;
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
+} => {
   if (_this.properties.state === 'active') {
     style.stroke = _this.graphModel.wfProps?.wfConfig?.activeColor || ColorEnum.activeColor
   } else if (_this.properties.state === 'history') {
@@ -42,13 +42,13 @@ export const edgeStyleHandle = (_this: BaseEdgeModel, style: {
   fill?: string;
   stroke?: string;
   strokeWidth?: number;
-  }):{
-    [x: string]: any;
-    r?: number;
-    fill?: string;
-    stroke?: string;
-    strokeWidth?: number;
-    } => {
+}): {
+  [x: string]: any;
+  r?: number;
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
+} => {
   if (_this.properties.state === 'active') {
     style.stroke = _this.graphModel.wfProps?.wfConfig?.activeColor || ColorEnum.activeColor
   } else if (_this.properties.state === 'history') {
@@ -63,7 +63,7 @@ export const edgeStyleHandle = (_this: BaseEdgeModel, style: {
  * @param {} xml
  * @returns
  */
-export const parseXml2Dom = (xml:string): any => {
+export const parseXml2Dom = (xml: string): any => {
   let xmlDoc = null
   if (window.DOMParser) {
     const parser = new DOMParser()
@@ -93,7 +93,7 @@ const TRANSITION_ATTR_KEYS = ['name', 'displayName', 'to', 'expr', 'g']
  * @param {*} xml
  * @returns
  */
-export const snakerXml2LogicFlowJson = (xml: string): any => {
+export const xml2LogicFlowJson = (xml: string): any => {
   const graphData = {
     nodes: [] as BaseNodeModel[],
     edges: [] as BaseNodeModel[]
@@ -163,7 +163,7 @@ export const snakerXml2LogicFlowJson = (xml: string): any => {
         // 处理边
         let transitionEles = null
         let transitionEle = null
-        let edge :any = {}
+        let edge: any = {}
         if (key !== 'end') {
           transitionEles = node.getElementsByTagName('transition')
           for (let j = 0, lenn = transitionEles.length; j < lenn; j++) {
@@ -211,7 +211,7 @@ export const snakerXml2LogicFlowJson = (xml: string): any => {
  * @param {*} data(...processInfo,nodes,edges)
  * @returns
  */
-export const logicFlowJsonToSnakerXml = (data: ProcessModel): string => {
+export const logicFlowJsonToXml = (data: ProcessModel): string => {
   let xml = ''
   // data的数据由流程定义文件信息+logicFlow数据构成
   // 先构建成流程对象
@@ -250,7 +250,7 @@ export const logicFlowJsonToSnakerXml = (data: ProcessModel): string => {
    * @param {*} id 当前节点名称
    * @returns
    */
-  const getNextNodes = (id:string) => {
+  const getNextNodes = (id: string) => {
     return data.edges.filter(edge => {
       return edge.sourceNodeId === id
     }).map(edge => {
@@ -264,7 +264,7 @@ export const logicFlowJsonToSnakerXml = (data: ProcessModel): string => {
    * @param {*} id
    * @returns
    */
-  const getTransitions = (id:string) => {
+  const getTransitions = (id: string) => {
     return data.edges.filter((edge) => {
       return edge.sourceNodeId === id
     }).map(edge => {
@@ -417,7 +417,7 @@ export const logicFlowJsonToSnakerXml = (data: ProcessModel): string => {
   }
   const subProcessList = buildSubProcessList()
   subProcessList.forEach((processModel: ProcessModel) => {
-    xml += logicFlowJsonToSnakerXml(processModel).replace('<?xml version="1.0" encoding="UTF-8" standalone="no"?>', '')
+    xml += logicFlowJsonToXml(processModel).replace('<?xml version="1.0" encoding="UTF-8" standalone="no"?>', '')
   })
   return xml
 }

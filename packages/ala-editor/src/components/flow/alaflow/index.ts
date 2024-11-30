@@ -6,9 +6,9 @@ import Join from './join'
 import Start from './start'
 import Task from './task'
 import TaskHtml from './task/html'
-import Transtion from './transition'
+import Transition from './transition'
 import SubProcess from './subProcess'
-import { logicFlowJsonToSnakerXml, snakerXml2LogicFlowJson } from './tool'
+import { logicFlowJsonToXml, xml2LogicFlowJson } from './tool'
 import WfSubProcess from './wfSubProcess'
 
 /**
@@ -16,7 +16,7 @@ import WfSubProcess from './wfSubProcess'
  */
 class FlowElement {
   static pluginName = 'snakerFlowElement';
-  constructor ({ lf, props }: any) {
+  constructor({ lf, props }: any) {
     lf.register(Custom)
     lf.register(Decision)
     lf.register(End)
@@ -28,7 +28,7 @@ class FlowElement {
     } else {
       lf.register(Task)
     }
-    lf.register(Transtion)
+    lf.register(Transition)
     lf.register(SubProcess)
     lf.register(WfSubProcess)
   }
@@ -38,10 +38,10 @@ class FlowElement {
  */
 class FlowAdapter {
   static pluginName = 'snakerFlowAdapter';
-  constructor ({ lf } : { lf: any }) {
+  constructor({ lf }: { lf: any }) {
     lf.adapterIn = (userData: any) => {
       if (typeof userData === 'string') {
-        userData = snakerXml2LogicFlowJson(userData)
+        userData = xml2LogicFlowJson(userData)
       }
       userData = userData.json ? userData.json : userData
       // 对入参数据进行简单处理
@@ -85,7 +85,7 @@ class FlowAdapter {
           node.properties.field = JSON.parse(node.properties.field)
         }
       })
-      const xml = logicFlowJsonToSnakerXml(graphData)
+      const xml = logicFlowJsonToXml(graphData)
       return {
         json: graphData,
         xml
