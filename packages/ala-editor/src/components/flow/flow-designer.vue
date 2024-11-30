@@ -1,15 +1,15 @@
 <template>
 <el-config-provider :locale="locale">
-  <div class="m-snakerflow-designer" ref="lfElRef"></div>
-  <PropertSetting
-    ref="propertSettingRef"
+  <div class="ala-flow-designer" ref="lfElRef"></div>
+  <PropertySetting
+    ref="propertySettingRef"
     :extendAttrConfig="props.extendAttrConfig"
     :extendPropertyKeys="extendPropertyKeys"
     @change="handlePropertyChange">
     <template #[key]="data" v-for="(item, key) in $slots">
       <slot :name="key" v-bind="data || {}"></slot>
     </template>
-  </PropertSetting>
+  </PropertySetting>
   <DataDetail ref="dataDetailRef"/>
   <ImportData ref="importDataRef" @on-submit="handleImportSubmit"/>
   <HighLightData ref="highLightDataRef" @on-submit="handleHighLightSubmit"/>
@@ -22,9 +22,9 @@ import '@logicflow/core/dist/style/index.css'
 import '@logicflow/extension/lib/style/index.css'
 import { onMounted, Ref, ref, unref, defineProps, watch, defineExpose, defineEmits, PropType, version } from 'vue'
 import { ProcessModel, PropertyEvent, WfConfig } from './types'
-import PropertSetting from './PropertySetting'
+import PropertySetting from './PropertySetting'
 import EventEmitter from '@logicflow/core/types/event/eventEmitter'
-import { SnakerFlowElement, SnakerFlowAdapter } from './snakerflow/index'
+import { FlowElement, FlowAdapter } from './snakerflow/index'
 import { NodeTypeEnum, ColorEnum } from './enums'
 import DataDetail from './Control/DataDetail.vue'
 import ImportData from './Control/ImportData.vue'
@@ -38,7 +38,7 @@ const locale = ref(zhCn)
 // 定义挂载元素Ref
 const lfElRef:Ref = ref(null)
 // 属性面板操作
-const propertSettingRef: Ref = ref(null)
+const propertySettingRef: Ref = ref(null)
 // 查看数据弹窗
 const dataDetailRef: Ref = ref(null)
 // 导入数据弹窗
@@ -149,8 +149,8 @@ const init = () => {
   LogicFlow.use(SelectionSelect)
   LogicFlow.use(Menu)
   LogicFlow.use(Control)
-  LogicFlow.use(SnakerFlowElement, props)
-  LogicFlow.use(SnakerFlowAdapter, props)
+  LogicFlow.use(FlowElement, props)
+  LogicFlow.use(FlowAdapter, props)
   LogicFlow.use(Group)
   const defaultConfig: any = {
   }
@@ -325,7 +325,7 @@ const initEvent = () => {
     if (props.wfConfig.blankContextmenu && typeof props.wfConfig.blankContextmenu === 'function') {
       props.wfConfig.blankContextmenu(lf, args)
     } else {
-      propertSettingRef.value.show({
+      propertySettingRef.value.show({
         name: lf.graphModel.name,
         displayName: lf.graphModel.displayName,
         expireTime: lf.graphModel.expireTime,
@@ -358,7 +358,7 @@ const initEvent = () => {
           if (props.wfConfig.arrowClick && typeof props.wfConfig.arrowClick === 'function') {
             props.wfConfig.arrowClick(args)
           } else {
-            propertSettingRef.value.show({
+            propertySettingRef.value.show({
               ...args.data.properties,
               name: args.data.id,
               displayName: args.data.text?.value || args.data.properties.displayName,
@@ -367,7 +367,7 @@ const initEvent = () => {
           }
         }
       } else {
-        propertSettingRef.value.show({
+        propertySettingRef.value.show({
           ...args.data.properties,
           name: args.data.id,
           displayName: args.data.text?.value || args.data.properties.displayName,
@@ -382,7 +382,7 @@ const initEvent = () => {
     if (props.wfConfig.edgeClick && typeof props.wfConfig.edgeClick === 'function') {
       props.wfConfig.edgeClick(lf, args)
     } else {
-      propertSettingRef.value.show({
+      propertySettingRef.value.show({
         ...args.data.properties,
         name: args.data.id,
         displayName: args.data.text?.value,
@@ -607,7 +607,7 @@ defineExpose({
 })
 </script>
 <style scoped>
-.m-snakerflow-designer {
+.ala-flow-designer {
   width: 100%;
   height: 100%;
   position: relative;

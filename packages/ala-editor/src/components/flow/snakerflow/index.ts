@@ -14,7 +14,7 @@ import WfSubProcess from './wfSubProcess'
 /**
  * snakerflow组件注册
  */
-class SnakerFlowElement {
+class FlowElement {
   static pluginName = 'snakerFlowElement';
   constructor ({ lf, props }: any) {
     lf.register(Custom)
@@ -36,7 +36,7 @@ class SnakerFlowElement {
 /**
  * snakerflow给你LogicFlow数据转换器
  */
-class SnakerFlowAdapter {
+class FlowAdapter {
   static pluginName = 'snakerFlowAdapter';
   constructor ({ lf } : { lf: any }) {
     lf.adapterIn = (userData: any) => {
@@ -94,6 +94,6 @@ class SnakerFlowAdapter {
   }
 }
 export {
-  SnakerFlowElement,
-  SnakerFlowAdapter
+  FlowElement,
+  FlowAdapter
 }
