@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-30 08:52:32
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-04 22:35:18
+ * @LastEditTime: 2024-12-04 22:48:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/data.ts
  * @Description: 
  * 
@@ -16,7 +16,7 @@ import ForkIcon from './assets/fork.svg'
 import JoinIcon from './assets/join.svg'
 import EndIcon from './assets/end.svg'
 import WfSubProcessIcon from './assets/sub-process.svg'
-import SubProcessIcon from './assets/sub-process.svg'
+// import SubProcessIcon from './assets/sub-process.svg'
 export const patternItems = [
   {
     type: 'snaker:start',

@@ -1,5 +1,4 @@
 <template>
-  <el-config-provider :locale="locale">
     <div class="ala-flow-designer" ref="lfElRef"></div>
     <PropertySetting ref="propertySettingRef" :extendAttrConfig="props.extendAttrConfig"
       :extendPropertyKeys="extendPropertyKeys" @change="handlePropertyChange">
@@ -10,7 +9,6 @@
     <DataDetail ref="dataDetailRef" />
     <ImportData ref="importDataRef" @on-submit="handleImportSubmit" />
     <HighLightData ref="highLightDataRef" @on-submit="handleHighLightSubmit" />
-  </el-config-provider>
 </template>
 <script lang="ts" setup>
 import LogicFlow from '@logicflow/core'
@@ -27,11 +25,9 @@ import DataDetail from './Control/DataDetail.vue'
 import ImportData from './Control/ImportData.vue'
 import HighLightData from './Control/HighLightData.vue'
 import { xml2LogicFlowJson } from './alaflow/tool'
-import { ElConfigProvider, version as EleVersion } from 'element-plus'
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import { version as EleVersion } from 'element-plus'
 import { patternItems } from './data'
 const emits = defineEmits(['update:modelValue', 'on-save', 'on-init'])
-const locale = ref(zhCn)
 // 定义挂载元素Ref
 const lfElRef: Ref = ref(null)
 // 属性面板操作
