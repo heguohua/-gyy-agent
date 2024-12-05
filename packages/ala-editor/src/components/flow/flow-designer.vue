@@ -1,15 +1,23 @@
 <template>
-    <div class="ala-flow-designer" ref="lfElRef"></div>
-    <PropertySetting ref="propertySettingRef" :extendAttrConfig="props.extendAttrConfig"
-      :extendPropertyKeys="extendPropertyKeys" @change="handlePropertyChange">
-      <template #[key]="data" v-for="(item, key) in $slots">
-        <slot :name="key" v-bind="data || {}"></slot>
-      </template>
-    </PropertySetting>
-    <DataDetail ref="dataDetailRef" />
-    <ImportData ref="importDataRef" @on-submit="handleImportSubmit" />
-    <HighLightData ref="highLightDataRef" @on-submit="handleHighLightSubmit" />
+  <div class="ala-flow-designer" ref="lfElRef"></div>
+
+  <PropertySetting ref="propertySettingRef" :extendAttrConfig="props.extendAttrConfig"
+    :extendPropertyKeys="extendPropertyKeys" @change="handlePropertyChange">
+
+    <template #[key]="data" v-for="(item, key) in $slots">
+
+      <slot :name="key" v-bind="data || {}"></slot>
+
+    </template>
+
+  </PropertySetting>
+
+  <DataDetail ref="dataDetailRef" />
+  <ImportData ref="importDataRef" @on-submit="handleImportSubmit" />
+  <HighLightData ref="highLightDataRef" @on-submit="handleHighLightSubmit" />
+
 </template>
+
 <script lang="ts" setup>
 import LogicFlow from '@logicflow/core'
 import { Snapshot, DndPanel, SelectionSelect, Menu, Control, Group } from '@logicflow/extension'
@@ -28,20 +36,28 @@ import { xml2LogicFlowJson } from './alaflow/tool'
 import { version as EleVersion } from 'element-plus'
 import { patternItems } from './data'
 const emits = defineEmits(['update:modelValue', 'on-save', 'on-init'])
+
 // 定义挂载元素Ref
 const lfElRef: Ref = ref(null)
+
 // 属性面板操作
 const propertySettingRef: Ref = ref(null)
+
 // 查看数据弹窗
 const dataDetailRef: Ref = ref(null)
+
 // 导入数据弹窗
 const importDataRef: Ref = ref(null)
+
 // 导入高高弹窗
 const highLightDataRef: Ref = ref(null)
+
 // 定义LogicFlow实例
 const lfInstance = ref(null) as Ref<LogicFlow | null>
+
 // 当前操作节点/或边id
 const currentOpId = ref('')
+
 // 定义组件接收的参数
 const props = defineProps({
   modelValue: {
@@ -105,18 +121,21 @@ watch(() => props.modelValue, () => {
 }, {
   deep: true
 })
+
 // 监听高亮数据
 watch(() => props.highLight, () => {
   setHighLight(props.highLight)
 }, {
   deep: true
 })
+
 // 监听参与人回显数据
 watch(() => props.assigneeText, () => {
   setAssigneeText(props.assigneeText)
 }, {
   deep: true
 })
+
 const initDoc = () => {
   const lf = unref(lfInstance)
 
@@ -136,10 +155,9 @@ const initDoc = () => {
     // })
   }
 }
+
 // 初始化
 const init = () => {
-  console.info(`Vue:${version}`)
-  console.info(`element-plus:${EleVersion}`)
   // 画布配置
   LogicFlow.use(Snapshot)
   LogicFlow.use(DndPanel)
@@ -166,6 +184,7 @@ const init = () => {
     defaultConfig.resizeNode = false
     defaultConfig.nodeSelectedOutline = false
   }
+
   lfInstance.value = new LogicFlow({
     container: unref(lfElRef),
     grid: true,
@@ -175,41 +194,53 @@ const init = () => {
       backgroundColor: ColorEnum.backgroundColor
     }
   })
+
   // 实例化成功，方便提供外部注册
   emits('on-init', lfInstance.value)
+
   // 绑定流程设计器组件属性
   bindWfProps()
+
   // 初始化操作
   initOp()
+
   reRender(props.modelValue as ProcessModel)
+
   // 初始化事件
   initEvent()
 }
+
 // 绑定流程设计器组件属性
 const bindWfProps = () => {
   const lf = unref(lfInstance)
   if (!lf) return
   lf.graphModel.wfProps = props
 }
+
 // 初始化操作
 const initOp = () => {
   const lf = unref(lfInstance)
   if (!lf) return
+
   if (props.viewer) {
     // 预览模式时
     lf.extension.menu.setMenuConfig({
       nodeMenu: [],
       edgeMenu: []
     })
+
     // 删除上一步
     lf.extension.control.removeItem('undo')
+
     // 删除下一步
     lf.extension.control.removeItem('redo')
     console.log('lf.extension.control:', lf.extension.control);
 
     initDoc()
+
     return
   }
+
   // 设置右键菜单
   lf.extension.menu.setMenuConfig({
     nodeMenu: [
@@ -222,6 +253,7 @@ const initOp = () => {
       }
     ]
   })
+
   // 控制面板-清空画布
   lf.extension.control.addItem({
     iconClass: 'lf-control-clear',
@@ -231,6 +263,7 @@ const initOp = () => {
       lf.clearData()
     }
   })
+
   // 控制面板-添加查看按钮
   lf.extension.control.addItem({
     iconClass: 'lf-control-see',
@@ -243,6 +276,7 @@ const initOp = () => {
       dataDetailElRef.show(graphData)
     }
   })
+
   // 控制面板-添加导入按钮
   lf.extension.control.addItem({
     iconClass: 'lf-control-import',
@@ -252,6 +286,7 @@ const initOp = () => {
       unref(importDataRef).show()
     }
   })
+
   // 控制面板-设置高亮数据
   lf.extension.control.addItem({
     iconClass: 'lf-control-setting',
@@ -261,6 +296,7 @@ const initOp = () => {
       unref(highLightDataRef).show()
     }
   })
+
   // 控制面板-保存
   lf.extension.control.addItem({
     iconClass: 'lf-control-save',
@@ -270,9 +306,12 @@ const initOp = () => {
       emits('on-save', getGraphData())
     }
   })
+
   initDoc()
+
   // 设置默认边
   lf.setDefaultEdgeType('snaker:transition')
+
   // 二次处理patternItems
   const wrapPatternItems = () => {
     Object.keys(props.wfConfig).forEach(key => {
@@ -301,16 +340,19 @@ const initOp = () => {
       return nodeConfig?.hide !== true
     })
   }
+
   lf.extension.dndPanel.setPatternItems([
     ...wrapPatternItems(),
     ...props.wfConfig?.extendDndPanel || []
   ].sort((a, b) => (a.sort || 99) - (b.sort || 99)))
 }
+
 // 初始化事件
 const initEvent = () => {
   // 初始化事件
   const lf = unref(lfInstance)
   if (!lf) return
+
   const eventCenter: EventEmitter = lf.graphModel.eventCenter
   // 自定义事件
   if (props.nodeRenderType === 'html') {
@@ -318,7 +360,9 @@ const initEvent = () => {
       eventCenter.on('custom:helpClick', props.wfConfig.helpClick)
     }
   }
+
   if (props.viewer) return
+
   // 空白区右键事件-弹出流程属性表单
   eventCenter.on('blank:contextmenu', (args) => {
     if (props.wfConfig.blankContextmenu && typeof props.wfConfig.blankContextmenu === 'function') {
@@ -336,6 +380,7 @@ const initEvent = () => {
       })
     }
   })
+
   // 节点点击事件
   eventCenter.on('node:click', (args) => {
     if (args.data.type === 'snaker:subProcess') {
@@ -375,6 +420,7 @@ const initEvent = () => {
       }
     }
   })
+
   // 边点击事件
   eventCenter.on('edge:click', (args) => {
     currentOpId.value = args.data.id
@@ -389,6 +435,7 @@ const initEvent = () => {
       })
     }
   })
+
   // 节点大小改变事件
   lf.on('node:resize', ({ newNodeSize }) => {
     const nodeModel = lf.getNodeModelById(newNodeSize.id)
@@ -400,6 +447,7 @@ const initEvent = () => {
     }
   })
 }
+
 // 重新渲染
 const reRender = (data: any): void => {
   const lf = unref(lfInstance)
@@ -410,25 +458,26 @@ const reRender = (data: any): void => {
   // 设置参与人加显文本
   setAssigneeText(props.assigneeText)
 }
+
 // 处理属性值变化事件
-const handlePropertyChange = (e: PropertyEvent) => {
+const handlePropertyChange = (propertyEvent: PropertyEvent) => {
   const lf = unref(lfInstance)
   if (!lf) return
-  if (e.type === NodeTypeEnum.process) {
+  if (propertyEvent.type === NodeTypeEnum.process) {
     // 流程属性
-    lf.graphModel[e.propertyName] = e.propertyValue
-  } else if (e.type === NodeTypeEnum.subProcess) {
+    lf.graphModel[propertyEvent.propertyName] = propertyEvent.propertyValue
+  } else if (propertyEvent.type === NodeTypeEnum.subProcess) {
     // 子流程属性
     const nodeId = unref(currentOpId)
-    if (e.propertyName === 'name') {
+    if (propertyEvent.propertyName === 'name') {
       // 更新唯一标识
-      if (!lf.getNodeModelById(e.propertyValue)) {
-        lf.changeNodeId(nodeId, e.propertyValue)
-        currentOpId.value = e.propertyValue
+      if (!lf.getNodeModelById(propertyEvent.propertyValue)) {
+        lf.changeNodeId(nodeId, propertyEvent.propertyValue)
+        currentOpId.value = propertyEvent.propertyValue
       }
     } else {
       lf.setProperties(nodeId, {
-        [e.propertyName]: e.propertyValue
+        [propertyEvent.propertyName]: propertyEvent.propertyValue
       })
     }
   } else if (([
@@ -440,69 +489,70 @@ const handlePropertyChange = (e: PropertyEvent) => {
     NodeTypeEnum.start,
     NodeTypeEnum.task,
     NodeTypeEnum.wfSubProcess
-  ] as NodeTypeEnum[]).includes(e.type)) {
+  ] as NodeTypeEnum[]).includes(propertyEvent.type)) {
     // 节点属性
     const nodeId = unref(currentOpId)
     // 节点信息
-    if (e.propertyName === 'name') {
+    if (propertyEvent.propertyName === 'name') {
       // 更新唯一标识
-      if (!lf.getNodeModelById(e.propertyValue)) {
-        lf.changeNodeId(nodeId, e.propertyValue)
-        currentOpId.value = e.propertyValue
+      if (!lf.getNodeModelById(propertyEvent.propertyValue)) {
+        lf.changeNodeId(nodeId, propertyEvent.propertyValue)
+        currentOpId.value = propertyEvent.propertyValue
       }
-    } else if (e.propertyName === 'displayName') {
+    } else if (propertyEvent.propertyName === 'displayName') {
       // 更新节点文本值
-      lf.updateText(nodeId, e.propertyValue)
-    } else if (e.propertyName === 'width' && [NodeTypeEnum.task, NodeTypeEnum.custom].includes(e.type)) {
+      lf.updateText(nodeId, propertyEvent.propertyValue)
+    } else if (propertyEvent.propertyName === 'width' && [NodeTypeEnum.task, NodeTypeEnum.custom].includes(propertyEvent.type)) {
       // 宽度
       lf.setProperties(nodeId, {
-        width: (Number.isNaN(e.propertyValue) ? 120 : e.propertyValue) as number
+        width: (Number.isNaN(propertyEvent.propertyValue) ? 120 : propertyEvent.propertyValue) as number
       })
       const nodeModel = lf.getNodeModelById(nodeId)
       if (nodeModel) {
-        nodeModel.width = (Number.isNaN(e.propertyValue) ? 120 : e.propertyValue) as number
+        nodeModel.width = (Number.isNaN(propertyEvent.propertyValue) ? 120 : propertyEvent.propertyValue) as number
       }
-    } else if (e.propertyName === 'height' && [NodeTypeEnum.task, NodeTypeEnum.custom].includes(e.type)) {
+    } else if (propertyEvent.propertyName === 'height' && [NodeTypeEnum.task, NodeTypeEnum.custom].includes(propertyEvent.type)) {
       // 高度
       lf.setProperties(nodeId, {
-        height: (Number.isNaN(e.propertyValue) ? 120 : e.propertyValue) as number
+        height: (Number.isNaN(propertyEvent.propertyValue) ? 120 : propertyEvent.propertyValue) as number
       })
       const nodeModel = lf.getNodeModelById(nodeId)
       if (nodeModel) {
-        nodeModel.height = (Number.isNaN(e.propertyValue) ? 120 : e.propertyValue) as number
+        nodeModel.height = (Number.isNaN(propertyEvent.propertyValue) ? 120 : propertyEvent.propertyValue) as number
       }
-    } else if (e.propertyName === 'field') {
+    } else if (propertyEvent.propertyName === 'field') {
       // 更新扩展属性
       lf.setProperties(nodeId, {
-        field: JSON.stringify(e.propertyValue)
+        field: JSON.stringify(propertyEvent.propertyValue)
       })
     } else {
       // 更新基础属性
       lf.setProperties(nodeId, {
-        [e.propertyName]: e.propertyValue
+        [propertyEvent.propertyName]: propertyEvent.propertyValue
       })
     }
     emits('update:modelValue', getGraphData())
-  } else if (e.type === NodeTypeEnum.transition) {
+  } else if (propertyEvent.type === NodeTypeEnum.transition) {
     // 边属性
     const edgeId = unref(currentOpId)
-    if (e.propertyName === 'name') {
+    if (propertyEvent.propertyName === 'name') {
       // 更新唯一标识
-      if (!lf.getEdgeModelById(e.propertyValue)) {
-        lf.changeEdgeId(edgeId, e.propertyValue)
-        currentOpId.value = e.propertyValue
+      if (!lf.getEdgeModelById(propertyEvent.propertyValue)) {
+        lf.changeEdgeId(edgeId, propertyEvent.propertyValue)
+        currentOpId.value = propertyEvent.propertyValue
       }
-    } else if (e.propertyName === 'displayName') {
+    } else if (propertyEvent.propertyName === 'displayName') {
       // 更新节点文本值
-      lf.updateText(edgeId, e.propertyValue)
+      lf.updateText(edgeId, propertyEvent.propertyValue)
     } else {
       // 更新基础属性
       lf.setProperties(edgeId, {
-        [e.propertyName]: e.propertyValue
+        [propertyEvent.propertyName]: propertyEvent.propertyValue
       })
     }
   }
 }
+
 /**
  * 获取流程数据
  */
@@ -511,6 +561,7 @@ const getGraphData = () => {
   if (!lf) return {}
   return lf.getGraphData()
 }
+
 /**
  * 处理导入提交事件
  */
@@ -529,18 +580,22 @@ const handleImportSubmit = (str: string) => {
     reRender(data)
   }
 }
+
 // 导入json
 const importJson = (data: any) => {
   reRender(data)
 }
+
 // 导入xml
 const importXml = (xml: any) => {
   reRender(xml)
 }
+
 // 刷新导入下拉数据
 const refreshImport = () => {
   return unref(importDataRef)?.refresh()
 }
+
 // 导入高亮数据
 const handleHighLightSubmit = (jsonStr: string) => {
   let data: any = null
@@ -550,6 +605,7 @@ const handleHighLightSubmit = (jsonStr: string) => {
   }
   setHighLight(data)
 }
+
 /**
  * 设置高亮数据
  * @param data { "historyNodeNames": [], "historyEdgeNames": [], "activeNodeNames": []}
@@ -579,6 +635,7 @@ const setHighLight = (data: any) => {
     })
   }
 }
+
 // 设置节点参与人文本
 const setAssigneeText = (data: any, kvConfig = { valueKey: 'value', labelKey: 'label' }) => {
   const lf = unref(lfInstance)
@@ -593,7 +650,9 @@ const setAssigneeText = (data: any, kvConfig = { valueKey: 'value', labelKey: 'l
     })
   }
 }
+
 onMounted(init)
+
 // 导出提供给外部操作-$refs.xxx
 defineExpose({
   getGraphData,
@@ -604,7 +663,9 @@ defineExpose({
   setAssigneeText,
   getLfInstance: () => lfInstance.value
 })
+
 </script>
+
 <style scoped>
 .ala-flow-designer {
   width: 100%;
@@ -618,10 +679,16 @@ defineExpose({
   height: 32px;
   background-size: cover;
 }
-.lf-dnd-item{
+
+.lf-dnd-item {
   margin-bottom: 12px;
   padding: 0px 8px;
 }
+
+.lf-node:hover {
+  cursor: pointer;
+}
+
 .lf-control-see {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNjQ1NjgyNDM0MzQxIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjEzNzgiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNTEyIDE3MS4yODM2OTJjLTI1NS4wNTQ3NjkgMC00ODUuOTI3Mzg1IDMxMi40MzgxNTQtNDk2Ljc5NzUzOCAzMjcuMzI1NTM4bDAgMC42MzAxNTRDMjYuMDcyNjE1IDUxNC4xMjY3NjkgMjU2Ljk0NTIzMSA4MjYuNDg2MTU0IDUxMiA4MjYuNDg2MTU0YzI1NS4wMTUzODUgMCA0ODUuODg4LTMxMi4zOTg3NjkgNDk2Ljc5NzUzOC0zMjcuMzI1NTM4bDAtMC42MzAxNTRDOTk3LjkyNzM4NSA0ODMuNjgyNDYyIDc2Ny4wMTUzODUgMTcxLjI4MzY5MiA1MTIgMTcxLjI4MzY5Mkw1MTIgMTcxLjI4MzY5MnpNNTEyIDI5MS4yMDk4NDZjMTE0LjU2OTg0NiAwIDIwNy43NTM4NDYgOTMuMTA1MjMxIDIwNy43NTM4NDYgMjA3LjY3NTA3N1M2MjYuNTY5ODQ2IDcwNi42Mzg3NjkgNTEyIDcwNi42Mzg3NjljLTExNC41MzA0NjIgMC0yMDcuNzUzODQ2LTkzLjE4NC0yMDcuNzUzODQ2LTIwNy43NTM4NDZTMzk3LjQ2OTUzOCAyOTEuMjA5ODQ2IDUxMiAyOTEuMjA5ODQ2TTUxMiAzOTUuMjI0NjE1Yy01Ny4yNjUyMzEgMC0xMDMuNjYwMzA4IDQ2LjQzNDQ2Mi0xMDMuNjYwMzA4IDEwMy42NjAzMDhzNDYuMzk1MDc3IDEwMy42NjAzMDggMTAzLjY2MDMwOCAxMDMuNjYwMzA4YzU3LjIyNTg0NiAwIDEwMy42MjA5MjMtNDYuNDM0NDYyIDEwMy42MjA5MjMtMTAzLjY2MDMwOFM1NjkuMjI1ODQ2IDM5NS4yMjQ2MTUgNTEyIDM5NS4yMjQ2MTV6IiBwLWlkPSIxMzc5Ij48L3BhdGg+PC9zdmc+');
 }
@@ -667,5 +734,14 @@ defineExpose({
   background-size: 35px 30px;
   background-position: center;
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNjQ5MDcyOTQyMTY5IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ5MzQiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj5AZm9udC1mYWNlIHsgZm9udC1mYW1pbHk6IGZlZWRiYWNrLWljb25mb250OyBzcmM6IHVybCgiLy9hdC5hbGljZG4uY29tL3QvZm9udF8xMDMxMTU4X3U2OXc4eWh4ZHUud29mZjI/dD0xNjMwMDMzNzU5OTQ0IikgZm9ybWF0KCJ3b2ZmMiIpLCB1cmwoIi8vYXQuYWxpY2RuLmNvbS90L2ZvbnRfMTAzMTE1OF91Njl3OHloeGR1LndvZmY/dD0xNjMwMDMzNzU5OTQ0IikgZm9ybWF0KCJ3b2ZmIiksIHVybCgiLy9hdC5hbGljZG4uY29tL3QvZm9udF8xMDMxMTU4X3U2OXc4eWh4ZHUudHRmP3Q9MTYzMDAzMzc1OTk0NCIpIGZvcm1hdCgidHJ1ZXR5cGUiKTsgfQo8L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNOTY3LjEgNDI2LjZsNTAuOS02Ny41Yy0xMC42LTM1LjYtMjQuNy02OS42LTQyLjItMTAxLjdsLTgzLjctMTEuOEM4MzEgMjM3LjEgNzgyLjkgMTg5IDc3NC4zIDEyNy44bC0xMS44LTgzLjdjLTMyLTE3LjQtNjYuMS0zMS42LTEwMS43LTQyLjJsLTY3LjUgNTAuOWMtMjQuNyAxOC42LTU0IDI3LjktODMuNCAyNy45cy01OC43LTkuMy04My40LTI3LjlMMzU5LjEgMmMtMzUuNiAxMC42LTY5LjYgMjQuNy0xMDEuNyA0Mi4ybC0xMS44IDgzLjdDMjM3LjEgMTg5IDE4OSAyMzcuMSAxMjcuOCAyNDUuN2wtODMuNyAxMS44Yy0xNy40IDMyLTMxLjYgNjYuMS00Mi4yIDEwMS43bDUwLjkgNjcuNUM5MCA0NzYgOTAgNTQ0IDUyLjkgNTkzLjRMMiA2NjAuOWMxMC42IDM1LjYgMjQuNyA2OS42IDQyLjIgMTAxLjdsODMuNyAxMS44YzYxLjIgOC42IDEwOS4zIDU2LjcgMTE3LjkgMTE3LjlsMTEuOCA4My43YzMyIDE3LjQgNjYuMSAzMS42IDEwMS43IDQyLjJsNjcuNS01MC45YzI0LjctMTguNiA1NC0yNy45IDgzLjQtMjcuOXM1OC43IDkuMyA4My40IDI3LjlsNjcuNSA1MC45YzM1LjYtMTAuNiA2OS42LTI0LjcgMTAxLjctNDIuMmwxMS44LTgzLjdjOC42LTYxLjIgNTYuNy0xMDkuMyAxMTcuOS0xMTcuOWw4My43LTExLjhjMTcuNC0zMiAzMS42LTY2LjEgNDIuMi0xMDEuN2wtNTAuOS02Ny41QzkzMCA1NDQgOTMwIDQ3NiA5NjcuMSA0MjYuNnpNNTExLjUgNzEwQzQwMS45IDcxMCAzMTMgNjIxLjEgMzEzIDUxMS41UzQwMS45IDMxMyA1MTEuNSAzMTMgNzEwIDQwMS45IDcxMCA1MTEuNSA2MjEuMSA3MTAgNTExLjUgNzEweiIgcC1pZD0iNDkzNSI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+.lf-control-item {
+  padding: 14px 10px 8px 10px;
+}
+
+.lf-control-item i {
+  width: 16px;
+  height: 16px;
 }
 </style>

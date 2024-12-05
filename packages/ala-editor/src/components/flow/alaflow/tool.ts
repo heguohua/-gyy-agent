@@ -30,6 +30,7 @@ export const nodeStyleHandle = (_this: BaseNodeModel, style: {
   }
   return style
 }
+
 /**
  * 边样式处理方法
  * @param {*}} _this
@@ -58,6 +59,7 @@ export const edgeStyleHandle = (_this: BaseEdgeModel, style: {
   }
   return style
 }
+
 /**
  * 解析xml成Dom对象
  * @param {} xml
@@ -68,7 +70,8 @@ export const parseXml2Dom = (xml: string): any => {
   if (window.DOMParser) {
     const parser = new DOMParser()
     xmlDoc = parser.parseFromString(xml, 'text/xml')
-  } else { // Internet Explorer
+  } else {
+    // Internet Explorer
     // eslint-disable-next-line no-undef
     xmlDoc = new ActiveXObject('Microsoft.XMLDOM')
     xmlDoc.async = false
@@ -76,15 +79,19 @@ export const parseXml2Dom = (xml: string): any => {
   }
   return xmlDoc
 }
+
 // 节点标签
 const NODE_NAMES = ['start', 'task', 'decision', 'end', 'custom', 'join', 'fork', 'subProcess', 'wfSubProcess']
+
 // 流程节点属性
 const PROCESS_ATTR_KEYS = ['name', 'displayName', 'instanceUrl', 'expireTime', 'instanceNoClass', 'preInterceptors', 'postInterceptors']
+
 // 节点属性
 const NODE_ATTR_KEYS = ['name', 'displayName', 'form', 'assignee', 'assignmentHandler', 'taskType', 'performType',
   'preInterceptors', 'postInterceptors', 'reminderTime', 'reminderRepeat',
   'expireTime', 'autoExecute', 'callback', 'expr', 'handleClass',
   'clazz', 'methodName', 'args', 'layout', 'g', 'version', 'form']
+
 // 变迁节点属性
 const TRANSITION_ATTR_KEYS = ['name', 'displayName', 'to', 'expr', 'g']
 

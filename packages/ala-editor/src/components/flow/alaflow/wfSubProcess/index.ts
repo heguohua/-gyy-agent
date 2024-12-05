@@ -1,17 +1,28 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-11-30 08:52:32
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-12-05 22:34:03
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/alaflow/wfSubProcess/index.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 import { GraphModel, h, NodeConfig } from '@logicflow/core'
 import { RectResize } from '@logicflow/extension'
 import { nodeStyleHandle } from '../tool'
 class WfSubProcessModel extends RectResize.model {
   static extendKey = 'WfSubProcess';
-  constructor (data: NodeConfig, graphModel: GraphModel) {
+  constructor(data: NodeConfig, graphModel: GraphModel) {
     super(data, graphModel)
     if (data.properties) {
       this.width = (data.properties.width ? data.properties.width : 120) as number
       this.height = (data.properties.height ? data.properties.height : 80) as number
     }
+    this.radius = 4
   }
 
-  getNodeStyle ():{
+  getNodeStyle(): {
     [x: string]: any;
     width?: number;
     height?: number;
@@ -19,7 +30,7 @@ class WfSubProcessModel extends RectResize.model {
     fill?: string;
     stroke?: string;
     strokeWidth?: number;
-    } {
+  } {
     const style = super.getNodeStyle()
     return nodeStyleHandle(this, style)
   }
@@ -27,7 +38,7 @@ class WfSubProcessModel extends RectResize.model {
 
 class WfSubProcessView extends RectResize.view {
   static extendKey = 'WfSubProcessNode';
-  getLabelShape ():h.JSX.Element {
+  getLabelShape(): h.JSX.Element {
     const { model } = this.props
     const { x, y, width, height } = model
     const style = model.getNodeStyle()
@@ -51,7 +62,7 @@ class WfSubProcessView extends RectResize.view {
     )
   }
 
-  getResizeShape ():h.JSX.Element {
+  getResizeShape(): h.JSX.Element {
     const { model } = this.props
     const { x, y, width, height, radius } = model
     const style = model.getNodeStyle()

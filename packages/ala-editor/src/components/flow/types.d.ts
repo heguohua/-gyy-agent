@@ -1,4 +1,17 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-11-30 08:52:32
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-12-05 21:29:17
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/types.d.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
+
+import LogicFlow from '@logicflow/core';
 import { NodeTypeEnum } from './enums'
+
 export interface ProcessModel {
   // 流程名称
   name: string;
@@ -10,15 +23,16 @@ export interface ProcessModel {
   instanceUrl: string;
   // 自定义流程实例流水号类
   instanceNoClass: string;
-  // 当前图上所有节点的model
+  //当前图上所有节点的model
   nodes: BaseNodeModel[];
-   // 当前图上所有边的model
+  // 当前图上所有边的model
   edges: BaseEdgeModel[];
   // 节点前置拦截器
   preInterceptors: string;
   // 节点后置拦截器
   postInterceptors: string;
 }
+
 export interface FlowFormModel extends ProcessModel {
   type: string;
   preInterceptors: string,
@@ -47,11 +61,13 @@ export interface FlowFormModel extends ProcessModel {
   fieldStr: string,
   version: number
 }
+
 export interface PropertyEvent {
   type: NodeType,
   propertyName: string,
   propertyValue: any,
 }
+
 export type WfPanelItem = {
   type?: string;
   text?: string;
@@ -64,12 +80,14 @@ export type WfPanelItem = {
   nodeClick?: (lf: LogicFlow, args: any) => void
   sort?: number; // 排序
 }
-// 创建一个映射类型来将NodeTypeEnum的每个成员映射到WfPanelItem
+
+// 创建一个映射类型来将 NodeTypeEnum 的每个成员映射到WfPanelItem
 type NodeTypeToConfig<T> = {
   [K in keyof T]?: T[K] extends string ? WfPanelItem : never;
-};
+}
+
 export interface WfConfig extends NodeTypeToConfig<NodeTypeEnum> {
-  extendDndPanel?: WfPanelItem [] // 扩展的拖拽面板
+  extendDndPanel?: WfPanelItem[] // 扩展的拖拽面板
   nodeClick?: (lf: LogicFlow, args: any) => void // 节点点击事件
   edgeClick?: (lf: LogicFlow, args: any) => void // 边点击事件
   blankContextmenu?: (lf: LogicFlow, args: any) => void // 空白区域右键事件

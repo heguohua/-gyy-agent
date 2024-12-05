@@ -2,7 +2,7 @@ import { CircleNode, CircleNodeModel, ConnectRule, GraphModel, NodeConfig } from
 import { nodeStyleHandle } from '../tool'
 class StartModel extends CircleNodeModel {
   static extendKey = 'StartModel';
-  constructor (data: NodeConfig, graphModel: GraphModel) {
+  constructor(data: NodeConfig, graphModel: GraphModel) {
     if (!data.text) {
       data.text = ''
     }
@@ -16,11 +16,11 @@ class StartModel extends CircleNodeModel {
     super(data, graphModel)
   }
 
-  setAttributes (): void {
+  setAttributes(): void {
     this.r = 18
   }
 
-  getConnectedTargetRules (): ConnectRule[] {
+  getConnectedTargetRules(): ConnectRule[] {
     const rules = super.getConnectedTargetRules()
     const notAsTarget = {
       message: '起始节点不能作为边的终点',
@@ -30,14 +30,15 @@ class StartModel extends CircleNodeModel {
     return rules
   }
 
-  getNodeStyle (): {
+  getNodeStyle(): {
     [x: string]: any;
     r?: number;
     fill?: string;
     stroke?: string;
     strokeWidth?: number;
-    } {
+  } {
     const style = super.getNodeStyle()
+    style.strokeWidth = 2.6
     return nodeStyleHandle(this, style)
   }
 }
