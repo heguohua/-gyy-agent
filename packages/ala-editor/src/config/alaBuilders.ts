@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-06 10:55:34
+ * @LastEditTime: 2024-12-06 11:32:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -212,8 +212,22 @@ export function alaBuildSelectApi(fieldName: string, label: string, url: string,
 
     u.checkBoolean(!url, `表单元素 select-api 配置项 url 为空，表单字段名${fieldName}`)
     u.checkBoolean(!itemProperty, `表单元素 select-api 配置项 itemProperty 为空，表单字段名${fieldName}`)
-    const obj = alaBuildWithOther("AlaSelectApi", fieldName, label, {url,itemProperty,params}, rules, placeholder)
+    const obj = alaBuildWithOther("AlaSelectApi", fieldName, label, { url, itemProperty, params }, rules, placeholder)
 
+    return obj
+}
+
+/**
+ * 
+ * 构建 AlaSelectApi 组件
+ * @param fieldName 属性名
+ * @param label 字段名字
+ * @param params 查询参数 { propertyName:'name',valueName:'value',}
+ * @param placeholder 占位符
+ * @returns 
+ */
+export function alaBuildSelectDict(fieldName: string, label: string, params: { [key: string]: string }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectApiSchema {
+    const obj = alaBuildWithOther("AlaSelectDict", fieldName, label, { params, itemProperty }, rules, placeholder)
     return obj
 }
 
