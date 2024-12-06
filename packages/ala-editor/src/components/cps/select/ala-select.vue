@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:15:04
+ * @LastEditTime: 2024-12-06 10:12:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/ala-select.vue
  * @Description: 
  * 
@@ -59,8 +59,8 @@ const props = defineProps({
 const model = defineModel({
   type: String || Number || Boolean || undefined
 })
-// const styles = computed(() => ({ width: props.width + 'px' }))
-const styles = computed(() => ({}))
+const styles = computed(() => ({ minWidth: props.width + 'px' }))
+// const styles = computed(() => ({}))
 
 
 
