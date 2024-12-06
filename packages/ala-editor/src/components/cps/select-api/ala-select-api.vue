@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-06 11:09:46
+ * @LastEditTime: 2024-12-06 11:12:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-api/ala-select-api.vue
  * @Description: 
  * 
@@ -94,8 +94,6 @@ logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数
 
 alaPost(u.url(url), params, false, '').then((data: any) => {
   const response = data;
-  console.log('response:', response);
-  console.log('props.itemProperty:', props.itemProperty);
   if (response.data) {
     const item_s:Array<item> = []
     response.data.forEach((item: any) => {
