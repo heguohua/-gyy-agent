@@ -36,6 +36,7 @@ declare module 'vue' {
     AlaRadio: typeof import('./src/components/cps/radio/ala-radio.vue')['default']
     AlaRating: typeof import('./src/components/cps/rating/ala-rating.vue')['default']
     AlaSelect: typeof import('./src/components/cps/select/ala-select.vue')['default']
+    AlaSelectApi: typeof import('./src/components/cps/select-api/ala-select-api.vue')['default']
     AlaSlider: typeof import('./src/components/cps/slider/ala-slider.vue')['default']
     AlaSwitch: typeof import('./src/components/cps/switch/ala-switch.vue')['default']
     AlaTab: typeof import('./src/components/cps/tab/ala-tab.vue')['default']

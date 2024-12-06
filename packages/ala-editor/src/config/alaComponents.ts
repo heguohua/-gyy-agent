@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:51:19
+ * @LastEditTime: 2024-12-06 10:36:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -40,6 +40,7 @@ import AlaRating from '@/components/cps/rating/ala-rating.vue';
 import AlaCustomerizationComponentDemo from '@/components/cps/input/ala-customerization-component-demo.vue';
 import AlaNumber from '@/components/cps/number/ala-number.vue';
 import AlaHidden from '@/components/cps/hidden/ala-hidden.vue';
+import AlaSelectApi from '@/components/cps/select-api/ala-select-api.vue';
 
 export default {
     AlaCustomerizationComponentDemo,
@@ -76,6 +77,7 @@ export default {
     AlaRating,
     AlaNumber,
     AlaHidden,
+    AlaSelectApi,
 }
 
 

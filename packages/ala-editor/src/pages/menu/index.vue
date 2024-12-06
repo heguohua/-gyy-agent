@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 20:09:33
+ * @LastEditTime: 2024-12-06 10:55:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -28,7 +28,7 @@ import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
 import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildInput } from '@/config/alaBuilders';
+import { alaBuildInput, alaBuildSelect, alaBuildSelectApi } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
@@ -144,6 +144,7 @@ const advancedFields = [
     // },
     { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider2', other: { min: 2, max: 10, step: 1, } },
     { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating2', other: { max: 8, allowHalf: true } },
+    alaBuildSelectApi("select_api", "api下拉选", "/u/menu/list", { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择")
 ]
 
 

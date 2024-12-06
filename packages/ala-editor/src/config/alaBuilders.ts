@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 18:59:43
+ * @LastEditTime: 2024-12-06 10:55:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -19,6 +19,7 @@ import AlaPasswordSchema from "@/components/cps/password/alaPasswordSchema";
 import AlaSwitchSchema from "@/components/cps/switch/alaSwitchSchema";
 import AlaDateSchema from "@/components/cps/date/alaDateSchema";
 import AlaSliderSchema from "@/components/cps/slider/alaSliderSchema";
+import AlaSelectApiSchema from "@/components/cps/select-api/AlaSelectApiSchema";
 
 
 /**
@@ -193,6 +194,26 @@ export function alaBuildSelect(fieldName: string, label: string, items: Array<{ 
         return convertToItem(item)
     }))
     const obj = alaBuildWithItems("AlaSelect", fieldName, label, item_s, rules, placeholder)
+    return obj
+}
+
+
+/**
+ * 
+ * 构建 AlaSelectApi 组件
+ * @param fieldName 属性名
+ * @param label 字段名字
+ * @param url api加载数据 url
+ * @param itemProperty api数据解析映射字段 { propertyName:'name',valueName:'value',}
+ * @param placeholder 占位符
+ * @returns 
+ */
+export function alaBuildSelectApi(fieldName: string, label: string, url: string, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string): AlaSelectApiSchema {
+
+    u.checkBoolean(!url, `表单元素 select-api 配置项 url 为空，表单字段名${fieldName}`)
+    u.checkBoolean(!itemProperty, `表单元素 select-api 配置项 itemProperty 为空，表单字段名${fieldName}`)
+    const obj = alaBuildWithOther("AlaSelectApi", fieldName, label, {url,itemProperty,params}, rules, placeholder)
+
     return obj
 }
 
