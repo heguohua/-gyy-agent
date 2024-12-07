@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-06 11:32:05
+ * @LastEditTime: 2024-12-07 08:54:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -20,6 +20,8 @@ import AlaSwitchSchema from "@/components/cps/switch/alaSwitchSchema";
 import AlaDateSchema from "@/components/cps/date/alaDateSchema";
 import AlaSliderSchema from "@/components/cps/slider/alaSliderSchema";
 import AlaSelectApiSchema from "@/components/cps/select-api/AlaSelectApiSchema";
+import AlaSelectTableSchema from "@/components/cps/select-table/alaSelectTableSchema";
+import AlaSelectDictSchema from "@/components/cps/select-dict/alaSelectDictSchema";
 
 
 /**
@@ -226,11 +228,30 @@ export function alaBuildSelectApi(fieldName: string, label: string, url: string,
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelectDict(fieldName: string, label: string, params: { [key: string]: string }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectApiSchema {
+export function alaBuildSelectDict(fieldName: string, label: string, params: { [key: string]: string }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectDictSchema {
     const obj = alaBuildWithOther("AlaSelectDict", fieldName, label, { params, itemProperty }, rules, placeholder)
     return obj
 }
 
+/**
+ * 
+ * 构建 AlaSelectApi 组件
+ * @param fieldName 属性名
+ * @param label 字段名字
+ * @param url 数据请求url
+ * @param params 查询参数 { propertyName:'name',valueName:'value',}
+ * @param placeholder 占位符
+ * @returns 
+ */
+export function alaBuildSelectTable(fieldName: string, label: string, url: string, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string): AlaSelectTableSchema {
+
+    u.checkBoolean(!url, `表单元素 select-table 配置项 url 为空，表单字段名${fieldName}`)
+    u.checkBoolean(!params, `表单元素 select-table 配置项 params 为空，表单字段名${fieldName}`)
+    u.checkBoolean(!itemProperty, `表单元素 select-table 配置项 itemProperty 为空，表单字段名${fieldName}`)
+
+    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, itemProperty }, rules, placeholder)
+    return obj
+}
 
 /**
  * 
@@ -248,7 +269,6 @@ export function alaBuildSwitch(fieldName: string, label: string, activeText: str
     const obj = alaBuildWithOther("AlaSwitch", fieldName, label, { activeText, inActiveText, activeValue, inActiveValue }, rules, placeholder)
     return obj
 }
-
 
 type dataTypee = "date" | "year" | "years" | "month" | "months" | "dates" | "week" | "datetime" | "datetimerange" | "daterange" | "monthrange" | "yearrange";
 
