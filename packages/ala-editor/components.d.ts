@@ -98,6 +98,7 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     End: typeof import('./src/components/flow/PropertySetting/end.vue')['default']
     FlowDesigner: typeof import('./src/components/flow/flow-designer.vue')['default']
     Fork: typeof import('./src/components/flow/PropertySetting/fork.vue')['default']
