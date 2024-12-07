@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 21:11:03
+ * @LastEditTime: 2024-12-07 21:28:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -28,7 +28,7 @@ import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
 import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildInput, alaBuildSelect, alaBuildSelectApi, alaBuildSelectDict, alaBuildSelectTable } from '@/config/alaBuilders';
+import { alaBuildInput, alaBuildSelect, alaBuildSelectApi, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
@@ -106,7 +106,6 @@ const columns = computed(() => {
 const baseFields = computed(() => {
     return [
         alaBuildInput("name", t('module.menu.name')),
-        alaBuildSelectTable("select_table2", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
     ]
 })
 // const baseFields = [
@@ -148,6 +147,8 @@ const advancedFields = [
     alaBuildSelectApi("select_api", "api下拉选", "/u/menu/list", { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
     alaBuildSelectDict("select_dict", "字典下拉选", {}, { propertyName: 'dictLabel', valueName: 'id' }, undefined, "请选择"),
     alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
+    alaBuildSelectTree("select_tree", "tree下拉选", "/a/dict/list", {}, { propertyName: 'dictLabel', valueName: 'id' }, undefined, "请选择"),
+
 ]
 
 

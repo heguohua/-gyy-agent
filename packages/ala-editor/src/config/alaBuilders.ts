@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 18:45:34
+ * @LastEditTime: 2024-12-07 21:22:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -22,6 +22,7 @@ import AlaSliderSchema from "@/components/cps/slider/alaSliderSchema";
 import AlaSelectApiSchema from "@/components/cps/select-api/alaSelectApiSchema";
 import AlaSelectTableSchema from "@/components/cps/select-table/alaSelectTableSchema";
 import AlaSelectDictSchema from "@/components/cps/select-dict/alaSelectDictSchema";
+import AlaSelectTreeSchema from "@/components/cps/select-tree/alaSelectTredSchema";
 
 
 /**
@@ -230,6 +231,20 @@ export function alaBuildSelectApi(fieldName: string, label: string, url: string,
  */
 export function alaBuildSelectDict(fieldName: string, label: string, params: { [key: string]: string }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectDictSchema {
     const obj = alaBuildWithOther("AlaSelectDict", fieldName, label, { params, itemProperty }, rules, placeholder)
+    return obj
+}
+
+/**
+ * 
+ * 构建 AlaSelectTree 组件
+ * @param fieldName 属性名
+ * @param label 字段名字
+ * @param params 查询参数 { propertyName:'name',valueName:'value',}
+ * @param placeholder 占位符
+ * @returns 
+ */
+export function alaBuildSelectTree(fieldName: string, label: string, url: string, params: { [key: string]: object }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectTreeSchema {
+    const obj = alaBuildWithOther("AlaSelectTree", fieldName, label, { url, params, itemProperty }, rules, placeholder)
     return obj
 }
 
