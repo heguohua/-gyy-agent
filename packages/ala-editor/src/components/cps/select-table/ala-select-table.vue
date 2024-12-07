@@ -221,14 +221,11 @@ const handleDelete = (index: number, row: any) => {
 .ala-select-table-wrapper {
 
   .ala-select-customer {
-    input {}
 
     .placeholder {
       color: var(--el-text-color-placeholder);
     }
   }
-
-  .ala-form-item-border {}
 
   .ala-select-customer-icon {
 
@@ -246,7 +243,6 @@ const handleDelete = (index: number, row: any) => {
       color: var(--el-color-primary-light-3);
     }
 
-    .icon {}
   }
 
 
