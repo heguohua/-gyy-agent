@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 11:29:42
+ * @LastEditTime: 2024-12-07 12:52:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -20,12 +20,15 @@
 
       <!-- <el-input :disabled="true" suffix-icon="el-icon-more" @click.native="openDialog" :model-value="model" :id="fieldName">
       </el-input> -->
-      <div class="ala-select-customer">
+      <div class="ala-select-customer ala-form-item-border" :style="styles">
         <input type="hidden" :model-value="model" :id="fieldName">
-        eee
+        <p class="placeholder">请选择{{ label }}</p>
       </div>
       <div class="ala-select-customer-icon">
-        <v-icon class="icon" icon="add" @click="openDialog" />
+        <v-icon class="icon" icon="f_user" @click="openDialog" />
+        <!-- <v-icon class="icon" icon="f_dept" @click="openDialog" /> -->
+        <!-- <v-icon class="icon" icon="f_role" @click="openDialog" /> -->
+        <!-- <v-icon class="icon" icon="f_duty" @click="openDialog" /> -->
       </div>
     </el-form-item>
 
@@ -96,7 +99,7 @@ const props = defineProps({
   },
   width: {
     type: Number,
-    default: 100,
+    default: 250,
   },
   fieldName: {
     type: String,
@@ -114,7 +117,9 @@ const items = ref<Array<item>>([])
 const model = defineModel({
   type: [Number, String, Boolean] as PropType<number | string | boolean>,
 })
-const styles = computed(() => ({ minWidth: props.width + 'px' }))
+const styles = computed(() => {
+  return { minWidth: props.width + 'px' }
+})
 
 
 
@@ -162,9 +167,30 @@ const openDialog = () => {
 .ala-select-table-wrapper {
   .ala-select-customer {
     input {}
+
+    .placeholder {
+      color: var(--el-text-color-placeholder);
+    }
   }
 
+  .ala-form-item-border {}
+
   .ala-select-customer-icon {
+
+    color: #a8abb2;
+    width: 30px;
+    right: 0px;
+    position: absolute;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      cursor: pointer;
+      color: var(--el-color-primary-light-3);
+    }
+
     .icon {}
   }
 

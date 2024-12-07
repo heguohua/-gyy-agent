@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 18:39:33
+ * @LastEditTime: 2024-12-07 12:52:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -85,6 +85,11 @@ const icon = {
   star: "lucide:star",
   calendar: "system-uicons:calendar-date",
   time: "mingcute:time-duration-line",
+  f_user: "gravity-ui:person",
+  f_dept: "ci:users",
+  // f_role: "fluent:person-passkey-24-filled",
+  f_role: "fluent:person-wrench-20-filled",
+  f_duty: "fluent:person-ribbon-16-filled",
 
 }
 
