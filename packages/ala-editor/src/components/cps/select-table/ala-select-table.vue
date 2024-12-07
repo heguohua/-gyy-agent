@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 13:14:03
+ * @LastEditTime: 2024-12-07 17:05:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -32,10 +32,10 @@
       </div>
     </el-form-item>
 
-    <el-dialog v-model="dialogShow" :width="dialogWidth" :append-to-body="true">
+    <el-dialog v-model="dialogShow" :width="dialogWidth" :append-to-body="true" :showClose="false">
 
-      <template #header="{ close, titleId, titleClass }">
-        <div class="my-header">
+      <template #header="{ titleId, titleClass }">
+        <div class="ala-select-table-header">
           <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
         </div>
       </template>
@@ -44,22 +44,42 @@
         <div class="left-panel">
           <!-- 分页列表 -->
           <PageTableSelect ref="pageRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
-            :tipTitle="$t('pop.warm_title')" />
+            :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label"/>
 
         </div>
+
         <div class="right-panel">
-          <!-- 勾选的数据列表 -->
-          <el-table :data="selectedData">
+          <div class="table-title">
+            {{ $t('form.p-selected') }}【 {{ label }} 】
+          </div>
+
+          <el-table :data="selectedData" style="width: 100%" row-key="id">
+            <!-- 主表列渲染 -->
+            <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label">
+            </el-table-column>
+
+            <!-- 主表操作列 -->
+            <el-table-column :label="$t('buttons.buttons')">
+              <template #default="scope">
+
+                <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
+                  {{ $t('buttons.delete') }}
+                </el-button>
+
+              </template>
+            </el-table-column>
+
           </el-table>
-          <el-button @click="removeSelected">删除</el-button>
+
+
         </div>
       </div>
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="">Cancel</el-button>
-          <el-button type="primary" @click="">
-            Confirm
+          <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
+          <el-button type="primary" @click="confirmClick">
+            {{ $t('buttons.confirm') }}
           </el-button>
         </span>
       </template>
@@ -71,7 +91,7 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { alaPost } from '@/utils/req';
+import { alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -141,8 +161,6 @@ const styles = computed(() => {
   return { minWidth: props.width + 'px' }
 })
 
-
-
 const handleChange = (value: any) => {
   model.value = value
 }
@@ -155,34 +173,53 @@ const columns = computed(() => {
   ]
 })
 
-// Methods
-const url = props.url
-const params = props.params
-logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
-
-alaPost(u.url(url), params, false, '').then((data: any) => {
-  const response = data;
-  if (response.data) {
-    const item_s: Array<item> = []
-    response.data.forEach((item: any) => {
-      const name = item[props.itemProperty.propertyName]
-      const value = item[props.itemProperty.valueName]
-      item_s.push({ name, value })
-    })
-    u.merged(items.value, item_s)
-  }
-
-});
-
 const dialogShow = ref(false)
 const openDialog = () => {
   dialogShow.value = true;
 }
 
+/**
+ * 点击取消按钮，关闭弹窗
+ */
+function cancelClick() {
+  dialogShow.value = false
+}
+
+/**
+ * 点击确认按钮，弹窗消息提示框
+ */
+function confirmClick() {
+  // emit("confirm", {
+  //     // data: {
+  //     //     [key]: data
+  //     // },
+  //     // id
+  //     abc: 123
+  // })
+
+  console.log('selectedData:', selectedData);
+
+}
+
+const selectedData = ref([])
+const selectedChange = (items: any) => {
+  selectedData.value = items
+}
+
+// 删除选择项
+const pageRef = ref()
+const handleDelete = (index: number, row: any) => {
+  selectedData.value.splice(index, 1);
+  // 取消 el-table 中勾选的对象
+  pageRef.value.cancelSelect(row)
+}
+
+
 </script>
 
 <style scoped lang="scss">
 .ala-select-table-wrapper {
+
   .ala-select-customer {
     input {}
 
@@ -215,16 +252,55 @@ const openDialog = () => {
 
 }
 
+
 // 由于 el-dialog 设置了 append-to-body="true"，那么样式更改也要放在顶层层级才能生效
 .dialog-content {
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  gap: 2%;
+
   .left-panel {
-    display: inline-block !important;
-    width: 45% !important;
+    width: 48%;
+    padding: 0px 1px 10px 1px;
+    background-color: var(--el-fill-color-blank);
+    border-radius: var(--el-border-radius-base);
+    box-shadow: 0 0 0 1px var(--el-border-color) inset;
   }
 
   .right-panel {
-    display: inline-block;
-    width: 45%;
+    width: 48%;
+    padding: 0px 1px 10px 1px;
+    background-color: var(--el-fill-color-blank);
+    border-radius: var(--el-border-radius-base);
+    box-shadow: 0 0 0 1px var(--el-border-color) inset;
+
+    .table-title {
+      height: 40px;
+      line-height: 40px;
+      padding-left: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
   }
+}
+</style>
+<style>
+.el-dialog__header {
+  padding-bottom: 0px !important;
+}
+
+.el-dialog__title {
+  line-height: inherit !important;
+  margin: 0px 0px 10px 0px !important;
+}
+
+.el-table th.el-table__cell {
+  background-color: #F9F9FA;
+  padding: 8px 0px;
+}
+
+.ala-select-table-header {
+  padding-left: 12px;
 }
 </style>

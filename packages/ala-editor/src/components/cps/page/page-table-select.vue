@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 10:39:49
+ * @LastEditTime: 2024-12-07 17:04:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -11,11 +11,16 @@
 <template>
     <div class="ala-page-table">
         <!-- 分页列表区域 -->
+
+        <div class="table-title">
+            {{ $t('form.p-select') }}【 {{ label }} 】
+        </div>
+
         <el-table :data="paginatedData" style="width: 100%" row-key="id" @sort-change="sortChange"
             :default-sort="{ prop: 'id', order: 'descending' }" @selection-change="handleSelectedChange"
-            @current-change="handleCurrentChange">
+            @current-change="handleCurrentChange" ref="table">
 
-            
+
             <!-- 多选框 -->
             <el-table-column type="selection" :width="selectCheckboxWidth()" v-if="displaySelectCheckbox()" />
 
@@ -49,6 +54,10 @@ interface Column {
 }
 
 const props = defineProps({
+    label: {
+        type: String,
+        default: ''
+    },
     tipTitle: {
         type: String,
         default: '温馨提示：'
@@ -121,16 +130,8 @@ const selectCheckboxWidth = () => {
     return props.showSelectCheckboxWidth;
 }
 
-const handleEdit = (index: number, item: any) => {
-    logger.info(`点击【 编辑 】按钮，当前行数据`, item);
-    baseInfo.item = { ...item }
-    logger.info(`baseInfo`, baseInfo);
-    emit("edit", item)
-}
 const handleDelete = (index: number, item: { id: number }) => {
     logger.info(`点击【 删除 】按钮，当前行数据`, item);
-
-
 
     ElMessageBox.confirm(
         deleteContent(),
@@ -170,6 +171,7 @@ const handleAdd = (index: number, item: { id: number }) => {
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {
     console.log('分页列表多选items:', items);
+    emit('selectedChange', items)
 }
 
 const handleCurrentChange = (item: { id: string }) => {
@@ -203,8 +205,8 @@ const page = reactive({
         asc: false
     }]
 })
-const { current, total, size } = toRefs(page)
 
+const { current, total, size } = toRefs(page)
 
 const onePageList = ref<Array<any>>([]);
 
@@ -230,40 +232,46 @@ onMounted(() => {
     queryPageData()
 })
 
-
-
 const paginatedData = computed(() => {
-    // const currentPage = page.current; // 当前页码
-    // const pageSize = page.size; // 每页显示条数
-    // const start = (currentPage - 1) * pageSize;
-    // const end = start + pageSize;
-    // return onePageList.value.slice(start, end);
     return onePageList.value
 });
 
-
-
 const handlePageChange = (newPage: number) => {
-    console.log('newPage:', newPage);
-
     page.current = newPage;
-    console.log('current:', current);
     queryPageData()
-
 };
 
 // Methods
-const emit = defineEmits(["add", "edit"])
-defineExpose({ refresh })
+const emit = defineEmits(["add", "edit", "selectedChange"])
+
+// 取消勾选的项目
+const table = ref()
+const cancelSelect = (item: any) => {
+    logger.info(`子组件接收到父组件方法调用，item：`, item);
+    table.value.toggleRowSelection(item, false);
+}
+
+// 暴露方法
+defineExpose({ refresh, cancelSelect })
+
 
 </script>
 
 <style scoped lang="scss">
 .ala-page-table {
 
+    .table-title {
+        height: 40px;
+        line-height: 40px;
+        padding-left: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
     .ala-page-pagination {
         float: right;
         margin-top: 8px;
+        margin-right: 2px;
 
         :deep .el-pager li:not(.is-active) {
             background-color: #fff;
