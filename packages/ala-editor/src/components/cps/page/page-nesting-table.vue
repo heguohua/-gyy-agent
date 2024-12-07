@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 17:06:11
+ * @LastEditTime: 2024-12-07 10:25:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -10,7 +10,6 @@
 -->
 <template>
     <div class="ala-page-nesting-table">
-
         <!-- 分页列表区域 -->
         <el-table :data="paginatedData" style="width: 100%" row-key="id" :expand-row-keys="expandedRowIds"
             @expand-change="handleExpandChange" @sort-change="sortChange"

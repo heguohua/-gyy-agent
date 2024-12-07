@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-28 20:13:32
+ * @LastEditTime: 2024-12-07 10:23:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
         @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" />
 
     <!-- 分页列表 -->
-    <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
+    <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')" />
 
     <!-- 新增、编辑 -->
@@ -26,7 +26,7 @@
 import { ref } from 'vue';
 import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
-import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
+import PageTable from '@/components/cps/page/page-table.vue';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
