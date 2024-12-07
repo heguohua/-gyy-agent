@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 18:55:40
+ * @LastEditTime: 2024-12-07 21:11:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -106,6 +106,7 @@ const columns = computed(() => {
 const baseFields = computed(() => {
     return [
         alaBuildInput("name", t('module.menu.name')),
+        alaBuildSelectTable("select_table2", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
     ]
 })
 // const baseFields = [

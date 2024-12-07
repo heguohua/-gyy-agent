@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 19:51:31
+ * @LastEditTime: 2024-12-07 21:07:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -21,9 +21,9 @@
       <!-- <el-input :disabled="true" suffix-icon="el-icon-more" @click.native="openDialog" :model-value="model" :id="fieldName">
       </el-input> -->
       <div class="ala-select-customer ala-form-item-border" :style="styles">
-        <input type="hidden" :model-value="model" :id="fieldName">
+        <!-- <input type="hidden" :model-value="model" :id="fieldName"> -->
         <p class="placeholder" v-if="model.length === 0">{{ $t('form.p-select-1') }} {{ label }}</p>
-        <p class="showValue" v-if="model.length != 0" v-html="showValue"></p>
+        <p class="show-values" v-if="model.length != 0" v-html="showValue"></p>
       </div>
       <div class="ala-select-customer-icon">
         <v-icon class="icon" icon="f_user" @click="openDialog" />
@@ -166,6 +166,10 @@ function cancelClick() {
   dialogShow.value = false
 }
 
+const generateValue = (value: string) => {
+  return `<p class='ala-select-table-value'>${value}</p>`
+}
+
 /**
  * 点击确认按钮，更新 model value
  */
@@ -182,14 +186,16 @@ function confirmClick() {
 
     // 给 model 赋值
     const mv: any = []
+    const sv: string[] = []
     const pi = props.itemProperty
     selectedData.value.forEach((item) => {
       mv.push({ [pi.valueName]: item[pi.valueName] })
+      sv.push(generateValue(item[pi.propertyName]))
     })
 
     model.value = mv
     // 给显示标签赋值
-    showValue.value = selectedData.value.length
+    showValue.value = sv.join('')
     // 清空列表选择页面当前状态
     pageListRef.value.clear()
     // 关闭弹窗
@@ -228,6 +234,14 @@ watch(() => dialogShow.value, (value) => {
     .placeholder {
       color: var(--el-text-color-placeholder);
     }
+
+    .show-values {
+      display: flex;
+      gap: 4px;
+    }
+
+
+
   }
 
   .ala-select-customer-icon {
@@ -282,6 +296,8 @@ watch(() => dialogShow.value, (value) => {
       font-weight: 600;
     }
   }
+
+
 }
 </style>
 <style>
@@ -301,5 +317,12 @@ watch(() => dialogShow.value, (value) => {
 
 .ala-select-table-header {
   padding-left: 12px;
+}
+
+.ala-select-table-value {
+  background-color: var(--el-disabled-bg-color);
+  padding: 0px 6px;
+  border-radius: 2px;
+  display: inline-flex;
 }
 </style>
