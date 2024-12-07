@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 09:39:18
+ * @LastEditTime: 2024-12-07 17:32:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -36,15 +36,17 @@
 
             <div class="buttons">
                 <!-- 高级查询条件 -->
-                <el-button type="primary" @click="toggleAdvanced" class="button-more" v-if="advancedFields && advancedFields.length >0">
+                <el-button type="primary" @click="toggleAdvanced" class="button-more"
+                    v-if="advancedFields && advancedFields.length > 0">
                     <v-icon v-if="advanced" icon="up" />
                     <v-icon v-else icon="down" />
                     {{ advanced ? $t('buttons.less') : $t('buttons.more') }}
                 </el-button>
 
-                <el-button type="primary" @click="emit('refresh')">{{ $t('buttons.query') }}</el-button>
-                <el-button type="primary" @click="clear">{{ $t('buttons.reset') }}</el-button>
-                <el-button type="primary" @click="showAdd">{{ $t('buttons.add') }}</el-button>
+                <el-button type="primary" @click="emit('refresh')" v-if="showQueryButton">{{ $t('buttons.query')
+                    }}</el-button>
+                <el-button type="primary" @click="clear" v-if="showResetButton">{{ $t('buttons.reset') }}</el-button>
+                <el-button type="primary" @click="showAdd" v-if="showAddButton">{{ $t('buttons.add') }}</el-button>
             </div>
 
         </el-form>
@@ -78,6 +80,18 @@ const props = defineProps({
         type: String,
         default: '130px'
     },
+    showQueryButton: {
+        type: Boolean,
+        default: true
+    },
+    showResetButton: {
+        type: Boolean,
+        default: true
+    },
+    showAddButton: {
+        type: Boolean,
+        default: true
+    }
 })
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 17:04:20
+ * @LastEditTime: 2024-12-07 17:40:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -13,7 +13,10 @@
         <!-- 分页列表区域 -->
 
         <div class="table-title">
-            {{ $t('form.p-select') }}【 {{ label }} 】
+            <!-- 查询条件 -->
+            <SearchPanel :baseFields="baseFields" :params="formParams" @refresh="refresh" labelWidth="180px"
+                :showAddButton="false" />
+
         </div>
 
         <el-table :data="paginatedData" style="width: 100%" row-key="id" @sort-change="sortChange"
@@ -41,6 +44,7 @@
 </template>
 
 <script setup lang="ts">
+import { alaBuildInput } from '@/config/alaBuilders';
 import { logger } from '@/utils/logger';
 import { alaDelete, alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
@@ -51,6 +55,7 @@ const { t } = useI18n();
 interface Column {
     prop: string;
     label: string;
+    isQuery?: boolean;
 }
 
 const props = defineProps({
@@ -101,6 +106,18 @@ const props = defineProps({
 
 })
 
+// 查询条件区域对象
+const formParams = ref({})
+const baseFields = computed(() => {
+    const fields: any = []
+    props.columns?.forEach((column) => {
+        console.log('column:', column);
+        if (column.isQuery) {
+            fields.push(alaBuildInput("name", t('module.menu.name')),)
+        }
+    })
+    return fields
+})
 
 // 获取数据缓存对象
 const baseInfo = inject('baseInfo', {
@@ -181,7 +198,8 @@ const handleCurrentChange = (item: { id: string }) => {
 
 // State
 const refresh = (data: any) => {
-    logger.warn("list页面接收到回调数据，即将刷新数据", data);
+    logger.warn("list页面接收到回调数据，即将刷新数据,formParams");
+    console.log('formParams.value:', formParams.value);
     logger.warn("list页面接收到回调数据，即将刷新数据，params", props.params);
     queryPageData()
 }
@@ -215,7 +233,11 @@ const queryPageData = () => {
     // 后台加载菜单
     logger.info(`查询分页列表数据，url【 ${props.url} 】`);
 
-    alaPage(u.url(props.url || ""), page, props.params, true).then((data: any) => {
+    const totalParams = {}
+    u.merged(totalParams, props.params as Record<string, any>);
+    u.merged(totalParams, formParams.value);
+
+    alaPage(u.url(props.url || ""), page, totalParams, true).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum
         size.value = responsePage.pageSize
@@ -261,8 +283,7 @@ defineExpose({ refresh, cancelSelect })
 .ala-page-table {
 
     .table-title {
-        height: 40px;
-        line-height: 40px;
+        margin-top: 1px;
         padding-left: 12px;
         font-size: 1rem;
         font-weight: 600;

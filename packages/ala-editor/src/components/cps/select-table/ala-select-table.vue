@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 17:05:15
+ * @LastEditTime: 2024-12-07 17:45:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -22,7 +22,7 @@
       </el-input> -->
       <div class="ala-select-customer ala-form-item-border" :style="styles">
         <input type="hidden" :model-value="model" :id="fieldName">
-        <p class="placeholder">请选择{{ label }}</p>
+        <p class="placeholder">{{ $t('form.p-select-1') }} {{ label }}</p>
       </div>
       <div class="ala-select-customer-icon">
         <v-icon class="icon" icon="f_user" @click="openDialog" />
@@ -36,7 +36,7 @@
 
       <template #header="{ titleId, titleClass }">
         <div class="ala-select-table-header">
-          <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
+          <h4 :id="titleId" :class="titleClass">{{ $t('form.p-select-1') }} 【 {{ label }} 】</h4>
         </div>
       </template>
 
@@ -44,7 +44,7 @@
         <div class="left-panel">
           <!-- 分页列表 -->
           <PageTableSelect ref="pageRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
-            :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label"/>
+            :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label" />
 
         </div>
 
@@ -168,7 +168,7 @@ const handleChange = (value: any) => {
 // 分页列表中列属性配置
 const columns = computed(() => {
   return [
-    { prop: 'name', label: t('module.menu.name') },
+    { prop: 'name', label: t('module.menu.name'), isQuery: true },
     { prop: 'delFlag', label: t('common.enable') },
   ]
 })
@@ -276,8 +276,8 @@ const handleDelete = (index: number, row: any) => {
     box-shadow: 0 0 0 1px var(--el-border-color) inset;
 
     .table-title {
-      height: 40px;
-      line-height: 40px;
+      height: 60px;
+      line-height: 60px;
       padding-left: 12px;
       font-size: 1rem;
       font-weight: 600;
