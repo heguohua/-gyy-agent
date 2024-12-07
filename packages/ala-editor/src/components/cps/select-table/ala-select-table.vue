@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 17:45:18
+ * @LastEditTime: 2024-12-07 17:47:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -276,8 +276,8 @@ const handleDelete = (index: number, row: any) => {
     box-shadow: 0 0 0 1px var(--el-border-color) inset;
 
     .table-title {
-      height: 60px;
-      line-height: 60px;
+      height: 68px;
+      line-height: 68px;
       padding-left: 12px;
       font-size: 1rem;
       font-weight: 600;
