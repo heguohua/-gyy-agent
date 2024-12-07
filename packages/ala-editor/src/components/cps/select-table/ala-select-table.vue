@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 12:52:32
+ * @LastEditTime: 2024-12-07 13:14:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -32,7 +32,14 @@
       </div>
     </el-form-item>
 
-    <el-dialog v-model="dialogShow" width="80%" :append-to-body="true">
+    <el-dialog v-model="dialogShow" :width="dialogWidth" :append-to-body="true">
+
+      <template #header="{ close, titleId, titleClass }">
+        <div class="my-header">
+          <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
+        </div>
+      </template>
+
       <div class="dialog-content">
         <div class="left-panel">
           <!-- 分页列表 -->
@@ -47,6 +54,15 @@
           <el-button @click="removeSelected">删除</el-button>
         </div>
       </div>
+
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="">Cancel</el-button>
+          <el-button type="primary" @click="">
+            Confirm
+          </el-button>
+        </span>
+      </template>
 
     </el-dialog>
 
@@ -96,6 +112,10 @@ const props = defineProps({
   params: {
     type: Object,
     default: () => ({})
+  },
+  dialogWidth: {
+    type: String,
+    default: "80%",
   },
   width: {
     type: Number,
@@ -156,8 +176,6 @@ alaPost(u.url(url), params, false, '').then((data: any) => {
 
 const dialogShow = ref(false)
 const openDialog = () => {
-  console.log('111:', 111);
-
   dialogShow.value = true;
 }
 
@@ -194,12 +212,19 @@ const openDialog = () => {
     .icon {}
   }
 
-  .dialog-content {
-    z-index: 10000;
 
-    .left-panel {}
+}
 
-    .right-panel {}
+// 由于 el-dialog 设置了 append-to-body="true"，那么样式更改也要放在顶层层级才能生效
+.dialog-content {
+  .left-panel {
+    display: inline-block !important;
+    width: 45% !important;
+  }
+
+  .right-panel {
+    display: inline-block;
+    width: 45%;
   }
 }
 </style>
