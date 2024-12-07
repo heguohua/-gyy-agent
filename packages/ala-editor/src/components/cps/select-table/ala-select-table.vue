@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 17:47:38
+ * @LastEditTime: 2024-12-07 17:58:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -144,6 +144,10 @@ const props = defineProps({
   fieldName: {
     type: String,
     default: ''
+  },
+  columns: {
+    type: Array<any>,
+    default: () => []
   }
 })
 
@@ -166,12 +170,7 @@ const handleChange = (value: any) => {
 }
 
 // 分页列表中列属性配置
-const columns = computed(() => {
-  return [
-    { prop: 'name', label: t('module.menu.name'), isQuery: true },
-    { prop: 'delFlag', label: t('common.enable') },
-  ]
-})
+
 
 const dialogShow = ref(false)
 const openDialog = () => {
@@ -213,6 +212,9 @@ const handleDelete = (index: number, row: any) => {
   // 取消 el-table 中勾选的对象
   pageRef.value.cancelSelect(row)
 }
+
+
+console.log('props.columns-------------------> : ', props.columns);
 
 
 </script>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 17:40:15
+ * @LastEditTime: 2024-12-07 17:53:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -111,9 +111,8 @@ const formParams = ref({})
 const baseFields = computed(() => {
     const fields: any = []
     props.columns?.forEach((column) => {
-        console.log('column:', column);
         if (column.isQuery) {
-            fields.push(alaBuildInput("name", t('module.menu.name')),)
+            fields.push(alaBuildInput(column.prop, t('module.menu.' + column.prop)),)
         }
     })
     return fields
