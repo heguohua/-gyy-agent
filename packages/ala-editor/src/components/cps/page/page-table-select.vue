@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 17:53:38
+ * @LastEditTime: 2024-12-07 19:49:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
         <div class="table-title">
             <!-- 查询条件 -->
             <SearchPanel :baseFields="baseFields" :params="formParams" @refresh="refresh" labelWidth="180px"
-                :showAddButton="false" />
+                :showAddButton="false" ref="searchPanelRef" />
 
         </div>
 
@@ -56,6 +56,11 @@ interface Column {
     prop: string;
     label: string;
     isQuery?: boolean;
+}
+
+interface ItemProperty {
+    propertyName: string,
+    valueName: string
 }
 
 const props = defineProps({
@@ -102,6 +107,10 @@ const props = defineProps({
     pageSize: {
         type: Array<number>,
         default: [10, 20, 30, 40, 50, 100, 200]
+    },
+    itemProperty: {
+        type: Object as () => ItemProperty,
+        default: () => ({})
     }
 
 })
@@ -272,8 +281,31 @@ const cancelSelect = (item: any) => {
     table.value.toggleRowSelection(item, false);
 }
 
+const searchPanelRef = ref()
+const clear = () => {
+    searchPanelRef.value.clear()
+}
+
+const model = defineModel({
+    type: Array<any>,
+    default: () => ([])
+})
+
+const init = () => {
+    if (onePageList.value && onePageList.value.length > 0 && model.value && model.value.length > 0) {
+        const ips = props.itemProperty
+        onePageList.value.forEach((item) => {
+            model.value.forEach((m) => {
+                if (m[ips.valueName] === item[ips.valueName]) {
+                    table.value.toggleRowSelection(item, true);
+                }
+            })
+        })
+    }
+}
+
 // 暴露方法
-defineExpose({ refresh, cancelSelect })
+defineExpose({ refresh, cancelSelect, clear, init })
 
 
 </script>

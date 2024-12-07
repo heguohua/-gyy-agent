@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 18:04:34
+ * @LastEditTime: 2024-12-07 19:51:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -22,7 +22,8 @@
       </el-input> -->
       <div class="ala-select-customer ala-form-item-border" :style="styles">
         <input type="hidden" :model-value="model" :id="fieldName">
-        <p class="placeholder">{{ $t('form.p-select-1') }} {{ label }}</p>
+        <p class="placeholder" v-if="model.length === 0">{{ $t('form.p-select-1') }} {{ label }}</p>
+        <p class="showValue" v-if="model.length != 0" v-html="showValue"></p>
       </div>
       <div class="ala-select-customer-icon">
         <v-icon class="icon" icon="f_user" @click="openDialog" />
@@ -43,8 +44,9 @@
       <div class="dialog-content">
         <div class="left-panel">
           <!-- 分页列表 -->
-          <PageTableSelect ref="pageRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
-            :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label" />
+          <PageTableSelect ref="pageListRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
+            :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label" v-model="model"
+            :itemProperty="itemProperty" />
 
         </div>
 
@@ -90,23 +92,15 @@
 </template>
 
 <script setup lang="ts">
-import { logger } from '@/utils/logger';
-import { alaPage, alaPost } from '@/utils/req';
-import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 import PageTableSelect from '@/components/cps/page/page-table-select.vue';
-
-interface Column {
-  prop: string;
-  label: string;
-}
+import notify from '@/utils/notify';
 
 interface ItemProperty {
   propertyName: string,
   valueName: string
 }
-
 // State
 const props = defineProps({
   label: {
@@ -124,10 +118,6 @@ const props = defineProps({
   url: {
     type: String,
     default: ''
-  },
-  itemProperty: {
-    type: Object as () => ItemProperty,
-    default: () => ({})
   },
   params: {
     type: Object,
@@ -148,30 +138,22 @@ const props = defineProps({
   columns: {
     type: Array<any>,
     default: () => []
+  },
+  itemProperty: {
+    type: Object as () => ItemProperty,
+    default: () => ({})
   }
 })
 
-interface item {
-  name: string,
-  value: string,
-}
-
-const items = ref<Array<item>>([])
-
 const model = defineModel({
-  type: [Number, String, Boolean] as PropType<number | string | boolean>,
+  type: Array<any>,
+  default: () => ([])
 })
 const styles = computed(() => {
   return { minWidth: props.width + 'px' }
 })
 
-const handleChange = (value: any) => {
-  model.value = value
-}
-
 // 分页列表中列属性配置
-
-
 const dialogShow = ref(false)
 const openDialog = () => {
   dialogShow.value = true;
@@ -185,19 +167,35 @@ function cancelClick() {
 }
 
 /**
- * 点击确认按钮，弹窗消息提示框
+ * 点击确认按钮，更新 model value
  */
+const showValue = ref()
 function confirmClick() {
-  // emit("confirm", {
-  //     // data: {
-  //     //     [key]: data
-  //     // },
-  //     // id
-  //     abc: 123
-  // })
 
-  console.log('selectedData:', selectedData);
+  const length = selectedData.value.length
 
+  if (!selectedData.value || length <= 0) {
+
+    notify.warn(t('pop.warm_title'), t('form.p-select-1') + '【 ' + props.label + ' 】')
+
+  } else {
+
+    // 给 model 赋值
+    const mv: any = []
+    const pi = props.itemProperty
+    selectedData.value.forEach((item) => {
+      mv.push({ [pi.valueName]: item[pi.valueName] })
+    })
+
+    model.value = mv
+    // 给显示标签赋值
+    showValue.value = selectedData.value.length
+    // 清空列表选择页面当前状态
+    pageListRef.value.clear()
+    // 关闭弹窗
+    dialogShow.value = false
+
+  }
 }
 
 const selectedData = ref([])
@@ -206,12 +204,18 @@ const selectedChange = (items: any) => {
 }
 
 // 删除选择项
-const pageRef = ref()
+const pageListRef = ref()
 const handleDelete = (index: number, row: any) => {
   selectedData.value.splice(index, 1);
   // 取消 el-table 中勾选的对象
-  pageRef.value.cancelSelect(row)
+  pageListRef.value.cancelSelect(row)
 }
+
+watch(() => dialogShow.value, (value) => {
+  if (value) {
+    pageListRef.value.init();
+  }
+})
 
 
 </script>

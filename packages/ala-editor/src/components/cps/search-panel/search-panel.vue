@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 17:32:47
+ * @LastEditTime: 2024-12-07 19:26:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -119,6 +119,8 @@ const clear = () => {
 const showAdd = () => {
     emit('showAdd')
 }
+
+defineExpose({ clear })
 
 </script>
 

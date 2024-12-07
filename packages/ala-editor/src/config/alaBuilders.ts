@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 18:00:18
+ * @LastEditTime: 2024-12-07 18:45:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -243,13 +243,13 @@ export function alaBuildSelectDict(fieldName: string, label: string, params: { [
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelectTable(fieldName: string, label: string, url: string, columns: any, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string): AlaSelectTableSchema {
+export function alaBuildSelectTable(fieldName: string, label: string, url: string, columns: any, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string): AlaSelectTableSchema {
 
     u.checkBoolean(!url, `表单元素 select-table 配置项 url 为空，表单字段名${fieldName}`)
     u.checkBoolean(!params, `表单元素 select-table 配置项 params 为空，表单字段名${fieldName}`)
     u.checkBoolean(!columns, `表单元素 select-table 配置项 columns 为空，表单字段名${fieldName}`)
 
-    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns }, rules, placeholder)
+    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns, itemProperty }, rules, placeholder)
     return obj
 }
 
