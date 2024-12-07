@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 21:07:03
+ * @LastEditTime: 2024-12-07 21:46:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -320,7 +320,7 @@ watch(() => dialogShow.value, (value) => {
 }
 
 .ala-select-table-value {
-  background-color: var(--el-disabled-bg-color);
+  background-color: var(--el-fill-color);
   padding: 0px 6px;
   border-radius: 2px;
   display: inline-flex;
