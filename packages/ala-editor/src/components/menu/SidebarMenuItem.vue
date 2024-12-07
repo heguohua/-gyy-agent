@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:03:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 11:50:36
+ * @LastEditTime: 2024-12-07 08:31:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenuItem.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <!-- <el-sub-menu :index="`${item.id}`" class="ala-sub-menu"> -->
-    <el-sub-menu :index="`${item.url}`" class="ala-sub-menu">
+    <el-sub-menu :index="`${item.url ? item.url : item.id}`" class="ala-sub-menu">
         <!-- 1、先渲染当前节点 -->
         <template #title>
             <v-icon :icon="item.icon" :height="`${item.height || 16}px`" :width="`${item.width || 16}px`" />
@@ -23,8 +23,8 @@
 
             <!-- 3、如果当前节点不存在子节点，直接渲染普通菜单 -->
             <!-- <el-menu-item v-if="!child.children || child.children.length === 0" :index="`${child.id}`" -->
-            <el-menu-item v-if="!child.children || child.children.length === 0" :index="`${child.url}`"
-                @click="handleSelect(child)">
+            <el-menu-item v-if="!child.children || child.children.length === 0"
+                :index="`${child.url ? child.url : child.id}`" @click="handleSelect(child)">
                 <v-icon :icon="child.icon" :height="`${child.height || 16}px`" :width="`${child.width || 16}px`" />
                 <!-- <span>{{ child.code }}</span> -->
                 <span>{{ child.code ? $t(child.code) : child.name }}</span>
@@ -79,5 +79,4 @@ const handleSelect = (child: Menu) => {
 };
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
