@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 08:54:58
+ * @LastEditTime: 2024-12-07 17:50:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -19,7 +19,7 @@ import AlaPasswordSchema from "@/components/cps/password/alaPasswordSchema";
 import AlaSwitchSchema from "@/components/cps/switch/alaSwitchSchema";
 import AlaDateSchema from "@/components/cps/date/alaDateSchema";
 import AlaSliderSchema from "@/components/cps/slider/alaSliderSchema";
-import AlaSelectApiSchema from "@/components/cps/select-api/AlaSelectApiSchema";
+import AlaSelectApiSchema from "@/components/cps/select-api/alaSelectApiSchema";
 import AlaSelectTableSchema from "@/components/cps/select-table/alaSelectTableSchema";
 import AlaSelectDictSchema from "@/components/cps/select-dict/alaSelectDictSchema";
 
