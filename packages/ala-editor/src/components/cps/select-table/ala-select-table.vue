@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 17:58:28
+ * @LastEditTime: 2024-12-07 18:04:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -212,9 +212,6 @@ const handleDelete = (index: number, row: any) => {
   // 取消 el-table 中勾选的对象
   pageRef.value.cancelSelect(row)
 }
-
-
-console.log('props.columns-------------------> : ', props.columns);
 
 
 </script>
