@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 17:27:28
+ * @LastEditTime: 2024-12-08 22:22:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -16,6 +16,8 @@ import AlaColumn from '@/components/cps/column/ala-column.vue';
 
 // 注册表单组件
 import AlaConfigInput from '@/components/cps/config/ala-config-input.vue';
+import AlaConfigObject from '@/components/cps/config/ala-config-object.vue';
+import AlaConfigItemProperty from '@/components/cps/config/ala-config-itemProperty.vue';
 import AlaConfigFiles from '@/components/cps/config/ala-config-files.vue';
 import AlaConfigTextarea from '@/components/cps/config/ala-config-textarea.vue';
 import AlaConfigColumn from '@/components/cps/config/ala-config-column.vue';
@@ -57,6 +59,8 @@ export default {
 
     // editor-config 区域表单组件
     AlaConfigInput,
+    AlaConfigObject,
+    AlaConfigItemProperty,
     AlaConfigFiles,
     AlaConfigTextarea,
     AlaConfigColumn,

@@ -116,7 +116,7 @@ export const seniorFields: BaseBlock[] = [
     {
         id: "",
         name: "下拉选(API)",
-        code: "select",
+        code: "selectApi",
         icon: "select",
         formData: {},
     },

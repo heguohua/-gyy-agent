@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-06 11:12:25
+ * @LastEditTime: 2024-12-08 22:59:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-api/ala-select-api.vue
  * @Description: 
  * 
@@ -25,7 +25,6 @@
 import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
-
 
 interface ItemProperty {
   propertyName: string,
@@ -65,12 +64,16 @@ const props = defineProps({
   fieldName: {
     type: String,
     default: ''
+  },
+  isFormDesign: {
+    type: Boolean,
+    default: false
   }
 })
 
-interface item{
-  name:string,
-  value:string,
+interface item {
+  name: string,
+  value: string,
 }
 
 const items = ref<Array<item>>([])
@@ -80,32 +83,44 @@ const model = defineModel({
 })
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
-
-
 const handleChange = (value: any) => {
   model.value = value
 }
 
+const query = () => {
 
-// Methods
+  // Methods
 const url = props.url
 const params = props.params
 logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
 
-alaPost(u.url(url), params, false, '').then((data: any) => {
-  const response = data;
-  if (response.data) {
-    const item_s:Array<item> = []
-    response.data.forEach((item: any) => {
-      const name = item[props.itemProperty.propertyName]
-      const value = item[props.itemProperty.valueName]
-      item_s.push({ name, value })
-    })
-    u.merged(items.value,item_s)
+  alaPost(u.url(url), params, false, '').then((data: any) => {
+    const response = data;
+    if (response.data) {
+      const item_s: Array<item> = []
+      response.data.forEach((item: any) => {
+        const name = item[props.itemProperty.propertyName]
+        const value = item[props.itemProperty.valueName]
+        item_s.push({ name, value })
+      })
+      
+      u.merged(items.value, item_s)
+    }
+  });
+}
+
+// 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
+const isFormDesign = computed(() => props.isFormDesign)
+if (!isFormDesign) {
+  query()
+}
+
+watch(() => isFormDesign.value, (v) => {
+  if (v) {
+    // 说明是form表单设计页面
+    query()
   }
-
-});
-
+})
 </script>
 
 <style scoped lang="scss"></style>

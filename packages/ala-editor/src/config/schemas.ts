@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 22:08:36
+ * @LastEditTime: 2024-12-08 20:45:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -26,6 +26,7 @@ import SwitchSchema from '@/components/cps/switch/formSchema'
 import SliderSchema from '@/components/cps/slider/formSchema'
 import RatingSchema from '@/components/cps/rating/formSchema'
 import DateSchema from '@/components/cps/date/formSchema'
+import SelectApiSchema from '@/components/cps/select-api/formSchema'
 
 const _allSchemas = {
     image: imageSchema,
@@ -46,6 +47,7 @@ const _allSchemas = {
     slider: SliderSchema,
     rating: RatingSchema,
     date: DateSchema,
+    selectApi: SelectApiSchema,
 }
 
 
