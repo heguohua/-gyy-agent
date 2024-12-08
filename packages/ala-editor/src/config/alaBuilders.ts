@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 21:22:02
+ * @LastEditTime: 2024-12-08 08:45:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -243,7 +243,7 @@ export function alaBuildSelectDict(fieldName: string, label: string, params: { [
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelectTree(fieldName: string, label: string, url: string, params: { [key: string]: object }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectTreeSchema {
+export function alaBuildSelectTree(fieldName: string, label: string, url: string, params: { [key: string]: any }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectTreeSchema {
     const obj = alaBuildWithOther("AlaSelectTree", fieldName, label, { url, params, itemProperty }, rules, placeholder)
     return obj
 }

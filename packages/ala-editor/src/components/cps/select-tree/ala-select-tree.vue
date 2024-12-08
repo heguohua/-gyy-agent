@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 22:34:40
+ * @LastEditTime: 2024-12-08 08:40:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -18,8 +18,8 @@
         </div>
       </el-select> -->
 
-      <el-tree-select :model-value="model" :data="items" check-strictly
-        :id="fieldName" @change="handleChange" :style="styles" :props="{
+      <el-tree-select v-model="currentModel" :data="items" :id="fieldName" @change="handleChange" :style="styles"
+        :props="{
           children: itemProperty.childrenName,
           label: itemProperty.propertyName, // 自定义label属性名
           value: itemProperty.valueName // 自定义value属性名
@@ -85,11 +85,11 @@ interface Item {
 
 const items = ref<Array<Item>>([])
 
+const currentModel = ref()
 const model = defineModel({
   type: [Number, String, Boolean] as PropType<number | string | boolean>,
   default: ''
 })
-
 
 // Methods
 const url = props.url
@@ -98,28 +98,23 @@ logger.info(`加载 select-tree 下拉组件数据，url【 ${url} 】，查询�
 alaPost(u.url(url), props.params, false, '').then((data: any) => {
   const response = data;
   if (response.data) {
-    // const item_s: Array<Item> = []
-    // response.data.forEach((item: any) => {
-    //   const label = item[props.itemProperty.propertyName]
-    //   const value = item[props.itemProperty.valueName]
-    //   const children = item[props.itemProperty.childrenName]
-    //   item_s.push({ label, value, children })
-    // })
     items.value = response.data
+  } else {
+    logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, props.params);
   }
-
 });
 
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
-const handleChange = (e: any, b: any, c: any) => {
-  console.log('e:', e);
-  console.log('b:', b);
-  console.log('c:', c);
-
-  // model.value = e.target.value
+const handleChange = () => {
+  model.value = currentModel.value
 }
 
+onMounted(() => {
+  if (model.value) {
+    currentModel.value = model.value
+  }
+})
 
 </script>
 
