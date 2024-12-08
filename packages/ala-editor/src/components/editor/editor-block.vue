@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 20:32:05
+ * @LastEditTime: 2024-12-08 20:37:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -161,7 +161,6 @@ const handleChange = () => {
             }
         }
 
-        .is-active {}
     }
 
     .right {
