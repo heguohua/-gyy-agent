@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-06 11:36:28
+ * @LastEditTime: 2024-12-08 23:04:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -62,6 +62,10 @@ const props = defineProps({
     type: Object as () => ItemProperty,
     default: () => ({})
   },
+  isFormDesign: {
+    type: Boolean,
+    default: false
+  }
 })
 
 interface item {
@@ -82,25 +86,38 @@ const handleChange = (value: any) => {
   model.value = value
 }
 
+const query = () => {
+  // Methods
+  const url = '/a/dict/list'
+  logger.info(`从 dict 模块加载下拉组件数据，url【 ${url} 】，查询参数：`, props.params);
 
-// Methods
-const url = '/a/dict/list'
-logger.info(`从 dict 模块加载下拉组件数据，url【 ${url} 】，查询参数：`, props.params);
+  alaPost(u.url(url), props.params, false, '').then((data: any) => {
+    const response = data;
+    if (response.data) {
+      const item_s: Array<item> = []
+      response.data.forEach((item: any) => {
+        const name = item[props.itemProperty.propertyName]
+        const value = item[props.itemProperty.valueName]
+        item_s.push({ name, value })
+      })
+      u.merged(items.value, item_s)
+    }
 
-alaPost(u.url(url), props.params, false, '').then((data: any) => {
-  const response = data;
-  if (response.data) {
-    const item_s: Array<item> = []
-    response.data.forEach((item: any) => {
-      const name = item[props.itemProperty.propertyName]
-      const value = item[props.itemProperty.valueName]      
-      item_s.push({ name, value })
-    })
-    u.merged(items.value, item_s)
+  });
+}
+
+// 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
+const isFormDesign = computed(() => props.isFormDesign)
+if (!isFormDesign) {
+  query()
+}
+
+watch(() => isFormDesign.value, (v) => {
+  if (v) {
+    // 说明是form表单设计页面
+    query()
   }
-
-});
-
+})
 </script>
 
 <style scoped lang="scss"></style>

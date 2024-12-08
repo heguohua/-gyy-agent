@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 22:59:07
+ * @LastEditTime: 2024-12-08 23:04:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-api/ala-select-api.vue
  * @Description: 
  * 
@@ -90,9 +90,9 @@ const handleChange = (value: any) => {
 const query = () => {
 
   // Methods
-const url = props.url
-const params = props.params
-logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
+  const url = props.url
+  const params = props.params
+  logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
 
   alaPost(u.url(url), params, false, '').then((data: any) => {
     const response = data;
@@ -103,7 +103,7 @@ logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数
         const value = item[props.itemProperty.valueName]
         item_s.push({ name, value })
       })
-      
+
       u.merged(items.value, item_s)
     }
   });
