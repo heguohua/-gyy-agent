@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 11:12:32
+ * @LastEditTime: 2024-12-08 17:00:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -21,11 +21,12 @@
 
         <el-table :data="paginatedData" style="width: 100%" :row-key="getRowKeys" @sort-change="sortChange"
             :default-sort="{ prop: 'id', order: 'descending' }" @selection-change="handleSelectedChange"
-            @current-change="handleCurrentChange" ref="table" :reserve-selection="true">
+            @current-change="handleCurrentChange" ref="table">
 
 
             <!-- 多选框 -->
-            <el-table-column type="selection" :width="selectCheckboxWidth()" v-if="displaySelectCheckbox()" />
+            <el-table-column type="selection" :width="selectCheckboxWidth()" v-if="displaySelectCheckbox()"
+                :reserve-selection="true" />
 
             <!-- 主表列渲染 -->
             <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
@@ -235,8 +236,19 @@ const model = defineModel({
 
 
 onMounted(() => {
-    logger.info(`onMounted 渲染 menu 分页列表页面，url [ ${props.url} ]`);
+    logger.info(`onMounted 渲染 menu 分页列表页面，url [ ${props.url} ]，当前页面 model`);
+    console.log('model.value:', model.value);
+
+    // 先刷新分页列表数据
     queryPageData()
+
+    // 再初始化历史勾选的数据状态
+    if (model.value && model.value.length > 0) {
+        model.value.forEach(item => {
+            table.value.toggleRowSelection(item, true);
+        })
+    }
+
 })
 
 const getRowKeys = (row: any) => {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 11:29:39
+ * @LastEditTime: 2024-12-08 16:52:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -218,7 +218,7 @@ function confirmClick() {
 }
 
 const selectedData = ref([])
-const selectedChange = (items: [never]) => {
+const selectedChange = (currentSelected: [never]) => {
   // if (items && items.length > 0) {
   //   if(selectedData.value && selectedData.value.length >0){
   //     useI18n
@@ -227,39 +227,67 @@ const selectedChange = (items: [never]) => {
   //     selectedData.value = items
   //   }
   // }
-  console.log('items:', items);
-  if (items && items.length > 0) {
-    if (selectedData.value && selectedData.value.length > 0) {
-      console.log('selectedData.value:', selectedData.value);
+  console.log('currentSelected:', currentSelected);
+  selectedData.value = currentSelected
+  // if (currentSelected && currentSelected.length > 0) {
 
+  //   if (selectedData.value && selectedData.value.length > 0) {
 
-      // 当前选中的数据
-      const currentSelected = items;
+  //     const existedSelected = selectedData.value
+  //     console.log('existedSelected:', existedSelected);
 
-      // 比较当前选中的数据和上一次选中的数据
-      const newlySelected = currentSelected.filter(item => !selectedData.value.includes(item));
-      const deselected = selectedData.value.filter(item => !currentSelected.includes(item));
+  //     // 比较当前选中的数据和上一次选中的数据
+  //     const newlySelected = currentSelected.filter((currentItem: { id: number }) => {
+  //       let existed = false
+  //       existedSelected.forEach((existedItem: { id: number }) => {
+  //         if (existedItem.id === currentItem.id) {
+  //           existed = true
+  //         }
+  //       })
+  //       return !existed
+  //     });
+  //     // const deselected = existedSelected.filter(item => !currentSelected.includes(item));
+  //     const remainedData: any = []
+  //     const deselected = existedSelected.filter((existedItem: { id: number }) => {
+  //       let existed = false
+  //       currentSelected.forEach((currentItem: { id: number }) => {
+  //         if (existedItem.id === currentItem.id) {
+  //           existed = true
+  //           remainedData.push(currentItem)
+  //         }
+  //       })
+  //       return !existed
+  //     });
 
-      // 更新上一次选中的数据为当前选中的数据
-      this.lastSelected = currentSelected;
+  //     // 由于 新的 currentSelected 和 原有的 existedSelected 2个数据间对比逻辑比较复杂，因此这里采用的是先移除“取消勾选的元素”，再追加新勾选的元素
+  //     // 先移除“取消勾选的元素”
+  //     if (deselected.length > 0) {
+  //       // 直接移除
+  //       logger.info('取消勾选的数据：', deselected);
+  //       logger.info('还剩下勾选的数据：', remainedData);
+  //       // 直接 替换 selectedData.value并追加新增的数据
+  //       selectedData.value = remainedData
+  //       logger.info(`使用 remainedData 替换 selectedData 后，selectedData.value 如下：`);
+  //       console.log('selectedData.value:', selectedData.value);
+  //     }
 
-      // 根据 newlySelected 和 deselected 判断是新勾选还是取消勾选
-      if (newlySelected.length > 0) {
-        console.log('新勾选了数据：', newlySelected);
-      }
-      if (deselected.length > 0) {
-        console.log('取消勾选了数据：', deselected);
-      }
-      // items.forEach((i: never) => {
-      //   selectedData.value.push(i)
-      // })
-      // console.log('selectedData.value:', selectedData.value);
+  //     // 再追加新勾选的元素
+  //     if (newlySelected.length > 0) {
+  //       // 直接添加
+  //       logger.info('新勾选并即将追加的数据：', newlySelected);
+  //       newlySelected.forEach(item => selectedData.value.push(item))
+  //     }
 
-    } else {
-      selectedData.value = items
-    }
+  //     // items.forEach((i: never) => {
+  //     //   selectedData.value.push(i)
+  //     // })
+  //     // console.log('selectedData.value:', selectedData.value);
 
-  }
+  //   } else {
+  //     selectedData.value = currentSelected
+  //   }
+
+  // }
   // querySelectedData(items)
 }
 
