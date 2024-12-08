@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 21:46:02
+ * @LastEditTime: 2024-12-08 11:29:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -33,60 +33,63 @@
       </div>
     </el-form-item>
 
-    <el-dialog v-model="dialogShow" :width="dialogWidth" :append-to-body="true" :showClose="false">
+    <div class="ala-el-dialog-wrapper" v-if="dialogShow">
+      <el-dialog v-model="dialogShow" :width="dialogWidth" :append-to-body="true" :showClose="false">
 
-      <template #header="{ titleId, titleClass }">
-        <div class="ala-select-table-header">
-          <h4 :id="titleId" :class="titleClass">{{ $t('form.p-select-1') }} 【 {{ label }} 】</h4>
-        </div>
-      </template>
+        <template #header="{ titleId, titleClass }">
+          <div class="ala-select-table-header">
+            <h4 :id="titleId" :class="titleClass">{{ $t('form.p-select-1') }} 【 {{ label }} 】</h4>
+          </div>
+        </template>
 
-      <div class="dialog-content">
-        <div class="left-panel">
-          <!-- 分页列表 -->
-          <PageTableSelect ref="pageListRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
-            :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label" v-model="model"
-            :itemProperty="itemProperty" />
+        <div class="dialog-content">
+          <div class="left-panel">
+            <!-- 分页列表 -->
+            <PageTableSelect ref="pageListRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
+              :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label" v-model="model"
+              :itemProperty="itemProperty" />
 
-        </div>
-
-        <div class="right-panel">
-          <div class="table-title">
-            {{ $t('form.p-selected') }}【 {{ label }} 】
           </div>
 
-          <el-table :data="selectedData" style="width: 100%" row-key="id">
-            <!-- 主表列渲染 -->
-            <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label">
-            </el-table-column>
+          <div class="right-panel">
+            <div class="table-title">
+              {{ $t('form.p-selected') }}【 {{ label }} 】
+            </div>
 
-            <!-- 主表操作列 -->
-            <el-table-column :label="$t('buttons.buttons')">
-              <template #default="scope">
+            <el-table :data="selectedData" style="width: 100%" row-key="id">
+              <!-- 主表列渲染 -->
+              <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label">
+              </el-table-column>
 
-                <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
-                  {{ $t('buttons.delete') }}
-                </el-button>
+              <!-- 主表操作列 -->
+              <el-table-column :label="$t('buttons.buttons')">
+                <template #default="scope">
 
-              </template>
-            </el-table-column>
+                  <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
+                    {{ $t('buttons.delete') }}
+                  </el-button>
 
-          </el-table>
+                </template>
+              </el-table-column>
+
+            </el-table>
 
 
+          </div>
         </div>
-      </div>
 
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
-          <el-button type="primary" @click="confirmClick">
-            {{ $t('buttons.confirm') }}
-          </el-button>
-        </span>
-      </template>
+        <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
+            <el-button type="primary" @click="confirmClick">
+              {{ $t('buttons.confirm') }}
+            </el-button>
+          </span>
+        </template>
 
-    </el-dialog>
+      </el-dialog>
+    </div>
+
 
   </div>
 </template>
@@ -96,6 +99,9 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 import PageTableSelect from '@/components/cps/page/page-table-select.vue';
 import notify from '@/utils/notify';
+import { logger } from '@/utils/logger';
+import { alaPost } from '@/utils/req';
+import u from '@/utils/u';
 
 interface ItemProperty {
   propertyName: string,
@@ -163,7 +169,11 @@ const openDialog = () => {
  * 点击取消按钮，关闭弹窗
  */
 function cancelClick() {
+  pageListRef.value.clear()
   dialogShow.value = false
+
+  selectedData.value = []
+
 }
 
 const generateValue = (value: string) => {
@@ -189,7 +199,8 @@ function confirmClick() {
     const sv: string[] = []
     const pi = props.itemProperty
     selectedData.value.forEach((item) => {
-      mv.push({ [pi.valueName]: item[pi.valueName] })
+      selectedData.value = []
+      mv.push({ [pi.valueName]: item[pi.valueName], [pi.propertyName]: item[pi.propertyName], })
       sv.push(generateValue(item[pi.propertyName]))
     })
 
@@ -201,12 +212,55 @@ function confirmClick() {
     // 关闭弹窗
     dialogShow.value = false
 
+    selectedData.value = []
+
   }
 }
 
 const selectedData = ref([])
-const selectedChange = (items: any) => {
-  selectedData.value = items
+const selectedChange = (items: [never]) => {
+  // if (items && items.length > 0) {
+  //   if(selectedData.value && selectedData.value.length >0){
+  //     useI18n
+
+  //   }else{
+  //     selectedData.value = items
+  //   }
+  // }
+  console.log('items:', items);
+  if (items && items.length > 0) {
+    if (selectedData.value && selectedData.value.length > 0) {
+      console.log('selectedData.value:', selectedData.value);
+
+
+      // 当前选中的数据
+      const currentSelected = items;
+
+      // 比较当前选中的数据和上一次选中的数据
+      const newlySelected = currentSelected.filter(item => !selectedData.value.includes(item));
+      const deselected = selectedData.value.filter(item => !currentSelected.includes(item));
+
+      // 更新上一次选中的数据为当前选中的数据
+      this.lastSelected = currentSelected;
+
+      // 根据 newlySelected 和 deselected 判断是新勾选还是取消勾选
+      if (newlySelected.length > 0) {
+        console.log('新勾选了数据：', newlySelected);
+      }
+      if (deselected.length > 0) {
+        console.log('取消勾选了数据：', deselected);
+      }
+      // items.forEach((i: never) => {
+      //   selectedData.value.push(i)
+      // })
+      // console.log('selectedData.value:', selectedData.value);
+
+    } else {
+      selectedData.value = items
+    }
+
+  }
+  // querySelectedData(items)
 }
 
 // 删除选择项
@@ -217,12 +271,44 @@ const handleDelete = (index: number, row: any) => {
   pageListRef.value.cancelSelect(row)
 }
 
+const querySelectedData = (items: [{ id: number }]) => {
+
+  if (items && items.length > 0) {
+
+    logger.info(`正在【 初始化已勾选项 】，items`, items);
+
+    // 根据分页列表 url 获取 list 查询url
+    const listUrl = props.url?.slice(0, props.url?.lastIndexOf('/')) + '/list'
+
+    const ids: number[] = items.map(item => item.id);
+
+    alaPost(u.url(listUrl || ''), { ids }, false, '').then((data: any) => {
+      const response = data;
+      console.log('response:', response);
+      if (response.data && response.data.length > 0) {
+        selectedData.value = response.data
+      }
+    });
+
+    // const ips = props.itemProperty
+    // onePageList.value.forEach((item) => {
+    //   model.value.forEach((m) => {
+    //     if (m[ips.valueName] === item[ips.valueName]) {
+    //       table.value.toggleRowSelection(item, true);
+    //     }
+    //   })
+    // })
+  } else {
+    logger.info(`初始化数据不存在，【 不初始化 已勾选项 】，model.value`, model.value);
+  }
+}
+
+
 watch(() => dialogShow.value, (value) => {
   if (value) {
-    pageListRef.value.init();
+    querySelectedData(model.value as [{ id: number }])
   }
 })
-
 
 </script>
 

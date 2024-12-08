@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 19:49:02
+ * @LastEditTime: 2024-12-08 11:12:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -19,9 +19,9 @@
 
         </div>
 
-        <el-table :data="paginatedData" style="width: 100%" row-key="id" @sort-change="sortChange"
+        <el-table :data="paginatedData" style="width: 100%" :row-key="getRowKeys" @sort-change="sortChange"
             :default-sort="{ prop: 'id', order: 'descending' }" @selection-change="handleSelectedChange"
-            @current-change="handleCurrentChange" ref="table">
+            @current-change="handleCurrentChange" ref="table" :reserve-selection="true">
 
 
             <!-- 多选框 -->
@@ -128,71 +128,17 @@ const baseFields = computed(() => {
 })
 
 // 获取数据缓存对象
-const baseInfo = inject('baseInfo', {
-    moduleName: '',
-    id: 0,
-    item: Object,
-    selectedList: Array<{ id: string }>
-});
 
 // 操作按钮
 const displaySelectCheckbox = () => {
     return props.showSelectCheckbox;
 }
-const displayEditButton = () => {
-    return props.showEditButton;
-}
-const displayDeleteButton = () => {
-    return props.showDeleteButton;
-}
 
-const deleteContent = () => {
-    const content = t('pop_content.delete', { content: baseInfo.moduleName })
-    return content
-}
 
 const selectCheckboxWidth = () => {
     return props.showSelectCheckboxWidth;
 }
 
-const handleDelete = (index: number, item: { id: number }) => {
-    logger.info(`点击【 删除 】按钮，当前行数据`, item);
-
-    ElMessageBox.confirm(
-        deleteContent(),
-        props.tipTitle,
-        {
-            confirmButtonText: t("buttons.confirm"),
-            cancelButtonText: t("buttons.cancel"),
-            type: 'warning',
-        })
-        .then(() => {
-            logger.info("用户选择【确认】按钮，即将删除数据，当前对象id为：", item.id);
-            // postData(props.formData)
-            // emit("confirm", props.formData)
-            postData(item)
-        })
-        .catch(() => {
-            logger.info("用户选择【返回】按钮");
-        })
-
-
-}
-
-const postData = (item: { id: number }) => {
-
-    // 刷新列表数据
-    alaDelete(u.url(props.deleteUrl || ""), { id: item.id }, false).then((data: any) => {
-        const response = data;
-        refresh(response)
-    });
-}
-
-
-const handleAdd = (index: number, item: { id: number }) => {
-    logger.info(`点击【 添加子级 】按钮，当前行id【 ${item.id} 】当前行数据`, item);
-    emit("add", item)
-}
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {
     console.log('分页列表多选items:', items);
@@ -245,7 +191,7 @@ const queryPageData = () => {
     u.merged(totalParams, props.params as Record<string, any>);
     u.merged(totalParams, formParams.value);
 
-    alaPage(u.url(props.url || ""), page, totalParams, true).then((data: any) => {
+    alaPage(u.url(props.url || ""), page, totalParams, false).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum
         size.value = responsePage.pageSize
@@ -257,10 +203,6 @@ const queryPageData = () => {
     });
 }
 
-onMounted(() => {
-    logger.info("onMounted 渲染 menu 分页列表页面");
-    queryPageData()
-})
 
 const paginatedData = computed(() => {
     return onePageList.value
@@ -291,21 +233,18 @@ const model = defineModel({
     default: () => ([])
 })
 
-const init = () => {
-    if (onePageList.value && onePageList.value.length > 0 && model.value && model.value.length > 0) {
-        const ips = props.itemProperty
-        onePageList.value.forEach((item) => {
-            model.value.forEach((m) => {
-                if (m[ips.valueName] === item[ips.valueName]) {
-                    table.value.toggleRowSelection(item, true);
-                }
-            })
-        })
-    }
+
+onMounted(() => {
+    logger.info(`onMounted 渲染 menu 分页列表页面，url [ ${props.url} ]`);
+    queryPageData()
+})
+
+const getRowKeys = (row: any) => {
+    return row.id
 }
 
 // 暴露方法
-defineExpose({ refresh, cancelSelect, clear, init })
+defineExpose({ refresh, cancelSelect, clear })
 
 
 </script>
