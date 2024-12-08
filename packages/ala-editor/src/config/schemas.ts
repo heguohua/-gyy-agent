@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 23:09:23
+ * @LastEditTime: 2024-12-08 23:45:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -28,6 +28,7 @@ import RatingSchema from '@/components/cps/rating/formSchema'
 import DateSchema from '@/components/cps/date/formSchema'
 import SelectApiSchema from '@/components/cps/select-api/formSchema'
 import SelectDictSchema from '@/components/cps/select-dict/formSchema'
+import SelectTreeSchema from '@/components/cps/select-tree/formSchema'
 
 const _allSchemas = {
     image: imageSchema,
@@ -50,6 +51,7 @@ const _allSchemas = {
     date: DateSchema,
     selectApi: SelectApiSchema,
     selectDict: SelectDictSchema,
+    selectTree: SelectTreeSchema,
 }
 
 

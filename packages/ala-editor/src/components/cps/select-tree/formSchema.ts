@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:09:23
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/formSchema.ts
+ * @LastEditTime: 2024-12-08 23:44:59
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/formSchema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -42,17 +42,41 @@ const width = Type.Number({
 })
 
 
-const items = Type.Array(
-    Type.Object({
-        name: Type.String(),
-        value: Type.String(),
-    }),
-    {
-        code: "config-key-value",
-        title: "选项",
-        default: [],
-    }
-);
+const url = Type.String({
+    code: "config-input",
+    title: "api链接",
+    default: "/u/menu/list",
+})
+
+const propertyName = Type.String({
+    code: "config-input",
+    title: "属性名字段",
+    default: "",
+})
+
+const valueName = Type.String({
+    code: "config-input",
+    title: "属性值字段",
+    default: "",
+})
+
+const itemProperty = Type.String({
+    code: "config-itemProperty",
+    title: "属性映射字段",
+    default: "",
+})
+
+const params = Type.String({
+    code: "config-object",
+    title: "请求参数",
+    default: "",
+})
+
+const isFormDesign = Type.Boolean({
+    code: "config-boolean",
+    title: "api请求测试",
+    default: true,
+})
 
 
 const schema = Type.Object({
@@ -60,13 +84,18 @@ const schema = Type.Object({
     position: schemaAllViewport(position),
     placeholder: schemaAllViewport(placeholder),
     width: schemaAllViewport(width),
-    items: schemaAllViewport(items),
+    url: schemaAllViewport(url),
     fieldName: schemaAllViewport(fieldName),
+    propertyName: schemaAllViewport(propertyName),
+    valueName: schemaAllViewport(valueName),
+    itemProperty: schemaAllViewport(itemProperty),
+    params: schemaAllViewport(params),
+    isFormDesign: schemaAllViewport(isFormDesign),
     // style: schemaAllViewport(style),
 })
 
 
-export type AlaFormSelectSchema = Static<typeof schema>
+export type AlaFormSelectTreeSchema = Static<typeof schema>
 
 export default schema
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 08:40:00
+ * @LastEditTime: 2024-12-08 23:43:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -75,6 +75,10 @@ const props = defineProps({
     type: Object as () => ItemProperty,
     default: () => ({})
   },
+  isFormDesign: {
+    type: Boolean,
+    default: false
+  }
 })
 
 interface Item {
@@ -91,18 +95,35 @@ const model = defineModel({
   default: ''
 })
 
-// Methods
-const url = props.url
-logger.info(`加载 select-tree 下拉组件数据，url【 ${url} 】，查询参数：`, props.params);
+const query = () => {
 
-alaPost(u.url(url), props.params, false, '').then((data: any) => {
-  const response = data;
-  if (response.data) {
-    items.value = response.data
-  } else {
-    logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, props.params);
+  // Methods
+  const url = props.url
+  logger.info(`加载 select-tree 下拉组件数据，url【 ${url} 】，查询参数：`, props.params);
+
+  alaPost(u.url(url), props.params, false, '').then((data: any) => {
+    const response = data;
+    if (response.data) {
+      items.value = response.data
+    } else {
+      logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, props.params);
+    }
+  });
+}
+
+
+// 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
+const isFormDesign = computed(() => props.isFormDesign)
+if (!isFormDesign) {
+  query()
+}
+
+watch(() => isFormDesign.value, (v) => {
+  if (v) {
+    // 说明是form表单设计页面
+    query()
   }
-});
+})
 
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 23:10:21
+ * @LastEditTime: 2024-12-08 23:45:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -123,7 +123,7 @@ export const seniorFields: BaseBlock[] = [
     {
         id: "",
         name: "下拉选(Tree)",
-        code: "select",
+        code: "selectTree",
         icon: "select",
         formData: {},
     },
