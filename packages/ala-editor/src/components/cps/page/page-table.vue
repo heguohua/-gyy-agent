@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 10:25:45
+ * @LastEditTime: 2024-12-08 18:39:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -13,9 +13,9 @@
         <!-- 分页列表区域 -->
         <el-table :data="paginatedData" style="width: 100%" row-key="id" @sort-change="sortChange"
             :default-sort="{ prop: 'id', order: 'descending' }" @selection-change="handleSelectedChange"
-            @current-change="handleCurrentChange">
+            @current-change="handleCurrentChange" v-loading="loading" :element-loading-text="$t('common.loading')">
 
-            
+
             <!-- 多选框 -->
             <el-table-column type="selection" :width="selectCheckboxWidth()" v-if="displaySelectCheckbox()" />
 
@@ -209,6 +209,7 @@ const sortChange = (a: any, b: any, c: any) => {
 
 }
 
+const loading = ref(true)
 // 分页列表通用代码
 // 分页参数
 const page = reactive({
@@ -229,7 +230,7 @@ const queryPageData = () => {
 
     // 后台加载菜单
     logger.info(`查询分页列表数据，url【 ${props.url} 】`);
-
+    loading.value = true
     alaPage(u.url(props.url || ""), page, props.params, true).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum
@@ -239,6 +240,8 @@ const queryPageData = () => {
         if (data?.data?.list) {
             onePageList.value = data?.data?.list
         }
+        loading.value = false
+
     });
 }
 
@@ -290,6 +293,11 @@ defineExpose({ refresh })
             background-color: #fff;
         }
     }
+
+    :deep(.el-table__body-wrapper) {
+        min-height: 400px;
+    }
+
 
 
 }

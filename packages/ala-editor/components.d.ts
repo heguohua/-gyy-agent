@@ -130,4 +130,7 @@ declare module 'vue' {
     VUpload: typeof import('./src/components/base/v-upload.vue')['default']
     WfSubProcess: typeof import('./src/components/flow/PropertySetting/wfSubProcess.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }

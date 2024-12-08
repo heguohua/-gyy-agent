@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 17:00:43
+ * @LastEditTime: 2024-12-08 18:40:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -21,7 +21,8 @@
 
         <el-table :data="paginatedData" style="width: 100%" :row-key="getRowKeys" @sort-change="sortChange"
             :default-sort="{ prop: 'id', order: 'descending' }" @selection-change="handleSelectedChange"
-            @current-change="handleCurrentChange" ref="table">
+            @current-change="handleCurrentChange" ref="table" v-loading="loading"
+            :element-loading-text="$t('common.loading')">
 
 
             <!-- 多选框 -->
@@ -167,6 +168,7 @@ const sortChange = (a: any, b: any, c: any) => {
 
 }
 
+const loading = ref(true)
 // 分页列表通用代码
 // 分页参数
 const page = reactive({
@@ -191,7 +193,7 @@ const queryPageData = () => {
     const totalParams = {}
     u.merged(totalParams, props.params as Record<string, any>);
     u.merged(totalParams, formParams.value);
-
+    loading.value = true
     alaPage(u.url(props.url || ""), page, totalParams, false).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum
@@ -201,6 +203,8 @@ const queryPageData = () => {
         if (data?.data?.list) {
             onePageList.value = data?.data?.list
         }
+        loading.value = false
+
     });
 }
 
@@ -284,6 +288,11 @@ defineExpose({ refresh, cancelSelect, clear })
             background-color: #fff;
         }
     }
+
+    :deep(.el-table__body-wrapper) {
+        min-height: 400px;
+    }
+
 
 
 }
