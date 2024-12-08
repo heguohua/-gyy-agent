@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 20:17:02
+ * @LastEditTime: 2024-12-08 20:02:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-radio-wrapper">
+    <div class="ala-radio-wrapper" :style="styles">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <!-- <span :class="clasz">{{ label }}</span> -->
             <el-radio-group @change="handleChange" :model-value="model" class="ala-radio-group">
@@ -79,7 +79,13 @@ const clasz = computed(() => {
 })
 
 // Methods
-
+const styles = computed(() => {
+    if (!props.label) {
+        return { border: '1px dashed var(--el-border-color)' }
+    } else {
+        return {}
+    }
+})
 </script>
 
 <style scoped lang="scss">

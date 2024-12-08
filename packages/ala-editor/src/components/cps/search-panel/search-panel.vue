@@ -172,7 +172,7 @@ defineExpose({ clear })
             min-width: 300px;
         }
 
-        .ala-slider-wrapper {
+        .ala-rating-wrapper {
             min-width: 300px;
         }
 

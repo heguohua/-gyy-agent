@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:06:50
+ * @LastEditTime: 2024-12-08 20:04:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-checkbox-wrapper">
+    <div class="ala-checkbox-wrapper" :style="styles">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
                 <div class="ala-checkbox--item" v-for="(item, index) in items" :key="bType + '-' + item.value">
@@ -83,7 +83,13 @@ const clasz = computed(() => {
     return claszName;
 })
 // Methods
-
+const styles = computed(() => {
+    if (!props.label) {
+        return { border: '1px dashed var(--el-border-color)' }
+    } else {
+        return {}
+    }
+})
 </script>
 
 <style scoped lang="scss">
