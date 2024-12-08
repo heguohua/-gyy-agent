@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 08:45:53
+ * @LastEditTime: 2024-12-08 18:13:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -75,6 +75,15 @@ export function alaBuildWithOther(componentName: string, fieldName: string, labe
         fieldName: fieldName,
         other,
         rules
+    }
+    return obj
+}
+
+export function alaBuildNoneFormItem(componentName: string, label?: string, other?: { [key: string]: any }) {
+    const obj = {
+        componentName: componentName,
+        label: label,
+        other,
     }
     return obj
 }
@@ -265,6 +274,18 @@ export function alaBuildSelectTable(fieldName: string, label: string, url: strin
     u.checkBoolean(!columns, `表单元素 select-table 配置项 columns 为空，表单字段名${fieldName}`)
 
     const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns, itemProperty }, rules, placeholder)
+    return obj
+}
+
+/**
+ * 
+ * 构建 AlaSelectDivider 组件
+ * @param label 组件名字
+ * @param position 取值 left 、 right 、 center
+ * @returns 
+ */
+export function alaBuildDivider(label?: string, position = 'center'): any {
+    const obj = alaBuildNoneFormItem("AlaDivider", label, { position, fullWidth: true })
     return obj
 }
 

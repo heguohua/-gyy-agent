@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 08:46:32
+ * @LastEditTime: 2024-12-08 17:38:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -28,7 +28,7 @@ import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
 import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildInput, alaBuildSelect, alaBuildSelectApi, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree } from '@/config/alaBuilders';
+import { alaBuildInput, alaBuildSelect, alaBuildSelectApi, alaBuildSelectDict, alaBuildDivider, alaBuildSelectTable, alaBuildSelectTree } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';

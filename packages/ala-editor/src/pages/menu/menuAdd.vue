@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 20:01:32
+ * @LastEditTime: 2024-12-08 18:19:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
-        :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
+        :columnWidth="300" :columnNum="2" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
         :tipTitle="$t('pop.warm_title')" />
 
 </template>
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword } from '@/config/alaRules';
-import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
+import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildDivider, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
@@ -64,9 +64,13 @@ const basicFields = computed(() => {
         alaBuildHidden('id'),// 固定格式
         alaBuildSwitch('value', t('module.menu.name') + ' or ' + t('module.menu.url'), t('module.menu.url'), t('module.menu.name'), 2, 1, [alaRequired()]),
         alaBuildInput("name", t('module.menu.name'), [alaRequired()]),
+        alaBuildDivider("这里是分隔线", "right"),
+
         alaBuildInput("url", t('module.menu.url'), [alaRequired()]),
+        alaBuildDivider("这里是分隔线", "left"),
         alaBuildSwitch('delFlag', t('common.enable'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
         alaBuildInput("icon", t('module.menu.icon'), [alaRequired()]),
+        alaBuildDivider("这里是分隔线"),
         alaBuildNumber("width", t('module.menu.width'), [alaRequired()]),
         alaBuildNumber("height", t('module.menu.height'), [alaRequired()]),
         alaBuildNumber("sort", t('common.sorting')),
