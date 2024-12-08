@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:47:32
+ * @LastEditTime: 2024-12-08 20:32:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -40,7 +40,20 @@
                 <el-collapse-item :title="$t('module.lowcoding.seniorBlock')" name="2">
 
                     <editor-block-drag :list="seniorBlocks" :sort="false"
-                        :group="{ name: dragGroup, pull: 'clone', put: false }" :bType="bType">
+                        :group="{ name: dragGroup, pull: 'clone', put: false }" :bType="bType"
+                        class="editor-block-drag-senior">
+
+                    </editor-block-drag>
+
+                </el-collapse-item>
+
+
+                <!-- 渲染 高级组件 可拖拽区域 -->
+                <el-collapse-item :title="$t('module.lowcoding.businessBlock')" name="2">
+
+                    <editor-block-drag :list="businessFields" :sort="false"
+                        :group="{ name: dragGroup, pull: 'clone', put: false }" :bType="bType"
+                        class="editor-block-drag-senior">
 
                     </editor-block-drag>
 
@@ -83,6 +96,10 @@ const props = defineProps({
         default: []
     },
     seniorBlocks: {
+        type: Array,
+        default: []
+    },
+    businessFields: {
         type: Array,
         default: []
     },
@@ -143,12 +160,16 @@ const handleChange = () => {
                 overflow-wrap: break-word;
             }
         }
+
+        .is-active {}
     }
 
     .right {
         flex: 1;
         height: calc(100vh - var(--edit-header-height));
         overflow: auto;
+
+
     }
 
     :deep(.el-collapse) {
@@ -164,6 +185,14 @@ const handleChange = () => {
         padding-left: 14px;
         padding-right: 14px;
         padding-bottom: 14px;
+    }
+}
+</style>
+<style>
+.editor-block-drag-senior {
+    .block-item {
+        width: 50% !important;
+        max-height: 60px;
     }
 }
 </style>

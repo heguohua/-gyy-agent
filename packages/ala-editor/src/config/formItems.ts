@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 18:38:19
+ * @LastEditTime: 2024-12-08 20:25:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -56,7 +56,7 @@ export const baseFields: BaseBlock[] = [
     },
     {
         id: "",
-        name: "下拉选项",
+        name: "下拉选",
         code: "select",
         icon: "select",
         formData: {},
@@ -97,6 +97,7 @@ export const baseFields: BaseBlock[] = [
         formData: {},
     },
 ]
+
 export const seniorFields: BaseBlock[] = [
     {
         id: "",
@@ -112,4 +113,77 @@ export const seniorFields: BaseBlock[] = [
             }
         },
     },
+    {
+        id: "",
+        name: "下拉选(API)",
+        code: "select",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "下拉选(Dict)",
+        code: "select",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "下拉选(Tree)",
+        code: "select",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "下拉选(Table)",
+        code: "select",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "分隔线",
+        code: "select",
+        icon: "line_x",
+        formData: {},
+    }
+]
+
+export const businessFields: BaseBlock[] = [
+    {
+        id: "",
+        name: "下拉选(API)",
+        code: "select",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "下拉选(Dict)",
+        code: "select",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "下拉选(Tree)",
+        code: "select",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "下拉选(Table)",
+        code: "select",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "分隔线",
+        code: "select",
+        icon: "line_x",
+        formData: {},
+    }
 ]

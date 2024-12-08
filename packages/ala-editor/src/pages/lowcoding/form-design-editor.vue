@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 18:16:30
+ * @LastEditTime: 2024-12-08 20:31:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/form-design-editor.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
 
         <div class="container" :class="classes">
 
-            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseFields" :seniorBlocks="seniorFields" />
+            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseFields" :seniorBlocks="seniorFields"  :businessFields="businessFields" />
 
             <EditorRender :bType="bType" />
 
@@ -29,7 +29,7 @@
 import { queryLoveMessage } from '@/utils/tuwei';
 import { logger } from '@/utils/logger';
 import { useEditorStore } from '@/store/useEditorStore';
-import { baseFields, seniorFields } from "@/config/formItems"
+import { baseFields, businessFields, seniorFields } from "@/config/formItems"
 import { useI18n } from 'vue-i18n';
 import { alaPost, get } from '@/utils/req';
 import u from '@/utils/u';
