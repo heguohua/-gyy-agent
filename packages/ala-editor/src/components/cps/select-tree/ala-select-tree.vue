@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 23:43:55
+ * @LastEditTime: 2024-12-09 19:53:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -31,9 +31,11 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 interface ItemProperty {
   propertyName: string,
@@ -100,15 +102,18 @@ const query = () => {
   // Methods
   const url = props.url
   logger.info(`加载 select-tree 下拉组件数据，url【 ${url} 】，查询参数：`, props.params);
-
-  alaPost(u.url(url), props.params, false, '').then((data: any) => {
-    const response = data;
-    if (response.data) {
-      items.value = response.data
-    } else {
-      logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, props.params);
-    }
-  });
+  if (!url) {
+    notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
+  } else {
+    alaPost(u.url(url), props.params, false, '').then((data: any) => {
+      const response = data;
+      if (response.data) {
+        items.value = response.data
+      } else {
+        logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, props.params);
+      }
+    });
+  }
 }
 
 

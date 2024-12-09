@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 20:31:33
+ * @LastEditTime: 2024-12-09 18:36:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/form-design-editor.vue
  * @Description: 
  * 
@@ -90,7 +90,7 @@ onActivated(() => {
             // 向 pageConfig 添加 id ，供 editor-config 页面保存数据用于判断当前是新建还是编辑操作
             pageConfig["id"] = route.query.id
             
-            editorStore.setBlockConfig(blockConfig.slice(0,10), bType)
+            editorStore.setBlockConfig(blockConfig, bType)
             editorStore.setPageConfig(pageConfig, bType)
 
         });

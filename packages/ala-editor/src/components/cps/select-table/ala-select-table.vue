@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 17:03:23
+ * @LastEditTime: 2024-12-09 19:50:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -169,7 +169,7 @@ const openDialog = () => {
  * 点击取消按钮，关闭弹窗
  */
 function cancelClick() {
-  pageListRef.value.clear()
+  // pageListRef.value.clear()
   dialogShow.value = false
 
   selectedData.value = []
@@ -242,13 +242,19 @@ const querySelectedData = (items: [{ id: number }]) => {
 
     const ids: number[] = items.map(item => item.id);
 
-    alaPost(u.url(listUrl || ''), { ids }, false, '').then((data: any) => {
-      const response = data;
-      console.log('response:', response);
-      if (response.data && response.data.length > 0) {
-        selectedData.value = response.data
-      }
-    });
+    if (!listUrl) {
+      notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
+    } else {
+      alaPost(u.url(listUrl || ''), { ids }, false, '').then((data: any) => {
+        const response = data;
+        console.log('response:', response);
+        if (response.data && response.data.length > 0) {
+          selectedData.value = response.data
+        }
+      });
+    }
+
+
   } else {
     logger.info(`初始化数据不存在，【 不初始化 已勾选项 】，model.value`, model.value);
   }

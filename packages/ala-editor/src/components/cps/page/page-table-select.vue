@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 18:40:42
+ * @LastEditTime: 2024-12-09 19:51:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -48,6 +48,7 @@
 <script setup lang="ts">
 import { alaBuildInput } from '@/config/alaBuilders';
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 import { alaDelete, alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { ref } from 'vue'
@@ -194,18 +195,23 @@ const queryPageData = () => {
     u.merged(totalParams, props.params as Record<string, any>);
     u.merged(totalParams, formParams.value);
     loading.value = true
-    alaPage(u.url(props.url || ""), page, totalParams, false).then((data: any) => {
-        const responsePage = data.data;
-        current.value = responsePage.pageNum
-        size.value = responsePage.pageSize
-        total.value = responsePage.total
 
-        if (data?.data?.list) {
-            onePageList.value = data?.data?.list
-        }
-        loading.value = false
+    if (!props.url) {
+        notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
+    } else {
+        alaPage(u.url(props.url || ""), page, totalParams, false).then((data: any) => {
+            const responsePage = data.data;
+            current.value = responsePage.pageNum
+            size.value = responsePage.pageSize
+            total.value = responsePage.total
 
-    });
+            if (data?.data?.list) {
+                onePageList.value = data?.data?.list
+            }
+            loading.value = false
+
+        });
+    }
 }
 
 

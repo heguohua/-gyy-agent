@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 23:04:33
+ * @LastEditTime: 2024-12-09 19:52:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-api/ala-select-api.vue
  * @Description: 
  * 
@@ -23,9 +23,11 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 interface ItemProperty {
   propertyName: string,
   valueName: string
@@ -93,20 +95,23 @@ const query = () => {
   const url = props.url
   const params = props.params
   logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
+  if (!url) {
+    notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
+  } else {
+    alaPost(u.url(url), params, false, '').then((data: any) => {
+      const response = data;
+      if (response.data) {
+        const item_s: Array<item> = []
+        response.data.forEach((item: any) => {
+          const name = item[props.itemProperty.propertyName]
+          const value = item[props.itemProperty.valueName]
+          item_s.push({ name, value })
+        })
 
-  alaPost(u.url(url), params, false, '').then((data: any) => {
-    const response = data;
-    if (response.data) {
-      const item_s: Array<item> = []
-      response.data.forEach((item: any) => {
-        const name = item[props.itemProperty.propertyName]
-        const value = item[props.itemProperty.valueName]
-        item_s.push({ name, value })
-      })
-
-      u.merged(items.value, item_s)
-    }
-  });
+        u.merged(items.value, item_s)
+      }
+    });
+  }
 }
 
 // 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
