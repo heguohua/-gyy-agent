@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 10:36:52
+ * @LastEditTime: 2024-12-09 20:28:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/formSchema.ts
  * @Description: 
  * 
@@ -60,6 +60,12 @@ const valueName = Type.String({
     default: "",
 })
 
+const columns = Type.String({
+    code: "config-object",
+    title: "列字段",
+    default: [],
+})
+
 const itemProperty = Type.String({
     code: "config-itemProperty",
     title: "属性映射字段",
@@ -86,12 +92,12 @@ const schema = Type.Object({
     width: schemaAllViewport(width),
     url: schemaAllViewport(url),
     fieldName: schemaAllViewport(fieldName),
+    columns: schemaAllViewport(columns),
     propertyName: schemaAllViewport(propertyName),
     valueName: schemaAllViewport(valueName),
     itemProperty: schemaAllViewport(itemProperty),
     params: schemaAllViewport(params),
     isFormDesign: schemaAllViewport(isFormDesign),
-    // style: schemaAllViewport(style),
 })
 
 

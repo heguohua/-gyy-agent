@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 19:51:44
+ * @LastEditTime: 2024-12-09 20:55:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
         <div class="table-title">
             <!-- 查询条件 -->
             <SearchPanel :baseFields="baseFields" :params="formParams" @refresh="refresh" labelWidth="180px"
-                :showAddButton="false" ref="searchPanelRef" />
+                :showAddButton="false" ref="searchPanelRef" :isFormDesign="isFormDesign"/>
 
         </div>
 
@@ -30,8 +30,8 @@
                 :reserve-selection="true" />
 
             <!-- 主表列渲染 -->
-            <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
-                sortable>
+            <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
+                :label="isFormDesign ? parseLabel(column.label) : column.label" sortable>
             </el-table-column>
 
         </el-table>
@@ -114,6 +114,10 @@ const props = defineProps({
     itemProperty: {
         type: Object as () => ItemProperty,
         default: () => ({})
+    },
+    isFormDesign: {
+        type: Boolean,
+        default: false
     }
 
 })
@@ -209,6 +213,9 @@ const queryPageData = () => {
                 onePageList.value = data?.data?.list
             }
             loading.value = false
+            console.log('onePageList.value:', onePageList.value);
+            console.log('props.columns:', props.columns);
+            console.log('props.itemProperty:', props.itemProperty);
 
         });
     }
@@ -263,6 +270,14 @@ onMounted(() => {
 
 const getRowKeys = (row: any) => {
     return row.id
+}
+
+/**
+ * 动态解析国际化字符串
+ * @param label 
+ */
+const parseLabel = (label: string) => {
+    return t(label.slice(3, label.length - 2));
 }
 
 // 暴露方法

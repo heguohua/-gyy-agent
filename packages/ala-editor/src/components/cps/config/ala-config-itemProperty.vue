@@ -71,7 +71,7 @@ watch(formData, (form_data) => {
         itemProperty.valueName = valueName
     }
     input.value = u.tojson(itemProperty)
-    logger.info(`bType[ ${bType} ],【 config-itemProperty组件 监听到 - 更新后 】form_data 发生变化，更新后 input 的属性值,更新前form_data[key][props.viewport]`, form_data[key]?.[props.viewport]);
+    logger.info(`bType[ ${bType} ],【 config-itemProperty组件 监听到 - 更新后 】form_data 发生变化，更新 input 的属性值后form_data[key][props.viewport]`, form_data[key]?.[props.viewport]);
 
 }, {
     immediate: true

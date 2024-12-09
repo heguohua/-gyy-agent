@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 19:26:54
+ * @LastEditTime: 2024-12-09 21:00:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -18,9 +18,9 @@
 
                 <div class="ala-search-base-item" v-for="(item, index) in baseFields"
                     :key="item.fieldName + '-' + index">
-                    <component :is="item.componentName" :label="item.label" :position="item.position"
-                        :placeholder="item.placeholder" v-bind="item.other" v-model="params[item.fieldName]"
-                        :fieldName="item.fieldName" />
+                    <component :is="item.componentName" :label="isFormDesign ? parseLabel(item.label) : item.label"
+                        :position="item.position" :placeholder="item.placeholder" v-bind="item.other"
+                        v-model="params[item.fieldName]" :fieldName="item.fieldName" />
                 </div>
 
             </div>
@@ -28,9 +28,9 @@
             <div class="ala-search-advanced animate__animated animate__fadeIn " v-if="advanced">
                 <div class="ala-search-base-item" v-for="(item, index) in advancedFields"
                     :key="item.fieldName + '-' + index">
-                    <component :is="item.componentName" :label="item.label" :position="item.position"
-                        :placeholder="item.placeholder" v-bind="item.other" v-model="params[item.fieldName]"
-                        :fieldName="item.fieldName" />
+                    <component :is="item.componentName" :label="isFormDesign ? parseLabel(item.label) : item.label"
+                        :position="item.position" :placeholder="item.placeholder" v-bind="item.other"
+                        v-model="params[item.fieldName]" :fieldName="item.fieldName" />
                 </div>
             </div>
 
@@ -56,6 +56,8 @@
 
 <script setup lang="ts">
 import { AlaField } from '@/config/fieldSchemas';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 
 // State
@@ -91,6 +93,10 @@ const props = defineProps({
     showAddButton: {
         type: Boolean,
         default: true
+    },
+    isFormDesign: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -118,6 +124,15 @@ const clear = () => {
 
 const showAdd = () => {
     emit('showAdd')
+}
+
+/**
+ * 动态解析国际化字符串
+ * @param label 
+ */
+const parseLabel = (label: string) => {
+    console.log('label',label);
+    return t(label);
 }
 
 defineExpose({ clear })

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 19:50:54
+ * @LastEditTime: 2024-12-09 20:54:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -47,7 +47,7 @@
             <!-- 分页列表 -->
             <PageTableSelect ref="pageListRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
               :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label" v-model="model"
-              :itemProperty="itemProperty" />
+              :itemProperty="itemProperty" :isFormDesign="isFormDesign" />
 
           </div>
 
@@ -57,8 +57,10 @@
             </div>
 
             <el-table :data="selectedData" style="width: 100%" row-key="id">
+
               <!-- 主表列渲染 -->
-              <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label">
+              <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
+                :label="isFormDesign ? parseLabel(column.label) : column.label">
               </el-table-column>
 
               <!-- 主表操作列 -->
@@ -148,6 +150,10 @@ const props = defineProps({
   itemProperty: {
     type: Object as () => ItemProperty,
     default: () => ({})
+  },
+  isFormDesign: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -169,11 +175,8 @@ const openDialog = () => {
  * 点击取消按钮，关闭弹窗
  */
 function cancelClick() {
-  // pageListRef.value.clear()
   dialogShow.value = false
-
   selectedData.value = []
-
 }
 
 const generateValue = (value: string) => {
@@ -254,18 +257,24 @@ const querySelectedData = (items: [{ id: number }]) => {
       });
     }
 
-
   } else {
     logger.info(`初始化数据不存在，【 不初始化 已勾选项 】，model.value`, model.value);
   }
 }
-
 
 watch(() => dialogShow.value, (value) => {
   if (value) {
     querySelectedData(model.value as [{ id: number }])
   }
 })
+
+/**
+ * 动态解析国际化字符串
+ * @param label 
+ */
+const parseLabel = (label: string) => {
+  return t(label.slice(3, label.length - 2));
+}
 
 </script>
 
