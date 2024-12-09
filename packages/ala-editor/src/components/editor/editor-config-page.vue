@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 14:59:23
+ * @LastEditTime: 2024-12-09 15:01:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-page.vue
  * @Description: 
  * 
@@ -81,6 +81,25 @@ const callback = (params: { data: Record<string, any>, id: string }) => {
         }
     })
 }
+
+
+watch(() => editorStore.pageConfig[bType], (newValue) => {
+    logger.info(`bType[ ${bType} ],editor-config-page组件 监听到【 editorStore.pageConfig 更新 】,即将更新 pageConfig.${bType}`, newValue);
+
+    const listResult = Object.fromEntries(
+        Object.entries(properties).map((property) => {
+            const [key, value] = property
+            return [key, { ...value, key, ...newValue }]
+        })
+    )
+    // pageConfig 页面最新组件
+    const allComponents = [...Object.values(listResult)]
+    console.log('pageConfig allComponents:', allComponents);
+    configFormItemList.value = allComponents
+
+}, {
+    deep: true
+})
 
 
 </script>

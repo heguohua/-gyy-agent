@@ -163,7 +163,7 @@ onMounted(() => {
   justify-content: center;
 
   .item {
-    min-height: 240px;
+    min-height: 18px;
   }
 }
 </style>

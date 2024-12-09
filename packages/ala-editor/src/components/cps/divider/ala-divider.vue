@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 18:20:48
+ * @LastEditTime: 2024-12-09 13:12:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/divider/ala-divider.vue
  * @Description: 
  * 
@@ -10,19 +10,13 @@
 -->
 <template>
   <div class="ala-divider-wrapper">
-    <el-divider :content-position="position">{{ label }}</el-divider>
-    <!-- <span :class="clasz">{{ label }}</span>  -->
-    <!-- <el-form-item :label="label" :label-position="position" :prop="fieldName">
-      <el-select @change="handleChange" :model-value="model" class="ala-divider-group" :style="styles" :id="fieldName">
-        <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
-          <el-option :key="item.value" :label="item.name" :value="item.value" />
-        </div>
-      </el-select>
-    </el-form-item> -->
+    <el-divider :content-position="position" :style="styles">{{ label }}</el-divider>
   </div>
 </template>
 
 <script setup lang="ts">
+import { logger } from '@/utils/logger';
+
 
 // State
 const props = defineProps({
@@ -37,13 +31,27 @@ const props = defineProps({
   width: {
     type: Number,
     default: 100,
+  },
+  height: {
+    type: String,
+    default: "2",
+  },
+  lineStyle: {
+    type: String,
+    default: 'solid',
   }
 })
 
 const model = defineModel({
   type: String || Number || Boolean || undefined
 })
-const styles = computed(() => ({ minWidth: props.width + 'px' }))
+
+const styles = computed(() => {
+  const style = { minWidth: props.width + 'px', borderWidth: props.height + 'px', borderStyle: props.lineStyle }
+  logger.info(`分隔线样式，styles：`, style);
+  return style
+})
+
 // const styles = computed(() => ({}))
 
 
@@ -58,7 +66,7 @@ const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
   :deep(.el-divider__text) {
     background-color: var(--el-bg-color);
-    color: var(--el-color-primary);
+    color: var(--el-table-header-text-color);
     padding: 0 4px;
     top: -1px;
   }
@@ -69,6 +77,11 @@ const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
   :deep(.is-right) {
     right: 10px;
+  }
+
+  :deep(.el-divider--horizontal) {
+    border-top: none;
+    border-color: var(--el-border-color);
   }
 
 }

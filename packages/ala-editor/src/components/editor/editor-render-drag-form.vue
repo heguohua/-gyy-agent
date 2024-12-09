@@ -2,20 +2,21 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 11:35:27
+ * @LastEditTime: 2024-12-09 13:43:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
-        class="edit-render-drag" :clone="clone" :move="move">
-        <template #item="{ element }">
+    <el-form :model="formData" :label-width="labelWidth">
 
-            <div class="block" :style="styles">
+        <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
+            class="edit-render-drag" :clone="clone" :move="move">
+            <template #item="{ element }">
 
-                <el-form :model="formData" label-width="120px">
+                <div class="block" :style="styles">
+
 
                     <!-- 
                     1、渲染嵌套组件 
@@ -71,11 +72,11 @@
                         <!-- 通过 v-bind ，用于转换 baseBlock 属性到表单元素需要的 props 属性 -->
                     </div>
 
-                </el-form>
 
-            </div>
-        </template>
-    </draggable>
+                </div>
+            </template>
+        </draggable>
+    </el-form>
 
 </template>
 
@@ -123,6 +124,9 @@ const props = defineProps({
     width: {
         type: String,
         default: '500'
+    },
+    labelWidth: {
+        type: Number,
     },
 })
 const bType = props.bType
@@ -238,15 +242,31 @@ const styles = computed(() => {
 
 // })
 
+const labelWidth = ref(props.labelWidth + 'px')
+
+watch(() => editorStore.pageConfig[bType], (newValue) => {
+    logger.info(`bType[ ${bType} ],editor-render-drag-form组件 监听到【 editorStore.pageConfig 更新 】,即将更新 el-form labelWidth`, newValue);
+    if (newValue.formData?.labelWidth?.desktop) {
+        labelWidth.value = newValue.formData?.labelWidth.desktop + 'px'
+    }
+}, {
+    deep: true
+})
+
 </script>
 
 <style scoped lang="scss">
 .edit-render-drag {
     width: 100%;
     height: 100%;
+    padding: 8px;
 
     .element {
         position: relative;
+    }
+
+    :deep(.el-form-item__label) {
+        text-align: right !important;
     }
 }
 
