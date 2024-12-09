@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 22:22:26
+ * @LastEditTime: 2024-12-09 16:15:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -47,6 +47,7 @@ import AlaSelectDict from '@/components/cps/select-dict/ala-select-dict.vue';
 import AlaSelectTable from '@/components/cps/select-table/ala-select-table.vue';
 import AlaSelectTree from '@/components/cps/select-tree/ala-select-tree.vue';
 import AlaDivider from '@/components/cps/divider/ala-divider.vue';
+import AlaChapter from '@/components/cps/chapter/ala-chapter.vue';
 
 export default {
     AlaCustomerizationComponentDemo,
@@ -90,6 +91,7 @@ export default {
     AlaSelectTable,
     AlaSelectTree,
     AlaDivider,
+    AlaChapter,
 }
 
 

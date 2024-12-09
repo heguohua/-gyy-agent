@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 12:35:13
+ * @LastEditTime: 2024-12-09 16:17:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -31,6 +31,7 @@ import SelectDictSchema from '@/components/cps/select-dict/formSchema'
 import SelectTreeSchema from '@/components/cps/select-tree/formSchema'
 import SelectTableSchema from '@/components/cps/select-table/formSchema'
 import DividerSchema from '@/components/cps/divider/formSchema'
+import ChapterSchema from '@/components/cps/chapter/formSchema'
 
 const _allSchemas = {
     image: imageSchema,
@@ -56,6 +57,7 @@ const _allSchemas = {
     selectTree: SelectTreeSchema,
     selectTable: SelectTableSchema,
     divider: DividerSchema,
+    chapter: ChapterSchema,
 }
 
 

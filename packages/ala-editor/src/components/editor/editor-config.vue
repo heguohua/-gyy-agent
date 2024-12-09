@@ -108,7 +108,10 @@ const handleSave = () => {
 
     if (config.blockConfig && config.blockConfig[bType] && config.blockConfig[bType].length > 0) {
 
-        const data = { config: u.tojson(config) }
+        const data = {
+            name:editorStore.pageConfig[bType].formData?.title.desktop, 
+            config: u.tojson(config) 
+        }
         if (id) {
             u.merged(data, { id })
         }

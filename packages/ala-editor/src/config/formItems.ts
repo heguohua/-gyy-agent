@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 12:36:13
+ * @LastEditTime: 2024-12-09 16:19:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -139,6 +139,13 @@ export const seniorFields: BaseBlock[] = [
         name: "分隔线",
         code: "divider",
         icon: "line_x",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "章节标题",
+        code: "chapter",
+        icon: "chapter",
         formData: {},
     }
 ]

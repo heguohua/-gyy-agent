@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 20:22:58
+ * @LastEditTime: 2024-12-09 16:19:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -88,6 +88,7 @@ const icon = {
   f_user: "gravity-ui:person",
   f_dept: "ci:users",
   line_x: "pepicons-pop:line-x",
+  chapter: "fluent:app-title-24-regular",
   // f_role: "fluent:person-passkey-24-filled",
   f_role: "fluent:person-wrench-20-filled",
   f_duty: "fluent:person-ribbon-16-filled",
