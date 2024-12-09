@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 20:04:41
+ * @LastEditTime: 2024-12-09 17:30:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
@@ -99,7 +99,9 @@ const styles = computed(() => {
 
     .ala-checkbox-group {
         display: inline-flex;
-        gap: 16px;
+        min-height: 32px;
+        flex-wrap: wrap;
+        column-gap: 16px;
 
         :deep .el-checkbox {
             display: inline-flex;

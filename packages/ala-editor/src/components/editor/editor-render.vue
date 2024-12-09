@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 14:36:56
+ * @LastEditTime: 2024-12-09 16:40:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -83,8 +83,6 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
     if (newValue.formData?.width?.desktop) {
         pageStyle.value.width = newValue.formData?.width.desktop + 'px'
     }
-
-
 }, {
     deep: true
 })

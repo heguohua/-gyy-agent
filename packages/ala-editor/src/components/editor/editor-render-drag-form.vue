@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 13:43:30
+ * @LastEditTime: 2024-12-09 17:36:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -259,7 +259,7 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
 .edit-render-drag {
     width: 100%;
     height: 100%;
-    padding: 8px;
+    padding: 16px;
 
     .element {
         position: relative;

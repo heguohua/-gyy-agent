@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 20:02:50
+ * @LastEditTime: 2024-12-09 17:13:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-radio-wrapper" :style="styles">
-        <el-form-item :label="label" :label-position="position" :prop="fieldName">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName" class="minHeight">
             <!-- <span :class="clasz">{{ label }}</span> -->
             <el-radio-group @change="handleChange" :model-value="model" class="ala-radio-group">
                 <div class="ala-radio-item" v-for="(item, index) in items" :key="item.value">
@@ -92,9 +92,13 @@ const styles = computed(() => {
 .ala-radio-wrapper {
 
     .ala-radio-group {
-
         display: inline-flex;
         gap: 16px;
+        height: 32px;
+
+        .ala-radio-item {
+            height: inherit;
+        }
 
         :deep .el-radio {
             display: inline-flex;
@@ -109,5 +113,6 @@ const styles = computed(() => {
     .label-top {
         display: block;
     }
+
 }
 </style>

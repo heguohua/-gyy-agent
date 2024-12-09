@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-15 12:49:04
+ * @LastEditTime: 2024-12-09 18:05:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -126,7 +126,7 @@ const disabledDate = (time: Date) => {
 <style scoped lang="scss">
 .ala-date-picker-wrapper {
     :deep .el-form-item__label {
-        justify-content: center;
+        justify-content: right;
     }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 20:01:50
+ * @LastEditTime: 2024-12-09 17:52:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/ala-slider.vue
  * @Description: 
  * 
@@ -81,6 +81,10 @@ const handleChange = (value: Arrayable<number>) => {
 
 <style scoped lang="scss">
 .ala-slider-wrapper {
-    box-shadow: 0 0 0 1px var(--el-border-color) inset;
+    // box-shadow: 0 0 0 1px var(--el-border-color) inset;
+
+    :deep(.el-form-item__content) {
+        padding-left: 8px;
+    }
 }
 </style>
