@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 22:15:34
+ * @LastEditTime: 2024-12-09 13:33:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-select.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <div class="config-input">
         <el-form-item :label="title">
-            <el-input v-model="input" :placeholder="placeholder" class="input" />
+            <el-input v-model="input" :placeholder="placeholder" class="input" readonly />
 
             <el-select v-model="input" placeholder="请选择">
                 <el-option v-for="item in defaultValue" :key="item.value" :label="item.name" :value="item.value" />
@@ -50,10 +50,6 @@ const props = defineProps({
         type: String,
         default: 'page'
     },
-    items: {
-        type: Array<Item>,
-        default: []
-    },
     width: {
         type: Number,
         default: 100,
@@ -63,12 +59,13 @@ const props = defineProps({
 const bType = props.bType
 
 const { data } = toRefs(props)
-const { formData, parentKey, key, id } = data.value
+const { formData, parentKey, key, id,properties} = data.value
 
 const { title, default: defaultValue, placeholder } = data.value.properties[props.viewport]
 const input = ref('')
 
-logger.info(`bType[ ${bType} ],config-select组件被渲染, items :`, props.items);
+logger.info(`bType[ ${bType} ],config-select组件被渲染, items :`, defaultValue);
+logger.info(`bType[ ${bType} ],config-select组件被渲染, items :`, defaultValue);
 
 
 watch(() => formData, (form_data) => {
