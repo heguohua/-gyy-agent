@@ -72,7 +72,7 @@ watch(() => editorStore.currentSelect[bType], (value) => {
         editorStore.setConfigPanelShow(true, bType)
         activeTabName.value = 'block'
     } else {
-        logger.info("bType[ ${bType} ],editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,但变化值不存在,不切换 editor-config 面板显示状态");
+        logger.info("bType[ ${bT    ype} ],editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,但变化值不存在,不切换 editor-config 面板显示状态");
     }
 
 }, {
@@ -307,5 +307,4 @@ const handlePublish = () => {
 
 }
 
-.is-show {}
 </style>

@@ -30,17 +30,17 @@ const width = Type.Number({
     default:500
 })
 
-const columnNum = Type.Number({
+const labelWidth = Type.Number({
     code: "config-input",
-    title: "表单列数",
-    placeholder: "请输入表单列数",
+    title: "标签宽度",
+    placeholder: "标签宽度",
 })
 
 const schema = Type.Object({
     background: schemaAllViewport(background),
     title: schemaAllViewport(title),
     width: schemaAllViewport(width),
-    columnNum: schemaAllViewport(columnNum),
+    labelWidth: schemaAllViewport(labelWidth),
 })
 
 
