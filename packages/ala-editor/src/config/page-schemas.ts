@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 19:58:23
- * @FilePath: /low-coding/packages/ala-editor/src/config/page-schemas.ts
+ * @LastEditTime: 2024-12-09 11:23:36
+ * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -23,23 +23,24 @@ const title = Type.String({
     placeholder: "请输入页面标题",
 })
 
-const keywords = Type.String({
+const width = Type.Number({
     code: "config-input",
-    title: "关键字",
-    placeholder: "请输入页面关键字",
+    title: "页面宽度",
+    placeholder: "请输入页面宽度",
+    default:500
 })
 
-const description = Type.String({
+const columnNum = Type.Number({
     code: "config-input",
-    title: "描述",
-    placeholder: "请输入页面描述",
+    title: "表单列数",
+    placeholder: "请输入表单列数",
 })
 
 const schema = Type.Object({
     background: schemaAllViewport(background),
     title: schemaAllViewport(title),
-    keywords: schemaAllViewport(keywords),
-    description: schemaAllViewport(description),
+    width: schemaAllViewport(width),
+    columnNum: schemaAllViewport(columnNum),
 })
 
 

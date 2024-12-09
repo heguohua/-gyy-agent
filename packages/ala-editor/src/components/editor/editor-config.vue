@@ -7,12 +7,12 @@
                 <transition-group name="fade">
                     <div :key="bType + 'tg'">
 
+
                         <div class="title-buttons">
                             <div class="title-button">
                                 快捷操作
                             </div>
                         </div>
-
                         <div class="buttons">
                             <el-button @click="handleClear()" v-if="true" class="button">
                                 清空
@@ -24,16 +24,20 @@
                                 发布
                             </el-button>
                         </div>
-                        <div class="titles">
-                            <div class="title" v-if="!editorStore.currentSelect[bType]">
-                                页面配置项
-                            </div>
-                            <div class="title" v-else>
-                                组件配置项
-                            </div>
-                        </div>
-                        <editor-config-block v-if="editorStore.currentSelect[bType]" :bType="bType" />
-                        <editor-config-page v-else :bType="bType" />
+
+                        <el-tabs type="border-card" class="ala-editor-config-tab" v-model="activeTabName">
+
+                            <el-tab-pane label="页面配置项" name="page">
+                                <editor-config-page :bType="bType" />
+                            </el-tab-pane>
+
+                            <el-tab-pane label="组件配置项" name="block">
+                                <editor-config-block :bType="bType" />
+                            </el-tab-pane>
+
+                        </el-tabs>
+
+
                     </div>
                 </transition-group>
             </div>
@@ -59,11 +63,14 @@ const props = defineProps({
 })
 const bType = props.bType
 
+const activeTabName = ref('page')
+
 watch(() => editorStore.currentSelect[bType], (value) => {
 
     if (value) {
         logger.info(`bType[ ${bType} ],editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,即将切换 editor-config 面板为 显示状态, 变化值为`, value);
         editorStore.setConfigPanelShow(true, bType)
+        activeTabName.value = 'block'
     } else {
         logger.info("bType[ ${bType} ],editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,但变化值不存在,不切换 editor-config 面板显示状态");
     }
@@ -78,21 +85,15 @@ const panelSwitch = () => {
 }
 
 const handleClear = () => {
-    console.log('清空: ===============');
-    //     u.resetState(editorStore.currentSelect[bType])
-    //     u.resetState(editorStore.blockConfig[bType])
     // 设置 currentSelect 为null，editor-config会自动切换配置面板为 页面配置
     editorStore.setCurrentSelect(null, bType)
     editorStore.setBlockConfig([], bType)
     editorStore.setPageConfig(u.merged({}, { formData: {} }), bType)
 
-    // editorStore.setBlockConfig(newBlockConfig, bType)
 }
 
 const handleSave = () => {
-    console.log('保存: ===============');
 
-    // const url = item.id ? props.updateUrl : props.url
     const url = "/l/lowcodingConfig/add"
     const updateUrl = "/l/lowcodingConfig/update"
 
@@ -136,6 +137,19 @@ const handlePublish = () => {
 <style scoped lang="scss">
 .editor-config {
 
+    position: fixed;
+    z-index: 200;
+    top: var(--edit-header-height);
+    right: -280px;
+    width: 280px;
+    background: white;
+    border-left: 1px solid var(--color-border);
+    transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
+    height: calc(100vh - var(--edit-header-height));
+
+    --icon-group-width: 96%;
+    --icon-group-width-left: 2%;
+
     --el-input-inner-height: calc(var(--el-input-height, 24px) - 2px);
 
     :deep .el-form-item {
@@ -157,19 +171,6 @@ const handlePublish = () => {
 
 
     }
-
-    position: fixed;
-    z-index: 200;
-    top: var(--edit-header-height);
-    right: -280px;
-    width: 280px;
-    background: white;
-    border-left: 1px solid var(--color-border);
-    transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
-    height: calc(100vh - var(--edit-header-height));
-
-    --icon-group-width: 96%;
-    --icon-group-width-left: 2%;
 
     &.is-show {
         right: 0;
@@ -223,6 +224,31 @@ const handlePublish = () => {
                         padding: 0px 18px;
                         font-size: 0.9rem;
                         height: 28px;
+                    }
+                }
+
+                .ala-editor-config-tab {
+                    margin-top: 12px;
+
+                    :deep(.el-tabs__header) {
+                        background-color: var(--color-block-hover);
+                        margin-bottom: 12px;
+                    }
+
+                    :deep(.el-tabs__nav) {
+                        width: 100%;
+                    }
+
+                    :deep(.el-tabs__item) {
+                        height: 32px;
+                        padding: 0px;
+                        flex: 1;
+                        border: none;
+
+                    }
+
+                    :deep(.is-active) {
+                        border-bottom: 2px solid var(--el-color-primary);
                     }
                 }
 
@@ -281,4 +307,5 @@ const handlePublish = () => {
 
 }
 
+.is-show {}
 </style>

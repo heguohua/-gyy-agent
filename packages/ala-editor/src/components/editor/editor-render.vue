@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 16:27:39
+ * @LastEditTime: 2024-12-09 12:16:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -46,23 +46,20 @@ import EditorRenderDragForm from './editor-render-drag-form.vue';
 const editorStore = useEditorStore()
 
 const blockList = ref<BaseBlock[]>([])
+
 // State
 const props = defineProps({
     bType: {
         type: String,
         default: 'page'
     },
+    width: {
+        type: Number,
+    },
 })
 const bType = props.bType
 
 // Methods
-// watch(() => list.value, (value) => {
-//     logger.info(`editor-render组件 【 监听到 】  list.value 更新,即将更新 editorStore.blockConfig`, value);
-//     editorStore.setBlockConfig(value)
-// }, {
-//     deep: true
-// })
-
 watch(() => editorStore.blockConfig[bType], (value) => {
     logger.info(`bType[ ${bType} ],editor-render组件 【 监听到 】  editorStore.blockConfig 更新,即将更新 blockList.value`, value);
     blockList.value = value
@@ -70,14 +67,37 @@ watch(() => editorStore.blockConfig[bType], (value) => {
     deep: true
 })
 
+interface Style {
+    width: string
+}
 
-const pageStyle = computed(() => {
-    return {}
+// 动态计算表单样式
+const pageStyle = ref<Style>({ width: '500px' })
+watch(() => editorStore.pageConfig[bType], (newValue) => {
+    logger.info(`bType[ ${bType} ],editor-render组件 监听到【 editorStore.pageConfig 更新 】,即将更新 page 相关参数`, newValue);
+    // pageStyle.value.width=newValue?.desktop.width
+    console.log('formData.width.desktop:', newValue.formData?.width.desktop);
+    if (newValue.formData?.width.desktop) {
+        pageStyle.value.width = newValue.formData?.width.desktop + 'px'
+    }
+
+
+}, {
+    deep: true
 })
+
+// const pageStyle = ref({})
+
+// const pageStyle = computed(() => {
+//     const style = { width: props.width + 'px' }
+//     logger.info(`计算 editor-render 区域页面宽度，style`, style);
+//     return style
+// })
 
 const pageClass = computed(() => {
     return { "is-mobile": editorStore.isMobileViewport(bType) }
 })
+
 </script>
 
 <style scoped lang="scss">
@@ -87,6 +107,7 @@ const pageClass = computed(() => {
     width: 100%;
     background: white;
     transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
+    margin: 0 auto;
 
     &.is-mobile {
         width: 375px;

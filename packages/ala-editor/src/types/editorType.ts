@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-16 16:55:10
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-20 20:05:38
+ * @LastEditTime: 2024-12-09 12:06:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/types/editorType.ts
  * @Description: 
  * 
@@ -57,7 +57,7 @@ export interface BasePage {
    * 配置内容
    */
   // formData?: Partial<>
-  formData?: AlaPageFormSchema[keyof AlaPageFormSchema]
+  formData?: AlaPageFormSchema
 
   id?: number
 

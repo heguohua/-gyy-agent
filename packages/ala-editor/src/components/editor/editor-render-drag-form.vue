@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 20:14:08
+ * @LastEditTime: 2024-12-09 11:35:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         class="edit-render-drag" :clone="clone" :move="move">
         <template #item="{ element }">
 
-            <div class="block">
+            <div class="block" :style="styles">
 
                 <el-form :model="formData" label-width="120px">
 
@@ -120,6 +120,10 @@ const props = defineProps({
         type: String,
         default: 'page'
     },
+    width: {
+        type: String,
+        default: '500'
+    },
 })
 const bType = props.bType
 
@@ -221,6 +225,18 @@ const formData = ref({})
 const extractFormItemProps = (item: any) => {
     return extractProps(item, "desktop")
 }
+
+// 动态计算表单样式
+const styles = computed(() => {
+    const style = { width: props.width + 'px' }
+    logger.info(`计算 editor-render 区域页面宽度，style`, style);
+    // return style
+    return {}
+})
+
+// watch(editorStore.currentSelect.pageConfig?.[bType],()=>{
+
+// })
 
 </script>
 
