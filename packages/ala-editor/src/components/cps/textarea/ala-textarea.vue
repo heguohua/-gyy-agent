@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 17:13:18
+ * @LastEditTime: 2024-12-11 22:35:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/ala-textarea.vue
  * @Description: 
  * 
@@ -11,6 +11,9 @@
 <template>
     <div class="ala-textarea-wrapper">
         <el-form-item :label="label" :label-position="position">
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
             <el-input type="textarea" autosize :model-value="model" @input="handleChange" :placeholder="placeholder"
                 :id="fieldName"></el-input>
         </el-form-item>
@@ -36,6 +39,9 @@ defineProps({
     fieldName: {
         type: String,
         default: ''
+    },
+    help: {
+        type: String,
     }
 })
 

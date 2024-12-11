@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 16:15:07
+ * @LastEditTime: 2024-12-11 22:07:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/chapter/formSchema.ts
  * @Description: 
  * 
@@ -56,11 +56,19 @@ const lineStyle = Type.String({
     }]
 })
 
+const help = Type.String({
+    code: "config-textarea",
+    title: "帮助提示信息",
+    default: "",
+})
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
     height: schemaAllViewport(height),
     lineStyle: schemaAllViewport(lineStyle),
+    help: schemaAllViewport(help),
+
 })
 
 

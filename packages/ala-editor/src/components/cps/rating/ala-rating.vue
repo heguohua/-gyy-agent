@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 20:04:10
+ * @LastEditTime: 2024-12-11 22:34:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/rating/ala-rating.vue
  * @Description: 
  * 
@@ -11,6 +11,9 @@
 <template>
     <div class="ala-rating-wrapper" :style="styles">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
             <el-rate :model-value="model" :allow-half="allowHalf" :max="max" @change="handleChange" :id="fieldName" />
         </el-form-item>
     </div>
@@ -45,6 +48,9 @@ const props = defineProps({
     fieldName: {
         type: String,
         default: ''
+    },
+    help: {
+        type: String,
     }
 })
 

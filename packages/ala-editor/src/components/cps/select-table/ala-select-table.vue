@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 20:54:50
+ * @LastEditTime: 2024-12-11 22:35:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -20,6 +20,9 @@
 
       <!-- <el-input :disabled="true" suffix-icon="el-icon-more" @click.native="openDialog" :model-value="model" :id="fieldName">
       </el-input> -->
+      <template #label>
+        <AlaFormLabel :label="label" :help="help" />
+      </template>
       <div class="ala-select-customer ala-form-item-border" :style="styles">
         <!-- <input type="hidden" :model-value="model" :id="fieldName"> -->
         <p class="placeholder" v-if="model.length === 0">{{ $t('form.p-select-1') }} {{ label }}</p>
@@ -154,6 +157,9 @@ const props = defineProps({
   isFormDesign: {
     type: Boolean,
     default: false
+  },
+  help: {
+    type: String,
   }
 })
 

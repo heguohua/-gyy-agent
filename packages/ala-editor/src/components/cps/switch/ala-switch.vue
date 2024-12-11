@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 17:50:41
+ * @LastEditTime: 2024-12-11 22:35:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/ala-switch.vue
  * @Description: 
  * 
@@ -11,6 +11,9 @@
 <template>
     <div class="ala-switch-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
             <el-switch :model-value="model" :active-color="activeColor" :inactive-color="inActiveColor"
                 :active-text="activeText" :inactive-text="inActiveText" :active-value="activeValue"
                 :inactive-value="inActiveValue" @change="handleChange" :id="fieldName">
@@ -67,6 +70,9 @@ const props = defineProps({
     fieldName: {
         type: String,
         default: ''
+    },
+    help: {
+        type: String,
     }
 })
 
@@ -107,9 +113,10 @@ const clasz = computed(() => {
     .label-top {
         display: block;
     }
-    :deep(.el-form-item__label){
+
+    :deep(.el-form-item__label) {
         text-align: right;
     }
-   
+
 }
 </style>

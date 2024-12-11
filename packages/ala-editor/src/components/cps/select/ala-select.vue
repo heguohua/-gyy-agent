@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-06 10:12:28
+ * @LastEditTime: 2024-12-11 22:34:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/ala-select.vue
  * @Description: 
  * 
@@ -12,6 +12,9 @@
   <div class="ala-select-wrapper">
     <!-- <span :class="clasz">{{ label }}</span>  -->
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
+      <template #label>
+        <AlaFormLabel :label="label" :help="help" />
+      </template>
       <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
@@ -53,6 +56,9 @@ const props = defineProps({
   fieldName: {
     type: String,
     default: ''
+  },
+  help: {
+    type: String,
   }
 })
 
@@ -87,6 +93,4 @@ const clasz = computed(() => {
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 13:39:28
+ * @LastEditTime: 2024-12-11 22:34:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/password/ala-password.vue
  * @Description: 
  * 
@@ -11,7 +11,10 @@
 <template>
     <div class="ala-password-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
-            <el-input type="password" :model-value="model" @input="handleChange" :placeholder="placeholder" ></el-input>
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
+            <el-input type="password" :model-value="model" @input="handleChange" :placeholder="placeholder"></el-input>
         </el-form-item>
     </div>
 </template>
@@ -35,6 +38,9 @@ defineProps({
     fieldName: {
         type: String,
         default: ''
+    },
+    help: {
+        type: String,
     }
 })
 
@@ -50,6 +56,4 @@ const handleChange = (value: string) => {
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

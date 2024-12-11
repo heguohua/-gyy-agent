@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 17:34:42
+ * @LastEditTime: 2024-12-11 22:39:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/chapter/ala-chapter.vue
  * @Description: 
  * 
@@ -12,7 +12,8 @@
   <div class="ala-chapter-wrapper">
     <!-- <el-divider :content-position="position" :style="styles">{{ label }}</el-divider> -->
     <div class="ala-chapter" :style="styles">
-      <p class="ala-chapter-icon" />{{ label }}
+      <p class="ala-chapter-icon" />
+      <AlaFormLabel :label="label" :help="help" />
     </div>
   </div>
 </template>
@@ -42,6 +43,9 @@ const props = defineProps({
   lineStyle: {
     type: String,
     default: 'solid',
+  },
+  help: {
+    type: String,
   }
 })
 

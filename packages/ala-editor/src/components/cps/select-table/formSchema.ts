@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 20:28:08
+ * @LastEditTime: 2024-12-11 22:08:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/formSchema.ts
  * @Description: 
  * 
@@ -84,7 +84,11 @@ const isFormDesign = Type.Boolean({
     default: true,
 })
 
-
+const help = Type.String({
+    code: "config-textarea",
+    title: "帮助提示信息",
+    default: "",
+})
 const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
@@ -98,6 +102,7 @@ const schema = Type.Object({
     itemProperty: schemaAllViewport(itemProperty),
     params: schemaAllViewport(params),
     isFormDesign: schemaAllViewport(isFormDesign),
+    help: schemaAllViewport(help),
 })
 
 

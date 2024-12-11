@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 21:44:08
+ * @LastEditTime: 2024-12-11 22:09:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/formSchema.ts
  * @Description: 
  * 
@@ -56,7 +56,11 @@ const range = Type.Boolean({
     title: "选择范围",
     default: "",
 })
-
+const help = Type.String({
+    code: "config-textarea",
+    title: "帮助提示信息",
+    default: "",
+})
 const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
@@ -66,6 +70,7 @@ const schema = Type.Object({
     step: schemaAllViewport(step),
     range: schemaAllViewport(range),
     fieldName: schemaAllViewport(fieldName),
+    help: schemaAllViewport(help),
     // style: schemaAllViewport(style),
 })
 

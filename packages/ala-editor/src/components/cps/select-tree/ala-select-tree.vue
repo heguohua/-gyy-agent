@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 19:53:22
+ * @LastEditTime: 2024-12-11 22:35:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -17,7 +17,9 @@
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>
       </el-select> -->
-
+      <template #label>
+        <AlaFormLabel :label="label" :help="help" />
+      </template>
       <el-tree-select v-model="currentModel" :data="items" :id="fieldName" @change="handleChange" :style="styles"
         :props="{
           children: itemProperty.childrenName,
@@ -80,6 +82,9 @@ const props = defineProps({
   isFormDesign: {
     type: Boolean,
     default: false
+  },
+  help: {
+    type: String,
   }
 })
 

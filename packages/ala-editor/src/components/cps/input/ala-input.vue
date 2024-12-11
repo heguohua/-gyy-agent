@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 17:19:15
+ * @LastEditTime: 2024-12-11 21:59:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -10,7 +10,10 @@
 -->
 <template>
     <div class="ala-input-wrapper">
-        <el-form-item :label="label" :label-position="position" :prop="fieldName" @click="ck">
+        <el-form-item :label-position="position" :prop="fieldName" @click="ck">
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
             <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName"></el-input>
         </el-form-item>
     </div>
@@ -47,6 +50,9 @@ const props = defineProps({
     bType: {
         type: String,
         default: 'page'
+    },
+    help: {
+        type: String,
     }
 })
 

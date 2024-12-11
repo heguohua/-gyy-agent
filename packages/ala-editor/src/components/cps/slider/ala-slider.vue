@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 17:52:43
+ * @LastEditTime: 2024-12-11 22:35:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/ala-slider.vue
  * @Description: 
  * 
@@ -11,7 +11,9 @@
 <template>
     <div class="ala-slider-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
-
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
             <el-slider :model-value="model" :min="min" :max="max" :step="step" :disabled="disabled" :range="range"
                 @update:model-value="handleChange" :id="fieldName" />
 
@@ -62,6 +64,9 @@ const props = defineProps({
     fieldName: {
         type: String,
         default: ''
+    },
+    help: {
+        type: String,
     }
 })
 

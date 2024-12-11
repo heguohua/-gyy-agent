@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 17:30:54
+ * @LastEditTime: 2024-12-11 22:33:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
@@ -11,6 +11,9 @@
 <template>
     <div class="ala-checkbox-wrapper" :style="styles">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
             <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
                 <div class="ala-checkbox--item" v-for="(item, index) in items" :key="bType + '-' + item.value">
                     <el-checkbox :value="item.value" :id="fieldName + index">{{ item.name }}</el-checkbox>
@@ -53,6 +56,9 @@ const props = defineProps({
     bType: {
         type: String,
         default: 'page'
+    },
+    help: {
+        type: String,
     }
 })
 

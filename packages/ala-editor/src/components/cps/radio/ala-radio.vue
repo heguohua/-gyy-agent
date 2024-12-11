@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 17:13:00
+ * @LastEditTime: 2024-12-11 22:34:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -12,6 +12,9 @@
     <div class="ala-radio-wrapper" :style="styles">
         <el-form-item :label="label" :label-position="position" :prop="fieldName" class="minHeight">
             <!-- <span :class="clasz">{{ label }}</span> -->
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
             <el-radio-group @change="handleChange" :model-value="model" class="ala-radio-group">
                 <div class="ala-radio-item" v-for="(item, index) in items" :key="item.value">
                     <el-radio :value="item.value" :id="fieldName">{{ item.name }}</el-radio>
@@ -51,6 +54,9 @@ const props = defineProps({
     fieldName: {
         type: String,
         default: ''
+    },
+    help: {
+        type: String,
     }
 })
 
