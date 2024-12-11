@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 17:29:34
+ * @LastEditTime: 2024-12-11 22:52:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -140,4 +140,19 @@ export default class u {
     public static parseJson(str: string) {
         return JSON.parse(str);
     }
+
+    /**
+     * 
+     * @param label 解析国际化字符串
+     * @param t 
+     * @returns 
+     */
+    public static parseI18n(label: string, t: Function) {
+        if (label.startsWith('t("')) {
+            return t(label.slice(3, label.length - 2));
+        } else {
+            return label
+        }
+    }
+
 }

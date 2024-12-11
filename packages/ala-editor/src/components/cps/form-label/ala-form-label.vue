@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:46:50
+ * @LastEditTime: 2024-12-11 22:53:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label.vue
  * @Description: 
  * 
@@ -11,14 +11,20 @@
 <template>
   <div class="ala-form-label">
     {{ label }}
-    <el-tooltip v-if="help" class="tip ala-help-icon" :effect="effect" :content="help" :placement="placement"
-      :hide-after="0">
+    <el-tooltip v-if="help" class="tip ala-help-icon" :effect="effect" :content="u.parseI18n(help, t)"
+      :placement="placement" :hide-after="0">
       <v-icon class="image" icon="help" :width="width" :height="height" />
     </el-tooltip>
   </div>
 </template>
 
 <script lang="ts" setup>
+
+import u from '@/utils/u';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
+
 defineProps({
   icon: {
     type: String,
@@ -49,6 +55,9 @@ defineProps({
     default: 'light'
   },
 })
+
+
+
 </script>
 
 <style lang="scss" scoped>
