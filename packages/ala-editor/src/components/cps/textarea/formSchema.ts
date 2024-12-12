@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:09:13
+ * @LastEditTime: 2024-12-12 22:05:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/formSchema.ts
  * @Description: 
  * 
@@ -40,12 +40,36 @@ const help = Type.String({
     title: "帮助提示信息",
     default: "",
 })
+
+const icon = Type.String({
+    code: "config-input",
+    title: "图标",
+    default: "",
+})
+
+const iconWidth = Type.String({
+    code: "config-number",
+    title: "图标宽度",
+    default: "",
+})
+
+const iconHeight = Type.String({
+    code: "config-number",
+    title: "图标高度",
+    default: "",
+})
+
+
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
     placeholder: schemaAllViewport(placeholder),
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
+    icon: schemaAllViewport(icon),
+    iconWidth: schemaAllViewport(iconWidth),
+    iconHeight: schemaAllViewport(iconHeight),
     // style: schemaAllViewport(style),
 })
 

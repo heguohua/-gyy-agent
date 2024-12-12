@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 20:55:14
+ * @LastEditTime: 2024-12-12 22:18:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -93,6 +93,11 @@ const icon = {
   // f_role: "fluent:person-passkey-24-filled",
   f_role: "fluent:person-wrench-20-filled",
   f_duty: "fluent:person-ribbon-16-filled",
+  f_phone:"meteor-icons:mobile",
+  f_location:"ep:location",
+  f_cny:"fa:cny",
+  f_usd:"fa:usd",
+  f_card:"ion:id-card-outline",
 
 }
 

@@ -15,7 +15,13 @@
                 <AlaFormLabel :label="label" :help="help" />
             </template>
             <el-input type="textarea" autosize :model-value="model" @input="handleChange" :placeholder="placeholder"
-                :id="fieldName"></el-input>
+                :id="fieldName">
+
+                <template #prefix v-if="icon">
+                    <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
+                </template>
+
+            </el-input>
         </el-form-item>
     </div>
 </template>
@@ -42,6 +48,17 @@ defineProps({
     },
     help: {
         type: String,
+    },
+    icon: {
+        type: String,
+    },
+    iconWidth: {
+        type: Number,
+        default: 30
+    },
+    iconHeight: {
+        type: Number,
+        default: 30
     }
 })
 

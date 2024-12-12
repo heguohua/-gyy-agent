@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:34:25
+ * @LastEditTime: 2024-12-12 22:03:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/ala-number.vue
  * @Description: 
  * 
@@ -15,7 +15,12 @@
                 <AlaFormLabel :label="label" :help="help" />
             </template>
             <el-input type="number" :model-value="model" @input="handleChange" :placeholder="placeholder"
-                :id="fieldName"></el-input>
+                :id="fieldName">
+                <template #prefix v-if="icon">
+                    <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
+                </template>
+
+            </el-input>
         </el-form-item>
     </div>
 </template>
@@ -42,6 +47,17 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    icon: {
+        type: String,
+    },
+    iconWidth: {
+        type: Number,
+        default: 30
+    },
+    iconHeight: {
+        type: Number,
+        default: 30
     }
 })
 
@@ -59,4 +75,12 @@ const handleChange = (value: string) => {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+// :deep(.el-input__wrapper) {
+//     padding-left: 4px;
+// }
+
+// :deep(.el-input__prefix-inner>:last-child) {
+//     margin-right: 4px;
+// }
+</style>
