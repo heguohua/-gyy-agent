@@ -320,10 +320,5 @@ defineExpose({ refresh, cancelSelect, clear })
         min-height: 400px;
     }
 
-    :deep(.el-pagination__sizes ){
-        
-    }
-
-
 }
 </style>
