@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:08:31
+ * @LastEditTime: 2024-12-14 21:39:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/rating/formSchema.ts
  * @Description: 
  * 
@@ -14,14 +14,24 @@ import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 const label = Type.String({
     code: "config-input",
     title: "标签",
-    default: "",
+    required: true,
 })
 
 const position = Type.String({
-    code: "config-input",
+    code: "config-select",
     title: "标签位置",
-    default: "",
+    default: [{
+        name: '左侧',
+        value: 'left',
+    }, {
+        name: '右侧',
+        value: 'right',
+    }, {
+        name: '顶部',
+        value: 'top',
+    }]
 })
+
 
 const placeholder = Type.String({
     code: "config-input",
@@ -32,18 +42,19 @@ const placeholder = Type.String({
 const fieldName = Type.String({
     code: "config-input",
     title: "字段名",
-    default: "",
+    required: true,
 })
-
 const max = Type.Number({
     code: "config-number",
     title: "最大星数",
-    default: "",
+    default: 5,
+    required: true,
 })
 const allowHalf = Type.Boolean({
     code: "config-boolean",
     title: "允许半分",
     default: "",
+    required: true,
 })
 
 const help = Type.String({

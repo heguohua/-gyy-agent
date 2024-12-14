@@ -14,7 +14,7 @@ import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 const label = Type.String({
     code: "config-input",
     title: "标签",
-    default: "",
+    required: true,
 })
 
 const position = Type.String({

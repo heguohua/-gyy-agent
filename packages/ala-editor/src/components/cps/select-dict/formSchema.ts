@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:06:43
+ * @LastEditTime: 2024-12-14 21:41:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/formSchema.ts
  * @Description: 
  * 
@@ -14,14 +14,24 @@ import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 const label = Type.String({
     code: "config-input",
     title: "标签",
-    default: "",
+    required: true,
 })
 
 const position = Type.String({
-    code: "config-input",
+    code: "config-select",
     title: "标签位置",
-    default: "",
+    default: [{
+        name: '左侧',
+        value: 'left',
+    }, {
+        name: '右侧',
+        value: 'right',
+    }, {
+        name: '顶部',
+        value: 'top',
+    }]
 })
+
 
 const placeholder = Type.String({
     code: "config-input",
@@ -32,9 +42,8 @@ const placeholder = Type.String({
 const fieldName = Type.String({
     code: "config-input",
     title: "字段名",
-    default: "",
+    required: true,
 })
-
 const width = Type.Number({
     code: "config-input",
     title: "宽度",
@@ -45,12 +54,14 @@ const propertyName = Type.String({
     code: "config-input",
     title: "属性名字段",
     default: "",
+    required: true,
 })
 
 const valueName = Type.String({
     code: "config-input",
     title: "属性值字段",
     default: "",
+    required: true,
 })
 
 const itemProperty = Type.String({
@@ -63,6 +74,7 @@ const params = Type.String({
     code: "config-object",
     title: "请求参数",
     default: "",
+    required: true,
 })
 
 const isFormDesign = Type.Boolean({

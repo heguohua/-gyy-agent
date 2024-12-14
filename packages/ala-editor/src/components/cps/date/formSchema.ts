@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:07:55
+ * @LastEditTime: 2024-12-14 21:34:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/formSchema.ts
  * @Description: 
  * 
@@ -15,14 +15,24 @@ import { AlaDateFormat, AlaDateType, date } from "@/utils/date";
 const label = Type.String({
     code: "config-input",
     title: "标签",
-    default: "",
+    required: true,
 })
 
 const position = Type.String({
-    code: "config-input",
+    code: "config-select",
     title: "标签位置",
-    default: "",
+    default: [{
+        name: '左侧',
+        value: 'left',
+    }, {
+        name: '右侧',
+        value: 'right',
+    }, {
+        name: '顶部',
+        value: 'top',
+    }]
 })
+
 
 const placeholder = Type.String({
     code: "config-input",
@@ -33,9 +43,8 @@ const placeholder = Type.String({
 const fieldName = Type.String({
     code: "config-input",
     title: "字段名",
-    default: "",
+    required: true,
 })
-
 
 const dateType = Type.Array(
     Type.Object({
@@ -46,6 +55,7 @@ const dateType = Type.Array(
         code: "config-select",
         title: "时间类型",
         default: AlaDateType,
+        required: true,
     }
 );
 
@@ -59,6 +69,7 @@ const format = Type.Array(
         code: "config-select",
         title: "时间格式",
         default: AlaDateFormat,
+        required: true,
     }
 );
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 12:49:54
+ * @LastEditTime: 2024-12-14 22:00:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon.vue
  * @Description: 
  * 
@@ -23,11 +23,11 @@ const props = defineProps({
     default: '',
   }, 
   height: {
-    type: String,
+    type: [String, Number] as const,
     default: '20',
   }, 
   width: {
-    type: String,
+    type: [String, Number] as const,
     default: '20',
   },
 })

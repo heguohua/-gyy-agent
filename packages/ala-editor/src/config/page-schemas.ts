@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 11:23:36
+ * @LastEditTime: 2024-12-14 21:18:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas.ts
  * @Description: 
  * 
@@ -27,13 +27,20 @@ const width = Type.Number({
     code: "config-input",
     title: "页面宽度",
     placeholder: "请输入页面宽度",
-    default:500
+    default: 500
 })
 
 const labelWidth = Type.Number({
     code: "config-input",
     title: "标签宽度",
-    placeholder: "标签宽度",
+    placeholder: "请输入标签宽度",
+})
+
+const moduleName = Type.Number({
+    code: "config-input",
+    title: "模块名",
+    placeholder: "请输入模块名",
+    required: true
 })
 
 const schema = Type.Object({
@@ -41,6 +48,7 @@ const schema = Type.Object({
     title: schemaAllViewport(title),
     width: schemaAllViewport(width),
     labelWidth: schemaAllViewport(labelWidth),
+    moduleName: schemaAllViewport(moduleName),
 })
 
 

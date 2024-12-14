@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 20:00:03
+ * @LastEditTime: 2024-12-14 20:16:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -20,6 +20,10 @@
 
         <template #cols="{ row, columnName }">
             {{ row[columnName] }}
+        </template>
+
+        <template #btns="{ row }">
+            <AlaButton :showButton="true" name="publish" @publish="handlePublish(row)" buttonType="primary" />
         </template>
 
     </PageTable>
@@ -140,6 +144,10 @@ const advancedFields: any[] = []
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 
+const handlePublish = (item: any) => {
+    console.log('item:', item);
+
+}
 
 </script>
 

@@ -14,14 +14,24 @@ import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 const label = Type.String({
     code: "config-input",
     title: "标签",
-    default: "",
+    required: true,
 })
 
 const position = Type.String({
-    code: "config-input",
+    code: "config-select",
     title: "标签位置",
-    default: "",
+    default: [{
+        name: '左侧',
+        value: 'left',
+    }, {
+        name: '右侧',
+        value: 'right',
+    }, {
+        name: '顶部',
+        value: 'top',
+    }]
 })
+
 
 const placeholder = Type.String({
     code: "config-input",
@@ -32,9 +42,8 @@ const placeholder = Type.String({
 const fieldName = Type.String({
     code: "config-input",
     title: "字段名",
-    default: "",
+    required: true,
 })
-
 
 const schema = Type.Object({
     label: schemaAllViewport(label),

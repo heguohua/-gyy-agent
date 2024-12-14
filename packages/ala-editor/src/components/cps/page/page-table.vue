@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 18:56:16
+ * @LastEditTime: 2024-12-14 20:15:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -39,6 +39,7 @@
                         @delete="handleDelete(scope.$index, scope.row)" buttonType="danger" />
                     <AlaButton :showButton="displayAddSubButton()" name="addSub"
                         @addSub="handleAdd(scope.$index, scope.row)" buttonType="primary" />
+                    <slot name="btns" :row="scope.row"></slot>
                 </template>
             </el-table-column>
 

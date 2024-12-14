@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:53:42
+ * @LastEditTime: 2024-12-14 20:32:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label.vue
  * @Description: 
  * 
@@ -64,7 +64,9 @@ defineProps({
 .ala-form-label {
 
   user-select: none;
-  display: flex;
+  // display: flex;
+  // align-items: center;
+  display: inline-flex;
   align-items: center;
 
   .ala-help-icon {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:09:09
+ * @LastEditTime: 2024-12-14 21:37:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/formSchema.ts
  * @Description: 
  * 
@@ -14,14 +14,24 @@ import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 const label = Type.String({
     code: "config-input",
     title: "标签",
-    default: "",
+    required: true,
 })
 
 const position = Type.String({
-    code: "config-input",
+    code: "config-select",
     title: "标签位置",
-    default: "",
+    default: [{
+        name: '左侧',
+        value: 'left',
+    }, {
+        name: '右侧',
+        value: 'right',
+    }, {
+        name: '顶部',
+        value: 'top',
+    }]
 })
+
 
 const placeholder = Type.String({
     code: "config-input",
@@ -32,29 +42,32 @@ const placeholder = Type.String({
 const fieldName = Type.String({
     code: "config-input",
     title: "字段名",
-    default: "",
+    required: true,
 })
-
 const activeText = Type.String({
     code: "config-input",
     title: "激活文字",
     default: "",
+    required: true,
 })
 const activeValue = Type.String({
     code: "config-input",
     title: "激活值",
     default: "",
+    required: true,
 })
 const inActiveText = Type.String({
     code: "config-input",
     title: "关闭文字",
     default: "",
+    required: true,
 })
 
 const inActiveValue = Type.String({
     code: "config-input",
     title: "关闭值",
     default: "",
+    required: true,
 })
 
 const help = Type.String({

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 20:37:36
+ * @LastEditTime: 2024-12-14 22:51:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -49,7 +49,7 @@
 
 
                 <!-- 渲染 高级组件 可拖拽区域 -->
-                <el-collapse-item :title="$t('module.lowcoding.businessBlock')" name="2">
+                <el-collapse-item :title="$t('module.lowcoding.businessBlock')" name="3">
 
                     <editor-block-drag :list="businessFields" :sort="false"
                         :group="{ name: dragGroup, pull: 'clone', put: false }" :bType="bType"
