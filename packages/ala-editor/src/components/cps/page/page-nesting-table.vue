@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 16:22:45
+ * @LastEditTime: 2024-12-14 16:40:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -78,8 +78,8 @@
         </el-table>
 
         <!-- 分页列表 -->
-        <el-pagination v-model:current-page="current" :page-sizes="pageSize" layout="total, prev, pager, next"
-            :total="total" @current-change="handlePageChange" class="ala-page-pagination" :pager-count="11" background>
+        <el-pagination v-model:current-page="current" :page-sizes="pageSize" layout="total, sizes, prev, pager, next"
+            :total="total" @size-change="handleSizeChange" @current-change="handlePageChange" class="ala-page-pagination" background>
         </el-pagination>
 
 
@@ -331,12 +331,13 @@ const handleExpandChange = (row: { id: string }, expandedRows: any) => {
 };
 
 const handlePageChange = (newPage: number) => {
-    console.log('newPage:', newPage);
-
     page.current = newPage;
-    console.log('current:', current);
     queryPageData()
+};
 
+const handleSizeChange = (newSize: number) => {
+    page.size = newSize;
+    queryPageData()
 };
 
 // Methods

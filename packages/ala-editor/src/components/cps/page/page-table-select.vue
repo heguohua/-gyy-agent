@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 20:55:58
+ * @LastEditTime: 2024-12-14 16:42:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
         <div class="table-title">
             <!-- 查询条件 -->
             <SearchPanel :baseFields="baseFields" :params="formParams" @refresh="refresh" labelWidth="180px"
-                :showAddButton="false" ref="searchPanelRef" :isFormDesign="isFormDesign"/>
+                :showAddButton="false" ref="searchPanelRef" :isFormDesign="isFormDesign" />
 
         </div>
 
@@ -37,8 +37,9 @@
         </el-table>
 
         <!-- 分页列表 -->
-        <el-pagination v-model:current-page="current" :page-sizes="pageSize" layout="total, prev, pager, next"
-            :total="total" @current-change="handlePageChange" class="ala-page-pagination" :pager-count="11" background>
+        <el-pagination v-model:current-page="current" :page-sizes="pageSize" layout="total, sizes, prev, pager, next"
+            :total="total" @size-change="handleSizeChange" @current-change="handlePageChange"
+            class="ala-page-pagination" :pager-count="11" background>
         </el-pagination>
 
 
@@ -231,6 +232,11 @@ const handlePageChange = (newPage: number) => {
     queryPageData()
 };
 
+const handleSizeChange = (newSize: number) => {
+    page.size = newSize;
+    queryPageData()
+};
+
 // Methods
 const emit = defineEmits(["add", "edit", "selectedChange"])
 
@@ -314,6 +320,9 @@ defineExpose({ refresh, cancelSelect, clear })
         min-height: 400px;
     }
 
+    :deep(.el-pagination__sizes ){
+        
+    }
 
 
 }
