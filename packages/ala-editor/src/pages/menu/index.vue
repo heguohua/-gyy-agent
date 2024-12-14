@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 17:38:37
+ * @LastEditTime: 2024-12-14 15:15:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
  * @Description: 
  * 
@@ -15,7 +15,8 @@
 
     <!-- 分页列表 -->
     <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
-        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')" />
+        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
+        :showEditButton="true" :showDeleteButton="true" :showAddSubButton="true" />
 
     <!-- 新增、编辑 -->
     <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
@@ -32,6 +33,7 @@ import { alaBuildInput, alaBuildSelect, alaBuildSelectApi, alaBuildSelectDict, a
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
+import PageTable from '@/components/cps/page/page-table.vue';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -74,7 +76,7 @@ const showEdit = (item: { [key: string]: any }) => {
 // 查询条件
 const params = reactive({})
 
-const pageRef = ref<InstanceType<typeof PageNestingTable> | null>(null)
+const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
 const refresh = () => {
     if (pageRef.value) {
         pageRef.value.refresh(params)

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 15:59:16
+ * @LastEditTime: 2024-12-14 15:08:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -15,7 +15,8 @@
 
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
-        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')" />
+        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
+        :showEditButton="true" :showDeleteButton="true" :showAddButton="true" />
 
     <!-- 新增、编辑 -->
     <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
@@ -110,7 +111,7 @@ const baseFields = computed(() => {
 
 
 // 高级查询条件
-const advancedFields:any[] = []
+const advancedFields: any[] = []
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################

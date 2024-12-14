@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 18:38:13
+ * @LastEditTime: 2024-12-14 15:12:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -72,7 +72,7 @@
                         {{ $t('buttons.delete') }}
                     </el-button>
                     <el-button size="small" type="primary" @click="handleAdd(scope.$index, scope.row)"
-                        v-if="displayDeleteButton()">
+                        v-if="displayAddSubButton()">
                         {{ $t('buttons.addSub') }}
                     </el-button>
                 </template>
@@ -135,12 +135,22 @@ const props = defineProps({
     // 是否显示 编辑 按钮
     showEditButton: {
         type: Boolean,
-        default: true
+        default: false
     },
     // 是否显示 编辑 按钮
     showDeleteButton: {
         type: Boolean,
-        default: true
+        default: false
+    },
+    // 是否显示 新增 按钮
+    showAddButton: {
+        type: Boolean,
+        default: false
+    },
+    // 是否显示 新增子级 按钮
+    showAddSubButton: {
+        type: Boolean,
+        default: false
     },
     pageSize: {
         type: Array<number>,
@@ -167,7 +177,12 @@ const displayEditButton = () => {
 const displayDeleteButton = () => {
     return props.showDeleteButton;
 }
-
+const displayAddButton = () => {
+    return props.showAddButton;
+}
+const displayAddSubButton = () => {
+    return props.showAddSubButton;
+}
 const deleteContent = () => {
     const content = t('pop_content.delete', { content: baseInfo.moduleName })
     return content

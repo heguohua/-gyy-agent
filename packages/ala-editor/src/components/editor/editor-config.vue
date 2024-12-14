@@ -20,9 +20,6 @@
                             <el-button type="primary" @click="handleSave()" v-if="true" class="button">
                                 保存
                             </el-button>
-                            <el-button type="primary" @click="handlePublish()" v-if="true" class="button">
-                                发布
-                            </el-button>
                         </div>
 
                         <el-tabs type="border-card" class="ala-editor-config-tab" v-model="activeTabName">
@@ -130,10 +127,6 @@ const handleSave = () => {
 
 }
 
-const handlePublish = () => {
-    console.log('发布: ===============');
-
-}
 
 </script>
 
