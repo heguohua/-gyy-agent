@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 21:00:28
+ * @LastEditTime: 2024-12-14 15:19:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -43,10 +43,12 @@
                     {{ advanced ? $t('buttons.less') : $t('buttons.more') }}
                 </el-button>
 
-                <el-button type="primary" @click="emit('refresh')" v-if="showQueryButton">{{ $t('buttons.query')
-                    }}</el-button>
+                <el-button type="primary" @click="emit('refresh')" v-if="showQueryButton">
+                    {{ $t('buttons.query') }}
+                </el-button>
+
                 <el-button type="primary" @click="clear" v-if="showResetButton">{{ $t('buttons.reset') }}</el-button>
-                <el-button type="primary" @click="showAdd" v-if="showAddButton">{{ $t('buttons.add') }}</el-button>
+                <el-button type="primary" @click="showAdd" v-if="displayAddButton()">{{ $t('buttons.add') }}</el-button>
             </div>
 
         </el-form>
@@ -92,7 +94,7 @@ const props = defineProps({
     },
     showAddButton: {
         type: Boolean,
-        default: true
+        default: false
     },
     isFormDesign: {
         type: Boolean,
@@ -100,7 +102,9 @@ const props = defineProps({
     }
 })
 
-
+const displayAddButton = () => {
+    return props.showAddButton;
+}
 // 高级查询条件控制状态
 const advanced = ref(false)
 
@@ -131,7 +135,7 @@ const showAdd = () => {
  * @param label 
  */
 const parseLabel = (label: string) => {
-    console.log('label',label);
+    console.log('label', label);
     return t(label);
 }
 

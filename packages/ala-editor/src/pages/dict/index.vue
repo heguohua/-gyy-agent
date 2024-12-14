@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 15:15:27
+ * @LastEditTime: 2024-12-14 15:20:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/index.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :params="params" @refresh="refresh" @showAdd="showAdd({ id: null, pid: 0 })"
-        labelWidth="180px" />
+        labelWidth="180px" :showAddButton="true" />
 
     <!-- 分页列表 -->
     <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
