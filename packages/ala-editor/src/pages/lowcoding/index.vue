@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 18:56:54
+ * @LastEditTime: 2024-12-14 20:00:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -19,9 +19,7 @@
         :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
 
         <template #cols="{ row, columnName }">
-            <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
-                in-valid-name="禁用" :value="row[columnName]" />
-            <template v-else>{{ row[columnName] }}</template>
+            {{ row[columnName] }}
         </template>
 
     </PageTable>
@@ -104,7 +102,6 @@ const columns = computed(() => {
     return [
         { prop: 'name', label: t('module.lowcoding.name') },
         { prop: 'type', label: t('module.lowcoding.type') },
-        { prop: 'delFlag', label: t('common.enable') },
         { prop: 'class_name', label: t('module.lowcoding.className') },
         { prop: 'version', label: t('module.lowcoding.version') },
     ]
