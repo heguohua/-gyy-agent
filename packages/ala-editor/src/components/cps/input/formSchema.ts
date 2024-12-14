@@ -50,6 +50,18 @@ const help = Type.String({
     default: "",
 })
 
+const showInSearch = Type.String({
+    code: "config-boolean",
+    title: "查询条件？",
+    default: false,
+})
+
+const showInTable = Type.String({
+    code: "config-boolean",
+    title: "列表显示？",
+    default: false,
+})
+
 const icon = Type.String({
     code: "config-input",
     title: "图标",
@@ -69,6 +81,7 @@ const iconHeight = Type.String({
 })
 
 
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
@@ -78,6 +91,8 @@ const schema = Type.Object({
     icon: schemaAllViewport(icon),
     iconWidth: schemaAllViewport(iconWidth),
     iconHeight: schemaAllViewport(iconHeight),
+    showInSearch: schemaAllViewport(showInSearch),
+    showInTable: schemaAllViewport(showInTable),
     // style: schemaAllViewport(style),
 })
 

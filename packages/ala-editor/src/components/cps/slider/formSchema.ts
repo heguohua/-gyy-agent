@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 21:38:04
+ * @LastEditTime: 2024-12-14 23:01:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/formSchema.ts
  * @Description: 
  * 
@@ -73,6 +73,18 @@ const help = Type.String({
     title: "帮助提示信息",
     default: "",
 })
+
+const showInSearch = Type.String({
+    code: "config-boolean",
+    title: "查询条件？",
+    default: false,
+})
+
+const showInTable = Type.String({
+    code: "config-boolean",
+    title: "列表显示？",
+    default: false,
+})
 const schema = Type.Object({
     label: schemaAllViewport(label),
     position: schemaAllViewport(position),
@@ -83,6 +95,8 @@ const schema = Type.Object({
     range: schemaAllViewport(range),
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
+    showInSearch: schemaAllViewport(showInSearch),
+    showInTable: schemaAllViewport(showInTable),
     // style: schemaAllViewport(style),
 })
 

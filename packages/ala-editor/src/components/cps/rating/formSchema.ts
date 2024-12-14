@@ -63,6 +63,18 @@ const help = Type.String({
     default: "",
 })
 
+const showInSearch = Type.String({
+    code: "config-boolean",
+    title: "查询条件？",
+    default: false,
+})
+
+const showInTable = Type.String({
+    code: "config-boolean",
+    title: "列表显示？",
+    default: false,
+})
+
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
@@ -72,6 +84,8 @@ const schema = Type.Object({
     allowHalf: schemaAllViewport(allowHalf),
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
+    showInSearch: schemaAllViewport(showInSearch),
+    showInTable: schemaAllViewport(showInTable),
     // style: schemaAllViewport(style),
 })
 
