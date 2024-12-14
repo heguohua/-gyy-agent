@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 16:40:52
+ * @LastEditTime: 2024-12-14 16:54:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -33,18 +33,12 @@
                         <!-- 内嵌表操作列 -->
                         <el-table-column :label="$t('buttons.buttons')">
                             <template #default="scope">
-                                <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-                                    v-if="displayEditButton()">
-                                    {{ $t('buttons.edit') }}
-                                </el-button>
-                                <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)"
-                                    v-if="displayDeleteButton()">
-                                    {{ $t('buttons.delete') }}
-                                </el-button>
-                                <el-button size="small" type="primary" @click="handleAdd(scope.$index, scope.row)"
-                                    v-if="displayDeleteButton()">
-                                    {{ $t('buttons.addSub') }}
-                                </el-button>
+                                <AlaButton :showButton="displayEditButton()" name="edit"
+                                    @edit="handleEdit(scope.$index, scope.row)" />
+                                <AlaButton :showButton="displayDeleteButton()" name="delete"
+                                    @delete="handleDelete(scope.$index, scope.row)" buttonType="danger" />
+                                <AlaButton :showButton="displayAddSubButton()" name="addSub"
+                                    @addSub="handleAdd(scope.$index, scope.row)" buttonType="primary" />
                             </template>
                         </el-table-column>
 
@@ -79,7 +73,8 @@
 
         <!-- 分页列表 -->
         <el-pagination v-model:current-page="current" :page-sizes="pageSize" layout="total, sizes, prev, pager, next"
-            :total="total" @size-change="handleSizeChange" @current-change="handlePageChange" class="ala-page-pagination" background>
+            :total="total" @size-change="handleSizeChange" @current-change="handlePageChange"
+            class="ala-page-pagination" background>
         </el-pagination>
 
 
