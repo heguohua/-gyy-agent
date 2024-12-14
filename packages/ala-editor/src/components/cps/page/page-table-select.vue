@@ -32,6 +32,12 @@
             <!-- 主表列渲染 -->
             <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
                 :label="isFormDesign ? parseLabel(column.label) : column.label" sortable>
+
+                <template #default="scope">
+                    <slot name="cols" :row="scope.row" :columnName="column.prop"></slot>
+                </template>
+
+
             </el-table-column>
 
         </el-table>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 15:08:27
+ * @LastEditTime: 2024-12-14 18:58:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/mySendCopyList.vue
  * @Description: 
  * 
@@ -16,7 +16,15 @@
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showDeleteButton="true" :showAddButton="true" />
+        :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
+
+        <template #cols="{ row, columnName }">
+            <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
+                in-valid-name="禁用" :value="row[columnName]" />
+            <template v-else>{{ row[columnName] }}</template>
+        </template>
+
+    </PageTable>
 
     <!-- 新增、编辑 -->
     <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->

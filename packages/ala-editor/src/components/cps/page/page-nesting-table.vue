@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 16:54:15
+ * @LastEditTime: 2024-12-14 18:50:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -28,7 +28,13 @@
 
                         <!-- 内嵌表列渲染 -->
                         <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
-                            :label="column.label"></el-table-column>
+                            :label="column.label">
+
+                            <template #default="scope">
+                                <slot name="innerCols" :row="scope.row" :columnName="column.prop"></slot>
+                            </template>
+
+                        </el-table-column>
 
                         <!-- 内嵌表操作列 -->
                         <el-table-column :label="$t('buttons.buttons')">
@@ -52,6 +58,11 @@
             <!-- 主表列渲染 -->
             <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
                 sortable>
+
+                <template #default="scope">
+                    <slot name="cols" :row="scope.row" :columnName="column.prop"></slot>
+                </template>
+
             </el-table-column>
 
 

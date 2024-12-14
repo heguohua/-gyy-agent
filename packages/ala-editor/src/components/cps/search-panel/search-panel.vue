@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 16:28:44
+ * @LastEditTime: 2024-12-14 18:33:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -22,7 +22,7 @@
                     <component :is="item.componentName" :label="isFormDesign ? parseLabel(item.label) : item.label"
                         :position="item.position" :placeholder="item.placeholder" v-bind="item.other"
                         v-model="params[item.fieldName]" :fieldName="item.fieldName" />
-                        
+
                 </div>
 
             </div>
@@ -51,13 +51,13 @@
                     {{ advanced ? $t('buttons.less') : $t('buttons.more') }}
                 </el-button>
 
-                <AlaButton :showButton="showQueryButton" name="query" @query="emit('refresh')" size="normal"
+                <AlaButton :showButton="showQueryButton" name="query" @query="emit('refresh')" size="default"
                     buttonType="primary" />
 
-                <AlaButton :showButton="showResetButton" name="reset" @reset="clear" size="normal"
+                <AlaButton :showButton="showResetButton" name="reset" @reset="clear" size="default"
                     buttonType="primary" />
 
-                <AlaButton :showButton="displayAddButton()" name="add" @add="showAdd()" size="normal"
+                <AlaButton :showButton="displayAddButton()" name="add" @add="showAdd()" size="default"
                     buttonType="primary" />
 
             </div>
