@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 15:19:17
+ * @LastEditTime: 2024-12-14 16:28:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -18,23 +18,31 @@
 
                 <div class="ala-search-base-item" v-for="(item, index) in baseFields"
                     :key="item.fieldName + '-' + index">
+
                     <component :is="item.componentName" :label="isFormDesign ? parseLabel(item.label) : item.label"
                         :position="item.position" :placeholder="item.placeholder" v-bind="item.other"
                         v-model="params[item.fieldName]" :fieldName="item.fieldName" />
+                        
                 </div>
 
             </div>
+
             <!-- 高级查询条件 -->
             <div class="ala-search-advanced animate__animated animate__fadeIn " v-if="advanced">
+
                 <div class="ala-search-base-item" v-for="(item, index) in advancedFields"
                     :key="item.fieldName + '-' + index">
+
                     <component :is="item.componentName" :label="isFormDesign ? parseLabel(item.label) : item.label"
                         :position="item.position" :placeholder="item.placeholder" v-bind="item.other"
                         v-model="params[item.fieldName]" :fieldName="item.fieldName" />
+
                 </div>
+
             </div>
 
             <div class="buttons">
+
                 <!-- 高级查询条件 -->
                 <el-button type="primary" @click="toggleAdvanced" class="button-more"
                     v-if="advancedFields && advancedFields.length > 0">
@@ -43,12 +51,15 @@
                     {{ advanced ? $t('buttons.less') : $t('buttons.more') }}
                 </el-button>
 
-                <el-button type="primary" @click="emit('refresh')" v-if="showQueryButton">
-                    {{ $t('buttons.query') }}
-                </el-button>
+                <AlaButton :showButton="showQueryButton" name="query" @query="emit('refresh')" size="normal"
+                    buttonType="primary" />
 
-                <el-button type="primary" @click="clear" v-if="showResetButton">{{ $t('buttons.reset') }}</el-button>
-                <el-button type="primary" @click="showAdd" v-if="displayAddButton()">{{ $t('buttons.add') }}</el-button>
+                <AlaButton :showButton="showResetButton" name="reset" @reset="clear" size="normal"
+                    buttonType="primary" />
+
+                <AlaButton :showButton="displayAddButton()" name="add" @add="showAdd()" size="normal"
+                    buttonType="primary" />
+
             </div>
 
         </el-form>
