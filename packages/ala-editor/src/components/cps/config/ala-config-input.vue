@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 18:04:11
+ * @LastEditTime: 2024-12-15 19:38:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-input.vue
  * @Description: 
  * 
@@ -58,27 +58,33 @@ const input = ref('')
 const isRequired = () => {
     return required ? 'is-required' : ''
 }
-interface Rule { name: string, message: string, pattern: any }
+interface Rule { name: string, message: string, pattern: any, length: number }
 
 const validateRules = ref([
     {
         validator: (rule: any, value: any, callback: any) => {
+            
             if (rules) {
+
                 let passed = true
                 let message = ''
 
                 for (let i = 0; i < rules.length; i++) {
+
                     const rl = rules[i]
                     let checkResult = undefined
                     message = rl.message
+
                     if (rl.name === 'required') {
                         checkResult = validate.required(input.value)
-                        console.log('required -----> 校验返参:', checkResult);
                     } else if (rl.name === 'pattern') {
-                        // validate.pattern(input.value, rl.pattern, `【${title}】` + rl.message, t, callback)
                         checkResult = validate.pattern(input.value, rl.pattern)
-                        console.log('pattern -----> 校验返参:', checkResult);
+                    } else if (rl.name === 'min') {
+                        checkResult = validate.min(input.value, rl.length)
+                    } else if (rl.name === 'max') {
+                        checkResult = validate.max(input.value, rl.length)
                     }
+
                     // 终止循环
                     if (!checkResult) {
                         passed = false

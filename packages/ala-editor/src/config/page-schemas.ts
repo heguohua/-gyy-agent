@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 18:00:57
+ * @LastEditTime: 2024-12-15 19:57:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas.ts
  * @Description: 
  * 
@@ -16,7 +16,11 @@ const background = Type.Boolean({
     title: "背景色",
     default: '',
 })
-
+// { name: 'required', message: '不能为空' },
+// { name: 'pattern', pattern: 'phone', message: '只能填写手机号' },
+// { name: 'min', length: 3, message: '最少3个字符' },
+// { name: 'max', length: 20, message: '最多20个字符' },
+// { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
 const title = Type.String({
     code: "config-input",
     title: "标题",
@@ -24,7 +28,8 @@ const title = Type.String({
     required: true,
     rules: [
         { name: 'required', message: '不能为空' },
-        { name: 'pattern', pattern: 'phone', message: '只能填写手机号' },
+        { name: 'max', length: 20, message: '最多20个字符' },
+        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
     ]
 })
 
@@ -45,7 +50,14 @@ const moduleName = Type.Number({
     code: "config-input",
     title: "模块名",
     placeholder: "请输入模块名",
-    required: true
+    required: true,
+    rules: [
+        { name: 'required', message: '不能为空' },
+        { name: 'min', length: 3, message: '最少3个字符' },
+        { name: 'max', length: 30, message: '最多20个字符' },
+        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
+        { name: 'pattern', pattern: 'LOrl', message: '只能包含大写字母、小写字母' },
+    ]
 })
 
 const schema = Type.Object({

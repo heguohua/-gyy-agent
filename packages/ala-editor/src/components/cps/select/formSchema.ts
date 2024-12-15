@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 21:35:49
+ * @LastEditTime: 2024-12-15 20:01:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/formSchema.ts
  * @Description: 
  * 
@@ -13,8 +13,13 @@ import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 
 const label = Type.String({
     code: "config-input",
-    title: "标签",
+    title: "标签名",
     required: true,
+    rules: [
+        { name: 'required', message: '不能为空' },
+        { name: 'max', length: 20, message: '最多20个字符' },
+        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
+    ]
 })
 
 const position = Type.String({
@@ -43,6 +48,13 @@ const fieldName = Type.String({
     code: "config-input",
     title: "字段名",
     required: true,
+    rules: [
+        { name: 'required', message: '不能为空' },
+        { name: 'min', length: 3, message: '最少3个字符' },
+        { name: 'max', length: 30, message: '最多20个字符' },
+        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
+        { name: 'pattern', pattern: 'LOrl', message: '只能包含大写字母、小写字母' },
+    ]
 })
 const width = Type.Number({
     code: "config-input",
