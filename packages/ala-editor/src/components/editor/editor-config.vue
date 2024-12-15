@@ -49,6 +49,7 @@ import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
+import validate from '@/utils/validate';
 import { keysOf } from 'element-plus/es/utils';
 const editorStore = useEditorStore()
 import { useI18n } from 'vue-i18n';
@@ -106,27 +107,120 @@ const handleSave = () => {
     // 验证 模块名 是否为空、是否已存在
 
     // 
-    const bc = editorStore.blockConfig[bType] || []
-    const pc = editorStore.pageConfig[bType].formData as any
-    console.log('pc:',pc);
+    const blockConfig = editorStore.blockConfig[bType] || []
+    const pageConfig = editorStore.pageConfig[bType].formData as any
 
-    if (pc) {
-        Object.keys(pc).forEach((key: string) => {
-            if(pc[key].required){
-                u.checkEmpty(pc[key].desktop,`页面配置项【 ${pc[key].title} 】`,t)
+    if (pageConfig) {
+
+        const fieldNames = Object.keys(pageConfig)
+
+        for (let i = 0; i < fieldNames.length; i++) {
+
+            const fieldName = fieldNames[i]
+            const rules = pageConfig[fieldName].rules
+            const fieldValue = pageConfig[fieldName].desktop
+            const title = pageConfig[fieldName].title
+
+            if (rules && rules.length > 0) {
+
+                let passed = true
+                let message = ''
+
+                for (let j = 0; j < rules.length; j++) {
+
+                    const rl = rules[j]
+                    let checkResult = undefined
+                    message = rl.message
+
+                    if (rl.name === 'required') {
+                        checkResult = validate.required(fieldValue)
+                    } else if (rl.name === 'pattern') {
+                        checkResult = validate.pattern(fieldValue, rl.pattern)
+                    } else if (rl.name === 'min') {
+                        checkResult = validate.min(fieldValue, rl.length)
+                    } else if (rl.name === 'max') {
+                        checkResult = validate.max(fieldValue, rl.length)
+                    }
+
+                    // 终止循环
+                    if (!checkResult) {
+                        passed = false
+                        break
+                    }
+                }
+
+                if (!passed) {
+                    // 说明有校验未通过的规则，显示提示信息
+                    const tip = '页面配置项【 ' + (title.startsWith("t('") ? t(title) : title) + ` 】 ${message} ！`
+                    u.error(tip, t('pop.warm_title'))
+                }
+
             }
-        });
+
+        }
+
     }
 
-    // u.checkEmpty(pc., "页面配置不存在", t)
+    if (blockConfig && blockConfig.length > 0) {
 
+        for (let b = 0; b < blockConfig.length; b++) {
 
-    return
+            const oneFormItem = blockConfig[b].formData
+            
+            if (oneFormItem) {
+                const fieldNames = Object.keys(oneFormItem)
+                console.log('block---------------->:',oneFormItem);
+
+                for (let i = 0; i < fieldNames.length; i++) {
+
+                    const fieldName = fieldNames[i]
+                    const rules = oneFormItem[fieldName].rules
+                    const fieldValue = oneFormItem[fieldName].desktop
+                    const fieldTitle = oneFormItem[fieldName].title
+
+                    if (rules && rules.length > 0) {
+
+                        let passed = true
+                        let message = ''
+
+                        for (let j = 0; j < rules.length; j++) {
+
+                            const rl = rules[j]
+                            let checkResult = undefined
+                            message = rl.message
+
+                            if (rl.name === 'required') {
+                                checkResult = validate.required(fieldValue)
+                            } else if (rl.name === 'pattern') {
+                                checkResult = validate.pattern(fieldValue, rl.pattern)
+                            } else if (rl.name === 'min') {
+                                checkResult = validate.min(fieldValue, rl.length)
+                            } else if (rl.name === 'max') {
+                                checkResult = validate.max(fieldValue, rl.length)
+                            }
+
+                            // 终止循环
+                            if (!checkResult) {
+                                passed = false
+                                break
+                            }
+                        }
+
+                        if (!passed) {
+                            // 说明有校验未通过的规则，显示提示信息
+                            const fieldLabel = oneFormItem.label.desktop
+                            const tip = '组件配置项【 “' +(fieldLabel.startsWith("t('") ? t(fieldLabel) : fieldLabel)+'”组件的“'+ (fieldTitle.startsWith("t('") ? t(fieldTitle) : fieldTitle) + `” 】 ${message} ！`
+                            u.error(tip, t('pop.warm_title'))
+                        }
+                    }
+                }
+            }
+
+        }
+    }
 
     const url = "/l/lowcodingConfig/add"
     const updateUrl = "/l/lowcodingConfig/update"
-
-
 
     const id = editorStore.pageConfig[bType].id
 
@@ -193,7 +287,8 @@ const handleSave = () => {
             line-height: 24px;
             font-size: inherit;
         }
-        .el-form-item__error{
+
+        .el-form-item__error {
             padding-top: 0px;
         }
 

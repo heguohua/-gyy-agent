@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 17:35:46
+ * @LastEditTime: 2024-12-15 21:18:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -193,7 +193,17 @@ export default class u {
         if (pattern.test(data)) {
             result = true
         }
-        logger.info(`正则校验返参${result}`, data, pattern);
         return result
+    }
+
+
+    /**
+     * 抛出异常
+     * @param remark 
+     * @param title 
+     */
+    public static error(remark: any, title = "温馨提示：") {
+        notify.error(title, remark)
+        throw new WarnException({ title, remark })
     }
 }

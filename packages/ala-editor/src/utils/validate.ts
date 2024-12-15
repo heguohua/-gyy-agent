@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 19:53:52
+ * @LastEditTime: 2024-12-15 21:37:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/validate.ts
  * @Description: 
  * 
@@ -24,7 +24,7 @@ export default class validate {
         Ll8: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z\d]*$/,
         LOrlOr8Or_: /^[a-zA-Z0-9\p{P}\p{S}]+$/u,
         Ll8_: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).+$/,
-        No_: /^[a-zA-Z0-9\u4E00-\u9FFF\u0400-\u04FF]+$/,
+        No_: /^[？?@\(\)\（\）\-a-zA-Z0-9\u4E00-\u9FFF\u0400-\u04FF]+$/,
     }
 
     /**
