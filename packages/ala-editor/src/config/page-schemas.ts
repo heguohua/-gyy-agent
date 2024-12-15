@@ -21,7 +21,10 @@ const title = Type.String({
     code: "config-input",
     title: "标题",
     placeholder: "请输入页面标题",
-    required: true
+    required: true,
+    rules: [
+        { required: true, message: '不能为空', trigger: 'blur' }
+    ]
 })
 
 const width = Type.Number({

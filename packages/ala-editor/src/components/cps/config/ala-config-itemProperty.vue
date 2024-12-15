@@ -48,7 +48,7 @@ const bType = props.bType
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
-const { title, default: defaultValue, placeholder, required } = data.value.properties[props.viewport]
+const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref('')
 
 const isRequired = () => {
@@ -91,9 +91,9 @@ watch(input, (value) => {
         _value = u.parseJson(_value)
     }
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: _value, mobile: _value, required: required ? required : false, title }
+        data = { desktop: _value, mobile: _value, required: required ? required : false, title, rules }
     } else {
-        data = { [props.viewport]: _value, required: required ? required : false, title }
+        data = { [props.viewport]: _value, required: required ? required : false, title, rules }
     }
     logger.info(`config-itemProperty组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {

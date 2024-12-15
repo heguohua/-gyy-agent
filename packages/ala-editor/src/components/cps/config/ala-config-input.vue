@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 13:16:44
+ * @LastEditTime: 2024-12-15 14:21:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-input.vue
  * @Description: 
  * 
@@ -48,7 +48,7 @@ const bType = props.bType
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
-const { title, default: defaultValue, placeholder, required } = data.value.properties[props.viewport]
+const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref('')
 
 const isRequired = () => {
@@ -72,9 +72,9 @@ watch(input, (value) => {
     const _value = value || ''
 
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: _value, mobile: _value, required: required ? required : false, title }
+        data = { desktop: _value, mobile: _value, required: required ? required : false, title, rules }
     } else {
-        data = { [props.viewport]: _value, required: required ? required : false, title }
+        data = { [props.viewport]: _value, required: required ? required : false, title, rules }
     }
     logger.info(`config-input组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {

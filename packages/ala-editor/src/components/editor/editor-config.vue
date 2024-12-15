@@ -108,6 +108,7 @@ const handleSave = () => {
     // 
     const bc = editorStore.blockConfig[bType] || []
     const pc = editorStore.pageConfig[bType].formData as any
+    console.log('pc:',pc);
 
     if (pc) {
         Object.keys(pc).forEach((key: string) => {
