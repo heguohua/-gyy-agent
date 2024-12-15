@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 20:01:32
+ * @LastEditTime: 2024-12-15 21:50:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/formSchema.ts
  * @Description: 
  * 
@@ -51,7 +51,7 @@ const fieldName = Type.String({
     rules: [
         { name: 'required', message: '不能为空' },
         { name: 'min', length: 3, message: '最少3个字符' },
-        { name: 'max', length: 30, message: '最多20个字符' },
+        { name: 'max', length: 30, message: '最多30个字符' },
         { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
         { name: 'pattern', pattern: 'LOrl', message: '只能包含大写字母、小写字母' },
     ]
