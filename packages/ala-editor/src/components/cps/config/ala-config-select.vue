@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 13:33:05
+ * @LastEditTime: 2024-12-15 11:09:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-select.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="config-input">
-        <el-form-item :label="title">
+        <el-form-item :label="title" :class="isRequired()">
             <el-input v-model="input" :placeholder="placeholder" class="input" readonly />
 
             <el-select v-model="input" placeholder="请选择">
@@ -33,8 +33,8 @@ const emit = defineEmits(["callback"])
 
 
 interface Item {
-  name: string,
-  value: string
+    name: string,
+    value: string
 }
 
 const props = defineProps({
@@ -59,10 +59,15 @@ const props = defineProps({
 const bType = props.bType
 
 const { data } = toRefs(props)
-const { formData, parentKey, key, id,properties} = data.value
+const { formData, parentKey, key, id, properties } = data.value
 
-const { title, default: defaultValue, placeholder } = data.value.properties[props.viewport]
+const { title, default: defaultValue, placeholder, required } = data.value.properties[props.viewport]
 const input = ref('')
+
+const isRequired = () => {
+    return required ? 'is-required' : ''
+}
+
 
 logger.info(`bType[ ${bType} ],config-select组件被渲染, items :`, defaultValue);
 logger.info(`bType[ ${bType} ],config-select组件被渲染, items :`, defaultValue);
@@ -84,9 +89,9 @@ watch(input, (value) => {
     const _value = value || ''
 
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: _value, mobile: _value }
+        data = { desktop: _value, mobile: _value, required: required ? required : false }
     } else {
-        data = { [props.viewport]: _value }
+        data = { [props.viewport]: _value, required: required ? required : false }
     }
     logger.info(`config-input组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {

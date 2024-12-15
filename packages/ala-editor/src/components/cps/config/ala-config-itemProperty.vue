@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 22:46:54
+ * @LastEditTime: 2024-12-15 11:09:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-itemProperty.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="config-itemProperty">
-        <el-form-item :label="title">
+        <el-form-item :label="title" :class="isRequired()">
             <el-input v-model="input" readonly :placeholder="placeholder" class="input" type="textarea" autosize />
         </el-form-item>
     </div>
@@ -48,8 +48,12 @@ const bType = props.bType
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
-const { title, default: defaultValue, placeholder } = data.value.properties[props.viewport]
+const { title, default: defaultValue, placeholder, required } = data.value.properties[props.viewport]
 const input = ref('')
+
+const isRequired = () => {
+    return required ? 'is-required' : ''
+}
 
 interface ItemProperty {
     propertyName: string,
@@ -85,9 +89,9 @@ watch(input, (value) => {
         _value = u.parseJson(_value)
     }
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: _value, mobile: _value }
+        data = { desktop: _value, mobile: _value, required: required ? required : false }
     } else {
-        data = { [props.viewport]: _value }
+        data = { [props.viewport]: _value, required: required ? required : false }
     }
     logger.info(`config-itemProperty组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {

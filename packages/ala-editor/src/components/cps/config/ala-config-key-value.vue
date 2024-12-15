@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 15:27:17
+ * @LastEditTime: 2024-12-15 11:09:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-key-value.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="config-key-value">
-        <el-form-item :label="title">
+        <el-form-item :label="title" :class="isRequired()">
             <div class="input">
                 <el-input v-model="itemKey" placeholder="name" class="input-item" />
                 <el-input v-model="itemValue" placeholder="value" class="input-item" />
@@ -63,7 +63,12 @@ logger.info(`bType[ ${bType} ],config-column组件渲染, data :`, props.data);
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
-const { title, default: defaultValue, placeholder } = data.value.properties[props.viewport]
+const { title, default: defaultValue, placeholder, required } = data.value.properties[props.viewport]
+
+const isRequired = () => {
+    return required ? 'is-required' : ''
+}
+
 
 // ################## 相较于 input组件 自定义部分 start ########################################################
 
@@ -106,9 +111,9 @@ watch(() => items.value, (value) => {
     const _value = value || ''
 
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: _value, mobile: _value }
+        data = { desktop: _value, mobile: _value, required: required ? required : false }
     } else {
-        data = { [props.viewport]: _value }
+        data = { [props.viewport]: _value, required: required ? required : false }
     }
     logger.info(`config-key-value组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {
@@ -149,8 +154,7 @@ watch(() => editorStore.globalParams[bType], () => {
             margin-right: 4px;
         }
 
-        .icon {
-        }
+        .icon {}
 
 
     }

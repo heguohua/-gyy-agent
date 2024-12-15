@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 21:39:08
+ * @LastEditTime: 2024-12-15 10:50:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/rating/formSchema.ts
  * @Description: 
  * 
@@ -54,7 +54,6 @@ const allowHalf = Type.Boolean({
     code: "config-boolean",
     title: "允许半分",
     default: "",
-    required: true,
 })
 
 const help = Type.String({

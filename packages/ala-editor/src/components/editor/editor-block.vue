@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 22:51:15
+ * @LastEditTime: 2024-12-15 09:31:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -107,7 +107,7 @@ const props = defineProps({
 const bType = props.bType
 
 const activeMenu = ref(0)
-const activeNames = ref(["1", "2"])
+const activeNames = ref(["1", "2", "3"])
 
 
 const handleChange = () => {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 17:36:08
+ * @LastEditTime: 2024-12-15 10:57:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -167,7 +167,7 @@ onMounted(() => {
 const setCurrentSelect = (block: BaseBlock) => {
 
     block.parent = props.pid
-    logger.info("edit-block-drag组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
+    logger.info("edit-block-drag-form组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
 
     console.log('block:', block);
 

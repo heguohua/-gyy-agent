@@ -69,7 +69,7 @@ watch(() => editorStore.currentSelect[bType], (value) => {
         editorStore.setConfigPanelShow(true, bType)
         activeTabName.value = 'block'
     } else {
-        logger.info("bType[ ${bT    ype} ],editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,但变化值不存在,不切换 editor-config 面板显示状态");
+        logger.info("bType[ ${bType} ],editor-config组件 【 监听到 】 editorStore.currentSelect 发生变化,但变化值不存在,不切换 editor-config 面板显示状态");
     }
 
 }, {
@@ -91,13 +91,24 @@ const handleClear = () => {
 
 const handleSave = () => {
 
-    const url = "/l/lowcodingConfig/add"
-    const updateUrl = "/l/lowcodingConfig/update"
 
+    // 先进行 参数校验
     const config = {
         blockConfig: { [bType]: editorStore.blockConfig[bType] },
         pageConfig: { [bType]: editorStore.pageConfig[bType] }
     }
+
+
+    // 页面验证
+    // 验证标题是否为空
+    // 验证 模块名 是否为空、是否已存在
+
+
+
+    const url = "/l/lowcodingConfig/add"
+    const updateUrl = "/l/lowcodingConfig/update"
+
+
 
     const id = editorStore.pageConfig[bType].id
 
