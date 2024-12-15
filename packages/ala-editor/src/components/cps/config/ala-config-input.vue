@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 14:21:01
+ * @LastEditTime: 2024-12-15 18:04:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-input.vue
  * @Description: 
  * 
@@ -10,8 +10,8 @@
 -->
 <template>
     <div class="config-input">
-        <el-form-item :label="title" :class="isRequired()">
-            <el-input v-model="input" :placeholder="placeholder" class="input" />
+        <el-form-item :label="title" prop="aaa" :class="isRequired()" :rules="validateRules">
+            <el-input v-model="input" name="aaa" :placeholder="placeholder" class="input" />
         </el-form-item>
     </div>
 </template>
@@ -20,13 +20,15 @@
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import u from '@/utils/u';
+import validate from '@/utils/validate';
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
+
 const editorStore = useEditorStore()
 
 const emit = defineEmits(["callback"])
-
-// State
-
 
 const props = defineProps({
     data: {
@@ -48,12 +50,56 @@ const bType = props.bType
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
+console.log('data.value=================:', data.value);
+
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref('')
 
 const isRequired = () => {
     return required ? 'is-required' : ''
 }
+interface Rule { name: string, message: string, pattern: any }
+
+const validateRules = ref([
+    {
+        validator: (rule: any, value: any, callback: any) => {
+            if (rules) {
+                let passed = true
+                let message = ''
+
+                for (let i = 0; i < rules.length; i++) {
+                    const rl = rules[i]
+                    let checkResult = undefined
+                    message = rl.message
+                    if (rl.name === 'required') {
+                        checkResult = validate.required(input.value)
+                        console.log('required -----> 校验返参:', checkResult);
+                    } else if (rl.name === 'pattern') {
+                        // validate.pattern(input.value, rl.pattern, `【${title}】` + rl.message, t, callback)
+                        checkResult = validate.pattern(input.value, rl.pattern)
+                        console.log('pattern -----> 校验返参:', checkResult);
+                    }
+                    // 终止循环
+                    if (!checkResult) {
+                        passed = false
+                        break
+                    }
+                }
+
+                if (!passed) {
+                    // 说明有校验未通过的规则，显示提示信息
+                    callback(new Error(message))
+                } else {
+                    callback()
+                }
+
+            }
+        },
+        trigger: 'change'
+    }
+]);
+
+
 
 watch(() => formData, (form_data) => {
     if (form_data[key]?.[props.viewport]) {

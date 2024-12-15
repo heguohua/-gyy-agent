@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 13:37:02
+ * @LastEditTime: 2024-12-15 17:35:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -169,15 +169,31 @@ export default class u {
             throw `${title}`
         }
     }
-    
+
     /**
      *  去除 收尾 空格
      * @param data 数据
-     * @param t 
      * @returns 
      */
     public static trim(data: string) {
         return data.trim()
     }
 
+    /**
+     * 根据正则表达式判断是否匹配
+     * @param data 
+     * @param pattern 
+     * @returns 
+     */
+    public static pattern(data: string, pattern: RegExp) {
+        if (!data) {
+            return false
+        }
+        let result = false
+        if (pattern.test(data)) {
+            result = true
+        }
+        logger.info(`正则校验返参${result}`, data, pattern);
+        return result
+    }
 }

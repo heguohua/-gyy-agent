@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 10:33:23
+ * @LastEditTime: 2024-12-15 18:00:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas.ts
  * @Description: 
  * 
@@ -23,7 +23,8 @@ const title = Type.String({
     placeholder: "请输入页面标题",
     required: true,
     rules: [
-        { required: true, message: '不能为空', trigger: 'blur' }
+        { name: 'required', message: '不能为空' },
+        { name: 'pattern', pattern: 'phone', message: '只能填写手机号' },
     ]
 })
 

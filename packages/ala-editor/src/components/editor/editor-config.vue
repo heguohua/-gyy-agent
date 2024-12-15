@@ -179,7 +179,7 @@ const handleSave = () => {
 
     :deep .el-form-item {
         font-size: 0.8rem;
-        margin-bottom: 8px;
+        margin-bottom: 14px;
         font-size: 0.8rem;
 
         .el-form-item__label {
@@ -193,7 +193,9 @@ const handleSave = () => {
             line-height: 24px;
             font-size: inherit;
         }
-
+        .el-form-item__error{
+            padding-top: 0px;
+        }
 
     }
 
