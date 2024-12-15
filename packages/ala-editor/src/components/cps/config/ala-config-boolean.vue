@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 11:21:13
+ * @LastEditTime: 2024-12-15 11:39:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-boolean.vue
  * @Description: 
  * 
@@ -81,6 +81,8 @@ watch(input, (value) => {
         },
         id
     })
+}, {
+    immediate: true
 })
 
 
