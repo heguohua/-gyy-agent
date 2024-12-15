@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:52:29
+ * @LastEditTime: 2024-12-15 13:37:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -153,6 +153,31 @@ export default class u {
         } else {
             return label
         }
+    }
+
+    /**
+     *  非空校验
+     * @param data 数据
+     * @param i18nKey 国际化key或者提示信息
+     * @param t 
+     * @returns 
+     */
+    public static checkEmpty(data: object, i18nKey: string, t: Function) {
+        if (!data) {
+            const title = (i18nKey.startsWith("t('") ? t(i18nKey) : i18nKey) + '“ 不存在 ” ！'
+            notify.error(t('pop.warm_title'), title)
+            throw `${title}`
+        }
+    }
+    
+    /**
+     *  去除 收尾 空格
+     * @param data 数据
+     * @param t 
+     * @returns 
+     */
+    public static trim(data: string) {
+        return data.trim()
     }
 
 }

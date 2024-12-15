@@ -73,9 +73,9 @@ watch(input, (value) => {
     const _value = value || ''
 
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: Number(_value), mobile: Number(_value), required: required ? required : false }
+        data = { desktop: Number(_value), mobile: Number(_value), required: required ? required : false, title }
     } else {
-        data = { [props.viewport]: Number(_value), required: required ? required : false }
+        data = { [props.viewport]: Number(_value), required: required ? required : false, title }
     }
     logger.info(`config-input组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {

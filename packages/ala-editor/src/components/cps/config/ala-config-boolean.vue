@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 11:39:25
+ * @LastEditTime: 2024-12-15 13:26:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-boolean.vue
  * @Description: 
  * 
@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
+import u from '@/utils/u';
 import { ref } from 'vue'
 const editorStore = useEditorStore()
 
@@ -48,7 +49,7 @@ const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
 const { title, default: defaultValue, placeholder, required } = data.value.properties[props.viewport]
-const input = ref(0)
+const input = ref("")
 
 const isRequired = () => {
     return required ? 'is-required' : ''
@@ -66,13 +67,14 @@ watch(() => formData, (form_data) => {
 })
 
 watch(input, (value) => {
+    value = u.trim(value)
     let data = {}
     const _value = value || ''
 
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: Boolean(_value), mobile: Boolean(_value), required: required ? required : false }
+        data = { desktop: Boolean(_value), mobile: Boolean(_value), required: required ? required : false, title }
     } else {
-        data = { [props.viewport]: Boolean(_value), required: required ? required : false }
+        data = { [props.viewport]: Boolean(_value), required: required ? required : false, title }
     }
     logger.info(`config-input组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 11:39:51
+ * @LastEditTime: 2024-12-15 13:24:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-textarea.vue
  * @Description: 
  * 
@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
+import u from '@/utils/u';
 import { ref } from 'vue'
 const editorStore = useEditorStore()
 
@@ -69,13 +70,14 @@ watch(() => formData, (form_data) => {
 })
 
 watch(input, (value) => {
+    value = u.trim(value)
     let data = {}
     const _value = value || ''
 
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: _value, mobile: _value, required: required ? required : false }
+        data = { desktop: _value, mobile: _value, required: required ? required : false, title }
     } else {
-        data = { [props.viewport]: _value, required: required ? required : false }
+        data = { [props.viewport]: _value, required: required ? required : false, title }
     }
     logger.info(`config-textarea组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {

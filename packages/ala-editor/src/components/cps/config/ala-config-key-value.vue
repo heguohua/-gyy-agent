@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 11:09:13
+ * @LastEditTime: 2024-12-15 13:24:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-key-value.vue
  * @Description: 
  * 
@@ -33,6 +33,7 @@
 <script setup lang="ts">
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
+import u from '@/utils/u';
 import { ref } from 'vue'
 const editorStore = useEditorStore()
 
@@ -82,7 +83,7 @@ const itemValue = ref('');
 const addKeyValue = () => {
 
     if (itemKey.value && itemValue.value) {
-        items.value.push({ name: itemKey.value, value: itemValue.value });
+        items.value.push({ name: u.trim(itemKey.value), value: u.trim(itemValue.value) });
         itemKey.value = '';
         itemValue.value = '';
     }
@@ -111,9 +112,9 @@ watch(() => items.value, (value) => {
     const _value = value || ''
 
     if (Object.values(formData || {}).length < 2) {
-        data = { desktop: _value, mobile: _value, required: required ? required : false }
+        data = { desktop: _value, mobile: _value, required: required ? required : false, title }
     } else {
-        data = { [props.viewport]: _value, required: required ? required : false }
+        data = { [props.viewport]: _value, required: required ? required : false, title }
     }
     logger.info(`config-key-value组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {

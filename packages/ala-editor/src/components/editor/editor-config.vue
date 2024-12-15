@@ -49,8 +49,10 @@ import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
+import { keysOf } from 'element-plus/es/utils';
 const editorStore = useEditorStore()
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 // State
 const props = defineProps({
     bType: {
@@ -104,8 +106,21 @@ const handleSave = () => {
     // 验证 模块名 是否为空、是否已存在
 
     // 
+    const bc = editorStore.blockConfig[bType] || []
+    const pc = editorStore.pageConfig[bType].formData as any
+
+    if (pc) {
+        Object.keys(pc).forEach((key: string) => {
+            if(pc[key].required){
+                u.checkEmpty(pc[key].desktop,`页面配置项【 ${pc[key].title} 】`,t)
+            }
+        });
+    }
+
+    // u.checkEmpty(pc., "页面配置不存在", t)
 
 
+    return
 
     const url = "/l/lowcodingConfig/add"
     const updateUrl = "/l/lowcodingConfig/update"
@@ -119,8 +134,8 @@ const handleSave = () => {
     if (config.blockConfig && config.blockConfig[bType] && config.blockConfig[bType].length > 0) {
 
         const data = {
-            name:editorStore.pageConfig[bType].formData?.title.desktop, 
-            config: u.tojson(config) 
+            name: editorStore.pageConfig[bType].formData?.title.desktop,
+            config: u.tojson(config)
         }
         if (id) {
             u.merged(data, { id })
@@ -315,5 +330,4 @@ const handleSave = () => {
 
 
 }
-
 </style>
