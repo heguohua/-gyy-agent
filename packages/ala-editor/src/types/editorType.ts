@@ -10,7 +10,7 @@
  */
 // import type { BlockSchemaFormData } from '@/config/schema'
 
-import { AlaPageFormSchema, BlockSchemaKeys, BlockSchemas } from "@/config/schemas"
+import { AlaPageFormSchemaForm, BlockSchemaKeys, BlockSchemas } from "@/config/schemas"
 
 export type Viewport = 'mobile' | 'desktop'
 
@@ -57,7 +57,7 @@ export interface BasePage {
    * 配置内容
    */
   // formData?: Partial<>
-  formData?: AlaPageFormSchema
+  formData?: AlaPageFormSchemaForm
 
   id?: number
 

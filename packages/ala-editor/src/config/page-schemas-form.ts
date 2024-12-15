@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 19:57:24
- * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas.ts
+ * @LastEditTime: 2024-12-15 22:31:32
+ * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -60,16 +60,37 @@ const moduleName = Type.Number({
     ]
 })
 
+
+const formType = Type.String({
+    code: "config-select",
+    title: "表单类型",
+    default: [{
+        name: '列表表单',
+        value: 'pageForm',
+    }, {
+        name: '子表单',
+        value: 'child',
+    }, {
+        name: '流程表单',
+        value: 'flow',
+    }],
+    rules: [
+        { name: 'required', message: '不能为空' },
+    ]
+})
+
+
 const schema = Type.Object({
     background: schemaAllViewport(background),
     title: schemaAllViewport(title),
     width: schemaAllViewport(width),
     labelWidth: schemaAllViewport(labelWidth),
     moduleName: schemaAllViewport(moduleName),
+    formType: schemaAllViewport(formType),
 })
 
 
-export type AlaPageSchema = Static<typeof schema>
+export type AlaPageSchemaForm = Static<typeof schema>
 
 export default schema
 
