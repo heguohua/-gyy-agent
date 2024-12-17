@@ -115,6 +115,7 @@ declare module 'vue' {
     ImportData: typeof import('./src/components/flow/Control/ImportData.vue')['default']
     Join: typeof import('./src/components/flow/PropertySetting/join.vue')['default']
     LoadingBar: typeof import('./src/components/LoadingBar/LoadingBar.vue')['default']
+    PageDynamicTable: typeof import('./src/components/cps/page/page-dynamic-table.vue')['default']
     PageNestingTable: typeof import('./src/components/cps/page/page-nesting-table.vue')['default']
     PageTable: typeof import('./src/components/cps/page/page-table.vue')['default']
     PageTableSelect: typeof import('./src/components/cps/page/page-table-select.vue')['default']

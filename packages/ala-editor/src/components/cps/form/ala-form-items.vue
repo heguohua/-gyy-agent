@@ -228,8 +228,8 @@ onMounted(() => {
 
         .el-drawer__body {
             text-align: left;
-            flex: none;
             display: inline-flex;
+            flex: auto;
             column-gap: 8px;
             flex-wrap: wrap;
         }

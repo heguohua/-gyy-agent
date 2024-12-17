@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 18:13:19
+ * @LastEditTime: 2024-12-17 21:25:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -98,6 +98,10 @@ export function alaBuildNoneFormItem(componentName: string, label?: string, othe
  */
 export function alaBuildInput(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {
     const obj = alaBuild("AlaInput", fieldName, label, rules, placeholder)
+    return obj
+}
+export function alaBuildTextarea(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {
+    const obj = alaBuild("AlaTextarea", fieldName, label, rules, placeholder)
     return obj
 }
 
