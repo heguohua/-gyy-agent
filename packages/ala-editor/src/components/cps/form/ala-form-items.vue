@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-08 18:09:42
+ * @LastEditTime: 2024-12-16 19:05:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -88,9 +88,7 @@ const props = defineProps({
 
 
 const isHidden = (item: { componentName: string, other?: any }) => {
-    console.log('item.componentName:',item.componentName);
-    console.log('item.other:',item.other);
-        
+   
     if (item.componentName === 'AlaHidden') {
         return 'ala-form-base-item-hidden'
     } else if (item.other && item.other.fullWidth) {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 16:19:46
+ * @LastEditTime: 2024-12-16 11:14:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -170,13 +170,6 @@ export const businessFields: BaseBlock[] = [
         name: "下拉选(Table)",
         code: "select",
         icon: "select",
-        formData: {},
-    },
-    {
-        id: "",
-        name: "分隔线",
-        code: "select",
-        icon: "line_x",
         formData: {},
     }
 ]

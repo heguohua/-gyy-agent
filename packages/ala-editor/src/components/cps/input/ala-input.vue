@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 09:25:43
+ * @LastEditTime: 2024-12-16 19:21:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -10,11 +10,11 @@
 -->
 <template>
     <div class="ala-input-wrapper">
-        <el-form-item :label-position="position" :prop="fieldName" @click="ck">
+        <el-form-item :label-position="position" :prop="fieldName" >
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <el-input :model-value="model" @change="handleChange" :placeholder="placeholder" :id="fieldName">
+            <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName">
 
                 <template #prefix v-if="icon">
                     <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
@@ -88,6 +88,7 @@ const handleChange = (value: string) => {
 logger.error(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
 
 const ck = () => {
+    model.value = model.value+'-2'
     logger.error(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
 }
 

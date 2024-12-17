@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-12 22:18:10
+ * @LastEditTime: 2024-12-16 19:26:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -66,6 +66,8 @@ const icon = {
   role: 'oui:app-users-roles',
   team: 'ri:team-line',
   sysConfig: 'icon-park-outline:setting-config',
+  customer: 'ix:customer',
+  order: 'carbon:order-details',
 
   // 数据分析
   chart: "memory:chart-bar",
