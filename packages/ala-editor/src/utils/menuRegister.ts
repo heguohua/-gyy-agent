@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-17 16:48:19
+ * @LastEditTime: 2024-12-17 17:33:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -165,8 +165,8 @@ export default class MenuUtil {
                             },
                         });
                     } else if (menu.fullPath) {
-                        
-                        logger.warn(`menu.fullPath [ ${menu.fullPath} ]【 动态渲染组件 】，菜单名[ ${menu.name} ]`);
+
+                        logger.info(`menu.fullPath [ ${menu.fullPath} ]【 动态渲染组件 】，菜单名[ ${menu.name} ]`);
 
                         menuComponent = {
                             name: menu.url.replaceAll('/', '_'),
