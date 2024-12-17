@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-09 18:14:29
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 11:42:32
+ * @LastEditTime: 2024-12-17 16:31:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/types/menuType.ts
  * @Description: 
  * 
@@ -15,6 +15,7 @@ export default interface Menu {
     width: string,
     height: string,
     url: string,
+    fullPath?: string,
     code: string,
     children: Array<Menu>,
 }

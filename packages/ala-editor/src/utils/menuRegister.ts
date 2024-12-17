@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-28 16:12:52
+ * @LastEditTime: 2024-12-17 16:48:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -134,7 +134,7 @@ export const allMenuComponents: MenuComponent = {
         requiresAuth: true,
         uniqueCheck: true,
     },
-    
+
 }
 
 export default class MenuUtil {
@@ -149,7 +149,7 @@ export default class MenuUtil {
                 logger.info('==》'.repeat(level) + `Level: ${level}, ID: ${menu.id}, Name: ${menu.name}`);
 
                 if (menu.url) {
-                    const menuComponent = allMenuComponents[menu.url]
+                    let menuComponent = allMenuComponents[menu.url]
                     if (menuComponent) {
                         router.addRoute({
                             path: menu.url,
@@ -164,6 +164,29 @@ export default class MenuUtil {
                                 uniqueCheck: menuComponent.uniqueCheck,
                             },
                         });
+                    } else if (menu.fullPath) {
+                        
+                        logger.warn(`menu.fullPath [ ${menu.fullPath} ]【 动态渲染组件 】，菜单名[ ${menu.name} ]`);
+
+                        menuComponent = {
+                            name: menu.url.replaceAll('/', '_'),
+                            component: menu.fullPath,
+                            requiresAuth: true,
+                        }
+
+                        router.addRoute({
+                            path: menu.url,
+                            // name: fn(menu.code),
+                            name: menuComponent.name,
+                            component: () => import(menuComponent.component),
+                            meta: {
+                                requiresAuth: menuComponent.requiresAuth,
+                                menuName: menu.name,
+                                menuCode: menu.code,
+                            },
+                        });
+
+
                     } else {
                         logger.error(`menu.url [ ${menu.url} ] 渲染的组件不存在，菜单名[ ${menu.name} ]`);
                     }

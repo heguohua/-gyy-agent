@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 14:20:08
+ * @LastEditTime: 2024-12-17 16:56:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -20,7 +20,7 @@
 
                 <router-view v-slot="{ Component, route }">
                     <keep-alive>
-                        <component :is="Component"/>
+                        <component :is="Component" :key="route.path" />
                     </keep-alive>
                 </router-view>
 
