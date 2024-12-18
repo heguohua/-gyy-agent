@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-16 19:05:55
+ * @LastEditTime: 2024-12-18 19:29:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -88,7 +88,7 @@ const props = defineProps({
 
 
 const isHidden = (item: { componentName: string, other?: any }) => {
-   
+
     if (item.componentName === 'AlaHidden') {
         return 'ala-form-base-item-hidden'
     } else if (item.other && item.other.fullWidth) {
@@ -161,12 +161,12 @@ const drawerWidth = (): string => {
     // 需要考虑 labelPosition 的位置
     if (props.labelPosition === 'left') {
         // (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度
-        width = (props.labelWidth + props.columnWidth) * props.columnNum + paddingSize + 'px'
+        width = (props.labelWidth + props.columnWidth) * props.columnNum + paddingSize + 8 + 'px'
         logger.info(`标签宽度[ ${props.labelWidth} ]，列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
 
     } else if (props.labelPosition === 'top') {
         // (表单组件宽度) * 列数 + 最外层元素左右padding的宽度
-        width = (props.columnWidth) * props.columnNum + paddingSize + 'px'
+        width = (props.columnWidth) * props.columnNum + paddingSize + 8 + 'px'
         logger.info(`列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
     }
     return width
@@ -175,7 +175,7 @@ const drawerWidth = (): string => {
 // 2、动态计算 form 表单列内容（ class ： ala-form-base-item ） 宽度 
 const alaAddForm = ref<HTMLElement>()
 onMounted(() => {
-    const columnGapWidth = 8
+    const columnGapWidth = 16
     const dynamicWidth = computed(() => {
 
         let width = 0
@@ -215,7 +215,9 @@ onMounted(() => {
 </style>
 <style lang="scss">
 .ala-add-form {
+
     .ala-drawer {
+
         .el-drawer__header {
             display: flex;
             padding: 0px !important;
@@ -228,10 +230,18 @@ onMounted(() => {
 
         .el-drawer__body {
             text-align: left;
-            display: inline-flex;
-            flex: auto;
-            column-gap: 8px;
+            display: flex;
+            overflow-y: auto;
             flex-wrap: wrap;
+            column-gap: 16px;
+            padding-right: 10px;
+            align-items: flex-start;
+            align-content: flex-start;
+            padding-bottom: 30px;
+        }
+
+        .el-drawer__footer {
+            padding-bottom: 6px;
         }
 
         .el-form-item__label {

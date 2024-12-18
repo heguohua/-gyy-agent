@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-17 22:39:26
+ * @LastEditTime: 2024-12-18 19:32:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/add.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
-        :columnWidth="300" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
+        :columnWidth="400" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
         :tipTitle="$t('pop.warm_title')" />
 
 </template>
