@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 11:11:10
+ * @LastEditTime: 2024-12-19 16:28:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -23,6 +23,7 @@ const background = Type.Boolean({
 // { name: 'max', length: 20, message: '最多20个字符' },
 // { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
 const title = Type.String({
+    id: "config-input",
     code: "config-input",
     title: "标题",
     placeholder: "请输入页面标题",
@@ -123,14 +124,23 @@ const columnNum = Type.Number({
     }
 })
 
+const useFormTitle = Type.String({
+    code: "config-boolean",
+    title: "自定义标题？",
+    default: false,
+})
+
+
 const schema = Type.Object({
     background: schemaAllViewport(background),
     title: schemaAllViewport(title),
     width: schemaAllViewport(width),
     labelWidth: schemaAllViewport(labelWidth),
+    position: schemaAllViewport(position),
     moduleName: schemaAllViewport(moduleName),
     formType: schemaAllViewport(formType),
     columnNum: schemaAllViewport(columnNum),
+    useFormTitle: schemaAllViewport(useFormTitle),
 })
 
 

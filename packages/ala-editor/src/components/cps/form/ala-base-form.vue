@@ -1,8 +1,7 @@
 <template>
     <el-form :model="formData" label-width="120px" :rules="rules">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
-            :closeContent="closeContent" :columnWidth="columnWidth" :columnNum="columnNum"
-            :labelPosition="labelPosition" :moduleName="moduleName" :operationType="operationType"
+            :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
             :tipTitle="tipTitle" />
     </el-form>
 
@@ -40,24 +39,15 @@ const props = defineProps({
     basicFields: {
         type: Array<AlaField>,
     },
-    columnWidth: {
-        type: Number,
-        default: 300
-    },
-    columnNum: {
-        type: Number,
-        default: 1
-    },
-    labelPosition: {
-        type: String as () => '' | 'top' | 'left' | 'right',
-        default: 'left'
+    formAttr: {
+        type: Object,
     },
     url: {
         type: String
     },
     updateUrl: {
         type: String
-    },
+    }
 })
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-17 22:11:43
+ * @LastEditTime: 2024-12-19 18:01:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -27,7 +27,8 @@
     </PageDynamicTable>
 
     <!-- 新增、编辑 -->
-    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :basicFields="addFormFields" />
+    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :basicFields="addFormFields"
+        :formAttr="getFormAttr" />
 
 </template>
 
@@ -136,6 +137,18 @@ const list_url = "/l/lowcodingConfig/list"
 const list_params = { className }
 logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`, params);
 
+
+const formAttr = ref({
+    formWidth: 400,
+    columnNum: 1,
+    labelWidth: 100,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
+const getFormAttr = computed(() => {
+    return formAttr
+})
+
 alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
     if (response.code === 200) {
         const config = u.parseJson(response.data[0].config)
@@ -159,34 +172,59 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 }
 
                 // 组装 form 表单字段
-                console.log("item", item);
 
-                console.log(code);
-                console.log(formData.fieldName);
+                let formItem: any = {}
                 if (code === 'input') {
-                    addFormFields.value.push(parseInput(formData))
+                    formItem = parseInput(formData)
+                    addFormFields.value.push(item)
                 } else if (code === 'textarea') {
-                    addFormFields.value.push(parseTextarea(formData))
+                    formItem = parseTextarea(formData)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'radio') {
-                    addFormFields.value.push(parseRadio(formData))
+                    formItem = parseRadio(formData)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'checkbox') {
-                    addFormFields.value.push(parseCheckbox(formData))
+                    formItem = parseCheckbox(formData)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'date') {
-                    addFormFields.value.push(parseDate(formData))
+                    formItem = parseDate(formData)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'number') {
-                    addFormFields.value.push(parseNumber(formData))
+                    formItem = parseNumber(formData)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'select') {
-                    addFormFields.value.push(parseSelect(formData))
+                    formItem = parseSelect(formData)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'slider') {
-                    addFormFields.value.push(parseSlider(formData))
+                    formItem = parseSlider(formData)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'rating') {
-                    addFormFields.value.push(parseRating(formData))
+                    formItem = parseRating(formData)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'switch') {
-                    addFormFields.value.push(parseSwitch(formData))
+                    formItem = parseSwitch(formData)
+                    addFormFields.value.push(formItem)
                 }
 
+                if (item.formData.columnNum) {
+                    formItem.columnNum = item.formData.columnNum.desktop
+                }
 
             });
+        }
+        
+        if (config.pageConfig?.form) {
+            const formData = config.pageConfig?.form.formData
+            // 表单宽度 
+            formAttr.value.formWidth = formData.width.desktop
+            // 表单列数量
+            formAttr.value.columnNum = formData.columnNum.desktop
+            // 表单标签宽度
+            formAttr.value.labelWidth = formData.labelWidth.desktop
+            // 表单标签位置
+            formAttr.value.labelPosition = formData.position.desktop
+            // 是否启用表单中定义的标题栏
+            formAttr.value.useFormTitle = formData.useFormTitle.desktop
         }
 
 

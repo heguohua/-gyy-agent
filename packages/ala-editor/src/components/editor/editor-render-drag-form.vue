@@ -244,7 +244,7 @@ const styles = (item: any) => {
 
     const paddingWidth = 32
 
-    logger.info(`重新计算动态form渲染区域组件宽度，page width[ ${width} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form columnGapWidth[ ${columnNum} ]，form paddingWidth[ ${paddingWidth} ]`);
+    logger.info(`重新计算动态form渲染区域组件宽度，page width[ ${width} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form paddingWidth[ ${paddingWidth} ]`);
 
     // 假设每个组件都占用 1列，则计算 列平均宽度
     // (总宽度 - paddingWidth)/columnNum

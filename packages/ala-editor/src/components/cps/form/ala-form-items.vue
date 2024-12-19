@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-18 19:29:16
+ * @LastEditTime: 2024-12-19 18:15:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-add-form" ref="alaAddForm">
+    <div class="ala-add-form">
         <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer"
             :size="drawerWidth()">
             <template #header>
@@ -17,10 +17,11 @@
             </template>
             <template #default>
 
-                <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
-                    <component :is="item.componentName" :label="item.label"
-                        :position="item.position ? item.position : labelPosition" :placeholder="item.placeholder"
-                        v-bind="item.other" v-model="data[item.fieldName]" :fieldName="item.fieldName" />
+                <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
+                    :style="columnWidth(item)">
+                    <component :is="item.componentName" :label="item.label" :position="labelPosition"
+                        :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
+                        :fieldName="item.fieldName" />
                 </div>
 
             </template>
@@ -64,25 +65,19 @@ const props = defineProps({
         type: Object,
         default: {}
     },
-    labelWidth: {
-        type: Number,
-        default: 120
-    },
-    columnWidth: {
-        type: Number,
-        default: 300
-    },
-    columnNum: {
-        type: Number,
-        default: 1
-    },
-    labelPosition: {
-        type: String as () => '' | 'top' | 'left' | 'right',
-        default: 'left'
-    },
     operationType: {
         type: String,
         default: ''
+    },
+    formAttr: {
+        type: Object,
+        default: () => ref({
+            formWidth: 400,
+            columnNum: 1,
+            labelWidth: 100,
+            labelPosition: 'left',
+            useFormTitle: false,
+        })
     }
 })
 
@@ -153,43 +148,55 @@ function confirmClick() {
 
 // 计算css宽度
 // 1、动态计算 drawer 宽度
-const paddingSize = 20 * 2
-// const marginRightSize = 20
 const drawerWidth = (): string => {
+    const paddingWidth = 40
+    let width = (props.formAttr.value.formWidth + paddingWidth) + 'px'
+    console.log('props.formWidth:', width);
 
-    let width = ''
     // 需要考虑 labelPosition 的位置
-    if (props.labelPosition === 'left') {
-        // (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度
-        width = (props.labelWidth + props.columnWidth) * props.columnNum + paddingSize + 8 + 'px'
-        logger.info(`标签宽度[ ${props.labelWidth} ]，列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
+    // if (props.labelPosition === 'left') {
+    //     // (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度
+    //     width = (props.labelWidth + props.columnWidth) * props.columnNum + paddingSize + 8 + 'px'
+    //     logger.info(`标签宽度[ ${props.labelWidth} ]，列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
 
-    } else if (props.labelPosition === 'top') {
-        // (表单组件宽度) * 列数 + 最外层元素左右padding的宽度
-        width = (props.columnWidth) * props.columnNum + paddingSize + 8 + 'px'
-        logger.info(`列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
-    }
+    // } else if (props.labelPosition === 'top') {
+    //     // (表单组件宽度) * 列数 + 最外层元素左右padding的宽度
+    //     width = (props.columnWidth) * props.columnNum + paddingSize + 8 + 'px'
+    //     logger.info(`列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
+    // }
     return width
 }
 
-// 2、动态计算 form 表单列内容（ class ： ala-form-base-item ） 宽度 
-const alaAddForm = ref<HTMLElement>()
-onMounted(() => {
-    const columnGapWidth = 16
-    const dynamicWidth = computed(() => {
+const labelPosition = () => {
+    return props.formAttr.value.labelPosition
+}
 
-        let width = 0
-        if (props.labelPosition === 'left') {
-            width = Math.floor(props.labelWidth + props.columnWidth - (props.columnNum - 1) * columnGapWidth / props.columnNum)
-        } else if (props.labelPosition === 'top') {
-            width = Math.floor(props.columnWidth - (props.columnNum - 1) * columnGapWidth / props.columnNum)
-        }
+const columnWidth = (item: any) => {
+    console.log('item:', item.columnNum);
+    let formWidth = props.formAttr.value.formWidth
+    let labelWidth = props.formAttr.value.labelWidth
+    let columnNum = props.formAttr.value.columnNum
 
-        return width + 'px'
-    })
 
-    alaAddForm.value?.style.setProperty('--ala-form-base-item-width', dynamicWidth.value);
-})
+    const paddingWidth = 0
+
+    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form paddingWidth[ ${paddingWidth} ]`);
+
+    // 假设每个组件都占用 1列，则计算 列平均宽度
+    // (总宽度 - paddingWidth)/columnNum
+    let columnWidth = Math.floor((formWidth - paddingWidth) / columnNum)
+
+    const occupiedColumnNum = item.columnNum || 1
+    columnWidth = columnWidth * occupiedColumnNum
+
+    const style = { width: columnWidth + 'px' }
+    logger.info(`计算 动态表单 区域 单个组件 宽度，style`, style);
+    return style
+
+}
+
+
+
 </script>
 <style scoped lang="scss">
 .ala-add-form {
@@ -199,7 +206,6 @@ onMounted(() => {
 
         .ala-form-base-item {
             display: inline-block;
-            width: var(--ala-form-base-item-width);
         }
 
         .ala-form-base-item-full-width {
@@ -233,7 +239,6 @@ onMounted(() => {
             display: flex;
             overflow-y: auto;
             flex-wrap: wrap;
-            column-gap: 16px;
             padding-right: 10px;
             align-items: flex-start;
             align-content: flex-start;

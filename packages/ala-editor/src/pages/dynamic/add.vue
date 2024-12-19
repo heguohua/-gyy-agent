@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-18 19:32:12
+ * @LastEditTime: 2024-12-19 17:36:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/add.vue
  * @Description: 
  * 
@@ -11,17 +11,14 @@
 <template>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
-        :columnWidth="400" :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
-        :tipTitle="$t('pop.warm_title')" />
+        :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
+        :formAttr="formAttr" />
 
 </template>
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword } from '@/config/alaRules';
-import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildDivider, alaBuildSlider, alaBuildSwitch } from '@/config/alaBuilders';
 import u from '@/utils/u';
-import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -35,11 +32,15 @@ const props = defineProps({
             item: {}
         }
     },
-    basicFields:{
-        type:Array<any>,
+    basicFields: {
+        type: Array<any>,
+    },
+    formAttr: {
+        type: Object
     }
 })
 
+console.log('formData++++++++++:', props.formWidth, props.columnNum, props.labelWidth, props.labelPosition, props.useFormTitle);
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
 const url = '/l/dynamic/add'
@@ -50,7 +51,6 @@ const formData = reactive({
 
 watch(() => props.baseInfo.item, (item) => {
     logger.info(`观察到 baseInfo 中的 item 发生了变化`, item);
-    // u.merged(formData, item)
     if (!item.id) {
         u.clear(formData)
     }
