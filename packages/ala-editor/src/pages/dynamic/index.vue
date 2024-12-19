@@ -212,6 +212,8 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     addFormFields.value.push(formItem)
                 }
 
+                console.log('item.formData.help:',item.formData.help);
+                
                 if (item.formData.columnNum) {
                     formItem.columnNum = item.formData.columnNum.desktop
                 }

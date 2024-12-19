@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 20:01:25
+ * @LastEditTime: 2024-12-19 21:18:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -81,9 +81,7 @@ const props = defineProps({
     }
 })
 
-const useFormTitle = ()=>{
-    console.log('props.formAttr.value.useFormTitle:',props.formAttr.value.useFormTitle);
-    
+const useFormTitle = ()=>{    
     return props.formAttr.value.useFormTitle
 }
 
@@ -154,7 +152,7 @@ function confirmClick() {
 // 计算css宽度
 // 1、动态计算 drawer 宽度
 const drawerWidth = (): string => {
-    const paddingWidth = 30
+    const paddingWidth = 66
     let width = (props.formAttr.value.formWidth + paddingWidth) + 'px'
     return width
 }
@@ -231,7 +229,7 @@ const columnWidth = (item: any) => {
             display: flex;
             overflow-y: auto;
             flex-wrap: wrap;
-            padding: 20px 10px;
+            padding: 20px 26px;
             align-items: flex-start;
             align-content: flex-start;
             padding-bottom: 30px;
