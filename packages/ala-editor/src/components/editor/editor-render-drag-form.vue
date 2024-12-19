@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 14:46:07
+ * @LastEditTime: 2024-12-19 15:20:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <el-form :model="formData" :label-width="labelWidth">
-        <div class="ala-design-form" ref="alaDesignForm">
+        <div class="ala-design-form">
 
             <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id"
                 ghost-class="ghost-class" class="edit-render-drag" :clone="clone" :move="move">
@@ -18,7 +18,7 @@
                 <template #item="{ element }">
 
 
-                    <div class="block" :style="styles">
+                    <div class="block" :style="styles(element)">
                         <!-- 
                             1、渲染嵌套组件 
                             2、更新 editorStore.currentSelect 值 
@@ -234,16 +234,29 @@ const extractFormItemProps = (item: any) => {
 }
 
 // 动态计算表单样式
-const styles = computed(() => {
-    const style = { width: props.width + 'px' }
-    logger.info(`计算 editor-render 区域页面宽度，style`, style);
-    // return style
-    return {}
-})
+const styles = (item: any) => {
 
-// watch(editorStore.currentSelect.pageConfig?.[bType],()=>{
 
-// })
+    const width = editorStore.pageConfig.form.formData?.width.desktop || 400
+    const labelWidth = editorStore.pageConfig.form.formData?.labelWidth.desktop || 120
+    const columnNum = editorStore.pageConfig.form.formData?.columnNum.desktop || 1
+
+
+    const paddingWidth = 32
+
+    logger.info(`重新计算动态form渲染区域组件宽度，page width[ ${width} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form columnGapWidth[ ${columnNum} ]，form paddingWidth[ ${paddingWidth} ]`);
+
+    // 假设每个组件都占用 1列，则计算 列平均宽度
+    // (总宽度 - paddingWidth)/columnNum
+    let columnWidth = Math.floor((width - paddingWidth) / columnNum)
+
+    const occupiedColumnNum = item.formData.columnNum?.desktop || 1
+    columnWidth = columnWidth * occupiedColumnNum
+
+    const style = { width: columnWidth + 'px' }
+    logger.info(`计算 editor-render 区域 单个组件 宽度，style`, style);
+    return style
+}
 
 const labelWidth = ref(props.labelWidth + 'px')
 
@@ -257,28 +270,6 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
 })
 
 
-
-// 动态计算 form 表单列内容（ class ： ala-form-base-item ） 宽度 
-const alaDesignForm = ref<HTMLElement>()
-
-watchEffect(() => {
-    const width = editorStore.pageConfig.form.formData?.width.desktop || 400
-    const labelWidth = editorStore.pageConfig.form.formData?.labelWidth.desktop || 120
-    const columnNum = editorStore.pageConfig.form.formData?.columnNum.desktop || 1
-
-    const columnGapWidth = 16
-    const totalColumnGapWidth = (columnNum - 1) * columnGapWidth
-
-    const paddingWidth = 32
-
-    logger.info(`重新计算动态form渲染区域组件宽度，page width[ ${width} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form columnGapWidth[ ${columnNum} ]，form totalColumnGapWidth[ ${totalColumnGapWidth} ]，form paddingWidth[ ${paddingWidth} ]`);
-
-    // 计算 列宽度
-    // (总宽度 - totalColumnGapWidth)/columnNum
-    const columnWidth = Math.floor((width - paddingWidth - totalColumnGapWidth) / columnNum)
-    alaDesignForm.value?.style.setProperty('--ala-form-design-item-width', columnWidth + 'px');
-
-})
 
 </script>
 

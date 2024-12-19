@@ -133,5 +133,8 @@ const disabledDate = (time: Date) => {
     :deep .el-form-item__label {
         justify-content: right;
     }
+    :deep(.el-date-editor--date){
+        width: 100%;
+    }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:26:17
+ * @LastEditTime: 2024-12-19 15:30:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/divider/formSchema.ts
  * @Description: 
  * 
@@ -46,11 +46,22 @@ const lineStyle = Type.String({
         value: 'double',
     }]
 })
-
+const columnNum = Type.Number({
+    code: "config-int",
+    title: "占用列数",
+    placeholder: "请输入占用列数",
+    default: 1,
+    // 绑定 element-plus 原始组件的其他属性
+    other: {
+        min: 1,
+        controlsPosition: ''
+    }
+})
 const schema = Type.Object({
     label: schemaAllViewport(label),
     height: schemaAllViewport(height),
     lineStyle: schemaAllViewport(lineStyle),
+    columnNum: schemaAllViewport(columnNum),
 })
 
 

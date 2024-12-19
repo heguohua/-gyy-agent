@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:26:25
+ * @LastEditTime: 2024-12-19 15:28:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/password/formSchema.ts
  * @Description: 
  * 
@@ -48,6 +48,17 @@ const help = Type.String({
     default: "",
 })
 
+const columnNum = Type.Number({
+    code: "config-int",
+    title: "占用列数",
+    placeholder: "请输入占用列数",
+    default: 1,
+    // 绑定 element-plus 原始组件的其他属性
+    other: {
+        min: 1,
+        controlsPosition: ''
+    }
+})
 const showInSearch = Type.String({
     code: "config-boolean",
     title: "查询条件？",
@@ -64,6 +75,7 @@ const schema = Type.Object({
     placeholder: schemaAllViewport(placeholder),
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
+    columnNum: schemaAllViewport(columnNum),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     // style: schemaAllViewport(style),
