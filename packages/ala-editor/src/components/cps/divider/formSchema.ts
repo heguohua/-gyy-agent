@@ -22,23 +22,6 @@ const label = Type.String({
     ]
 })
 
-const position = Type.String({
-    code: "config-select",
-    title: "标签位置",
-    default: [{
-        name: '左侧',
-        value: 'left',
-    }, {
-        name: '右侧',
-        value: 'right',
-    }, {
-        name: '顶部',
-        value: 'top',
-    }],
-    other: {
-        clearable: true
-    }
-})
 
 const height = Type.Number({
     code: "config-input",
@@ -66,7 +49,6 @@ const lineStyle = Type.String({
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
-    position: schemaAllViewport(position),
     height: schemaAllViewport(height),
     lineStyle: schemaAllViewport(lineStyle),
 })

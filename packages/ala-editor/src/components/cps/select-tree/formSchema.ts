@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 20:00:17
+ * @LastEditTime: 2024-12-19 11:10:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/formSchema.ts
  * @Description: 
  * 
@@ -22,23 +22,6 @@ const label = Type.String({
     ]
 })
 
-const position = Type.String({
-    code: "config-select",
-    title: "标签位置",
-    default: [{
-        name: '左侧',
-        value: 'left',
-    }, {
-        name: '右侧',
-        value: 'right',
-    }, {
-        name: '顶部',
-        value: 'top',
-    }],
-    other: {
-        clearable: true
-    }
-})
 
 
 const placeholder = Type.String({
@@ -126,7 +109,6 @@ const showInTable = Type.String({
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
-    position: schemaAllViewport(position),
     placeholder: schemaAllViewport(placeholder),
     width: schemaAllViewport(width),
     url: schemaAllViewport(url),

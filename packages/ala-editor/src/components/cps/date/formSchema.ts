@@ -23,23 +23,6 @@ const label = Type.String({
     ]
 })
 
-const position = Type.String({
-    code: "config-select",
-    title: "标签位置",
-    default: [{
-        name: '左侧',
-        value: 'left',
-    }, {
-        name: '右侧',
-        value: 'right',
-    }, {
-        name: '顶部',
-        value: 'top',
-    }],
-    other: {
-        clearable: true
-    }
-})
 
 
 const placeholder = Type.String({
@@ -107,7 +90,6 @@ const showInTable = Type.String({
 })
 const schema = Type.Object({
     label: schemaAllViewport(label),
-    position: schemaAllViewport(position),
     placeholder: schemaAllViewport(placeholder),
     fieldName: schemaAllViewport(fieldName),
     dateType: schemaAllViewport(dateType),

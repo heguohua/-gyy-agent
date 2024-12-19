@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 11:02:54
+ * @LastEditTime: 2024-12-19 11:11:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -128,7 +128,6 @@ const schema = Type.Object({
     title: schemaAllViewport(title),
     width: schemaAllViewport(width),
     labelWidth: schemaAllViewport(labelWidth),
-    position: schemaAllViewport(position),
     moduleName: schemaAllViewport(moduleName),
     formType: schemaAllViewport(formType),
     columnNum: schemaAllViewport(columnNum),
