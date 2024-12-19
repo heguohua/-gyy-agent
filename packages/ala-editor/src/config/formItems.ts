@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-16 11:14:29
+ * @LastEditTime: 2024-12-19 10:52:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -99,20 +99,20 @@ export const baseFields: BaseBlock[] = [
 ]
 
 export const seniorFields: BaseBlock[] = [
-    {
-        id: "",
-        name: "多列",
-        code: "column",
-        icon: "column",
-        nested: true,
-        children: [[], []],
-        formData: {
-            cols: {
-                desktop: [0.5, 0.5],
-                mobile: [0.5, 0.5],
-            }
-        },
-    },
+    // {
+    //     id: "",
+    //     name: "多列",
+    //     code: "column",
+    //     icon: "column",
+    //     nested: true,
+    //     children: [[], []],
+    //     formData: {
+    //         cols: {
+    //             desktop: [0.5, 0.5],
+    //             mobile: [0.5, 0.5],
+    //         }
+    //     },
+    // },
     {
         id: "",
         name: "下拉选(API)",

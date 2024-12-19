@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:34:47
+ * @LastEditTime: 2024-12-19 11:02:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -10,6 +10,7 @@
  */
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
+import { min } from "lodash";
 
 const background = Type.Boolean({
     code: "config-color",
@@ -34,16 +35,25 @@ const title = Type.String({
 })
 
 const width = Type.Number({
-    code: "config-input",
+    code: "config-int",
     title: "页面宽度",
     placeholder: "请输入页面宽度",
-    default: 500
+    other: {
+        min: 400,
+        max: 1920,
+        step: 50
+    }
 })
 
 const labelWidth = Type.Number({
-    code: "config-input",
+    code: "config-int",
     title: "标签宽度",
     placeholder: "请输入标签宽度",
+    other: {
+        min: 80,
+        max: 200,
+        step: 5
+    }
 })
 const position = Type.String({
     code: "config-select",

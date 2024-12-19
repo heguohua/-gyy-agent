@@ -48,7 +48,7 @@ const props = defineProps({
     },
     max: {
         type: Number,
-        default: () => Math.pow(2, 53) -1
+        default: () => Math.pow(2, 53) - 1
     },
     step: {
         type: Number,
@@ -155,6 +155,10 @@ watch(() => editorStore.globalParams[bType], () => {
                 font-size: 0.8rem;
             }
         }
+    }
+
+    :deep(.el-input-number) {
+        width: 100%;
     }
 
 }
