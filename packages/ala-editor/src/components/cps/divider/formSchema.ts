@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:09:39
+ * @LastEditTime: 2024-12-19 10:26:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/divider/formSchema.ts
  * @Description: 
  * 
@@ -34,7 +34,10 @@ const position = Type.String({
     }, {
         name: '中间',
         value: 'center',
-    }]
+    }],
+    other: {
+        clearable: true
+    }
 })
 
 const height = Type.Number({

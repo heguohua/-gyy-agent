@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:16:30
+ * @LastEditTime: 2024-12-19 10:26:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -57,7 +57,10 @@ const position = Type.String({
     }, {
         name: '中间',
         value: 'center',
-    }]
+    }],
+    other: {
+        clearable: true
+    }
 })
 
 const moduleName = Type.Number({

@@ -34,7 +34,10 @@ const position = Type.String({
     }, {
         name: '中间',
         value: 'center',
-    }]
+    }],
+    other: {
+        clearable: true
+    }
 })
 
 
