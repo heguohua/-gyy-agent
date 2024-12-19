@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:44:11
+ * @LastEditTime: 2024-12-19 15:56:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-input.vue
  * @Description: 
  * 
@@ -10,8 +10,8 @@
 -->
 <template>
     <div class="config-input">
-        <el-form-item :label="title" :class="isRequired()" :rules="validateRules">
-            <el-input v-model="input" :placeholder="placeholder" class="input" />
+        <el-form-item :label="title" :class="isRequired()" :rules="validateRules" :prop="id">
+            <el-input v-model="input" :placeholder="placeholder" class="input" :name="id" />
         </el-form-item>
     </div>
 </template>
@@ -63,8 +63,12 @@ interface Rule { name: string, message: string, pattern: any, length: number }
 const validateRules = ref([
     {
         validator: (rule: any, value: any, callback: any) => {
-            
+            logger.error(`执行表单规则校验`, rules);
+
             if (rules) {
+
+
+
 
                 let passed = true
                 let message = ''
