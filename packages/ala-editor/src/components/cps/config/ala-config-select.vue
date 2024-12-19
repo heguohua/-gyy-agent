@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 13:25:27
+ * @LastEditTime: 2024-12-19 10:16:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-select.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <el-form-item :label="title" :class="isRequired()">
             <el-input v-model="input" :placeholder="placeholder" class="input" readonly />
 
-            <el-select v-model="input" placeholder="请选择">
+            <el-select v-model="input" placeholder="请选择" :clearable="clearable">
                 <el-option v-for="item in defaultValue" :key="item.value" :label="item.name" :value="item.value" />
             </el-select>
             <!-- @change="handleChange" -->
@@ -54,6 +54,10 @@ const props = defineProps({
     width: {
         type: Number,
         default: 100,
+    },
+    clearable: {
+        type: Boolean,
+        default: false,
     }
 })
 

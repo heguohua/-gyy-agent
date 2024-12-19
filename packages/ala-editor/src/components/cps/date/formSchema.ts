@@ -27,9 +27,6 @@ const position = Type.String({
     code: "config-select",
     title: "标签位置",
     default: [{
-        name: '清空',
-        value: undefined,
-    }, {
         name: '左侧',
         value: 'left',
     }, {

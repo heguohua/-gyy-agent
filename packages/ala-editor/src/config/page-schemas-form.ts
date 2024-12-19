@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:09:17
+ * @LastEditTime: 2024-12-19 10:16:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -49,9 +49,6 @@ const position = Type.String({
     code: "config-select",
     title: "标签位置",
     default: [{
-        name: '清空',
-        value: undefined,
-    }, {
         name: '左侧',
         value: 'left',
     }, {
@@ -93,7 +90,10 @@ const formType = Type.String({
     }],
     rules: [
         { name: 'required', message: '不能为空' },
-    ]
+    ],
+    other:{
+        clearable:true
+    }
 })
 
 
