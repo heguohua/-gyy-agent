@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 18:21:42
+ * @LastEditTime: 2024-12-19 19:42:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -44,7 +44,7 @@ import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import { alaRequired } from '@/config/alaRules';
-import { parseCheckbox, parseDate, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { parseChapter, parseCheckbox, parseDate, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -203,6 +203,12 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     addFormFields.value.push(formItem)
                 } else if (code === 'switch') {
                     formItem = parseSwitch(formData)
+                    addFormFields.value.push(formItem)
+                } else if (code === 'divider') {
+                    formItem = parseDivider(formData)
+                    addFormFields.value.push(formItem)
+                } else if (code === 'chapter') {
+                    formItem = parseChapter(formData)
                     addFormFields.value.push(formItem)
                 }
 

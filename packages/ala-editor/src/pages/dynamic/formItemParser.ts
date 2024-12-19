@@ -1,11 +1,11 @@
-import { alaBuildCheckbox, alaBuildDate, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectTable, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import { alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDivider, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectTable, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import { logger } from "@/utils/logger";
 
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-17 22:14:54
+ * @LastEditTime: 2024-12-19 19:43:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -85,9 +85,20 @@ export function parseSlider(item: { fieldName: { desktop: string }, label: { des
 }
 
 export function parseRating(item: { fieldName: { desktop: string }, label: { desktop: string }, max: { desktop: number }, allowHalf: { desktop: boolean } }) {
-    //  alaBuildSlider('weight', "大概体重", 40, 200, 5, [alaRequired()]),
     const result = alaBuildRating(item.fieldName.desktop, item.label.desktop, item.max.desktop, [], item.allowHalf.desktop)
     logger.info(`解析【 rating 】字段：`, result);
+    return result
+}
+
+export function parseDivider(item: { label: { desktop: string }, position: { desktop: string }, height: { desktop: number } }) {
+    const result = alaBuildDivider(item.label.desktop, item.position.desktop, item.height.desktop)
+    logger.info(`解析【 divider 】字段：`, result);
+    return result
+}
+
+export function parseChapter(item: { label: { desktop: string }, help?: { desktop: string } }) {
+    const result = alaBuildChapter(item.label.desktop, item.help?.desktop)
+    logger.info(`解析【 divider 】字段：`, result);
     return result
 }
 

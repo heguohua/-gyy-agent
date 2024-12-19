@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 15:28:16
+ * @LastEditTime: 2024-12-19 19:39:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/chapter/formSchema.ts
  * @Description: 
  * 
@@ -23,29 +23,6 @@ const label = Type.String({
 })
 
 
-const height = Type.Number({
-    code: "config-input",
-    title: "分隔线宽度",
-    default: 2,
-})
-
-const lineStyle = Type.String({
-    code: "config-select",
-    title: "分隔线样式",
-    default: [{
-        name: '实线',
-        value: 'solid',
-    }, {
-        name: '虚线',
-        value: 'dashed',
-    }, {
-        name: '点线',
-        value: 'dotted',
-    }, {
-        name: '双实线',
-        value: 'double',
-    }]
-})
 
 const help = Type.String({
     code: "config-textarea",
@@ -64,26 +41,12 @@ const columnNum = Type.Number({
         controlsPosition: ''
     }
 })
-const showInSearch = Type.String({
-    code: "config-boolean",
-    title: "查询条件？",
-    default: false,
-})
 
-const showInTable = Type.String({
-    code: "config-boolean",
-    title: "列表显示？",
-    default: false,
-})
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
-    height: schemaAllViewport(height),
-    lineStyle: schemaAllViewport(lineStyle),
     help: schemaAllViewport(help),
     columnNum: schemaAllViewport(columnNum),
-    showInSearch: schemaAllViewport(showInSearch),
-    showInTable: schemaAllViewport(showInTable),
 })
 
 

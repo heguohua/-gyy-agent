@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 18:23:46
+ * @LastEditTime: 2024-12-19 20:01:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -11,8 +11,8 @@
 <template>
     <div class="ala-add-form">
         <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer"
-            :size="drawerWidth()">
-            <template #header>
+            :size="drawerWidth()" :with-header="!useFormTitle()">
+            <template #header v-if="!useFormTitle()">
                 <h4>【 {{ operationType }} 】{{ moduleName }}</h4>
             </template>
             <template #default>
@@ -81,6 +81,11 @@ const props = defineProps({
     }
 })
 
+const useFormTitle = ()=>{
+    console.log('props.formAttr.value.useFormTitle:',props.formAttr.value.useFormTitle);
+    
+    return props.formAttr.value.useFormTitle
+}
 
 const isHidden = (item: { componentName: string, other?: any }) => {
 
@@ -151,19 +156,6 @@ function confirmClick() {
 const drawerWidth = (): string => {
     const paddingWidth = 30
     let width = (props.formAttr.value.formWidth + paddingWidth) + 'px'
-    console.log('props.formWidth:', width);
-
-    // 需要考虑 labelPosition 的位置
-    // if (props.labelPosition === 'left') {
-    //     // (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度
-    //     width = (props.labelWidth + props.columnWidth) * props.columnNum + paddingSize + 8 + 'px'
-    //     logger.info(`标签宽度[ ${props.labelWidth} ]，列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (标签宽度 + 表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
-
-    // } else if (props.labelPosition === 'top') {
-    //     // (表单组件宽度) * 列数 + 最外层元素左右padding的宽度
-    //     width = (props.columnWidth) * props.columnNum + paddingSize + 8 + 'px'
-    //     logger.info(`列宽度[ ${props.columnWidth} ]，列数量[ ${props.columnNum} ]，总宽度[ (表单组件宽度) * 列数 + 最外层元素左右padding的宽度 = ${width} ]`);
-    // }
     return width
 }
 
@@ -171,12 +163,12 @@ const labelPosition = () => {
     return props.formAttr.value.labelPosition
 }
 
+
+
 const columnWidth = (item: any) => {
-    console.log('item:', item.columnNum);
     let formWidth = props.formAttr.value.formWidth
     let labelWidth = props.formAttr.value.labelWidth
     let columnNum = props.formAttr.value.columnNum
-
 
     const paddingWidth = 0
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-17 21:25:40
+ * @LastEditTime: 2024-12-19 19:40:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -283,13 +283,24 @@ export function alaBuildSelectTable(fieldName: string, label: string, url: strin
 
 /**
  * 
- * 构建 AlaSelectDivider 组件
+ * 构建 AlaDivider 组件
  * @param label 组件名字
  * @param position 取值 left 、 right 、 center
  * @returns 
  */
-export function alaBuildDivider(label?: string, position = 'center'): any {
-    const obj = alaBuildNoneFormItem("AlaDivider", label, { position, fullWidth: true })
+export function alaBuildDivider(label?: string, position = 'center', height?: number): any {
+    const obj = alaBuildNoneFormItem("AlaDivider", label, { position, fullWidth: true, height })
+    return obj
+}
+
+/**
+ * 
+ * 构建 AlaChapter 组件
+ * @param label 组件名字
+ * @returns 
+ */
+export function alaBuildChapter(label: string, help?: string): any {
+    const obj = alaBuildNoneFormItem("AlaChapter", label, { help })
     return obj
 }
 

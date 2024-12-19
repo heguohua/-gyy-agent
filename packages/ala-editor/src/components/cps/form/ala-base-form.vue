@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="formData" label-width="120px" :rules="rules">
+    <el-form :model="formData" :label-width="labelWidth()" :rules="rules">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
             :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
             :tipTitle="tipTitle" />
@@ -50,7 +50,9 @@ const props = defineProps({
     }
 })
 
-
+const labelWidth = () => {
+    return props.formAttr?.value.labelWidth + 'px' || '120px'
+}
 // Methods
 // State
 const showDrawer = defineModel({
