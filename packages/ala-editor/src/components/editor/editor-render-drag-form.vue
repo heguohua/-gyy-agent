@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 14:25:40
+ * @LastEditTime: 2024-12-19 14:46:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -275,7 +275,7 @@ watchEffect(() => {
 
     // 计算 列宽度
     // (总宽度 - totalColumnGapWidth)/columnNum
-    const columnWidth = Math.floor((width - paddingWidth - totalColumnGapWidth) / columnNum) 
+    const columnWidth = Math.floor((width - paddingWidth - totalColumnGapWidth) / columnNum)
     alaDesignForm.value?.style.setProperty('--ala-form-design-item-width', columnWidth + 'px');
 
 })
@@ -287,9 +287,12 @@ watchEffect(() => {
     width: 100%;
     height: 100%;
     padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
 
     .block {
         width: var(--ala-form-design-item-width);
+        display: inline-block;
 
         .block-nested-render {
             .nested-item {}
