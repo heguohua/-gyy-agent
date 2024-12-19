@@ -19,7 +19,7 @@
 
                 <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
                     :style="columnWidth(item)">
-                    <component :is="item.componentName" :label="item.label" :position="labelPosition"
+                    <component :is="item.componentName" :label="item.label" :position="labelPosition()"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
                         :fieldName="item.fieldName" />
                 </div>
