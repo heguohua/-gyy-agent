@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:26:49
+ * @LastEditTime: 2024-12-19 10:34:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -55,11 +55,11 @@ const position = Type.String({
         name: '右侧',
         value: 'right',
     }, {
-        name: '中间',
-        value: 'center',
+        name: '顶部',
+        value: 'top',
     }],
     other: {
-        clearable: true
+        clearable: true,
     }
 })
 
@@ -94,8 +94,8 @@ const formType = Type.String({
     rules: [
         { name: 'required', message: '不能为空' },
     ],
-    other:{
-        clearable:true
+    other: {
+        clearable: true
     }
 })
 
@@ -108,7 +108,8 @@ const columnNum = Type.Number({
     // 绑定 element-plus 原始组件的其他属性
     other: {
         min: 1,
-        max: 4
+        max: 4,
+        controlsPosition: ''
     }
 })
 

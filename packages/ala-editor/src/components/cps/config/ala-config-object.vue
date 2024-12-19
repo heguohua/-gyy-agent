@@ -70,6 +70,7 @@ watch(() => formData, (form_data) => {
 })
 
 watch(input, (value) => {
+    if (!value) return;
     value = u.trim(value)
 
     let data = {}

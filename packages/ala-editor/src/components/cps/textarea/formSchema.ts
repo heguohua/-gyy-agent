@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 20:02:43
+ * @LastEditTime: 2024-12-19 10:32:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/formSchema.ts
  * @Description: 
  * 
@@ -32,8 +32,8 @@ const position = Type.String({
         name: '右侧',
         value: 'right',
     }, {
-        name: '中间',
-        value: 'center',
+        name: '顶部',
+        value: 'top',
     }],
     other: {
         clearable: true
@@ -84,15 +84,25 @@ const icon = Type.String({
 })
 
 const iconWidth = Type.String({
-    code: "config-number",
+    code: "config-int",
     title: "图标宽度",
     default: 16,
+    other: {
+        min: 1,
+        max: 50,
+        controlsPosition: ''
+    }
 })
 
 const iconHeight = Type.String({
-    code: "config-number",
+    code: "config-int",
     title: "图标高度",
     default: 16,
+    other: {
+        min: 1,
+        max: 50,
+        controlsPosition: ''
+    }
 })
 
 
