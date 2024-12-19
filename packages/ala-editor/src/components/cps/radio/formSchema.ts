@@ -26,14 +26,17 @@ const position = Type.String({
     code: "config-select",
     title: "标签位置",
     default: [{
+        name: '清空',
+        value: undefined,
+    }, {
         name: '左侧',
         value: 'left',
     }, {
         name: '右侧',
         value: 'right',
     }, {
-        name: '顶部',
-        value: 'top',
+        name: '中间',
+        value: 'center',
     }]
 })
 

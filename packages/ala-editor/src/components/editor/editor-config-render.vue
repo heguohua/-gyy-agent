@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 21:44:20
+ * @LastEditTime: 2024-12-19 10:04:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <el-form label-width="35%">
             <div class="" v-for="( item, index ) in list" :key="bType + '-' + index" :class="bem('render')" @click="">
                 <!-- <component v-if="getComponent(item)" :is="getComponent(item)" :data="item" -->
-                <component v-if="getComponent(item)" :is="getComponent(item)" :data="item"
+                <component v-if="getComponent(item)" :is="getComponent(item)" :data="item" v-bind="item.properties.desktop.other"
                     :viewport="editorStore.viewport[bType]" @callback="callback" :key="bType + '-' + item.id"
                     :bType="bType" />
             </div>
@@ -34,7 +34,7 @@ const { name, bem } = createNamespace("config")
 // State
 const props = defineProps({
     list: {
-        type: Array,
+        type: Array<any>,
         default: () => []
     },
     bType: {

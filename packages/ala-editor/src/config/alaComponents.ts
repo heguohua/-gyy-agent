@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 21:03:16
+ * @LastEditTime: 2024-12-19 09:08:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -27,6 +27,7 @@ import AlaConfigKeyValue from '@/components/cps/config/ala-config-key-value.vue'
 import AlaConfigNumber from '@/components/cps/config/ala-config-number.vue';
 import AlaConfigBoolean from '@/components/cps/config/ala-config-boolean.vue';
 import AlaConfigSelect from '@/components/cps/config/ala-config-select.vue';
+import AlaConfigInt from '@/components/cps/config/ala-config-int.vue';
 
 
 import AlaInput from '@/components/cps/input/ala-input.vue';
@@ -72,6 +73,7 @@ export default {
     AlaConfigNumber,
     AlaConfigBoolean,
     AlaConfigSelect,
+    AlaConfigInt,
 
 
     // ALA架构表单组件

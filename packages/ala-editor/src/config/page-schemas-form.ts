@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 22:31:32
+ * @LastEditTime: 2024-12-19 10:09:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -45,6 +45,23 @@ const labelWidth = Type.Number({
     title: "标签宽度",
     placeholder: "请输入标签宽度",
 })
+const position = Type.String({
+    code: "config-select",
+    title: "标签位置",
+    default: [{
+        name: '清空',
+        value: undefined,
+    }, {
+        name: '左侧',
+        value: 'left',
+    }, {
+        name: '右侧',
+        value: 'right',
+    }, {
+        name: '中间',
+        value: 'center',
+    }]
+})
 
 const moduleName = Type.Number({
     code: "config-input",
@@ -80,13 +97,27 @@ const formType = Type.String({
 })
 
 
+const columnNum = Type.Number({
+    code: "config-int",
+    title: "表单列数",
+    placeholder: "请输入表单列数",
+    default: 1,
+    // 绑定 element-plus 原始组件的其他属性
+    other: {
+        min: 1,
+        max: 4
+    }
+})
+
 const schema = Type.Object({
     background: schemaAllViewport(background),
     title: schemaAllViewport(title),
     width: schemaAllViewport(width),
     labelWidth: schemaAllViewport(labelWidth),
+    position: schemaAllViewport(position),
     moduleName: schemaAllViewport(moduleName),
     formType: schemaAllViewport(formType),
+    columnNum: schemaAllViewport(columnNum),
 })
 
 
