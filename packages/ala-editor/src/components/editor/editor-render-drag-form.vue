@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 10:57:12
+ * @LastEditTime: 2024-12-19 14:25:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -10,72 +10,77 @@
 -->
 <template>
     <el-form :model="formData" :label-width="labelWidth">
+        <div class="ala-design-form" ref="alaDesignForm">
 
-        <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
-            class="edit-render-drag" :clone="clone" :move="move">
-            <template #item="{ element }">
+            <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id"
+                ghost-class="ghost-class" class="edit-render-drag" :clone="clone" :move="move">
 
-                <div class="block" :style="styles">
+                <template #item="{ element }">
 
 
-                    <!-- 
-                    1、渲染嵌套组件 
-                    2、更新 editorStore.currentSelect 值 
-                -->
-                    <div v-if="element.nested && level < 2" class="block-nested-render" :class="activeClass(element)"
-                        @click.stop="setCurrentSelect(element)" @mouseenter="hoverId = element.id"
-                        @mouseleave="hoverId = ''">
-                        <Transition name="fade">
-                            <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
-                                @copy="copy" @clear="clear" :bType="bType">
-
-                            </EditRenderHover>
-                        </Transition>
+                    <div class="block" :style="styles">
                         <!-- 
-                        1、根据组件 code 动态渲染嵌套组件
-                    -->
-                        <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
-                            :viewport="editorStore.viewport[bType]" :id="element.id" :formData="element.formData"
-                            :children="element.children" :pid="pid" :block="element" @init="init" :bType="bType">
+                            1、渲染嵌套组件 
+                            2、更新 editorStore.currentSelect 值 
+                        -->
+                        <div v-if="element.nested && level < 2" class="block-nested-render"
+                            :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
+                            @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''">
+                            <Transition name="fade">
+                                <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
+                                    @copy="copy" @clear="clear" :bType="bType">
 
-                            <template #default="{ childrenBlocks, index }">
-                                <EditRenderDragForm :blockList="childrenBlocks" :level="level + 1" :group="group"
-                                    class="nested-item" :class="nestedClass"
-                                    :key="bType + '-' + element.id + '-' + index" :pid="element.id + '-' + index"
-                                    :bType="bType">
-                                </EditRenderDragForm>
-                            </template>
+                                </EditRenderHover>
+                            </Transition>
+                            <!-- 
+                                1、根据组件 code 动态渲染嵌套组件
+                            -->
+                            <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
+                                :viewport="editorStore.viewport[bType]" :id="element.id" :formData="element.formData"
+                                :children="element.children" :pid="pid" :block="element" @init="init" :bType="bType">
 
-                        </component>
+                                <template #default="{ childrenBlocks, index }">
+                                    <EditRenderDragForm :blockList="childrenBlocks" :level="level + 1" :group="group"
+                                        class="nested-item" :class="nestedClass"
+                                        :key="bType + '-' + element.id + '-' + index" :pid="element.id + '-' + index"
+                                        :bType="bType">
+                                    </EditRenderDragForm>
+                                </template>
+
+                            </component>
+
+                        </div>
+
+                        <!-- 
+                        
+                            1、渲染普通组件 
+                            2、更新 editorStore.currentSelect 值 
+                        
+                        -->
+                        <div v-else class="block-render" :class="activeClass(element)"
+                            @click.stop="setCurrentSelect(element)" @mouseenter="hoverId = element.id"
+                            @mouseleave="hoverId = ''">
+                            <Transition name="fade">
+                                <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
+                                    @copy="copy" @clear="clear" :bType="bType">
+
+                                </EditRenderHover>
+                            </Transition>
+                            <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
+                                :viewport="editorStore.viewport[bType]" :id="element.id" :formData="element.formData"
+                                :pid="pid" :block="element" :bType="bType"
+                                v-bind="extractFormItemProps(element.formData)" @init="init" />
+                            <!-- 通过 v-bind ，用于转换 baseBlock 属性到表单元素需要的 props 属性 -->
+                        </div>
 
                     </div>
 
-                    <!-- 
-                
-                    1、渲染普通组件 
-                    2、更新 editorStore.currentSelect 值 
-                 
-                -->
-                    <div v-else class="block-render" :class="activeClass(element)"
-                        @click.stop="setCurrentSelect(element)" @mouseenter="hoverId = element.id"
-                        @mouseleave="hoverId = ''">
-                        <Transition name="fade">
-                            <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
-                                @copy="copy" @clear="clear" :bType="bType">
 
-                            </EditRenderHover>
-                        </Transition>
-                        <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
-                            :viewport="editorStore.viewport[bType]" :id="element.id" :formData="element.formData"
-                            :pid="pid" :block="element" :bType="bType" v-bind="extractFormItemProps(element.formData)"
-                            @init="init" />
-                        <!-- 通过 v-bind ，用于转换 baseBlock 属性到表单元素需要的 props 属性 -->
-                    </div>
+                </template>
+            </draggable>
 
+        </div>
 
-                </div>
-            </template>
-        </draggable>
     </el-form>
 
 </template>
@@ -169,8 +174,6 @@ const setCurrentSelect = (block: BaseBlock) => {
     block.parent = props.pid
     logger.info("edit-block-drag-form组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
 
-    console.log('block:', block);
-
     const id = block.id;
 
     if (id) {
@@ -253,6 +256,30 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
     deep: true
 })
 
+
+
+// 动态计算 form 表单列内容（ class ： ala-form-base-item ） 宽度 
+const alaDesignForm = ref<HTMLElement>()
+
+watchEffect(() => {
+    const width = editorStore.pageConfig.form.formData?.width.desktop || 400
+    const labelWidth = editorStore.pageConfig.form.formData?.labelWidth.desktop || 120
+    const columnNum = editorStore.pageConfig.form.formData?.columnNum.desktop || 1
+
+    const columnGapWidth = 16
+    const totalColumnGapWidth = (columnNum - 1) * columnGapWidth
+
+    const paddingWidth = 32
+
+    logger.info(`重新计算动态form渲染区域组件宽度，page width[ ${width} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form columnGapWidth[ ${columnNum} ]，form totalColumnGapWidth[ ${totalColumnGapWidth} ]，form paddingWidth[ ${paddingWidth} ]`);
+
+    // 计算 列宽度
+    // (总宽度 - totalColumnGapWidth)/columnNum
+    const columnWidth = Math.floor((width - paddingWidth - totalColumnGapWidth) / columnNum) 
+    alaDesignForm.value?.style.setProperty('--ala-form-design-item-width', columnWidth + 'px');
+
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -260,6 +287,16 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
     width: 100%;
     height: 100%;
     padding: 16px;
+
+    .block {
+        width: var(--ala-form-design-item-width);
+
+        .block-nested-render {
+            .nested-item {}
+        }
+
+        div {}
+    }
 
     .element {
         position: relative;
@@ -306,6 +343,7 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
     // margin-bottom: 1px;
     &:hover,
     &.is-active {
+        border-color: var(--color-edit-render-block-border-hover);
         // 在表面蒙上一层，加上边框，防止组件可以交互
         // &::after {
         //     content: '';
@@ -316,7 +354,6 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
         //     bottom: 0;
         //     border: 1px dashed var(--color-edit-render-block-border-hover);
         // }
-        border-color: var(--color-edit-render-block-border-hover);
     }
 }
 </style>

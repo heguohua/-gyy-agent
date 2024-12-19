@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 16:40:12
+ * @LastEditTime: 2024-12-19 14:35:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="editor-render" :style="pageStyle" :class="pageClass">
+    <div class="editor-render" :style="styles" :class="pageClass">
 
 
         <!-- 渲染 页面 拖拽编辑区域组件 -->
@@ -76,29 +76,24 @@ interface Style {
 }
 
 // 动态计算表单样式
-const pageStyle = ref<Style>({ width: '500px' })
+const pageWidth = ref(500)
 watch(() => editorStore.pageConfig[bType], (newValue) => {
-    logger.info(`bType[ ${bType} ],editor-render组件 监听到【 editorStore.pageConfig 更新 】,即将更新 page 相关参数`, newValue);
-    // pageStyle.value.width=newValue?.desktop.width
-    if (newValue.formData?.width?.desktop) {
-        pageStyle.value.width = newValue.formData?.width.desktop + 'px'
+    if (newValue.formData?.width.desktop) {
+        pageWidth.value = newValue.formData?.width.desktop
+        logger.info(`bType[ ${bType} ],editor-render组件 监听到【 editorStore.pageConfig 更新 】,即将更新 表单页面宽度：`, pageWidth.value);
     }
 }, {
     deep: true
 })
 
-// const pageStyle = ref({})
-
-// const pageStyle = computed(() => {
-//     const style = { width: props.width + 'px' }
-//     logger.info(`计算 editor-render 区域页面宽度，style`, style);
-//     return style
-// })
+const styles = computed(() => {
+    console.log('pageStyle---------->:', pageWidth);
+    return { width: pageWidth.value + 'px' }
+})
 
 const pageClass = computed(() => {
     return { "is-mobile": editorStore.isMobileViewport(bType) }
 })
-
 
 </script>
 
