@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 18:01:23
+ * @LastEditTime: 2024-12-19 18:21:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -176,7 +176,7 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 let formItem: any = {}
                 if (code === 'input') {
                     formItem = parseInput(formData)
-                    addFormFields.value.push(item)
+                    addFormFields.value.push(formItem)
                 } else if (code === 'textarea') {
                     formItem = parseTextarea(formData)
                     addFormFields.value.push(formItem)

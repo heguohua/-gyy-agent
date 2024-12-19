@@ -40,8 +40,6 @@ const props = defineProps({
     }
 })
 
-console.log('formData++++++++++:', props.formWidth, props.columnNum, props.labelWidth, props.labelPosition, props.useFormTitle);
-
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
 const url = '/l/dynamic/add'
 const updateUrl = '/l/dynamic/update'
