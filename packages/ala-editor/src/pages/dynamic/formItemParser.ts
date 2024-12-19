@@ -5,7 +5,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 19:43:08
+ * @LastEditTime: 2024-12-19 21:40:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -102,6 +102,8 @@ export function parseChapter(item: { label: { desktop: string }, help?: { deskto
     return result
 }
 
+
+
 type switchValueType = Boolean | String | Number
 export function parseSwitch(item: { fieldName: { desktop: string }, label: { desktop: string }, activeText: { desktop: string }, inActiveText: { desktop: string }, activeValue: { desktop: switchValueType }, inActiveValue: { desktop: switchValueType } }) {
     //  alaBuildSwitch('status', "账号状态", '正常', '禁用', [alaRequired()]),
@@ -118,7 +120,8 @@ export function parseSwitch(item: { fieldName: { desktop: string }, label: { des
 
 export function parseSelectTable(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any } }) {
     //  alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
-    const result = alaBuildSelectTable(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.columns.desktop, item.itemProperty.desktop)
+    // const result={}
+    const result = alaBuildSelectTable(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.columns.desktop, item.itemProperty.desktop, undefined, { value: '1' })
     logger.info(`解析【 selectTable 】字段：`, result);
     return result
 }
