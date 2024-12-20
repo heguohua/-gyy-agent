@@ -435,5 +435,4 @@ const handleSave = () => {
 
 }
 
-.is-show {}
 </style>
