@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 21:34:22
+ * @LastEditTime: 2024-12-20 08:56:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -215,15 +215,23 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     addFormFields.value.push(formItem)
                 }
 
-                console.log('item.formData.help:',item.formData.help);
-                
+                console.log('item.formData.help:', item);
+                console.log('formItem:', formItem);
+
                 if (item.formData.columnNum) {
                     formItem.columnNum = item.formData.columnNum.desktop
                 }
 
+                // 处理 组件 other 中的属性信息
+                const other = formItem.other || {}
+                if (item.formData.help && item.formData.help.desktop) {
+                    other.help = item.formData.help.desktop
+                }
+                formItem.other = other
+
             });
         }
-        
+
         if (config.pageConfig?.form) {
             const formData = config.pageConfig?.form.formData
             // 表单宽度 
