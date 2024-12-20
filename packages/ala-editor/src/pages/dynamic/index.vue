@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 08:56:30
+ * @LastEditTime: 2024-12-20 09:02:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -226,6 +226,11 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 const other = formItem.other || {}
                 if (item.formData.help && item.formData.help.desktop) {
                     other.help = item.formData.help.desktop
+                }
+                if (item.formData.icon && item.formData.icon.desktop) {
+                    other.icon = item.formData.icon.desktop
+                    other.iconWidth = item.formData.iconWidth.desktop
+                    other.iconHeight = item.formData.iconHeight.desktop
                 }
                 formItem.other = other
 
