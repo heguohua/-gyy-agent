@@ -28,7 +28,7 @@
                                 <editor-config-page :bType="bType" />
                             </el-tab-pane>
 
-                            <el-tab-pane label="组件配置项" name="block">
+                            <el-tab-pane label="组件配置项" name="block" class="ala-pane-block">
                                 <editor-config-block :bType="bType" />
                             </el-tab-pane>
 
@@ -166,7 +166,7 @@ const handleSave = () => {
         for (let b = 0; b < blockConfig.length; b++) {
 
             const oneFormItem = blockConfig[b].formData
-            
+
             if (oneFormItem) {
                 const fieldNames = Object.keys(oneFormItem)
 
@@ -208,7 +208,7 @@ const handleSave = () => {
                         if (!passed) {
                             // 说明有校验未通过的规则，显示提示信息
                             const fieldLabel = oneFormItem.label.desktop
-                            const tip = '组件配置项【 “' +(fieldLabel.startsWith("t('") ? t(fieldLabel) : fieldLabel)+'”组件的“'+ (fieldTitle.startsWith("t('") ? t(fieldTitle) : fieldTitle) + `” 】 ${message} ！`
+                            const tip = '组件配置项【 “' + (fieldLabel.startsWith("t('") ? t(fieldLabel) : fieldLabel) + '”组件的“' + (fieldTitle.startsWith("t('") ? t(fieldTitle) : fieldTitle) + `” 】 ${message} ！`
                             u.error(tip, t('pop.warm_title'))
                         }
                     }
@@ -350,6 +350,12 @@ const handleSave = () => {
                 }
 
                 .ala-editor-config-tab {
+                    .ala-pane-block {
+                        overflow-y: auto;
+                        height: calc(100vh - 100px);
+                        padding-bottom: 150px;
+                    }
+
                     margin-top: 12px;
 
                     :deep(.el-tabs__header) {
@@ -428,4 +434,6 @@ const handleSave = () => {
 
 
 }
+
+.is-show {}
 </style>
