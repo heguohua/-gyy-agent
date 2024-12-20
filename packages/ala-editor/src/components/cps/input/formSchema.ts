@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 15:28:33
+ * @LastEditTime: 2024-12-20 10:50:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -100,6 +100,29 @@ const iconHeight = Type.String({
     }
 })
 
+const rules = Type.Array(
+    Type.Object({
+        name: Type.String(),
+        value: Type.String(),
+    }),
+    {
+        code: "config-form-rules",
+        title: "校验规则",
+        default: [{
+            name: '实线',
+            value: 'solid',
+        }, {
+            name: '虚线',
+            value: 'dashed',
+        }, {
+            name: '点线',
+            value: 'dotted',
+        }, {
+            name: '双实线',
+            value: 'double',
+        }],
+    }
+);
 
 
 const schema = Type.Object({
@@ -111,6 +134,7 @@ const schema = Type.Object({
     iconWidth: schemaAllViewport(iconWidth),
     iconHeight: schemaAllViewport(iconHeight),
     columnNum: schemaAllViewport(columnNum),
+    rules: schemaAllViewport(rules),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     // style: schemaAllViewport(style),

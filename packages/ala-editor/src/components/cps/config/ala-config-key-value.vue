@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 13:24:18
+ * @LastEditTime: 2024-12-20 10:18:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-key-value.vue
  * @Description: 
  * 
@@ -59,7 +59,7 @@ const props = defineProps({
 })
 
 const bType = props.bType
-logger.info(`bType[ ${bType} ],config-column组件渲染, data :`, props.data);
+logger.info(`bType[ ${bType} ],config-key-value组件渲染, data :`, props.data);
 
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
