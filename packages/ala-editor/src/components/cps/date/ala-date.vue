@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:34:03
+ * @LastEditTime: 2024-12-20 09:24:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -94,11 +94,9 @@ const handleChange = (value: Date | null) => {
                 const dy = date.format(day, props.format);
                 dates.push(dy)
             })
-            console.log('dates:', dates);
             model.value = dates
         } else {
             const day = date.format(value, props.format);
-            console.log('day:', day);
             model.value = day
         }
 

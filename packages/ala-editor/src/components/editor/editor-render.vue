@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 14:35:32
+ * @LastEditTime: 2024-12-20 09:23:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -87,7 +87,6 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
 })
 
 const styles = computed(() => {
-    console.log('pageStyle---------->:', pageWidth);
     return { width: pageWidth.value + 'px' }
 })
 

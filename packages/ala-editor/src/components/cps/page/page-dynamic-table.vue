@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-17 20:28:49
+ * @LastEditTime: 2024-12-20 09:24:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -222,9 +222,7 @@ const refresh = (data: any) => {
 
 // 排序字段发生变化
 const sortChange = (a: any, b: any, c: any) => {
-    console.log('a:', a);
-    console.log('b:', b);
-    console.log('c:', c);
+
 
 }
 

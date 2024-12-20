@@ -338,8 +338,6 @@ type dataTypee = "date" | "year" | "years" | "month" | "months" | "dates" | "wee
  */
 export function alaBuildDate(fieldName: string, label: string, dateType: dataTypee, format: string, rules?: Array<baseRule>, start?: string, end?: string, placeholder?: string): AlaDateSchema {
     const obj = alaBuildWithOther("AlaDate", fieldName, label, { dateType, format, start, end }, rules, placeholder)
-    console.log('date:', obj);
-
     return obj
 }
 

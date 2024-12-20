@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 22:09:04
+ * @LastEditTime: 2024-12-20 09:21:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -146,14 +146,12 @@ const advancedFields: any[] = []
 
 
 const handlePublish = (item: any) => {
-    console.log('item:', item);
     // 保存数据并刷新分页列表
     // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
     const url = "/l/lowcodingConfig/publish"
     logger.info(`发布配置项，url【 ${url} 】，数据对象：`, item);
     alaPost(u.url(url || ''), { id: item.id }, false, '').then((data: any) => {
         const response = data;
-        console.log('response:', response);
     });
 }
 

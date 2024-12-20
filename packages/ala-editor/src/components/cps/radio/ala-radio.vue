@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:34:41
+ * @LastEditTime: 2024-12-20 09:24:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -79,7 +79,6 @@ const clasz = computed(() => {
             claszName = 'label-top';
         }
     }
-    console.log('claszName:', claszName);
 
     return claszName;
 })

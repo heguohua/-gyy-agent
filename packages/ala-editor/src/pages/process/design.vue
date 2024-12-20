@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:57:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-30 10:15:36
+ * @LastEditTime: 2024-12-20 09:22:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/design.vue
  * @Description: 
  * 
@@ -18,7 +18,6 @@ import { ref } from 'vue'
 // State
 const flowData = ref({})
 const handleSave = () => {
-    console.log('flowData:', flowData);
 
 }
 // Methods

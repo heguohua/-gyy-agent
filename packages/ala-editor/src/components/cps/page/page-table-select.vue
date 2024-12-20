@@ -220,9 +220,6 @@ const queryPageData = () => {
                 onePageList.value = data?.data?.list
             }
             loading.value = false
-            console.log('onePageList.value:', onePageList.value);
-            console.log('props.columns:', props.columns);
-            console.log('props.itemProperty:', props.itemProperty);
 
         });
     }
@@ -266,8 +263,6 @@ const model = defineModel({
 
 onMounted(() => {
     logger.info(`onMounted 渲染 menu 分页列表页面，url [ ${props.url} ]，当前页面 model`);
-    console.log('model.value:', model.value);
-
     // 先刷新分页列表数据
     queryPageData()
 

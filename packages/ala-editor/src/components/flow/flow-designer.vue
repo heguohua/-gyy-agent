@@ -141,7 +141,6 @@ const initDoc = () => {
 
   if (!lf) return
 
-  console.log('lf.extension.control:', lf?.extension.control);
 
   if (props.showDoc) {
     // 控制面板-码云
@@ -234,7 +233,6 @@ const initOp = () => {
 
     // 删除下一步
     lf.extension.control.removeItem('redo')
-    console.log('lf.extension.control:', lf.extension.control);
 
     initDoc()
 

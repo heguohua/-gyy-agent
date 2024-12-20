@@ -50,8 +50,6 @@ const bType = props.bType
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
-console.log('data.value=================:', data.value);
-
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref('')
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-17 20:42:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 16:30:41
+ * @LastEditTime: 2024-12-20 09:23:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tab/ala-tab.vue
  * @Description: 
  * 
@@ -110,7 +110,6 @@ watch(locale, (newLocale, oldLocale) => {
     logger.warn(`Tab页监听到国际化语言从 ${oldLocale} 切换到【 ${newLocale} 】，即将更新 tab 页标题`);
     // 
     tabList.value.forEach(tab => {
-        console.log('tab:', tab.menuCode);
         tab.title = t(tab.menuCode)
     })
 

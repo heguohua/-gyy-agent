@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:35:32
+ * @LastEditTime: 2024-12-20 09:23:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/ala-switch.vue
  * @Description: 
  * 
@@ -94,7 +94,6 @@ const clasz = computed(() => {
             claszName = 'label-top';
         }
     }
-    console.log('claszName:', claszName);
 
     return claszName;
 })

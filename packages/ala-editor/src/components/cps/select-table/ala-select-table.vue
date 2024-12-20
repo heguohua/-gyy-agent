@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:35:13
+ * @LastEditTime: 2024-12-20 09:23:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -256,7 +256,6 @@ const querySelectedData = (items: [{ id: number }]) => {
     } else {
       alaPost(u.url(listUrl || ''), { ids }, false, '').then((data: any) => {
         const response = data;
-        console.log('response:', response);
         if (response.data && response.data.length > 0) {
           selectedData.value = response.data
         }

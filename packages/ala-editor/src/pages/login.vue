@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-28 21:08:57
+ * @LastEditTime: 2024-12-20 09:22:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -139,45 +139,6 @@ import AlaTypewriterOneLine from '@/components/cps/typewriter/AlaTypewriterOneLi
 
 // State  
 
-// const form = ref({
-//     username: '',
-//     password: '',
-// })
-// const formRef = ref(null);
-
-// const validateUsername = (rule, value, callback) => {
-//     console.log('validateUsername:', validateUsername);
-
-//     if (value === '') {
-//         callback(new Error('请输入用户名'));
-//     } else {
-//         callback();
-//     }
-// };
-// const rules = ref({
-//     username: [
-//         { required: true, message: '请输入用户名', trigger: 'blur' }
-//     ],
-//     password: [
-//         { required: true, message: '请输入密码', trigger: 'blur' },
-//         { min: 6, message: '密码长度不能小于6位', trigger: 'blur' }
-//     ],
-// })
-
-// const submitForm = async () => {
-//     const valid = await formRef.value.validate();
-
-//     console.log(formRef.value)
-//     console.log(valid)
-//     console.log(form)
-//     if (valid) {
-//         alert('提交成功!');
-//     } else {
-//         console.log('error submit!!');
-//         return false;
-//     }
-
-// }
 
 const loginForm = ref({
     scabbard: "",

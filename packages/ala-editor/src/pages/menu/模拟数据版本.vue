@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 17:27:48
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
+ * @LastEditTime: 2024-12-20 09:20:54
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/模拟数据版本.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -100,7 +100,6 @@ const paginatedData = computed(() => {
 const handleExpandChange = (row: Row, expandedRows: any) => {
 
     const id = row.id + ''
-    console.log('row:', row);
 
     if (expandedRows && expandedRows.length > 0) {
         // 如果当前行被展开，添加到数组中

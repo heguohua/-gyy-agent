@@ -82,10 +82,6 @@ const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
 
-console.log('data.value.properties:', data.value.properties);
-console.log('props:', props);
-
-
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref(1)
 

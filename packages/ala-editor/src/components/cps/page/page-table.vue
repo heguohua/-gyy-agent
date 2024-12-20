@@ -221,10 +221,6 @@ const refresh = (data: any) => {
 
 // 排序字段发生变化
 const sortChange = (a: any, b: any, c: any) => {
-    console.log('a:', a);
-    console.log('b:', b);
-    console.log('c:', c);
-
 }
 
 const loading = ref(true)

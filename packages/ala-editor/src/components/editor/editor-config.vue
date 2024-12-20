@@ -169,7 +169,6 @@ const handleSave = () => {
             
             if (oneFormItem) {
                 const fieldNames = Object.keys(oneFormItem)
-                console.log('block---------------->:',oneFormItem);
 
                 for (let i = 0; i < fieldNames.length; i++) {
 

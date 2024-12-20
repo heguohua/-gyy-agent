@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 22:39:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 22:39:41
+ * @LastEditTime: 2024-12-20 09:22:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/RSAUtil.ts
  * @Description: 
  * 
@@ -63,8 +63,6 @@ const rsaUtil = new RSAUtil(publicKey);
 // 签名数据
 const formData = { username: 'user1', password: 'password123' };
 const signature = rsaUtil.sign(formData);
-console.log('Signature:', signature);
 
 // 验证签名
 const isVerified = rsaUtil.verify(formData, signature);
-console.log('Is Verified:', isVerified);

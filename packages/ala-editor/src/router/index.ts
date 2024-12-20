@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:54:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 18:14:45
+ * @LastEditTime: 2024-12-20 09:21:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/router/index.ts
  * @Description: 
  * 
@@ -96,19 +96,6 @@ router.beforeEach((to, from, next) => {
                 next('login');
             } else {
                 // 用户已登录，放行
-                logger.warn("router.beforeEach检测到用户已登录，直接放行");
-                // console.log('from.path:', from.path);
-                // console.log('to.path:', to.path);
-
-                // if (from.path != '/editor' && to.path === '/editor') {
-                // if (to.path === '/editor') {
-                //     const routeURL = router.resolve(to.path).href;
-                //     console.log('routeURL:', routeURL);
-                //     // window.open('https://www.baidu.com', '_blank');
-                //     // window.open(routeURL, '_blank');
-                // } else {
-                //     next();
-                // }
 
                 const alaStore = useAlaStore()
                 const query = to.query as { type: string };

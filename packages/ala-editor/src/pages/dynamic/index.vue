@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:02:31
+ * @LastEditTime: 2024-12-20 09:22:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -55,8 +55,6 @@ const className = route.path.slice(route.path.lastIndexOf('/') + 1)
 
 
 const moduleName = computed(() => {
-    console.log('route:', route);
-
     const code = route.meta.menuCode as string;
     return t(code)
 })
@@ -152,7 +150,6 @@ const getFormAttr = computed(() => {
 alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
     if (response.code === 200) {
         const config = u.parseJson(response.data[0].config)
-        console.log('config:', config);
 
         // 解析列表字段
         if (config.blockConfig?.form) {
@@ -215,8 +212,6 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     addFormFields.value.push(formItem)
                 }
 
-                console.log('item.formData.help:', item);
-                console.log('formItem:', formItem);
 
                 if (item.formData.columnNum) {
                     formItem.columnNum = item.formData.columnNum.desktop
