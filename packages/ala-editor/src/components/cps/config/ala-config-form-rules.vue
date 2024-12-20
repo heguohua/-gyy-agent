@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 10:52:59
+ * @LastEditTime: 2024-12-20 10:57:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-form-rules.vue
  * @Description: 
  * 
@@ -149,8 +149,6 @@ const handleChange = (value: any) => {
 .ala-form-rules-wrapper {
     .ala-form-rules-group {
         text-align: left;
-
-        .ala-form-rules-item {}
     }
 }
 
