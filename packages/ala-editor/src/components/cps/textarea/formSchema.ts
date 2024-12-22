@@ -73,7 +73,7 @@ const showInTable = Type.String({
 
 const icon = Type.String({
     code: "config-input",
-    title: "前置图标",
+    title: "头部图标",
     default: "",
 })
 

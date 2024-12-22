@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-22 22:39:20
+ * @LastEditTime: 2024-12-22 23:07:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -74,7 +74,7 @@ const showInTable = Type.String({
 
 const icon = Type.String({
     code: "config-input",
-    title: "前置图标",
+    title: "头部图标",
     default: "",
 })
 
@@ -88,6 +88,7 @@ const iconWidth = Type.String({
         controlsPosition: ''
     }
 })
+
 
 const iconHeight = Type.String({
     code: "config-int",
@@ -144,74 +145,42 @@ const rules = Type.Array(
     }
 );
 
-
-const parameterRules = Type.Array(
-    Type.Object({
-        name: Type.String(),
-        value: Type.String(),
-    }),
-    {
-        code: "config-form-rules-one-param",
-        default: [{
-            name: '最少字符',
-            value: 'strMin',
-            properties: [
-                {
-                    code: "config-int",
-                    name: "min",
-                }
-            ]
-        }, {
-            name: '最大字符',
-            value: 'strMax',
-            properties: [
-                {
-                    code: "config-int",
-                    name: "max",
-                }
-            ]
-        }, {
-            name: '最小数值',
-            value: 'numberMin',
-            properties: [
-                {
-                    code: "config-int",
-                    name: "min",
-                }
-            ]
-        }, {
-            name: '最大数值',
-            value: 'numberMax',
-            properties: [
-                {
-                    code: "config-int",
-                    name: "max",
-                }
-            ]
-        },],
+const strMin = Type.String({
+    code: "config-int",
+    title: "最小长度",
+    other: {
+        min: 0,
+        max: 500,
+        controlsPosition: 'right'
     }
-);
+})
 
-// const patternRules = Type.Array(
-//     Type.Object({
-//         name: Type.String(),
-//         value: Type.String(),
-//     }),
-//     {
-//         code: "config-form-rules",
-//         title: "校验规则",
-//         default: [{
-//             name: '正则',
-//             value: 'alaPattern',
-//             properties: [
-//                 {
-//                     code: "config-int",
-//                     name: "max",
-//                 }
-//             ]
-//         },],
-//     }
-// );
+const strMax = Type.String({
+    code: "config-int",
+    title: "最大长度",
+    other: {
+        min: 0,
+        max: 500,
+        controlsPosition: 'right'
+    }
+})
+
+
+const numberMin = Type.String({
+    code: "config-int",
+    title: "最小值",
+    other: {
+        controlsPosition: 'right'
+    }
+})
+
+const numberMax = Type.String({
+    code: "config-int",
+    title: "最大值",
+    other: {
+        controlsPosition: 'right'
+    }
+})
 
 
 const schema = Type.Object({
@@ -227,6 +196,10 @@ const schema = Type.Object({
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
     rules: schemaAllViewport(rules),
+    strMin: schemaAllViewport(strMin),
+    strMax: schemaAllViewport(strMax),
+    numberMin: schemaAllViewport(numberMin),
+    numberMax: schemaAllViewport(numberMax),
     // style: schemaAllViewport(style),
 })
 

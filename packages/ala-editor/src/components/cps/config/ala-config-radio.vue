@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-22 22:49:16
+ * @LastEditTime: 2024-12-22 22:36:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-form-rules.vue
  * @Description: 
  * 
@@ -132,7 +132,7 @@ const handleChange = (value: any) => {
             text-align: left;
             width: 40%;
         }
-        font-weight: bold;
+
 
         .ala-form-rules-group {
 
@@ -146,7 +146,6 @@ const handleChange = (value: any) => {
 
                 :deep(.el-radio__label) {
                     font-size: 0.8rem;
-                    font-weight: normal;
                 }
 
                 .properties {
