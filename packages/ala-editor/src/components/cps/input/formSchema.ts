@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-22 17:00:50
+ * @LastEditTime: 2024-12-22 22:39:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -45,7 +45,7 @@ const fieldName = Type.String({
 
 const help = Type.String({
     code: "config-textarea",
-    title: "帮助提示信息",
+    title: "提示信息",
     default: "",
 })
 
@@ -74,7 +74,7 @@ const showInTable = Type.String({
 
 const icon = Type.String({
     code: "config-input",
-    title: "图标",
+    title: "前置图标",
     default: "",
 })
 
@@ -99,6 +99,11 @@ const iconHeight = Type.String({
         controlsPosition: ''
     }
 })
+const required = Type.String({
+    code: "config-boolean",
+    title: "必填字段？",
+    default: false,
+})
 
 const rules = Type.Array(
     Type.Object({
@@ -107,34 +112,106 @@ const rules = Type.Array(
     }),
     {
         code: "config-form-rules",
-        title: "校验规则",
+        title: "字段校验规则",
+        checkbox: [{
+            name: '非空',
+            value: 'alaRequired',
+        }, {
+            name: '手机号',
+            value: 'alaPhone',
+        }, {
+            name: '邮箱',
+            value: 'alaEmail',
+        }, {
+            name: '身份证',
+            value: 'alaCard',
+        }, {
+            name: 'URL',
+            value: 'alaUrl',
+        }, {
+            name: '纯数字',
+            value: 'alaNumber',
+        }, {
+            name: '大、小写字母',
+            value: 'alaLetter',
+        }, {
+            name: '大、小写字母、数字',
+            value: 'alaLOrlOr8',
+        }, {
+            name: '大、小写字母、数字、特殊字符',
+            value: 'alaLOrlOr8Or_',
+        },],
+    }
+);
+
+
+const parameterRules = Type.Array(
+    Type.Object({
+        name: Type.String(),
+        value: Type.String(),
+    }),
+    {
+        code: "config-form-rules-one-param",
         default: [{
-            name: '实线',
-            value: 'solid',
+            name: '最少字符',
+            value: 'strMin',
             properties: [
                 {
                     code: "config-int",
                     name: "min",
-                    label: "最少字符",
-                },
-                {
-                    code: "config-int",
-                    name: "max",
-                    label: "最大字符",
                 }
             ]
         }, {
-            name: '虚线',
-            value: 'dashed',
+            name: '最大字符',
+            value: 'strMax',
+            properties: [
+                {
+                    code: "config-int",
+                    name: "max",
+                }
+            ]
         }, {
-            name: '点线',
-            value: 'dotted',
+            name: '最小数值',
+            value: 'numberMin',
+            properties: [
+                {
+                    code: "config-int",
+                    name: "min",
+                }
+            ]
         }, {
-            name: '双实线',
-            value: 'double',
-        }],
+            name: '最大数值',
+            value: 'numberMax',
+            properties: [
+                {
+                    code: "config-int",
+                    name: "max",
+                }
+            ]
+        },],
     }
 );
+
+// const patternRules = Type.Array(
+//     Type.Object({
+//         name: Type.String(),
+//         value: Type.String(),
+//     }),
+//     {
+//         code: "config-form-rules",
+//         title: "校验规则",
+//         default: [{
+//             name: '正则',
+//             value: 'alaPattern',
+//             properties: [
+//                 {
+//                     code: "config-int",
+//                     name: "max",
+//                 }
+//             ]
+//         },],
+//     }
+// );
 
 
 const schema = Type.Object({
@@ -146,9 +223,10 @@ const schema = Type.Object({
     iconWidth: schemaAllViewport(iconWidth),
     iconHeight: schemaAllViewport(iconHeight),
     columnNum: schemaAllViewport(columnNum),
-    rules: schemaAllViewport(rules),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
+    required: schemaAllViewport(required),
+    rules: schemaAllViewport(rules),
     // style: schemaAllViewport(style),
 })
 

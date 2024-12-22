@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-22 22:36:12
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-form-rules.vue
+ * @LastEditTime: 2024-12-22 22:15:03
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-checkbox.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -13,12 +13,12 @@
 
     <div class="ala-form-rules-wrapper">
 
-        <el-form-item :label="title" label-position="top" class="rules-label">
-            <el-radio-group @change="handleChange" class="ala-form-rules-group" :model-value="model">
+        <el-form-item :label="title">
+            <el-checkbox-group @change="handleChange" class="ala-form-rules-group" :model-value="model">
                 <div class="ala-form-rules-item" v-for="(item, index) in checkbox" :key="bType + '-' + item.value">
-                    <el-radio :value="item.value">{{ item.name }}</el-radio>
+                    <el-checkbox :value="item.value">{{ item.name }}</el-checkbox>
                 </div>
-            </el-radio-group>
+            </el-checkbox-group>
         </el-form-item>
 
     </div>
@@ -124,82 +124,66 @@ const handleChange = (value: any) => {
 
 <style scoped lang="scss">
 .ala-form-rules-wrapper {
-    font-size: 0.8rem;
+    .ala-form-rules-group {
+        text-align: left;
 
-    .rules-label {
-        :deep(.el-form-item__label) {
-            display: block;
-            text-align: left;
-            width: 40%;
-        }
+        .ala-form-rules-item {
+            padding: 6px;
+            border-top: 1px dashed var(--el-border-color);
 
+            .properties {
+                font-size: 14px;
+                text-align: center;
+                vertical-align: middle;
+                align-items: center;
+                margin-top: 6px;
+                flex-wrap: wrap;
 
-        .ala-form-rules-group {
+                .ala-form-rules-item-property {
+                    display: flex;
+                    margin-top: 4px;
 
-            text-align: left;
-            justify-content: center;
-
-            .ala-form-rules-item {
-                padding: 6px;
-                border-top: 1px dashed var(--el-border-color);
-                width: 84%;
-
-                :deep(.el-radio__label) {
-                    font-size: 0.8rem;
-                }
-
-                .properties {
-                    text-align: center;
-                    vertical-align: middle;
-                    align-items: center;
-                    margin-top: 6px;
-                    flex-wrap: wrap;
-
-                    .ala-form-rules-item-property {
+                    .label {
+                        height: 18px;
+                        width: 54px;
+                        font-size: 12px;
+                        align-items: center;
                         display: flex;
-                        margin-top: 4px;
+                    }
 
-                        .label {
-                            height: 18px;
-                            width: 54px;
-                            align-items: center;
-                            display: flex;
-                        }
+                    :deep(.el-input-number) {
+                        height: 18px;
+                        width: 100px;
+                    }
 
-                        :deep(.el-input-number) {
-                            height: 18px;
-                            width: 100px;
-                        }
+                    :deep(.el-input-number__decrease),
+                    :deep(.el-input-number__increase) {
+                        width: 20px;
+                    }
 
-                        :deep(.el-input-number__decrease),
-                        :deep(.el-input-number__increase) {
-                            width: 20px;
-                        }
+                    :deep(.el-form-item__label) {
+                        height: 18px;
+                        line-height: 18px;
+                    }
 
-                        :deep(.el-form-item__label) {
-                            height: 18px;
-                            line-height: 18px;
-                        }
-
-                        :deep(.el-form-item) {
-                            margin-bottom: 4px;
-                        }
+                    :deep(.el-form-item) {
+                        margin-bottom: 4px;
                     }
                 }
-
-                label {
-                    display: flex;
-                }
-
-                &:last-child {
-                    border-bottom: 1px dashed var(--el-border-color);
-
-                }
             }
 
-            :deep(.el-radio) {
-                height: 14px;
+            label {
+                display: flex;
             }
+
+            &:last-child {
+                border-bottom: 1px dashed var(--el-border-color);
+
+            }
+        }
+
+        :deep(.el-checkbox) {
+            height: 14px;
         }
     }
 }

@@ -44,7 +44,7 @@ const fieldName = Type.String({
 })
 const help = Type.String({
     code: "config-textarea",
-    title: "帮助提示信息",
+    title: "提示信息",
     default: "",
 })
 
@@ -73,7 +73,7 @@ const showInTable = Type.String({
 
 const icon = Type.String({
     code: "config-input",
-    title: "图标",
+    title: "前置图标",
     default: "",
 })
 

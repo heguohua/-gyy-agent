@@ -44,7 +44,7 @@ const fieldName = Type.String({
 })
 const help = Type.String({
     code: "config-textarea",
-    title: "帮助提示信息",
+    title: "提示信息",
     default: "",
 })
 
