@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:04:18
+ * @LastEditTime: 2024-12-22 17:10:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="editor-config-render">
-        <el-form label-width="35%">
+        <el-form label-width="36%">
             <div class="" v-for="( item, index ) in list" :key="bType + '-' + index" :class="bem('render')" @click="">
                 <!-- <component v-if="getComponent(item)" :is="getComponent(item)" :data="item" -->
                 <component v-if="getComponent(item)" :is="getComponent(item)" :data="item" v-bind="item.properties.desktop.other"
@@ -65,4 +65,10 @@ const callback = (data: any) => {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.editor-config-render {
+    :deep(.el-form-item__label){
+        padding-right: 4px;
+    }
+}
+</style>

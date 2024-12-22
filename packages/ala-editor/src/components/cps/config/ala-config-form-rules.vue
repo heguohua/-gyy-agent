@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 10:57:21
+ * @LastEditTime: 2024-12-22 20:46:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-form-rules.vue
  * @Description: 
  * 
@@ -18,7 +18,28 @@
             <el-checkbox-group @change="handleChange" class="ala-form-rules-group" :model-value="model">
 
                 <div class="ala-form-rules-item" v-for="(item, index) in defaultValue" :key="bType + '-' + item.value">
-                    <el-checkbox :value="item.value" :id="item.value + '-' + index">{{ item.name }}</el-checkbox>
+
+                    <el-checkbox :value="item">{{ item.name }}</el-checkbox>
+
+                    <div class="properties" v-if="item.properties">
+
+                        <div class="ala-form-rules-item-property" v-for="(property, pIndex) in item.properties"
+                            :key="bType + '-' + item.value + '-' + pIndex">
+
+                            <!-- <el-form-item :label="property.label" :label-width="54"> -->
+                            <div class="label">
+                                {{ property.label }}
+                            </div>
+                            <el-input-number v-model.number="property.value" :precision="0" :step="1"
+                                :step-strictly="true" :controls="true" controls-position="" class="input" size="small"
+                                 :min="1" />
+                            <!-- </el-form-item> -->
+
+                        </div>
+
+
+                    </div>
+
                 </div>
 
             </el-checkbox-group>
@@ -31,6 +52,7 @@
 
 <script setup lang="ts">
 
+import { alaConsts } from '@/config/alaConsts';
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import u from '@/utils/u';
@@ -59,56 +81,52 @@ const bType = props.bType
 
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
+console.log('formData:', formData);
 
-const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
-const input = ref('')
+const { title, default: defaultValue, required, rules } = data.value.properties[props.viewport]
 
-
+interface Rule {
+    name: string,
+    value: string,
+    min: number,
+    max: number,
+}
 const model = defineModel({
-    type: Array<string>,
+    type: Array<Rule>,
     default: []
 })
 
-const isRequired = () => {
-    return required ? 'is-required' : ''
-}
+const localModelValue = ref<Array<string>>([])
 
-interface ItemProperty {
-    propertyName: string,
-    valueName: string,
-}
-
+// 根据 formData 更新当前组件状态
 watch(formData, (form_data) => {
 
-    logger.info(`bType[ ${bType} ],【 config-form-rules 组件 监听到 】form_data 发生变化，即将更新 input 的属性值,更新前form_data[key][props.viewport]`, form_data[key]?.[props.viewport]);
+    if (form_data[key]?.[props.viewport]) {
 
-    const propertyName = form_data['propertyName']?.[props.viewport]
-    const valueName = form_data['valueName']?.[props.viewport]
+        logger.info(`bType[ ${bType} ],【 config-form-rules 监听到 】form_data 发生变化，即将更新 input 的属性值,更新前form_data[key][props.viewport]`, form_data[key]?.[props.viewport]);
+        // 将对象格式的 checkbox 值转换为字符串格式
+        // const checked: string[] = []
+        // form_data[key]?.[props.viewport].forEach((rule: Rule) => {
+        //     checked.push(rule.value)
+        // })
+        // localModelValue.value = checked
 
-    const itemProperty = {} as ItemProperty
-    if (propertyName) {
-        itemProperty.propertyName = propertyName
+        model.value = form_data[key]?.[props.viewport]
+    } else {
+        logger.info(`bType[ ${bType} ],【 config-form-rules 监听到 】form_data formData.${key}.${props.viewport}不存在，不执行更新动作`, form_data[key]?.[props.viewport]);
     }
-    if (valueName) {
-        itemProperty.valueName = valueName
-    }
-    input.value = u.tojson(itemProperty)
-    logger.info(`bType[ ${bType} ],【 config-form-rules组件 监听到 - 更新后 】form_data 发生变化，更新 input 的属性值后form_data[key][props.viewport]`, form_data[key]?.[props.viewport]);
 
 }, {
     immediate: true
 })
 
-watch(input, (value) => {
+// 通过回调更新 editorStore 中的状态值
+watch(() => model.value, (value) => {
     if (!value) return;
-    value = u.trim(value)
-
+    // return;
     let data = {}
-    let _value = value || "{}"
+    let _value = value || []
 
-    if (_value) {
-        _value = u.parseJson(_value)
-    }
     if (Object.values(formData || {}).length < 2) {
         data = { desktop: _value, mobile: _value, required: required ? required : false, title, rules }
     } else {
@@ -122,19 +140,10 @@ watch(input, (value) => {
         id
     })
 }, {
-    immediate: true
-})
-
-watch(() => editorStore.globalParams[bType], () => {
-    if (formData[key]?.[props.viewport]) {
-        logger.info(`bType[ ${bType} ],config-form-rules组件 【 监听到 】 formData 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
-        input.value = formData[key][props.viewport] || defaultValue
-    } else {
-        logger.info(`bType[ ${bType} ],config-form-rules组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
-    }
-}, {
+    immediate: true,
     deep: true
 })
+
 
 // Methods
 const handleChange = (value: any) => {
@@ -149,23 +158,65 @@ const handleChange = (value: any) => {
 .ala-form-rules-wrapper {
     .ala-form-rules-group {
         text-align: left;
-    }
-}
 
-.config-form-rules {
-    :deep .el-input__wrapper {
-        background: var(--color-config-block-bg);
+        .ala-form-rules-item {
+            padding: 6px;
+            border-top: 1px dashed var(--el-border-color);
 
-        input {
-            &::placeholder {
-                font-size: 0.8rem;
+            .properties {
+                font-size: 14px;
+                text-align: center;
+                vertical-align: middle;
+                align-items: center;
+                margin-top: 6px;
+                flex-wrap: wrap;
+
+                .ala-form-rules-item-property {
+                    display: flex;
+                    margin-top: 4px;
+
+                    .label {
+                        height: 18px;
+                        width: 54px;
+                        font-size: 12px;
+                        align-items: center;
+                        display: flex;
+                    }
+
+                    :deep(.el-input-number) {
+                        height: 18px;
+                        width: 100px;
+                    }
+
+                    :deep(.el-input-number__decrease),
+                    :deep(.el-input-number__increase) {
+                        width: 20px;
+                    }
+
+                    :deep(.el-form-item__label) {
+                        height: 18px;
+                        line-height: 18px;
+                    }
+
+                    :deep(.el-form-item) {
+                        margin-bottom: 4px;
+                    }
+                }
+            }
+
+            label {
+                display: flex;
+            }
+
+            &:last-child {
+                border-bottom: 1px dashed var(--el-border-color);
+
             }
         }
-    }
 
-    :deep(.el-textarea__inner) {
-        line-height: 20px;
+        :deep(.el-checkbox) {
+            height: 14px;
+        }
     }
-
 }
 </style>
