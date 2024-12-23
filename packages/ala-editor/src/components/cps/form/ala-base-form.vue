@@ -136,11 +136,15 @@ const postData = (item: any) => {
 
     // 保存数据并刷新分页列表
     // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
-    const url = item.id ? props.updateUrl : props.url
-    logger.info(`新增/更新数据，url【 ${url} 】，数据对象：`, item);
-    alaPost(u.url(url || ''), item, false, item.id ? 'put' : '').then((data: any) => {
+    
+    const url = item.columns.id ? props.updateUrl : props.url
+    if (item.columns.id) {
+        logger.info(`【 更新数据 】，url${url}，数据对象：`, item);
+    } else {
+        logger.info(`【 新增数据 】，url${url}，数据对象：`, item);
+    }
+    alaPost(u.url(url || ''), item, false, item.columns.id ? 'put' : '').then((data: any) => {
         const response = data;
-        console.log('response:', response);
         emit("refresh", response)
     });
 }

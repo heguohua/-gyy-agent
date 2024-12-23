@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:21:01
+ * @LastEditTime: 2024-12-23 20:56:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -24,6 +24,8 @@
 
         <template #btns="{ row }">
             <AlaButton :showButton="true" name="publish" @publish="handlePublish(row)" buttonType="primary" />
+            <AlaButton :showButton="true" name="force_publish" @force_publish="handleForcePublish(row)"
+                buttonType="danger" />
         </template>
 
     </PageTable>
@@ -42,6 +44,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
+import notify from '@/utils/notify';
 const { t } = useI18n();
 const router = useRouter()
 
@@ -152,6 +155,19 @@ const handlePublish = (item: any) => {
     logger.info(`发布配置项，url【 ${url} 】，数据对象：`, item);
     alaPost(u.url(url || ''), { id: item.id }, false, '').then((data: any) => {
         const response = data;
+        notify.success(t('pop.warm_title'), t('buttons.publish') + '成功')
+    });
+}
+
+const handleForcePublish = (item: any) => {
+    // 保存数据并刷新分页列表
+    // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
+    const url = "/l/lowcodingConfig/forcePublish"
+    logger.info(`发布配置项，url【 ${url} 】，数据对象：`, item);
+    alaPost(u.url(url || ''), { id: item.id }, false, '').then((data: any) => {
+        const response = data;
+        notify.success(t('pop.warm_title'), t('buttons.force_publish') + '成功')
+
     });
 }
 

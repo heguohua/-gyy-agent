@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 18:52:49
+ * @LastEditTime: 2024-12-23 21:23:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/add.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
 
-    <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
+    <AlaBaseForm v-model="showDrawer" @refresh="refresh" v-bind="props" :basicFields="basicFields" :formData="formData"
         :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')" :formAttr="formAttr"
         :beforeSave="beforeSave" />
 
@@ -50,9 +50,7 @@ const formData = reactive({
 })
 
 const beforeSave = (data: any) => {
-    console.log('data:', data);
     const dynamicFormData = { tableName: props.className, columns: data }
-    console.log('dynamicFormData:', dynamicFormData);
     return dynamicFormData
 }
 
@@ -97,10 +95,10 @@ const showDrawer = defineModel({
 
 // 监听表单回调事件
 const emit = defineEmits(["refresh"])
-const confirm = (data: any) => {
-    logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
-    logger.warn("新增页面 confirm 接收到回调数据，当前formData数据为", formData);
-    emit('refresh', data)
+const refresh = (data: any) => {
+    logger.warn("新增页面 接收到回调数据，即将回调list页面", data);
+    logger.warn("新增页面 接收到回调数据，当前formData数据为", formData);
+    emit("refresh", data)
 }
 
 const moduleName = computed(() => {
