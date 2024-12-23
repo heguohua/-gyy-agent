@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 09:49:07
+ * @LastEditTime: 2024-12-23 10:02:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/formSchema.ts
  * @Description: 
  * 

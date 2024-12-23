@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 09:48:16
+ * @LastEditTime: 2024-12-23 10:00:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/password/formSchema.ts
  * @Description: 
  * 
@@ -72,6 +72,51 @@ const showInTable = Type.String({
 })
 
 
+const rules = Type.Array(
+    Type.Object({
+        name: Type.String(),
+        value: Type.String(),
+    }),
+    {
+        code: "config-form-rules",
+        title: "字段校验规则",
+        checkbox: [{
+            name: '纯数字',
+            value: 'alaNumber',
+        }, {
+            name: '大、小写字母',
+            value: 'alaLetter',
+        }, {
+            name: '大、小写字母、数字',
+            value: 'alaLOrlOr8',
+        }, {
+            name: '大、小写字母、数字、特殊字符',
+            value: 'alaLOrlOr8Or_',
+        },],
+    }
+);
+
+const strMin = Type.String({
+    code: "config-int",
+    title: "最小长度",
+    other: {
+        min: 0,
+        max: 500,
+        controlsPosition: 'right'
+    }
+})
+
+const strMax = Type.String({
+    code: "config-int",
+    title: "最大长度",
+    other: {
+        min: 0,
+        max: 500,
+        controlsPosition: 'right'
+    }
+})
+
+
 const required = Type.String({
     code: "config-boolean",
     title: "必填字段？",
@@ -88,6 +133,9 @@ const schema = Type.Object({
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
+    rules: schemaAllViewport(rules),
+    strMin: schemaAllViewport(strMin),
+    strMax: schemaAllViewport(strMax),
     // style: schemaAllViewport(style),
 })
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 09:50:29
+ * @LastEditTime: 2024-12-23 10:05:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/formSchema.ts
  * @Description: 
  * 
@@ -94,6 +94,7 @@ const showInTable = Type.String({
     title: "列表显示？",
     default: false,
 })
+
 
 const required = Type.String({
     code: "config-boolean",

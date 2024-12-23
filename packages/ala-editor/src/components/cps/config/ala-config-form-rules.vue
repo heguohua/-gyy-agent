@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-22 22:49:16
+ * @LastEditTime: 2024-12-23 10:41:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-form-rules.vue
  * @Description: 
  * 
@@ -14,9 +14,9 @@
     <div class="ala-form-rules-wrapper">
 
         <el-form-item :label="title" label-position="top" class="rules-label">
-            <el-radio-group @change="handleChange" class="ala-form-rules-group" :model-value="model">
+            <el-radio-group class="ala-form-rules-group" :model-value="model">
                 <div class="ala-form-rules-item" v-for="(item, index) in checkbox" :key="bType + '-' + item.value">
-                    <el-radio :value="item.value">{{ item.name }}</el-radio>
+                    <el-radio :value="item.value" @click.prevent="handleChange(item.value)">{{ item.name }}</el-radio>
                 </div>
             </el-radio-group>
         </el-form-item>
@@ -67,8 +67,8 @@ interface Rule {
     max: number,
 }
 const model = defineModel({
-    type: Array<Rule>,
-    default: []
+    type: String,
+    default: ''
 })
 
 // 根据 formData 更新当前组件状态
@@ -116,8 +116,14 @@ watch(() => model.value, (value) => {
 
 // Methods
 const handleChange = (value: any) => {
-    model.value = value
+    if(model.value === value){
+        model.value = ''
+    }else{
+        model.value = value
+    }
 }
+
+
 
 
 </script>

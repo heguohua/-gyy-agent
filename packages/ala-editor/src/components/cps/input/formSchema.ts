@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 09:44:27
+ * @LastEditTime: 2024-12-23 09:56:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -115,9 +115,6 @@ const rules = Type.Array(
         code: "config-form-rules",
         title: "字段校验规则",
         checkbox: [{
-            name: '非空',
-            value: 'alaRequired',
-        }, {
             name: '手机号',
             value: 'alaPhone',
         }, {

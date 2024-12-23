@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 15:20:12
+ * @LastEditTime: 2024-12-23 10:12:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -280,6 +280,7 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
     padding: 16px;
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 200px;
 
     .block {
         width: var(--ala-form-design-item-width);

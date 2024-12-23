@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 09:50:52
+ * @LastEditTime: 2024-12-23 10:07:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/formSchema.ts
  * @Description: 
  * 
@@ -100,6 +100,27 @@ const iconHeight = Type.String({
 })
 
 
+const strMin = Type.String({
+    code: "config-int",
+    title: "最小长度",
+    other: {
+        min: 0,
+        max: 500,
+        controlsPosition: 'right'
+    }
+})
+
+const strMax = Type.String({
+    code: "config-int",
+    title: "最大长度",
+    other: {
+        min: 0,
+        max: 500,
+        controlsPosition: 'right'
+    }
+})
+
+
 const required = Type.String({
     code: "config-boolean",
     title: "必填字段？",
@@ -120,6 +141,8 @@ const schema = Type.Object({
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
+    strMin: schemaAllViewport(strMin),
+    strMax: schemaAllViewport(strMax),
     // style: schemaAllViewport(style),
 })
 
