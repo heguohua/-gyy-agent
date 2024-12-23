@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 13:08:40
+ * @LastEditTime: 2024-12-23 21:58:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
     <!-- 分页列表 -->
     <PageDynamicTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
+        :showEditButton="true" :showDeleteButton="true" :showAddButton="true" :className="className">
 
         <template #cols="{ row, columnName }">
             <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
@@ -280,11 +280,11 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
 
                 // 添加 数值最小、最大和范围验证
                 if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
-                    rules.push(alaStrLengthRange(formData.numberMin.desktop, formData.numberMax.desktop))
+                    rules.push(alaNumberRange(formData.numberMin.desktop, formData.numberMax.desktop))
                 } else if (formData.numberMin && formData.numberMin.desktop) {
-                    rules.push(alaStrMin(formData.numberMin.desktop))
+                    rules.push(alaNumberMin(formData.numberMin.desktop))
                 } else if (formData.numberMax && formData.numberMax.desktop) {
-                    rules.push(alaStrMax(formData.numberMax.desktop))
+                    rules.push(alaNumberMax(formData.numberMax.desktop))
                 }
 
                 if (formData.rules && formData.rules.desktop) {

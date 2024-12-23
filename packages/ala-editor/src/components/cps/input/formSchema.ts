@@ -146,7 +146,7 @@ const rules = Type.Array(
             value: 'alaTw',
         }, {
             name: '简体、繁体中文',
-            value: 'alaTw',
+            value: 'alaCnTw',
         },],
     }
 );

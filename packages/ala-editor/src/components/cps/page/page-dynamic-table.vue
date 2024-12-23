@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 19:38:31
+ * @LastEditTime: 2024-12-23 21:31:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -119,8 +119,10 @@ const props = defineProps({
     pageSize: {
         type: Array<number>,
         default: [10, 20, 30, 40, 50, 100, 200]
+    },
+    className: {
+        type: String
     }
-
 })
 
 // 获取数据缓存对象
@@ -192,7 +194,7 @@ const handleDelete = (index: number, item: { id: number }) => {
 const postData = (item: { id: number }) => {
 
     // 刷新列表数据
-    alaDelete(u.url(props.deleteUrl || ""), { id: item.id }, false).then((data: any) => {
+    alaDelete(u.url(props.deleteUrl || ""), { id: item.id, tableName: props.className }, false).then((data: any) => {
         const response = data;
         refresh(response)
     });
