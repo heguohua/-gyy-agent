@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 17:36:44
+ * @LastEditTime: 2024-12-23 18:52:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/add.vue
  * @Description: 
  * 
@@ -11,8 +11,8 @@
 <template>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :basicFields="basicFields" :formData="formData"
-        :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
-        :formAttr="formAttr" />
+        :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')" :formAttr="formAttr"
+        :beforeSave="beforeSave" />
 
 </template>
 
@@ -27,7 +27,6 @@ const props = defineProps({
         type: Object,
         default: {
             id: null,
-            pid: 0,
             moduleName: "模块名称不存在",
             item: {}
         }
@@ -37,6 +36,9 @@ const props = defineProps({
     },
     formAttr: {
         type: Object
+    },
+    className: {
+        type: String
     }
 })
 
@@ -46,6 +48,13 @@ const updateUrl = '/l/dynamic/update'
 // 表单数据保存对象
 const formData = reactive({
 })
+
+const beforeSave = (data: any) => {
+    console.log('data:', data);
+    const dynamicFormData = { tableName: props.className, columns: data }
+    console.log('dynamicFormData:', dynamicFormData);
+    return dynamicFormData
+}
 
 watch(() => props.baseInfo.item, (item) => {
     logger.info(`观察到 baseInfo 中的 item 发生了变化`, item);

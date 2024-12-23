@@ -28,7 +28,7 @@
 
     <!-- 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :basicFields="addFormFields"
-        :formAttr="getFormAttr" />
+        :formAttr="getFormAttr" :className="className"/>
 
 </template>
 

@@ -47,6 +47,10 @@ const props = defineProps({
     },
     updateUrl: {
         type: String
+    },
+    beforeSave: {
+        type: Function,
+        default: null
     }
 })
 
@@ -74,7 +78,12 @@ const confirm = (data: any) => {
         .then(() => {
             showDrawer.value = false
             logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
-            postData(props.formData)
+
+            let data = props.formData
+            if (props.beforeSave) {
+                data = props.beforeSave(data)
+            }
+            postData(data)
             // 清空 formData
             u.clear(props.formData)
             logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，数据提交成功后当前表单数据为：", props.formData);

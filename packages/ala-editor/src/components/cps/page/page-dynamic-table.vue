@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:24:34
+ * @LastEditTime: 2024-12-23 19:38:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -246,12 +246,11 @@ const onePageList = ref<Array<any>>([]);
 const queryPageData = () => {
 
     // 后台加载菜单
-    logger.info(`查询分页列表数据，url【 ${props.url} 】`);
+    logger.info(`查询分页列表数据，url【 ${props.url} 】,page`, page);
     loading.value = true
     alaPage(u.url(props.url || ""), page, props.params, true).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum
-        size.value = responsePage.pageSize
         total.value = responsePage.total
 
         if (data?.data?.list) {
