@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:22:00
+ * @LastEditTime: 2024-12-23 13:08:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -43,8 +43,10 @@ import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
-import { alaRequired } from '@/config/alaRules';
 import { parseChapter, parseCheckbox, parseDate, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
+import baseRule from '@/config/rules/baseRule';
+
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -147,6 +149,34 @@ const getFormAttr = computed(() => {
     return formAttr
 })
 
+// 创建一个映射，将函数名字符串映射到函数引用
+const ruleFunctions: { [key: string]: Function } = {
+    alaRequired: alaRequired,
+    alaStrMin: alaStrMin,
+    alaStrMax: alaStrMax,
+    alaStrLengthRange: alaStrLengthRange,
+    alaStrLength: alaStrLength,
+    alaNumberMin: alaNumberMin,
+    alaNumberMax: alaNumberMax,
+    alaNumberRange: alaNumberRange,
+    alaPattern: alaPattern,
+    alaEnumRule: alaEnumRule,
+    alaEmail: alaEmail,
+    alaPhone: alaPhone,
+    alaUrl: alaUrl,
+    alaCard: alaCard,
+    alaNumber: alaNumber,
+    alaLetter: alaLetter,
+    alaLOrlOr8: alaLOrlOr8,
+    alaLl8: alaLl8,
+    alaLOrlOr8Or_: alaLOrlOr8Or_,
+    alaLl8_: alaLl8_,
+    alaPassword: alaPassword,
+    alaCnTw: alaCnTw,
+    alaCn: alaCn,
+    alaTw: alaTw,
+};
+
 alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
     if (response.code === 200) {
         const config = u.parseJson(response.data[0].config)
@@ -228,6 +258,45 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     other.iconHeight = item.formData.iconHeight.desktop
                 }
                 formItem.other = other
+
+                // 解析表单验证规则
+
+
+                const rules: Array<baseRule> = []
+
+                // 非空验证条件
+                if (formData.required && formData.required.desktop) {
+                    rules.push(alaRequired())
+                }
+
+                // 添加字符数最少、最多和范围验证
+                if (formData.strMin && formData.strMax && formData.strMin.desktop && formData.strMax.desktop) {
+                    rules.push(alaStrLengthRange(formData.strMin.desktop, formData.strMax.desktop))
+                } else if (formData.strMin && formData.strMin.desktop) {
+                    rules.push(alaStrMin(formData.strMin.desktop))
+                } else if (formData.strMax && formData.strMax.desktop) {
+                    rules.push(alaStrMax(formData.strMax.desktop))
+                }
+
+                // 添加 数值最小、最大和范围验证
+                if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
+                    rules.push(alaStrLengthRange(formData.numberMin.desktop, formData.numberMax.desktop))
+                } else if (formData.numberMin && formData.numberMin.desktop) {
+                    rules.push(alaStrMin(formData.numberMin.desktop))
+                } else if (formData.numberMax && formData.numberMax.desktop) {
+                    rules.push(alaStrMax(formData.numberMax.desktop))
+                }
+
+                if (formData.rules && formData.rules.desktop) {
+                    const functionName = ruleFunctions[formData.rules.desktop]
+                    if (!functionName) {
+                        logger.error(`【 错误，错误，错误 】${formData.rules.desktop} 函数不存在`);
+                    } else {
+                        rules.push(ruleFunctions[formData.rules.desktop]())
+                    }
+                }
+
+                formItem.rules = rules
 
             });
         }

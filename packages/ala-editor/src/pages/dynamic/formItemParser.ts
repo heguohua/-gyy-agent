@@ -1,18 +1,22 @@
 import { alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDivider, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectTable, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
 
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 21:40:24
+ * @LastEditTime: 2024-12-23 13:06:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
-export function parseInput(item: { fieldName: { desktop: string }, label: { desktop: string } }) {
+
+
+export function parseInput(item: { fieldName: { desktop: string }, label: { desktop: string }, required: { desktop: boolean }, strMin: { desktop: number }, strMax: { desktop: number }, numberMin: { desktop: number }, numberMax: { desktop: number }, rules: { desktop: string } }) {
+
     const result = alaBuildInput(item.fieldName.desktop, item.label.desktop)
     logger.info(`解析【 input 】字段：`, result);
     return result

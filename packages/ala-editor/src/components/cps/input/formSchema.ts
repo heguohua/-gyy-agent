@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 11:13:29
+ * @LastEditTime: 2024-12-23 13:01:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -140,13 +140,13 @@ const rules = Type.Array(
             value: 'alaLOrlOr8Or_',
         }, {
             name: '简体中文',
-            value: 'alaLCn',
+            value: 'alaCn',
         }, {
             name: '繁体中文',
-            value: 'alaLTw',
+            value: 'alaTw',
         }, {
             name: '简体、繁体中文',
-            value: 'alaCnTw',
+            value: 'alaTw',
         },],
     }
 );
