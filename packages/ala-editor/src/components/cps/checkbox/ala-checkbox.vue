@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:33:46
+ * @LastEditTime: 2024-12-23 22:32:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <el-checkbox-group @change="handleChange" :model-value="model" class="ala-checkbox-group">
+            <el-checkbox-group @change="handleChange" :model-value="localValue" class="ala-checkbox-group">
                 <div class="ala-checkbox--item" v-for="(item, index) in items" :key="bType + '-' + item.value">
                     <el-checkbox :value="item.value" :id="fieldName + index">{{ item.name }}</el-checkbox>
                 </div>
@@ -66,12 +66,19 @@ const props = defineProps({
 const bType = props.bType
 
 const model = defineModel({
-    type: Array<string | number>,
-    default: []
+    type: String,
+    default: ''
 })
 
+const localValue = ref<Array<string | number>>([])
+// 初始化回显数据
+if (model.value) {
+    localValue.value = model.value.split(',')
+}
+
 const handleChange = (value: any) => {
-    model.value = value
+    localValue.value = value
+    model.value = value.join(',')
 }
 
 const clasz = computed(() => {
