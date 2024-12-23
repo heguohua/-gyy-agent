@@ -99,6 +99,13 @@ const showInTable = Type.String({
     title: "列表显示？",
     default: false,
 })
+
+const required = Type.String({
+    code: "config-boolean",
+    title: "必填字段？",
+    default: false,
+})
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -109,6 +116,7 @@ const schema = Type.Object({
     columnNum: schemaAllViewport(columnNum),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
+    required: schemaAllViewport(required),
     // style: schemaAllViewport(style),
 })
 

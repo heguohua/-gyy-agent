@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-22 23:07:26
+ * @LastEditTime: 2024-12-23 09:44:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -166,21 +166,6 @@ const strMax = Type.String({
 })
 
 
-const numberMin = Type.String({
-    code: "config-int",
-    title: "最小值",
-    other: {
-        controlsPosition: 'right'
-    }
-})
-
-const numberMax = Type.String({
-    code: "config-int",
-    title: "最大值",
-    other: {
-        controlsPosition: 'right'
-    }
-})
 
 
 const schema = Type.Object({
@@ -198,8 +183,7 @@ const schema = Type.Object({
     rules: schemaAllViewport(rules),
     strMin: schemaAllViewport(strMin),
     strMax: schemaAllViewport(strMax),
-    numberMin: schemaAllViewport(numberMin),
-    numberMax: schemaAllViewport(numberMax),
+
     // style: schemaAllViewport(style),
 })
 

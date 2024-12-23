@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 15:28:51
+ * @LastEditTime: 2024-12-23 09:48:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/formSchema.ts
  * @Description: 
  * 
@@ -84,6 +84,15 @@ const showInTable = Type.String({
     title: "列表显示？",
     default: false,
 })
+
+
+const required = Type.String({
+    code: "config-boolean",
+    title: "必填字段？",
+    default: false,
+})
+
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -93,6 +102,7 @@ const schema = Type.Object({
     columnNum: schemaAllViewport(columnNum),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
+    required: schemaAllViewport(required),
     // style: schemaAllViewport(style),
 })
 
