@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 10:41:50
+ * @LastEditTime: 2024-12-23 11:18:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-form-rules.vue
  * @Description: 
  * 
@@ -91,10 +91,8 @@ watch(formData, (form_data) => {
 
 // 通过回调更新 editorStore 中的状态值
 watch(() => model.value, (value) => {
-    if (!value) return;
-    // return;
     let data = {}
-    let _value = value || []
+    let _value = value || ''
 
     if (Object.values(formData || {}).length < 2) {
         data = { desktop: _value, mobile: _value, required: required ? required : false, title, rules }

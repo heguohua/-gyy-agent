@@ -344,4 +344,34 @@ export function alaPassword(message?: string, trigger = 'change'): patternRule {
         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,32}$/,
     }
 }
+/**
+ * 简体中文、繁体中文
+ * @param message 
+ * @param trigger 
+ * @returns 
+ */
+export function alaCnTw(message?: string, trigger = 'change'): patternRule {
+    return alaPattern(message ? message : "只能包含简体、繁体中文", /^[\u4e00-\u9fa5]+$/, trigger)
+
+}
+
+/**
+ * 简体中文
+ * @param message 
+ * @param trigger 
+ * @returns 
+ */
+export function alaCn(message?: string, trigger = 'change'): patternRule {
+    return alaPattern(message ? message : "只能包含简体中文", /^[\u4e00-\u9fa5\u3400-\u4DBF]+$/, trigger)
+}
+
+/**
+ * 繁体中文
+ * @param message 
+ * @param trigger 
+ * @returns 
+ */
+export function alaTw(message?: string, trigger = 'change'): patternRule {
+    return alaPattern(message ? message : "只能包含繁体中文", /^[\u4e00-\u9fa5\uF900-\uFA2D]+$/, trigger)
+}
 
