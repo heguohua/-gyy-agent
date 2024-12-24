@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
@@ -146,6 +147,7 @@ const postData = (item: any) => {
     alaPost(u.url(url || ''), item, false, item.columns.id ? 'put' : '').then((data: any) => {
         const response = data;
         emit("refresh", response)
+        notify.success(t('pop.warm_title'), "保存成功")
     });
 }
 
