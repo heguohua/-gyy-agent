@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 15:29:02
+ * @LastEditTime: 2024-12-24 17:52:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-api/formSchema.ts
  * @Description: 
  * 
@@ -52,6 +52,13 @@ const width = Type.Number({
 const url = Type.String({
     code: "config-input",
     title: "api链接",
+    default: "/u/menu/list",
+    required: true,
+})
+
+const linkUrl = Type.String({
+    code: "config-input",
+    title: "ID查询URL",
     default: "/u/menu/list",
     required: true,
 })
@@ -121,6 +128,7 @@ const schema = Type.Object({
     placeholder: schemaAllViewport(placeholder),
     width: schemaAllViewport(width),
     url: schemaAllViewport(url),
+    linkUrl: schemaAllViewport(linkUrl),
     fieldName: schemaAllViewport(fieldName),
     propertyName: schemaAllViewport(propertyName),
     valueName: schemaAllViewport(valueName),

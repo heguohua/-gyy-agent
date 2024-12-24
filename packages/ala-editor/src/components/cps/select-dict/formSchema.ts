@@ -42,6 +42,14 @@ const fieldName = Type.String({
         { name: 'pattern', pattern: 'LOrl', message: '只能包含大写字母、小写字母' },
     ]
 })
+
+const linkUrl = Type.String({
+    code: "config-input",
+    title: "ID查询URL",
+    default: "/u/menu/list",
+    required: true,
+})
+
 const width = Type.Number({
     code: "config-input",
     title: "宽度",
@@ -121,6 +129,7 @@ const schema = Type.Object({
     placeholder: schemaAllViewport(placeholder),
     width: schemaAllViewport(width),
     fieldName: schemaAllViewport(fieldName),
+    linkUrl: schemaAllViewport(linkUrl),
     propertyName: schemaAllViewport(propertyName),
     valueName: schemaAllViewport(valueName),
     itemProperty: schemaAllViewport(itemProperty),
