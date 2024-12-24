@@ -96,8 +96,9 @@ const handleChange = (value: Date | null) => {
             })
             model.value = dates
         } else {
-            const day = date.format(value, props.format);
-            model.value = day
+            let milliseconds = value.getTime(); // 使用getTime()方法获取毫秒数
+            // const day = date.format(value, props.format);
+            model.value = milliseconds
         }
 
     } else {
@@ -131,7 +132,8 @@ const disabledDate = (time: Date) => {
     :deep .el-form-item__label {
         justify-content: right;
     }
-    :deep(.el-date-editor--date){
+
+    :deep(.el-date-editor--date) {
         width: 100%;
     }
 }

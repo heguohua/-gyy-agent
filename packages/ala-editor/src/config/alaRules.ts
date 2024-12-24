@@ -34,7 +34,7 @@ export function alaRequired(message?: string, trigger = 'change'): requiredRule 
     return {
         required: true,
         trigger,
-        message: message ? message : "参数不能为空"
+        message: message ? message : "不能为空"
     }
 }
 
@@ -110,7 +110,7 @@ export function alaNumberMin(min: number, message?: string, trigger = 'change'):
     return {
         min,
         trigger,
-        message: message ? message : `参数值不能小于 ${min}`,
+        message: message ? message : `数值不能小于 ${min}`,
         type: 'number',
     }
 }
@@ -126,7 +126,7 @@ export function alaNumberMax(max: number, message?: string, trigger = 'change'):
     return {
         max,
         trigger,
-        message: message ? message : `参数值不能大于 ${max}`,
+        message: message ? message : `数值不能大于 ${max}`,
         type: 'number',
     }
 }
@@ -144,7 +144,7 @@ export function alaNumberRange(min: number, max: number, message?: string, trigg
         min,
         max,
         trigger,
-        message: message ? message : `参数值需要在 ${min} 和 ${max}之间`,
+        message: message ? message : `数值需要在 ${min} 和 ${max}之间`,
         type: 'number',
     }
 }
@@ -252,7 +252,7 @@ export function alaCard(message?: string, trigger = 'change'): patternRule {
 export function alaNumber(message?: string, trigger = 'change'): numberRule {
     return {
         trigger,
-        message: message ? message : "只能包含数字",
+        message: message ? message : "只能填写数字",
         type: 'number'
     }
 }
@@ -267,7 +267,7 @@ export function alaNumber(message?: string, trigger = 'change'): numberRule {
 export function alaLetter(message?: string, trigger = 'change'): patternRule {
     return {
         trigger,
-        message: message ? message : "只能包含大写字母、小写字母",
+        message: message ? message : "只能填写大写字母、小写字母",
         pattern: /^[a-zA-Z]*$/,
     }
 }
@@ -282,7 +282,7 @@ export function alaLetter(message?: string, trigger = 'change'): patternRule {
 export function alaLOrlOr8(message?: string, trigger = 'change'): patternRule {
     return {
         trigger,
-        message: message ? message : "只能包含大写字母、小写字母或数字",
+        message: message ? message : "只能填写大写字母、小写字母或数字",
         pattern: /^[a-zA-Z0-9]*$/,
     }
 }
@@ -297,7 +297,7 @@ export function alaLOrlOr8(message?: string, trigger = 'change'): patternRule {
 export function alaLl8(message?: string, trigger = 'change'): patternRule {
     return {
         trigger,
-        message: message ? message : "至少包含一个大写字母、小写字母和数字的组合",
+        message: message ? message : "至少填写一个大写字母、小写字母和数字的组合",
         pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z\d]*$/,
     }
 }
@@ -312,7 +312,7 @@ export function alaLl8(message?: string, trigger = 'change'): patternRule {
 export function alaLOrlOr8Or_(message?: string, trigger = 'change'): patternRule {
     return {
         trigger,
-        message: message ? message : "只能是大写字母、小写字母、数字或特殊字符的组合",
+        message: message ? message : "只能填写大写字母、小写字母、数字或特殊字符的组合",
         pattern: /^[a-zA-Z0-9\p{P}\p{S}]+$/u,
     }
 }
@@ -325,7 +325,7 @@ export function alaLOrlOr8Or_(message?: string, trigger = 'change'): patternRule
 export function alaLl8_(message?: string, trigger = 'change'): patternRule {
     return {
         trigger,
-        message: message ? message : "至少包含一个大写字母、小写字母、数字和特殊字符的组合",
+        message: message ? message : "至少填写一个大写字母、小写字母、数字和特殊字符的组合",
         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).+$/,
     }
 }
@@ -351,7 +351,7 @@ export function alaPassword(message?: string, trigger = 'change'): patternRule {
  * @returns 
  */
 export function alaCnTw(message?: string, trigger = 'change'): patternRule {
-    return alaPattern(message ? message : "只能包含简体、繁体中文", /^[\u4e00-\u9fa5]+$/, trigger)
+    return alaPattern(message ? message : "只能填写简体、繁体中文", /^[\u4e00-\u9fa5]+$/, trigger)
 
 }
 
@@ -362,7 +362,7 @@ export function alaCnTw(message?: string, trigger = 'change'): patternRule {
  * @returns 
  */
 export function alaCn(message?: string, trigger = 'change'): patternRule {
-    return alaPattern(message ? message : "只能包含简体中文", /^[\u4e00-\u9fa5\u3400-\u4DBF]+$/, trigger)
+    return alaPattern(message ? message : "只能填写简体中文", /^[\u4e00-\u9fa5\u3400-\u4DBF]+$/, trigger)
 }
 
 /**
@@ -372,6 +372,6 @@ export function alaCn(message?: string, trigger = 'change'): patternRule {
  * @returns 
  */
 export function alaTw(message?: string, trigger = 'change'): patternRule {
-    return alaPattern(message ? message : "只能包含繁体中文", /^[\u4e00-\u9fa5\uF900-\uFA2D]+$/, trigger)
+    return alaPattern(message ? message : "只能填写繁体中文", /^[\u4e00-\u9fa5\uF900-\uFA2D]+$/, trigger)
 }
 
