@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 11:32:44
+ * @LastEditTime: 2024-12-24 12:26:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -287,11 +287,7 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
         width: var(--ala-form-design-item-width);
         display: inline-block;
 
-        .block-nested-render {
-            .nested-item {}
-        }
-
-        div {}
+      
     }
 
     .element {
@@ -305,7 +301,6 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
 
 .nested-item {
     border: 1px solid var(--color-edit-render-block-border);
-    //   background: var(--color-edit-render-block-bg);
     height: 100%;
     min-height: inherit;
 
