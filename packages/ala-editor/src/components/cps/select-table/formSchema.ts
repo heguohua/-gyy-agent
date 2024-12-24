@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 17:52:00
+ * @LastEditTime: 2024-12-24 20:32:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/formSchema.ts
  * @Description: 
  * 
@@ -76,9 +76,9 @@ const valueName = Type.String({
 })
 
 const columns = Type.String({
-    code: "config-object",
+    code: "config-textarea",
     title: "列字段",
-    default: [],
+    default: '',
     required: true,
 })
 
@@ -89,7 +89,7 @@ const itemProperty = Type.String({
 })
 
 const params = Type.String({
-    code: "config-object",
+    code: "config-textarea",
     title: "请求参数",
     default: "",
 })

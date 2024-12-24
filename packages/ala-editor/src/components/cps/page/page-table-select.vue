@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 16:42:56
+ * @LastEditTime: 2024-12-24 21:17:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
 
         <div class="table-title">
             <!-- 查询条件 -->
-            <SearchPanel :baseFields="baseFields" :params="formParams" @refresh="refresh" labelWidth="180px"
+            <SearchPanel :baseFields="searchFields" :params="formParams" @refresh="refresh" labelWidth="180px"
                 :showAddButton="false" ref="searchPanelRef" :isFormDesign="isFormDesign" />
 
         </div>
@@ -30,12 +30,12 @@
                 :reserve-selection="true" />
 
             <!-- 主表列渲染 -->
-            <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
+            <el-table-column v-for="column in columnss" :key="column.prop" :prop="column.prop"
                 :label="isFormDesign ? parseLabel(column.label) : column.label" sortable>
 
-                <template #default="scope">
+                <!-- <template #default="scope">
                     <slot name="cols" :row="scope.row" :columnName="column.prop"></slot>
-                </template>
+                </template> -->
 
 
             </el-table-column>
@@ -83,7 +83,7 @@ const props = defineProps({
         default: '温馨提示：'
     },
     columns: {
-        type: Array<Column>
+        type: String
     },
     url: {
         type: String
@@ -131,13 +131,21 @@ const props = defineProps({
 
 // 查询条件区域对象
 const formParams = ref({})
-const baseFields = computed(() => {
+const columnss = ref<Array<any>>([])
+const searchFields = computed(() => {
     const fields: any = []
-    props.columns?.forEach((column) => {
-        if (column.isQuery) {
-            fields.push(alaBuildInput(column.prop, t('module.menu.' + column.prop)),)
-        }
-    })
+    if (props.columns) {
+        const columns = u.parseJson(props.columns)
+        
+        columns.forEach((column:any) => {
+            columnss.value.push(column)
+            if (column.isQuery) {
+                fields.push(alaBuildInput(column.prop, t('module.menu.' + column.prop)),)
+            }
+        })
+    }
+    console.log('columnss-->:',columnss);
+    
     return fields
 })
 

@@ -277,7 +277,7 @@ export function alaBuildSelectTable(fieldName: string, label: string, url: strin
     u.checkBoolean(!params, `表单元素 select-table 配置项 params 为空，表单字段名${fieldName}`)
     u.checkBoolean(!columns, `表单元素 select-table 配置项 columns 为空，表单字段名${fieldName}`)
 
-    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns, itemProperty }, rules, placeholder)
+    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns, itemProperty, isFormDesign: true }, rules, placeholder)
     return obj
 }
 

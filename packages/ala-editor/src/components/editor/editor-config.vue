@@ -259,7 +259,7 @@ const handleSave = () => {
     position: fixed;
     z-index: 200;
     top: var(--edit-header-height);
-    right: -280px;
+    right: -330px;
     width: 330px;
     background: white;
     border-left: 1px solid var(--color-border);

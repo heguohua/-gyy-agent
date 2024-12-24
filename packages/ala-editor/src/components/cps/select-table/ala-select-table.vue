@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 15:09:37
+ * @LastEditTime: 2024-12-24 20:59:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -62,7 +62,7 @@
             <el-table :data="selectedData" style="width: 100%" row-key="id">
 
               <!-- 主表列渲染 -->
-              <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop"
+              <el-table-column v-for="column in columnss" :key="column.prop" :prop="column.prop"
                 :label="isFormDesign ? parseLabel(column.label) : column.label">
               </el-table-column>
 
@@ -147,8 +147,8 @@ const props = defineProps({
     default: ''
   },
   columns: {
-    type: Array<any>,
-    default: () => []
+    type: String,
+    default: ''
   },
   itemProperty: {
     type: Object as () => ItemProperty,
@@ -284,6 +284,16 @@ watch(() => dialogShow.value, (value) => {
 const parseLabel = (label: string) => {
   return t(label.slice(3, label.length - 2));
 }
+const columnss = computed(() => {
+    const fields: any = []
+    if (props.columns) {
+        const columns = u.parseJson(props.columns)
+        columns.forEach((column:any) => {
+          fields.push(column)
+        })
+    }
+    return fields
+})
 
 </script>
 
