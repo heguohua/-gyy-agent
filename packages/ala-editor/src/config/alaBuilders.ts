@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 19:40:26
+ * @LastEditTime: 2024-12-24 12:56:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -338,6 +338,10 @@ type dataTypee = "date" | "year" | "years" | "month" | "months" | "dates" | "wee
  */
 export function alaBuildDate(fieldName: string, label: string, dateType: dataTypee, format: string, rules?: Array<baseRule>, start?: string, end?: string, placeholder?: string): AlaDateSchema {
     const obj = alaBuildWithOther("AlaDate", fieldName, label, { dateType, format, start, end }, rules, placeholder)
+    return obj
+}
+export function alaBuildDateRange(fieldName: string, label: string, dateType: dataTypee, format: string, rules?: Array<baseRule>, start?: string, end?: string, placeholder?: string): AlaDateSchema {
+    const obj = alaBuildWithOther("AlaDateRange", fieldName, label, { dateType, format, start, end }, rules, placeholder)
     return obj
 }
 

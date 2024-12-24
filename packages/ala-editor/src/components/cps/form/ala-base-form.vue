@@ -2,7 +2,7 @@
     <el-form :model="formData" :label-width="labelWidth()" :rules="rules" ref="formRef">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
             :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
-            :tipTitle="tipTitle" />
+            :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback" />
     </el-form>
 
 </template>
@@ -89,6 +89,7 @@ const confirm = (data: any) => {
                     if (props.beforeSave) {
                         data = props.beforeSave(data)
                     }
+
                     postData(data)
                     // 清空 formData
                     u.clear(props.formData)
@@ -171,7 +172,12 @@ const postData = (item: any) => {
 
 const emit = defineEmits(["confirm", "refresh"])
 
-
+const formItemChangeCallback = (data: any) => {
+    console.log('data-callback:', data);
+    u.merged(props.formData || {}, data)
+    console.log('props.formData:',props.formData);
+    
+}
 
 // ##########################  以下是冗余示例代码  #########################################
 

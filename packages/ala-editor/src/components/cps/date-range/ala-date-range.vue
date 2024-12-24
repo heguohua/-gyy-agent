@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 11:30:22
+ * @LastEditTime: 2024-12-24 14:45:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
  * @Description: 
  * 
@@ -17,7 +17,7 @@
             <!-- 注意，注意，注意 el-date-picker 中必须使用 @update:model-value 更新数据值-->
             <el-date-picker :model-value="localModel" :disabled-date="disabledDate" :type="dateType"
                 :placeholder="placeholder" :size="size" @update:model-value="handleChange"
-                :picker-options="pickerOptions" :id="fieldName" />
+                :picker-options="pickerOptions" />
         </el-form-item>
 
     </div>
@@ -92,23 +92,26 @@ const fieldName = computed(() => {
 })
 
 
+const emit = defineEmits(["formItemChangeCallback"])
 
-const formData = toRefs(props.data||{})
-console.log('props.startFieldName:',props.startFieldName);
-console.log('props.endFieldName:',props.endFieldName);
+const localModel = computed(() => {
+    const arr: number[] = []
+    if (props.data && props.data?.[props.startFieldName] && props.data?.[props.endFieldName]) {
+        const startDate = props.data?.[props.startFieldName]
+        const endDate = props.data?.[props.endFieldName]
+        arr.push(startDate, endDate)
+    }
+    return arr
+})
 
-const startFieldName = formData[props.startFieldName]
-const endFieldName = formData[props.endFieldName]
-console.log('formData===>:', formData);
-console.log('startFieldName===>:', startFieldName);
-console.log('endFieldName===>:', endFieldName);
 
-// const model = defineModel({
-//     type: [String, Number, Array<Number>, Date] as const,
-//     default: Object
-// })
+onActivated(() => {
+    console.log('props.data?.[props.startFieldName]:', props.data?.[props.startFieldName]);
 
-const localModel = ref<Array<Number>>([])
+})
+
+const startValue = ref(0)
+const endValue = ref(0)
 
 const handleChange = (value: Date | null) => {
 
@@ -121,12 +124,19 @@ const handleChange = (value: Date | null) => {
                 let milliseconds = day.getTime();
                 dates.push(milliseconds)
                 if (i === 0) {
-                    startFieldName.value = milliseconds
+                    startValue.value = milliseconds
                 } else if (i === 1) {
-                    endFieldName.value = milliseconds
+                    endValue.value = milliseconds
                 }
             }
             localModel.value = dates
+            // 表单数据更新回调
+            console.log('表单数据更新回调:', dates);
+
+            emit("formItemChangeCallback", {
+                [props.startFieldName]: startValue.value,
+                [props.endFieldName]: endValue.value,
+            })
         } else {
             logger.error(`范围选择日期，选择后日期值不正确`);
         }

@@ -1,4 +1,4 @@
-import { alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDivider, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectTable, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import { alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectTable, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
 
@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 13:06:02
+ * @LastEditTime: 2024-12-24 12:56:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -131,6 +131,12 @@ export function parseSelectTable(item: { fieldName: { desktop: string }, label: 
 }
 
 
+export function parseDateRange(item: { startFieldName: { desktop: string }, endFieldName: { desktop: string }, label: { desktop: string }, dateType: { desktop: dataTypee }, format: { desktop: string } }) {
+    // alaBuildDate('bornDate', "出生日期", 'date', "YYYY-MM-DD", [alaRequired()], "", date.YYYY_MM_DD(new Date())),
+    const result = alaBuildDateRange(item.startFieldName.desktop + '_' + item.endFieldName.desktop, item.label.desktop, item.dateType.desktop, item.format.desktop)
+    logger.info(`解析【 dateRange 】字段：`, result);
+    return result
+}
 
 
 

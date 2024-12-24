@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 09:09:41
+ * @LastEditTime: 2024-12-24 14:03:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -85,12 +85,7 @@ const handleChange = (value: string) => {
 
 // Methods
 
-logger.error(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
-
-const ck = () => {
-    model.value = model.value+'-2'
-    logger.error(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
-}
+logger.info(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
 
 
 // // 发送组件初始化消息

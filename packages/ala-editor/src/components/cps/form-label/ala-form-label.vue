@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:12:17
+ * @LastEditTime: 2024-12-24 14:42:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label.vue
  * @Description: 
  * 
@@ -68,6 +68,8 @@ defineProps({
   // align-items: center;
   display: inline-flex;
   align-items: center;
+  position: relative;
+  padding-right: 4px;
 
   .ala-help-icon {
     color: var(--el-input-hover-border-color);
@@ -77,6 +79,8 @@ defineProps({
 </style>
 <style>
 .ala-form-label svg {
+  position: absolute;
+  right: -11px;
   opacity: 0.7;
 }
 </style>

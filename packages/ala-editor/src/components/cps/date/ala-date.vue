@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:24:37
+ * @LastEditTime: 2024-12-24 14:00:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -80,8 +80,10 @@ const props = defineProps({
 })
 
 const model = defineModel({
-    type: [String, Number, Array<String>, Date] as const,
-    default: Object
+    type: [String, Number] as PropType<number | string>,
+    default: () => {
+        return new Date().getTime()
+    }
 })
 
 const handleChange = (value: Date | null) => {

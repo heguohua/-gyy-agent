@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 10:34:35
+ * @LastEditTime: 2024-12-24 14:07:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -43,7 +43,7 @@ import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
-import { parseChapter, parseCheckbox, parseDate, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 
@@ -211,7 +211,6 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 }
 
                 // 组装 form 表单字段
-
                 let formItem: any = {}
                 if (code === 'input') {
                     formItem = parseInput(formData)
@@ -253,19 +252,20 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     formItem = parseSelectTable(formData)
                     addFormFields.value.push(formItem)
                 } else if (code === 'dateRange') {
-                    console.log('formData:', formData);
-
-                    // formItem = parseSelectTable(formData)
-                    // addFormFields.value.push(formItem)
+                    // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
+                    formItem = parseDateRange(formData)
+                    formItem.other.startFieldName = formData.startFieldName.desktop
+                    formItem.other.endFieldName = formData.endFieldName.desktop
+                    addFormFields.value.push(formItem)
                 }
 
+                const other = formItem.other || {}
 
                 if (item.formData.columnNum) {
                     formItem.columnNum = item.formData.columnNum.desktop
                 }
 
                 // 处理 组件 other 中的属性信息
-                const other = formItem.other || {}
                 if (item.formData.help && item.formData.help.desktop) {
                     other.help = item.formData.help.desktop
                 }
@@ -274,6 +274,7 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     other.iconWidth = item.formData.iconWidth.desktop
                     other.iconHeight = item.formData.iconHeight.desktop
                 }
+
                 formItem.other = other
 
                 // 解析表单验证规则

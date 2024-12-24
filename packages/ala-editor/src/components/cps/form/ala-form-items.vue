@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 11:25:18
+ * @LastEditTime: 2024-12-24 14:02:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -21,7 +21,7 @@
                     :style="columnWidth(item)">
                     <component :is="item.componentName" :label="item.label" :position="labelPosition()"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
-                        :fieldName="item.fieldName" :data="data"/>
+                        :fieldName="item.fieldName" :data="data" @formItemChangeCallback="formItemChangeCallback" />
                 </div>
 
             </template>
@@ -80,7 +80,7 @@ const props = defineProps({
     }
 })
 
-const useFormTitle = ()=>{    
+const useFormTitle = () => {
     return props.formAttr.value.useFormTitle
 }
 
@@ -101,7 +101,12 @@ const showDrawer = defineModel({
 })
 
 
-const emit = defineEmits(["confirm"])
+const emit = defineEmits(["confirm", "formItemChangeCallback"])
+const formItemChangeCallback = (data: any) => {
+    console.log('data:',data);
+    
+    emit("formItemChangeCallback", data)
+}
 
 const direction = ref<DrawerProps['direction']>('rtl')
 
@@ -179,7 +184,7 @@ const columnWidth = (item: any) => {
     columnWidth = columnWidth * occupiedColumnNum
 
     const style = { width: columnWidth + 'px' }
-    logger.info(`计算 动态表单 区域 单个组件 宽度，style`, style);
+    // logger.info(`计算 动态表单 区域 单个组件 宽度，style`, style);
     return style
 
 }

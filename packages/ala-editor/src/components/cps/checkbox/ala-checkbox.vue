@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 22:32:28
+ * @LastEditTime: 2024-12-24 14:48:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
@@ -70,11 +70,13 @@ const model = defineModel({
     default: ''
 })
 
-const localValue = ref<Array<string | number>>([])
 // 初始化回显数据
-if (model.value) {
-    localValue.value = model.value.split(',')
-}
+const localValue: any = computed(() => {
+    if (model.value) {
+        return model.value.split(',')
+    }
+})
+
 
 const handleChange = (value: any) => {
     localValue.value = value
