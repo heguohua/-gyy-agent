@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:23:49
+ * @LastEditTime: 2024-12-24 15:09:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -25,8 +25,8 @@
       </template>
       <div class="ala-select-customer ala-form-item-border" :style="styles">
         <!-- <input type="hidden" :model-value="model" :id="fieldName"> -->
-        <p class="placeholder" v-if="model.length === 0">{{ $t('form.p-select-1') }} {{ label }}</p>
-        <p class="show-values" v-if="model.length != 0" v-html="showValue"></p>
+        <p class="placeholder" v-if="!model || model.length === 0">{{ $t('form.p-select-1') }} {{ label }}</p>
+        <p class="show-values" v-if="model && model.length != 0" v-html="showValue"></p>
       </div>
       <div class="ala-select-customer-icon">
         <v-icon class="icon" icon="f_user" @click="openDialog" />
@@ -165,8 +165,12 @@ const props = defineProps({
 
 const model = defineModel({
   type: Array<any>,
-  default: () => ([])
+  default: () => { return [] }
 })
+
+console.log('model:',model.value);
+
+
 const styles = computed(() => {
   return { minWidth: props.width + 'px' }
 })
