@@ -36,6 +36,7 @@ declare module 'vue' {
     AlaCurrentDateTime: typeof import('./src/components/cps/time/AlaCurrentDateTime.vue')['default']
     AlaCustomerizationComponentDemo: typeof import('./src/components/cps/input/ala-customerization-component-demo.vue')['default']
     AlaDate: typeof import('./src/components/cps/date/ala-date.vue')['default']
+    AlaDateRange: typeof import('./src/components/cps/date-range/ala-date-range.vue')['default']
     AlaDivider: typeof import('./src/components/cps/divider/ala-divider.vue')['default']
     AlaElConfigProvider: typeof import('./src/components/i18n/AlaElConfigProvider.vue')['default']
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']

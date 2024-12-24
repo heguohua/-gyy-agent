@@ -1,0 +1,170 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-11-11 21:55:35
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-12-24 11:30:22
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
+<template>
+    <div class="ala-date-picker-wrapper">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName">
+            <template #label>
+                <AlaFormLabel :label="label" :help="help" />
+            </template>
+            <!-- 注意，注意，注意 el-date-picker 中必须使用 @update:model-value 更新数据值-->
+            <el-date-picker :model-value="localModel" :disabled-date="disabledDate" :type="dateType"
+                :placeholder="placeholder" :size="size" @update:model-value="handleChange"
+                :picker-options="pickerOptions" :id="fieldName" />
+        </el-form-item>
+
+    </div>
+</template>
+
+<script setup lang="ts">
+import { date } from '@/utils/date';
+import { logger } from '@/utils/logger';
+
+
+const size = ref<'default' | 'large' | 'small'>('default')
+
+// State
+const props = defineProps({
+    data: {
+        type: Object
+    },
+    label: {
+        type: String,
+        default: ''
+    },
+    position: {
+        type: String as () => '' | 'top' | 'left' | 'right',
+        default: 'left'
+    },
+    placeholder: {
+        type: String,
+        default: ''
+    },
+    dateType: {
+        type: String as () => "date" | "year" | "years" | "month" | "months" | "dates" | "week" | "datetime" | "datetimerange" | "daterange" | "monthrange" | "yearrange",
+        default: 'date'
+    },
+    pickerOptions: {
+        type: Object,
+        default: {
+            firstDayOfWeek: 1
+        }
+    },
+    // 被选择日期返参格式化表达式
+    format: {
+        type: String,
+        default: 'YYYY-MM-DD'
+    },
+    // 可选择日期范围限定的开始日期
+    start: {
+        type: String,
+        default: ''
+    },
+    // 可选择日期范围限定的结束日期
+    end: {
+        type: String,
+        default: ''
+    },
+    startFieldName: {
+        type: String,
+        default: 'startFieldName'
+    },
+    endFieldName: {
+        type: String,
+        default: 'endFieldName'
+    },
+    help: {
+        type: String,
+    }
+})
+
+
+
+const fieldName = computed(() => {
+    return props.startFieldName + '_' + props.endFieldName
+})
+
+
+
+const formData = toRefs(props.data||{})
+console.log('props.startFieldName:',props.startFieldName);
+console.log('props.endFieldName:',props.endFieldName);
+
+const startFieldName = formData[props.startFieldName]
+const endFieldName = formData[props.endFieldName]
+console.log('formData===>:', formData);
+console.log('startFieldName===>:', startFieldName);
+console.log('endFieldName===>:', endFieldName);
+
+// const model = defineModel({
+//     type: [String, Number, Array<Number>, Date] as const,
+//     default: Object
+// })
+
+const localModel = ref<Array<Number>>([])
+
+const handleChange = (value: Date | null) => {
+
+    if (value) {
+
+        if (Array.isArray(value)) {
+            const dates: Number[] = []
+            for (let i = 0; i < value.length; i++) {
+                const day = value[i]
+                let milliseconds = day.getTime();
+                dates.push(milliseconds)
+                if (i === 0) {
+                    startFieldName.value = milliseconds
+                } else if (i === 1) {
+                    endFieldName.value = milliseconds
+                }
+            }
+            localModel.value = dates
+        } else {
+            logger.error(`范围选择日期，选择后日期值不正确`);
+        }
+
+    } else {
+        logger.error("注意，注意，注意：当前选择日期后为null");
+    }
+}
+
+const disabledDate = (time: Date) => {
+
+    if (props.start && props.end) {
+        return time.getTime() < new Date(props.start).getTime() || time.getTime() > new Date(props.end).getTime();
+    }
+
+    if (!props.start && props.end) {
+        return time.getTime() > new Date(props.end).getTime();
+    }
+
+    if (props.start && !props.end) {
+        return time.getTime() < new Date(props.start).getTime();
+    }
+    return false;
+
+}
+
+// Methods
+
+</script>
+
+<style scoped lang="scss">
+.ala-date-picker-wrapper {
+    :deep .el-form-item__label {
+        justify-content: right;
+    }
+
+    :deep(.el-date-editor--date) {
+        width: 100%;
+    }
+}
+</style>

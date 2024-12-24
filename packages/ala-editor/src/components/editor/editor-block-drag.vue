@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 13:34:52
+ * @LastEditTime: 2024-12-24 10:14:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block-drag.vue
  * @Description: 
  * 
@@ -69,7 +69,6 @@ const bType = props.bType
         width: 33.333%;
         aspect-ratio: 1 / 1;
         text-align: center;
-        padding: 10px;
         border-radius: var(--border-radius);
 
         &:active {
@@ -88,10 +87,9 @@ const bType = props.bType
         }
 
         .block-name {
-            font-size: 14px;
-            line-height: 14px;
+            font-size: 0.8rem;
+            line-height: 0.8rem;
             padding-top: 4px;
-            white-space: nowrap;
         }
     }
 }

@@ -21,7 +21,8 @@ export const AlaDateType = [
   { value: "months", name: "多个月份" },
   { value: "dates", name: "多个日期" },
   { value: "week", name: "周" },
-  { value: "datetime", name: "日期和时间" },
+]
+export const AlaDateTypeRange = [
   { value: "datetimerange", name: "日期或时间范围" },
   { value: "daterange", name: "日范围" },
   { value: "monthrange", name: "月范围" },

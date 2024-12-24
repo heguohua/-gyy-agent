@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 21:58:46
+ * @LastEditTime: 2024-12-24 10:34:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -28,7 +28,7 @@
 
     <!-- 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :basicFields="addFormFields"
-        :formAttr="getFormAttr" :className="className"/>
+        :formAttr="getFormAttr" :className="className" />
 
 </template>
 
@@ -189,13 +189,25 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
 
                 // 组装列表字段
                 if (formData.showInTable?.desktop) {
-                    const column = { prop: formData.fieldName.desktop, label: formData.label.desktop }
-                    columns.value.push(column)
+                    if (code === 'dateRange') {
+                        console.log('showInTable - dateRange:', formData);
+
+                    } else {
+                        const column = { prop: formData.fieldName.desktop, label: formData.label.desktop }
+                        columns.value.push(column)
+                    }
+
+
                 }
 
                 // 组装基础查询字段
                 if (formData.showInSearch?.desktop) {
-                    baseFields.value.push(alaBuildInput(formData.fieldName.desktop, formData.label.desktop))
+                    if (code === 'dateRange') {
+                        console.log('showInSearch - dateRange:', formData);
+
+                    } else {
+                        baseFields.value.push(alaBuildInput(formData.fieldName.desktop, formData.label.desktop))
+                    }
                 }
 
                 // 组装 form 表单字段
@@ -240,6 +252,11 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 } else if (code === 'selectTable') {
                     formItem = parseSelectTable(formData)
                     addFormFields.value.push(formItem)
+                } else if (code === 'dateRange') {
+                    console.log('formData:', formData);
+
+                    // formItem = parseSelectTable(formData)
+                    // addFormFields.value.push(formItem)
                 }
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 10:12:03
+ * @LastEditTime: 2024-12-24 11:32:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-form.vue
  * @Description: 
  * 
@@ -69,7 +69,7 @@
                             <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
                                 :viewport="editorStore.viewport[bType]" :id="element.id" :formData="element.formData"
                                 :pid="pid" :block="element" :bType="bType"
-                                v-bind="extractFormItemProps(element.formData)" @init="init" />
+                                v-bind="extractFormItemProps(element.formData)" @init="init" :data="formData" />
                             <!-- 通过 v-bind ，用于转换 baseBlock 属性到表单元素需要的 props 属性 -->
                         </div>
 
@@ -94,6 +94,7 @@ import { useEditorStore } from "@/store/useEditorStore"
 import { BaseBlock } from "@/types/editorType";
 import { logger } from "@/utils/logger";
 import EditRenderHover from "./edit-render-hover.vue";
+import End from "../flow/PropertySetting/end.vue";
 
 const editorStore = useEditorStore()
 
@@ -227,7 +228,7 @@ const clear = (id: string) => {
 }
 
 
-const formData = ref({})
+const formData = ref({ start: 0, end: 0, })
 
 const extractFormItemProps = (item: any) => {
     return extractProps(item, "desktop")

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-22 23:00:40
+ * @LastEditTime: 2024-12-24 10:08:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -42,6 +42,7 @@ import AlaCheckbox from '@/components/cps/checkbox/ala-checkbox.vue';
 import AlaSelect from '@/components/cps/select/ala-select.vue';
 import AlaSwitch from '@/components/cps/switch/ala-switch.vue';
 import AlaDate from '@/components/cps/date/ala-date.vue';
+import AlaDateRange from '@/components/cps/date-range/ala-date-range.vue';
 import AlaRating from '@/components/cps/rating/ala-rating.vue';
 import AlaCustomerizationComponentDemo from '@/components/cps/input/ala-customerization-component-demo.vue';
 import AlaNumber from '@/components/cps/number/ala-number.vue';
@@ -92,6 +93,7 @@ export default {
     AlaSelect,
     AlaSwitch,
     AlaDate,
+    AlaDateRange,
     AlaRating,
     AlaNumber,
     AlaHidden,

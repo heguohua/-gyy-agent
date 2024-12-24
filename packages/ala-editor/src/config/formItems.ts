@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:52:50
+ * @LastEditTime: 2024-12-24 10:10:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -86,6 +86,13 @@ export const baseFields: BaseBlock[] = [
         id: "",
         name: "日期",
         code: "date",
+        icon: "calendar",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "日期范围",
+        code: "dateRange",
         icon: "calendar",
         formData: {},
     },
