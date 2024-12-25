@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 17:49:02
+ * @LastEditTime: 2024-12-25 19:46:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -31,10 +31,10 @@
                 <CheckboxColumn :value="row[columnName]" :formItem="formItem" />
             </template>
             <template v-else-if="formItem.code === 'select'">
-                <SliderColumn :value="row[columnName]" :formItem="formItem" />
+                <SelectColumn :value="row[columnName]" :formItem="formItem" />
             </template>
             <template v-else-if="formItem.code === 'slider'">
-                <SelectColumn :value="row[columnName]" :formItem="formItem" />
+                <SliderColumn :value="row[columnName]" :formItem="formItem" />
             </template>
             <template v-else-if="formItem.code === 'rating'">
                 <RatingColumn :value="row[columnName]" :formItem="formItem" />
