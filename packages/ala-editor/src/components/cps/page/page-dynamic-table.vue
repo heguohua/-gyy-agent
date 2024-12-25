@@ -318,6 +318,11 @@ defineExpose({ refresh })
         min-height: 400px;
     }
 
+    :deep(.el-table td.el-table__cell div) {
+        display: flex;
+        align-items: center;
+    }
+
 
 
 }
