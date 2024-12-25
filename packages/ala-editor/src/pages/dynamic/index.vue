@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 14:07:23
+ * @LastEditTime: 2024-12-25 16:56:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -18,10 +18,57 @@
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
         :showEditButton="true" :showDeleteButton="true" :showAddButton="true" :className="className">
 
-        <template #cols="{ row, columnName }">
+        <template #cols="{ row, columnName, formItem }">
             <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
                 in-valid-name="禁用" :value="row[columnName]" />
-            <template v-else>{{ row[columnName] }}</template>
+            <template v-else-if="formItem.code === 'textarea'">
+                <TextareaColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'radio'">
+                <RadioColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'checkbox'">
+                <CheckboxColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'select'">
+                <SliderColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'slider'">
+                <SelectColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'rating'">
+                <RatingColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'selectApi'">
+                <SelectApiColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'selectTree'">
+                <SelectTreeColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'selectDict'">
+                <SelectDictColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'selectTable'">
+                <SelectTableColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'number'">
+                <NumberColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'xiaoshu'">
+                <XiaoshuColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'switchh'">
+                <SwitchColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'date'">
+                <DateColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else-if="formItem.code === 'dateRange'">
+                <DateRangeColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
+            <template v-else>
+                <InputColumn :value="row[columnName]" :formItem="formItem" />
+            </template>
         </template>
 
     </PageDynamicTable>
@@ -46,6 +93,22 @@ import { alaPost } from '@/utils/req';
 import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
+import InputColumn from '@/components/cps/dynamic/InputColumn.vue';
+import TextareaColumn from '@/components/cps/dynamic/TextareaColumn.vue';
+import RadioColumn from '@/components/cps/dynamic/RadioColumn.vue';
+import CheckboxColumn from '@/components/cps/dynamic/CheckboxColumn.vue';
+import SelectColumn from '@/components/cps/dynamic/SelectColumn.vue';
+import SliderColumn from '@/components/cps/dynamic/SliderColumn.vue';
+import RatingColumn from '@/components/cps/dynamic/RatingColumn.vue';
+import SelectApiColumn from '@/components/cps/dynamic/SelectApiColumn.vue';
+import SelectTreeColumn from '@/components/cps/dynamic/SelectTreeColumn.vue';
+import SelectDictColumn from '@/components/cps/dynamic/SelectDictColumn.vue';
+import SelectTableColumn from '@/components/cps/dynamic/SelectTableColumn.vue';
+import NumberColumn from '@/components/cps/dynamic/NumberColumn.vue';
+import XiaoshuColumn from '@/components/cps/dynamic/XiaoshuColumn.vue';
+import SwitchColumn from '@/components/cps/dynamic/SwitchColumn.vue';
+import DateColumn from '@/components/cps/dynamic/DateColumn.vue';
+import DateRangeColumn from '@/components/cps/dynamic/DateRangeColumn.vue';
 
 const { t } = useI18n();
 
@@ -186,6 +249,7 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
             config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 
                 const { code, formData } = { ...item }
+                console.log('item----->:', item);
 
                 // 组装列表字段
                 if (formData.showInTable?.desktop) {
@@ -193,7 +257,9 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                         console.log('showInTable - dateRange:', formData);
 
                     } else {
-                        const column = { prop: formData.fieldName.desktop, label: formData.label.desktop }
+                        const column = { prop: formData.fieldName.desktop, label: formData.label.desktop, formItem: item }
+                        console.log('formData----->:', formData);
+
                         columns.value.push(column)
                     }
 

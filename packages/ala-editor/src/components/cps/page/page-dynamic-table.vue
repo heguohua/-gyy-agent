@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 15:18:08
+ * @LastEditTime: 2024-12-25 16:29:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -25,7 +25,7 @@
                 sortable>
 
                 <template #default="scope">
-                    <slot name="cols" :row="scope.row" :columnName="column.prop"></slot>
+                    <slot name="cols" :row="scope.row" :columnName="column.prop" :formItem="column.formItem"></slot>
                 </template>
 
             </el-table-column>
@@ -67,6 +67,7 @@ const { t } = useI18n();
 interface Column {
     prop: string;
     label: string;
+    formItem: Object;
 }
 
 const props = defineProps({
