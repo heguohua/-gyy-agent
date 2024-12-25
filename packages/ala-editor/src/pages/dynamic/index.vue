@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 20:30:43
+ * @LastEditTime: 2024-12-25 21:03:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -64,7 +64,9 @@
                 <DateColumn :value="row[columnName]" :formItem="formItem" />
             </template>
             <template v-else-if="formItem.code === 'dateRange'">
-                <DateRangeColumn :value="row[columnName]" :formItem="formItem" />
+                <DateRangeColumn
+                    :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
+                    :formItem="formItem" />
             </template>
             <template v-else>
                 <InputColumn :value="row[columnName]" :formItem="formItem" />
@@ -253,11 +255,10 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 // 组装列表字段
                 if (formData.showInTable?.desktop) {
                     if (code === 'dateRange') {
-                        console.log('showInTable - dateRange:', formData);
-
+                        const column = { prop: 'dateRange', label: formData.label.desktop, formItem: item }
+                        columns.value.push(column)
                     } else {
                         const column = { prop: formData.fieldName.desktop, label: formData.label.desktop, formItem: item }
-
                         columns.value.push(column)
                     }
 
