@@ -2,20 +2,20 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 16:33:25
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/TextColumn.vue
+ * @LastEditTime: 2024-12-25 17:35:39
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/RadioColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    {{ value }}
+    {{ showValue }}
 </template>
 
 <script setup lang="ts">
 
 // State
-defineProps({
+const props = defineProps({
     formItem: {
         type: Object,
         default: {}
@@ -27,6 +27,19 @@ defineProps({
 })
 
 // Methods
+
+const showValue = computed(() => {
+    let value = props.value
+    const items = props.formItem.formData.items.desktop
+    if (items) {
+        items.forEach((item: any) => {
+            if (item.value === value) {
+                value = item.name
+            }
+        })
+    }
+    return value
+})
 
 </script>
 
