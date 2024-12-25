@@ -2,20 +2,20 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 16:33:25
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/TextColumn.vue
+ * @LastEditTime: 2024-12-25 17:45:34
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/CheckboxColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    {{ value }}
+    {{ showValue }}
 </template>
 
 <script setup lang="ts">
 
 // State
-defineProps({
+const props = defineProps({
     formItem: {
         type: Object,
         default: {}
@@ -27,6 +27,23 @@ defineProps({
 })
 
 // Methods
+const showValue = computed(() => {
+    const values = props.value.split(',')
+    const items = props.formItem.formData.items.desktop
+    console.log('items:', items);
+    const results: string[] = []
+
+    if (items) {
+        items.forEach((item: any) => {
+            values.forEach((v: string) => {
+                if (item.value === v) {
+                    results.push(item.name)
+                }
+            })
+        })
+    }
+    return results.join('、')
+})
 
 </script>
 
