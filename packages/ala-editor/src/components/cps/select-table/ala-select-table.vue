@@ -168,8 +168,6 @@ const model = defineModel({
   default: () => { return [] }
 })
 
-console.log('model:', model.value);
-
 
 const styles = computed(() => {
   return { minWidth: props.width + 'px' }
