@@ -2,20 +2,24 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 16:40:39
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/InputColumn.vue
+ * @LastEditTime: 2024-12-25 19:41:14
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/TextareaColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    {{ value }}
+    <div class="omit">
+        <el-tooltip effect="light" :content="value" :hide-after="0">
+            {{ showValue }}
+        </el-tooltip>
+    </div>
 </template>
 
 <script setup lang="ts">
 
 // State
-defineProps({
+const props = defineProps({
     formItem: {
         type: Object,
         default: {}
@@ -28,6 +32,21 @@ defineProps({
 
 // Methods
 
+const showValue = computed(() => {
+    const maxlength = props.formItem.formData.pageMax.desktop || 6
+    let value = props.value
+    if (value.length > maxlength) {
+        value = value.slice(0, maxlength) + '...'
+    }
+    return value
+})
+
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.omit {
+    background: rgb(220 223 230 / 10%);
+    border-radius: 4px;
+    padding: 4px;
+}
+</style>

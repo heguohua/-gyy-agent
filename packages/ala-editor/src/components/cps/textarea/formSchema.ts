@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 10:07:15
+ * @LastEditTime: 2024-12-25 19:30:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/formSchema.ts
  * @Description: 
  * 
@@ -120,6 +120,16 @@ const strMax = Type.String({
     }
 })
 
+const pageMax = Type.String({
+    code: "config-int",
+    title: "截取长度",
+    other: {
+        min: 6,
+        max: 500,
+        controlsPosition: 'right'
+    }
+})
+
 
 const required = Type.String({
     code: "config-boolean",
@@ -143,6 +153,7 @@ const schema = Type.Object({
     required: schemaAllViewport(required),
     strMin: schemaAllViewport(strMin),
     strMax: schemaAllViewport(strMax),
+    pageMax: schemaAllViewport(pageMax),
     // style: schemaAllViewport(style),
 })
 
