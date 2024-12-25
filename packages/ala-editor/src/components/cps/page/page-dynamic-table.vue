@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 16:29:20
+ * @LastEditTime: 2024-12-25 20:02:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -321,6 +321,8 @@ defineExpose({ refresh })
     :deep(.el-table td.el-table__cell div) {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
+        justify-items: center;
     }
 
 

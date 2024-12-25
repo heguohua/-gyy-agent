@@ -9,7 +9,7 @@
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <el-button :size="size" :type="buttonType" @click="handleClick" v-if="displayButton()">
+  <el-button :size="size" :type="buttonType" @click="handleClick" v-if="displayButton()" class="ala-button">
     {{ $t('buttons.' + name) }}
   </el-button>
 </template>
@@ -48,4 +48,8 @@ const handleClick = () => {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ala-button {
+  margin-bottom: 2px;
+}
+</style>
