@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 17:45:34
+ * @LastEditTime: 2024-12-25 17:47:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/CheckboxColumn.vue
  * @Description: 
  * 
@@ -30,7 +30,6 @@ const props = defineProps({
 const showValue = computed(() => {
     const values = props.value.split(',')
     const items = props.formItem.formData.items.desktop
-    console.log('items:', items);
     const results: string[] = []
 
     if (items) {

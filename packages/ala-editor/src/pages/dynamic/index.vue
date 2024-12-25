@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 16:56:26
+ * @LastEditTime: 2024-12-25 17:49:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -57,7 +57,7 @@
             <template v-else-if="formItem.code === 'xiaoshu'">
                 <XiaoshuColumn :value="row[columnName]" :formItem="formItem" />
             </template>
-            <template v-else-if="formItem.code === 'switchh'">
+            <template v-else-if="formItem.code === 'switch'">
                 <SwitchColumn :value="row[columnName]" :formItem="formItem" />
             </template>
             <template v-else-if="formItem.code === 'date'">
