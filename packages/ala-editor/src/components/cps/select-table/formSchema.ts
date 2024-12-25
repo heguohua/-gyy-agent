@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 20:32:39
+ * @LastEditTime: 2024-12-25 14:00:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/formSchema.ts
  * @Description: 
  * 
@@ -56,7 +56,7 @@ const url = Type.String({
     required: true,
 })
 const linkUrl = Type.String({
-    code: "config-input",
+    code: "config-textarea",
     title: "ID查询URL",
     default: "/u/menu/list",
     required: true,
@@ -99,6 +99,8 @@ const isFormDesign = Type.Boolean({
     title: "api请求测试",
     default: true,
 })
+
+
 
 const help = Type.String({
     code: "config-textarea",

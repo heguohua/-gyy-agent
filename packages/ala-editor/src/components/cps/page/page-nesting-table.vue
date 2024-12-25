@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 18:50:33
+ * @LastEditTime: 2024-12-25 15:18:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -241,11 +241,11 @@ const handleAdd = (index: number, item: { id: number }) => {
 }
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {
-    console.log('分页列表多选items:', items);
+    // console.log('分页列表多选items:', items);
 }
 
 const handleCurrentChange = (item: { id: string }) => {
-    console.log('分页列表单选item:', item);
+    // console.log('分页列表单选item:', item);
 }
 
 

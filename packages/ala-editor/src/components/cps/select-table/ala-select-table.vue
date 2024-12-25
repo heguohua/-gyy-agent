@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 20:59:30
+ * @LastEditTime: 2024-12-25 15:38:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -168,7 +168,7 @@ const model = defineModel({
   default: () => { return [] }
 })
 
-console.log('model:',model.value);
+console.log('model:', model.value);
 
 
 const styles = computed(() => {
@@ -196,7 +196,12 @@ const generateValue = (value: string) => {
 /**
  * 点击确认按钮，更新 model value
  */
-const showValue = ref()
+// const localValue = ref()
+
+const showValue = computed(() => {
+  return modelItemToShowValue(model.value)
+})
+
 function confirmClick() {
 
   const length = selectedData.value.length
@@ -219,7 +224,8 @@ function confirmClick() {
 
     model.value = mv
     // 给显示标签赋值
-    showValue.value = sv.join('')
+    // localValue.value = sv.join('')
+    // localValue.value = modelItemToShowValue(mv)
     // 清空列表选择页面当前状态
     pageListRef.value.clear()
     // 关闭弹窗
@@ -230,9 +236,19 @@ function confirmClick() {
   }
 }
 
+const modelItemToShowValue = (rows: any) => {
+  let value: string[] = []
+  const pi = props.itemProperty
+  if (rows && rows.length > 0) {
+    rows.forEach((row: any) => {
+      value.push(generateValue(row[pi.propertyName]))
+    })
+  }
+  return value.join('')
+}
+
 const selectedData = ref([])
 const selectedChange = (currentSelected: [never]) => {
-  console.log('currentSelected:', currentSelected);
   selectedData.value = currentSelected
 }
 
@@ -285,14 +301,14 @@ const parseLabel = (label: string) => {
   return t(label.slice(3, label.length - 2));
 }
 const columnss = computed(() => {
-    const fields: any = []
-    if (props.columns) {
-        const columns = u.parseJson(props.columns)
-        columns.forEach((column:any) => {
-          fields.push(column)
-        })
-    }
-    return fields
+  const fields: any = []
+  if (props.columns) {
+    const columns = u.parseJson(props.columns)
+    columns.forEach((column: any) => {
+      fields.push(column)
+    })
+  }
+  return fields
 })
 
 </script>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 18:33:04
+ * @LastEditTime: 2024-12-25 15:17:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -146,7 +146,6 @@ const showAdd = () => {
  * @param label 
  */
 const parseLabel = (label: string) => {
-    console.log('label', label);
     return t(label);
 }
 

@@ -44,7 +44,7 @@ const fieldName = Type.String({
 })
 
 const linkUrl = Type.String({
-    code: "config-input",
+    code: "config-textarea",
     title: "ID查询URL",
     default: "/u/menu/list",
     required: true,
