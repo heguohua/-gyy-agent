@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 21:03:24
+ * @LastEditTime: 2024-12-25 22:03:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -16,7 +16,8 @@
     <!-- 分页列表 -->
     <PageDynamicTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showDeleteButton="true" :showAddButton="true" :className="className">
+        :showEditButton="true" :showDeleteButton="true" :showAddButton="true" :className="className"
+        :beforeQuery="beforeQuery">
 
         <template #cols="{ row, columnName, formItem }">
             <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
@@ -111,6 +112,7 @@ import XiaoshuColumn from '@/components/cps/dynamic/XiaoshuColumn.vue';
 import SwitchColumn from '@/components/cps/dynamic/SwitchColumn.vue';
 import DateColumn from '@/components/cps/dynamic/DateColumn.vue';
 import DateRangeColumn from '@/components/cps/dynamic/DateRangeColumn.vue';
+import { date } from '@/utils/date';
 
 const { t } = useI18n();
 
@@ -214,6 +216,8 @@ const getFormAttr = computed(() => {
     return formAttr
 })
 
+const formConfigItems: any = {}
+
 // 创建一个映射，将函数名字符串映射到函数引用
 const ruleFunctions: { [key: string]: Function } = {
     alaRequired: alaRequired,
@@ -250,16 +254,23 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
         if (config.blockConfig?.form) {
             config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 
+
+
                 const { code, formData } = { ...item }
 
                 // 组装列表字段
                 if (formData.showInTable?.desktop) {
                     if (code === 'dateRange') {
-                        const column = { prop: 'dateRange', label: formData.label.desktop, formItem: item }
+                        const column = { prop: 'dateRange' + date.formatDateTime(new Date().getTime(), 'YYYYMMDDHHmmss'), label: formData.label.desktop, formItem: item }
                         columns.value.push(column)
+
                     } else {
                         const column = { prop: formData.fieldName.desktop, label: formData.label.desktop, formItem: item }
                         columns.value.push(column)
+
+                        // 缓存每个字段的 formConfig 配置信息
+                        formConfigItems[column.prop] = item
+
                     }
 
 
@@ -426,8 +437,28 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
+interface Result {
+    tableName: string,
+    conditions: Array<any>,
+}
+const beforeQuery = (params: any) => {
 
+    const result: Result = { tableName: className, conditions: [] }
+    const conditions = result.conditions
 
+    Object.keys(params).forEach((key: string) => {
+        if (key != 'tableName' && params[key]) {
+            // 转换字段查询条件为动态分页列表形式
+            const formConfigItem = formConfigItems[key]
+            const code = formConfigItem.code
+            if (code === 'input') {
+                conditions.push({ column: key, operator: 'like', value: params[key] })
+            }
+        }
+    })
+
+    return result
+}
 
 </script>
 

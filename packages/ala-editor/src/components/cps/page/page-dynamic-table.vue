@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 20:02:43
+ * @LastEditTime: 2024-12-25 22:06:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -123,6 +123,9 @@ const props = defineProps({
     },
     className: {
         type: String
+    },
+    beforeQuery: {
+        type: Function
     }
 })
 
@@ -251,7 +254,14 @@ const queryPageData = () => {
     // 后台加载菜单
     logger.info(`查询分页列表数据，url【 ${props.url} 】,page`, page);
     loading.value = true
-    alaPage(u.url(props.url || ""), page, props.params, true).then((data: any) => {
+
+    let params = props.params
+    
+    if (props.beforeQuery) {
+        params = props.beforeQuery(u.cloned(props.params || {}))
+    }
+
+    alaPage(u.url(props.url || ""), page, params, true).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum
         total.value = responsePage.total
