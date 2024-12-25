@@ -25,7 +25,7 @@ const props = defineProps({
         default: {}
     },
     value: {
-        type: Array<any>,
+        type: [Array<any>, String] as PropType<Array<any> | String>,
         default: ''
     }
 })
@@ -48,7 +48,8 @@ const showValue = computed(() => {
 
 <style scoped lang="scss">
 .select-table {
-    display: block!important;
+    display: block !important;
+
     .ala-select-table-value {
         background-color: var(--el-fill-color);
         padding: 0px 4px;

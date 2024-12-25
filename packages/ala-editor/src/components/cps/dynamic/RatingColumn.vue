@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 19:17:43
+ * @LastEditTime: 2024-12-25 20:22:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/RatingColumn.vue
  * @Description: 
  * 
@@ -30,8 +30,8 @@ defineProps({
         default: {}
     },
     value: {
-        type: String,
-        default: ''
+        type: Number,
+        default: 0
     }
 })
 

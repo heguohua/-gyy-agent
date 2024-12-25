@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 17:25:32
+ * @LastEditTime: 2024-12-25 20:23:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/NumberColumn.vue
  * @Description: 
  * 
@@ -22,8 +22,8 @@ const props = defineProps({
         default: {}
     },
     value: {
-        type: String,
-        default: ''
+        type: Number,
+        default: 0
     }
 })
 
