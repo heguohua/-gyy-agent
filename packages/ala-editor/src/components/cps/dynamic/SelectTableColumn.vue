@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 19:56:36
+ * @LastEditTime: 2024-12-25 20:30:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/SelectTableColumn.vue
  * @Description: 
  * 
@@ -25,8 +25,8 @@ const props = defineProps({
         default: {}
     },
     value: {
-        type: [Array<any>, String] as PropType<Array<any> | String>,
-        default: ''
+        type: Array<any>,
+        default: []
     }
 })
 

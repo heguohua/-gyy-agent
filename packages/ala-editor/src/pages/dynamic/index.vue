@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 19:46:28
+ * @LastEditTime: 2024-12-25 20:30:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -249,7 +249,6 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
             config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 
                 const { code, formData } = { ...item }
-                console.log('item----->:', item);
 
                 // 组装列表字段
                 if (formData.showInTable?.desktop) {
@@ -258,7 +257,6 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
 
                     } else {
                         const column = { prop: formData.fieldName.desktop, label: formData.label.desktop, formItem: item }
-                        console.log('formData----->:', formData);
 
                         columns.value.push(column)
                     }
