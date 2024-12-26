@@ -2,15 +2,15 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 16:35:03
+ * @LastEditTime: 2024-12-26 19:33:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailDateColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-        <p class="title" :style="{ width: labelWidth }">{{ label }}</p>
-        <p class="value">{{ date.formatDateTime(value, formItem.formData.format.desktop) }}</p>
+    <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+    <p class="value">{{ date.formatDateTime(value, formItem.formData.format.desktop) }}</p>
 </template>
 
 <script setup lang="ts">

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 17:49:39
+ * @LastEditTime: 2024-12-26 19:41:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -24,14 +24,14 @@
                     <template v-if="item.formItem.code === 'dateRange'">
                         <component :is="getComponent(item.formItem.code)"
                             :value="{ start: data.item[item.formItem.formData.startFieldName.desktop], end: data.item[item.formItem.formData.endFieldName.desktop] }"
-                            :formItem="item.formItem" :label="item.label + ' ：'" :labelWidth="labelWidth()"
+                            :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()"
                             :isDetailPage="true" />
                     </template>
 
                     <template v-else>
                         <component :is="getComponent(item.formItem.code)"
                             :value="item.formItem.formData.fieldName?.desktop ? data.item[item.formItem.formData.fieldName.desktop] : ''"
-                            :formItem="item.formItem" :label="item.label + ' ：'" :labelWidth="labelWidth()"
+                            :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()"
                             :isDetailPage="true" />
                     </template>
 
@@ -150,14 +150,14 @@ const columnWidth = (item: any) => {
 
     const paddingWidth = 0
 
-    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form paddingWidth[ ${paddingWidth} ]`);
-
     // 假设每个组件都占用 1列，则计算 列平均宽度
     // (总宽度 - paddingWidth)/columnNum
     let columnWidth = Math.floor((formWidth - paddingWidth) / columnNum)
 
-    const occupiedColumnNum = item.columnNum || 1
+    const occupiedColumnNum = item.formItem.formData.columnNum.desktop || 1
     columnWidth = columnWidth * occupiedColumnNum
+
+    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form paddingWidth[ ${paddingWidth} ]，当前组件[ ${item.formItem.code} ]，当前组件列数[ ${occupiedColumnNum} ]`);
 
     const style = { width: columnWidth + 'px' }
     // logger.info(`计算 动态表单 区域 单个组件 宽度，style`, style);
@@ -166,7 +166,8 @@ const columnWidth = (item: any) => {
 }
 
 const getComponent = ((code: string) => {
-    return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
+    const component = 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column'
+    return component
 })
 const labelWidth = () => {
     return props.formAttr?.value.labelWidth + 'px' || '120px'
@@ -180,12 +181,13 @@ const labelWidth = () => {
 
         .ala-detail-item {
             display: flex;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            margin-right: 7px;
 
             :deep(.title) {
                 text-align: right;
-                padding: 6px 0px 6px 0px;
-                background: rgb(249 249 250 / 60%);
+                padding: 8px 0px 8px 0px;
+                background: rgb(249 249 250 / 1);
                 font-size: 0.9rem;
                 display: flex;
                 align-items: center;
@@ -194,9 +196,10 @@ const labelWidth = () => {
             }
 
             :deep(.value) {
-                background: #F9F9FA;
+                // background: #F9F9FA;
+                background: #f3f7fa;
                 flex: 1;
-                padding: 6px 0px 6px 8px;
+                padding: 8px 0px 8px 8px;
                 margin-left: 4px;
                 font-size: 0.9rem;
                 display: flex;
@@ -217,6 +220,7 @@ const labelWidth = () => {
                 transition: all var(--el-transition-duration);
                 white-space: nowrap;
                 margin-right: 2px;
+                max-height: 21px;
             }
 
         }

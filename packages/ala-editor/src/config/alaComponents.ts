@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 10:57:20
+ * @LastEditTime: 2024-12-26 19:09:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -72,6 +72,7 @@ import DetailSelectColumn from '@/components/cps/dynamic/DetailSelectColumn.vue'
 import DetailCheckboxColumn from '@/components/cps/dynamic/DetailCheckboxColumn.vue';
 import DetailTextareaColumn from '@/components/cps/dynamic/DetailTextareaColumn.vue';
 import DetailDateRangeColumn from '@/components/cps/dynamic/DetailDateRangeColumn.vue';
+import DetailChapterColumn from '@/components/cps/dynamic/DetailChapterColumn.vue';
 
 export default {
     AlaCustomerizationComponentDemo,
@@ -140,6 +141,7 @@ export default {
     DetailCheckboxColumn,
     DetailTextareaColumn,
     DetailDateRangeColumn,
+    DetailChapterColumn,
 }
 
 

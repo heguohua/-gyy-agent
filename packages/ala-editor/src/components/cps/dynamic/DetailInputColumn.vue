@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 16:51:45
+ * @LastEditTime: 2024-12-26 19:38:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailInputColumn.vue
  * @Description: 
  * 
@@ -10,11 +10,13 @@
 -->
 <template>
     <template v-if="isDetailColumn">
-        <p class="detail-link" @click="showDetail">{{ value }}</p>
+        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="detail-link value" @click="showDetail">{{ value }}</p>
     </template>
     <template v-else>
-        <p class="title" :style="{ width: labelWidth }">{{ label }}</p>
-        <p class="value"><v-icon v-if="icon" class="image" :icon="icon" :width="width" :height="height" />{{ value }}</p>
+        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="value"><v-icon v-if="icon && !isDetailColumn" class="image" :icon="icon" :width="width" :height="height" />{{ value }}
+        </p>
     </template>
 
 </template>

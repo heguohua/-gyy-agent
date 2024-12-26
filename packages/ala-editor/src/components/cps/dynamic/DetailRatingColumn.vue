@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 17:43:18
+ * @LastEditTime: 2024-12-26 19:33:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailRatingColumn.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
 
-    <p class="title" :style="{ width: labelWidth }">{{ label }}</p>
+    <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
     <p class="value">
         {{ value }}<i class="el-icon el-rate__icon is-active star"><svg xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1024 1024" style="">
@@ -61,13 +61,13 @@ defineProps({
 
 <style scoped lang="scss">
 .star {
-    
+
     width: 1.1rem;
     height: 1.1rem;
     top: -1px;
 
     svg {
-        color: #f7ba2a!important;
+        color: #f7ba2a !important;
         width: inherit;
         height: inherit;
         margin-left: 1px;
