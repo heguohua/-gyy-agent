@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 17:47:22
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/CheckboxColumn.vue
+ * @LastEditTime: 2024-12-26 13:48:03
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailCheckboxColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -16,6 +16,10 @@
 
 // State
 const props = defineProps({
+    data: {
+        type: Object,
+        default: {}
+    },
     formItem: {
         type: Object,
         default: {}

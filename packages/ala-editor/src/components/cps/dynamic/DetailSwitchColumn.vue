@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 10:46:51
+ * @LastEditTime: 2024-12-26 13:49:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSwitchColumn.vue
  * @Description: 
  * 
@@ -16,6 +16,10 @@
 
 // State
 const props = defineProps({
+    data: {
+        type: Object,
+        default: {}
+    },
     formItem: {
         type: Object,
         default: {}

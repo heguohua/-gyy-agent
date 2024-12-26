@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 22:06:01
+ * @LastEditTime: 2024-12-26 13:42:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -14,7 +14,8 @@
         <!-- 分页列表区域 -->
         <el-table :data="paginatedData" style="width: 100%" row-key="id" @sort-change="sortChange"
             :default-sort="{ prop: 'id', order: 'descending' }" @selection-change="handleSelectedChange"
-            @current-change="handleCurrentChange" v-loading="loading" :element-loading-text="$t('common.loading')">
+            @current-change="handleCurrentChange" v-loading="loading" :element-loading-text="$t('common.loading')"
+            resizable>
 
 
             <!-- 多选框 -->
@@ -256,7 +257,7 @@ const queryPageData = () => {
     loading.value = true
 
     let params = props.params
-    
+
     if (props.beforeQuery) {
         params = props.beforeQuery(u.cloned(props.params || {}))
     }

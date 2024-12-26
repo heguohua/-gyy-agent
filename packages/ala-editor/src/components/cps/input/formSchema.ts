@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 13:01:02
+ * @LastEditTime: 2024-12-26 13:25:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -105,6 +105,11 @@ const required = Type.String({
     title: "必填字段？",
     default: false,
 })
+const detail = Type.String({
+    code: "config-boolean",
+    title: "详情列？",
+    default: false,
+})
 
 const rules = Type.Array(
     Type.Object({
@@ -183,6 +188,7 @@ const schema = Type.Object({
     iconWidth: schemaAllViewport(iconWidth),
     iconHeight: schemaAllViewport(iconHeight),
     columnNum: schemaAllViewport(columnNum),
+    detail: schemaAllViewport(detail),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),

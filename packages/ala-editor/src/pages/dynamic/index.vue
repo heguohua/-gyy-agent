@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 10:56:00
+ * @LastEditTime: 2024-12-26 13:59:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -22,13 +22,17 @@
         <template #cols="{ row, columnName, formItem }">
 
             <template v-if="formItem.code === 'dateRange'">
+
                 <component :is="getComponent(formItem.code)"
                     :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
-                    :formItem="formItem" />
+                    :formItem="formItem" :data="row" />
             </template>
             <template v-else>
                 <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
-                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" />
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-else />
             </template>
 
         </template>
@@ -38,6 +42,8 @@
     <!-- 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :basicFields="addFormFields"
         :formAttr="getFormAttr" :className="className" />
+
+    <AlaDetail :fields="detailFields" :data="detailItem" v-model="showDetailPage" />
 
 </template>
 
@@ -81,6 +87,10 @@ const baseInfo = reactive({
     selectedList: Array<{ id: string }>,
     item: {}
 })
+const detailItem = reactive({
+    moduleName,
+    item: {}
+})
 
 provide('baseInfo', baseInfo);
 
@@ -103,6 +113,14 @@ const showEdit = (item: { [key: string]: any }) => {
     logger.info(`【编辑】方法接收到参数 item `, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
+}
+
+const showDetailPage = ref(false)
+const showDetail = (item: { [key: string]: any }) => {
+    u.clear(detailItem.item)
+    u.merged(detailItem, { item })
+    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    showDetailPage.value = true
 }
 
 // 查询条件
@@ -360,6 +378,7 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
 });
 
 
+const detailFields: any = ref([])
 
 // 基础表单字段
 // const basicFields = computed(() => {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 10:58:06
+ * @LastEditTime: 2024-12-26 13:48:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailDateRangeColumn.vue
  * @Description: 
  * 
@@ -18,6 +18,10 @@ import { date } from '@/utils/date';
 
 // State
 const props = defineProps({
+    data: {
+        type: Object,
+        default: {}
+    },
     formItem: {
         type: Object,
         default: {}
