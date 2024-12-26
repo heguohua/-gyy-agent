@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 10:08:06
+ * @LastEditTime: 2024-12-26 10:57:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -55,6 +55,24 @@ import AlaDivider from '@/components/cps/divider/ala-divider.vue';
 import AlaChapter from '@/components/cps/chapter/ala-chapter.vue';
 import AlaFormLabel from '@/components/cps/form-label/ala-form-label.vue';
 
+// 列表、详情页字段渲染组件
+import DetailInputColumn from '@/components/cps/dynamic/DetailInputColumn.vue';
+import DetailDateColumn from '@/components/cps/dynamic/DetailDateColumn.vue';
+import DetailSwitchColumn from '@/components/cps/dynamic/DetailSwitchColumn.vue';
+import DetailXiaoshuColumn from '@/components/cps/dynamic/DetailXiaoshuColumn.vue';
+import DetailNumberColumn from '@/components/cps/dynamic/DetailNumberColumn.vue';
+import DetailRadioColumn from '@/components/cps/dynamic/DetailRadioColumn.vue';
+import DetailRatingColumn from '@/components/cps/dynamic/DetailRatingColumn.vue';
+import DetailSelectTableColumn from '@/components/cps/dynamic/DetailSelectTableColumn.vue';
+import DetailSelectDictColumn from '@/components/cps/dynamic/DetailSelectDictColumn.vue';
+import DetailSelectApiColumn from '@/components/cps/dynamic/DetailSelectApiColumn.vue';
+import DetailSelectTreeColumn from '@/components/cps/dynamic/DetailSelectTreeColumn.vue';
+import DetailSliderColumn from '@/components/cps/dynamic/DetailSliderColumn.vue';
+import DetailSelectColumn from '@/components/cps/dynamic/DetailSelectColumn.vue';
+import DetailCheckboxColumn from '@/components/cps/dynamic/DetailCheckboxColumn.vue';
+import DetailTextareaColumn from '@/components/cps/dynamic/DetailTextareaColumn.vue';
+import DetailDateRangeColumn from '@/components/cps/dynamic/DetailDateRangeColumn.vue';
+
 export default {
     AlaCustomerizationComponentDemo,
 
@@ -104,6 +122,24 @@ export default {
     AlaDivider,
     AlaChapter,
     AlaFormLabel,
+
+    // ALA架构列表、详情组件
+    DetailInputColumn,
+    DetailDateColumn,
+    DetailSwitchColumn,
+    DetailXiaoshuColumn,
+    DetailNumberColumn,
+    DetailRadioColumn,
+    DetailRatingColumn,
+    DetailSelectTableColumn,
+    DetailSelectDictColumn,
+    DetailSelectApiColumn,
+    DetailSelectTreeColumn,
+    DetailSliderColumn,
+    DetailSelectColumn,
+    DetailCheckboxColumn,
+    DetailTextareaColumn,
+    DetailDateRangeColumn,
 }
 
 

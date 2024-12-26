@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 22:03:03
+ * @LastEditTime: 2024-12-26 10:56:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -20,58 +20,17 @@
         :beforeQuery="beforeQuery">
 
         <template #cols="{ row, columnName, formItem }">
-            <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
-                in-valid-name="禁用" :value="row[columnName]" />
-            <template v-else-if="formItem.code === 'textarea'">
-                <TextareaColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'radio'">
-                <RadioColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'checkbox'">
-                <CheckboxColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'select'">
-                <SelectColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'slider'">
-                <SliderColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'rating'">
-                <RatingColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'selectApi'">
-                <SelectApiColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'selectTree'">
-                <SelectTreeColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'selectDict'">
-                <SelectDictColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'selectTable'">
-                <SelectTableColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'number'">
-                <NumberColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'xiaoshu'">
-                <XiaoshuColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'switch'">
-                <SwitchColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'date'">
-                <DateColumn :value="row[columnName]" :formItem="formItem" />
-            </template>
-            <template v-else-if="formItem.code === 'dateRange'">
-                <DateRangeColumn
+
+            <template v-if="formItem.code === 'dateRange'">
+                <component :is="getComponent(formItem.code)"
                     :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
                     :formItem="formItem" />
             </template>
             <template v-else>
-                <InputColumn :value="row[columnName]" :formItem="formItem" />
+                <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" />
             </template>
+
         </template>
 
     </PageDynamicTable>
@@ -96,23 +55,10 @@ import { alaPost } from '@/utils/req';
 import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
-import InputColumn from '@/components/cps/dynamic/InputColumn.vue';
-import TextareaColumn from '@/components/cps/dynamic/TextareaColumn.vue';
-import RadioColumn from '@/components/cps/dynamic/RadioColumn.vue';
-import CheckboxColumn from '@/components/cps/dynamic/CheckboxColumn.vue';
-import SelectColumn from '@/components/cps/dynamic/SelectColumn.vue';
-import SliderColumn from '@/components/cps/dynamic/SliderColumn.vue';
-import RatingColumn from '@/components/cps/dynamic/RatingColumn.vue';
-import SelectApiColumn from '@/components/cps/dynamic/SelectApiColumn.vue';
-import SelectTreeColumn from '@/components/cps/dynamic/SelectTreeColumn.vue';
-import SelectDictColumn from '@/components/cps/dynamic/SelectDictColumn.vue';
-import SelectTableColumn from '@/components/cps/dynamic/SelectTableColumn.vue';
-import NumberColumn from '@/components/cps/dynamic/NumberColumn.vue';
-import XiaoshuColumn from '@/components/cps/dynamic/XiaoshuColumn.vue';
-import SwitchColumn from '@/components/cps/dynamic/SwitchColumn.vue';
-import DateColumn from '@/components/cps/dynamic/DateColumn.vue';
-import DateRangeColumn from '@/components/cps/dynamic/DateRangeColumn.vue';
+import DetailInputColumn from '@/components/cps/dynamic/DetailInputColumn.vue';
 import { date } from '@/utils/date';
+import DetailColumn from '@/components/cps/dynamic/DetailColumn.vue';
+import { alaDetailBuild } from '@/config/alaDetailBuilder';
 
 const { t } = useI18n();
 
@@ -459,6 +405,21 @@ const beforeQuery = (params: any) => {
 
     return result
 }
+
+
+
+/**
+ * 动态解析国际化字符串
+ * @param label 
+ */
+const parseLabel = (label: string) => {
+    return t(label);
+}
+
+
+const getComponent = ((code: string) => {
+    return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
+})
 
 </script>
 
