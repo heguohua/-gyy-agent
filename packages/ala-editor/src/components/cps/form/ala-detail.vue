@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 17:37:22
+ * @LastEditTime: 2024-12-26 17:49:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -196,15 +196,29 @@ const labelWidth = () => {
             :deep(.value) {
                 background: #F9F9FA;
                 flex: 1;
-                padding: 6px 0px 6px 6px;
+                padding: 6px 0px 6px 8px;
                 margin-left: 4px;
                 font-size: 0.9rem;
                 display: flex;
                 align-items: center;
                 justify-content: left;
                 border-radius: 2px;
+                font-weight: 500;
 
             }
+
+            :deep(.value svg) {
+                color: var(--el-input-icon-color, var(--el-text-color-placeholder));
+                display: inline-flex;
+                flex-shrink: 0;
+                flex-wrap: nowrap;
+                pointer-events: none;
+                text-align: center;
+                transition: all var(--el-transition-duration);
+                white-space: nowrap;
+                margin-right: 2px;
+            }
+
         }
 
         .ala-detail-item-full-width {
