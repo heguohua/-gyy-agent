@@ -73,6 +73,7 @@ import DetailCheckboxColumn from '@/components/cps/dynamic/DetailCheckboxColumn.
 import DetailTextareaColumn from '@/components/cps/dynamic/DetailTextareaColumn.vue';
 import DetailDateRangeColumn from '@/components/cps/dynamic/DetailDateRangeColumn.vue';
 import DetailChapterColumn from '@/components/cps/dynamic/DetailChapterColumn.vue';
+import DetailDividerColumn from '@/components/cps/dynamic/DetailDividerColumn.vue';
 
 export default {
     AlaCustomerizationComponentDemo,
@@ -142,6 +143,7 @@ export default {
     DetailTextareaColumn,
     DetailDateRangeColumn,
     DetailChapterColumn,
+    DetailDividerColumn,
 }
 
 
