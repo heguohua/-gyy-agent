@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 17:11:41
+ * @LastEditTime: 2024-12-26 17:40:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -23,12 +23,13 @@
 
             <!-- 主表列渲染 -->
             <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
-                sortable>
-
+                sortable
+                :width="column.formItem.formData.columnWidth?.desktop ? column.formItem.formData.columnWidth?.desktop : ''">
+                <!-- column.formItem.formData.columnWidth?.desktop -->
                 <template #default="scope">
                     <slot name="cols" :row="scope.row" :columnName="column.prop" :formItem="column.formItem"></slot>
                 </template>
-
+                <!-- {{ column.formItem.formData.columnWidth?.desktop }} -->
             </el-table-column>
 
 
@@ -68,7 +69,7 @@ const { t } = useI18n();
 interface Column {
     prop: string;
     label: string;
-    formItem: Object;
+    formItem: any;
 }
 
 const props = defineProps({
@@ -346,7 +347,25 @@ defineExpose({ refresh })
         left: 4px;
     }
 
+    :deep(.value) {
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+    }
 
+    :deep(.value svg) {
+        color: var(--el-input-icon-color, var(--el-text-color-placeholder));
+        display: inline-flex;
+        flex-shrink: 0;
+        flex-wrap: nowrap;
+        height: 100%;
+        pointer-events: none;
+        text-align: center;
+        transition: all var(--el-transition-duration);
+        white-space: nowrap;
+        margin-right: 2px;
+    }
 
 }
 </style>

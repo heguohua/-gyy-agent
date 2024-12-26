@@ -57,11 +57,25 @@ const columnNum = Type.Number({
         controlsPosition: ''
     }
 })
+
+const columnWidth = Type.String({
+    code: "config-int",
+    title: "单列宽度",
+    default: 16,
+    other: {
+        min: 0,
+        max: 500,
+        step: 10,
+        controlsPosition: ''
+    }
+})
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     height: schemaAllViewport(height),
     lineStyle: schemaAllViewport(lineStyle),
     columnNum: schemaAllViewport(columnNum),
+    columnWidth: schemaAllViewport(columnWidth),
 })
 
 

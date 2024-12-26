@@ -71,6 +71,19 @@ const columnNum = Type.Number({
         controlsPosition: ''
     }
 })
+
+const columnWidth = Type.String({
+    code: "config-int",
+    title: "单列宽度",
+    default: 16,
+    other: {
+        min: 0,
+        max: 500,
+        step: 10,
+        controlsPosition: ''
+    }
+})
+
 const showInSearch = Type.String({
     code: "config-boolean",
     title: "查询条件？",
@@ -98,6 +111,7 @@ const schema = Type.Object({
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
     columnNum: schemaAllViewport(columnNum),
+    columnWidth: schemaAllViewport(columnWidth),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),

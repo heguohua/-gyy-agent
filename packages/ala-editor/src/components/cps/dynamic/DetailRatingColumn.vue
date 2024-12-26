@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 16:35:18
+ * @LastEditTime: 2024-12-26 17:43:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailRatingColumn.vue
  * @Description: 
  * 
@@ -61,12 +61,13 @@ defineProps({
 
 <style scoped lang="scss">
 .star {
-    color: #f7ba2a;
-    width: 1.3rem;
-    height: 1.3rem;
+    
+    width: 1.1rem;
+    height: 1.1rem;
     top: -1px;
 
     svg {
+        color: #f7ba2a!important;
         width: inherit;
         height: inherit;
         margin-left: 1px;

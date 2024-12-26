@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 10:44:14
+ * @LastEditTime: 2024-12-26 17:25:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-int.vue
  * @Description: 
  * 
@@ -44,7 +44,7 @@ const props = defineProps({
     },
     min: {
         type: Number,
-        default: () => -Math.pow(2, 53) + 1
+        default: 0
     },
     max: {
         type: Number,
@@ -83,7 +83,7 @@ const { formData, parentKey, key, id } = data.value
 
 
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
-const input = ref(1)
+const input = ref(0)
 
 
 const isRequired = () => {

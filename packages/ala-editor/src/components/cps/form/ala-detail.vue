@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 16:49:51
+ * @LastEditTime: 2024-12-26 17:37:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -203,6 +203,7 @@ const labelWidth = () => {
                 align-items: center;
                 justify-content: left;
                 border-radius: 2px;
+
             }
         }
 

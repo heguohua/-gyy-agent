@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 13:25:10
+ * @LastEditTime: 2024-12-26 17:21:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -60,6 +60,22 @@ const columnNum = Type.Number({
         controlsPosition: ''
     }
 })
+
+
+
+const columnWidth = Type.String({
+    code: "config-int",
+    title: "单列宽度",
+    default: 16,
+    other: {
+        min: 0,
+        max: 500,
+        step: 10,
+        controlsPosition: ''
+    }
+})
+
+
 const showInSearch = Type.String({
     code: "config-boolean",
     title: "查询条件？",
@@ -188,6 +204,7 @@ const schema = Type.Object({
     iconWidth: schemaAllViewport(iconWidth),
     iconHeight: schemaAllViewport(iconHeight),
     columnNum: schemaAllViewport(columnNum),
+    columnWidth: schemaAllViewport(columnWidth),
     detail: schemaAllViewport(detail),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
