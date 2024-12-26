@@ -2,14 +2,15 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 13:48:22
+ * @LastEditTime: 2024-12-26 16:35:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailDateColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    {{ date.formatDateTime(value, formItem.formData.format.desktop) }}
+        <p class="title" :style="{ width: labelWidth }">{{ label }}</p>
+        <p class="value">{{ date.formatDateTime(value, formItem.formData.format.desktop) }}</p>
 </template>
 
 <script setup lang="ts">
@@ -29,6 +30,18 @@ defineProps({
     value: {
         type: Number,
         default: 0
+    },
+    label: {
+        type: String,
+        default: ''
+    },
+    labelWidth: {
+        type: String,
+        default: ''
+    },
+    isDetailPage: {
+        type: Boolean,
+        default: false
     }
 })
 

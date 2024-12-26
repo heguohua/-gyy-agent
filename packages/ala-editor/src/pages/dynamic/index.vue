@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 13:59:47
+ * @LastEditTime: 2024-12-26 15:42:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -40,10 +40,10 @@
     </PageDynamicTable>
 
     <!-- 新增、编辑 -->
-    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :basicFields="addFormFields"
-        :formAttr="getFormAttr" :className="className" />
+    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :fields="addFormFields" :formAttr="getFormAttr"
+        :className="className" />
 
-    <AlaDetail :fields="detailFields" :data="detailItem" v-model="showDetailPage" />
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
 
 </template>
 
@@ -214,11 +214,9 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
     if (response.code === 200) {
         const config = u.parseJson(response.data[0].config)
 
-        // 解析列表字段
+        // 解析全部字段
         if (config.blockConfig?.form) {
             config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
-
-
 
                 const { code, formData } = { ...item }
 
@@ -227,17 +225,22 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     if (code === 'dateRange') {
                         const column = { prop: 'dateRange' + date.formatDateTime(new Date().getTime(), 'YYYYMMDDHHmmss'), label: formData.label.desktop, formItem: item }
                         columns.value.push(column)
-
                     } else {
                         const column = { prop: formData.fieldName.desktop, label: formData.label.desktop, formItem: item }
                         columns.value.push(column)
-
-                        // 缓存每个字段的 formConfig 配置信息
+                        // 缓存每个字段的 formConfig 配置信息，供查询条件组装查询参数使用
                         formConfigItems[column.prop] = item
-
                     }
+                }
 
-
+                // 组装详情页面字段
+                // 注意，注意，注意！这里需要保持和列表字段解析一致
+                if (code === 'dateRange') {
+                    const column = { prop: 'dateRange' + date.formatDateTime(new Date().getTime(), 'YYYYMMDDHHmmss'), label: formData.label.desktop, formItem: item }
+                    detailFields.value.push(column)
+                } else {
+                    const column = { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
+                    detailFields.value.push(column)
                 }
 
                 // 组装基础查询字段
@@ -378,8 +381,6 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
 });
 
 
-const detailFields: any = ref([])
-
 // 基础表单字段
 // const basicFields = computed(() => {
 //     return [
@@ -399,18 +400,15 @@ const detailFields: any = ref([])
 //     ]
 // })
 
-
-
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 interface Result {
     tableName: string,
     conditions: Array<any>,
 }
-const beforeQuery = (params: any) => {
 
+const beforeQuery = (params: any) => {
     const result: Result = { tableName: className, conditions: [] }
     const conditions = result.conditions
-
     Object.keys(params).forEach((key: string) => {
         if (key != 'tableName' && params[key]) {
             // 转换字段查询条件为动态分页列表形式
@@ -421,11 +419,8 @@ const beforeQuery = (params: any) => {
             }
         }
     })
-
     return result
 }
-
-
 
 /**
  * 动态解析国际化字符串
@@ -435,10 +430,14 @@ const parseLabel = (label: string) => {
     return t(label);
 }
 
-
 const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
+
+/**
+ * 详情页面字段
+ */
+const detailFields: any = ref([])
 
 </script>
 

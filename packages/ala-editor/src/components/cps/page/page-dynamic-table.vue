@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 13:42:27
+ * @LastEditTime: 2024-12-26 17:11:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -334,6 +334,16 @@ defineExpose({ refresh })
         align-items: center;
         flex-wrap: wrap;
         justify-items: center;
+    }
+
+
+
+    :deep(.caret-wrapper .sort-caret) {
+        /* 增加边框宽度 */
+        border-width: 4px;
+        /* 调整箭头的位置 */
+        margin-top: 3px;
+        left: 4px;
     }
 
 

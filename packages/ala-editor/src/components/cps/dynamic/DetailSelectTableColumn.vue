@@ -2,18 +2,21 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 13:49:10
+ * @LastEditTime: 2024-12-26 16:35:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="select-table">
-        <div class="ala-select-table-value" v-for="(item, index) in showValue">
-            {{ item }}
+    <p class="title" :style="{ width: labelWidth }">{{ label }}</p>
+    <p class="value">
+        <div class="select-table">
+            <div class="ala-select-table-value" v-for="(item, index) in showValue">
+                {{ item }}
+            </div>
         </div>
-    </div>
+    </p>
 </template>
 
 <script setup lang="ts">
@@ -31,6 +34,18 @@ const props = defineProps({
     value: {
         type: Array<any>,
         default: []
+    },
+    label: {
+        type: String,
+        default: ''
+    },
+    labelWidth: {
+        type: String,
+        default: ''
+    },
+    isDetailPage: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -59,7 +74,8 @@ const showValue = computed(() => {
         padding: 0px 4px;
         border-radius: 3px;
         display: inline-block;
-        margin-bottom: 2px;
+        margin-bottom: 4px;
+        margin-right: 4px;
     }
 }
 </style>

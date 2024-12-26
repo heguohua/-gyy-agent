@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 12:46:59
+ * @LastEditTime: 2024-12-26 16:49:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -20,23 +20,19 @@
             </template>
 
             <template #default>
-
-                <!-- <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index" -->
-                <div v-for="(column, index) in fields">
-                    <!-- <template v-if="formItem.code === 'dateRange'">
-                        <component :is="getComponent(formItem.code)"
-                            :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
-                            :formItem="formItem" />
+                <div :class="isHidden(item)" v-for="(item, index) in fields" :key="index" :style="columnWidth(item)">
+                    <template v-if="item.formItem.code === 'dateRange'">
+                        <component :is="getComponent(item.formItem.code)"
+                            :value="{ start: data.item[item.formItem.formData.startFieldName.desktop], end: data.item[item.formItem.formData.endFieldName.desktop] }"
+                            :formItem="item.formItem" :label="item.label + ' ：'" :labelWidth="labelWidth()"
+                            :isDetailPage="true" />
                     </template>
-<template v-else> -->
-                    <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
-                    <!-- <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" />
-                    </template> -->
 
-                    <template>
-                        <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
-                        <!-- <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" /> -->
-                        222
+                    <template v-else>
+                        <component :is="getComponent(item.formItem.code)"
+                            :value="item.formItem.formData.fieldName?.desktop ? data.item[item.formItem.formData.fieldName.desktop] : ''"
+                            :formItem="item.formItem" :label="item.label + ' ：'" :labelWidth="labelWidth()"
+                            :isDetailPage="true" />
                     </template>
 
                 </div>
@@ -56,7 +52,6 @@
 </template>
 
 <script setup lang="ts">
-import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
 import { DrawerProps } from 'element-plus';
 import { ref } from 'vue'
@@ -73,11 +68,12 @@ const props = defineProps({
         default: ''
     },
     fields: {
-        type: Array<AlaField>,
+        type: Array<any>,
         default: []
     },
     data: {
         type: Object,
+        default: {}
     },
     formAttr: {
         type: Object,
@@ -98,11 +94,11 @@ const useFormTitle = () => {
 const isHidden = (item: { componentName: string, other?: any }) => {
 
     if (item.componentName === 'AlaHidden') {
-        return 'ala-form-base-item-hidden'
+        return 'ala-detail-item-hidden'
     } else if (item.other && item.other.fullWidth) {
-        return 'ala-form-base-item-full-width'
+        return 'ala-detail-item-full-width'
     } else {
-        return 'ala-form-base-item'
+        return 'ala-detail-item'
     }
 }
 
@@ -172,7 +168,9 @@ const columnWidth = (item: any) => {
 const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
-
+const labelWidth = () => {
+    return props.formAttr?.value.labelWidth + 'px' || '120px'
+}
 </script>
 <style scoped lang="scss">
 .ala-detail-form {
@@ -180,15 +178,39 @@ const getComponent = ((code: string) => {
         width: 500px !important;
 
 
-        .ala-form-base-item {
-            display: inline-block;
+        .ala-detail-item {
+            display: flex;
+            margin-bottom: 8px;
+
+            :deep(.title) {
+                text-align: right;
+                padding: 6px 0px 6px 0px;
+                background: rgb(249 249 250 / 60%);
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                justify-content: right;
+                border-radius: 2px;
+            }
+
+            :deep(.value) {
+                background: #F9F9FA;
+                flex: 1;
+                padding: 6px 0px 6px 6px;
+                margin-left: 4px;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                border-radius: 2px;
+            }
         }
 
-        .ala-form-base-item-full-width {
+        .ala-detail-item-full-width {
             width: 100%;
         }
 
-        .ala-form-base-item-hidden {
+        .ala-detail-item-hidden {
             display: none;
         }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 21:23:27
+ * @LastEditTime: 2024-12-26 15:01:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/add.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
 
-    <AlaBaseForm v-model="showDrawer" @refresh="refresh" v-bind="props" :basicFields="basicFields" :formData="formData"
+    <AlaBaseForm v-model="showDrawer" @refresh="refresh" v-bind="props" :fields="fields" :formData="formData"
         :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')" :formAttr="formAttr"
         :beforeSave="beforeSave" />
 
@@ -31,7 +31,7 @@ const props = defineProps({
             item: {}
         }
     },
-    basicFields: {
+    fields: {
         type: Array<any>,
     },
     formAttr: {

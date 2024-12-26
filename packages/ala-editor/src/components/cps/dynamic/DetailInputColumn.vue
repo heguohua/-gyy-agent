@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 13:42:58
+ * @LastEditTime: 2024-12-26 16:51:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailInputColumn.vue
  * @Description: 
  * 
@@ -13,7 +13,8 @@
         <p class="detail-link" @click="showDetail">{{ value }}</p>
     </template>
     <template v-else>
-        {{ value }}
+        <p class="title" :style="{ width: labelWidth }">{{ label }}</p>
+        <p class="value"><v-icon v-if="icon" class="image" :icon="icon" :width="width" :height="height" />{{ value }}</p>
     </template>
 
 </template>
@@ -33,6 +34,18 @@ const props = defineProps({
     value: {
         type: String,
         default: ''
+    },
+    label: {
+        type: String,
+        default: ''
+    },
+    labelWidth: {
+        type: String,
+        default: ''
+    },
+    isDetailPage: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -44,9 +57,19 @@ const isDetailColumn = computed(() => {
 
 const emit = defineEmits(['showDetail'])
 const showDetail = () => {
-    console.log('props.data:',props.data);
     emit('showDetail', props.data)
 }
+
+// Methods
+const icon = computed(() => {
+    return props.formItem.formData.icon.desktop
+})
+const width = computed(() => {
+    return props.formItem.formData.iconWidth.desktop
+})
+const height = computed(() => {
+    return props.formItem.formData.iconHeight.desktop
+})
 
 </script>
 

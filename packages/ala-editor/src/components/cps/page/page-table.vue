@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 15:18:28
+ * @LastEditTime: 2024-12-26 17:12:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -313,6 +313,13 @@ defineExpose({ refresh })
         min-height: 400px;
     }
 
+    :deep(.caret-wrapper .sort-caret) {
+        /* 增加边框宽度 */
+        border-width: 4px;
+        /* 调整箭头的位置 */
+        margin-top: 3px;
+        left: 4px;
+    }
 
 
 }

@@ -1,6 +1,6 @@
 <template>
     <el-form :model="formData" :label-width="labelWidth()" :rules="rules" ref="formRef">
-        <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :data="formData"
+        <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="fields" :data="formData"
             :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
             :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback" />
     </el-form>
@@ -37,7 +37,7 @@ const props = defineProps({
     rules: {
         type: Object,
     },
-    basicFields: {
+    fields: {
         type: Array<AlaField>,
     },
     formAttr: {
@@ -142,7 +142,7 @@ const saveContent = () => {
 // 验证规则（ 第二种编码方式 ）
 const rules = computed(() => {
     const ruless: { [key: string]: object } = {}
-    props.basicFields?.forEach(field => {
+    props.fields?.forEach(field => {
         if (field.rules) {
             ruless[field.fieldName] = field.rules
         }
