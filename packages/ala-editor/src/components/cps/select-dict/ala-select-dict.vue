@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:35:06
+ * @LastEditTime: 2024-12-27 17:51:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -15,7 +15,8 @@
       <template #label>
         <AlaFormLabel :label="label" :help="help" />
       </template>
-      <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName">
+      <el-select @change="handleChange" :model-value="localValue" class="ala-select-group" :style="styles"
+        :id="fieldName">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>
@@ -81,16 +82,37 @@ interface item {
 
 const items = ref<Array<item>>([])
 
-const model = defineModel({
-  type: [Number, String, Boolean] as PropType<number | string | boolean>,
-})
+// const model = defineModel({
+//   type: Array<any>,
+// })
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
 
+// const handleChange = (value: Number) => {
+//   // model.value = [value]
+//   const pi = props.itemProperty
+//   // model.value.push({ [pi.valueName]: value, [pi.propertyName]: item[pi.propertyName], })
+//   model.value = [{ [pi.valueName]: value }]
+// }
+
+
+
+const model = defineModel({
+  type: Array<any>,
+})
+
+const localValue = ref<Number>()
+if (model && model.value && model.value.length > 0) {
+  localValue.value = model.value[0]
+}
 
 const handleChange = (value: any) => {
-  model.value = value
+  const pi = props.itemProperty
+  // model.value.push({ [pi.valueName]: value, [pi.propertyName]: item[pi.propertyName], })
+  model.value = [{ [pi.valueName]: value }]
+  localValue.value = value
 }
+
 
 const query = () => {
   // Methods
@@ -114,7 +136,8 @@ const query = () => {
 
 // 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
 const isFormDesign = computed(() => props.isFormDesign)
-if (!isFormDesign) {
+
+if (!isFormDesign.value) {
   query()
 }
 

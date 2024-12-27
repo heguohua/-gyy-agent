@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:35:21
+ * @LastEditTime: 2024-12-27 17:11:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -124,7 +124,7 @@ const query = () => {
 
 // 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
 const isFormDesign = computed(() => props.isFormDesign)
-if (!isFormDesign) {
+if (!isFormDesign.value) {
   query()
 }
 

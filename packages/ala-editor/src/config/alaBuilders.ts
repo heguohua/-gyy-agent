@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 12:56:11
+ * @LastEditTime: 2024-12-27 17:09:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -243,7 +243,7 @@ export function alaBuildSelectApi(fieldName: string, label: string, url: string,
  * @returns 
  */
 export function alaBuildSelectDict(fieldName: string, label: string, params: { [key: string]: string }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectDictSchema {
-    const obj = alaBuildWithOther("AlaSelectDict", fieldName, label, { params, itemProperty }, rules, placeholder)
+    const obj = alaBuildWithOther("AlaSelectDict", fieldName, label, { params, itemProperty, isFormDesign: false }, rules, placeholder)
     return obj
 }
 

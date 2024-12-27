@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 13:30:50
+ * @LastEditTime: 2024-12-27 18:00:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/formSchema.ts
  * @Description: 
  * 
@@ -137,6 +137,13 @@ const required = Type.String({
     default: false,
 })
 
+const detail = Type.String({
+    code: "config-boolean",
+    title: "详情列？",
+    default: false,
+})
+
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -153,6 +160,7 @@ const schema = Type.Object({
     columnWidth: schemaAllViewport(columnWidth),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
+    detail: schemaAllViewport(detail),
     required: schemaAllViewport(required),
 })
 

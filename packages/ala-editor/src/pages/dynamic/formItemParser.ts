@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 13:36:00
+ * @LastEditTime: 2024-12-27 17:14:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -141,10 +141,10 @@ export function parseDateRange(item: { startFieldName: { desktop: string }, endF
 
 
 
-export function parseSelectDict(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any } }) {
+export function parseSelectDict(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: string } }) {
     //  alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
     // const result={}
-    const result = alaBuildSelectDict(item.fieldName.desktop, item.label.desktop, { value: '1' }, item.itemProperty.desktop)
+    const result = alaBuildSelectDict(item.fieldName.desktop, item.label.desktop, item.params.desktop ? JSON.parse(item.params.desktop) : {}, item.itemProperty.desktop)
     logger.info(`解析【 selectDict 】字段：`, result);
     return result
 }

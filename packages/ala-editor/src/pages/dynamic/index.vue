@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 13:37:04
+ * @LastEditTime: 2024-12-27 17:12:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -290,7 +290,7 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 } else if (code === 'selectTable') {
                     formItem = parseSelectTable(formData)
                     addFormFields.value.push(formItem)
-                } else if (code === 'selectDict') {
+                } else if (code === 'selectDict') {                    
                     formItem = parseSelectDict(formData)
                     addFormFields.value.push(formItem)
                 } else if (code === 'dateRange') {
