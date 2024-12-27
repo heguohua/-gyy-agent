@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:35:17
+ * @LastEditTime: 2024-12-27 13:39:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailNumberColumn.vue
  * @Description: 
  * 
@@ -47,13 +47,13 @@ const props = defineProps({
 
 // Methods
 const icon = computed(() => {
-    return props.formItem.formData.icon.desktop
+    return props.formItem.formData.icon?.desktop || ''
 })
 const width = computed(() => {
-    return props.formItem.formData.iconWidth.desktop
+    return props.formItem.formData.iconWidth?.desktop || ''
 })
 const height = computed(() => {
-    return props.formItem.formData.iconHeight.desktop
+    return props.formItem.formData.iconHeight?.desktop || ''
 })
 const isDetailColumn = computed(() => {
     return props.formItem.formData?.detail?.desktop

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 14:00:00
+ * @LastEditTime: 2024-12-27 13:30:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-api/formSchema.ts
  * @Description: 
  * 
@@ -84,7 +84,7 @@ const itemProperty = Type.String({
 })
 
 const params = Type.String({
-    code: "config-object",
+    code: "config-textarea",
     title: "请求参数",
     default: "",
 })

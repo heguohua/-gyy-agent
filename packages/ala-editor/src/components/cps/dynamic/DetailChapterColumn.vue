@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:17:51
+ * @LastEditTime: 2024-12-27 13:38:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailChapterColumn.vue
  * @Description: 
  * 
@@ -55,13 +55,13 @@ const isDetailColumn = computed(() => {
 
 // Methods
 const icon = computed(() => {
-    return props.formItem.formData.icon.desktop
+    return props.formItem.formData.icon?.desktop || ''
 })
 const width = computed(() => {
-    return props.formItem.formData.iconWidth.desktop
+    return props.formItem.formData.iconWidth?.desktop || ''
 })
 const height = computed(() => {
-    return props.formItem.formData.iconHeight.desktop
+    return props.formItem.formData.iconHeight?.desktop || ''
 })
 
 const styles = computed(() => {

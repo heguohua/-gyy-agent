@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-16 19:04:57
+ * @LastEditTime: 2024-12-27 13:10:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -64,13 +64,15 @@ const basicFields = computed(() => {
         alaBuildHidden('id'),// 固定格式
         alaBuildSwitch('value', t('module.menu.name') + ' or ' + t('module.menu.url'), t('module.menu.url'), t('module.menu.name'), 2, 1, [alaRequired()]),
         alaBuildInput("name", t('module.menu.name'), [alaRequired()]),
-        alaBuildDivider("这里是分隔线", "right"),
+        // alaBuildDivider("这里是分隔线", "right"),
 
-        alaBuildInput("url", t('module.menu.url'), [alaRequired()]),
-        alaBuildDivider("这里是分隔线", "left"),
+        alaBuildInput("url", t('module.menu.url'), []),
+        alaBuildInput("fullPath", t('module.menu.dynamicUrl'), []),
+        alaBuildInput("code", t('i18n.i18n'), []),
+        // alaBuildDivider("这里是分隔线", "left"),
         alaBuildSwitch('delFlag', t('common.enable'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
         alaBuildInput("icon", t('module.menu.icon'), [alaRequired()]),
-        alaBuildDivider("这里是分隔线"),
+        // alaBuildDivider("这里是分隔线"),
         alaBuildNumber("width", t('module.menu.width'), [alaRequired()]),
         alaBuildNumber("height", t('module.menu.height'), [alaRequired()]),
         alaBuildNumber("sort", t('common.sorting')),

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 15:42:09
+ * @LastEditTime: 2024-12-27 13:37:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -53,18 +53,14 @@ import Add from '@/pages/dynamic/add.vue';
 import { useRoute } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildDivider, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildSwitch } from '@/config/alaBuilders';
+import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
-import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
-import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
-import DetailInputColumn from '@/components/cps/dynamic/DetailInputColumn.vue';
 import { date } from '@/utils/date';
-import DetailColumn from '@/components/cps/dynamic/DetailColumn.vue';
-import { alaDetailBuild } from '@/config/alaDetailBuilder';
 
 const { t } = useI18n();
 
@@ -293,6 +289,9 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     addFormFields.value.push(formItem)
                 } else if (code === 'selectTable') {
                     formItem = parseSelectTable(formData)
+                    addFormFields.value.push(formItem)
+                } else if (code === 'selectDict') {
+                    formItem = parseSelectDict(formData)
                     addFormFields.value.push(formItem)
                 } else if (code === 'dateRange') {
                     // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中

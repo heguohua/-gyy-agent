@@ -64,13 +64,13 @@ const showDetail = () => {
 
 // Methods
 const icon = computed(() => {
-    return props.formItem.formData.icon.desktop
+    return props.formItem.formData.icon?.desktop || ''
 })
 const width = computed(() => {
-    return props.formItem.formData.iconWidth.desktop
+    return props.formItem.formData.iconWidth?.desktop || ''
 })
 const height = computed(() => {
-    return props.formItem.formData.iconHeight.desktop
+    return props.formItem.formData.iconHeight?.desktop || ''
 })
 
 </script>

@@ -155,14 +155,15 @@ const postData = (item: any) => {
 
     // 保存数据并刷新分页列表
     // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
+    const id = item.id ? item.id : (item.columns?.id)
 
-    const url = item.columns.id ? props.updateUrl : props.url
-    if (item.columns.id) {
+    const url = id ? props.updateUrl : props.url
+    if (id) {
         logger.info(`【 更新数据 】，url${url}，数据对象：`, item);
     } else {
         logger.info(`【 新增数据 】，url${url}，数据对象：`, item);
     }
-    alaPost(u.url(url || ''), item, false, item.columns.id ? 'put' : '').then((data: any) => {
+    alaPost(u.url(url || ''), item, false, id ? 'put' : '').then((data: any) => {
         const response = data;
         emit("refresh", response)
         notify.success(t('pop.warm_title'), "保存成功")
@@ -175,8 +176,8 @@ const emit = defineEmits(["confirm", "refresh"])
 const formItemChangeCallback = (data: any) => {
     console.log('data-callback:', data);
     u.merged(props.formData || {}, data)
-    console.log('props.formData:',props.formData);
-    
+    console.log('props.formData:', props.formData);
+
 }
 
 // ##########################  以下是冗余示例代码  #########################################

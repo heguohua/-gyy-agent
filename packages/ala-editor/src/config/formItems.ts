@@ -129,6 +129,13 @@ export const seniorFields: BaseBlock[] = [
     },
     {
         id: "",
+        name: "下拉选(Dict)",
+        code: "selectDict",
+        icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
         name: "下拉选(Tree)",
         code: "selectTree",
         icon: "select",
@@ -160,21 +167,7 @@ export const seniorFields: BaseBlock[] = [
 export const businessFields: BaseBlock[] = [
     {
         id: "",
-        name: "下拉选(Dict)",
-        code: "selectDict",
-        icon: "select",
-        formData: {},
-    },
-    {
-        id: "",
         name: "下拉选(Tree)",
-        code: "select",
-        icon: "select",
-        formData: {},
-    },
-    {
-        id: "",
-        name: "下拉选(Table)",
         code: "select",
         icon: "select",
         formData: {},

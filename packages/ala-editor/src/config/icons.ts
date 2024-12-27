@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-16 19:26:21
+ * @LastEditTime: 2024-12-27 14:57:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -68,6 +68,26 @@ const icon = {
   sysConfig: 'icon-park-outline:setting-config',
   customer: 'ix:customer',
   order: 'carbon:order-details',
+  workspace: 'carbon:workspace-import',
+  leave: 'ri:timeline-view',
+  bill: 'stash:billing-info-light',
+  money: 'hugeicons:money-bag-02',
+  // 无代码中心
+  code: 'mingcute:code-fill',
+  // 配置列表
+  code_config: 'line-md:document-code',
+  code_page: 'icon-park-outline:page',// 页面设计
+  code_form: 'fluent:form-sparkle-20-regular',// 表单设计
+  code_screen: 'streamline:screensaver-monitor-wallpaper',// 表单设计
+  flow_define: 'hugeicons:flow',// 流程定义
+  flow_design: 'f7:flowchart',// 流程设计
+  flow_start: 'heroicons:arrow-right-start-on-rectangle-16-solid',// 发起流程
+  mine_start: 'token:meed',// 发起流程
+  mine_todo: 'ix:tasks-open',// 发起流程
+  mine_done: 'grommet-icons:task',// 发起流程
+  mine_copy: 'fluent:document-copy-24-regular',// 发起流程
+
+  
 
   // 数据分析
   chart: "memory:chart-bar",
