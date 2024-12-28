@@ -87,7 +87,7 @@ declare module 'vue' {
     ConfigInput: typeof import('./s./src/components/cps/config/ala-config-textarea.vuefault']
     ConfigTextarea: typeof import('./src/components/cps/config/ala-config-viewport.vue')['default']
     ConfigViewport: typeof import('./src/components/cps/config/config-viewport.vue')['default']
-    copy: typeof import('./src/components/flow/PropertySetting/subProcess copy.vue')['default']
+    copy: typeof import('./src/components/flow/PropertySetting/wfSubProcess copy.vue')['default']
     Custom: typeof import('./src/components/flow/PropertySetting/custom.vue')['default']
     DataDetail: typeof import('./src/components/flow/Control/DataDetail.vue')['default']
     DateColumn: typeof import('./src/components/cps/dynamic/DetailDateColumn.vue')['default']
@@ -207,6 +207,7 @@ declare module 'vue' {
     VueNode: typeof import('./src/components/flow/alaflow/task/VueNode.vue')['default']
     VUpload: typeof import('./src/components/base/v-upload.vue')['default']
     WfSubProcess: typeof import('./src/components/flow/PropertySetting/wfSubProcess.vue')['default']
+    WfSubProcessBk: typeof import('./src/components/flow/PropertySetting/wfSubProcess-bk.vue')['default']
     XiaoshuColumn: typeof import('./src/components/cps/dynamic/XiaoshuColumn.vue')['default']
   }
   export interface ComponentCustomProperties {
