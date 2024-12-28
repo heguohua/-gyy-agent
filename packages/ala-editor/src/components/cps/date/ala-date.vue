@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 14:00:41
+ * @LastEditTime: 2024-12-28 09:41:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -81,27 +81,16 @@ const props = defineProps({
 
 const model = defineModel({
     type: [String, Number] as PropType<number | string>,
-    default: () => {
-        return new Date().getTime()
-    }
+    default: ''
 })
 
 const handleChange = (value: Date | null) => {
 
     if (value) {
 
-        if (Array.isArray(value)) {
-            const dates: String[] = []
-            value.forEach((day) => {
-                const dy = date.format(day, props.format);
-                dates.push(dy)
-            })
-            model.value = dates
-        } else {
-            let milliseconds = value.getTime(); // 使用getTime()方法获取毫秒数
-            // const day = date.format(value, props.format);
-            model.value = milliseconds
-        }
+        let milliseconds = value.getTime(); // 使用getTime()方法获取毫秒数
+        // const day = date.format(value, props.format);
+        model.value = milliseconds
 
     } else {
         logger.error("注意，注意，注意：当前选择日期后为null");

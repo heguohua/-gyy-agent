@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 17:51:34
+ * @LastEditTime: 2024-12-28 10:21:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
         <AlaFormLabel :label="label" :help="help" />
       </template>
       <el-select @change="handleChange" :model-value="localValue" class="ala-select-group" :style="styles"
-        :id="fieldName">
+        :id="fieldName" :clearable="clearable">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>
@@ -70,10 +70,15 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  clearable: {
+    type: Boolean,
+    default: false
+  },
   help: {
     type: String,
   }
 })
+console.log('props.clearable:',props.clearable);
 
 interface item {
   name: string,

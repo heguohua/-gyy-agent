@@ -1,17 +1,11 @@
 <template>
-  <ElDrawer
-  destroy-on-close
-  direction="rtl"
-  append-to-body
-  :title="title"
-  ref="drawerRef"
-  @close="handleClose"
-  v-model="drawer">
-  <component :is="componentType" v-model="formData" :extendAttrConfig="props.extendAttrConfig || {}">
-    <template #[key]="data" v-for="(item, key) in $slots">
+  <ElDrawer destroy-on-close direction="rtl" append-to-body :title="title" ref="drawerRef" @close="handleClose"
+    v-model="drawer">
+    <component :is="componentType" v-model="formData" :extendAttrConfig="props.extendAttrConfig || {}">
+      <!-- <template #[key]="data" v-for="(item, key) in $slots">
       <slot :name="key" v-bind="data || {}"></slot>
-    </template>
-  </component>
+    </template> -->
+    </component>
   </ElDrawer>
 </template>
 <script lang="ts" setup>
@@ -30,6 +24,7 @@ import task from './task.vue'
 import transition from './transition.vue'
 import subProcess from './subProcess.vue'
 import wfSubProcess from './wfSubProcess.vue'
+import { logger } from '@/utils/logger'
 const NODE_NAME_LIST = [
   'snaker:custom', 'snaker:decision',
   'snaker:end', 'snaker:fork', 'snaker:join', 'snaker:start',
@@ -72,6 +67,8 @@ const props = defineProps({
 const drawer = ref(false)
 const drawerRef = ref(null)
 var formData = reactive({} as FlowFormModel)
+
+
 // 标题
 const title = computed(() => {
   if (formData.type === 'process') {
@@ -87,27 +84,44 @@ const title = computed(() => {
   }
   return ''
 })
+
+
 // 组件类型
 const componentType = computed(() => {
   const mFormData = formData
   if (!mFormData || !mFormData.type) return
   return COMPONENT_LIST[mFormData.type.replace('snaker:', '')]
 })
+
+
 // 节点名称
 const nodeName = computed((): NodeTypeEnum => {
   const mFormData = formData
   if (!mFormData || !mFormData.type) return NodeTypeEnum.ignore
   return mFormData.type.replace('snaker:', '') as unknown as NodeTypeEnum
 })
+
+
 // 处理emits
-const handleEmits = (propertyName:string, propertyValue: any) => {
-  if (propertyValue === undefined) return
-  emits('change', {
+const handleEmits = (propertyName: string, propertyValue: any) => {
+
+  if (propertyValue === undefined) {
+    logger.info(`属性【 值不存在 】，不回调上层组件，type[${unref(nodeName)}]，propertyName[${propertyName}]`);
+    return
+  }
+
+  const data = {
     type: unref(nodeName),
     propertyName: propertyName,
     propertyValue: propertyValue
-  } as PropertyEvent)
+  } as PropertyEvent
+  logger.warn(`监听到【 节点属性 】发生变化，即将回调上层组件，type[${unref(nodeName)}]，propertyName[${propertyName}]，data：`, data);
+
+  emits('change', data)
+
 }
+
+
 // 表单属性keys
 const propertyKeys = [
   // 流程属性
@@ -125,13 +139,17 @@ const propertyKeys = [
   'autoExecute', 'callback', 'width', 'height', 'field',
   // 额外扩展的属性
   ...props.extendPropertyKeys || props.extendAttrConfig?.extendPropertyKeys || []
-] as string []
+] as string[]
+
+
 // 去重后的key
 const propertyKeysSet = Array.from(new Set(propertyKeys))
 propertyKeysSet.forEach((key: string) => {
   // 监听属性变化
   watch(() => formData[key], (n) => handleEmits(key, n), { deep: true })
 })
+
+
 // 显示抽屉
 const show = (args: FlowFormModel) => {
   // 将args的值复制给formData
@@ -140,6 +158,8 @@ const show = (args: FlowFormModel) => {
   Object.assign(formData, args, { width: Number(width), height: Number(height) })
   drawer.value = true
 }
+
+
 // 抽屉关闭处理
 const handleClose = () => {
   // 清空表单值
@@ -147,8 +167,11 @@ const handleClose = () => {
     delete formData[key]
   })
 }
+
+
 // 导入属性及方法给外部调用
 defineExpose({
   show
 })
+
 </script>

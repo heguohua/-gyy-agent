@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 17:09:34
+ * @LastEditTime: 2024-12-28 10:23:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -53,14 +53,15 @@ export function alaBuild(componentName: string, fieldName: string, label: string
     }
 }
 
-export function alaBuildWithItems(componentName: string, fieldName: string, label: string, items: Array<Item>, rules?: Array<baseRule>, placeholder?: string) {
+export function alaBuildWithItems(componentName: string, fieldName: string, label: string, items: Array<Item>, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }) {
     const obj = {
         componentName: componentName,
         label: label,
         placeholder: placeholder ? placeholder : `请输入${label}`,
         fieldName: fieldName,
         other: {
-            items
+            items,
+            ...other
         },
         rules
     }
@@ -204,12 +205,12 @@ export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelect(fieldName: string, label: string, items: Array<{ [key: string]: string }>, rules?: Array<baseRule>, placeholder?: string): AlaRadioSchema {
+export function alaBuildSelect(fieldName: string, label: string, items: Array<{ [key: string]: string }>, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaRadioSchema {
     u.checkBoolean(!items, `表单元素select配置项items为空，表单字段名${fieldName}`)
     const item_s = items.map((item => {
         return convertToItem(item)
     }))
-    const obj = alaBuildWithItems("AlaSelect", fieldName, label, item_s, rules, placeholder)
+    const obj = alaBuildWithItems("AlaSelect", fieldName, label, item_s, rules, placeholder, other)
     return obj
 }
 
@@ -224,11 +225,11 @@ export function alaBuildSelect(fieldName: string, label: string, items: Array<{ 
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelectApi(fieldName: string, label: string, url: string, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string): AlaSelectApiSchema {
+export function alaBuildSelectApi(fieldName: string, label: string, url: string, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string, other?: { [key: string]: any }): AlaSelectApiSchema {
 
     u.checkBoolean(!url, `表单元素 select-api 配置项 url 为空，表单字段名${fieldName}`)
     u.checkBoolean(!itemProperty, `表单元素 select-api 配置项 itemProperty 为空，表单字段名${fieldName}`)
-    const obj = alaBuildWithOther("AlaSelectApi", fieldName, label, { url, itemProperty, params }, rules, placeholder)
+    const obj = alaBuildWithOther("AlaSelectApi", fieldName, label, { url, itemProperty, params, ...other }, rules, placeholder)
 
     return obj
 }
@@ -242,8 +243,8 @@ export function alaBuildSelectApi(fieldName: string, label: string, url: string,
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelectDict(fieldName: string, label: string, params: { [key: string]: string }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectDictSchema {
-    const obj = alaBuildWithOther("AlaSelectDict", fieldName, label, { params, itemProperty, isFormDesign: false }, rules, placeholder)
+export function alaBuildSelectDict(fieldName: string, label: string, params: { [key: string]: string }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaSelectDictSchema {
+    const obj = alaBuildWithOther("AlaSelectDict", fieldName, label, { params, itemProperty, isFormDesign: false, ...other }, rules, placeholder)
     return obj
 }
 
@@ -256,8 +257,8 @@ export function alaBuildSelectDict(fieldName: string, label: string, params: { [
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelectTree(fieldName: string, label: string, url: string, params: { [key: string]: any }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string): AlaSelectTreeSchema {
-    const obj = alaBuildWithOther("AlaSelectTree", fieldName, label, { url, params, itemProperty }, rules, placeholder)
+export function alaBuildSelectTree(fieldName: string, label: string, url: string, params: { [key: string]: any }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaSelectTreeSchema {
+    const obj = alaBuildWithOther("AlaSelectTree", fieldName, label, { url, params, itemProperty, ...other }, rules, placeholder)
     return obj
 }
 

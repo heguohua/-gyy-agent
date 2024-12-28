@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-30 08:52:32
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-05 21:29:17
+ * @LastEditTime: 2024-12-28 09:20:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/types.d.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
-import LogicFlow from '@logicflow/core';
+import LogicFlow, { BaseEdgeModel, BaseNodeModel } from '@logicflow/core';
 import { NodeTypeEnum } from './enums'
 
 export interface ProcessModel {
