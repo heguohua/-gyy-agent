@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-28 10:21:24
+ * @LastEditTime: 2024-12-28 10:53:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -78,7 +78,6 @@ const props = defineProps({
     type: String,
   }
 })
-console.log('props.clearable:',props.clearable);
 
 interface item {
   name: string,
