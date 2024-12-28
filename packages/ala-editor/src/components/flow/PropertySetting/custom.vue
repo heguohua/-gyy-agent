@@ -1,41 +1,25 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-11-30 08:52:32
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2024-12-28 12:53:16
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/PropertySetting/custom.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
   <div>
-    <el-form ref="formRef" :model="form" label-width="120px" size="default">
-      <slot name="form-item-custom-name" :model="form" field="name">
-        <el-form-item label="名称">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-custom-displayName" :model="form" field="displayName">
-        <el-form-item label="显示名称">
-          <el-input v-model="form.displayName"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-custom-clazz" :model="form" field="clazz">
-        <el-form-item label="类路径">
-          <el-input v-model="form.clazz"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-custom-methodName" :model="form" field="methodName">
-        <el-form-item label="方法名">
-          <el-input v-model="form.methodName"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-custom-args" :model="form" field="args">
-        <el-form-item label="参数变量">
-          <el-input v-model="form.args"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-custom-preInterceptors" :model="form" field="preInterceptors">
-        <el-form-item label="前置拦截器">
-          <el-input v-model="form.preInterceptors"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-custom-postInterceptors" :model="form" field="postInterceptors">
-        <el-form-item label="后置拦截器">
-          <el-input v-model="form.postInterceptors"></el-input>
-        </el-form-item>
-      </slot>
+    <el-form ref="formRef" :model="modelForm" label-width="120px" size="default" :rules="rules">
+
+      <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
+
+        <component :is="item.componentName" :label="item.label" position="right" :placeholder="item.placeholder"
+          v-bind="item.other" v-model="modelForm[item.fieldName as keyof FlowFormModel]" :fieldName="item.fieldName"
+          :data="modelForm" />
+
+      </div>
+
     </el-form>
   </div>
 </template>
@@ -43,19 +27,57 @@
 import { ElForm, ElFormItem, ElInput } from 'element-plus'
 import { reactive, ref, watch, defineProps, onMounted, defineEmits } from 'vue'
 import { FlowFormModel } from '../types'
+import { AlaField } from '@/config/fieldSchemas'
+import { alaBuildDate, alaBuildInput, alaBuildSelectDict, alaBuildTextarea } from '@/config/alaBuilders'
+import { alaRequired } from '@/config/alaRules'
 // 注意:ref不能与model一样，相同的话表单双向绑定将会失效
 const formRef = ref(null)
-const form = reactive<FlowFormModel>({} as FlowFormModel)
+const modelForm = reactive<FlowFormModel>({} as FlowFormModel)
 // 定义属性
 const props = defineProps<{
   modelValue: FlowFormModel
 }>()
 const emits = defineEmits(['update:modelValue'])
-watch(() => form, () => {
-  emits('update:modelValue', Object.assign(props.modelValue, form))
+watch(() => modelForm, () => {
+  emits('update:modelValue', Object.assign(props.modelValue, modelForm))
 }, { deep: true })
 
 onMounted(() => {
-  Object.assign(form, props.modelValue)
+  Object.assign(modelForm, props.modelValue)
 })
+
+
+
+const isHidden = (item: { componentName: string, other?: any }) => {
+  if (item.componentName === 'AlaHidden') {
+    return 'ala-form-base-item-hidden'
+  } else if (item.other && item.other.fullWidth) {
+    return 'ala-form-base-item-full-width'
+  } else {
+    return 'ala-form-base-item'
+  }
+}
+
+const fields = ref<Array<AlaField>>([])
+fields.value.push(alaBuildInput("name", "名称", [alaRequired()], "请输入名称"))
+fields.value.push(alaBuildInput("displayName", "显示名称", [alaRequired()], "请输入显示名称"))
+fields.value.push(alaBuildTextarea("clazz", "类路径", [], "请输入完整类路径"))
+fields.value.push(alaBuildInput("methodName", "方法名", [], "请输入方法名"))
+fields.value.push(alaBuildTextarea("args", "参数变量", [], "请输入参数变量"))
+fields.value.push(alaBuildSelectDict("preInterceptors", "节点前置拦截器", { "dictValue": "preInterceptor" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择节点前置拦截器", { clearable: true }))
+fields.value.push(alaBuildSelectDict("postInterceptors", "节点后置拦截器", { "dictValue": "postInterceptor" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择节点后置拦截器", { clearable: true }))
+
+
+const rules = computed(() => {
+  const ruless: { [key: string]: object } = {}
+  fields.value?.forEach(field => {
+    if (field.rules) {
+      ruless[field.fieldName] = field.rules
+    }
+  })
+  return ruless
+})
+
+
+
 </script>
