@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-30 08:52:32
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-28 12:53:16
+ * @LastEditTime: 2024-12-28 14:27:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/PropertySetting/custom.vue
  * @Description: 
  * 

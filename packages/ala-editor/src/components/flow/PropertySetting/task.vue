@@ -1,134 +1,60 @@
 <template>
   <div>
-    <el-form ref="formRef" :model="form" label-width="120px" size="default">
-      <slot name="form-item-task-name" :model="form" field="name">
-        <el-form-item label="名称">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-displayName" :model="form" field="displayName">
-        <el-form-item label="显示名称">
-          <el-input v-model="form.displayName"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-form" :model="form" field="form">
-        <el-form-item label="表单">
-          <el-input v-model="form.form"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-assignee" :model="form" field="assignee">
-        <el-form-item label="参与者">
-          <el-input v-model="form.assignee"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-assignmentHandler" :model="form" field="assignmentHandler">
-        <el-form-item label="参与者处理类">
-          <el-input v-model="form.assignmentHandler"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-taskType" :model="form" field="taskType">
-        <el-form-item label="任务类型">
-          <el-select v-model="form.taskType">
-            <el-option value="Major" label="主办任务"></el-option>
-            <el-option value="Aidant" label="协办任务"></el-option>
-          </el-select>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-performType" :model="form" field="performType">
-        <el-form-item label="参与类型">
-          <el-select v-model="form.performType">
-            <el-option value="ANY" label="普通参与"></el-option>
-            <el-option value="ALL" label="会签参与"></el-option>
-          </el-select>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-preInterceptors" :model="form" field="preInterceptors">
-        <el-form-item label="前置拦截器">
-          <el-input v-model="form.preInterceptors"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-postInterceptors" :model="form" field="postInterceptors">
-        <el-form-item label="后置拦截器">
-          <el-input v-model="form.postInterceptors"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-reminderTime" :model="form" field="reminderTime">
-        <el-form-item label="提醒时间">
-          <el-input v-model="form.reminderTime"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-reminderRepeat" :model="form" field="reminderRepeat">
-        <el-form-item label="重复提醒间隔">
-          <el-input v-model="form.reminderRepeat"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-expireTime" :model="form" field="expireTime">
-        <el-form-item label="期待完成时间">
-          <el-input v-model="form.expireTime"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-autoExecute" :model="form" field="autoExecute">
-        <el-form-item label="是否自动完成">
-          <el-select v-model="form.autoExecute">
-            <el-option value="N" label="否"></el-option>
-            <el-option value="Y" label="是"></el-option>
-          </el-select>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-callback" :model="form" field="callback">
-        <el-form-item label="回调处理">
-          <el-input v-model="form.callback"></el-input>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-width" :model="form" field="width">
-        <el-form-item label="宽度">
-          <el-input-number :step="5" :step-strictly="true" v-model="form.width"></el-input-number>
-        </el-form-item>
-      </slot>
-      <slot name="form-item-task-height" :model="form" field="height">
-        <el-form-item label="高度">
-          <el-input-number :step="5" :step-strictly="true" v-model="form.height"></el-input-number>
-        </el-form-item>
-      </slot>
+    <el-form ref="formRef" :model="modelForm" label-width="150px" size="default" :rules="rules">
+
+      <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
+
+        <component :is="item.componentName" :label="item.label" position="right" :placeholder="item.placeholder"
+          v-bind="item.other" v-model="modelForm[item.fieldName as keyof FlowFormModel]" :fieldName="item.fieldName"
+          :data="modelForm" />
+
+      </div>
+
       <el-card>
         <template #header>
           <div class="clearfix">
-          <span>扩展属性</span>
-          <el-dropdown @command="handleCommand" style="float: right; padding: 3px 0">
-            <el-button link type="primary">添加<el-icon class="el-icon--right"><ArrowDown /></el-icon></el-button>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item :disabled="item.disabled === true" :icon="item.icon" :key="item.name" v-for="item in dropdownData" :command="item.name">
-                  {{item.label}}
-                </el-dropdown-item>
-              </el-dropdown-menu>
-          </template>
-          </el-dropdown>
-        </div>
+            <span>扩展属性</span>
+            <el-dropdown @command="handleCommand" style="float: right; padding: 3px 0">
+              <el-button link type="primary">添加<el-icon class="el-icon--right">
+                  <ArrowDown />
+                </el-icon></el-button>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item :disabled="item.disabled === true" :icon="item.icon" :key="item.name"
+                    v-for="item in dropdownData" :command="item.name">
+                    {{ item.label }}
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </div>
         </template>
         <div>
-         <el-row v-for="item in attrList" :key="item.key" style="margin-bottom: 12px;">
-           <el-col :span="10" style="height: 32px;display: flex;align-items: center;position: relative;z-index: 99999;">
-             <span>{{getLabel(item.key)}}&nbsp;
-               <el-tooltip :content="getTooltip(item.key)">
-                <el-icon><info-filled/></el-icon>
-               </el-tooltip>
-             </span>
-           </el-col>
-           <el-col :span="12">
-             <el-select v-if="item.key == 'countersignType'" size="default" v-model="form.field[item.key]">
-              <el-option value="PARALLEL" label="并行会签"></el-option>
-              <el-option value="SEQUENTIAL" label="顺序会签"></el-option>
-             </el-select>
-             <template v-else>
-              <component v-if="(typeof getRender(item.key) === 'function')" :is="getRender(item.key)(form, item)" />
-              <el-input v-else v-model="form.field[item.key]" size="default"></el-input>
-             </template>
-           </el-col>
-           <el-col :span="2" style="height: 32px;display: flex;align-items: center;padding-left: 10px;">
-             <el-icon v-if="item.disabled!==true" @click="handleRemoveFieldAttr(item.key)"> <remove-filled/></el-icon>
-           </el-col>
-         </el-row>
+          <el-row v-for="item in attrList" :key="item.key" style="margin-bottom: 12px;">
+            <el-col :span="10"
+              style="height: 32px;display: flex;align-items: center;position: relative;z-index: 99999;">
+              <span>{{ getLabel(item.key) }}&nbsp;
+                <el-tooltip :content="getTooltip(item.key)">
+                  <el-icon><info-filled /></el-icon>
+                </el-tooltip>
+              </span>
+            </el-col>
+            <el-col :span="12">
+              <el-select v-if="item.key == 'countersignType'" size="default" v-model="modelForm.field[item.key]">
+                <el-option value="PARALLEL" label="并行会签"></el-option>
+                <el-option value="SEQUENTIAL" label="顺序会签"></el-option>
+              </el-select>
+              <template v-else>
+                <component v-if="(typeof getRender(item.key) === 'function')"
+                  :is="getRender(item.key)(modelForm, item)" />
+                <el-input v-else v-model="modelForm.field[item.key]" size="default"></el-input>
+              </template>
+            </el-col>
+            <el-col :span="2" style="height: 32px;display: flex;align-items: center;padding-left: 10px;">
+              <el-icon v-if="item.disabled !== true" @click="handleRemoveFieldAttr(item.key)">
+                <remove-filled /></el-icon>
+            </el-col>
+          </el-row>
         </div>
       </el-card>
     </el-form>
@@ -155,9 +81,14 @@ import {
 } from 'element-plus'
 import { reactive, ref, watch, defineProps, onMounted, defineEmits, computed } from 'vue'
 import { FlowFormModel } from '../types'
+import { AlaField } from '@/config/fieldSchemas'
+import { alaBuildDate, alaBuildInput, alaBuildNumber, alaBuildSelect, alaBuildSelectDict, alaBuildSwitch, alaBuildTextarea } from '@/config/alaBuilders'
+import { alaRequired } from '@/config/alaRules'
+
 // 注意:ref不能与model一样，相同的话表单双向绑定将会失效
 const formRef = ref(null)
-const form = reactive<FlowFormModel>({} as FlowFormModel)
+const modelForm = reactive<FlowFormModel>({} as FlowFormModel)
+
 // 定义属性
 const props = defineProps<{
   modelValue: FlowFormModel,
@@ -165,6 +96,7 @@ const props = defineProps<{
     type: Object,
   }
 }>()
+
 const mDropdownData = [
   {
     label: '用户标识',
@@ -231,6 +163,7 @@ const performTypeAttrs = [
     tips: '参数类型为会签参与时生效'
   }
 ]
+
 const dropdownData = computed<Array<any>>(() => {
   const { extendAttrConfig }: any = props
   let res = []
@@ -239,7 +172,7 @@ const dropdownData = computed<Array<any>>(() => {
   } else {
     res = extendAttrConfig.items
   }
-  if (form.performType === 'ALL') {
+  if (modelForm.performType === 'ALL') {
     return [
       ...performTypeAttrs,
       ...res
@@ -248,44 +181,49 @@ const dropdownData = computed<Array<any>>(() => {
   return res
 })
 const attrList = computed(() => {
-  if (!form.field) {
+  if (!modelForm.field) {
     return []
   }
   // 会签相关属性
   const performTypeAttrs: Array<any> = []
-  if (form.performType === 'ALL') {
+  if (modelForm.performType === 'ALL') {
     performTypeAttrs.push({
       key: 'countersignType',
-      value: form.field.countersignType,
+      value: modelForm.field.countersignType,
       disabled: true
     })
     performTypeAttrs.push({
       key: 'countersignCompletionCondition',
-      value: form.field.countersignCompletionCondition,
+      value: modelForm.field.countersignCompletionCondition,
       disabled: true
     })
   }
   return [
     ...performTypeAttrs,
-    ...Object.keys(form.field).filter((key: string) => !performTypeAttrs.map(item => item.key).includes(key)).map(key => {
+    ...Object.keys(modelForm.field).filter((key: string) => !performTypeAttrs.map(item => item.key).includes(key)).map(key => {
       return {
         key: key,
-        value: form.field[key]
+        value: modelForm.field[key]
       }
     })
   ]
 })
+
 const emits = defineEmits(['update:modelValue'])
+
 // 监听表单属性
-watch(() => form, () => {
-  emits('update:modelValue', Object.assign(props.modelValue, form))
+watch(() => modelForm, () => {
+  emits('update:modelValue', Object.assign(props.modelValue, modelForm))
 }, { deep: true })
+
 const handleCommand = (command: string) => {
-  form.field[command] = ''
+  modelForm.field[command] = ''
 }
+
 const handleRemoveFieldAttr = (key: string) => {
-  delete form.field[key]
+  delete modelForm.field[key]
 }
+
 const getLabel = (name: string) => {
   const res = dropdownData.value.find((item: any) => {
     return item.name === name
@@ -295,6 +233,7 @@ const getLabel = (name: string) => {
   }
   return ''
 }
+
 const getTooltip = (name: string) => {
   const res = dropdownData.value.find((item: any) => {
     return item.name === name
@@ -304,6 +243,7 @@ const getTooltip = (name: string) => {
   }
   return ''
 }
+
 const getRender = (name: string) => {
   const res = dropdownData.value.find((item: any) => {
     return item.name === name
@@ -313,26 +253,75 @@ const getRender = (name: string) => {
   }
   return undefined
 }
-watch(() => form.performType, () => {
+
+watch(() => modelForm.performType, () => {
   // 设置countersignType默认值
-  if (form.performType === 'ALL' && !form.field.countersignType) {
-    form.field.countersignType = 'PARALLEL'
+  if (modelForm.performType === 'ALL' && !modelForm.field.countersignType) {
+    modelForm.field.countersignType = 'PARALLEL'
   }
-  if (form.performType !== 'ALL' && form.field) {
+  if (modelForm.performType !== 'ALL' && modelForm.field) {
     performTypeAttrs.forEach((item) => {
-      delete form.field[item.name]
+      delete modelForm.field[item.name]
     })
   }
 })
+
 onMounted(() => {
   if (props.modelValue.field) {
     if (typeof props.modelValue.field === 'string') {
-      Object.assign(form, props.modelValue, { field: JSON.parse(props.modelValue.field) })
+      Object.assign(modelForm, props.modelValue, { field: JSON.parse(props.modelValue.field) })
     } else {
-      Object.assign(form, props.modelValue)
+      Object.assign(modelForm, props.modelValue)
     }
   } else {
-    Object.assign(form, props.modelValue, { field: {} })
+    Object.assign(modelForm, props.modelValue, { field: {} })
   }
 })
+
+const isHidden = (item: { componentName: string, other?: any }) => {
+  if (item.componentName === 'AlaHidden') {
+    return 'ala-form-base-item-hidden'
+  } else if (item.other && item.other.fullWidth) {
+    return 'ala-form-base-item-full-width'
+  } else {
+    return 'ala-form-base-item'
+  }
+}
+
+const fields = ref<Array<AlaField>>([])
+fields.value.push(alaBuildInput("name", "名称", [alaRequired()], "请输入流程名称"))
+fields.value.push(alaBuildInput("displayName", "显示名称", [alaRequired()], "请输入显示名称"))
+fields.value.push(alaBuildInput("form", "表单", [alaRequired()], "请选择表单"))
+fields.value.push(alaBuildInput("assignee", "参与者", [], "请选择参与者"))
+fields.value.push(alaBuildSelectDict("assignmentHandler", "参与者处理类", { "dictValue": "assignmentHandler" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择参与者处理类", { clearable: true }))
+fields.value.push(alaBuildSelect("taskType", "任务类型", [{ '主办任务': 'Major' }, { '协办任务': 'Aidant' }], [], "请选择任务参与者", { clearable: true }))
+fields.value.push(alaBuildSelect("performType", "参与类型", [{ '普通参与': 'ANY' }, { '会签参与': 'ALL' }], [], "请选择参与类型", { clearable: true }))
+fields.value.push(alaBuildSelectDict("preInterceptors", "节点前置拦截器", { "dictValue": "preInterceptor" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择节点前置拦截器", { clearable: true }))
+fields.value.push(alaBuildSelectDict("postInterceptors", "节点后置拦截器", { "dictValue": "postInterceptor" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择节点后置拦截器", { clearable: true }))
+
+fields.value.push(alaBuildDate("expireTime", "期望完成时间", "date", "YYYY-MM-DD", [], "", "", "请选择期望完成时间"))
+
+fields.value.push(alaBuildSelect("performType", "是否自动完成", [{ '普通参与': 'ANY' }, { '会签参与': 'ALL' }], [], "请选择参与类型", { clearable: true }))
+fields.value.push(alaBuildSwitch("autoExecute", "是否自动完成", "是", "否", "Y", "N", [], ""))
+
+fields.value.push(alaBuildDate("reminderTime", "提醒时间", "date", "YYYY-MM-DD", [], "", "", "请选择提醒时间"))
+fields.value.push(alaBuildNumber("reminderRepeat", "重复提醒间隔（分钟）", [], "请输入高度"))
+
+fields.value.push(alaBuildTextarea("callback", "回调Url", [], "请输入回调Url"))
+
+fields.value.push(alaBuildNumber("width", "宽度", [], "请输入宽度"))
+fields.value.push(alaBuildNumber("height", "高度", [], "请输入高度"))
+
+
+
+const rules = computed(() => {
+  const ruless: { [key: string]: object } = {}
+  fields.value?.forEach(field => {
+    if (field.rules) {
+      ruless[field.fieldName] = field.rules
+    }
+  })
+  return ruless
+})
+
 </script>
