@@ -115,7 +115,7 @@ const handleEmits = (propertyName: string, propertyValue: any) => {
     propertyName: propertyName,
     propertyValue: propertyValue
   } as PropertyEvent
-  logger.warn(`监听到【 节点属性 】发生变化，即将回调上层组件，type[${unref(nodeName)}]，propertyName[${propertyName}]，data：`, data);
+  logger.info(`监听到【 节点属性 】发生变化，即将回调上层组件，type[${unref(nodeName)}]，propertyName[${propertyName}]，data：`, data);
 
   emits('change', data)
 

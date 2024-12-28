@@ -35,14 +35,10 @@ import HighLightData from './Control/HighLightData.vue'
 import { xml2LogicFlowJson } from './alaflow/tool'
 import { version as EleVersion } from 'element-plus'
 import { patternItems } from './data'
-import u from '@/utils/u'
-import { alaPost } from '@/utils/req'
 import { logger } from '@/utils/logger'
-import notify from '@/utils/notify'
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
 
-const emits = defineEmits(['update:modelValue', 'on-save', 'on-init'])
+
+const emits = defineEmits(['change', 'save', 'init'])
 
 // 定义挂载元素Ref
 const lfElRef: Ref = ref(null)
@@ -68,7 +64,8 @@ const currentOpId = ref('')
 // 定义组件接收的参数
 const props = defineProps({
   modelValue: {
-    type: [Object, String]
+    type: Object,
+    default: () => { }
   },
   config: {
     type: Object,
@@ -124,7 +121,8 @@ const props = defineProps({
 
 // 监听流程变化
 watch(() => props.modelValue, () => {
-  reRender(props.modelValue)
+  logger.info(`监听到【 modelValue值 】发生变化，即将重新渲染流程图`);
+  reRender(props.modelValue.content)
 }, {
   deep: true
 })
@@ -202,7 +200,7 @@ const init = () => {
   })
 
   // 实例化成功，方便提供外部注册
-  emits('on-init', lfInstance.value)
+  emits('init', lfInstance.value)
 
   // 绑定流程设计器组件属性
   bindWfProps()
@@ -210,7 +208,7 @@ const init = () => {
   // 初始化操作
   initOp()
 
-  reRender(props.modelValue as ProcessModel)
+  reRender(props.modelValue.content as ProcessModel)
 
   // 初始化事件
   initEvent()
@@ -302,45 +300,14 @@ const initOp = () => {
     }
   })
 
-  const defineModel = ref<any>({})
-
   // 控制面板-保存
   lf.extension.control.addItem({
     iconClass: 'lf-control-save',
     title: '',
     text: '保存',
     onClick: () => {
-
-      const content = getGraphData()
-
-  
-      const { name, displayName } = content.json
-
-      let contentJson = ''
-      if (content) {
-        contentJson = u.tojson(content.json)
-      }
-      // 1、验证流程图是否正确？如连线是否完整
-
-      // 2、保存
-      const data = { name:name, displayName:displayName, content: contentJson }
-      // 保存数据并刷新分页列表
-      // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
-      const id = defineModel.value.id ? defineModel.value.id : undefined
-
-      const url = id ? '/p/define/update' : '/p/define/add'
-      if (id) {
-        logger.info(`【 更新数据 】，url${url}，数据对象：`, data);
-      } else {
-        logger.info(`【 新增数据 】，url${url}，数据对象：`, data);
-      }
-      alaPost(u.url(url || ''), data, false, id ? 'put' : '').then((data: any) => {
-        const response = data;
-        notify.success(t('pop.warm_title'), "保存成功")
-      });
-
-
-      // emits('on-save', data)
+      const data = getGraphData()
+      emits('save', data)
     }
   })
 
@@ -402,9 +369,13 @@ const initEvent = () => {
 
   // 空白区右键事件-弹出流程属性表单
   eventCenter.on('blank:contextmenu', (args) => {
+
     if (props.wfConfig.blankContextmenu && typeof props.wfConfig.blankContextmenu === 'function') {
+
       props.wfConfig.blankContextmenu(lf, args)
+
     } else {
+
       propertySettingRef.value.show({
         name: lf.graphModel.name,
         displayName: lf.graphModel.displayName,
@@ -415,11 +386,13 @@ const initEvent = () => {
         postInterceptors: lf.graphModel.postInterceptors,
         type: 'process'
       })
+
     }
   })
 
   // 节点点击事件
   eventCenter.on('node:click', (args) => {
+
     if (args.data.type === 'snaker:subProcess') {
       // 子流程展开折叠时，不处理
       if (!args.e.srcElement.className.baseVal) {
@@ -429,11 +402,16 @@ const initEvent = () => {
 
     currentOpId.value = args.data.id
     const nodeClick = props.wfConfig[args.data.type.replace('snaker:', '')]?.nodeClick || props.wfConfig.nodeClick
+
     if (nodeClick && typeof nodeClick === 'function') {
+
       nodeClick(lf, args)
+
     } else {
+
       // html节点特殊处理
       if (props.nodeRenderType === 'html' && [NodeTypeEnum.task].includes(args.data.type.replace('snaker:', ''))) {
+
         // 为箭头点击事件才处理
         if (args.e.arrowClick) {
           if (props.wfConfig.arrowClick && typeof props.wfConfig.arrowClick === 'function') {
@@ -447,48 +425,65 @@ const initEvent = () => {
             })
           }
         }
+
       } else {
+
         propertySettingRef.value.show({
           ...args.data.properties,
           name: args.data.id,
           displayName: args.data.text?.value || args.data.properties.displayName,
           type: args.data.type
         })
+
       }
     }
   })
 
   // 边点击事件
   eventCenter.on('edge:click', (args) => {
+
     currentOpId.value = args.data.id
     if (props.wfConfig.edgeClick && typeof props.wfConfig.edgeClick === 'function') {
+
       props.wfConfig.edgeClick(lf, args)
+
     } else {
+
       propertySettingRef.value.show({
         ...args.data.properties,
         name: args.data.id,
         displayName: args.data.text?.value,
         type: args.data.type
       })
+
     }
   })
 
   // 节点大小改变事件
   lf.on('node:resize', ({ newNodeSize }) => {
+
     const nodeModel = lf.getNodeModelById(newNodeSize.id)
     if (nodeModel) {
+
       nodeModel.setProperties({
         width: parseInt(newNodeSize.width),
         height: parseInt(newNodeSize.height)
       })
+
     }
   })
 }
 
 // 重新渲染
 const reRender = (data: any): void => {
+
   const lf = unref(lfInstance)
-  if (!lf) return
+  if (!lf) {
+    logger.error(`lf实例不存在，不渲染流程图`);
+    return
+  } else {
+    logger.info(`lf实例存在，即将渲染流程图，数据体data：`, data);
+  }
   lf.render(data)
   // 设置高亮
   setHighLight(props.highLight)
@@ -498,12 +493,17 @@ const reRender = (data: any): void => {
 
 // 处理属性值变化事件
 const handlePropertyChange = (propertyEvent: PropertyEvent) => {
+
   const lf = unref(lfInstance)
   if (!lf) return
+
   if (propertyEvent.type === NodeTypeEnum.process) {
+
     // 流程属性
     lf.graphModel[propertyEvent.propertyName] = propertyEvent.propertyValue
+
   } else if (propertyEvent.type === NodeTypeEnum.subProcess) {
+
     // 子流程属性
     const nodeId = unref(currentOpId)
     if (propertyEvent.propertyName === 'name') {
@@ -517,6 +517,7 @@ const handlePropertyChange = (propertyEvent: PropertyEvent) => {
         [propertyEvent.propertyName]: propertyEvent.propertyValue
       })
     }
+
   } else if (([
     NodeTypeEnum.custom,
     NodeTypeEnum.decision,
@@ -527,19 +528,25 @@ const handlePropertyChange = (propertyEvent: PropertyEvent) => {
     NodeTypeEnum.task,
     NodeTypeEnum.wfSubProcess
   ] as NodeTypeEnum[]).includes(propertyEvent.type)) {
+
     // 节点属性
     const nodeId = unref(currentOpId)
     // 节点信息
     if (propertyEvent.propertyName === 'name') {
+
       // 更新唯一标识
       if (!lf.getNodeModelById(propertyEvent.propertyValue)) {
         lf.changeNodeId(nodeId, propertyEvent.propertyValue)
         currentOpId.value = propertyEvent.propertyValue
       }
+
     } else if (propertyEvent.propertyName === 'displayName') {
+
       // 更新节点文本值
       lf.updateText(nodeId, propertyEvent.propertyValue)
+
     } else if (propertyEvent.propertyName === 'width' && [NodeTypeEnum.task, NodeTypeEnum.custom].includes(propertyEvent.type)) {
+
       // 宽度
       lf.setProperties(nodeId, {
         width: (Number.isNaN(propertyEvent.propertyValue) ? 120 : propertyEvent.propertyValue) as number
@@ -548,46 +555,65 @@ const handlePropertyChange = (propertyEvent: PropertyEvent) => {
       if (nodeModel) {
         nodeModel.width = (Number.isNaN(propertyEvent.propertyValue) ? 120 : propertyEvent.propertyValue) as number
       }
+
     } else if (propertyEvent.propertyName === 'height' && [NodeTypeEnum.task, NodeTypeEnum.custom].includes(propertyEvent.type)) {
+
       // 高度
       lf.setProperties(nodeId, {
         height: (Number.isNaN(propertyEvent.propertyValue) ? 120 : propertyEvent.propertyValue) as number
       })
+
       const nodeModel = lf.getNodeModelById(nodeId)
       if (nodeModel) {
         nodeModel.height = (Number.isNaN(propertyEvent.propertyValue) ? 120 : propertyEvent.propertyValue) as number
       }
+
     } else if (propertyEvent.propertyName === 'field') {
+
       // 更新扩展属性
       lf.setProperties(nodeId, {
         field: JSON.stringify(propertyEvent.propertyValue)
       })
+
     } else {
+
       // 更新基础属性
       lf.setProperties(nodeId, {
         [propertyEvent.propertyName]: propertyEvent.propertyValue
       })
+
     }
-    emits('update:modelValue', getGraphData())
+
+
   } else if (propertyEvent.type === NodeTypeEnum.transition) {
+
     // 边属性
     const edgeId = unref(currentOpId)
     if (propertyEvent.propertyName === 'name') {
+
       // 更新唯一标识
       if (!lf.getEdgeModelById(propertyEvent.propertyValue)) {
         lf.changeEdgeId(edgeId, propertyEvent.propertyValue)
         currentOpId.value = propertyEvent.propertyValue
       }
+
     } else if (propertyEvent.propertyName === 'displayName') {
+
       // 更新节点文本值
       lf.updateText(edgeId, propertyEvent.propertyValue)
+
     } else {
+
       // 更新基础属性
       lf.setProperties(edgeId, {
         [propertyEvent.propertyName]: propertyEvent.propertyValue
       })
+
     }
   }
+
+  emits('change', getGraphData())
+
 }
 
 /**
@@ -603,6 +629,7 @@ const getGraphData = () => {
  * 处理导入提交事件
  */
 const handleImportSubmit = (str: string) => {
+
   let data: any = null
   try {
     data = JSON.parse(str)
@@ -635,6 +662,7 @@ const refreshImport = () => {
 
 // 导入高亮数据
 const handleHighLightSubmit = (jsonStr: string) => {
+
   let data: any = null
   try {
     data = JSON.parse(jsonStr)
@@ -648,20 +676,24 @@ const handleHighLightSubmit = (jsonStr: string) => {
  * @param data { "historyNodeNames": [], "historyEdgeNames": [], "activeNodeNames": []}
 */
 const setHighLight = (data: any) => {
+
   const lf = unref(lfInstance)
   if (!lf) return
+
   // 设置历史节点
   if (data && data.historyNodeNames) {
     data.historyNodeNames.forEach((nodeName: string) => {
       lf.setProperties(nodeName, { state: 'history' })
     })
   }
+
   // 设置当前节点
   if (data && data.activeNodeNames) {
     data.activeNodeNames.forEach((nodeName: string) => {
       lf.setProperties(nodeName, { state: 'active' })
     })
   }
+
   // 设置历史边
   if (data && data.historyEdgeNames) {
     data.historyEdgeNames.forEach((edgeName: string) => {
@@ -675,16 +707,21 @@ const setHighLight = (data: any) => {
 
 // 设置节点参与人文本
 const setAssigneeText = (data: any, kvConfig = { valueKey: 'value', labelKey: 'label' }) => {
+
   const lf = unref(lfInstance)
   if (!lf || !data) return
   if (Array.isArray(data)) {
+
     data.forEach((item: any) => {
       lf.setProperties(item[kvConfig.valueKey], { assigneeText: item[kvConfig.labelKey] })
     })
+
   } else {
+
     Object.keys(data).forEach(key => {
       lf.setProperties(key, { assigneeText: data[key] })
     })
+
   }
 }
 
@@ -698,8 +735,17 @@ defineExpose({
   importXml,
   setHighLight,
   setAssigneeText,
-  getLfInstance: () => lfInstance.value
+  getLfInstance: () => lfInstance.value,
+  handleImportSubmit,
 })
+
+interface Define {
+  id: number | undefined,
+  name: string,
+  displayName: string,
+  content: string,
+}
+
 
 </script>
 
