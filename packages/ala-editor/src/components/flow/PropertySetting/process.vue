@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-30 08:52:32
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-28 10:25:54
+ * @LastEditTime: 2024-12-28 10:47:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/PropertySetting/process.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <el-form ref="formRef" :model="modelForm" label-width="130px" size="default">
+  <el-form ref="formRef" :model="modelForm" label-width="130px" size="default" :rules="rules">
 
     <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index">
 
@@ -74,5 +74,14 @@ fields.value.push(alaBuildSelectDict("preInterceptors", "节点前置拦截器",
 fields.value.push(alaBuildSelectDict("postInterceptors", "节点后置拦截器", { "dictValue": "postInterceptor" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择节点后置拦截器", { clearable: true }))
 
 
+const rules = computed(() => {
+  const ruless: { [key: string]: object } = {}
+  fields.value?.forEach(field => {
+    if (field.rules) {
+      ruless[field.fieldName] = field.rules
+    }
+  })
+  return ruless
+})
 
 </script>
