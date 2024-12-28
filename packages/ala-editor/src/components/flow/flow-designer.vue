@@ -35,6 +35,13 @@ import HighLightData from './Control/HighLightData.vue'
 import { xml2LogicFlowJson } from './alaflow/tool'
 import { version as EleVersion } from 'element-plus'
 import { patternItems } from './data'
+import u from '@/utils/u'
+import { alaPost } from '@/utils/req'
+import { logger } from '@/utils/logger'
+import notify from '@/utils/notify'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 const emits = defineEmits(['update:modelValue', 'on-save', 'on-init'])
 
 // 定义挂载元素Ref
@@ -295,13 +302,45 @@ const initOp = () => {
     }
   })
 
+  const defineModel = ref<any>({})
+
   // 控制面板-保存
   lf.extension.control.addItem({
     iconClass: 'lf-control-save',
     title: '',
     text: '保存',
     onClick: () => {
-      emits('on-save', getGraphData())
+
+      const content = getGraphData()
+
+  
+      const { name, displayName } = content.json
+
+      let contentJson = ''
+      if (content) {
+        contentJson = u.tojson(content.json)
+      }
+      // 1、验证流程图是否正确？如连线是否完整
+
+      // 2、保存
+      const data = { name:name, displayName:displayName, content: contentJson }
+      // 保存数据并刷新分页列表
+      // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
+      const id = defineModel.value.id ? defineModel.value.id : undefined
+
+      const url = id ? '/p/define/update' : '/p/define/add'
+      if (id) {
+        logger.info(`【 更新数据 】，url${url}，数据对象：`, data);
+      } else {
+        logger.info(`【 新增数据 】，url${url}，数据对象：`, data);
+      }
+      alaPost(u.url(url || ''), data, false, id ? 'put' : '').then((data: any) => {
+        const response = data;
+        notify.success(t('pop.warm_title'), "保存成功")
+      });
+
+
+      // emits('on-save', data)
     }
   })
 
