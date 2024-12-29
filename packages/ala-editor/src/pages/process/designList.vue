@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 10:42:03
+ * @LastEditTime: 2024-12-29 21:25:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -18,13 +18,33 @@
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
         :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
 
-        <template #cols="{ row, columnName }">
+
+        <template #cols="{ row, columnName, formItem }">
+
+            <template v-if="formItem.code === 'dateRange'">
+
+                <component :is="getComponent(formItem.code)"
+                    :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
+                    :formItem="formItem" :data="row" />
+            </template>
+            <template v-else>
+                <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-else />
+            </template>
+
+        </template>
+
+
+        <!-- <template #cols="{ row, columnName }">
             <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
                 in-valid-name="禁用" :value="row[columnName]" />
             <AlaPageViewStatus v-else-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
                 in-valid-name="禁用" :value="row[columnName]" />
             <template v-else>{{ row[columnName] }}</template>
-        </template>
+        </template> -->
 
     </PageTable>
 
@@ -43,6 +63,8 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
+import { alaDetailBuild, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -70,7 +92,7 @@ provide('baseInfo', baseInfo);
 const showAddForm = ref(false)
 const showAdd = (item: { [key: string]: any }) => {
     u.clear(baseInfo.item)
-    u.merged(baseInfo, { item: { id: null, pid: item.id, typeEntrys: [] } })
+    u.merged(baseInfo, { item: { id: null, pid: item.id, typeEntity: [] } })
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
@@ -83,7 +105,7 @@ const showEdit = (item: { [key: string]: any }) => {
 
 
     // 转换 selectDict 对象格式
-    item.typeEntrys = [{ id: item.type }]
+    item.typeEntity = [{ id: item.type }]
 
     u.merged(baseInfo, { item })
     logger.info(`【编辑】方法接收到参数 item `, item);
@@ -100,6 +122,34 @@ const refresh = () => {
     }
 }
 
+/**
+ * 动态解析国际化字符串
+ * @param label 
+ */
+const parseLabel = (label: string) => {
+    return t(label);
+}
+
+const getComponent = ((code: string) => {
+    return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
+})
+
+/**
+ * 详情页面字段
+ */
+const detailFields: any = ref([])
+const detailItem = reactive({
+    moduleName,
+    item: {}
+})
+const showDetailPage = ref(false)
+const showDetail = (item: { [key: string]: any }) => {
+    u.clear(detailItem.item)
+    u.merged(detailItem, { item })
+    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    showDetailPage.value = true
+}
+
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
 
@@ -111,12 +161,19 @@ const deleteUrl = "/p/design/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        { prop: 'displayName', label: '名称' },
-        { prop: 'name', label: '唯一编码' },
-        { prop: 'type', label: '流程分类' },
-        { prop: 'isDeployed', label: '是否已部署' },
-        { prop: 'remark', label: '备注' },
-        { prop: 'updatedTime', label: '更新时间' },
+        alaDetailBuild(dType.input, 'displayName', "流程名称", true),
+        alaDetailBuild(dType.input, 'name', "唯一编码"),
+        alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
+        alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
+        alaDetailTextarea(dType.textarea, 'remark', "备注"),
+        alaDetailBuild(dType.input, 'updatedTime', "更新时间"),
+
+        // { prop: 'displayName', label: '名称' },
+        // { prop: 'name', label: '唯一编码' },
+        // { prop: 'type', label: '流程分类' },
+        // { prop: 'isDeployed', label: '是否已部署' },
+        // { prop: 'remark', label: '备注' },
+        // { prop: 'updatedTime', label: '更新时间' },
     ]
 })
 

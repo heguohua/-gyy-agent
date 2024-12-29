@@ -92,7 +92,6 @@ const confirm = (data: any) => {
                     }
 
                     const response = await postData(data)
-                    console.log('response:', response);
 
                     if (response) {
 

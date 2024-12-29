@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-28 16:58:12
+ * @LastEditTime: 2024-12-29 20:43:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -18,11 +18,31 @@
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
         :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
 
-        <template #cols="{ row, columnName }">
+
+        <template #cols="{ row, columnName, formItem }">
+
+            <template v-if="formItem.code === 'dateRange'">
+
+                <component :is="getComponent(formItem.code)"
+                    :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
+                    :formItem="formItem" :data="row" />
+            </template>
+            <template v-else>
+                <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-else />
+            </template>
+
+        </template>
+
+
+        <!-- <template #cols="{ row, columnName }">
             <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
                 in-valid-name="禁用" :value="row[columnName]" />
             <template v-else>{{ row[columnName] }}</template>
-        </template>
+        </template> -->
 
     </PageTable>
 
@@ -41,6 +61,8 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
+import { alaDetailBuild } from '@/config/alaDetailBuilder';
+import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 const router = useRouter()
 
@@ -92,6 +114,33 @@ const refresh = () => {
         pageRef.value.refresh(params)
     }
 }
+/**
+ * 动态解析国际化字符串
+ * @param label 
+ */
+const parseLabel = (label: string) => {
+    return t(label);
+}
+
+const getComponent = ((code: string) => {
+    return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
+})
+
+/**
+ * 详情页面字段
+ */
+const detailFields: any = ref([])
+const detailItem = reactive({
+    moduleName,
+    item: {}
+})
+const showDetailPage = ref(false)
+const showDetail = (item: { [key: string]: any }) => {
+    u.clear(detailItem.item)
+    u.merged(detailItem, { item })
+    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    showDetailPage.value = true
+}
 
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
@@ -102,13 +151,18 @@ const url = "/p/define/page"
 const deleteUrl = "/p/define/delete"
 
 // 分页列表中列属性配置
+
 const columns = computed(() => {
     return [
-        { prop: 'displayName', label: '名称' },
-        { prop: 'name', label: '唯一编码' },
-        { prop: 'type', label: '流程分类' },
-        { prop: 'version', label: '版本号' },
-        { prop: 'state', label: '状态' },
+        alaDetailBuild(dType.input, 'displayName', "流程名称", true),
+        alaDetailBuild(dType.input, 'name', "流程编码"),
+        alaDetailBuild(dType.selectDict, 'type', "流程分类"),
+        alaDetailBuild(dType.input, 'version', "版本号"),
+        alaDetailBuild(dType.input, 'state', "状态"),
+        // { prop: 'displayName', label: '名称' },
+        // { prop: 'type', label: '流程分类' },
+        // { prop: 'version', label: '版本号' },
+        // { prop: 'state', label: '状态' },
     ]
 })
 
