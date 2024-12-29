@@ -56,7 +56,10 @@ const props = defineProps({
 })
 
 const labelWidth = () => {
-    return props.formAttr?.value.labelWidth + 'px' || '120px'
+   const lw =  props.formAttr?.value.labelWidth  || '120'
+    console.log('计算标签宽度:',lw);
+        
+    return lw
 }
 // Methods
 // State

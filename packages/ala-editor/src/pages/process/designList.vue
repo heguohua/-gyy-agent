@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 18:58:03
+ * @LastEditTime: 2024-12-29 09:27:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" />
+        @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
 
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
@@ -21,21 +21,23 @@
         <template #cols="{ row, columnName }">
             <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
                 in-valid-name="禁用" :value="row[columnName]" />
+            <AlaPageViewStatus v-else-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
+                in-valid-name="禁用" :value="row[columnName]" />
             <template v-else>{{ row[columnName] }}</template>
         </template>
 
     </PageTable>
 
     <!-- 新增、编辑 -->
-    <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
+    <designAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute, useRouter } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
+import designAdd from '@/pages/process/designAdd.vue';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
@@ -71,9 +73,9 @@ const showAdd = (item: { [key: string]: any }) => {
     u.merged(baseInfo, { item: { id: null, pid: item.id } })
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-
+    showAddForm.value = true
     // /process/design
-    router.push("/process/design")
+    // router.push("/process/designAdd")
 }
 
 const showEdit = (item: { [key: string]: any }) => {
