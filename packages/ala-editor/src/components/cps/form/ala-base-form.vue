@@ -56,9 +56,7 @@ const props = defineProps({
 })
 
 const labelWidth = () => {
-   const lw =  props.formAttr?.value.labelWidth  || '120'
-    console.log('计算标签宽度:',lw);
-        
+    const lw = props.formAttr?.value.labelWidth || '120'
     return lw
 }
 // Methods
@@ -83,7 +81,7 @@ const confirm = (data: any) => {
         .then(() => {
             logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
 
-            formRef.value.validate((valid: boolean) => {
+            formRef.value.validate(async (valid: boolean) => {
                 if (valid) {
                     // 表单验证成功，可以进行表单提交操作
                     logger.info(`表单验证通过`);
@@ -93,15 +91,21 @@ const confirm = (data: any) => {
                         data = props.beforeSave(data)
                     }
 
-                    postData(data)
-                    // 清空 formData
-                    u.clear(props.formData)
-                    logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，数据提交成功后当前表单数据为：", props.formData);
+                    const response = await postData(data)
+                    console.log('response:', response);
 
-                    // 关闭弹窗
-                    showDrawer.value = false
+                    if (response) {
 
-                    emit("confirm", props.formData)
+                        // 清空 formData
+                        u.clear(props.formData)
+                        logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，数据提交成功后当前表单数据为：", props.formData);
+
+                        // 关闭弹窗
+                        showDrawer.value = false
+
+                        emit("confirm", props.formData)
+
+                    }
 
                 } else {
                     // 表单验证失败，阻止提交
@@ -154,7 +158,7 @@ const rules = computed(() => {
 })
 
 
-const postData = (item: any) => {
+const postData = async (item: any): Promise<any> => {
 
     // 保存数据并刷新分页列表
     // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
@@ -166,11 +170,14 @@ const postData = (item: any) => {
     } else {
         logger.info(`【 新增数据 】，url${url}，数据对象：`, item);
     }
-    alaPost(u.url(url || ''), item, false, id ? 'put' : '').then((data: any) => {
+    const result = await alaPost(u.url(url || ''), item, false, id ? 'put' : '').then((data: any) => {
         const response = data;
         emit("refresh", response)
         notify.success(t('pop.warm_title'), "保存成功")
+        return response
     });
+    
+    return result
 }
 
 

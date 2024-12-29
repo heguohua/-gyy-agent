@@ -41,7 +41,7 @@ export default class notify {
      */
     public static warn(title: string, notify: string) {
         // notifyTitle , notify , mt , isHtml , durationTime , showCloseButton , pt , ot
-        this._notify(title, notify, 'warning', false, 4000, false, 'top-right', 0)
+        this._notify(title, notify, 'warning', false, 4000, true, 'top-right', 0)
     }
 
     /**
@@ -49,7 +49,7 @@ export default class notify {
      */
     public static error(title: string, notify: string) {
         // notifyTitle , notify , mt , isHtml , durationTime , showCloseButton , pt , ot
-        this._notify(title, notify, 'error', false, 5000, false, 'top-right', 0)
+        this._notify(title, notify, 'error', false, 5000, true, 'top-right', 0)
     }
     /**
      * 本类内部通用方法

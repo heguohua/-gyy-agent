@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 09:27:29
+ * @LastEditTime: 2024-12-29 10:42:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -70,7 +70,7 @@ provide('baseInfo', baseInfo);
 const showAddForm = ref(false)
 const showAdd = (item: { [key: string]: any }) => {
     u.clear(baseInfo.item)
-    u.merged(baseInfo, { item: { id: null, pid: item.id } })
+    u.merged(baseInfo, { item: { id: null, pid: item.id, typeEntrys: [] } })
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
@@ -80,10 +80,14 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
+
+
+    // 转换 selectDict 对象格式
+    item.typeEntrys = [{ id: item.type }]
+
     u.merged(baseInfo, { item })
     logger.info(`【编辑】方法接收到参数 item `, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    showAddForm.value = true
 }
 
 // 查询条件
