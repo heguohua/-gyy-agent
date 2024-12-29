@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:41:21
+ * @LastEditTime: 2024-12-29 22:06:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
             :size="drawerWidth()" :with-header="!useFormTitle()">
 
             <template #header v-if="!useFormTitle()">
-                <h4>{{ moduleName }}</h4>
+                <h4>【 详情 】{{ getModuleName() }}</h4>
             </template>
 
             <template #default>
@@ -172,6 +172,11 @@ const getComponent = ((code: string) => {
 const labelWidth = () => {
     return props.formAttr?.value.labelWidth + 'px' || '120px'
 }
+
+const getModuleName = () => {
+    return props.data?.moduleName ? props.data?.moduleName : props.moduleName
+}
+
 </script>
 <style scoped lang="scss">
 .ala-detail-form {
@@ -206,7 +211,6 @@ const labelWidth = () => {
                 align-items: center;
                 justify-content: left;
                 border-radius: 2px;
-                font-weight: 500;
 
             }
 

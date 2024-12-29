@@ -4,4 +4,5 @@ export class dType {
     public static readonly selectDict = 'selectDict'
     public static readonly switch = 'switch'
     public static readonly textarea = 'textarea'
+    public static readonly date = 'date'
 }

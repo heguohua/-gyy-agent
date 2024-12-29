@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 20:43:14
+ * @LastEditTime: 2024-12-29 22:13:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -154,7 +154,7 @@ const deleteUrl = "/p/define/delete"
 
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'displayName', "流程名称", true),
+        alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
         alaDetailBuild(dType.input, 'name', "流程编码"),
         alaDetailBuild(dType.selectDict, 'type', "流程分类"),
         alaDetailBuild(dType.input, 'version', "版本号"),

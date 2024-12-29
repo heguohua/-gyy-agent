@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 21:25:14
+ * @LastEditTime: 2024-12-29 22:15:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -51,6 +51,8 @@
     <!-- 新增、编辑 -->
     <designAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
+
 </template>
 
 <script lang="ts" setup>
@@ -63,14 +65,14 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
+import AlaDetail from '@/components/cps/form/ala-detail.vue';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
 const route = useRoute();
-const router = useRouter()
 
 const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
@@ -137,7 +139,15 @@ const getComponent = ((code: string) => {
 /**
  * 详情页面字段
  */
-const detailFields: any = ref([])
+const detailFields: any = ref([
+    alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
+    alaDetailBuild(dType.input, 'name', "唯一编码"),
+    alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
+    alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
+    alaDetailBuild(dType.input, 'updatedTime', "更新时间"),
+    alaDetailTextarea(dType.textarea, 'remark', "备注"),
+
+])
 const detailItem = reactive({
     moduleName,
     item: {}
@@ -150,6 +160,17 @@ const showDetail = (item: { [key: string]: any }) => {
     showDetailPage.value = true
 }
 
+const formAttr = ref({
+    formWidth: 600,
+    columnNum: 1,
+    labelWidth: 120,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
+const getFormAttr = computed(() => {
+    return formAttr
+})
+
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
 
@@ -161,12 +182,13 @@ const deleteUrl = "/p/design/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'displayName', "流程名称", true),
+        alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
         alaDetailBuild(dType.input, 'name', "唯一编码"),
         alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
         alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
         alaDetailTextarea(dType.textarea, 'remark', "备注"),
-        alaDetailBuild(dType.input, 'updatedTime', "更新时间"),
+        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
