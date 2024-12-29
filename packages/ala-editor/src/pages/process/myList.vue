@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 18:58:13
+ * @LastEditTime: 2024-12-29 23:12:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myList.vue
  * @Description: 
  * 
@@ -74,10 +74,17 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
-    u.merged(baseInfo, { item })
-    logger.info(`【编辑】方法接收到参数 item `, item);
+     // 解除 响应式引用，防止新增页面数据影响列表数据
+    const entity = toRaw(item)
+    entity.typeEntity = [{ id: entity.type }]
+
+    u.merged(baseInfo, { entity })
+    logger.info(`【编辑】方法接收到参数 entity `, entity);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    showAddForm.value = true
+    // u.merged(baseInfo, { item })
+    // logger.info(`【编辑】方法接收到参数 item `, item);
+    // logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    // showAddForm.value = true
 }
 
 // 查询条件

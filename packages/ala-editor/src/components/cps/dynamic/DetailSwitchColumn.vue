@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:34:18
+ * @LastEditTime: 2024-12-29 22:33:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSwitchColumn.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-    <p class="value">{{ showValue }}</p>
+    <p class="value" :class="clazz()">{{ showValue }}</p>
 
 </template>
 
@@ -45,6 +45,8 @@ const props = defineProps({
     }
 })
 
+const isActive = ref(false)
+
 // Methods
 const showValue = computed(() => {
     let value = props.value
@@ -54,6 +56,7 @@ const showValue = computed(() => {
     const inActiveValue = props.formItem.formData.inActiveValue.desktop
     if (value === activeValue) {
         value = activeText
+        isActive.value = true
     }
     if (value === inActiveValue) {
         value = inActiveText
@@ -61,6 +64,15 @@ const showValue = computed(() => {
     return value
 })
 
+const clazz = () => {
+    return isActive.value ? 'positive' : 'negative'
+}
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.positive {
+    color: var(--el-color-success-dark-2);
+}
+
+.negative {}
+</style>

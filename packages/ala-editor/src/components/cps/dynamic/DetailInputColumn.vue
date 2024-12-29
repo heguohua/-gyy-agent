@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:38:15
+ * @LastEditTime: 2024-12-29 23:03:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailInputColumn.vue
  * @Description: 
  * 
@@ -54,6 +54,8 @@ const props = defineProps({
 // Methods
 
 const isDetailColumn = computed(() => {
+    console.log('input组件也重新渲染了！！！');
+    
     return props.formItem.formData?.detail?.desktop
 })
 

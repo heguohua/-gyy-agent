@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 22:15:17
+ * @LastEditTime: 2024-12-29 22:48:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -20,7 +20,6 @@
 
 
         <template #cols="{ row, columnName, formItem }">
-
             <template v-if="formItem.code === 'dateRange'">
 
                 <component :is="getComponent(formItem.code)"
@@ -104,13 +103,13 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
+    
+     // 解除 响应式引用，防止新增页面数据影响列表数据
+    const entity = toRaw(item)
+    entity.typeEntity = [{ id: entity.type }]
 
-
-    // 转换 selectDict 对象格式
-    item.typeEntity = [{ id: item.type }]
-
-    u.merged(baseInfo, { item })
-    logger.info(`【编辑】方法接收到参数 item `, item);
+    u.merged(baseInfo, { entity })
+    logger.info(`【编辑】方法接收到参数 entity `, entity);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
 }
 
@@ -136,18 +135,7 @@ const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
 
-/**
- * 详情页面字段
- */
-const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
-    alaDetailBuild(dType.input, 'name', "唯一编码"),
-    alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-    alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
-    alaDetailBuild(dType.input, 'updatedTime', "更新时间"),
-    alaDetailTextarea(dType.textarea, 'remark', "备注"),
 
-])
 const detailItem = reactive({
     moduleName,
     item: {}
@@ -186,7 +174,7 @@ const columns = computed(() => {
         alaDetailBuild(dType.input, 'name', "唯一编码"),
         alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
         alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
-        alaDetailTextarea(dType.textarea, 'remark', "备注"),
+        alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
@@ -198,7 +186,19 @@ const columns = computed(() => {
         // { prop: 'updatedTime', label: '更新时间' },
     ]
 })
+/**
+ * 详情页面字段
+ */
+ const detailFields: any = ref([
+    alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
+    alaDetailBuild(dType.input, 'name', "唯一编码"),
+    alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
+    alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
+    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),    
+    alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
 
+])
 
 // 基础查询条件
 const baseFields = computed(() => {
@@ -209,7 +209,7 @@ const baseFields = computed(() => {
 
 
 // 高级查询条件
-const advancedFields = []
+const advancedFields:any = []
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
