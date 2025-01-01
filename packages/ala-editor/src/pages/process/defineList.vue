@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 23:12:02
+ * @LastEditTime: 2025-01-01 21:24:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -163,7 +163,7 @@ const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
         alaDetailBuild(dType.input, 'name', "流程编码"),
-        alaDetailBuild(dType.selectDict, 'type', "流程分类"),
+        // alaDetailBuild(dType.selectDict, 'type', "流程分类"),
         alaDetailBuild(dType.input, 'version', "版本号"),
         alaDetailBuild(dType.input, 'state', "状态"),
         // { prop: 'displayName', label: '名称' },

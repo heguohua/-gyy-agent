@@ -2,19 +2,48 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 15:55:51
+ * @LastEditTime: 2025-01-01 22:22:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/button/ala-button.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <el-button :size="size" :type="buttonType" @click="handleClick" v-if="displayButton()" class="ala-button">
-    {{ $t('buttons.' + name) }}
-  </el-button>
+
+  <div class="ala-button-wrapper" v-if="displayButton()">
+
+    <el-button :size="size" :type="buttonType" @click="handleClick" class="ala-button" v-if="!popConfirm">
+      {{ $t('buttons.' + name) }}
+    </el-button>
+
+    <el-popconfirm width="250" :icon="InfoFilled" icon-color="#626AEF" :title="title" @cancel="onCancel"
+      @confirm="onConfirm" :hide-after="50" v-else>
+      <template #reference>
+
+        <el-button :size="size" :type="buttonType" class="ala-button">
+          {{ $t('buttons.' + name) }}
+        </el-button>
+
+      </template>
+      <template #actions="{ confirm, cancel }">
+
+        <el-button :size="size" @click="cancel" class="popConfirm-button">{{ t('buttons.cancel') }}</el-button>
+        <!-- <el-button type="danger" :size="size" :disabled="!clicked" @click="confirm"> -->
+        <el-button type="danger" :size="size" @click="confirm" class="popConfirm-button">
+          {{ t('buttons.confirm') }}
+        </el-button>
+
+      </template>
+    </el-popconfirm>
+
+  </div>
+
 </template>
 
 <script setup lang="ts">
+import { InfoFilled } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 // State
 const props = defineProps({
@@ -33,6 +62,10 @@ const props = defineProps({
   showButton: {
     type: Boolean,
     default: false,
+  },
+  popConfirm: {
+    type: Boolean,
+    default: false,
   }
 })
 
@@ -46,10 +79,33 @@ const handleClick = () => {
   emit(props.name)
 }
 
+const onCancel = () => {
+}
+
+const onConfirm = () => {
+  emit(props.name)
+}
+
+const title = computed(() => {
+  const action = t('buttons.' + props.name)
+  return t('pop.confirm', { action })
+})
+
 </script>
 
 <style scoped lang="scss">
-.ala-button {
-  margin-bottom: 2px;
+.ala-button-wrapper {
+
+  display: inline-flex;
+  margin: 0px 2px 2px 0px;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .popConfirm-button {
+    border-radius: 2px;
+  }
+
 }
 </style>

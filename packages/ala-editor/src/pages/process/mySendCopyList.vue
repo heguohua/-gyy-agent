@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 23:12:55
+ * @LastEditTime: 2024-12-29 23:16:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/mySendCopyList.vue
  * @Description: 
  * 
@@ -131,7 +131,7 @@ const baseFields = computed(() => {
 
 
 // 高级查询条件
-const advancedFields = []
+const advancedFields:any = []
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 22:48:35
+ * @LastEditTime: 2025-01-01 22:07:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -36,6 +36,12 @@
 
         </template>
 
+
+        <template #btns="{ row }">
+            <AlaButton :showButton="true" name="flow_deploy" @flow_deploy="handleDeploy(row)" buttonType="primary"
+                :popConfirm="true" />
+            <ala-button-group />
+        </template>
 
         <!-- <template #cols="{ row, columnName }">
             <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
@@ -103,8 +109,8 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
-    
-     // 解除 响应式引用，防止新增页面数据影响列表数据
+
+    // 解除 响应式引用，防止新增页面数据影响列表数据
     const entity = toRaw(item)
     entity.typeEntity = [{ id: entity.type }]
 
@@ -189,13 +195,13 @@ const columns = computed(() => {
 /**
  * 详情页面字段
  */
- const detailFields: any = ref([
+const detailFields: any = ref([
     alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
     alaDetailBuild(dType.input, 'name', "唯一编码"),
     alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
     alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),    
+    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
 
 ])
@@ -209,11 +215,15 @@ const baseFields = computed(() => {
 
 
 // 高级查询条件
-const advancedFields:any = []
+const advancedFields: any = []
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
+
+const handleDeploy = (row: any) => {
+    console.log('row:', row);
+}
 
 
 </script>
