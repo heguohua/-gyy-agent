@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-01 22:07:39
+ * @LastEditTime: 2025-01-01 23:29:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -38,9 +38,13 @@
 
 
         <template #btns="{ row }">
+
             <AlaButton :showButton="true" name="flow_deploy" @flow_deploy="handleDeploy(row)" buttonType="primary"
                 :popConfirm="true" />
-            <ala-button-group />
+
+            <ala-button-group
+                :buttons="[{ name: 'flow_deploy', popConfirm: true, handle: handleDeploy, row: row, buttonType: 'primary' }, { name: 'flow_redeploy', popConfirm: true, handle: handleDeploy, row: row, buttonType: 'danger' }]" />
+
         </template>
 
         <!-- <template #cols="{ row, columnName }">

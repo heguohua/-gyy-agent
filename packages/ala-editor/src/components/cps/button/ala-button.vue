@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-01 22:22:15
+ * @LastEditTime: 2025-01-01 23:35:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/button/ala-button.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
       {{ $t('buttons.' + name) }}
     </el-button>
 
-    <el-popconfirm width="250" :icon="InfoFilled" icon-color="#626AEF" :title="title" @cancel="onCancel"
+    <el-popconfirm width="250" :icon="InfoFilled" icon-color="#e6a23c" :title="title" @cancel="onCancel"
       @confirm="onConfirm" :hide-after="50" v-else>
       <template #reference>
 
@@ -42,6 +42,7 @@
 
 <script setup lang="ts">
 import { InfoFilled } from '@element-plus/icons-vue'
+import { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -66,6 +67,12 @@ const props = defineProps({
   popConfirm: {
     type: Boolean,
     default: false,
+  },
+  handle: {
+    type: Function
+  },
+  row: {
+    type: Object as PropType<any>
   }
 })
 
@@ -76,20 +83,28 @@ const displayButton = () => {
 const emit = defineEmits()
 
 const handleClick = () => {
-  emit(props.name)
+  if (props.handle) {    
+    props.handle(props.row)
+  } else {
+    emit(props.name)
+  }
 }
 
 const onCancel = () => {
 }
 
 const onConfirm = () => {
-  emit(props.name)
+  handleClick()
 }
 
 const title = computed(() => {
   const action = t('buttons.' + props.name)
   return t('pop.confirm', { action })
 })
+
+const iconColor = () => {
+  return '#409eff'
+}
 
 </script>
 
@@ -103,7 +118,9 @@ const title = computed(() => {
   justify-content: center;
   flex-wrap: wrap;
 
-  .popConfirm-button {
+
+  .popConfirm-button,
+  button {
     border-radius: 2px;
   }
 
