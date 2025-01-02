@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:21:53
+ * @LastEditTime: 2025-01-02 20:30:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -18,11 +18,12 @@
             <div class="content">
                 <AlaTab />
 
-                <router-view v-slot="{ Component, route }">
-                    <keep-alive>
+                <keep-alive :exclude="/\bNoCache\.vue$/">
+
+                    <router-view v-slot="{ Component, route }">
                         <component :is="Component" :key="route.path" />
-                    </keep-alive>
-                </router-view>
+                    </router-view>
+                </keep-alive>
 
                 <!-- <KeepAlive>
                     <RouterView />

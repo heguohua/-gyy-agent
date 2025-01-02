@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 17:41:08
+ * @LastEditTime: 2025-01-02 20:48:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-tab-page.vue
  * @Description: 
  * 
@@ -15,16 +15,14 @@
         <AlaDrawer v-model="showDrawer" :title="title" :width="width" :direction="direction" @beforeClose="handleClose">
             <template #content>
 
-                <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" :stretch="true">
+                <el-tabs v-model="activeName" class="ala-tabs" @tab-click="handleClick" :stretch="true">
                     <el-tab-pane :label="item.title" :name="item.title" class="ala-tab-pane"
                         v-for="(item, index) in tabs" :key="item.title">
 
-                        {{ item.title }}
+                        <component v-if="showDrawer" :is="getComponent(item.code)" v-bind="item.props" />
 
                     </el-tab-pane>
-                    <!-- <el-tab-pane label="Config" name="second">Config</el-tab-pane>
-                    <el-tab-pane label="Role" name="third">Role</el-tab-pane>
-                    <el-tab-pane label="Task" name="fourth">Task</el-tab-pane> -->
+
                 </el-tabs>
 
             </template>
@@ -46,7 +44,7 @@ import { ref } from 'vue'
 interface Tab {
     title: string,
     code: string,
-    properties: { [key: string]: any },
+    props: { [key: string]: any },
 }
 // State
 const props = defineProps({
@@ -62,7 +60,6 @@ const props = defineProps({
         default: () => ([])
     }
 })
-
 
 
 const showDrawer = defineModel({
@@ -92,6 +89,10 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
     console.log(tab, event)
 }
 
+const getComponent = ((code: string) => {
+    return code
+})
+
 </script>
 <style scoped lang="scss">
 .ala-tab-wrapper {
@@ -100,9 +101,10 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
         padding-top: 6px;
     }
 
-    .demo-tabs {
+    .ala-tabs {
 
         width: 100%;
+        height: 100%;
 
         :deep(.el-tabs__nav-wrap) {
             display: inline-flex;
@@ -113,6 +115,10 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
             color: #6b778c;
             font-size: 32px;
             font-weight: 600;
+        }
+
+        :deep(.ala-tab-pane) {
+            height: 100%;
         }
     }
 }

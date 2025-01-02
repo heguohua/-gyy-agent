@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 09:04:00
+ * @LastEditTime: 2025-01-02 20:41:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -97,7 +97,7 @@ export const allMenuComponents: MenuComponent = {
         requiresAuth: true,
     },
     "/process/design": {
-        name: "ProcessDesign",
+        name: "Design",
         component: "../pages/process/design.vue",
         requiresAuth: true,
         uniqueCheck: true,

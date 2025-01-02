@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-01 21:24:26
+ * @LastEditTime: 2025-01-02 20:42:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -108,7 +108,7 @@ const showEdit = (item: { [key: string]: any }) => {
     // logger.info(`【编辑】方法接收到参数 item `, item);
     // logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     // showAddForm.value = true
-    router.push({ name: "ProcessDesign", query: { type: 'edit', id: entity.id } })
+    router.push({ name: "Design", query: { type: 'edit', id: entity.id } })
 
 }
 

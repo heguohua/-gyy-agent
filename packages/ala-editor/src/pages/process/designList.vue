@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 17:40:35
+ * @LastEditTime: 2025-01-02 20:42:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -65,8 +65,10 @@
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
 
-    <AlaTabPage v-model="showPreviewPage" title="流程引擎详情" width="1200"
-        :tabs="[{ title: '表单', code: 'form', properties: {} }, { title: '流程图', code: 'table', properties: {} },]" />
+    <!-- <AlaTabPage v-model="showPreviewPage" title="流程图预览" width="1200"
+        :tabs="[{ title: '表单', code: 'form', properties: {} }, { title: '流程图', code: 'table', properties: {} },]" /> -->
+
+    <AlaTabPage v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
 
 
 </template>
@@ -248,6 +250,7 @@ const advancedFields: any = []
 const handlePreview = (row: any) => {
     console.log('row:', row);
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    u.merged(previewPageProps, { id: row.id })
     showPreviewPage.value = true
 }
 
@@ -257,10 +260,16 @@ const handleDeploy = (row: any) => {
 
 
 const handleDesign = (row: any) => {
-    router.push({ name: "ProcessDesign", query: { id: row.id } })
+    router.push({ name: "Design", query: { id: row.id } })
 }
 
+const previewPageProps = reactive({})
 
+const tabs = computed(() => {
+    return reactive([
+    { title: '流程图', code: 'ProcessDesign', props: { ...previewPageProps, viewer: true } },
+])
+})
 </script>
 
 <style lang="scss" scoped></style>
