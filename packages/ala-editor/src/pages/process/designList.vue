@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 21:32:18
+ * @LastEditTime: 2025-01-02 21:51:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -262,6 +262,7 @@ const handleDeploy = (row: any) => {
         const response = data;
         if (response.data) {
             notify.success(t('pop.warm_title'), t('buttons.flow_deploy') + '成功')
+            refresh()
         }
     });
 }
@@ -273,6 +274,7 @@ const handleRedeploy = (row: any) => {
         const response = data;
         if (response.data) {
             notify.success(t('pop.warm_title'), t('buttons.flow_redeploy') + '成功')
+            refresh()
         }
     });
 }
