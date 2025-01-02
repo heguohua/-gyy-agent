@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 10:57:46
+ * @LastEditTime: 2025-01-02 15:32:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -64,6 +64,9 @@
     <designAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
+    
+    <AlaTabPage v-model="showPreviewPage" title="流程引擎详情" width="1200" />
+    
 
 </template>
 
@@ -160,6 +163,13 @@ const showDetail = (item: { [key: string]: any }) => {
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     showDetailPage.value = true
 }
+const showPreviewPage = ref(false)
+// const showPreview = (item: { [key: string]: any }) => {
+//     u.clear(detailItem.item)
+//     u.merged(detailItem, { item })
+//     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+//     showPreviewPage.value = true
+// }
 
 const formAttr = ref({
     formWidth: 600,
@@ -170,6 +180,12 @@ const formAttr = ref({
 })
 const getFormAttr = computed(() => {
     return formAttr
+})
+
+const getPreviewFormAttr = computed(() => {
+    const rawFormAttr = toRaw(formAttr.value)
+    const fa = Object.assign(rawFormAttr, { formWidth: 1200 })
+    return ref(fa)
 })
 
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
@@ -230,6 +246,8 @@ const advancedFields: any = []
 
 const handlePreview = (row: any) => {
     console.log('row:', row);
+    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    showPreviewPage.value = true
 }
 
 const handleDeploy = (row: any) => {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 22:06:26
+ * @LastEditTime: 2025-01-02 15:03:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -12,14 +12,9 @@
 
     <div class="ala-detail-form">
 
-        <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer"
-            :size="drawerWidth()" :with-header="!useFormTitle()">
-
-            <template #header v-if="!useFormTitle()">
-                <h4>【 详情 】{{ getModuleName() }}</h4>
-            </template>
-
-            <template #default>
+        <AlaDrawer v-model="showDrawer" :title="'【 详情 】' + getModuleName()" :width="drawerWidth()"
+            :direction="direction" @beforeClose="handleClose">
+            <template #content>
                 <div :class="isHidden(item)" v-for="(item, index) in fields" :key="index" :style="columnWidth(item)">
                     <template v-if="item.formItem.code === 'dateRange'">
                         <component :is="getComponent(item.formItem.code)"
@@ -36,16 +31,13 @@
                     </template>
 
                 </div>
-
             </template>
-
             <template #footer>
                 <div style="flex: auto">
                     <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
                 </div>
             </template>
-
-        </el-drawer>
+        </AlaDrawer>
 
     </div>
 
@@ -87,9 +79,6 @@ const props = defineProps({
     }
 })
 
-const useFormTitle = () => {
-    return props.formAttr.value.useFormTitle
-}
 
 const isHidden = (item: { componentName: string, other?: any }) => {
 
@@ -245,43 +234,12 @@ const getModuleName = () => {
 
     .ala-drawer {
 
-        .el-drawer__header {
-            display: flex;
-            padding: 0px !important;
-            margin: 0px !important;
-            color: #3d446e !important;
-            font-size: 1.1rem !important;
-            background: #F9F9FA !important;
-            padding: 4px 0px !important;
-        }
-
-        .el-drawer__body {
-            text-align: left;
-            display: flex;
-            overflow-y: auto;
-            flex-wrap: wrap;
-            padding: 20px 26px;
-            align-items: flex-start;
-            align-content: flex-start;
-            padding-bottom: 30px;
-        }
-
-        .el-drawer__footer {
-            padding-bottom: 6px;
-        }
-
         .el-form-item__label {
             color: var(--el-text-color-regular);
             font-size: 0.9rem;
             font-weight: bold;
             justify-content: right;
             text-align: right;
-        }
-
-        .el-drawer__footer {
-            position: absolute;
-            bottom: 0px;
-            right: 0px;
         }
 
         .el-date-editor.el-input,

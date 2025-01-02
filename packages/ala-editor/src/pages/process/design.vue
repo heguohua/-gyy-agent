@@ -2,14 +2,15 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:57:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 11:29:09
+ * @LastEditTime: 2025-01-02 12:31:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/design.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <flow-designer ref='flowDesignerRef' v-model="flowModel" @save="handleSave" @change="handleChange" />
+    <flow-designer ref='flowDesignerRef' v-model="flowModel" @save="handleSave" @change="handleChange"
+        :viewer="viewer" />
 </template>
 
 <script setup lang="ts">
@@ -28,6 +29,13 @@ interface Define {
     displayName: string,
     content: any,
 }
+
+const props = defineProps({
+    viewer: {
+        type: Boolean,
+        // default: true
+    }
+})
 
 const flowDesignerRef = ref()
 
