@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 15:32:41
+ * @LastEditTime: 2025-01-02 17:40:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -64,9 +64,10 @@
     <designAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
-    
-    <AlaTabPage v-model="showPreviewPage" title="流程引擎详情" width="1200" />
-    
+
+    <AlaTabPage v-model="showPreviewPage" title="流程引擎详情" width="1200"
+        :tabs="[{ title: '表单', code: 'form', properties: {} }, { title: '流程图', code: 'table', properties: {} },]" />
+
 
 </template>
 
