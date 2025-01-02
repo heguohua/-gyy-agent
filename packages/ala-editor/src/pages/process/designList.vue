@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 20:42:29
+ * @LastEditTime: 2025-01-02 21:32:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -45,7 +45,7 @@
 
             <AlaButtonGroup :buttons="[
                 { name: 'flow_deploy', popConfirm: false, handle: handleDeploy, row: row, buttonType: 'primary' },
-                { name: 'flow_redeploy', popConfirm: true, handle: handleDeploy, row: row, buttonType: 'danger' }
+                { name: 'flow_redeploy', popConfirm: true, handle: handleRedeploy, row: row, buttonType: 'danger' }
             ]" />
 
         </template>
@@ -86,6 +86,8 @@ import { useI18n } from 'vue-i18n';
 import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
+import { alaPost } from '@/utils/req';
+import notify from '@/utils/notify';
 const { t } = useI18n();
 const router = useRouter()
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -255,7 +257,24 @@ const handlePreview = (row: any) => {
 }
 
 const handleDeploy = (row: any) => {
-    console.log('row:', row);
+    const deployUrl = '/p/design/deploy'
+    alaPost(u.url(deployUrl), { id: row.id }, false, '').then((data: any) => {
+        const response = data;
+        if (response.data) {
+            notify.success(t('pop.warm_title'), t('buttons.flow_deploy') + '成功')
+        }
+    });
+}
+
+
+const handleRedeploy = (row: any) => {
+    const deployUrl = '/p/design/redeploy'
+    alaPost(u.url(deployUrl), { id: row.id }, false, '').then((data: any) => {
+        const response = data;
+        if (response.data) {
+            notify.success(t('pop.warm_title'), t('buttons.flow_redeploy') + '成功')
+        }
+    });
 }
 
 
@@ -267,8 +286,8 @@ const previewPageProps = reactive({})
 
 const tabs = computed(() => {
     return reactive([
-    { title: '流程图', code: 'ProcessDesign', props: { ...previewPageProps, viewer: true } },
-])
+        { title: '流程图', code: 'ProcessDesign', props: { ...previewPageProps, viewer: true } },
+    ])
 })
 </script>
 
