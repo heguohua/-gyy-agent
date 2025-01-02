@@ -120,9 +120,11 @@ const props = defineProps({
 })
 
 // 监听流程变化
-watch(() => props.modelValue, () => {
+watch(() => props.modelValue.content, () => {
   logger.info(`监听到【 modelValue值 】发生变化，即将重新渲染流程图`);
-  reRender(props.modelValue.content)
+  if (props.modelValue.content) {
+    reRender(props.modelValue.content)
+  }
 }, {
   deep: true
 })

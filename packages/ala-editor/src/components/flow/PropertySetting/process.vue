@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-30 08:52:32
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-28 10:47:27
+ * @LastEditTime: 2025-01-02 11:32:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/PropertySetting/process.vue
  * @Description: 
  * 
@@ -65,8 +65,8 @@ const isHidden = (item: { componentName: string, other?: any }) => {
 }
 
 const fields = ref<Array<AlaField>>([])
-fields.value.push(alaBuildInput("name", "流程名称", [alaRequired()], "请输入流程名称"))
-fields.value.push(alaBuildInput("displayName", "流程显示名称", [alaRequired()], "请输入流程显示名称"))
+// fields.value.push(alaBuildInput("name", "流程名称", [alaRequired()], "请输入流程名称"))
+// fields.value.push(alaBuildInput("displayName", "流程显示名称", [alaRequired()], "请输入流程显示名称"))
 fields.value.push(alaBuildDate("expireTime", "期望完成时间", "date", "YYYY-MM-DD", [], "", "", "请选择期望完成时间"))
 fields.value.push(alaBuildTextarea("instanceUrl", "实例启动Url", [alaRequired()], "请输入实例启动Url"))
 fields.value.push(alaBuildSelectDict("instanceNoClass", "实例编号生成类", { "dictValue": "processNo" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择实例编号生成类", { clearable: true }))

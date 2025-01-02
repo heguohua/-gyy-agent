@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-01 23:29:51
+ * @LastEditTime: 2025-01-02 10:57:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
+        :showEditButton="true" :showAddButton="true" :showDeleteButton="true">
 
 
         <template #cols="{ row, columnName, formItem }">
@@ -39,11 +39,14 @@
 
         <template #btns="{ row }">
 
-            <AlaButton :showButton="true" name="flow_deploy" @flow_deploy="handleDeploy(row)" buttonType="primary"
-                :popConfirm="true" />
+            <AlaButton :showButton="true" name="preview" @preview="handlePreview(row)" buttonType="default" />
 
-            <ala-button-group
-                :buttons="[{ name: 'flow_deploy', popConfirm: true, handle: handleDeploy, row: row, buttonType: 'primary' }, { name: 'flow_redeploy', popConfirm: true, handle: handleDeploy, row: row, buttonType: 'danger' }]" />
+            <AlaButton :showButton="true" name="flow_design" @flow_design="handleDesign(row)" buttonType="primary" />
+
+            <AlaButtonGroup :buttons="[
+                { name: 'flow_deploy', popConfirm: false, handle: handleDeploy, row: row, buttonType: 'primary' },
+                { name: 'flow_redeploy', popConfirm: true, handle: handleDeploy, row: row, buttonType: 'danger' }
+            ]" />
 
         </template>
 
@@ -78,7 +81,7 @@ import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSwitch, al
 import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 const { t } = useI18n();
-
+const router = useRouter()
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
 const route = useRoute();
@@ -225,8 +228,17 @@ const advancedFields: any = []
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 
+const handlePreview = (row: any) => {
+    console.log('row:', row);
+}
+
 const handleDeploy = (row: any) => {
     console.log('row:', row);
+}
+
+
+const handleDesign = (row: any) => {
+    router.push({ name: "ProcessDesign", query: { id: row.id } })
 }
 
 
