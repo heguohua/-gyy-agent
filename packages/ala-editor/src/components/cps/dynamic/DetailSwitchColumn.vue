@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 11:42:25
+ * @LastEditTime: 2025-01-03 11:46:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSwitchColumn.vue
  * @Description: 
  * 
@@ -78,5 +78,4 @@ const clazz = () => {
     color: var(--el-color-success-dark-2);
 }
 
-.negative {}
 </style>
