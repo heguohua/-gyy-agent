@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:57:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 11:22:15
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/processDesign.vue
+ * @LastEditTime: 2025-01-03 11:23:55
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/processPreview.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -51,46 +51,11 @@ const flowModel = ref<Define>({
 })
 
 const handleChange = (flowData: { json: any }) => {
-    logger.info(`接收到流程设计器数据回调，flowData`);
-    console.log('flowData:', flowData);
-    flowModel.value.content = flowData
+
 }
 
 const handleSave = (flowData: { json: any }) => {
-    const { name, displayName } = flowData.json
-    const designId = props.id
-
-    if (!designId) {
-        notify.error(t('pop.warm_title'), "流程设计ID不存在")
-        return
-    }
-
-    let flowDataJson = ''
-    if (flowData) {
-        flowDataJson = u.tojson(flowData.json)
-    }
-
-    // 1、验证流程图是否正确？如连线是否完整
-
-    // 2、保存
-    const data = { name: name, displayName: displayName, content: flowDataJson }
-    // 保存数据并刷新分页列表
-    // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
-
-    const url = '/p/design/updateFlowContent'
-
-    u.merged(data, { id: designId })
-    logger.info(`【 更新数据 】，url${url}，数据对象：`);
-
-    alaPost(u.url(url || ''), data, false, '').then((data: any) => {
-
-        const response = data;
-        if (response.data.id) {
-            flowModel.value.id = response.data.id
-        }
-        notify.success(t('pop.warm_title'), "保存成功")
-    });
-
+    
 }
 
 // Methods
@@ -99,21 +64,17 @@ const handleSave = (flowData: { json: any }) => {
 const init = () => {
     if (props.id) {
 
-        const url = "/p/designHistory/getByDesignId"
+        const url = "/p/define/get"
 
-        const params = { designId: props.id }
+        const params = { id: props.id }
         logger.info(`从后台加载【 define 】配置数据，url【 ${url} 】，数据对象：`, params);
 
         get(u.url(url || ''), params).then((response: any) => {
 
             const { data: { content, id, } } = response.data;
             const ct = u.parseJson(content)
-
-            if (ct.content) {
-                const content = u.parseJson(ct.content)
-                // 初始化 flowModel 数据
-                flowModel.value.content = content
-            }
+                        
+            flowModel.value.content = ct
 
         });
     }

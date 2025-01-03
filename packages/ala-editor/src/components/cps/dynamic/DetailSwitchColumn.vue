@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 22:33:32
+ * @LastEditTime: 2025-01-03 11:42:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSwitchColumn.vue
  * @Description: 
  * 
@@ -50,16 +50,20 @@ const isActive = ref(false)
 // Methods
 const showValue = computed(() => {
     let value = props.value
+    
     const activeText = props.formItem.formData.activeText.desktop
     const activeValue = props.formItem.formData.activeValue.desktop
     const inActiveText = props.formItem.formData.inActiveText.desktop
     const inActiveValue = props.formItem.formData.inActiveValue.desktop
+
+
     if (value === activeValue) {
         value = activeText
         isActive.value = true
     }
     if (value === inActiveValue) {
         value = inActiveText
+        isActive.value = false
     }
     return value
 })

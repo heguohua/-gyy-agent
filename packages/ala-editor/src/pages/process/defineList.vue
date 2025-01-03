@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 11:08:35
+ * @LastEditTime: 2025-01-03 11:33:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -15,8 +15,7 @@
 
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
-        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
+        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')">
 
 
         <template #cols="{ row, columnName, formItem }">
@@ -37,7 +36,15 @@
 
         </template>
 
+        <template #btns="{ row }">
 
+            <AlaButton :showButton="true" name="preview" @preview="handlePreview(row)" buttonType="default" />
+            <AlaButton v-if="row.delFlag === 1" :showButton="true" name="enable" @enable="handleEnable(row)"
+                buttonType="primary" />
+            <AlaButton v-if="row.delFlag === 2" :showButton="true" name="disable" @disable="handleDisable(row)"
+                buttonType="danger" />
+
+        </template>
         <!-- <template #cols="{ row, columnName }">
             <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
                 in-valid-name="禁用" :value="row[columnName]" />
@@ -47,6 +54,7 @@
     </PageTable>
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
+    <AlaTabPage v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
 
 </template>
 
@@ -62,6 +70,8 @@ import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
 import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
+import { alaPost } from '@/utils/req';
+import notify from '@/utils/notify';
 const { t } = useI18n();
 const router = useRouter()
 
@@ -217,8 +227,41 @@ const advancedFields: any[] = []
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
+const showPreviewPage = ref(false)
+const previewPageProps = reactive({})
+
+const tabs = computed(() => {
+    return reactive([
+        { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
+    ])
+})
 
 
+const handlePreview = (row: any) => {
+    console.log('row:', row);
+    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    u.merged(previewPageProps, { id: row.id })
+    showPreviewPage.value = true
+}
+
+const handleEnable = (row: any) => {
+    console.log('row:', row);
+    update(row.id, { delFlag: 2 }, t("buttons.enable"))
+}
+
+const handleDisable = (row: any) => {
+    console.log('row:', row);
+    update(row.id, { delFlag: 1 }, t("buttons.disable"))
+}
+
+const update = (id: number, params: any, type: string) => {
+    const url = '/p/define/update'
+    const item = { id, ...params }
+    alaPost(u.url(url || ''), item, false, 'put').then((data: any) => {
+        notify.success(t('pop.warm_title'), type + "成功")
+        refresh()
+    });
+}
 
 </script>
 

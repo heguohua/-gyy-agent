@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 20:47:35
+ * @LastEditTime: 2025-01-03 11:18:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -77,6 +77,7 @@ import DetailDividerColumn from '@/components/cps/dynamic/DetailDividerColumn.vu
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
+import ProcessPreview from '@/pages/process/processPreview.vue';
 
 
 export default {
@@ -151,6 +152,7 @@ export default {
 
     // 流程引擎相关组件
     ProcessDesign,
+    ProcessPreview,
 
 }
 
