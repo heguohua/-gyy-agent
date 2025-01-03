@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 22:37:16
+ * @LastEditTime: 2025-01-03 10:04:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designAdd.vue
  * @Description: 
  * 
@@ -64,7 +64,7 @@ const basicFields = computed(() => {
         alaBuildHidden('id'),// 固定格式
         alaBuildInput("name", '唯一编码', [alaRequired()]),
         alaBuildInput("displayName", '显示名称', [alaRequired()]),
-        alaBuildSelectDict("typeEntity", "流程分类", { "dictValue": "leaveType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择流程分类", { clearable: true }),
+        alaBuildSelectDict("typeEntity", "流程分类", { "dictValue": "pType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择流程分类", { clearable: true }),
         alaBuildInput("icon", '图标', [alaRequired()]),
         // alaBuildSwitch('isDeployed', t('common.enable'), t('buttons.enable'), t('buttons.disable'), 1, 2, []),
         alaBuildTextarea("remark", "备注", [], "请输入流程说明"),
