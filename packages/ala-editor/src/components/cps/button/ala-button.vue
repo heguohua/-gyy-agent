@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-01 23:35:32
+ * @LastEditTime: 2025-01-03 13:14:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/button/ala-button.vue
  * @Description: 
  * 
@@ -121,7 +121,7 @@ const iconColor = () => {
 
   .popConfirm-button,
   button {
-    border-radius: 2px;
+    border-radius: 3px;
   }
 
 }

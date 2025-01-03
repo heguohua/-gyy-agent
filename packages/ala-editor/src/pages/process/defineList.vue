@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 11:33:58
+ * @LastEditTime: 2025-01-03 13:04:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -40,9 +40,11 @@
 
             <AlaButton :showButton="true" name="preview" @preview="handlePreview(row)" buttonType="default" />
             <AlaButton v-if="row.delFlag === 1" :showButton="true" name="enable" @enable="handleEnable(row)"
-                buttonType="primary" />
+                buttonType="success" />
             <AlaButton v-if="row.delFlag === 2" :showButton="true" name="disable" @disable="handleDisable(row)"
                 buttonType="danger" />
+            <AlaButton v-if="row.delFlag === 2" :showButton="true" name="form_initiate" @form_initiate="handleApply(row)"
+                buttonType="primary" />
 
         </template>
         <!-- <template #cols="{ row, columnName }">
@@ -238,19 +240,16 @@ const tabs = computed(() => {
 
 
 const handlePreview = (row: any) => {
-    console.log('row:', row);
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     u.merged(previewPageProps, { id: row.id })
     showPreviewPage.value = true
 }
 
 const handleEnable = (row: any) => {
-    console.log('row:', row);
     update(row.id, { delFlag: 2 }, t("buttons.enable"))
 }
 
 const handleDisable = (row: any) => {
-    console.log('row:', row);
     update(row.id, { delFlag: 1 }, t("buttons.disable"))
 }
 
@@ -261,6 +260,10 @@ const update = (id: number, params: any, type: string) => {
         notify.success(t('pop.warm_title'), type + "成功")
         refresh()
     });
+}
+
+const handleApply = (row: any) => {
+    console.log('row:', row);
 }
 
 </script>
