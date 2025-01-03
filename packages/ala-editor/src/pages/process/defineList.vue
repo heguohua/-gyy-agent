@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 20:42:56
+ * @LastEditTime: 2025-01-03 11:08:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -46,8 +46,7 @@
 
     </PageTable>
 
-    <!-- 新增、编辑 -->
-    <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
 
 </template>
 
@@ -61,7 +60,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 const router = useRouter()
@@ -97,7 +96,7 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
-     // 解除 响应式引用，防止新增页面数据影响列表数据
+    // 解除 响应式引用，防止新增页面数据影响列表数据
     const entity = toRaw(item)
     entity.typeEntity = [{ id: entity.type }]
 
@@ -133,10 +132,31 @@ const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
 
+const formAttr = ref({
+    formWidth: 600,
+    columnNum: 1,
+    labelWidth: 120,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
+const getFormAttr = computed(() => {
+    return formAttr
+})
+
 /**
  * 详情页面字段
  */
-const detailFields: any = ref([])
+const detailFields: any = ref([
+    alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
+    alaDetailBuild(dType.input, 'name', "唯一编码"),
+    alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
+    alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
+    alaDetailBuild(dType.input, 'createdName', "创建人"),
+    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailBuild(dType.input, 'updatedName', "重新部署人"),
+    alaDetailDate(dType.date, 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
+
+])
 const detailItem = reactive({
     moduleName,
     item: {}
@@ -161,11 +181,21 @@ const deleteUrl = "/p/define/delete"
 
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
-        alaDetailBuild(dType.input, 'name', "流程编码"),
+        // alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
+        // alaDetailBuild(dType.input, 'name', "流程编码"),
+
         // alaDetailBuild(dType.selectDict, 'type', "流程分类"),
-        alaDetailBuild(dType.input, 'version', "版本号"),
-        alaDetailBuild(dType.input, 'state', "状态"),
+
+        // alaDetailBuild(dType.input, 'version', "版本号"),
+        // alaDetailBuild(dType.input, 'state', "状态"),
+        alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
+        alaDetailBuild(dType.input, 'name', "唯一编码"),
+        alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
+        alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
+        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate(dType.date, 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
+
+
         // { prop: 'displayName', label: '名称' },
         // { prop: 'type', label: '流程分类' },
         // { prop: 'version', label: '版本号' },

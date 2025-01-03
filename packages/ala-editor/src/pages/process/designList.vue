@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 10:31:43
+ * @LastEditTime: 2025-01-03 10:35:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -230,7 +230,7 @@ const detailFields: any = ref([
     alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.input, 'updatedName', "更新人"),
+    alaDetailBuild(dType.input, 'updatedName', "更新人"),   
     alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
 
