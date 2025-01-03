@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 21:18:37
+ * @LastEditTime: 2025-01-03 21:46:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms.vue
  * @Description: 
  * 
@@ -14,20 +14,25 @@
 
         <template class="" v-for="(form, index) in fds" :key="index">
 
-            <div :class="isHidden(item)" v-for="(item, index) in form.fields" :key="index" :style="columnWidth(item)">
+            <div class="ala-form-detail-one">
+                <div :class="isHidden(item)" v-for="(item, index) in form.fields" :key="index"
+                    :style="columnWidth(item)">
 
-                <template v-if="item.formItem.code === 'dateRange'">
-                    <component :is="getComponent(item.formItem.code)"
-                        :value="{ start: form.data[item.formItem.formData.startFieldName.desktop], end: form.data[item.formItem.formData.endFieldName.desktop] }"
-                        :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()" :isDetailPage="true" />
-                </template>
+                    <template v-if="item.formItem.code === 'dateRange'">
+                        <component :is="getComponent(item.formItem.code)"
+                            :value="{ start: form.data[item.formItem.formData.startFieldName.desktop], end: form.data[item.formItem.formData.endFieldName.desktop] }"
+                            :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()"
+                            :isDetailPage="true" />
+                    </template>
 
-                <template v-else>
-                    <component :is="getComponent(item.formItem.code)"
-                        :value="item.formItem.formData.fieldName?.desktop ? form.data[item.formItem.formData.fieldName.desktop] : ''"
-                        :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()" :isDetailPage="true" />
-                </template>
+                    <template v-else>
+                        <component :is="getComponent(item.formItem.code)"
+                            :value="item.formItem.formData.fieldName?.desktop ? form.data[item.formItem.formData.fieldName.desktop] : ''"
+                            :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()"
+                            :isDetailPage="true" />
+                    </template>
 
+                </div>
             </div>
 
 
@@ -191,60 +196,69 @@ if (props.forms && props.forms.length > 0) {
 </script>
 <style scoped lang="scss">
 .ala-detail-form {
+    .ala-form-detail-one {
+        margin-bottom: 30px;
 
-    .ala-detail-item {
-        display: inline-flex;
-        margin-bottom: 12px;
-        margin-right: 7px;
 
-        :deep(.title) {
-            text-align: right;
-            padding: 8px 0px 8px 0px;
-            background: rgb(249 249 250 / 1);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: right;
-            border-radius: 2px;
-        }
-
-        :deep(.value) {
-            // background: #F9F9FA;
-            background: #f3f7fa;
-            flex: 1;
-            padding: 8px 0px 8px 8px;
-            margin-left: 4px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            border-radius: 2px;
-
-        }
-
-        :deep(.value svg) {
-            color: var(--el-input-icon-color, var(--el-text-color-placeholder));
+        .ala-detail-item {
             display: inline-flex;
-            flex-shrink: 0;
-            flex-wrap: nowrap;
-            pointer-events: none;
-            text-align: center;
-            transition: all var(--el-transition-duration);
-            white-space: nowrap;
-            margin-right: 2px;
-            max-height: 21px;
+            margin-bottom: 12px;
+            margin-right: 7px;
+
+            :deep(.title) {
+                text-align: right;
+                padding: 8px 0px 8px 0px;
+                background: rgb(249 249 250 / 1);
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                justify-content: right;
+                border-radius: 2px;
+            }
+
+            :deep(.value) {
+                // background: #F9F9FA;
+                background: #f3f7fa;
+                flex: 1;
+                padding: 8px 0px 8px 8px;
+                margin-left: 4px;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                border-radius: 2px;
+
+            }
+
+            :deep(.value svg) {
+                color: var(--el-input-icon-color, var(--el-text-color-placeholder));
+                display: inline-flex;
+                flex-shrink: 0;
+                flex-wrap: nowrap;
+                pointer-events: none;
+                text-align: center;
+                transition: all var(--el-transition-duration);
+                white-space: nowrap;
+                margin-right: 2px;
+                max-height: 21px;
+            }
+
+            :deep(.ala-chapter) {
+                background: rgb(64 158 255 / 10%);
+                box-shadow: 8px 0 0 0 rgb(64 158 255 / 10%), -8px 0 0 0 rgb(64 158 255 / 10%);
+                padding: 16px 8px;
+            }
+
         }
 
-    }
+        .ala-detail-item-full-width {
+            width: 100%;
+        }
 
-    .ala-detail-item-full-width {
-        width: 100%;
+        .ala-detail-item-hidden {
+            display: none;
+        }
     }
-
-    .ala-detail-item-hidden {
-        display: none;
-    }
-
 
 }
 </style>
