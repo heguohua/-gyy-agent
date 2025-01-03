@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 13:04:01
+ * @LastEditTime: 2025-01-03 15:42:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -43,8 +43,8 @@
                 buttonType="success" />
             <AlaButton v-if="row.delFlag === 2" :showButton="true" name="disable" @disable="handleDisable(row)"
                 buttonType="danger" />
-            <AlaButton v-if="row.delFlag === 2" :showButton="true" name="form_initiate" @form_initiate="handleApply(row)"
-                buttonType="primary" />
+            <AlaButton v-if="row.delFlag === 2" :showButton="true" name="form_initiate"
+                @form_initiate="handleApply(row)" buttonType="primary" />
 
         </template>
         <!-- <template #cols="{ row, columnName }">
@@ -263,7 +263,12 @@ const update = (id: number, params: any, type: string) => {
 }
 
 const handleApply = (row: any) => {
-    console.log('row:', row);
+    const url = '/p/instance/start'
+    const item = { defineId: row.id }
+    alaPost(u.url(url || ''), item, false, '').then((data: any) => {
+        notify.success(t('pop.warm_title'), t("buttons.form_initiate") + "成功")
+        refresh()
+    });
 }
 
 </script>

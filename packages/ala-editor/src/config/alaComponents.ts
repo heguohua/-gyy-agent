@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 11:18:04
+ * @LastEditTime: 2025-01-03 17:11:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -74,6 +74,8 @@ import DetailTextareaColumn from '@/components/cps/dynamic/DetailTextareaColumn.
 import DetailDateRangeColumn from '@/components/cps/dynamic/DetailDateRangeColumn.vue';
 import DetailChapterColumn from '@/components/cps/dynamic/DetailChapterColumn.vue';
 import DetailDividerColumn from '@/components/cps/dynamic/DetailDividerColumn.vue';
+import AlaDetail from '@/components/cps/form/ala-detail.vue';
+import AlaDetailNoDrawer from '@/components/cps/form/ala-detail-no-drawer.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -149,6 +151,8 @@ export default {
     DetailDateRangeColumn,
     DetailChapterColumn,
     DetailDividerColumn,
+    AlaDetail,
+    AlaDetailNoDrawer,
 
     // 流程引擎相关组件
     ProcessDesign,
