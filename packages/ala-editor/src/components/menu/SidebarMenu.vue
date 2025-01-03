@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-28 22:07:53
+ * @LastEditTime: 2025-01-03 08:54:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -198,5 +198,19 @@ watch(() => route.path, (toPath) => {
 
 
 
+}
+</style>
+
+<style lang="css">
+.side-bar,
+.side-bar * {
+    /* Safari */
+    -webkit-user-select: none;
+    /* Firefox */
+    -moz-user-select: none;
+    /* IE/Edge */
+    -ms-user-select: none;
+    /* 标准语法 */
+    user-select: none;
 }
 </style>

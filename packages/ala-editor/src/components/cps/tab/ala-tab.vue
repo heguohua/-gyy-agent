@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-17 20:42:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:23:44
+ * @LastEditTime: 2025-01-03 08:55:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tab/ala-tab.vue
  * @Description: 
  * 
@@ -129,5 +129,18 @@ watch(locale, (newLocale, oldLocale) => {
     :deep .el-tabs__header {
         margin-bottom: 4px;
     }
+}
+</style>
+<style lang="css">
+.ala-tab,
+.ala-tab * {
+    /* Safari */
+    -webkit-user-select: none;
+    /* Firefox */
+    -moz-user-select: none;
+    /* IE/Edge */
+    -ms-user-select: none;
+    /* 标准语法 */
+    user-select: none;
 }
 </style>
