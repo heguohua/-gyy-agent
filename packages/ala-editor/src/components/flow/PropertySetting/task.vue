@@ -301,7 +301,7 @@ fields.value.push(alaBuildSelectDict("postInterceptors", "节点后置拦截器"
 
 fields.value.push(alaBuildDate("expireTime", "期望完成时间", "date", "YYYY-MM-DD", [], "", "", "请选择期望完成时间"))
 
-fields.value.push(alaBuildSelect("performType", "是否自动完成", [{ '普通参与': 'ANY' }, { '会签参与': 'ALL' }], [], "请选择参与类型", { clearable: true }))
+// fields.value.push(alaBuildSelect("performType", "是否自动完成", [{ '普通参与': 'ANY' }, { '会签参与': 'ALL' }], [], "请选择参与类型", { clearable: true }))
 fields.value.push(alaBuildSwitch("autoExecute", "是否自动完成", "是", "否", "Y", "N", [], ""))
 
 fields.value.push(alaBuildDate("reminderTime", "提醒时间", "date", "YYYY-MM-DD", [], "", "", "请选择提醒时间"))
