@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 18:36:40
+ * @LastEditTime: 2025-01-03 19:34:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/form-design-editor.vue
  * @Description: 
  * 
@@ -71,7 +71,7 @@ const menuList = computed(() => {
 const formData = ref({})
 
 // 加载编辑时的初始化数据
-onActivated(() => {
+onMounted(() => {
     if (route.query.id) {
 
         const url = "/l/lowcodingConfig/get"

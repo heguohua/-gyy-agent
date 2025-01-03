@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 17:30:03
+ * @LastEditTime: 2025-01-03 20:02:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myList.vue
  * @Description: 
  * 
@@ -42,7 +42,7 @@
 
     <!-- 新增、编辑 -->
     <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
-    <AlaTabPage v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
+    <AlaTabPage v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs" />
 
 </template>
 
@@ -130,7 +130,7 @@ const columns = computed(() => {
         alaDetailDate(dType.date, 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate(dType.date, 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
 
-        alaDetailBuild(dType.input, 'stateName', "状态"),
+        alaDetailBuild(dType.input, 'stateName', "审批状态"),
 
         // { prop: 'displayName', label: '标题' },
         // { prop: 'name', label: '摘要' },
@@ -200,8 +200,7 @@ const detailFields: any = ref([
     alaDetailBuild(dType.input, 'operatorName', "发起人"),
     alaDetailDate(dType.date, 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailDate(dType.date, 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
-
-    alaDetailBuild(dType.input, 'stateName', "状态"),
+    alaDetailBuild(dType.input, 'stateName', "审批状态"),
 ])
 
 const formAttr = {
@@ -215,6 +214,7 @@ const formAttr = {
 const tabs = computed(() => {
     return reactive([
         { title: '详情', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
+        { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [{ id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },], formAttr: formAttr } },
         { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
     ])
 })

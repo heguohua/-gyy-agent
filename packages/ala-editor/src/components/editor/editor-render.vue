@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:23:10
+ * @LastEditTime: 2025-01-03 19:30:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -78,8 +78,8 @@ interface Style {
 // 动态计算表单样式
 const pageWidth = ref(500)
 watch(() => editorStore.pageConfig[bType], (newValue) => {
-    if (newValue.formData?.width.desktop) {
-        pageWidth.value = newValue.formData?.width.desktop
+    if (newValue.formData?.width?.desktop) {
+        pageWidth.value = newValue.formData.width.desktop
         logger.info(`bType[ ${bType} ],editor-render组件 监听到【 editorStore.pageConfig 更新 】,即将更新 表单页面宽度：`, pageWidth.value);
     }
 }, {
