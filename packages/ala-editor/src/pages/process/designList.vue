@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 10:35:39
+ * @LastEditTime: 2025-01-03 14:27:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -45,7 +45,8 @@
 
             <AlaButtonGroup :buttons="[
                 { name: 'flow_deploy', popConfirm: false, handle: handleDeploy, row: row, buttonType: 'primary' },
-                { name: 'flow_redeploy', popConfirm: true, handle: handleRedeploy, row: row, buttonType: 'danger' }
+                { name: 'flow_redeploy', popConfirm: true, handle: handleRedeploy, row: row, buttonType: 'danger' },
+                { name: 'clone', popConfirm: true, handle: handleClone, row: row, buttonType: 'primary' }
             ]" />
 
         </template>
@@ -272,6 +273,18 @@ const handleDeploy = (row: any) => {
 
 const handleRedeploy = (row: any) => {
     const deployUrl = '/p/design/redeploy'
+    alaPost(u.url(deployUrl), { id: row.id }, false, '').then((data: any) => {
+        const response = data;
+        if (response.data) {
+            notify.success(t('pop.warm_title'), t('buttons.flow_redeploy') + '成功')
+            refresh()
+        }
+    });
+}
+
+
+const handleClone = (row: any) => {
+    const deployUrl = '/p/design/clone'
     alaPost(u.url(deployUrl), { id: row.id }, false, '').then((data: any) => {
         const response = data;
         if (response.data) {
