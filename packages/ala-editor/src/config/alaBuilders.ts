@@ -272,7 +272,7 @@ export function alaBuildSelectTree(fieldName: string, label: string, url: string
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelectTable(fieldName: string, label: string, url: string, columns: any, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string): AlaSelectTableSchema {
+export function alaBuildSelectTable(fieldName: string, label: string, url: string, columns: any, itemProperty: { [key: string]: any }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string): AlaSelectTableSchema {
 
     u.checkBoolean(!url, `表单元素 select-table 配置项 url 为空，表单字段名${fieldName}`)
     u.checkBoolean(!params, `表单元素 select-table 配置项 params 为空，表单字段名${fieldName}`)

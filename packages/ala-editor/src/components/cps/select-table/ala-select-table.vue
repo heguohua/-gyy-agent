@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-04 21:25:38
+ * @LastEditTime: 2025-01-04 22:14:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -111,6 +111,7 @@ import u from '@/utils/u';
 interface ItemProperty {
   propertyName: string,
   valueName: string
+  otherProperty: Array<string>
 }
 // State
 const props = defineProps({
@@ -215,9 +216,14 @@ function confirmClick() {
     // const sv: string[] = []
     const pi = props.itemProperty
     selectedData.value.forEach((item) => {
-      selectedData.value = []
-      mv.push({ [pi.valueName]: item[pi.valueName], [pi.propertyName]: item[pi.propertyName], })
-      // sv.push(generateValue(item[pi.propertyName]))
+
+      const selected = { [pi.valueName]: item[pi.valueName], [pi.propertyName]: item[pi.propertyName], }
+      if (pi.otherProperty && pi.otherProperty.length > 0) {
+        pi.otherProperty.forEach((op: string) => {
+          Object.assign(selected, { [op]: item[op] })
+        })
+      }
+      mv.push(selected)
     })
 
     model.value = mv

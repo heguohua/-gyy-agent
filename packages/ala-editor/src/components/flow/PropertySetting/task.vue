@@ -216,15 +216,16 @@ const emits = defineEmits(['update:modelValue'])
 
 // 监听表单属性
 watch(() => modelForm, () => {
+  
+  logger.info(`配置表单属性发生变化，更新前：props.modelValue`, props.modelValue);
+  logger.info(`配置表单属性发生变化，更新值：modelForm`, modelForm);
 
   Object.assign(props.modelValue, modelForm)
 
-  logger.info(`配置表单属性发生变化，更新前：props.modelValue`,props.modelValue);
-  logger.info(`配置表单属性发生变化，更新值：modelForm`,modelForm);
-  logger.info(`配置表单属性发生变化，更新后：props.modelValue`,props.modelValue);
-  
+  logger.info(`配置表单属性发生变化，更新后：props.modelValue`, props.modelValue);
+
   emits('update:modelValue', props.modelValue)
-  
+
 }, { deep: true })
 
 const handleCommand = (command: string) => {
@@ -278,15 +279,29 @@ watch(() => modelForm.performType, () => {
 })
 
 onMounted(() => {
+
+  logger.info(`即将初始化【 流程节点 】属性model，初始化前modelForm：`, modelForm);
+
   if (props.modelValue.field) {
+    logger.info(`即将初始化【 流程节点 】属性model，props.modelValue.field存在，props.modelValue.field参数值为：`, props.modelValue.field);
+
     if (typeof props.modelValue.field === 'string') {
+
       Object.assign(modelForm, props.modelValue, { field: JSON.parse(props.modelValue.field) })
+
     } else {
+
       Object.assign(modelForm, props.modelValue)
+
     }
   } else {
+    logger.info(`即将初始化【 流程节点 】属性model，props.modelValue.field不存在，props.modelValue参数值为：`, props.modelValue);
+
     Object.assign(modelForm, props.modelValue, { field: {} })
+
   }
+  logger.info(`即将初始化【 流程节点 】属性model，初始化后modelForm：`, modelForm);
+
 })
 
 const isHidden = (item: { componentName: string, other?: any }) => {
@@ -304,7 +319,7 @@ fields.value.push(alaBuildInput("name", "名称", [alaRequired()], "请输入流
 fields.value.push(alaBuildInput("displayName", "显示名称", [alaRequired()], "请输入显示名称"))
 // fields.value.push(alaBuildInput("form", "表单", [alaRequired()], "请选择表单"))
 // t('module.menu.name')
-const cls = alaBuildSelectTable("forms", "表单", "/l/lowcodingConfig/page", [{ prop: 'name', label: '表单名称', isQuery: true }], { propertyName: 'name', valueName: 'id' }, undefined, { formType: 'flow' }, "请选择")
+const cls = alaBuildSelectTable("forms", "表单", "/l/lowcodingConfig/page", [{ prop: 'name', label: '表单名称', isQuery: true }], { propertyName: 'name', valueName: 'id', otherProperty: ['className'] }, undefined, { formType: 'flow' }, "请选择")
 
 fields.value.push(cls)
 
@@ -342,8 +357,8 @@ const rules = computed(() => {
 
 </script>
 <style scoped lang="scss">
-:deep(.ala-select-customer){
-  p{
+:deep(.ala-select-customer) {
+  p {
     margin: 0px;
   }
 }

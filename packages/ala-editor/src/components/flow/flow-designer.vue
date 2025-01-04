@@ -414,7 +414,7 @@ const initEvent = () => {
       // html节点特殊处理
       if (props.nodeRenderType === 'html' && [NodeTypeEnum.task].includes(args.data.type.replace('snaker:', ''))) {
 
-        // 为箭头点击事件才处理
+        // 箭头点击事件
         if (args.e.arrowClick) {
           if (props.wfConfig.arrowClick && typeof props.wfConfig.arrowClick === 'function') {
             props.wfConfig.arrowClick(args)
@@ -430,12 +430,15 @@ const initEvent = () => {
 
       } else {
 
-        propertySettingRef.value.show({
+        const properties = {
           ...args.data.properties,
           name: args.data.id,
           displayName: args.data.text?.value || args.data.properties.displayName,
           type: args.data.type
-        })
+        }
+        logger.info(`节点被点击，即将打开节点属性设置页面，properties：`, properties);
+
+        propertySettingRef.value.show(properties)
 
       }
     }

@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-11-30 08:52:32
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2025-01-04 22:31:15
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/flow/alaflow/index.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 import Custom from './custom'
 import Decision from './decision'
 import End from './end'
@@ -85,10 +95,10 @@ class FlowAdapter {
           node.properties.field = JSON.parse(node.properties.field)
         }
       })
-      const xml = logicFlowJsonToXml(graphData)
+      // const xml = logicFlowJsonToXml(graphData)
       return {
         json: graphData,
-        xml
+        // xml
       }
     }
   }
