@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:57:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 11:22:15
+ * @LastEditTime: 2025-01-04 09:33:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/processDesign.vue
  * @Description: 
  * 
@@ -52,7 +52,7 @@ const flowModel = ref<Define>({
 
 const handleChange = (flowData: { json: any }) => {
     logger.info(`接收到流程设计器数据回调，flowData`);
-    console.log('flowData:', flowData);
+    // console.log('flowData:', flowData);
     flowModel.value.content = flowData
 }
 

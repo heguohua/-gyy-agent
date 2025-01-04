@@ -82,9 +82,10 @@ import {
 import { reactive, ref, watch, defineProps, onMounted, defineEmits, computed } from 'vue'
 import { FlowFormModel } from '../types'
 import { AlaField } from '@/config/fieldSchemas'
-import { alaBuildDate, alaBuildInput, alaBuildNumber, alaBuildSelect, alaBuildSelectDict, alaBuildSwitch, alaBuildTextarea } from '@/config/alaBuilders'
+import { alaBuildDate, alaBuildInput, alaBuildNumber, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSwitch, alaBuildTextarea } from '@/config/alaBuilders'
 import { alaRequired } from '@/config/alaRules'
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 // 注意:ref不能与model一样，相同的话表单双向绑定将会失效
 const formRef = ref(null)
 const modelForm = reactive<FlowFormModel>({} as FlowFormModel)
@@ -291,7 +292,12 @@ const isHidden = (item: { componentName: string, other?: any }) => {
 const fields = ref<Array<AlaField>>([])
 fields.value.push(alaBuildInput("name", "名称", [alaRequired()], "请输入流程名称"))
 fields.value.push(alaBuildInput("displayName", "显示名称", [alaRequired()], "请输入显示名称"))
-fields.value.push(alaBuildInput("form", "表单", [alaRequired()], "请选择表单"))
+// fields.value.push(alaBuildInput("form", "表单", [alaRequired()], "请选择表单"))
+
+const cls = alaBuildSelectTable("form", "表单", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择")
+
+fields.value.push(cls)
+
 fields.value.push(alaBuildInput("assignee", "参与者", [], "请选择参与者"))
 fields.value.push(alaBuildSelectDict("assignmentHandler", "参与者处理类", { "dictValue": "assignmentHandler" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择参与者处理类", { clearable: true }))
 fields.value.push(alaBuildSelect("taskType", "任务类型", [{ '主办任务': 'Major' }, { '协办任务': 'Aidant' }], [], "请选择任务参与者", { clearable: true }))
