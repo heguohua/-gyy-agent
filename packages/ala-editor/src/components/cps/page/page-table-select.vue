@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-04 09:37:08
+ * @LastEditTime: 2025-01-04 21:40:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -173,8 +173,6 @@ const handleCurrentChange = (item: { id: string }) => {
 
 // State
 const refresh = (data: any) => {
-    logger.warn("list页面接收到回调数据，即将刷新数据,formParams");
-    console.log('formParams.value:', formParams.value);
     logger.warn("list页面接收到回调数据，即将刷新数据，params", props.params);
     queryPageData()
 }

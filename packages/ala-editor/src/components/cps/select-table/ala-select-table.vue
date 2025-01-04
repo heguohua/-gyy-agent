@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-04 09:37:35
+ * @LastEditTime: 2025-01-04 21:25:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -212,12 +212,12 @@ function confirmClick() {
 
     // 给 model 赋值
     const mv: any = []
-    const sv: string[] = []
+    // const sv: string[] = []
     const pi = props.itemProperty
     selectedData.value.forEach((item) => {
       selectedData.value = []
       mv.push({ [pi.valueName]: item[pi.valueName], [pi.propertyName]: item[pi.propertyName], })
-      sv.push(generateValue(item[pi.propertyName]))
+      // sv.push(generateValue(item[pi.propertyName]))
     })
 
     model.value = mv

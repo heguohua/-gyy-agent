@@ -66,7 +66,7 @@ const props = defineProps({
 })
 const drawer = ref(false)
 const drawerRef = ref(null)
-var formData = reactive({} as FlowFormModel)
+var formData: any = reactive({} as FlowFormModel)
 
 
 // 标题
@@ -127,7 +127,7 @@ const propertyKeys = [
   // 流程属性
   'name', 'displayName', 'expireTime', 'instanceUrl', 'instanceNoClass', 'preInterceptors', 'postInterceptors',
   // 子流程属性
-  'name', 'displayName', 'form', 'version', 'width', 'height',
+  'name', 'displayName', 'forms', 'version', 'width', 'height',
   // 开始节点和结束节点属性
   'name', 'preInterceptors', 'postInterceptors',
   // 自定义节点属性
@@ -135,7 +135,7 @@ const propertyKeys = [
   // 决策节点属性
   'name', 'expr', 'handleClass', 'preInterceptors', 'postInterceptors',
   // 任务节点属性
-  'form', 'assignee', 'assignmentHandler', 'taskType', 'performType', 'reminderTime', 'reminderRepeat', 'expireTime',
+  'forms', 'assignee', 'assignmentHandler', 'taskType', 'performType', 'reminderTime', 'reminderRepeat', 'expireTime',
   'autoExecute', 'callback', 'width', 'height', 'field',
   // 额外扩展的属性
   ...props.extendPropertyKeys || props.extendAttrConfig?.extendPropertyKeys || []
@@ -146,7 +146,10 @@ const propertyKeys = [
 const propertyKeysSet = Array.from(new Set(propertyKeys))
 propertyKeysSet.forEach((key: string) => {
   // 监听属性变化
-  watch(() => formData[key], (n) => handleEmits(key, n), { deep: true })
+  watch(() => formData[key], (n) => {
+    logger.info(`监听到【 流程组件属性 】发生变化，即将回调上层组件，key[${key}]，变化值：`, n);
+    handleEmits(key, n), { deep: true }
+  })
 })
 
 

@@ -57,6 +57,7 @@
           </el-row>
         </div>
       </el-card>
+
     </el-form>
   </div>
 </template>
@@ -85,6 +86,7 @@ import { AlaField } from '@/config/fieldSchemas'
 import { alaBuildDate, alaBuildInput, alaBuildNumber, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSwitch, alaBuildTextarea } from '@/config/alaBuilders'
 import { alaRequired } from '@/config/alaRules'
 import { useI18n } from 'vue-i18n';
+import { logger } from '@/utils/logger'
 const { t } = useI18n();
 // 注意:ref不能与model一样，相同的话表单双向绑定将会失效
 const formRef = ref(null)
@@ -214,7 +216,15 @@ const emits = defineEmits(['update:modelValue'])
 
 // 监听表单属性
 watch(() => modelForm, () => {
-  emits('update:modelValue', Object.assign(props.modelValue, modelForm))
+
+  Object.assign(props.modelValue, modelForm)
+
+  logger.info(`配置表单属性发生变化，更新前：props.modelValue`,props.modelValue);
+  logger.info(`配置表单属性发生变化，更新值：modelForm`,modelForm);
+  logger.info(`配置表单属性发生变化，更新后：props.modelValue`,props.modelValue);
+  
+  emits('update:modelValue', props.modelValue)
+  
 }, { deep: true })
 
 const handleCommand = (command: string) => {
