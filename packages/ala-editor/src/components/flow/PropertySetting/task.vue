@@ -293,8 +293,8 @@ const fields = ref<Array<AlaField>>([])
 fields.value.push(alaBuildInput("name", "名称", [alaRequired()], "请输入流程名称"))
 fields.value.push(alaBuildInput("displayName", "显示名称", [alaRequired()], "请输入显示名称"))
 // fields.value.push(alaBuildInput("form", "表单", [alaRequired()], "请选择表单"))
-
-const cls = alaBuildSelectTable("form", "表单", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择")
+// t('module.menu.name')
+const cls = alaBuildSelectTable("forms", "表单", "/l/lowcodingConfig/page", [{ prop: 'name', label: '表单名称', isQuery: true }], { propertyName: 'name', valueName: 'id' }, undefined, { formType: 'flow' }, "请选择")
 
 fields.value.push(cls)
 
@@ -331,3 +331,10 @@ const rules = computed(() => {
 })
 
 </script>
+<style scoped lang="scss">
+:deep(.ala-select-customer){
+  p{
+    margin: 0px;
+  }
+}
+</style>

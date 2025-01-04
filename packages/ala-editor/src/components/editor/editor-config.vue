@@ -230,6 +230,7 @@ const handleSave = () => {
         const data = {
             name: editorStore.pageConfig[bType].formData?.title.desktop,
             className: editorStore.pageConfig[bType].formData?.moduleName.desktop,
+            formType: editorStore.pageConfig[bType].formData?.formType.desktop,
             config: u.tojson(config)
         }
         if (id) {
