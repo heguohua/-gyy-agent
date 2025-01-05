@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 21:18:18
+ * @LastEditTime: 2025-01-05 20:10:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -13,6 +13,7 @@ import WarnException from "@/utils/WarnException"
 import { cloneDeep, merge } from "lodash";
 import { logger } from "./logger";
 const profile = import.meta.env.VITE_PROFILE
+
 export default class u {
 
     // 生成uuid
@@ -206,4 +207,5 @@ export default class u {
         notify.error(title, remark)
         throw new WarnException({ title, remark })
     }
+
 }

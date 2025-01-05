@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-05 11:25:19
+ * @LastEditTime: 2025-01-05 21:17:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -39,11 +39,11 @@
         <template #btns="{ row }">
 
             <AlaButton :showButton="true" name="preview" @preview="handlePreview(row)" buttonType="default" />
-            <AlaButton v-if="row.delFlag === 1" :showButton="true" name="enable" @enable="handleEnable(row)"
+            <AlaButton v-if="row.state === 2" :showButton="true" name="enable" @enable="handleEnable(row)"
                 buttonType="success" />
-            <AlaButton v-if="row.delFlag === 2" :showButton="true" name="disable" @disable="handleDisable(row)"
+            <AlaButton v-if="row.state === 1" :showButton="true" name="disable" @disable="handleDisable(row)"
                 buttonType="danger" />
-            <AlaButton v-if="row.delFlag === 2" :showButton="true" name="form_initiate"
+            <AlaButton v-if="row.state === 1" :showButton="true" name="form_initiate"
                 @form_initiate="handleApply(row)" buttonType="primary" />
 
         </template>
@@ -162,7 +162,7 @@ const detailFields: any = ref([
     alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
     alaDetailBuild(dType.input, 'name', "唯一编码"),
     alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-    alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
+    alaDetailSwitch(dType.switch, 'state', "状态", "启用", 1, "禁用", 2),
     alaDetailBuild(dType.input, 'version', "版本号"),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -204,7 +204,7 @@ const columns = computed(() => {
         alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
         alaDetailBuild(dType.input, 'name', "唯一编码"),
         alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-        alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
+        alaDetailSwitch(dType.switch, 'state', "状态", "启用", 1, "禁用", 2),
         alaDetailBuild(dType.input, 'version', "版本号"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate(dType.date, 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -249,11 +249,11 @@ const handlePreview = (row: any) => {
 }
 
 const handleEnable = (row: any) => {
-    update(row.id, { delFlag: 2 }, t("buttons.enable"))
+    update(row.id, { state: 1 }, t("buttons.enable"))
 }
 
 const handleDisable = (row: any) => {
-    update(row.id, { delFlag: 1 }, t("buttons.disable"))
+    update(row.id, { state: 2 }, t("buttons.disable"))
 }
 
 const update = (id: number, params: any, type: string) => {

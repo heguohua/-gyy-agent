@@ -307,7 +307,7 @@ const handleSave = () => {
         width: var(--icon-group-width);
         padding: 0px 2%;
 
-        .content {
+        .ala-card-content {
             overflow-x: hidden;
             overflow-y: auto;
             width: 100%;
