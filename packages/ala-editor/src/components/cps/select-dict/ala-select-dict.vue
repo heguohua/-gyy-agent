@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-05 10:17:28
+ * @LastEditTime: 2025-01-05 11:24:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
         <AlaFormLabel :label="label" :help="help" />
       </template>
       <el-select @change="handleChange" :model-value="localValue" class="ala-select-group" :style="styles"
-        :id="fieldName" :clearable="clearable">
+        :id="fieldName" :clearable="clearable" :placeholder="placeholder">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>
@@ -29,6 +29,7 @@
 import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
+import { PropType } from 'vue';
 
 
 interface ItemProperty {
@@ -76,7 +77,11 @@ const props = defineProps({
   },
   help: {
     type: String,
-  }
+  },
+  singleValue: {
+    type: Boolean,
+    default: false
+  },
 })
 
 interface item {
@@ -102,25 +107,40 @@ const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
 
 const model = defineModel({
-  type: Array<any>,
+  type: [Array, String, Number] as PropType<Array<any> | String | Number>,
 })
 
-const localValue = ref<Number>()
+const localValue = ref<any>()
 
 watch(() => model.value, () => {
 
-  if (model && model.value && model.value.length > 0) {
-    const pi = props.itemProperty
-    localValue.value = model.value[0][pi.valueName]
+  if (model && model.value) {
+
+    if (Array.isArray(model.value)) {
+      // 数组类型
+      if (model.value.length > 0) {
+        const pi = props.itemProperty
+        localValue.value = model.value[0][pi.valueName]
+      }
+    } else {
+      // 普通类型
+      localValue.value = model.value
+    }
   }
 
 })
 
 const handleChange = (value: any) => {
   const pi = props.itemProperty
-  // model.value.push({ [pi.valueName]: value, [pi.propertyName]: item[pi.propertyName], })
-  model.value = [{ [pi.valueName]: value }]
+  if (props.singleValue) {
+    model.value = value
+  } else {
+    model.value = [{ [pi.valueName]: value }]
+  }
   localValue.value = value
+
+  console.log('props.placeholder:', props.placeholder);
+
 }
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 15:42:35
+ * @LastEditTime: 2025-01-05 11:25:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -66,7 +66,7 @@ import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildInput } from '@/config/alaBuilders';
+import { alaBuildInput, alaBuildSelectDict } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
@@ -163,6 +163,7 @@ const detailFields: any = ref([
     alaDetailBuild(dType.input, 'name', "唯一编码"),
     alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
     alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
+    alaDetailBuild(dType.input, 'version', "版本号"),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.input, 'updatedName', "重新部署人"),
@@ -204,6 +205,7 @@ const columns = computed(() => {
         alaDetailBuild(dType.input, 'name', "唯一编码"),
         alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
         alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
+        alaDetailBuild(dType.input, 'version', "版本号"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate(dType.date, 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
 
@@ -220,6 +222,7 @@ const columns = computed(() => {
 const baseFields = computed(() => {
     return [
         alaBuildInput("displayName", '名称'),
+        alaBuildSelectDict("type", "流程分类", { "dictValue": "pType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择流程分类", { clearable: true, singleValue: true, width: 200 })
     ]
 })
 
