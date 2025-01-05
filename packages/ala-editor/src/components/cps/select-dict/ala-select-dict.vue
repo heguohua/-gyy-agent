@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-04 23:08:37
+ * @LastEditTime: 2025-01-05 10:17:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -110,12 +110,11 @@ const localValue = ref<Number>()
 watch(() => model.value, () => {
 
   if (model && model.value && model.value.length > 0) {
-    localValue.value = model.value[0]
+    const pi = props.itemProperty
+    localValue.value = model.value[0][pi.valueName]
   }
 
 })
-
-
 
 const handleChange = (value: any) => {
   const pi = props.itemProperty
