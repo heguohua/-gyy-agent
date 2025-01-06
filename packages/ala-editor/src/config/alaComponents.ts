@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-05 18:31:02
+ * @LastEditTime: 2025-01-06 17:51:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -78,6 +78,7 @@ import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import AlaDetailNoDrawer from '@/components/cps/form/ala-detail-no-drawer.vue';
 import AlaDetailNoDrawerForms from '@/components/cps/form/ala-detail-no-drawer-forms.vue';
 import DetailImageColumn from '@/components/cps/dynamic/DetailImageColumn.vue';
+import DetailDeepColumn from '@/components/cps/dynamic/DetailDeepColumn.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -157,6 +158,7 @@ export default {
     AlaDetailNoDrawer,
     AlaDetailNoDrawerForms,
     DetailImageColumn,
+    DetailDeepColumn,
 
     // 流程引擎相关组件
     ProcessDesign,

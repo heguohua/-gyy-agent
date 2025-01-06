@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 23:14:01
+ * @LastEditTime: 2025-01-06 18:15:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -18,10 +18,23 @@
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
         :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
 
-        <template #cols="{ row, columnName }">
-            <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
-                in-valid-name="禁用" :value="row[columnName]" />
-            <template v-else>{{ row[columnName] }}</template>
+
+        <template #cols="{ row, columnName, formItem }">
+
+            <template v-if="formItem.code === 'dateRange'">
+
+                <component :is="getComponent(formItem.code)"
+                    :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
+                    :formItem="formItem" :data="row" />
+            </template>
+            <template v-else>
+                <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-else />
+            </template>
+
         </template>
 
     </PageTable>
@@ -41,6 +54,8 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
+import { alaDetailBuild, alaDetailDeepBuild, alaDetailSelectDict } from '@/config/alaDetailBuilder';
+import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -74,7 +89,7 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
-     // 解除 响应式引用，防止新增页面数据影响列表数据
+    // 解除 响应式引用，防止新增页面数据影响列表数据
     const entity = toRaw(item)
     entity.typeEntity = [{ id: entity.type }]
 
@@ -88,7 +103,9 @@ const showEdit = (item: { [key: string]: any }) => {
 }
 
 // 查询条件
-const params = reactive({})
+const params = reactive({
+    taskState: 10
+})
 
 const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
 const refresh = () => {
@@ -97,24 +114,39 @@ const refresh = () => {
     }
 }
 
+const getComponent = ((code: string) => {
+    return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
+})
+
+const detailItem = reactive({
+    moduleName,
+    item: {}
+})
+const showDetailPage = ref(false)
+const showDetail = (item: { [key: string]: any }) => {
+    u.clear(detailItem.item)
+    u.merged(detailItem, { item })
+    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    showDetailPage.value = true
+}
+
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/p/task/page"
+const url = "/p/task/myPage"
 const deleteUrl = "/p/task/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        { prop: 'displayName', label: '标题' },
-        // { prop: 'name', label: '摘要' },
-        { prop: 'name', label: '节点名称' },
-        { prop: 'operator', label: '发起人' },
-        { prop: 'createdTime', label: '发起时间' },
-        { prop: 'version', label: '发起人所属部门' },
-        { prop: 'state', label: '发起人职务' },
+        alaDetailBuild(dType.input, 'displayName', "任务名称"),
+        alaDetailDeepBuild(dType.deep, 'instanceVo', 'displayName', "流程名"),
+        // { prop: 'operator', label: '发起人' },
+        // { prop: 'createdTime', label: '发起时间' },
+        // { prop: 'version', label: '发起人所属部门' },
+        // { prop: 'state', label: '发起人职务' },
     ]
 })
 
@@ -128,7 +160,7 @@ const baseFields = computed(() => {
 
 
 // 高级查询条件
-const advancedFields = []
+const advancedFields: any = []
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 22:14:06
+ * @LastEditTime: 2025-01-06 18:03:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -13,6 +13,13 @@ export function alaDetailBuild(componentName: string, columnName: string, label:
         prop: columnName,
         label: label,
         formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
+    }
+}
+export function alaDetailDeepBuild(componentName: string, columnName: string, innerColumnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
+    return {
+        prop: columnName,
+        label: label,
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other, innerColumnName: { desktop: innerColumnName },  } },
     }
 }
 
@@ -42,10 +49,10 @@ export function alaDetailTextarea(componentName: string, columnName: string, lab
 }
 
 
-export function alaDetailDate(componentName: string, columnName: string, label: string,format="YYYY-MM-DD", columnNum = 1, detail = false, other?: Object) {
+export function alaDetailDate(componentName: string, columnName: string, label: string, format = "YYYY-MM-DD", columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName },format: { desktop: format }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, format: { desktop: format }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
     }
 }

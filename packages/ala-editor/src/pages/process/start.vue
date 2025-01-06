@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-05 21:25:24
+ * @LastEditTime: 2025-01-06 15:36:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -17,7 +17,8 @@
                     {{ define.name }}
                 </p>
                 <div class="cards">
-                    <div class="ala-card" v-for="(item, i) in define.defineVos" :key="index + '-' + i">
+                    <div class="ala-card" v-for="(item, i) in define.defineVos" :key="index + '-' + i"
+                        @click="handleClick(item)">
                         <div class="ala-card-image">
                             <img :src="imageSrc(item)" :style="{ width: imageWidth, height: imageHeight }" />
                         </div>
@@ -42,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { alaPost } from '@/utils/req'
+import { alaPost, get } from '@/utils/req'
 import u from '@/utils/u'
 
 
@@ -120,6 +121,17 @@ const getSortedPropertyKeys = (obj: any) => {
     return sortedValues;
 }
 
+const getUrl = '/p/define/get'
+const handleClick = (item: { id: number }) => {
+    get(u.url(getUrl || ''), { id: item.id }).then((response: any) => {
+        console.log('response:', response.data.data);
+        const data = response.data.data
+        const content = data.content
+        console.log('content:', u.parseJson(content));
+
+
+    });
+}
 
 </script>
 
