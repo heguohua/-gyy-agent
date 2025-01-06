@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 18:01:59
+ * @LastEditTime: 2025-01-06 19:48:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -216,14 +216,14 @@ export default class u {
      * @param path 
      * @returns 
      */
-    public static deepValue(data: object, path: string) {
+    public static deepValue(data: object, path: string): string {
         // 将路径字符串拆分成属性名数组
         const pathParts = path.split('.');
 
         // 使用 reduce 方法遍历路径数组，动态访问对象属性
         const value = pathParts.reduce((obj: { [key: string]: any }, key) => obj && obj[key], data);
 
-        return value
+        return value + ''
     }
 
 }

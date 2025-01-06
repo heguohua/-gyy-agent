@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 19:29:32
+ * @LastEditTime: 2025-01-06 20:22:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -31,7 +31,7 @@
 
 
             <!-- 主表操作列 -->
-            <el-table-column :label="$t('buttons.buttons')">
+            <el-table-column :label="$t('buttons.buttons')" v-if="!noButtons">
                 <template #default="scope">
                     <AlaButton :showButton="displayEditButton()" name="edit"
                         @edit="handleEdit(scope.$index, scope.row)" />
@@ -119,6 +119,11 @@ const props = defineProps({
     pageSize: {
         type: Array<number>,
         default: [10, 20, 30, 40, 50, 100, 200]
+    },
+    // 是否显示 按钮列
+    noButtons: {
+        type: Boolean,
+        default: false
     }
 
 })

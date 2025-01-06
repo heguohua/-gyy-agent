@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 18:15:34
+ * @LastEditTime: 2025-01-06 20:19:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showDeleteButton="true" :showAddButton="true">
+        :showEditButton="false" :showDeleteButton="false" :showAddButton="false">
 
 
         <template #cols="{ row, columnName, formItem }">
@@ -36,7 +36,11 @@
             </template>
 
         </template>
+        <template #btns="{ row }">
 
+            <AlaButton :showButton="true" name="form_handle" @form_handle="handleTask(row)" buttonType="primary" />
+
+        </template>
     </PageTable>
 
     <!-- 新增、编辑 -->
@@ -50,11 +54,11 @@ import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildInput } from '@/config/alaBuilders';
+import { alaBuildDateRange, alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDeepBuild, alaDetailSelectDict } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailSelectDict } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 
@@ -142,7 +146,11 @@ const deleteUrl = "/p/task/delete"
 const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'displayName', "任务名称"),
-        alaDetailDeepBuild(dType.deep, 'instanceVo', 'displayName', "流程名"),
+        alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
+        alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
+        alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
+        alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+
         // { prop: 'operator', label: '发起人' },
         // { prop: 'createdTime', label: '发起时间' },
         // { prop: 'version', label: '发起人所属部门' },
@@ -154,7 +162,7 @@ const columns = computed(() => {
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("displayName", '名称'),
+        alaBuildDateRange('createdTime', '任务创建时间段', 'daterange', 'YYYY-MM-DD HH:mm:ss')
     ]
 })
 
@@ -166,6 +174,9 @@ const advancedFields: any = []
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 
+const handleTask = (item: any) => {
+    console.log('item:', item);
+}
 
 </script>
 

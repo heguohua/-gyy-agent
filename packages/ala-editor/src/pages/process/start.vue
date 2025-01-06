@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 15:36:06
+ * @LastEditTime: 2025-01-06 18:20:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -178,7 +178,6 @@ const handleClick = (item: { id: number }) => {
                     margin-right: 8px;
                     border-radius: 8px;
 
-                    img {}
                 }
 
                 .ala-card-content {
