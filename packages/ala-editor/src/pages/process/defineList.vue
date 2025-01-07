@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-05 21:17:13
+ * @LastEditTime: 2025-01-07 19:28:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -55,7 +55,7 @@
 
     </PageTable>
 
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
     <AlaTabPage v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
 
 </template>
@@ -150,9 +150,6 @@ const formAttr = ref({
     labelWidth: 120,
     labelPosition: 'left',
     useFormTitle: false,
-})
-const getFormAttr = computed(() => {
-    return formAttr
 })
 
 /**
