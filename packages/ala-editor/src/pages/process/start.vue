@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 11:18:15
+ * @LastEditTime: 2025-01-07 13:02:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -353,10 +353,10 @@ const showAdd = (form: any) => {
 
         logger.info(`【 流程表单 - blockConfig】配置信息：`, addFormFields.value);
 
+        showAddForm.value = true
 
     });
 
-    showAddForm.value = true
 }
 
 const formAttr = ref({
