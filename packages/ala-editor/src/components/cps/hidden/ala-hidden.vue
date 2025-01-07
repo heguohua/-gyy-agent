@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue';
+
 
 // State
 const props = defineProps({
@@ -39,7 +41,7 @@ const props = defineProps({
 })
 
 const model = defineModel({
-    type: Number,
+    type: [Number, String] as PropType<number | string>,
     default: null
 })
 

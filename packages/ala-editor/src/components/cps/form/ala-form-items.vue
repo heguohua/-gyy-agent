@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 13:21:39
+ * @LastEditTime: 2025-01-07 19:10:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -27,8 +27,15 @@
             </template>
             <template #footer>
                 <div style="flex: auto">
-                    <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
-                    <el-button type="primary" @click="confirmClick">{{ $t('buttons.save') }}</el-button>
+                    <el-button @click="cancelClick" v-if="cancelButton">
+                        {{ $t('buttons.cancel') }}
+                    </el-button>
+                    <el-button type="primary" @click="confirmClick" v-if="saveButton">
+                        {{ $t('buttons.save') }}
+                    </el-button>
+                    <el-button type="primary" @click="confirmClick" v-if="initiateButton()">
+                        {{ $t('buttons.form_initiate') }}
+                    </el-button>
                     <!-- <el-button type="primary" @click="confirmClick">{{ $t('button.error') }}</el-button> -->
                 </div>
             </template>
@@ -77,8 +84,32 @@ const props = defineProps({
             labelPosition: 'left',
             useFormTitle: false,
         })
+    },
+    showSaveButton: {
+        type: Boolean,
+        default: true
+    },
+    showCancelButton: {
+        type: Boolean,
+        default: true
+    },
+    showInitiateButton: {
+        type: Boolean,
+        default: false
     }
 })
+
+const saveButton = computed(() => {
+    return props.showSaveButton;
+})
+const cancelButton = computed(() => {
+    return props.showCancelButton;
+})
+const initiateButton = () => {
+    console.log('props.showInitiateButton:',props.showInitiateButton);
+    
+    return props.showInitiateButton;
+}
 
 const useFormTitle = () => {
     return props.formAttr.useFormTitle
@@ -152,8 +183,6 @@ function confirmClick() {
         abc: 123
     })
 }
-
-console.log('props.formAttr:',props.formAttr);
 
 // 解构 formAttr，同时保持 formAttr 的响应式
 const { formWidth, labelWidth, labelPosition, columnNum } = toRefs(props.formAttr)

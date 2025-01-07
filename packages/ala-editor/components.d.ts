@@ -22,6 +22,7 @@ declare module 'vue' {
     9: typeof import('./src/components/cps/dynamic/InputColumn copy 9.vue')['default']
     A: typeof import('./src/components/base/a.vue')['default']
     AlaBaseForm: typeof import('./src/components/cps/form/ala-base-form.vue')['default']
+    AlaBaseFormProcess: typeof import('./src/components/cps/form/ala-base-form-process.vue')['default']
     AlaButton: typeof import('./src/components/cps/button/ala-button.vue')['default']
     AlaButtonGroup: typeof import('./src/components/cps/button/ala-button-group.vue')['default']
     AlaChapter: typeof import('./src/components/cps/chapter/ala-chapter.vue')['default']

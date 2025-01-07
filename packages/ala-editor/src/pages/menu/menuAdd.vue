@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 09:57:32
+ * @LastEditTime: 2025-01-07 19:19:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
          labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
-        :tipTitle="$t('pop.warm_title')" :formAttr="{ value: { labelWidth: 130, columnNum: 1, formWidth: 500 } }" />
+        :tipTitle="$t('pop.warm_title')" :formAttr="formAttr" />
 
 </template>
 
@@ -119,8 +119,14 @@ const moduleName = computed(() => {
     return props.baseInfo.moduleName
 })
 
-
 // ##########################  以上是公共方法，不需要修改 end #########################################
+const formAttr = ref({
+    formWidth: 500,
+    columnNum: 1,
+    labelWidth: 130,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
 
 
 </script>
