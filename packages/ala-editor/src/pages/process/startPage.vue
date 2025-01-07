@@ -9,7 +9,7 @@
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    
+
     <AlaBaseFormProcess v-model="showDrawer" @refresh="refresh" v-bind="props" :fields="fields" :formData="formData"
         :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')" :formAttr="formAttr"
         :beforeSave="beforeSave" />
@@ -46,14 +46,14 @@ const props = defineProps({
 })
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/l/dynamic/add'
+const url = '/l/dynamic/start'
 const updateUrl = '/l/dynamic/update'
 // 表单数据保存对象
 const formData = reactive({
 })
 
 const beforeSave = (data: any) => {
-    const dynamicFormData = { tableName: props.className, columns: data }
+    const dynamicFormData = { tableName: props.className, columns: data, defineId: props.baseInfo.defineId }
     return dynamicFormData
 }
 
@@ -114,6 +114,4 @@ const moduleName = computed(() => {
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

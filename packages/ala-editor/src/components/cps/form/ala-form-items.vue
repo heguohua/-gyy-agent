@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 19:10:56
+ * @LastEditTime: 2025-01-07 19:31:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -105,9 +105,7 @@ const saveButton = computed(() => {
 const cancelButton = computed(() => {
     return props.showCancelButton;
 })
-const initiateButton = () => {
-    console.log('props.showInitiateButton:',props.showInitiateButton);
-    
+const initiateButton = () => {    
     return props.showInitiateButton;
 }
 

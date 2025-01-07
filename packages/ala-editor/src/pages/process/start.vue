@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 13:02:46
+ * @LastEditTime: 2025-01-07 20:49:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -42,8 +42,8 @@
     </div>
 
     <!-- 新增、编辑 -->
-    <StartPage v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields" :formAttr="getFormAttr"
-        :className="className" />
+    <StartPage v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields"
+        :formAttr="getFormAttr" :className="className" />
 
 </template>
 
@@ -142,11 +142,10 @@ const handleClick = (item: { id: number }) => {
         const data = response.data.data
         const content = data.content
         const dynamicForm = getStartForm(u.parseJson(content))
-        console.log('dynamicForm:', dynamicForm);
         u.checkNull(dynamicForm, '申请单', t)
 
         // 查找动态form表单，并动态渲染
-        showAdd(dynamicForm[0])
+        showAdd(dynamicForm[0], item)
 
     });
 }
@@ -190,7 +189,7 @@ const getStartForm = (flowJson: FlowJson) => {
 
 const baseInfo = reactive({
     id: null,
-    selectedList: Array<{ id: string }>,
+    defineId: null,
     item: {}
 })
 const showAddForm = ref(false)
@@ -198,11 +197,12 @@ const cn = ref('')
 const className = computed(() => {
     return cn.value
 })
-const showAdd = (form: any) => {
+const showAdd = (form: any, define: any) => {
     u.clear(baseInfo.item)
-    u.merged(baseInfo, { item: {}, moduleName: form.name })
+    u.merged(baseInfo, { item: {}, moduleName: form.name, defineId: define.id })
     cn.value = form.className
     logger.info(`【新增】方法接收到参数【 form 】`, form);
+    logger.info(`【新增】方法接收到参数【 define 】`, define);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
 
     // 组装列表字段
@@ -217,7 +217,6 @@ const showAdd = (form: any) => {
         const conf = u.parseJson(config)
         const blockConfig = conf["blockConfig"][bType]
         const pageConfig = conf["pageConfig"][bType]
-        console.log('pageConfig:', pageConfig);
 
         u.checkNull(pageConfig?.formData, '当前流程第一级任务节点表单【 页面配置 】不存在', t)
         u.checkNull(blockConfig, '当前流程第一级任务节点表单【 字段配置 】不存在', t)

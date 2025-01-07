@@ -93,7 +93,10 @@ const confirm = (data: any) => {
                         data = props.beforeSave(data)
                     }
 
+                    // 1、保存表单数据
+                    // 2、发起流程
                     const response = await postData(data)
+
 
                     if (response) {
 
@@ -133,7 +136,7 @@ const closeContent = computed(() => {
     return content
 })
 const saveContent = () => {
-    const content = t('pop_content.save', { content: props.moduleName })
+    const content = t('pop_content.flow_start', { content: props.moduleName })
     return content
 }
 
@@ -174,7 +177,7 @@ const postData = async (item: any): Promise<any> => {
     const result = await alaPost(u.url(url || ''), item, false, id ? 'put' : '').then((data: any) => {
         const response = data;
         emit("refresh", response)
-        notify.success(t('pop.warm_title'), "保存成功")
+        notify.success(t('pop.warm_title'), "申请单提交成功，请等待审批。")
         return response
     });
 
