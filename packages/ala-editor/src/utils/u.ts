@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 19:48:28
+ * @LastEditTime: 2025-01-07 10:31:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -49,12 +49,15 @@ export default class u {
      * @param remark 
      * @param title 
      */
-    public static checkNull(obj: any, remark: any, title = "温馨提示：") {
+    public static checkNull(obj: any, i18nKey: string, t: Function, title = "t('pop.warm_title')") {
         if (this.isNull(obj)) {
-            // throw new WarnException({ title, remark, code: 'checkNull' })
-            throw new WarnException({ title, remark })
+            const notifyTitle = (title.startsWith("t('") || title.startsWith('t("') ? t(title.slice(3, -2)) : title)
+            const content = (i18nKey.startsWith("t('") || i18nKey.startsWith('t("') ? t(i18nKey.slice(3, -2)) : i18nKey) + '“ 不存在 ” ！'
+            notify.error(notifyTitle, content)
+            throw `${title}`
         }
     }
+
 
     /**
      * 当前参数是否是False，为False给出提示消息
@@ -62,9 +65,12 @@ export default class u {
      * @param remark 
      * @param title 
      */
-    public static checkBoolean(obj: boolean, remark: any, title = "温馨提示：") {
+    public static checkBoolean(obj: boolean, i18nKey: string, t: Function, title = "t('pop.warm_title')") {
         if (obj) {
-            throw new WarnException({ title, remark })
+            const notifyTitle = (title.startsWith("t('") || title.startsWith('t("') ? t(title.slice(3, -2)) : title)
+            const content = (i18nKey.startsWith("t('") || i18nKey.startsWith('t("') ? t(i18nKey.slice(3, -2)) : i18nKey)
+            notify.error(notifyTitle, content)
+            throw `${title}`
         }
     }
     /**
@@ -149,8 +155,8 @@ export default class u {
      * @returns 
      */
     public static parseI18n(label: string, t: Function) {
-        if (label.startsWith('t("')) {
-            return t(label.slice(3, label.length - 2));
+        if (label.startsWith('t("') || label.startsWith("t('")) {
+            return t(label.slice(3, -2));
         } else {
             return label
         }
@@ -163,10 +169,11 @@ export default class u {
      * @param t 
      * @returns 
      */
-    public static checkEmpty(data: object, i18nKey: string, t: Function) {
+    public static checkEmpty(data: any, i18nKey: string, t: Function, title = "t('pop.warm_title')") {
         if (!data) {
-            const title = (i18nKey.startsWith("t('") ? t(i18nKey) : i18nKey) + '“ 不存在 ” ！'
-            notify.error(t('pop.warm_title'), title)
+            const notifyTitle = (title.startsWith("t('") || title.startsWith('t("') ? t(title.slice(3, -2)) : title)
+            const content = (i18nKey.startsWith("t('") || i18nKey.startsWith('t("') ? t(i18nKey.slice(3, -2)) : i18nKey) + '“ 不存在 ” ！'
+            notify.error(notifyTitle, content)
             throw `${title}`
         }
     }

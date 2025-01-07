@@ -105,7 +105,7 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
-     // 解除 响应式引用，防止新增页面数据影响列表数据
+    // 解除 响应式引用，防止新增页面数据影响列表数据
     const entity = toRaw(item)
     entity.typeEntity = [{ id: entity.type }]
 
@@ -154,7 +154,7 @@ const deleteUrl = "/l/dynamic/delete"
 //         { prop: 'state', label: '状态' },
 //     ]
 // })
-interface Column { prop: string, label: string }
+interface Column { prop: string, label: string, formItem: any }
 const columns = ref<Array<Column>>([])
 
 // 基础查询条件

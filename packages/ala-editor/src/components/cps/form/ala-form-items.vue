@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 09:40:49
+ * @LastEditTime: 2025-01-07 11:47:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
     <div class="ala-add-form">
         <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer"
-            :size="drawerWidth()" :with-header="!useFormTitle()">
+            :size="drawerWidth" :with-header="!useFormTitle()">
             <template #header v-if="!useFormTitle()">
                 <h4>【 {{ operationType }} 】{{ moduleName }}</h4>
             </template>
@@ -19,7 +19,7 @@
 
                 <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
                     :style="columnWidth(item)">
-                    <component :is="item.componentName" :label="item.label" :position="labelPosition()"
+                    <component :is="item.componentName" :label="item.label" :position="labelPosition"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
                         :fieldName="item.fieldName" :data="data" @formItemChangeCallback="formItemChangeCallback" />
                 </div>
@@ -103,8 +103,8 @@ const showDrawer = defineModel({
 
 const emit = defineEmits(["confirm", "formItemChangeCallback"])
 const formItemChangeCallback = (data: any) => {
-    console.log('data:',data);
-    
+    console.log('data:', data);
+
     emit("formItemChangeCallback", data)
 }
 
@@ -153,32 +153,28 @@ function confirmClick() {
     })
 }
 
+// 解构 formAttr，同时保持 formAttr 的响应式
+const { formWidth, labelWidth, labelPosition, columnNum } = toRefs(props.formAttr)
+
+
 // 计算css宽度
 // 1、动态计算 drawer 宽度
-const drawerWidth = (): string => {
+const drawerWidth = computed((): string => {
     const paddingWidth = 66
-    let width = (props.formAttr.value.formWidth + paddingWidth) + 'px'
+    let width = (formWidth.value + paddingWidth) + 'px'
     return width
-}
-
-const labelPosition = () => {
-    return props.formAttr.value.labelPosition
-}
-
+})
 
 
 const columnWidth = (item: any) => {
-    let formWidth = props.formAttr.value.formWidth
-    let labelWidth = props.formAttr.value.labelWidth
-    let columnNum = props.formAttr.value.columnNum
 
     const paddingWidth = 0
 
-    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form paddingWidth[ ${paddingWidth} ]`);
+    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth.value} ]，form labelWidth[ ${labelWidth.value} ]，form columnNum[ ${columnNum.value} ]，form paddingWidth[ ${paddingWidth} ]`);
 
     // 假设每个组件都占用 1列，则计算 列平均宽度
     // (总宽度 - paddingWidth)/columnNum
-    let columnWidth = Math.floor((formWidth - paddingWidth) / columnNum)
+    let columnWidth = Math.floor((formWidth.value - paddingWidth) / columnNum.value)
 
     const occupiedColumnNum = item.columnNum || 1
     columnWidth = columnWidth * occupiedColumnNum

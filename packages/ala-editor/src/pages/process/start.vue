@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 18:20:02
+ * @LastEditTime: 2025-01-07 11:18:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -40,11 +40,24 @@
             </div>
         </template>
     </div>
+
+    <!-- 新增、编辑 -->
+    <DynamicAdd v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields" :formAttr="getFormAttr"
+        :className="className" />
+
 </template>
 
 <script setup lang="ts">
+import { alaBuildInput } from '@/config/alaBuilders';
+import { logger } from '@/utils/logger';
 import { alaPost, get } from '@/utils/req'
 import u from '@/utils/u'
+import { useI18n } from 'vue-i18n';
+import DynamicAdd from '@/pages/dynamic/add.vue';
+import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from '../dynamic/formItemParser';
+import baseRule from '@/config/rules/baseRule';
+import { alaCard, alaCn, alaCnTw, alaEmail, alaEnumRule, alaLetter, alaLl8, alaLl8_, alaLOrlOr8, alaLOrlOr8Or_, alaNumber, alaNumberMax, alaNumberMin, alaNumberRange, alaPassword, alaPattern, alaPhone, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaTw, alaUrl } from '@/config/alaRules';
+const { t } = useI18n();
 
 
 // State
@@ -123,16 +136,275 @@ const getSortedPropertyKeys = (obj: any) => {
 
 const getUrl = '/p/define/get'
 const handleClick = (item: { id: number }) => {
+
     get(u.url(getUrl || ''), { id: item.id }).then((response: any) => {
-        console.log('response:', response.data.data);
+
         const data = response.data.data
         const content = data.content
-        console.log('content:', u.parseJson(content));
+        const dynamicForm = getStartForm(u.parseJson(content))
+        console.log('dynamicForm:', dynamicForm);
+        u.checkNull(dynamicForm, '申请单', t)
 
+        // 查找动态form表单，并动态渲染
+        showAdd(dynamicForm[0])
 
     });
 }
 
+interface FlowJson {
+    nodes: [],
+    edges: [],
+}
+
+const getStartForm = (flowJson: FlowJson) => {
+    // 查找 type 为 snaker:start 的节点的输出边的id
+    const nodes = flowJson.nodes || []
+    let startId = ''
+    nodes.forEach((node) => {
+        if (node['type'] === 'snaker:start') {
+            startId = node['id'] as string
+        }
+    })
+    u.checkEmpty(startId, '当前流程没有配置开始节点', t)
+    // 根据输出边的id找到流程发起节点的 id
+    const edges = flowJson.edges || []
+    let firstNodeId = ''
+    edges.forEach((edge) => {
+        if (edge['sourceNodeId'] === startId) {
+            firstNodeId = edge['targetNodeId']
+        }
+    })
+    u.checkEmpty(firstNodeId, '当前流程没有配置第一级任务节点', t)
+    // 然后根据流程发起节点id找流程发起节点
+    let firstNode: any = {}
+    nodes.forEach((node) => {
+        if (node['id'] === firstNodeId) {
+            firstNode = node
+        }
+    })
+    u.checkNull(firstNode, '当前流程没有配置第一级任务节点', t)
+
+    // 从流程发起节点提取form配置信息
+    return firstNode['properties']?.['forms']
+}
+
+const baseInfo = reactive({
+    id: null,
+    selectedList: Array<{ id: string }>,
+    item: {}
+})
+const showAddForm = ref(false)
+const cn = ref('')
+const className = computed(() => {
+    return cn.value
+})
+const showAdd = (form: any) => {
+    u.clear(baseInfo.item)
+    u.merged(baseInfo, { item: {}, moduleName: form.name })
+    cn.value = form.className
+    logger.info(`【新增】方法接收到参数【 form 】`, form);
+    logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+
+    // 组装列表字段
+
+    const url = "/l/lowcodingConfig/get"
+    const params = { id: form.id }
+    const bType = 'form'
+    logger.info(`从后台加载【 ${bType} 】配置数据，url【 ${url} 】，数据对象：`, params);
+
+    get(u.url(url || ''), params).then((response: any) => {
+        const { data: { config, id } } = response.data;
+        const conf = u.parseJson(config)
+        const blockConfig = conf["blockConfig"][bType]
+        const pageConfig = conf["pageConfig"][bType]
+        console.log('pageConfig:', pageConfig);
+
+        u.checkNull(pageConfig?.formData, '当前流程第一级任务节点表单【 页面配置 】不存在', t)
+        u.checkNull(blockConfig, '当前流程第一级任务节点表单【 字段配置 】不存在', t)
+
+        // 初始化表单页面配置项
+        const pFormData = pageConfig?.formData
+        const formAttrs = {
+            formWidth: pFormData.width?.desktop ? pFormData.width.desktop : formAttr.value.formWidth,
+            labelWidth: pFormData.labelWidth?.desktop ? pFormData.labelWidth.desktop : formAttr.value.labelWidth,
+            columnNum: pFormData.columnNum?.desktop ? pFormData.columnNum.desktop : formAttr.value.columnNum,
+            useFormTitle: pFormData.useFormTitle?.desktop ? pFormData.useFormTitle.desktop : formAttr.value.useFormTitle,
+            labelPosition: pFormData.labelPosition?.desktop ? pFormData.labelPosition.desktop : formAttr.value.labelPosition,
+        }
+        logger.info(`【 流程表单 - pageConfig】配置信息：`, formAttrs);
+
+        u.merged(formAttr, formAttrs)
+
+        addFormFields.value = []
+        // 初始化表单字段配置项
+        blockConfig.forEach((item: { code: string, formData: any }) => {
+            const { code, formData } = { ...item }
+
+            // 组装 form 表单字段
+            let formItem: any = {}
+            if (code === 'input') {
+                formItem = parseInput(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'textarea') {
+                formItem = parseTextarea(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'radio') {
+                formItem = parseRadio(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'checkbox') {
+                formItem = parseCheckbox(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'date') {
+                formItem = parseDate(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'number') {
+                formItem = parseNumber(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'select') {
+                formItem = parseSelect(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'slider') {
+                formItem = parseSlider(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'rating') {
+                formItem = parseRating(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'switch') {
+                formItem = parseSwitch(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'divider') {
+                formItem = parseDivider(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'chapter') {
+                formItem = parseChapter(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'selectTable') {
+                formItem = parseSelectTable(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'selectDict') {
+                formItem = parseSelectDict(formData)
+                addFormFields.value.push(formItem)
+            } else if (code === 'dateRange') {
+                // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
+                formItem = parseDateRange(formData)
+                formItem.other.startFieldName = formData.startFieldName.desktop
+                formItem.other.endFieldName = formData.endFieldName.desktop
+                addFormFields.value.push(formItem)
+            }
+
+            const other = formItem.other || {}
+
+            if (item.formData.columnNum) {
+                formItem.columnNum = item.formData.columnNum.desktop
+            }
+
+            // 处理 组件 other 中的属性信息
+            if (item.formData.help && item.formData.help.desktop) {
+                other.help = item.formData.help.desktop
+            }
+            if (item.formData.icon && item.formData.icon.desktop) {
+                other.icon = item.formData.icon.desktop
+                other.iconWidth = item.formData.iconWidth.desktop
+                other.iconHeight = item.formData.iconHeight.desktop
+            }
+
+            formItem.other = other
+
+            // 解析表单验证规则
+
+
+            const rules: Array<baseRule> = []
+
+            // 非空验证条件
+            if (formData.required && formData.required.desktop) {
+                rules.push(alaRequired())
+            }
+
+            // 添加字符数最少、最多和范围验证
+            if (formData.strMin && formData.strMax && formData.strMin.desktop && formData.strMax.desktop) {
+                rules.push(alaStrLengthRange(formData.strMin.desktop, formData.strMax.desktop))
+            } else if (formData.strMin && formData.strMin.desktop) {
+                rules.push(alaStrMin(formData.strMin.desktop))
+            } else if (formData.strMax && formData.strMax.desktop) {
+                rules.push(alaStrMax(formData.strMax.desktop))
+            }
+
+            // 添加 数值最小、最大和范围验证
+            if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
+                rules.push(alaNumberRange(formData.numberMin.desktop, formData.numberMax.desktop))
+            } else if (formData.numberMin && formData.numberMin.desktop) {
+                rules.push(alaNumberMin(formData.numberMin.desktop))
+            } else if (formData.numberMax && formData.numberMax.desktop) {
+                rules.push(alaNumberMax(formData.numberMax.desktop))
+            }
+
+            if (formData.rules && formData.rules.desktop) {
+                const functionName = ruleFunctions[formData.rules.desktop]
+                if (!functionName) {
+                    logger.error(`【 错误，错误，错误 】${formData.rules.desktop} 函数不存在`);
+                } else {
+                    rules.push(ruleFunctions[formData.rules.desktop]())
+                }
+            }
+
+            formItem.rules = rules
+
+        })
+
+        logger.info(`【 流程表单 - blockConfig】配置信息：`, addFormFields.value);
+
+
+    });
+
+    showAddForm.value = true
+}
+
+const formAttr = ref({
+    formWidth: 400,
+    columnNum: 1,
+    labelWidth: 100,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
+
+const getFormAttr = computed(() => {
+    return formAttr
+})
+
+// 表单字段
+const formFields = computed(() => {
+    return addFormFields.value
+})
+const addFormFields = ref<Array<any>>([
+])
+
+// 创建一个映射，将函数名字符串映射到函数引用
+const ruleFunctions: { [key: string]: Function } = {
+    alaRequired: alaRequired,
+    alaStrMin: alaStrMin,
+    alaStrMax: alaStrMax,
+    alaStrLengthRange: alaStrLengthRange,
+    alaStrLength: alaStrLength,
+    alaNumberMin: alaNumberMin,
+    alaNumberMax: alaNumberMax,
+    alaNumberRange: alaNumberRange,
+    alaPattern: alaPattern,
+    alaEnumRule: alaEnumRule,
+    alaEmail: alaEmail,
+    alaPhone: alaPhone,
+    alaUrl: alaUrl,
+    alaCard: alaCard,
+    alaNumber: alaNumber,
+    alaLetter: alaLetter,
+    alaLOrlOr8: alaLOrlOr8,
+    alaLl8: alaLl8,
+    alaLOrlOr8Or_: alaLOrlOr8Or_,
+    alaLl8_: alaLl8_,
+    alaPassword: alaPassword,
+    alaCnTw: alaCnTw,
+    alaCn: alaCn,
+    alaTw: alaTw,
+};
 </script>
 
 <style scoped lang="scss">

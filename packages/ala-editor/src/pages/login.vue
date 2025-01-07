@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:22:21
+ * @LastEditTime: 2025-01-07 10:17:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -135,6 +135,8 @@ import dianhua_guoji from '/dianhua-guoji.png'
 import weixin from '/weixin.png'
 import gongzhonghao from '/weixin.png'
 import AlaTypewriterOneLine from '@/components/cps/typewriter/AlaTypewriterOneLine.vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 
 // State  
@@ -163,9 +165,9 @@ onMounted(() => {
 const submit = async () => {
 
     const lf = loginForm.value
-    u.checkNull(lf.scabbard, "请输入您的【 用户名 】")
-    u.checkNull(lf.sword, "请输入您的【 密码 】")
-    u.checkBoolean(!lf.agree, "请阅读协议并【 勾选 】同意")
+    u.checkNull(lf.scabbard, "请输入您的【 用户名 】", t)
+    u.checkNull(lf.sword, "请输入您的【 密码 】", t)
+    u.checkBoolean(!lf.agree, "请阅读协议并【 勾选 】同意", t)
 
     alaPost(u.url("/login"), lf).then((data: any) => {
         // 登录成功

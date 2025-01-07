@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="formData" :label-width="labelWidth()" :rules="rules" ref="formRef">
+    <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="fields" :data="formData"
             :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
             :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback" />
@@ -42,6 +42,7 @@ const props = defineProps({
     },
     formAttr: {
         type: Object,
+        default: () => ({})
     },
     url: {
         type: String
@@ -55,10 +56,10 @@ const props = defineProps({
     }
 })
 
-const labelWidth = () => {
-    const lw = props.formAttr?.value.labelWidth || '120'
-    return lw
-}
+// 解构 formAttr，同时保持 formAttr 的响应式
+const { labelWidth } = toRefs(props.formAttr)
+
+
 // Methods
 // State
 const showDrawer = defineModel({
@@ -175,7 +176,7 @@ const postData = async (item: any): Promise<any> => {
         notify.success(t('pop.warm_title'), "保存成功")
         return response
     });
-    
+
     return result
 }
 
