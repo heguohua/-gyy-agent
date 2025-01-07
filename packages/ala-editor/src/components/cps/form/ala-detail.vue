@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 15:03:32
+ * @LastEditTime: 2025-01-07 13:27:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -116,37 +116,32 @@ function cancelClick() {
     showDrawer.value = false
 }
 
-
+const { formWidth, labelPosition, labelWidth: lp, columnNum } = toRefs(props.formAttr)
 
 // 计算css宽度
 // 1、动态计算 drawer 宽度
 const drawerWidth = (): string => {
     const paddingWidth = 66
-    let width = (props.formAttr.value.formWidth + paddingWidth) + 'px'
+    let width = (formWidth.value + paddingWidth) + 'px'
     return width
 }
 
-const labelPosition = () => {
-    return props.formAttr.value.labelPosition
-}
 
 
 
 const columnWidth = (item: any) => {
-    let formWidth = props.formAttr.value.formWidth
-    let labelWidth = props.formAttr.value.labelWidth
-    let columnNum = props.formAttr.value.columnNum
+    let labelWidth = lp
 
     const paddingWidth = 0
 
     // 假设每个组件都占用 1列，则计算 列平均宽度
     // (总宽度 - paddingWidth)/columnNum
-    let columnWidth = Math.floor((formWidth - paddingWidth) / columnNum)
+    let columnWidth = Math.floor((formWidth.value - paddingWidth) / columnNum.value)
 
     const occupiedColumnNum = item.formItem.formData.columnNum.desktop || 1
     columnWidth = columnWidth * occupiedColumnNum
 
-    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth} ]，form labelWidth[ ${labelWidth} ]，form columnNum[ ${columnNum} ]，form paddingWidth[ ${paddingWidth} ]，当前组件[ ${item.formItem.code} ]，当前组件列数[ ${occupiedColumnNum} ]`);
+    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth.value} ]，form labelWidth[ ${labelWidth.value} ]，form columnNum[ ${columnNum.value} ]，form paddingWidth[ ${paddingWidth} ]，当前组件[ ${item.formItem.code} ]，当前组件列数[ ${occupiedColumnNum} ]`);
 
     const style = { width: columnWidth + 'px' }
     // logger.info(`计算 动态表单 区域 单个组件 宽度，style`, style);
@@ -159,7 +154,7 @@ const getComponent = ((code: string) => {
     return component
 })
 const labelWidth = () => {
-    return props.formAttr?.value.labelWidth + 'px' || '120px'
+    return (lp.value || '120') + 'px'
 }
 
 const getModuleName = () => {

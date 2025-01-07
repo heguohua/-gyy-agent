@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 13:02:57
+ * @LastEditTime: 2025-01-07 13:21:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -81,7 +81,7 @@ const props = defineProps({
 })
 
 const useFormTitle = () => {
-    return props.formAttr.value.useFormTitle
+    return props.formAttr.useFormTitle
 }
 
 const isHidden = (item: { componentName: string, other?: any }) => {
@@ -152,6 +152,8 @@ function confirmClick() {
         abc: 123
     })
 }
+
+console.log('props.formAttr:',props.formAttr);
 
 // 解构 formAttr，同时保持 formAttr 的响应式
 const { formWidth, labelWidth, labelPosition, columnNum } = toRefs(props.formAttr)

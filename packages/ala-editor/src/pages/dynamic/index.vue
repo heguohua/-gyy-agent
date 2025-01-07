@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-29 23:10:54
+ * @LastEditTime: 2025-01-07 13:22:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -40,10 +40,10 @@
     </PageDynamicTable>
 
     <!-- 新增、编辑 -->
-    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :fields="addFormFields" :formAttr="getFormAttr"
+    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :fields="addFormFields" :formAttr="formAttr"
         :className="className" />
 
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
 </template>
 
@@ -179,9 +179,7 @@ const formAttr = ref({
     labelPosition: 'left',
     useFormTitle: false,
 })
-const getFormAttr = computed(() => {
-    return formAttr
-})
+
 
 const formConfigItems: any = {}
 
