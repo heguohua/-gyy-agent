@@ -139,8 +139,6 @@ const handleChange = (value: any) => {
   }
   localValue.value = value
 
-  console.log('props.placeholder:', props.placeholder);
-
 }
 
 

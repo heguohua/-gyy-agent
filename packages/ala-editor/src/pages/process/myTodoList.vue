@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 16:47:21
+ * @LastEditTime: 2025-01-08 17:31:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -201,7 +201,7 @@ const formAttr = {
     formWidth: 1800,
     columnNum: 1,
     labelWidth: 120,
-    labelPosition: 'left',
+    labelPosition: 'right',
     useFormTitle: false,
 }
 
@@ -209,10 +209,10 @@ const formAttr = {
 const showPreviewPage = ref(false)
 const previewPageProps = reactive({})
 const tabs = computed(() => {
-    const variable = u.parseJson(detailItem.item['variable']) 
+    const variable = u.parseJson(detailItem.item['variable'])
     return reactive([
         { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
-        { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: u.parseJson(variable.forms), formAttr: formAttr } },
+        { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: u.parseJson(variable.forms), formAttr: formAttr, data: detailItem } },
         { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
     ])
 })
