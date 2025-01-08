@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 20:22:34
+ * @LastEditTime: 2025-01-08 11:24:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -21,10 +21,11 @@
 
             <!-- 主表列渲染 -->
             <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
+                :width="column.formItem.formData.columnWidth?.desktop ? column.formItem.formData.columnWidth.desktop : ''"
                 sortable>
 
                 <template #default="scope">
-                    <slot name="cols" :row="scope.row" :columnName="column.prop" :formItem="column.formItem" ></slot>
+                    <slot name="cols" :row="scope.row" :columnName="column.prop" :formItem="column.formItem"></slot>
                 </template>
 
             </el-table-column>

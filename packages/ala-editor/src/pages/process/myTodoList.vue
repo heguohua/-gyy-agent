@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 20:19:50
+ * @LastEditTime: 2025-01-08 11:25:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -145,7 +145,8 @@ const deleteUrl = "/p/task/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'displayName', "任务名称"),
+        alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
+        alaDetailBuild(dType.input, 'displayName', "流程节点"),
         alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
         alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
         alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),

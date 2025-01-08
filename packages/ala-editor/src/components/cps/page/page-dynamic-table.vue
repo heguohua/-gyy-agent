@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 17:40:59
+ * @LastEditTime: 2025-01-08 11:24:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -23,8 +23,8 @@
 
             <!-- 主表列渲染 -->
             <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
-                sortable
-                :width="column.formItem.formData.columnWidth?.desktop ? column.formItem.formData.columnWidth?.desktop : ''">
+                :width="column.formItem.formData.columnWidth?.desktop ? column.formItem.formData.columnWidth.desktop : ''"
+                sortable>
                 <!-- column.formItem.formData.columnWidth?.desktop -->
                 <template #default="scope">
                     <slot name="cols" :row="scope.row" :columnName="column.prop" :formItem="column.formItem"></slot>

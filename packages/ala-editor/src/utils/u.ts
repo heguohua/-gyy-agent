@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 10:31:01
+ * @LastEditTime: 2025-01-08 11:13:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -228,7 +228,20 @@ export default class u {
         const pathParts = path.split('.');
 
         // 使用 reduce 方法遍历路径数组，动态访问对象属性
-        const value = pathParts.reduce((obj: { [key: string]: any }, key) => obj && obj[key], data);
+        const value = pathParts.reduce((obj: { [key: string]: any }, key) => {
+            // 判断变量是否为字符串
+            if (typeof obj === 'string') {
+                try {
+                    // 尝试将字符串转换为对象
+                    obj = JSON.parse(obj);
+                } catch (error) {
+                    // 如果转换失败，说明字符串不是有效的JSON格式，返回原字符串
+                    console.error('字符串转换为对象失败：', error);
+                    return obj;
+                }
+            }
+            return obj && obj[key]
+        }, data);
 
         return value + ''
     }
