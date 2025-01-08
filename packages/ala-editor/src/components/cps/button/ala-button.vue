@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 13:14:34
+ * @LastEditTime: 2025-01-08 20:40:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/button/ala-button.vue
  * @Description: 
  * 
@@ -12,7 +12,8 @@
 
   <div class="ala-button-wrapper" v-if="displayButton()">
 
-    <el-button :size="size" :type="buttonType" @click="handleClick" class="ala-button" v-if="!popConfirm">
+    <el-button :size="size" :type="buttonType" @click="handleClick" class="ala-button" v-if="!popConfirm" :plain="plain"
+      :round="round" :circle="circle">
       {{ $t('buttons.' + name) }}
     </el-button>
 
@@ -20,7 +21,7 @@
       @confirm="onConfirm" :hide-after="50" v-else>
       <template #reference>
 
-        <el-button :size="size" :type="buttonType" class="ala-button">
+        <el-button :size="size" :type="buttonType" class="ala-button" :plain="plain" :round="round" :circle="circle">
           {{ $t('buttons.' + name) }}
         </el-button>
 
@@ -73,6 +74,18 @@ const props = defineProps({
   },
   row: {
     type: Object as PropType<any>
+  },
+  plain: {
+    type: Boolean,
+    default: false
+  },
+  round: {
+    type: Boolean,
+    default: true
+  },
+  circle: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -83,7 +96,7 @@ const displayButton = () => {
 const emit = defineEmits()
 
 const handleClick = () => {
-  if (props.handle) {    
+  if (props.handle) {
     props.handle(props.row)
   } else {
     emit(props.name)

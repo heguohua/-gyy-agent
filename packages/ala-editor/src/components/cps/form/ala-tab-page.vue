@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 16:13:25
+ * @LastEditTime: 2025-01-08 21:28:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-tab-page.vue
  * @Description: 
  * 
@@ -19,7 +19,8 @@
                     <el-tab-pane :label="item.title" :name="item.title" class="ala-tab-pane"
                         v-for="(item, index) in tabs" :key="item.title">
 
-                        <component v-if="showDrawer" :is="getComponent(item.code)" v-bind="item.props" />
+                        <component v-if="showDrawer" :is="getComponent(item.code)" v-bind="item.props"
+                            @close="cancelClick" />
 
                     </el-tab-pane>
 
@@ -72,14 +73,18 @@ const direction = ref<DrawerProps['direction']>('rtl')
 // ##########################  以下是公共方法，不需要修改  #########################################
 
 const handleClose = (done: () => void) => {
-    done()
+    if (done) {
+        done()
+    }
 }
 
+const emits = defineEmits(['refresh'])
 /**
  * 点击取消按钮，关闭弹窗
  */
 function cancelClick() {
     showDrawer.value = false
+    emits('refresh')
 }
 
 const activeName = ref(props.tabs[0].title)

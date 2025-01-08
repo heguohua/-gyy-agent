@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 13:22:53
+ * @LastEditTime: 2025-01-08 20:01:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -258,53 +258,40 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 let formItem: any = {}
                 if (code === 'input') {
                     formItem = parseInput(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'textarea') {
                     formItem = parseTextarea(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'radio') {
                     formItem = parseRadio(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'checkbox') {
                     formItem = parseCheckbox(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'date') {
                     formItem = parseDate(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'number') {
                     formItem = parseNumber(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'select') {
                     formItem = parseSelect(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'slider') {
                     formItem = parseSlider(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'rating') {
                     formItem = parseRating(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'switch') {
                     formItem = parseSwitch(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'divider') {
                     formItem = parseDivider(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'chapter') {
                     formItem = parseChapter(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'selectTable') {
                     formItem = parseSelectTable(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'selectDict') {
                     formItem = parseSelectDict(formData)
-                    addFormFields.value.push(formItem)
                 } else if (code === 'dateRange') {
                     // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
                     formItem = parseDateRange(formData)
                     formItem.other.startFieldName = formData.startFieldName.desktop
                     formItem.other.endFieldName = formData.endFieldName.desktop
-                    addFormFields.value.push(formItem)
                 }
+                
+                addFormFields.value.push(formItem)
 
                 const other = formItem.other || {}
 
