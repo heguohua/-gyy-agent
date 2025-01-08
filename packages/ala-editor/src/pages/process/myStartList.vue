@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 16:14:47
+ * @LastEditTime: 2025-01-08 16:47:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -213,7 +213,7 @@ const formAttr = {
 
 const tabs = computed(() => {
     return reactive([
-        { title: '详情', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
+        { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
         { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [{ id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },], formAttr: formAttr } },
         { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
     ])

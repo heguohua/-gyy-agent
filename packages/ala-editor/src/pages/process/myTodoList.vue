@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 16:10:21
+ * @LastEditTime: 2025-01-08 16:47:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -125,7 +125,7 @@ const getComponent = ((code: string) => {
 
 const detailItem = reactive({
     moduleName,
-    item: {}
+    item: {} as any
 })
 const showDetailPage = ref(false)
 const showDetail = (item: { [key: string]: any }) => {
@@ -177,7 +177,6 @@ const advancedFields: any = []
 
 
 const handleTask = (row: any) => {
-    console.log('row:', row);
     logger.info(`当前模块【 detailItem 】对象参数为`, row);
 
     u.clear(detailItem.item)
@@ -210,9 +209,10 @@ const formAttr = {
 const showPreviewPage = ref(false)
 const previewPageProps = reactive({})
 const tabs = computed(() => {
+    const variable = u.parseJson(detailItem.item['variable']) 
     return reactive([
-        { title: '详情', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
-        { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [{ id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },], formAttr: formAttr } },
+        { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
+        { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: u.parseJson(variable.forms), formAttr: formAttr } },
         { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
     ])
 })

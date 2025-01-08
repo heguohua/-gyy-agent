@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 20:05:11
+ * @LastEditTime: 2025-01-08 16:36:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -77,6 +77,7 @@ import DetailDividerColumn from '@/components/cps/dynamic/DetailDividerColumn.vu
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import AlaDetailNoDrawer from '@/components/cps/form/ala-detail-no-drawer.vue';
 import AlaDetailNoDrawerForms from '@/components/cps/form/ala-detail-no-drawer-forms.vue';
+import AlaDetailNoDrawerFormsHandle from '@/components/cps/form/ala-detail-no-drawer-forms-handle.vue';
 import DetailImageColumn from '@/components/cps/dynamic/DetailImageColumn.vue';
 
 // 流程引擎相关组件
@@ -156,6 +157,7 @@ export default {
     AlaDetail,
     AlaDetailNoDrawer,
     AlaDetailNoDrawerForms,
+    AlaDetailNoDrawerFormsHandle,
     DetailImageColumn,
 
     // 流程引擎相关组件
