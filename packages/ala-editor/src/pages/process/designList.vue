@@ -64,7 +64,7 @@
     <!-- 新增、编辑 -->
     <designAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- <AlaTabPage v-model="showPreviewPage" title="流程图预览" width="1200"
         :tabs="[{ title: '表单', code: 'form', properties: {} }, { title: '流程图', code: 'table', properties: {} },]" /> -->
@@ -184,15 +184,8 @@ const formAttr = ref({
     labelPosition: 'left',
     useFormTitle: false,
 })
-const getFormAttr = computed(() => {
-    return formAttr
-})
 
-const getPreviewFormAttr = computed(() => {
-    const rawFormAttr = toRaw(formAttr.value)
-    const fa = Object.assign(rawFormAttr, { formWidth: 1200 })
-    return ref(fa)
-})
+
 
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
