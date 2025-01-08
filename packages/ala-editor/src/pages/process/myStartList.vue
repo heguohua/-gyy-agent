@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 20:02:53
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myList.vue
+ * @LastEditTime: 2025-01-08 16:14:47
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -42,7 +42,7 @@
 
     <!-- 新增、编辑 -->
     <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
-    <AlaTabPage v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs" />
+    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs" />
 
 </template>
 

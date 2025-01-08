@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 19:28:38
+ * @LastEditTime: 2025-01-08 16:14:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -56,7 +56,7 @@
     </PageTable>
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
-    <AlaTabPage v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
+    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
 
 </template>
 

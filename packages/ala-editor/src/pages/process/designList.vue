@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 14:27:18
+ * @LastEditTime: 2025-01-08 16:14:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -69,7 +69,7 @@
     <!-- <AlaTabPage v-model="showPreviewPage" title="流程图预览" width="1200"
         :tabs="[{ title: '表单', code: 'form', properties: {} }, { title: '流程图', code: 'table', properties: {} },]" /> -->
 
-    <AlaTabPage v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
+    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
 
 
 </template>

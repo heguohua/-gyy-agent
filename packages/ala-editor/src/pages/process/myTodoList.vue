@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 11:25:12
+ * @LastEditTime: 2025-01-08 16:10:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -45,6 +45,7 @@
 
     <!-- 新增、编辑 -->
     <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
+    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs" />
 
 </template>
 
@@ -175,10 +176,46 @@ const advancedFields: any = []
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 
-const handleTask = (item: any) => {
-    console.log('item:', item);
+const handleTask = (row: any) => {
+    console.log('row:', row);
+    logger.info(`当前模块【 detailItem 】对象参数为`, row);
+
+    u.clear(detailItem.item)
+    u.merged(detailItem, { item: row })
+
+    u.merged(previewPageProps, { id: row.id })
+    showPreviewPage.value = true
+
 }
 
+const detailFields: any = ref([
+    alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
+    alaDetailBuild(dType.input, 'displayName', "流程节点"),
+    alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
+    alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
+    alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
+    alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+
+])
+
+const formAttr = {
+    formWidth: 1800,
+    columnNum: 1,
+    labelWidth: 120,
+    labelPosition: 'left',
+    useFormTitle: false,
+}
+
+
+const showPreviewPage = ref(false)
+const previewPageProps = reactive({})
+const tabs = computed(() => {
+    return reactive([
+        { title: '详情', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
+        { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [{ id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },], formAttr: formAttr } },
+        { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
+    ])
+})
 </script>
 
 <style lang="scss" scoped></style>

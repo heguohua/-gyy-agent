@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 20:33:22
+ * @LastEditTime: 2025-01-08 16:13:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-tab-page.vue
  * @Description: 
  * 
@@ -15,15 +15,15 @@
         <AlaDrawer v-model="showDrawer" :title="title" :width="width" :direction="direction" @beforeClose="handleClose">
             <template #content>
 
-                    <el-tabs v-model="activeName" class="ala-tabs" @tab-click="handleClick" :stretch="true">
-                        <el-tab-pane :label="item.title" :name="item.title" class="ala-tab-pane"
-                            v-for="(item, index) in tabs" :key="item.title">
+                <el-tabs v-model="activeName" class="ala-tabs" @tab-click="handleClick" :stretch="true">
+                    <el-tab-pane :label="item.title" :name="item.title" class="ala-tab-pane"
+                        v-for="(item, index) in tabs" :key="item.title">
 
-                            <component v-if="showDrawer" :is="getComponent(item.code)" v-bind="item.props" />
+                        <component v-if="showDrawer" :is="getComponent(item.code)" v-bind="item.props" />
 
-                        </el-tab-pane>
+                    </el-tab-pane>
 
-                    </el-tabs>
+                </el-tabs>
             </template>
             <!-- <template #footer>
                 <div style="flex: auto">
