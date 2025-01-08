@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 20:49:46
+ * @LastEditTime: 2025-01-08 23:03:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -441,14 +441,27 @@ const ruleFunctions: { [key: string]: Function } = {
                 width: 300px;
                 background: #f3f7fa;
                 border-radius: 8px;
+                transition: box-shadow 0.3s ease-in-out;
 
+                &:hover {
+                    box-shadow:
+                        0 0 14px 4px rgb(243, 247, 250, 1),
+                        // 0 0 10px 10px rgba(0, 255, 0, 0.5),
+                        // 0 0 10px 15px rgba(0, 0, 255, 0.5);
+                }
 
                 .ala-card-image {
                     padding: 8px;
                     background: radial-gradient(circle, rgb(64 158 255 / 93%) 50%, rgb(64 158 255 / 99%) 100%);
                     margin-right: 8px;
                     border-radius: 8px;
+                    /* 平滑过渡效果 */
+                    transition: transform 0.3s ease;
 
+                    &:hover {
+                        /* 放大 0.1 倍 */
+                        transform: scale(1.1);
+                    }
                 }
 
                 .ala-card-content {

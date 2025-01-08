@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 21:24:46
+ * @LastEditTime: 2025-01-08 22:05:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -455,7 +455,8 @@ const beforeSave = (data: any) => {
     const dynamicFormData = { tableName: formConfigs[0].className, columns: u.cloned(data) }
     return dynamicFormData
 }
-const url = '/l/dynamic/add'
+// const url = '/l/dynamic/add'
+const url = '/p/task/execute'
 
 const handleAgree = () => {
     console.log('props.data:', props.data);
@@ -467,7 +468,11 @@ const handleAgree = () => {
             logger.info(`表单验证通过，formData`, formData.value);
             console.log('formData:', formData.value);
 
-            const data = beforeSave(formData.value);
+            const data = {};
+
+            // 设置任务 id、提交类型、表单数据
+            const task = props.data.item
+            u.merged(data, { submitType: 1, taskId: task.id, formData: u.tojson(beforeSave(formData.value)) })
             console.log('data:', data);
 
 
@@ -605,8 +610,6 @@ const postData = async (url: string, item: any): Promise<any> => {
 .ala-detail-form {
     .ala-form-detail-one {
         margin-bottom: 30px;
-
-        div {}
 
 
         .ala-detail-item {
