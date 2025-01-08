@@ -42,7 +42,7 @@
     </div>
 
     <!-- 新增、编辑 -->
-    <StartPage v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields"
+    <StartForm v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields"
         :formAttr="getFormAttr" :className="className" />
 
 </template>
@@ -53,7 +53,7 @@ import { logger } from '@/utils/logger';
 import { alaPost, get } from '@/utils/req'
 import u from '@/utils/u'
 import { useI18n } from 'vue-i18n';
-import StartPage from '@/pages/process/startPage.vue';
+import StartForm from '@/pages/process/startForm.vue';
 import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from '../dynamic/formItemParser';
 import baseRule from '@/config/rules/baseRule';
 import { alaCard, alaCn, alaCnTw, alaEmail, alaEnumRule, alaLetter, alaLl8, alaLl8_, alaLOrlOr8, alaLOrlOr8Or_, alaNumber, alaNumberMax, alaNumberMin, alaNumberRange, alaPassword, alaPattern, alaPhone, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaTw, alaUrl } from '@/config/alaRules';
