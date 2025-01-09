@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 10:04:09
+ * @LastEditTime: 2025-01-09 09:27:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designAdd.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
         :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
-        :tipTitle="$t('pop.warm_title')" :formAttr="{ value: { labelWidth: 90, columnNum: 1, formWidth: 500 } }"
+        :tipTitle="$t('pop.warm_title')" :formAttr="formAttr"
         :beforeSave="beforeSave" />
 
 </template>
@@ -115,6 +115,14 @@ const beforeSave = (item: any) => {
     return item
 }
 // ##########################  以上是公共方法，不需要修改 end #########################################
+// { value: { labelWidth: 90, columnNum: 1, formWidth: 500 } }
+const formAttr = ref({
+    formWidth: 500,
+    columnNum: 1,
+    labelWidth: 90,
+    labelPosition: 'right',
+    useFormTitle: false,
+})
 
 
 </script>

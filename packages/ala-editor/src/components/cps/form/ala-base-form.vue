@@ -70,20 +70,20 @@ const showDrawer = defineModel({
 const formRef = ref()
 const confirm = (data: any) => {
     logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
+    formRef.value.validate((valid: boolean) => {
+        if (valid) {
+            ElMessageBox.confirm(
+                saveContent(),
+                props.tipTitle,
+                {
+                    confirmButtonText: t('buttons.confirm'),
+                    cancelButtonText: t('buttons.cancel'),
+                    type: 'warning',
+                })
+                .then(async () => {
+                    logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
 
-    ElMessageBox.confirm(
-        saveContent(),
-        props.tipTitle,
-        {
-            confirmButtonText: t('buttons.confirm'),
-            cancelButtonText: t('buttons.cancel'),
-            type: 'warning',
-        })
-        .then(() => {
-            logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
 
-            formRef.value.validate(async (valid: boolean) => {
-                if (valid) {
                     // 表单验证成功，可以进行表单提交操作
                     logger.info(`表单验证通过`);
 
@@ -107,19 +107,19 @@ const confirm = (data: any) => {
 
                     }
 
-                } else {
-                    // 表单验证失败，阻止提交
-                    logger.error(`【 表单验证 不通过 】`);
-                    notify.error(t('pop.warm_title'), "表单数据不正确，请修改")
-                }
-            });
 
 
-        })
-        .catch(() => {
-            logger.info("点击【确认保存】按钮，弹出提示信息框，用户选择【继续编辑】按钮");
-        })
 
+                })
+                .catch(() => {
+                    logger.info("点击【确认保存】按钮，弹出提示信息框，用户选择【继续编辑】按钮");
+                })
+        } else {
+            // 表单验证失败，阻止提交
+            logger.error(`【 表单验证 不通过 】`);
+            notify.error(t('pop.warm_title'), "表单数据不正确，请修改")
+        }
+    });
 }
 
 

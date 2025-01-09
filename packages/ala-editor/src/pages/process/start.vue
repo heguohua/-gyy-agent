@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 23:03:50
+ * @LastEditTime: 2025-01-09 09:49:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -43,7 +43,7 @@
 
     <!-- 新增、编辑 -->
     <StartForm v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields"
-        :formAttr="getFormAttr" :className="className" />
+        :formAttr="formAttr" :className="className" />
 
 </template>
 
@@ -359,16 +359,14 @@ const showAdd = (form: any, define: any) => {
 }
 
 const formAttr = ref({
-    formWidth: 400,
+    formWidth: 500,
     columnNum: 1,
-    labelWidth: 100,
-    labelPosition: 'left',
+    labelWidth: 150,
+    labelPosition: 'right',
     useFormTitle: false,
 })
 
-const getFormAttr = computed(() => {
-    return formAttr
-})
+
 
 // 表单字段
 const formFields = computed(() => {

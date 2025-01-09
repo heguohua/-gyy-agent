@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 16:47:18
+ * @LastEditTime: 2025-01-09 09:28:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -187,7 +187,6 @@ const showDetail = (row: any) => {
 }
 
 
-// <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="getFormAttr" />
 const detailItem = reactive({
     moduleName,
     item: {}
