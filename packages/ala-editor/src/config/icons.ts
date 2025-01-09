@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 14:57:08
+ * @LastEditTime: 2025-01-09 11:09:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -72,6 +72,7 @@ const icon = {
   leave: 'ri:timeline-view',
   bill: 'stash:billing-info-light',
   money: 'hugeicons:money-bag-02',
+  suggestion: 'iconoir:suggestion',
   // 无代码中心
   code: 'mingcute:code-fill',
   // 配置列表
