@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 22:05:51
+ * @LastEditTime: 2025-01-09 22:22:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -290,16 +290,18 @@ const formItemChangeCallback = (data: any) => {
 }
 
 const formFields = reactive<Array<any>>([
-    // alaBuildHidden('id'),// 固定格式
-    // alaBuildInput("name", '唯一编码', [alaRequired()]),
-    // alaBuildInput("displayName", '显示名称', [alaRequired()]),
-    // alaBuildSelectDict("typeEntity", "流程分类", { "dictValue": "pType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择流程分类", { clearable: true }),
-    // alaBuildInput("icon", '图标', [alaRequired()]),
-    // alaBuildTextarea("remark", "备注", [], "请输入流程说明"),
+    alaBuildHidden('taskId'),// 固定格式
+    alaBuildHidden('taskName'),// 固定格式
+    alaBuildHidden('args'),// 固定格式
 ])
 // 查询当前用户审批填写的表单配置数据
 
 const { item } = toRefs(props.data)
+
+formData.value['taskId'] = item.value.id
+formData.value['taskName'] = item.value.displayName
+formData.value['args'] = item.value.formKey
+
 u.checkNull(item.value['formKey'], "当前审批节点Form表单配置信息", t)
 const formConfigs = u.parseJson(item.value['formKey'])
 u.checkNull(formConfigs, "当前审批节点Form表单配置信息", t)
@@ -362,7 +364,10 @@ formConfigs.forEach(async (form: Form) => {
                 formItem.other.endFieldName = formData.endFieldName.desktop
             }
 
-            formFields.push(formItem)
+            const fieldName = formData.fieldName.desktop
+            if (fieldName != 'taskId' && fieldName != 'args' && fieldName != 'taskName') {
+                formFields.push(formItem)
+            }
 
             const other = formItem.other || {}
 
@@ -421,9 +426,6 @@ formConfigs.forEach(async (form: Form) => {
 
             formItem.rules = rules
 
-            console.log('formItem:', formItem);
-
-
         })
 
     });
@@ -459,21 +461,30 @@ const beforeSave = (data: any) => {
 const url = '/p/task/execute'
 
 const handleAgree = () => {
+    post(1)
+}
+const handleReject = () => {
+    post(2)
+}
+const handleReturnToPrevious = () => {
     console.log('props.data:', props.data);
+}
 
+const handleReturnToInitiator = () => {
+    console.log('props.data:', props.data);
+}
 
+const post = (submitType: number) => {
     formRef.value.validate(async (valid: boolean) => {
         if (valid) {
             // 表单验证成功，可以进行表单提交操作
             logger.info(`表单验证通过，formData`, formData.value);
-            console.log('formData:', formData.value);
 
             const data = {};
 
             // 设置任务 id、提交类型、表单数据
             const task = props.data.item
-            u.merged(data, { submitType: 1, taskId: task.id, formData: u.tojson(beforeSave(formData.value)) })
-            console.log('data:', data);
+            u.merged(data, { submitType, taskId: task.id, formData: u.tojson(beforeSave(formData.value)) })
 
 
             // let data = props.formData
@@ -503,22 +514,7 @@ const handleAgree = () => {
         }
     });
 
-
 }
-const handleReject = () => {
-    console.log('props.data:', props.data);
-
-}
-const handleReturnToPrevious = () => {
-    console.log('props.data:', props.data);
-
-}
-
-const handleReturnToInitiator = () => {
-    console.log('props.data:', props.data);
-
-}
-
 const postData = async (url: string, item: any): Promise<any> => {
 
     logger.info(`【 新增数据 】，url${url}，数据对象：`, item);
@@ -694,6 +690,14 @@ const postData = async (url: string, item: any): Promise<any> => {
             button {
                 border-radius: var(--el-border-radius-round);
             }
+        }
+    }
+
+    .ala-textarea-wrapper {
+        height: 66px !important;
+
+        .el-textarea__inner {
+            height: 66px !important;
         }
     }
 }
