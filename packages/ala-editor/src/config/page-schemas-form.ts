@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 17:40:49
+ * @LastEditTime: 2025-01-09 17:50:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -157,6 +157,32 @@ const showDeleteButton = Type.String({
     default: false,
 })
 
+const showCreatedBy = Type.String({
+    code: "config-boolean",
+    title: "添加创建人？",
+    default: false,
+})
+
+const showCreatedTime = Type.String({
+    code: "config-boolean",
+    title: "添加创建时间？",
+    default: false,
+})
+
+
+const showUpdatedBy = Type.String({
+    code: "config-boolean",
+    title: "添加更新人？",
+    default: false,
+})
+
+const showUpdatedTime = Type.String({
+    code: "config-boolean",
+    title: "添加更新时间？",
+    default: false,
+})
+
+
 
 
 const schema = Type.Object({
@@ -173,6 +199,10 @@ const schema = Type.Object({
     showAddButton: schemaAllViewport(showAddButton),
     showEditButton: schemaAllViewport(showEditButton),
     showDeleteButton: schemaAllViewport(showDeleteButton),
+    showCreatedBy: schemaAllViewport(showCreatedBy),
+    showCreatedTime: schemaAllViewport(showCreatedTime),
+    showUpdatedBy: schemaAllViewport(showUpdatedBy),
+    showUpdatedTime: schemaAllViewport(showUpdatedTime),
 })
 
 
