@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 11:24:19
+ * @LastEditTime: 2025-01-09 17:43:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -34,7 +34,7 @@
 
 
             <!-- 主表操作列 -->
-            <el-table-column :label="$t('buttons.buttons')">
+            <el-table-column :label="$t('buttons.buttons')" v-if="showButtonsColumn">
                 <template #default="scope">
                     <AlaButton :showButton="displayEditButton()" name="edit"
                         @edit="handleEdit(scope.$index, scope.row)" />
@@ -116,6 +116,11 @@ const props = defineProps({
     },
     // 是否显示 新增子级 按钮
     showAddSubButton: {
+        type: Boolean,
+        default: false
+    },
+    // 是否显示  按钮 列
+    showButtonsColumn: {
         type: Boolean,
         default: false
     },

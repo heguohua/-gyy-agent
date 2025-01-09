@@ -118,6 +118,7 @@ const icon = {
   f_duty: "fluent:person-ribbon-16-filled",
   f_phone:"meteor-icons:mobile",
   f_location:"ep:location",
+  // money:"ri:money-cny-circle-line",
   f_cny:"fa:cny",
   f_usd:"fa:usd",
   f_card:"ion:id-card-outline",

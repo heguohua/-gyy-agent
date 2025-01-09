@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 11:03:27
+ * @LastEditTime: 2025-01-09 17:42:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -11,12 +11,12 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: null })" labelWidth="180px" :showAddButton="true" />
+        @showAdd="showAdd({ id: null })" labelWidth="180px" :showAddButton="showAddButton" />
 
     <!-- 分页列表 -->
     <PageDynamicTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showDeleteButton="true" :showAddButton="true" :className="className"
+        :showEditButton="showEditButton" :showDeleteButton="showDeleteButton" :showAddButton="showAddButton" :showButtonsColumn="showButtonsColumn" :className="className"
         :beforeQuery="beforeQuery">
 
         <template #cols="{ row, columnName, formItem }">
@@ -365,6 +365,18 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
             formAttr.value.labelPosition = formData.position.desktop
             // 是否启用表单中定义的标题栏
             formAttr.value.useFormTitle = formData.useFormTitle.desktop
+
+            // 是否显示新增按钮
+            console.log('formData.showAddButton.desktop:',formData.showAddButton.desktop);
+            
+            // 是否显示新增按钮
+            showAddButton.value = formData.showAddButton.desktop
+            // 是否显示编辑按钮
+            showDeleteButton.value = formData.showDeleteButton.desktop
+            // 是否显示删除按钮
+            showEditButton.value = formData.showEditButton.desktop
+            // 是否显示按钮列
+            showButtonsColumn.value = formData.showButtonsColumn.desktop
         }
 
 
@@ -429,6 +441,11 @@ const getComponent = ((code: string) => {
  * 详情页面字段
  */
 const detailFields: any = ref([])
+
+const showAddButton = ref(false)
+const showDeleteButton = ref(false)
+const showEditButton = ref(false)
+const showButtonsColumn = ref(false)
 
 </script>
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 17:20:06
+ * @LastEditTime: 2025-01-09 17:40:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -124,11 +124,39 @@ const columnNum = Type.Number({
     }
 })
 
+
+
+
 const useFormTitle = Type.String({
     code: "config-boolean",
     title: "自定义标题？",
     default: false,
 })
+
+const showButtonsColumn = Type.String({
+    code: "config-boolean",
+    title: "显示按钮列？",
+    default: false,
+})
+
+const showAddButton = Type.String({
+    code: "config-boolean",
+    title: "显示编辑按钮？",
+    default: false,
+})
+
+const showEditButton = Type.String({
+    code: "config-boolean",
+    title: "显示新增按钮？",
+    default: false,
+})
+
+const showDeleteButton = Type.String({
+    code: "config-boolean",
+    title: "显示删除按钮？",
+    default: false,
+})
+
 
 
 const schema = Type.Object({
@@ -141,6 +169,10 @@ const schema = Type.Object({
     formType: schemaAllViewport(formType),
     columnNum: schemaAllViewport(columnNum),
     useFormTitle: schemaAllViewport(useFormTitle),
+    showButtonsColumn: schemaAllViewport(showButtonsColumn),
+    showAddButton: schemaAllViewport(showAddButton),
+    showEditButton: schemaAllViewport(showEditButton),
+    showDeleteButton: schemaAllViewport(showDeleteButton),
 })
 
 

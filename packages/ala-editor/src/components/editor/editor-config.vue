@@ -332,11 +332,13 @@ const handleSave = () => {
                 .ala-editor-config-tab {
                     .ala-pane-block {
                         overflow-y: auto;
-                        height: calc(100vh - 100px);
+                        height: calc(100vh - 200px);
                         padding-bottom: 150px;
                     }
 
                     margin-top: 12px;
+                    margin-bottom: 200px;
+
 
                     :deep(.el-tabs__header) {
                         background-color: var(--color-block-hover);
