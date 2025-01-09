@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 19:19:50
+ * @LastEditTime: 2025-01-09 11:03:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -123,7 +123,7 @@ const moduleName = computed(() => {
 const formAttr = ref({
     formWidth: 500,
     columnNum: 1,
-    labelWidth: 130,
+    labelWidth: 150,
     labelPosition: 'left',
     useFormTitle: false,
 })

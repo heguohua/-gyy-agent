@@ -307,30 +307,9 @@ const handleSave = () => {
         width: var(--icon-group-width);
         padding: 0px 2%;
 
-        .ala-card-content {
-            overflow-x: hidden;
-            overflow-y: auto;
-            width: 100%;
-            height: 100%;
-            // left: calc(48px - var(--icon-group-width-left));
-            // position: relative;
-
-
-
-            :deep(.el-tabs--border-card) {
-                border: 0;
-            }
-
-            :deep(.el-tabs__content) {
-                padding: 0;
-            }
-
-            :deep(.el-form-item__label-wrap) {
-                width: 20%;
-                justify-content: end;
-            }
-
+        .content {
             div {
+
                 .title-buttons {
                     background: var(--color-block-hover);
                     font-size: 1rem;
@@ -393,8 +372,33 @@ const handleSave = () => {
                 }
 
 
-
             }
+        }
+
+        .ala-card-content {
+            overflow-x: hidden;
+            overflow-y: auto;
+            width: 100%;
+            height: 100%;
+            // left: calc(48px - var(--icon-group-width-left));
+            // position: relative;
+
+
+
+            :deep(.el-tabs--border-card) {
+                border: 0;
+            }
+
+            :deep(.el-tabs__content) {
+                padding: 0;
+            }
+
+            :deep(.el-form-item__label-wrap) {
+                width: 20%;
+                justify-content: end;
+            }
+
+
         }
 
         .icon {
@@ -435,5 +439,4 @@ const handleSave = () => {
 
 
 }
-
 </style>

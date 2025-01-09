@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 20:01:53
+ * @LastEditTime: 2025-01-09 11:03:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -175,7 +175,7 @@ logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`,
 const formAttr = ref({
     formWidth: 400,
     columnNum: 1,
-    labelWidth: 100,
+    labelWidth: 150,
     labelPosition: 'left',
     useFormTitle: false,
 })

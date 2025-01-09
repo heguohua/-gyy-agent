@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 16:14:38
+ * @LastEditTime: 2025-01-09 11:03:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -43,8 +43,8 @@
                 buttonType="success" />
             <AlaButton v-if="row.state === 1" :showButton="true" name="disable" @disable="handleDisable(row)"
                 buttonType="danger" />
-            <AlaButton v-if="row.state === 1" :showButton="true" name="form_initiate"
-                @form_initiate="handleApply(row)" buttonType="primary" />
+            <!-- <AlaButton v-if="row.state === 1" :showButton="true" name="form_initiate"
+                @form_initiate="handleApply(row)" buttonType="primary" /> -->
 
         </template>
         <!-- <template #cols="{ row, columnName }">
@@ -147,7 +147,7 @@ const getComponent = ((code: string) => {
 const formAttr = ref({
     formWidth: 600,
     columnNum: 1,
-    labelWidth: 120,
+    labelWidth: 150,
     labelPosition: 'left',
     useFormTitle: false,
 })
