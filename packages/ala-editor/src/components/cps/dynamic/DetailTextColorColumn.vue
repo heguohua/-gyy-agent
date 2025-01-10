@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 10:15:33
+ * @LastEditTime: 2025-01-10 10:24:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTextColorColumn.vue
  * @Description: 
  * 
@@ -54,9 +54,6 @@ const styles = computed(() => {
     const colors: { [key: string]: string } = props.formItem.formData.colors.desktop
     const background: { [key: string]: string } = props.formItem.formData.background?.desktop
 
-    console.log('colors:', colors);
-
-
     if (background) {
         const color = colors[value + '']
         return { background: colors[value + ''], color: color ? '#fff' : '' }
@@ -67,7 +64,10 @@ const styles = computed(() => {
 
 })
 
-
+const emit = defineEmits(['showDetail'])
+const showDetail = () => {
+    emit('showDetail', props.data)
+}
 </script>
 
 <style scoped lang="scss">

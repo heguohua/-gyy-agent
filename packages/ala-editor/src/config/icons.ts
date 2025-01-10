@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 11:09:19
+ * @LastEditTime: 2025-01-10 11:19:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -87,6 +87,7 @@ const icon = {
   mine_todo: 'ix:tasks-open',// 发起流程
   mine_done: 'grommet-icons:task',// 发起流程
   mine_copy: 'fluent:document-copy-24-regular',// 发起流程
+  instance: 'simple-icons:processwire',// 流程实例
 
   
 

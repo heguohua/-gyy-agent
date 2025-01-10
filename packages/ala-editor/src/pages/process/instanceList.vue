@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 11:31:46
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
+ * @LastEditTime: 2025-01-10 11:36:56
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/instanceList.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -121,7 +121,7 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/p/instance/myPage"
+const url = "/p/instance/page"
 const deleteUrl = "/p/instance/delete"
 
 // 分页列表中列属性配置
@@ -176,17 +176,9 @@ const getComponent = ((code: string) => {
 const showPreviewPage = ref(false)
 const previewPageProps = reactive({})
 
-const withdrawUrl = '/p/instance/withdraw'
 const handleWithdraw = (row: any) => {
-    const id = row.id
-    logger.info(`【 撤回流程 】，url${url}，数据对象：`, row);
-
-
-    alaPost(u.url(withdrawUrl || ''), { id }, false, '').then((data: any) => {
-        const response = data;
-        notify.success(t('pop.warm_title'), "流程撤回成功。")
-        refresh()
-    });
+    logger.info(`当前模块【 detailItem 】对象参数为`, row);
+    
 }
 const showDetail = (row: any) => {
     logger.info(`当前模块【 detailItem 】对象参数为`, row);

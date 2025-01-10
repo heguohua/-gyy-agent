@@ -70,7 +70,7 @@ export default defineComponent({
   }
 
   @include e('description') {
-    color: #909399;
+    color: #b2b6bf;
     @include res(font-size, 16, 16);
     @include res(margin-top, 16, 16);
   }
