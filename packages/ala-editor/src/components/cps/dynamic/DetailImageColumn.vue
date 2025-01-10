@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-05 19:03:57
+ * @LastEditTime: 2025-01-10 11:39:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailImageColumn.vue
  * @Description: 
  * 
@@ -83,9 +83,6 @@ const height = computed(() => {
     display: inline-flex;
     align-items:center;
     justify-content: center;
-    .image {
-
-    }
 }
 
 
