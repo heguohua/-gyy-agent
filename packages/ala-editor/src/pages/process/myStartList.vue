@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 15:55:09
+ * @LastEditTime: 2025-01-10 16:30:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -42,7 +42,8 @@
 
     <!-- 新增、编辑 -->
     <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
-    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs" />
+    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs"
+        :previewParams="previewParams" />
 
 </template>
 
@@ -174,34 +175,39 @@ const getComponent = ((code: string) => {
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 const showPreviewPage = ref(false)
+const previewParams = reactive<any>({ forms: [], defineId: 0 })
 
 const withdrawUrl = '/p/instance/withdraw'
 const handleWithdraw = (row: any) => {
     const id = row.id
     logger.info(`【 撤回流程 】，url${url}，数据对象：`, row);
-
-
     alaPost(u.url(withdrawUrl || ''), { id }, false, '').then((data: any) => {
         const response = data;
         notify.success(t('pop.warm_title'), "流程撤回成功。")
         refresh()
     });
 }
+
 const showDetail = (row: any) => {
     logger.info(`当前模块【 detailItem 】对象参数为`, row);
 
     u.clear(detailItem.item)
     u.merged(detailItem, { item: row })
 
+    // 组装 基本信息 
+
+    previewParams.data = detailItem
+
     // 组装 审核表单预览页面参数
     const variable = u.parseJson(row.variable)
     const forms = u.parseJson(variable.forms)
+    previewParams.forms = []
     forms.forEach((form: { id: number, tableName: string }) => {
-        tabsModel[1].props.forms = [{ id: form.id, tableName: form.tableName }] as any
+        previewParams.forms.push({ id: form.id, tableName: form.tableName })
     })
 
     // 组装 流程图 预览页面参数
-    tabsModel[2].props.id = row.defineId
+    previewParams.defineId = row.defineId
 
     showPreviewPage.value = true
 }
@@ -229,9 +235,9 @@ const formAttr = {
 
 // forms: { id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },
 const tabsModel = reactive([
-    { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
+    { title: '基本信息', code: 'AlaDetailNoDrawer', props: {  fields: detailFields, formAttr: formAttr } },
     { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
-    { title: '流程图', code: 'ProcessPreview', props: { id: 0, viewer: true } },
+    { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
 ])
 const tabs = computed(() => {
     return tabsModel

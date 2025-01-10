@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 15:39:17
+ * @LastEditTime: 2025-01-10 16:35:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms.vue
  * @Description: 
  * 
@@ -64,10 +64,6 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    forms: {
-        type: Array<Form>,
-        default: []
-    },
     formAttr: {
         type: Object,
         default: () => ref({
@@ -77,6 +73,9 @@ const props = defineProps({
             labelPosition: 'left',
             useFormTitle: false,
         })
+    },
+    previewParams: {
+        type: Object as any
     }
 })
 
@@ -145,10 +144,9 @@ interface FormData {
 
 const fds = reactive<Array<FormData>>([])
 
-watch(() => props.forms, (forms) => {
+watch(() => props.previewParams.forms, (forms) => {
 
     if (forms && forms.length > 0) {
-
 
         forms.forEach(async (form: Form) => {
 
@@ -162,7 +160,7 @@ watch(() => props.forms, (forms) => {
             await alaPost(u.url(lowcodingConfigUrl || ''), lowcodingConfigParams, false, '').then((data: any) => {
                 const response = data;
 
-                const config = u.parseJson(response.data[0].config)                
+                const config = u.parseJson(response.data[0].config)
 
                 config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 

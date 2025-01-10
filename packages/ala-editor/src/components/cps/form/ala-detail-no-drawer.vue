@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 19:48:07
+ * @LastEditTime: 2025-01-10 16:33:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer.vue
  * @Description: 
  * 
@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
+import u from '@/utils/u';
 import { ref } from 'vue'
 
 // State
@@ -52,10 +53,6 @@ const props = defineProps({
         type: Array<any>,
         default: []
     },
-    data: {
-        type: Object,
-        default: {}
-    },
     formAttr: {
         type: Object,
         default: () => ref({
@@ -65,6 +62,10 @@ const props = defineProps({
             labelPosition: 'left',
             useFormTitle: false,
         })
+    },
+    previewParams: {
+        type: Object as any,
+        default: () => ({})
     }
 })
 
@@ -120,6 +121,16 @@ const labelWidth = () => {
     return props.formAttr?.labelWidth + 'px' || '120px'
 }
 
+
+const data = ref<any>({})
+
+watch(() => props.previewParams.data, (newValue) => {
+    
+    if (newValue) {
+        u.merged(data.value, newValue)
+    }
+
+}, { immediate: true })
 
 </script>
 <style scoped lang="scss">

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 21:28:22
+ * @LastEditTime: 2025-01-10 16:03:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-tab-page.vue
  * @Description: 
  * 
@@ -20,7 +20,7 @@
                         v-for="(item, index) in tabs" :key="item.title">
 
                         <component v-if="showDrawer" :is="getComponent(item.code)" v-bind="item.props"
-                            @close="cancelClick" />
+                            @close="cancelClick" :previewParams="previewParams"/>
 
                     </el-tab-pane>
 
@@ -58,6 +58,9 @@ const props = defineProps({
     tabs: {
         type: Array<Tab>,
         default: () => ([])
+    },
+    previewParams:{
+        type: Object as any
     }
 })
 
