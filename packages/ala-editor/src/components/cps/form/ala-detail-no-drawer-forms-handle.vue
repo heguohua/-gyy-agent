@@ -323,7 +323,6 @@ formConfigs.forEach(async (form: Form) => {
 
     await alaPost(u.url(lowcodingConfigUrl || ''), lowcodingConfigParams, false, '').then((data: any) => {
         const response = data;
-        console.log('response:', response);
 
         const config = u.parseJson(response.data[0].config)
         u.checkNull(config, "当前审批节点Form表单配置信息", t)
@@ -453,8 +452,6 @@ const rules = computed(() => {
 })
 
 
-
-console.log('props.data:', props.data);
 
 const emits = defineEmits(['close'])
 

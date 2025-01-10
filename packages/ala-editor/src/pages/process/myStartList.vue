@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 11:31:46
+ * @LastEditTime: 2025-01-10 15:42:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { PropType, ref } from 'vue';
 import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
@@ -194,6 +194,12 @@ const showDetail = (row: any) => {
     u.clear(detailItem.item)
     u.merged(detailItem, { item: row })
 
+    const variable = u.parseJson(row.variable)
+    const forms = u.parseJson(variable.forms)
+    forms.forEach((form: { id: number, tableName: string }) => {
+        tabsModel[1].props.forms = [{ id: form.id, tableName: form.tableName }] as any
+    })
+
     u.merged(previewPageProps, { id: row.id })
     showPreviewPage.value = true
 }
@@ -219,35 +225,15 @@ const formAttr = {
     useFormTitle: false,
 }
 
+// forms: { id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },
+const tabsModel = reactive([
+    { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
+    { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
+    { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
+])
 const tabs = computed(() => {
-    return reactive([
-        { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
-        { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [{ id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },], formAttr: formAttr } },
-        { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
-    ])
+    return tabsModel
 })
-
-const postData = async (item: any): Promise<any> => {
-
-    // // 保存数据并刷新分页列表
-    // // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
-    // const id = item.id ? item.id : (item.columns?.id)
-
-    // const url = id ? props.updateUrl : props.url
-    // if (id) {
-    //     logger.info(`【 更新数据 】，url${url}，数据对象：`, item);
-    // } else {
-    //     logger.info(`【 新增数据 】，url${url}，数据对象：`, item);
-    // }
-    // const result = await alaPost(u.url(url || ''), item, false, id ? 'put' : '').then((data: any) => {
-    //     const response = data;
-    //     emit("refresh", response)
-    //     notify.success(t('pop.warm_title'), "申请单提交成功，请等待审批。")
-    //     return response
-    // });
-
-    // return result
-}
 
 
 </script>
