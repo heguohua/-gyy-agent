@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 18:26:01
+ * @LastEditTime: 2025-01-10 22:33:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -130,33 +130,57 @@ const fds = reactive<Array<FormData>>([])
 const timelines = ref<any>([])
 const properties = alaDetailBuild("timelines", "time", "label", 1, false, {})
 
-timelines.value.push({
-    title: '总经理审批',
-    content: '处理中...',
-    timestamp: 0,
-    properties: alaDetailBuild("timelines", "time", "label", 1, false, { type: { desktop: 'danger' }, hollow: { desktop: true }, center: { desktop: true } })
-}, {
-    title: '总经理审批',
-    content: '同意',
-    timestamp: new Date().getTime(),
-    properties
-})
 
-const taskUrl = '/p/task/list'
+const taskUrl = '/p/task/listDetail'
 watch(() => props.previewParams.instanceId, (newValue) => {
-    console.log('newValue:', newValue);
     // 加载当前流程实例的所有任务
 
-    // 如果当前流程实例处于 donging 状态，则第一个节点显示为空心、颜色为danger、居中
+    // 如果当前流程实例处于 donging 状态，则显示为空心、颜色为danger、居中
 
-    alaPost(u.url(taskUrl || ''), {}, false, '').then((response: any) => {
-        
+    alaPost(u.url(taskUrl || ''), { instanceId: newValue }, false, '').then((response: any) => {
+        console.log('response:', response.data);
+        if (response.data && response.data.length > 0) {
+            response.data.forEach((task: any) => {
+
+                if (task.taskState === 10) {
+                    // 说明是处理中的任务，则显示为空心、颜色为danger、居中
+                    timelines.value.push({
+                        title: task.displayName,
+                        content: '处理中...',
+                        timestamp: 0,
+                        properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState))
+                    })
+                } else {
+                    timelines.value.push({
+                        title: task.displayName,
+                        content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${task.formKeyEntity.operation} `,
+                        timestamp: task.updatedTime,
+                        properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState))
+                    })
+
+                }
+
+
+
+            })
+        }
+
     })
 
 }, { deep: true, immediate: true })
 
 
+const getCardProperties = (taskState: number) => {
+    if (taskState === 10) {
+        return { type: { desktop: 'warning' }, hollow: { desktop: true }, center: { desktop: true } }
+    } else if (taskState === 20) {
+        return { type: { desktop: 'primary' } }
+    }else if (taskState === 30) {
+        return { type: { desktop: 'info' } }
+    } else if (taskState === 45) {
+        return { type: { desktop: 'danger' } }
+    }
+    return { type: { desktop: 'primary' } }
+} 
 </script>
-<style scoped lang="scss">
-.ala-detail-timeline {}
-</style>
+<style scoped lang="scss"></style>

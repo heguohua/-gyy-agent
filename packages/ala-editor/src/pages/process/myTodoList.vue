@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 09:42:24
+ * @LastEditTime: 2025-01-10 20:34:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -37,8 +37,7 @@
 
         </template>
         <template #btns="{ row }">
-            <AlaButton :showButton="true" name="form_handle" @form_handle="handleTask(row)"
-                buttonType="primary" />
+            <AlaButton :showButton="true" name="form_handle" @form_handle="handleTask(row)" buttonType="primary" />
 
         </template>
     </PageTable>
@@ -46,7 +45,7 @@
     <!-- 新增、编辑 -->
     <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
     <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs"
-        @refresh="refresh" />
+        @refresh="refresh" :previewParams="previewParams" close="" />
 
 </template>
 
@@ -102,10 +101,7 @@ const showEdit = (item: { [key: string]: any }) => {
     u.merged(baseInfo, { entity })
     logger.info(`【编辑】方法接收到参数 entity `, entity);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    // u.merged(baseInfo, { item })
-    // logger.info(`【编辑】方法接收到参数 item `, item);
-    // logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    // showAddForm.value = true
+
 }
 
 // 查询条件
@@ -153,11 +149,6 @@ const columns = computed(() => {
         alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
         alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
         alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
-
-        // { prop: 'operator', label: '发起人' },
-        // { prop: 'createdTime', label: '发起时间' },
-        // { prop: 'version', label: '发起人所属部门' },
-        // { prop: 'state', label: '发起人职务' },
     ]
 })
 
@@ -178,12 +169,30 @@ const advancedFields: any = []
 
 
 const handleTask = (row: any) => {
-    logger.info(`当前模块【 detailItem 】对象参数为`, row);
+    logger.info(`   数为`, row);
 
     u.clear(detailItem.item)
     u.merged(detailItem, { item: row })
 
-    u.merged(previewPageProps, { id: row.id })
+
+    console.log('row:', row);
+
+
+    // 组装 基本信息 
+    previewParams.data = detailItem
+
+    // 组装 审核表单预览页面参数
+    const variable = u.parseJson(row.variable)
+    const forms = u.parseJson(variable.forms)
+    previewParams.forms = []
+    forms.forEach((form: { id: number, tableName: string }) => {
+        previewParams.forms.push({ id: form.id, tableName: form.tableName })
+    })
+
+    // 组装 流程图 预览页面参数
+    previewParams.defineId = row.instanceVo.defineId
+
+
     showPreviewPage.value = true
 
 }
@@ -208,14 +217,16 @@ const formAttr = {
 
 
 const showPreviewPage = ref(false)
-const previewPageProps = reactive({})
+const previewParams = reactive<any>({ forms: [], defineId: 0 })
+
+const tabsModel = reactive([
+    { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
+    // { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: u.parseJson(u.parseJson(detailItem.item['variable']).forms), formAttr: formAttr, data: detailItem } },
+    { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: [], formAttr: formAttr, data: detailItem } },
+    { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
+])
 const tabs = computed(() => {
-    const variable = u.parseJson(detailItem.item['variable'])
-    return reactive([
-        { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
-        { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: u.parseJson(variable.forms), formAttr: formAttr, data: detailItem } },
-        { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
-    ])
+    return tabsModel
 })
 </script>
 

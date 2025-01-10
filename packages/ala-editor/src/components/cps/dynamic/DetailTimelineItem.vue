@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 18:16:52
+ * @LastEditTime: 2025-01-10 22:08:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTimelineItem.vue
  * @Description: 
  * 
@@ -72,7 +72,7 @@ const formContentTimestamp = (time: any) => {
     if (time) {
         const format = props.formItem.formData.contentTimestampFormat?.desktop ? props.formItem.formData.format.desktop : '"YYYY-MM-DD HH:mm:ss"'
         const t = date.formatDateTime(Number.parseInt(time), format)
-        return ' @' + t.replaceAll('"', '')
+        return t.replaceAll('"', '')
     }
 }
 
@@ -99,7 +99,6 @@ const center = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.title {}
 
 .content {
     margin-top: 4px;
