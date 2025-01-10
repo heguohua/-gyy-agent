@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 10:59:21
+ * @LastEditTime: 2025-01-10 18:36:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -130,6 +130,11 @@ export const allMenuComponents: MenuComponent = {
     "/process/myTodo": {
         name: "ProcessMyTodoListPage",
         component: "../pages/process/myTodoList.vue",
+        requiresAuth: true,
+    },
+    "/process/task": {
+        name: "ProcessTaskListPage",
+        component: "../pages/process/taskList.vue",
         requiresAuth: true,
     },
     "/process/myDone": {
