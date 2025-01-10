@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 20:32:23
+ * @LastEditTime: 2025-01-10 22:39:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -524,11 +524,11 @@ const handleReject = () => {
     post(2)
 }
 const handleReturnToPrevious = () => {
-    console.log('props.data:', props.data);
+    post(3)
 }
 
 const handleReturnToInitiator = () => {
-    console.log('props.data:', props.data);
+    post(6)
 }
 
 const post = (submitType: number) => {
