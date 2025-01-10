@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:57:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 11:23:55
+ * @LastEditTime: 2025-01-10 15:50:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/processPreview.vue
  * @Description: 
  * 
@@ -55,34 +55,32 @@ const handleChange = (flowData: { json: any }) => {
 }
 
 const handleSave = (flowData: { json: any }) => {
-    
+
 }
 
 // Methods
 // 加载编辑时的初始化数据
 
-const init = () => {
-    if (props.id) {
+watch(() => props.id, (id) => {
+
+    if (id) {
 
         const url = "/p/define/get"
 
-        const params = { id: props.id }
+        const params = { id }
         logger.info(`从后台加载【 define 】配置数据，url【 ${url} 】，数据对象：`, params);
 
         get(u.url(url || ''), params).then((response: any) => {
 
             const { data: { content, id, } } = response.data;
             const ct = u.parseJson(content)
-                        
+
             flowModel.value.content = ct
 
         });
     }
-}
 
-onMounted(() => {
-    init()
-})
+}, { immediate: true })
 
 </script>
 

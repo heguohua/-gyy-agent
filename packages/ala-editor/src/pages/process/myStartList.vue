@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 15:42:10
+ * @LastEditTime: 2025-01-10 15:55:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -174,7 +174,6 @@ const getComponent = ((code: string) => {
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 const showPreviewPage = ref(false)
-const previewPageProps = reactive({})
 
 const withdrawUrl = '/p/instance/withdraw'
 const handleWithdraw = (row: any) => {
@@ -194,13 +193,16 @@ const showDetail = (row: any) => {
     u.clear(detailItem.item)
     u.merged(detailItem, { item: row })
 
+    // 组装 审核表单预览页面参数
     const variable = u.parseJson(row.variable)
     const forms = u.parseJson(variable.forms)
     forms.forEach((form: { id: number, tableName: string }) => {
         tabsModel[1].props.forms = [{ id: form.id, tableName: form.tableName }] as any
     })
 
-    u.merged(previewPageProps, { id: row.id })
+    // 组装 流程图 预览页面参数
+    tabsModel[2].props.id = row.defineId
+
     showPreviewPage.value = true
 }
 
@@ -229,7 +231,7 @@ const formAttr = {
 const tabsModel = reactive([
     { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
     { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
-    { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
+    { title: '流程图', code: 'ProcessPreview', props: { id: 0, viewer: true } },
 ])
 const tabs = computed(() => {
     return tabsModel

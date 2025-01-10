@@ -162,10 +162,7 @@ watch(() => props.forms, (forms) => {
             await alaPost(u.url(lowcodingConfigUrl || ''), lowcodingConfigParams, false, '').then((data: any) => {
                 const response = data;
 
-                const config = u.parseJson(response.data[0].config)
-
-                console.log('config:',config);
-                
+                const config = u.parseJson(response.data[0].config)                
 
                 config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 
