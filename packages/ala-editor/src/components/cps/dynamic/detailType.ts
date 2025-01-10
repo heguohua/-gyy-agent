@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-29 19:25:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 17:51:57
+ * @LastEditTime: 2025-01-10 09:57:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/detailType.ts
  * @Description: 
  * 
@@ -16,4 +16,7 @@ export class dType {
     public static readonly textarea = 'textarea'
     public static readonly date = 'date'
     public static readonly deep = 'deep'
+
+    public static readonly textColor = 'textColor'
+
 }

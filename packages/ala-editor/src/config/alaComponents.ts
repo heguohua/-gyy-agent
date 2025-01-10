@@ -79,6 +79,7 @@ import AlaDetailNoDrawer from '@/components/cps/form/ala-detail-no-drawer.vue';
 import AlaDetailNoDrawerForms from '@/components/cps/form/ala-detail-no-drawer-forms.vue';
 import AlaDetailNoDrawerFormsHandle from '@/components/cps/form/ala-detail-no-drawer-forms-handle.vue';
 import DetailImageColumn from '@/components/cps/dynamic/DetailImageColumn.vue';
+import DetailTextColorColumn from '@/components/cps/dynamic/DetailTextColorColumn.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -159,6 +160,7 @@ export default {
     AlaDetailNoDrawerForms,
     AlaDetailNoDrawerFormsHandle,
     DetailImageColumn,
+    DetailTextColorColumn,
 
     // 流程引擎相关组件
     ProcessDesign,

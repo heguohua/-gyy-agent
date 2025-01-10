@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 21:25:16
+ * @LastEditTime: 2025-01-10 09:42:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -37,8 +37,8 @@
 
         </template>
         <template #btns="{ row }">
-
-            <AlaButton :showButton="true" name="form_handle" @form_handle="handleTask(row)" buttonType="primary" />
+            <AlaButton :showButton="true" name="form_handle" @form_handle="handleTask(row)"
+                buttonType="primary" />
 
         </template>
     </PageTable>
@@ -147,7 +147,7 @@ const deleteUrl = "/p/task/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
+        alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '500' } }),
         alaDetailBuild(dType.input, 'displayName', "流程节点"),
         alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
         alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),

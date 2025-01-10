@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 09:28:23
+ * @LastEditTime: 2025-01-10 10:21:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -34,8 +34,8 @@
         </template>
         <template #btns="{ row }">
 
-            <AlaButton :showButton="true" name="form_withdraw" @form_withdraw="handleWithdraw(row)"
-                buttonType="danger" />
+            <AlaButton v-if="row.stateName == '进行中'" :showButton="true" name="form_withdraw"
+                @form_withdraw="handleWithdraw(row)" buttonType="danger" />
 
         </template>
     </PageTable>
@@ -130,7 +130,8 @@ const columns = computed(() => {
         alaDetailDate(dType.date, 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate(dType.date, 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
 
-        alaDetailBuild(dType.input, 'stateName', "审批状态"),
+        // alaDetailBuild(dType.input, 'stateName', "审批状态"),
+        alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff','已完成': '#67c23a','已拒绝': '#f56c6c','已撤回': '' } }, background: { desktop: true } }),
 
         // { prop: 'displayName', label: '标题' },
         // { prop: 'name', label: '摘要' },
@@ -164,6 +165,8 @@ const advancedFields: any = []
 
 
 const getComponent = ((code: string) => {
+    console.log('code:', code);
+
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
 
@@ -199,8 +202,8 @@ const detailFields: any = ref([
     alaDetailBuild(dType.input, 'operatorName', "发起人"),
     alaDetailDate(dType.date, 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailDate(dType.date, 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.input, 'stateName', "审批状态"),
-])
+    alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff','已完成': '#67c23a','已拒绝': '#f56c6c','已撤回': '' } }, background: { desktop: true } }),
+    ])
 
 const formAttr = {
     formWidth: 1800,

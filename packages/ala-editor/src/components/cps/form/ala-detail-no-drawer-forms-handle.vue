@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 22:22:48
+ * @LastEditTime: 2025-01-10 09:36:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -41,6 +41,10 @@
 
     </div>
     <div class="ala-detail-form-handle">
+        <div class="remark">
+            <p class="ala-chapter-icon"></p>
+            请填写审核意见
+        </div>
         <el-form :model="formData" :label-width="labelWidth()" :rules="rules" ref="formRef">
             <div :class="isHidden(item)" v-for="(item, index) in formFields" :key="item.fieldName + '-' + index"
                 :style="formFieldsColumnWidth(item)">
@@ -78,6 +82,7 @@ import { alaPost, get } from '@/utils/req';
 import u from '@/utils/u';
 import { PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n';
+import AlaChapter from '../chapter/ala-chapter.vue';
 const { t } = useI18n();
 
 // State
@@ -596,7 +601,10 @@ const postData = async (url: string, item: any): Promise<any> => {
         }
 
         .ala-detail-item-hidden {
-            display: none;
+            display: block;
+            width: 0px !important;
+            margin: 0;
+            padding: 0;
         }
     }
 
@@ -699,6 +707,31 @@ const postData = async (url: string, item: any): Promise<any> => {
         .el-textarea__inner {
             height: 66px !important;
         }
+    }
+
+
+    .ala-detail-item-hidden {
+        display: none;
+        height: 0px;
+    }
+
+    .remark {
+        padding: 0px 0px 22px 16px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-items: center;
+
+        .ala-chapter-icon {
+            display: inline-block;
+            width: 6px;
+            border-radius: 1px;
+            background: var(--el-color-primary);
+            height: 20px;
+            margin-right: 8px;
+        }
+
     }
 }
 </style>
