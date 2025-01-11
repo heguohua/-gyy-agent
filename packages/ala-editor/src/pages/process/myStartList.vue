@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 16:43:16
+ * @LastEditTime: 2025-01-11 17:47:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -37,13 +37,20 @@
             <AlaButton v-if="row.stateName == '进行中'" :showButton="true" name="form_withdraw"
                 @form_withdraw="handleWithdraw(row)" buttonType="danger" />
 
+            <AlaButton v-if="row.stateName == '已退回'" :showButton="true" name="update_application_form"
+                @update_application_form="showEdit(row)" buttonType="" />
+
+            <AlaButton v-if="row.stateName == '已退回'" :showButton="true" name="reinitiate"
+                @reinitiate="handleWithdraw(row)" buttonType="primary" />
+
+
         </template>
     </PageTable>
 
     <!-- 新增、编辑 -->
-    <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
     <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs"
         :previewParams="previewParams" />
+
 
 </template>
 
@@ -238,10 +245,10 @@ const formAttr = {
 
 // forms: { id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },
 const tabsModel = reactive([
-    { title: '基本信息', code: 'AlaDetailNoDrawer', props: {  fields: detailFields, formAttr: formAttr } },
+    { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
     { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
     { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
-    { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: { } },
+    { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
 ])
 const tabs = computed(() => {
     return tabsModel
