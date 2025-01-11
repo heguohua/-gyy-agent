@@ -13,7 +13,7 @@
     <div class="ala-detail-timeline">
         <div class="title">
             <p class="ala-chapter-icon"></p>
-            审批时间线
+            审批进度
         </div>
         <DetailTimelineColumn :value="timelines" />
     </div>
