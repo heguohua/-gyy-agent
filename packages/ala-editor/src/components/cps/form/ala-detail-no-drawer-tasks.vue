@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-11 16:28:39
+ * @LastEditTime: 2025-01-11 17:17:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -12,6 +12,23 @@
 
     <div class="ala-detail-timeline">
         <DetailTimelineColumn :value="timelines" />
+    </div>
+
+    <div class="ala-detail-timeline">
+        <el-table :data="tasks" style="width: 100%">
+
+            <el-table-column prop="displayName" label="任务名称"></el-table-column>
+            <el-table-column prop="submitType" label="审批结果">
+                <template #default="scope">
+                    <i v-html="scope.row.submitType" />
+                </template>
+            </el-table-column>
+            <el-table-column prop="nickName" label="审批人"></el-table-column>
+            <el-table-column prop="remark" label="审批说明"></el-table-column>
+            <el-table-column prop="createdTime" label="任务创建时间"></el-table-column>
+            <el-table-column prop="finishTime" label="审批时间"></el-table-column>
+
+        </el-table>
     </div>
 
 </template>
@@ -120,20 +137,22 @@ const fds = reactive<Array<FormData>>([])
 
 
 const timelines = ref<any>([])
+const tasks = ref<any>([])
 const properties = alaDetailBuild("timelines", "time", "label", 1, false, {})
 
 
 const taskUrl = '/p/task/listDetail'
 watch(() => props.previewParams.instanceId, (newValue) => {
+
     // 加载当前流程实例的所有任务
-
     // 如果当前流程实例处于 donging 状态，则显示为空心、颜色为danger、居中
-
     alaPost(u.url(taskUrl || ''), { instanceId: newValue }, false, '').then((response: any) => {
-        console.log('response:', response.data);
         if (response.data && response.data.length > 0) {
+
+            const tks: any = []
             response.data.forEach((task: any) => {
 
+                // 1、准备 timeline 数据
                 if (task.taskState === 10) {
                     // 说明是处理中的任务，则显示为空心、颜色为danger、居中
                     timelines.value.push({
@@ -145,17 +164,24 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                 } else {
                     timelines.value.push({
                         title: task.displayName,
-                        content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${getSubmitType(task.submitType)} `,
+                        content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${getSubmitType(task.submitType)}  于 `,
                         timestamp: task.updatedTime,
                         properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState)),
-                        
-                    })
 
+                    })
                 }
 
-
-
+                // 2、准备列表数据
+                tks.push({
+                    displayName: task.displayName,
+                    submitType: getSubmitType(task.submitType),
+                    nickName: task.operatorEntity?.nickName,
+                    remark: task.formKeyEntity?.remark,
+                    createdTime: date.YYYY_MM_DD__HH_mm_ss(task.createdTime),
+                    finishTime: date.YYYY_MM_DD__HH_mm_ss(task.finishTime),
+                })
             })
+            tasks.value = tks
         }
 
     })
@@ -189,6 +215,9 @@ const getCardProperties = (taskState: number) => {
 const getSubmitType = (submitType: number) => {
 
     let stName = ''
+    if (submitType === undefined) {
+        stName = '处理中...'
+    }
 
     if (submitType === 0) {
         stName = '发起申请'
@@ -212,7 +241,7 @@ const getSubmitType = (submitType: number) => {
 
     const className = getSubmitTypeClass(submitType)
 
-    return `<i class="${className}">${stName}</i> 于 `
+    return `<i class="${className}">${stName}</i>`
 
 }
 
@@ -240,6 +269,8 @@ const getSubmitTypeClass = (submitType: number) => {
 
     return className
 }
+
+
 
 </script>
 <style scoped lang="scss">
