@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-11 17:17:34
+ * @LastEditTime: 2025-01-11 17:28:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -11,10 +11,18 @@
 <template>
 
     <div class="ala-detail-timeline">
+        <div class="title">
+            <p class="ala-chapter-icon"></p>
+            审批时间线
+        </div>
         <DetailTimelineColumn :value="timelines" />
     </div>
 
     <div class="ala-detail-timeline">
+        <div class="title">
+            <p class="ala-chapter-icon"></p>
+            审批记录列表
+        </div>
         <el-table :data="tasks" style="width: 100%">
 
             <el-table-column prop="displayName" label="任务名称"></el-table-column>
@@ -275,6 +283,29 @@ const getSubmitTypeClass = (submitType: number) => {
 </script>
 <style scoped lang="scss">
 .ala-detail-timeline {
+
+    .title{
+        padding:8px;
+        font-weight: bold;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        background: rgba(64, 158, 255, 0.1);
+        box-shadow: 8px 0 0 0 rgba(64, 158, 255, 0.1), -8px 0 0 0 rgba(64, 158, 255, 0.1);
+        border-radius: 4px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+
+        .ala-chapter-icon {
+            display: inline-block;
+            width: 6px;
+            border-radius: 1px;
+            background: var(--el-color-primary);
+            height: 20px;
+            margin-right: 8px;
+        }
+    }
 
     :deep(.success) {
         color: var(--el-color-primary);
