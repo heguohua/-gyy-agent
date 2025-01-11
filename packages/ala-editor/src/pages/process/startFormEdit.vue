@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-07 18:48:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-11 19:40:13
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/startForm.vue
+ * @LastEditTime: 2025-01-11 20:10:17
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/startFormEdit.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,7 +12,7 @@
 
     <AlaBaseFormProcess v-model="showDrawer" @refresh="refresh" v-bind="props" :fields="fields" :formData="formData"
         :moduleName="tableName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')" :formAttr="formAttr"
-        :beforeSave="beforeSave" :showInitiateButton="true"/>
+        :beforeSave="beforeSave" :showSaveButton="true" />
 
 </template>
 
@@ -46,7 +46,7 @@ const props = defineProps({
 })
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/l/dynamic/start'
+const url = '/l/dynamic/add'
 const updateUrl = '/l/dynamic/update'
 // 表单数据保存对象
 const formData = reactive({

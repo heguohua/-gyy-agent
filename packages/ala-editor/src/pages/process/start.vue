@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 09:49:06
+ * @LastEditTime: 2025-01-11 20:12:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -199,7 +199,7 @@ const className = computed(() => {
 })
 const showAdd = (form: any, define: any) => {
     u.clear(baseInfo.item)
-    u.merged(baseInfo, { item: {}, moduleName: form.name, defineId: define.id })
+    u.merged(baseInfo, { item: {}, tableName: form.name, defineId: define.id })
     cn.value = form.className
     logger.info(`【新增】方法接收到参数【 form 】`, form);
     logger.info(`【新增】方法接收到参数【 define 】`, define);
@@ -365,8 +365,6 @@ const formAttr = ref({
     labelPosition: 'right',
     useFormTitle: false,
 })
-
-
 
 // 表单字段
 const formFields = computed(() => {

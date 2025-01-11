@@ -2,8 +2,8 @@
     <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="fields" :data="formData"
             :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
-            :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback" :showSaveButton="false"
-            :showInitiateButton="true" />
+            :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback" :showSaveButton="showSaveButton"
+            :showInitiateButton="showInitiateButton" />
     </el-form>
 
 </template>
@@ -54,6 +54,14 @@ const props = defineProps({
     beforeSave: {
         type: Function,
         default: null
+    },
+    showSaveButton: {
+        type: Boolean,
+        default: false
+    },
+    showInitiateButton: {
+        type: Boolean,
+        default: false
     }
 })
 
