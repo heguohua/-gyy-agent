@@ -15,7 +15,7 @@
         :center="center" :type="type">
         <el-card>
             <h4 class="title">{{ title }}</h4>
-            <p class="content">{{ content }}{{ formContentTimestamp(timestamp) }}</p>
+            <p class="content"><i v-html="content"></i>{{ formContentTimestamp(timestamp) }}</p>
         </el-card>
     </el-timeline-item>
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 22:33:27
+ * @LastEditTime: 2025-01-11 16:28:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -11,14 +11,6 @@
 <template>
 
     <div class="ala-detail-timeline">
-
-        <!-- <template class="" v-for="(form, index) in fds" :key="index">
-
-
-            
-
-        </template> -->
-
         <DetailTimelineColumn :value="timelines" />
     </div>
 
@@ -153,9 +145,10 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                 } else {
                     timelines.value.push({
                         title: task.displayName,
-                        content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${task.formKeyEntity.operation} `,
+                        content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${getSubmitType(task.submitType)} `,
                         timestamp: task.updatedTime,
-                        properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState))
+                        properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState)),
+                        
                     })
 
                 }
@@ -175,12 +168,106 @@ const getCardProperties = (taskState: number) => {
         return { type: { desktop: 'warning' }, hollow: { desktop: true }, center: { desktop: true } }
     } else if (taskState === 20) {
         return { type: { desktop: 'primary' } }
-    }else if (taskState === 30) {
+    } else if (taskState === 30) {
         return { type: { desktop: 'info' } }
     } else if (taskState === 45) {
         return { type: { desktop: 'danger' } }
     }
     return { type: { desktop: 'primary' } }
-} 
+}
+
+// APPLY(0, "发起申请"), //  发起申请
+// AGREE(1, "同意申请"), //    同意申请
+// REJECT(2, "拒绝申请"), //   拒绝申请
+// ROLLBACK(3, "退回上一步"), //    退回上一步
+// JUMP(4, "跳转"), //    跳转
+// RE_APPLY(5, "重新提交"), //  重新提交
+// ROLLBACK_TO_OPERATOR(6, "退回发起人"), //  退回发起人
+// AUTO_EXECUTE(7, "自动执行"), //  自动执行
+// COUNTERSIGN_DISAGREE(20, "会签拒绝申请");//  拒绝申请
+
+const getSubmitType = (submitType: number) => {
+
+    let stName = ''
+
+    if (submitType === 0) {
+        stName = '发起申请'
+    } else if (submitType === 1) {
+        stName = '同意申请'
+    } else if (submitType === 2) {
+        stName = '拒绝申请'
+    } else if (submitType === 3) {
+        stName = '退回上一步'
+    } else if (submitType === 4) {
+        stName = '跳转申请'
+    } else if (submitType === 5) {
+        stName = '重新提交'
+    } else if (submitType === 6) {
+        stName = '退回发起人'
+    } else if (submitType === 7) {
+        stName = '自动执行'
+    } else if (submitType === 20) {
+        stName = '会签拒绝申请'
+    }
+
+    const className = getSubmitTypeClass(submitType)
+
+    return `<i class="${className}">${stName}</i> 于 `
+
+}
+
+const getSubmitTypeClass = (submitType: number) => {
+    let className = ''
+    if (submitType === 0) {
+        className = ""
+    } else if (submitType === 1) {
+        className = "success"
+    } else if (submitType === 2) {
+        className = "danger"
+    } else if (submitType === 3) {
+        className = "warning"
+    } else if (submitType === 4) {
+        className = "info"
+    } else if (submitType === 5) {
+        className = "primary"
+    } else if (submitType === 6) {
+        className = "warning"
+    } else if (submitType === 7) {
+        className = ""
+    } else if (submitType === 20) {
+        className = ""
+    }
+
+    return className
+}
+
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ala-detail-timeline {
+
+    :deep(.success) {
+        color: var(--el-color-primary);
+        font-weight: bold;
+    }
+
+    :deep(.danger) {
+        color: var(--el-color-danger);
+        font-weight: bold;
+    }
+
+    :deep(.warning) {
+        color: var(--el-color-warning);
+        font-weight: bold;
+    }
+
+    :deep(.primary) {
+        color: var(--el-color-primary);
+        font-weight: bold;
+    }
+
+    :deep(.info) {
+        color: var(--el-color-info);
+        font-weight: bold;
+    }
+}
+</style>
