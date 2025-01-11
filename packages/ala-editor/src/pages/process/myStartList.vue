@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-11 20:06:21
+ * @LastEditTime: 2025-01-11 20:43:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -41,7 +41,7 @@
                 @update_application_form="showEdit(row)" buttonType="" />
 
             <AlaButton v-if="row.stateName == '已退回'" :showButton="true" name="reinitiate"
-                @reinitiate="handleWithdraw(row)" buttonType="primary" />
+                @reinitiate="handleRestart(row)" buttonType="primary" />
 
 
         </template>
@@ -359,6 +359,17 @@ const handleWithdraw = (row: any) => {
     alaPost(u.url(withdrawUrl || ''), { id }, false, '').then((data: any) => {
         const response = data;
         notify.success(t('pop.warm_title'), "流程撤回成功。")
+        refresh()
+    });
+}
+
+const restartUrl = '/p/instance/restart'
+const handleRestart = (row: any) => {    
+    const id = row.id
+    logger.info(`【 重新发起流程 】，url${url}，数据对象：`, row);
+    alaPost(u.url(restartUrl || ''), { id }, false, '').then((data: any) => {
+        const response = data;
+        notify.success(t('pop.warm_title'), "重新发起流程执行成功。")
         refresh()
     });
 }
