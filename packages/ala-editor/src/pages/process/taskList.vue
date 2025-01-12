@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 18:45:04
+ * @LastEditTime: 2025-01-12 10:30:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/taskList.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="false" :showDeleteButton="false" :showAddButton="false">
+        :showEditButton="false" :showDeleteButton="false" :showAddButton="false" :noButtons="true">
 
 
         <template #cols="{ row, columnName, formItem }">
@@ -37,16 +37,15 @@
 
         </template>
         <template #btns="{ row }">
-            <AlaButton :showButton="true" name="form_handle" @form_handle="handleTask(row)"
-                buttonType="primary" />
+
+            <AlaButton :showButton="true" name="form_handle" @form_handle="handleTask(row)" buttonType="primary" />
 
         </template>
     </PageTable>
 
-    <!-- 新增、编辑 -->
-    <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
+    <!-- 详情预览页面 -->
     <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs"
-        @refresh="refresh" />
+        :previewParams="previewParams" />
 
 </template>
 
@@ -110,6 +109,7 @@ const showEdit = (item: { [key: string]: any }) => {
 
 // 查询条件
 const params = reactive({
+    taskState: 20
 })
 
 const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
@@ -125,14 +125,35 @@ const getComponent = ((code: string) => {
 
 const detailItem = reactive({
     moduleName,
-    item: {} as any
+    item: {}
 })
-const showDetailPage = ref(false)
-const showDetail = (item: { [key: string]: any }) => {
+
+const showDetail = (row: any) => {
+    logger.info(`当前模块【 detailItem 】对象参数为`, row);
+
     u.clear(detailItem.item)
-    u.merged(detailItem, { item })
-    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
-    showDetailPage.value = true
+    u.merged(detailItem, { item: row })
+
+    // 组装 基本信息 
+    previewParams.data = detailItem
+    console.log('previewParams.data:', previewParams.data);
+
+
+    // 组装 审核表单预览页面参数
+    const variable = u.parseJson(row.variable)
+    const forms = u.parseJson(variable.forms)
+    previewParams.forms = []
+    forms.forEach((form: { id: number, tableName: string }) => {
+        previewParams.forms.push({ id: form.id, tableName: form.tableName })
+    })
+
+    // 组装 流程图 预览页面参数
+    previewParams.defineId = row.instanceVo.defineId
+
+    // 组装 审批记录 页面参数
+    previewParams.instanceId = row.instanceId
+
+    showPreviewPage.value = true
 }
 
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
@@ -146,8 +167,8 @@ const deleteUrl = "/p/task/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '500' } }),
-        alaDetailBuild(dType.input, 'displayName', "流程节点"),
+        alaDetailBuild(dType.input, 'variable', "任务名称", 1, true, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '400' } }),
+        alaDetailBuild(dType.input, 'displayName', "流程节点", 1, false),
         alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
         alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
         alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
@@ -176,16 +197,21 @@ const advancedFields: any = []
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 
-const handleTask = (row: any) => {
-    logger.info(`当前模块【 detailItem 】对象参数为`, row);
-
-    u.clear(detailItem.item)
-    u.merged(detailItem, { item: row })
-
-    u.merged(previewPageProps, { id: row.id })
-    showPreviewPage.value = true
-
+const handleTask = (item: any) => {
+    console.log('item:', item);
 }
+
+// ######################## 流程详情预览 start ####################################################
+const showPreviewPage = ref(false)
+const previewParams = reactive<any>({ forms: [], defineId: 0 })
+
+const formAttr = ref({
+    formWidth: 1800,
+    columnNum: 1,
+    labelWidth: 120,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
 
 const detailFields: any = ref([
     alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
@@ -194,28 +220,22 @@ const detailFields: any = ref([
     alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
     alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
     alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
-
 ])
 
-const formAttr = {
-    formWidth: 1800,
-    columnNum: 1,
-    labelWidth: 120,
-    labelPosition: 'right',
-    useFormTitle: false,
-}
-
-
-const showPreviewPage = ref(false)
-const previewPageProps = reactive({})
+// forms: { id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },
+const tabsModel = reactive([
+    { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
+    { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
+    { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
+    { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
+])
 const tabs = computed(() => {
-    const variable = u.parseJson(detailItem.item['variable'])
-    return reactive([
-        { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: formAttr } },
-        { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: u.parseJson(variable.forms), formAttr: formAttr, data: detailItem } },
-        { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
-    ])
+    return tabsModel
 })
+
+
+// ######################## 流程详情预览 end ####################################################
+
 </script>
 
 <style lang="scss" scoped></style>
