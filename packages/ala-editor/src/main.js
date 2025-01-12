@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 13:44:48
+ * @LastEditTime: 2025-01-12 16:05:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -92,6 +92,14 @@ app.config.globalProperties.$loadingBar = loadingBarVNode.component;
 import { configAxios } from './utils/req';
 configAxios(app);
 
+// 集成 echarts
+// 引入echarts
+import Echarts from 'vue-echarts'
+import * as echarts from 'echarts'
+// 使用组件
+app.component('e-charts',Echarts)
+// 全局挂载 echarts
+app.config.globalProperties.$echarts = echarts
 
 // 挂载整个应用到app容器中
 app.mount('#app');
