@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-11 17:28:39
+ * @LastEditTime: 2025-01-12 09:25:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -35,6 +35,7 @@
             <el-table-column prop="remark" label="审批说明"></el-table-column>
             <el-table-column prop="createdTime" label="任务创建时间"></el-table-column>
             <el-table-column prop="finishTime" label="审批时间"></el-table-column>
+            <el-table-column prop="time" label="审批耗时"></el-table-column>
 
         </el-table>
     </div>
@@ -179,6 +180,11 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                     })
                 }
 
+                const time = u.timeDiff(task.finishTime, task.createdTime)
+                let t = ''
+                t += time.days ? (time.days + 'd ') : ''
+                t += time.hours ? (time.hours + 'h ') : ''
+                t += time.minutes ? (time.minutes + 'm ') : '0m'
                 // 2、准备列表数据
                 tks.push({
                     displayName: task.displayName,
@@ -187,6 +193,7 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                     remark: task.formKeyEntity?.remark,
                     createdTime: date.YYYY_MM_DD__HH_mm_ss(task.createdTime),
                     finishTime: date.YYYY_MM_DD__HH_mm_ss(task.finishTime),
+                    time: t,
                 })
             })
             tasks.value = tks
@@ -284,8 +291,8 @@ const getSubmitTypeClass = (submitType: number) => {
 <style scoped lang="scss">
 .ala-detail-timeline {
 
-    .title{
-        padding:8px;
+    .title {
+        padding: 8px;
         font-weight: bold;
         font-size: 1rem;
         display: flex;

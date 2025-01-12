@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 11:13:51
+ * @LastEditTime: 2025-01-12 09:21:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -244,6 +244,32 @@ export default class u {
         }, data);
 
         return value + ''
+    }
+
+    /**
+     * 计算 2个时间戳 之间的差值，返参 { days: number, hours: number, minutes: number }
+     * @param timestamp1 
+     * @param timestamp2 
+     * @returns 
+     */
+    public static timeDiff(timestamp1: number, timestamp2: number): { days: number, hours: number, minutes: number } {
+        // 计算时间差（单位：毫秒）
+        const timeDifference = Math.abs(timestamp1 - timestamp2);
+
+        // 将时间差转换为分钟数
+        const minutes = Math.floor(timeDifference / (1000 * 60));
+
+        // 计算天数
+        const days = Math.floor(minutes / (60 * 24));
+
+        // 计算剩余的小时数
+        const remainingHours = Math.floor((minutes % (60 * 24)) / 60);
+
+        // 计算剩余的分钟数
+        const remainingMinutes = minutes % 60;
+
+        // 根据天数、小时数是否为0来拼接返回结果
+        return { days, hours: remainingHours, minutes: remainingMinutes }
     }
 
 }
