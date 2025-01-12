@@ -38,12 +38,13 @@ const editorStore = useEditorStore()
 
 const initProperties = () => {
     if (bType === 'form') {
-        return pageSchemasForm.properties
+        return pageSchemasForm.properties 
     } else if (bType === 'page') {
         return pageSchemasPage.properties
     } else if (bType === 'screen') {
-
+        
     }
+    return {}
 }
 
 const properties = initProperties()

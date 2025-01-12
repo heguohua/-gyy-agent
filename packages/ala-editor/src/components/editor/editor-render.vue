@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 19:30:14
+ * @LastEditTime: 2025-01-12 17:12:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -13,8 +13,8 @@
 
 
         <!-- 渲染 页面 拖拽编辑区域组件 -->
-        <EditorRenderDrag v-if="bType === 'page'" :blockList="blockList" :group="dragGroup" class="render"
-            :bType="bType"></EditorRenderDrag>
+        <EditorRenderDragPage v-if="bType === 'page'" :blockList="blockList" :group="dragGroup" class="render"
+            :bType="bType" :labelWidth="labelWidth"></EditorRenderDragPage>
 
         <!-- 渲染 大屏 拖拽编辑区域组件 -->
         <EditorRenderDrag v-else-if="bType === 'screen'" :blockList="blockList" :group="dragGroup" class="render"
@@ -42,6 +42,7 @@ import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import EditorRenderDrag from "./editor-render-drag.vue"
 import EditorRenderDragForm from './editor-render-drag-form.vue';
+import EditorRenderDragPage from './editor-render-drag-page.vue';
 
 const editorStore = useEditorStore()
 
