@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 10:17:04
+ * @LastEditTime: 2025-01-12 16:27:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -90,7 +90,10 @@ export const blockSchemas = _allSchemas
 
 
 import _AlaPageSchemaForm, { type AlaPageSchemaForm } from '@/config/page-schemas-form'
+import _AlaPageSchemaPage, { type AlaPageSchemaPage } from '@/config/page-schemas-page'
 
 export type AlaPageFormSchemaForm = AlaPageSchemaForm
+export type AlaPageFormSchemaPage = AlaPageSchemaPage
 export const pageSchemasForm = _AlaPageSchemaForm
+export const pageSchemasPage = _AlaPageSchemaPage
 

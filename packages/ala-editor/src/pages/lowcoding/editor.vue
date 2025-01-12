@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:49:07
+ * @LastEditTime: 2025-01-12 16:21:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/editor.vue
  * @Description: 
  * 
@@ -13,8 +13,11 @@
         <!-- <EditorHeader /> -->
 
         <div class="container" :class="classes">
-            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseBlocks" :seniorBlocks="seniorBlocks" />
+
+            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseFields" :seniorBlocks="seniorFields"  :businessFields="businessFields" />
+
             <EditorRender :bType="bType" />
+
             <EditorConfig :bType="bType" />
             <!-- <button @click="getLoveMessage()">Change</button> -->
         </div>
@@ -26,11 +29,13 @@
 import { queryLoveMessage } from '@/utils/tuwei';
 import { logger } from '@/utils/logger';
 import { useEditorStore } from '@/store/useEditorStore';
-import { baseBlocks, seniorBlocks } from "@/config/blocks"
+import { baseFields, businessFields, seniorFields } from "@/config/formItems"
 import { useI18n } from 'vue-i18n';
+import { alaPost, get } from '@/utils/req';
+import u from '@/utils/u';
+import notify from '@/utils/notify';
 const { t } = useI18n();
-
-
+const route = useRoute()
 
 // State
 const bType = 'page'
@@ -40,6 +45,7 @@ const editorStore = useEditorStore()
 const classes = computed(() => {
     return { "mobile-background": editorStore.isMobileViewport(bType) }
 })
+
 
 interface Menu {
     icon: string,
@@ -61,6 +67,35 @@ const menuList = computed(() => {
     ]
 })
 
+
+const formData = ref({})
+
+// 加载编辑时的初始化数据
+onMounted(() => {
+    if (route.query.id) {
+
+        const url = "/l/lowcodingConfig/get"
+
+        const params = { id: route.query.id }
+        logger.info(`从后台加载【 ${bType} 】配置数据，url【 ${url} 】，数据对象：`, params);
+
+        get(u.url(url || ''), params).then((response: any) => {
+            const { data: { config, id } } = response.data;
+
+            const conf = u.parseJson(config)
+
+            const blockConfig = conf["blockConfig"][bType]
+            const pageConfig = conf["pageConfig"][bType]
+
+            // 向 pageConfig 添加 id ，供 editor-config 页面保存数据用于判断当前是新建还是编辑操作
+            pageConfig["id"] = route.query.id
+            
+            editorStore.setBlockConfig(blockConfig, bType)
+            editorStore.setPageConfig(pageConfig, bType)
+
+        });
+    }
+})
 
 </script>
 
