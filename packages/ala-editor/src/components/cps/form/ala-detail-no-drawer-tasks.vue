@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 09:25:39
+ * @LastEditTime: 2025-01-12 09:36:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -166,7 +166,7 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                     // 说明是处理中的任务，则显示为空心、颜色为danger、居中
                     timelines.value.push({
                         title: task.displayName,
-                        content: '处理中...',
+                        content: getSubmitType(-1),
                         timestamp: 0,
                         properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState))
                     })
@@ -230,7 +230,7 @@ const getCardProperties = (taskState: number) => {
 const getSubmitType = (submitType: number) => {
 
     let stName = ''
-    if (submitType === undefined) {
+    if (submitType === -1 || submitType === undefined) {
         stName = '处理中...'
     }
 
@@ -280,6 +280,8 @@ const getSubmitTypeClass = (submitType: number) => {
         className = ""
     } else if (submitType === 20) {
         className = ""
+    } else if (submitType === -1) {
+        className = "warning"
     }
 
     return className

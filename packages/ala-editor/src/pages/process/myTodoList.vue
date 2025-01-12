@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 20:34:46
+ * @LastEditTime: 2025-01-12 09:32:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -192,6 +192,11 @@ const handleTask = (row: any) => {
     // 组装 流程图 预览页面参数
     previewParams.defineId = row.instanceVo.defineId
 
+    console.log('row:',row);
+    
+    // 组装 审批记录 页面参数
+    previewParams.instanceId = row.instanceId
+
 
     showPreviewPage.value = true
 
@@ -224,6 +229,8 @@ const tabsModel = reactive([
     // { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: u.parseJson(u.parseJson(detailItem.item['variable']).forms), formAttr: formAttr, data: detailItem } },
     { title: '流程表单', code: 'AlaDetailNoDrawerFormsHandle', props: { forms: [], formAttr: formAttr, data: detailItem } },
     { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
+    { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
+
 ])
 const tabs = computed(() => {
     return tabsModel
