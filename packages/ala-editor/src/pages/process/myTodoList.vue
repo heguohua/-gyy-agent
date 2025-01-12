@@ -196,7 +196,7 @@ const handleTask = (row: any) => {
 }
 
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
+    alaDetailBuild(dType.input, 'variable', "任务节点", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
     alaDetailBuild(dType.input, 'displayName', "流程节点"),
     alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
     alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
