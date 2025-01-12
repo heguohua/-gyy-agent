@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-06 20:23:49
+ * @LastEditTime: 2025-01-12 10:13:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myDoneList.vue
  * @Description: 
  * 
@@ -43,8 +43,9 @@
         </template>
     </PageTable>
 
-    <!-- 新增、编辑 -->
-    <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
+    <!-- 详情预览页面 -->
+    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程任务" width="1800" :tabs="tabs"
+        :previewParams="previewParams" />
 
 </template>
 
@@ -126,12 +127,33 @@ const detailItem = reactive({
     moduleName,
     item: {}
 })
-const showDetailPage = ref(false)
-const showDetail = (item: { [key: string]: any }) => {
+
+const showDetail = (row: any) => {
+    logger.info(`当前模块【 detailItem 】对象参数为`, row);
+
     u.clear(detailItem.item)
-    u.merged(detailItem, { item })
-    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
-    showDetailPage.value = true
+    u.merged(detailItem, { item: row })
+
+    // 组装 基本信息 
+    previewParams.data = detailItem
+    console.log('previewParams.data:', previewParams.data);
+
+
+    // 组装 审核表单预览页面参数
+    const variable = u.parseJson(row.variable)
+    const forms = u.parseJson(variable.forms)
+    previewParams.forms = []
+    forms.forEach((form: { id: number, tableName: string }) => {
+        previewParams.forms.push({ id: form.id, tableName: form.tableName })
+    })
+
+    // 组装 流程图 预览页面参数
+    previewParams.defineId = row.instanceVo.defineId
+
+    // 组装 审批记录 页面参数
+    previewParams.instanceId = row.instanceId
+
+    showPreviewPage.value = true
 }
 
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
@@ -145,7 +167,7 @@ const deleteUrl = "/p/task/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'displayName', "任务名称"),
+        alaDetailBuild(dType.input, 'displayName', "任务名称", 1, true),
         alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
         alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
         alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
@@ -177,6 +199,41 @@ const advancedFields: any = []
 const handleTask = (item: any) => {
     console.log('item:', item);
 }
+
+// ######################## 流程详情预览 start ####################################################
+const showPreviewPage = ref(false)
+const previewParams = reactive<any>({ forms: [], defineId: 0 })
+
+const formAttr = ref({
+    formWidth: 1800,
+    columnNum: 1,
+    labelWidth: 120,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
+
+const detailFields: any = ref([
+    alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
+    alaDetailBuild(dType.input, 'displayName', "流程节点"),
+    alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
+    alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
+    alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
+    alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+])
+
+// forms: { id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },
+const tabsModel = reactive([
+    { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
+    { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
+    { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
+    { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
+])
+const tabs = computed(() => {
+    return tabsModel
+})
+
+
+// ######################## 流程详情预览 end ####################################################
 
 </script>
 

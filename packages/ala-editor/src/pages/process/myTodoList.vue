@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 09:32:04
+ * @LastEditTime: 2025-01-12 10:12:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -169,14 +169,10 @@ const advancedFields: any = []
 
 
 const handleTask = (row: any) => {
-    logger.info(`   数为`, row);
+    logger.info(`当前模块【 detailItem 】对象参数为`, row);
 
     u.clear(detailItem.item)
     u.merged(detailItem, { item: row })
-
-
-    console.log('row:', row);
-
 
     // 组装 基本信息 
     previewParams.data = detailItem
@@ -191,12 +187,9 @@ const handleTask = (row: any) => {
 
     // 组装 流程图 预览页面参数
     previewParams.defineId = row.instanceVo.defineId
-
-    console.log('row:',row);
     
     // 组装 审批记录 页面参数
     previewParams.instanceId = row.instanceId
-
 
     showPreviewPage.value = true
 
