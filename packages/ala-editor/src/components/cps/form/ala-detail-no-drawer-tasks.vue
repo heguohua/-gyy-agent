@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 09:36:56
+ * @LastEditTime: 2025-01-12 09:39:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -231,6 +231,7 @@ const getSubmitType = (submitType: number) => {
 
     let stName = ''
     if (submitType === -1 || submitType === undefined) {
+        submitType = -1
         stName = '处理中...'
     }
 
