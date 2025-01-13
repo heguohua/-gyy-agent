@@ -4,7 +4,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 11:30:28
+ * @LastEditTime: 2025-01-13 15:03:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -75,6 +75,36 @@ export const configTextAlign = (title: string) => {
     return fontStyle
 }
 
+export const configTextVerticalAlign = (title: string) => {
+
+    const fontStyle = Type.Array(
+        Type.Object({
+            name: Type.String(),
+            value: Type.String(),
+        }),
+        {
+            code: "config-select",
+            title,
+            default: [{
+                name: '自动',
+                value: 'auto',
+            }, {
+                name: '顶部对齐',
+                value: 'top',
+            }, {
+                name: '居中对齐',
+                value: 'middle',
+            }, {
+                name: '底部对齐',
+                value: 'bottom',
+            }],
+        }
+    );
+
+
+    return fontStyle
+}
+
 export const configFontWeight = (title: string) => {
 
     const fontWeight = Type.Array(
@@ -121,37 +151,53 @@ export const configFontWeight = (title: string) => {
 }
 
 
-export const configFontSize = (title: string) => {
-    const fontSize = Type.Number({
-        code: "config-int",
-        title,
-        default: 12,
-        // 绑定 element-plus 原始组件的其他属性
-        other: {
-            min: 10,
-            controlsPosition: ''
-        }
-    })
-    return fontSize
-}
 
-export const configLineHeight = (title: string) => {
+export const configNumber = (title: string, defaultValue = 10, min = 0) => {
     const lineHeight = Type.Number({
         code: "config-int",
         title,
-        default: 12,
+        default: defaultValue,
         // 绑定 element-plus 原始组件的其他属性
         other: {
-            min: 10,
+            min: min,
             controlsPosition: ''
         }
     })
     return lineHeight
 }
 
-export const configColor = (title: string) => {
+
+export const configTextOverflow = (title: string) => {
+
+    const fontStyle = Type.Array(
+        Type.Object({
+            name: Type.String(),
+            value: Type.String(),
+        }),
+        {
+            code: "config-select",
+            title,
+            default: [{
+                name: '截断',
+                value: 'truncate',
+            }, {
+                name: '换行',
+                value: 'break',
+            }, {
+                name: '内换行',
+                value: 'breakAll',
+            }],
+        }
+    );
+
+
+    return fontStyle
+}
+
+export const configColor = (title: string, defaultValue?: string) => {
     const color = Type.String({
         code: "config-color",
+        default: defaultValue,
         title,
     })
     return color

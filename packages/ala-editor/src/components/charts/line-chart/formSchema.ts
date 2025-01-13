@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 11:33:20
+ * @LastEditTime: 2025-01-13 15:16:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
-import { configColor, configFontSize, configFontStyle, configFontWeight, configLineHeight, configTextAlign, configTitle } from "@/config/configUtil";
+import { configColor, configFontStyle, configFontWeight, configNumber, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle } from "@/config/configUtil";
 
 
 const title_text = Type.String({
@@ -210,37 +210,31 @@ const strMax = Type.String({
 
 const schema = Type.Object({
     // 主标题
-    title_text_title: schemaAllViewport(configTitle("主标题配置区")),
-    title_text: schemaAllViewport(title_text),
-    title_color: schemaAllViewport(configColor("字体颜色")),
-    title_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
-    title_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
-    title_fontSize: schemaAllViewport(configFontSize("字体大小")),
-    title_lineHeight: schemaAllViewport(configLineHeight("字体行高")),
-    title_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
+    text_text_title: schemaAllViewport(configTitle("主标题配置区")),
+    text_text: schemaAllViewport(title_text),
+    text_color: schemaAllViewport(configColor("字体颜色")),
+    text_backgroundColor: schemaAllViewport(configColor("背景颜色",'rgba(255, 255, 255, 0)')),
+    text_borderRadius: schemaAllViewport(configNumber("圆角半径", 2)),
+    text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
+    text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+    text_fontSize: schemaAllViewport(configNumber("字体大小")),
+    text_width: schemaAllViewport(configNumber("显示宽度", 100)),
+    text_height: schemaAllViewport(configNumber("显示高度")),
+    text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
+    text_lineHeight: schemaAllViewport(configNumber("字体行高")),
+    text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
+    text_left: schemaAllViewport(configNumber("左侧距离")),
+    text_top: schemaAllViewport(configNumber("顶部距离")),
+    text_padding: schemaAllViewport(configNumber("内边距")),
+    text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
+    text_itemGap: schemaAllViewport(configNumber("主副间距")),
 
-    title_link: schemaAllViewport(title_link),
+    text_link: schemaAllViewport(title_link),
 
     // 副标题
-    title_subtext_title: schemaAllViewport(configTitle("副标题配置区")),
-    title_subtext: schemaAllViewport(title_subtext),
-    placeholder: schemaAllViewport(placeholder),
-    fieldName: schemaAllViewport(fieldName),
-    help: schemaAllViewport(help),
-    icon: schemaAllViewport(icon),
-    iconWidth: schemaAllViewport(iconWidth),
-    iconHeight: schemaAllViewport(iconHeight),
-    columnNum: schemaAllViewport(columnNum),
-    columnWidth: schemaAllViewport(columnWidth),
-    detail: schemaAllViewport(detail),
-    showInSearch: schemaAllViewport(showInSearch),
-    showInTable: schemaAllViewport(showInTable),
-    required: schemaAllViewport(required),
-    rules: schemaAllViewport(rules),
-    strMin: schemaAllViewport(strMin),
-    strMax: schemaAllViewport(strMax),
-
-    // style: schemaAllViewport(style),
+    text_subtext_title: schemaAllViewport(configTitle("副标题配置区")),
+    text_subtext: schemaAllViewport(title_subtext),
+    
 })
 
 
