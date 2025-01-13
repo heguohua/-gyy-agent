@@ -69,6 +69,7 @@ declare module 'vue' {
     AlaTabPage: typeof import('./src/components/cps/form/ala-tab-page.vue')['default']
     AlaTextarea: typeof import('./src/components/cps/textarea/ala-textarea.vue')['default']
     AlaTypewriterOneLine: typeof import('./src/components/cps/typewriter/AlaTypewriterOneLine.vue')['default']
+    CardInfo: typeof import('./src/components/charts/card/card-info.vue')['default']
     ComponentTemplete: typeof import('./src/components/cps/component-templete/index.vue')['default']
     copy: typeof import('./src/components/cps/config/ala-config-input copy.vue')['default']
     Custom: typeof import('./src/components/flow/PropertySetting/custom.vue')['default']

@@ -2,69 +2,76 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 22:32:55
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 16:07:03
+ * @LastEditTime: 2025-01-13 18:14:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/welcome.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    这是welcome页面
-    <div class="one">
-        <e-charts class="chart" :option="option" />
+  <div class="ala-welcome">
+    <div v-for="(item, index) in data" :key="index">
+      <CardInfo :imageSrc="item.imageSrc" :imageWidth="imageWidth" :imageHeight="imageHeight" :title="item.title"
+        :value="item.num" :backgroundColor="item.backgroundColor" />
     </div>
-    <div class="one">
-        <e-charts class="chart" :option="option" />
-    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
+import CardInfo from '@/components/charts/card/card-info.vue';
+import colors from '@/utils/colors';
 import { ref } from 'vue'
 
-// State
-
-
-// Methods
-
-//模拟数据value的字段对应Y轴，name字段对应X轴
-const data=ref([
-    {value:11,name:'A'},
-    {value:31,name:'B'},
-    {value:75,name:'C'},
-    {value:25,name:'D'},
-    {value:16,name:'E'},
-  ])
- 
-const option=computed(()=>{
-  return{
-    xAxis:{
-      type:'category',
-      data:data.value.map(v=>v.name)
-    },
-    yAxis:{
-      type:'value',
-    },
-    series:[
-      {
-        type:'line',
-        data:data.value.map(v=>v.value)
-      }
-    ]
-  }
-})
- 
-// 定时更新数据 每一秒更新一次数据
-setInterval(()=>{
-  data.value=data.value.map(item=>({
-    ...item,
-    value:Math.random()*100,  //Math()随机函数，这里是随机生成100以内的数字
-  }))
-},1000)  //单位ms，1000ms即是1秒
+const imageWidth = 28
+const imageHeight = 28
+const data = [
+  {
+    imageSrc: 'leave.svg',
+    title: '流程总数',
+    num: 99,
+    backgroundColor: colors.primary,
+  },
+  {
+    imageSrc: 'leave.svg',
+    title: '异常流程',
+    num: 99,
+    backgroundColor: colors.danger,
+  },
+  {
+    imageSrc: 'leave.svg',
+    title: '超时流程',
+    num: 99,
+    backgroundColor: colors.warning,
+  },
+  {
+    imageSrc: 'leave.svg',
+    title: '运行中流程',
+    num: 99,
+    backgroundColor: colors.warning,
+  },
+  {
+    imageSrc: 'leave.svg',
+    title: '待办任务总数',
+    num: 99,
+    backgroundColor: colors.warning,
+  },
+  {
+    imageSrc: 'leave.svg',
+    title: '超时任务数',
+    num: 99,
+    backgroundColor: colors.warning,
+  },
+]
 
 </script>
 
 <style scoped lang="scss">
-.one{
-    height: 300px;
+.ala-welcome {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 16px;
+  padding: 16px;
+  flex-wrap: wrap;
 }
 </style>
