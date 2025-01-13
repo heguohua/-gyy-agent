@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 09:21:30
+ * @LastEditTime: 2025-01-13 10:36:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -271,5 +271,7 @@ export default class u {
         // 根据天数、小时数是否为0来拼接返回结果
         return { days, hours: remainingHours, minutes: remainingMinutes }
     }
+
+    
 
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 10:04:01
+ * @LastEditTime: 2025-01-13 10:44:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -17,9 +17,22 @@
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 
+interface Title{
+    mainTitle:string,
+}
 // State
 const props = defineProps({
-    title: {
+    // 主标题
+    title_text: {
+        type: String,
+        default: ''
+    },
+    title_link: {
+        type: String,
+        default: ''
+    },
+    // 副标题
+    title_subtext: {
         type: String,
         default: ''
     },
@@ -89,8 +102,9 @@ logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，prop
 const option = computed(() => {
     const op = {
         title: {
-            text: props.title,
-            subtext: "Sub Title",
+            text: props.title_text,
+            title_link: props.title_link?props.title_link:'',
+            subtext: props.title_subtext,
             left: "center",
             top: "center",
             textStyle: {

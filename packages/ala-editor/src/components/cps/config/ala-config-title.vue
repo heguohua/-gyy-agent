@@ -2,17 +2,15 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 10:50:49
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-input.vue
+ * @LastEditTime: 2025-01-13 10:40:56
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-title.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="config-input">
-        <el-form-item :label="title" :class="isRequired()" :rules="validateRules" :prop="id">
-            <el-input v-model="input" :placeholder="placeholder" class="input" :name="id" />
-        </el-form-item>
+    <div class="config-title">
+        {{ title }}
     </div>
 </template>
 
@@ -121,7 +119,7 @@ watch(() => formData, (form_data) => {
 })
 
 watch(input, (value) => {
-    // if (!value) return;
+    if (!value) return;
     value = u.trim(value)
     let data = {}
     const _value = value || ''
@@ -160,16 +158,12 @@ watch(() => editorStore.globalParams[bType], () => {
 </script>
 
 <style scoped lang="scss">
-.config-input {
-    :deep .el-input__wrapper {
-        background: var(--color-config-block-bg);
-
-        input {
-            &::placeholder {
-                font-size: 0.8rem;
-            }
-        }
-    }
-
+.config-title {
+    color: var(--el-color-primary);
+    font-size: 0.9rem;
+    background: var(--color-config-block-bg);
+    padding: 4px;
+    border-radius:4px;
+    margin-bottom: 6px;
 }
 </style>

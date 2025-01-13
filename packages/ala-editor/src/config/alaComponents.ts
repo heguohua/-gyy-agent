@@ -31,6 +31,7 @@ import AlaConfigInt from '@/components/cps/config/ala-config-int.vue';
 import AlaConfigRadio from '@/components/cps/config/ala-config-radio.vue';
 import AlaConfigCheckbox from '@/components/cps/config/ala-config-checkbox.vue';
 import AlaConfigFormRules from '@/components/cps/config/ala-config-form-rules.vue';
+import AlaConfigTitle from '@/components/cps/config/ala-config-title.vue';
 
 
 import AlaInput from '@/components/cps/input/ala-input.vue';
@@ -118,6 +119,7 @@ export default {
     AlaConfigRadio,
     AlaConfigCheckbox,
     AlaConfigFormRules,
+    AlaConfigTitle,
 
 
     // ALA架构表单组件

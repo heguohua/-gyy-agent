@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 09:57:07
+ * @LastEditTime: 2025-01-13 10:51:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -11,14 +11,27 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
+import { configTitle } from "@/config/configUtil";
 
-const title = Type.String({
+
+const title_text = Type.String({
     code: "config-input",
     title: "标题",
-    required: true,
     rules: [
         { name: 'max', length: 20, message: '最多20个字符' },
-        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
+    ]
+})
+const title_link = Type.String({
+    code: "config-textarea",
+    title: "链接",
+})
+
+
+const title_subtext = Type.String({
+    code: "config-input",
+    title: "标题",
+    rules: [
+        { name: 'max', length: 50, message: '最多20个字符' },
     ]
 })
 
@@ -195,7 +208,14 @@ const strMax = Type.String({
 
 
 const schema = Type.Object({
-    title: schemaAllViewport(title),
+    // 主标题
+    title_text_title: schemaAllViewport(configTitle("主标题配置区")),
+    title_text: schemaAllViewport(title_text),
+    title_link: schemaAllViewport(title_link),
+
+    // 副标题
+    title_subtext_title: schemaAllViewport(configTitle("副标题配置区")),
+    title_subtext: schemaAllViewport(title_subtext),
     placeholder: schemaAllViewport(placeholder),
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
