@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 15:32:55
+ * @LastEditTime: 2025-01-13 16:53:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
-import { configColor, configFontStyle, configFontWeight, configMainTitle, configNumber, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle } from "@/config/configUtil";
+import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle } from "@/config/configUtil";
 
 
 const title_text = Type.String({
@@ -209,9 +209,10 @@ const strMax = Type.String({
 
 const cmt = configMainTitle()
 const cst = configSubTitle()
+const cis = configItemStyle()
 const schema = Type.Object({
     // 主标题
-    text_text_title: schemaAllViewport(configTitle("主标题配置区")),
+    configMainTitle: schemaAllViewport(configTitle("主标题配置区")),
     text_text: schemaAllViewport(title_text),
 
     // 通用 主标题 配置
@@ -220,10 +221,15 @@ const schema = Type.Object({
     text_link: schemaAllViewport(title_link),
 
     // 副标题
-    text_subtext_title: schemaAllViewport(configTitle("副标题配置区")),
+    configSubTitle: schemaAllViewport(configTitle("副标题配置区")),
     text_subtext: schemaAllViewport(title_subtext),
     // 通用 副标题 配置
     ...cst,
+
+    configItemStyle_title: schemaAllViewport(configTitle("分类端点配置区")),
+    ...cis,
+
+    
 })
 
 

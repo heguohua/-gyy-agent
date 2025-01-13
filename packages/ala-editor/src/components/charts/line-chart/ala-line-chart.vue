@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 15:48:48
+ * @LastEditTime: 2025-01-13 17:03:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -10,12 +10,14 @@
 -->
 <template>
     <div class="ala-line-chart-wrapper" :style="{ width: '100%', height: '200px' }">
-        <e-charts class="chart" :option="option" />
+        <e-charts class="chart" :option="option" ref="chart" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
+import { useEditorStore } from '@/store/useEditorStore';
+const editorStore = useEditorStore()
 
 interface Title {
     mainTitle: string,
@@ -156,6 +158,23 @@ const props = defineProps({
         type: String as () => '' | 'top' | 'left' | 'right',
         default: 'left'
     },
+    // itemStyle 配置
+    itemStyle_color: {
+        type: String,
+        default: ''
+    },
+    itemStyle_borderType: {
+        type: String,
+        default: ''
+    },
+    itemStyle_borderCap: {
+        type: String,
+        default: ''
+    },
+    itemStyle_opacity: {
+        type: Number,
+        default: 1
+    },
     placeholder: {
         type: String,
         default: ''
@@ -264,6 +283,31 @@ const option = computed(() => {
             {
                 data: props.seriesData,
                 type: 'line',
+                lineStyle: {
+                    color: "blue",
+                    width: 6,
+                    type: 'dashed',
+                    cap: 'round',
+                    opacity: 0.2
+                },
+                itemStyle: {
+                    color: props.itemStyle_color ? props.itemStyle_color : '',
+                    borderType: props.itemStyle_borderType ? props.itemStyle_borderType : '',
+                    borderCap: props.itemStyle_borderCap ? props.itemStyle_borderCap : '',
+                    opacity: props.itemStyle_opacity ? props.itemStyle_opacity : '',
+                },
+                label: {
+                    show: true,
+                    position: 'bottom',
+                    distance: 20,
+                    rotate: 20,
+                    textStyle: {
+                        fontSize: 20,
+                        color: 'red',
+                        fontWeight: '100'
+
+                    }
+                }
             },
         ],
     }
@@ -271,8 +315,15 @@ const option = computed(() => {
 });
 console.log('option', option.value);
 
+const chart = ref<any>()
+watch(() => editorStore.pageConfig[props.bType].formData?.width, (newValue) => {
+    console.log('newValue:', newValue);
 
-
+    chart.value.resize()
+}, {
+    immediate: true,
+    deep: true
+})
 
 // // 发送组件初始化消息
 // if (props.bType === 'page') {

@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 15:42:03
+ * @LastEditTime: 2025-01-13 16:50:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -106,6 +106,60 @@ export const configTextVerticalAlign = (title: string) => {
     return fontStyle
 }
 
+export const configBorderType = (title: string) => {
+
+    const config = Type.Array(
+        Type.Object({
+            name: Type.String(),
+            value: Type.String(),
+        }),
+        {
+            code: "config-select",
+            title,
+            default: [{
+                name: '实线',
+                value: 'solid',
+            }, {
+                name: '虚线',
+                value: 'dashed',
+            }, {
+                name: '点线',
+                value: 'dotted',
+            }],
+        }
+    );
+
+
+    return config
+}
+
+export const configCap = (title: string) => {
+
+    const config = Type.Array(
+        Type.Object({
+            name: Type.String(),
+            value: Type.String(),
+        }),
+        {
+            code: "config-select",
+            title,
+            default: [{
+                name: '方形',
+                value: 'butt',
+            }, {
+                name: '圆形',
+                value: 'round',
+            }, {
+                name: '正方形',
+                value: 'square',
+            }],
+        }
+    );
+
+
+    return config
+}
+
 export const configFontWeight = (title: string) => {
 
     const fontWeight = Type.Array(
@@ -153,8 +207,8 @@ export const configFontWeight = (title: string) => {
 
 
 
-export const configNumber = (title: string, defaultValue = 10, min = 0) => {
-    const lineHeight = Type.Number({
+export const configInt = (title: string, defaultValue = 10, min = 0) => {
+    const config = Type.Number({
         code: "config-int",
         title,
         default: defaultValue,
@@ -164,7 +218,23 @@ export const configNumber = (title: string, defaultValue = 10, min = 0) => {
             controlsPosition: ''
         }
     })
-    return lineHeight
+    return config
+}
+
+
+
+export const configFloat = (title: string, defaultValue = 0, min = 0) => {
+    const config = Type.Number({
+        code: "config-number",
+        title,
+        default: defaultValue,
+        // 绑定 element-plus 原始组件的其他属性
+        other: {
+            min: min,
+            controlsPosition: ''
+        }
+    })
+    return config
 }
 
 
@@ -208,20 +278,20 @@ export const configMainTitle = () => {
     const config = {
         text_color: schemaAllViewport(configColor("字体颜色")),
         text_backgroundColor: schemaAllViewport(configColor("背景颜色", 'rgba(255, 255, 255, 0)')),
-        text_borderRadius: schemaAllViewport(configNumber("圆角半径", 2)),
+        text_borderRadius: schemaAllViewport(configInt("圆角半径", 2)),
         text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
         text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
-        text_fontSize: schemaAllViewport(configNumber("字体大小")),
-        text_width: schemaAllViewport(configNumber("显示宽度", 100)),
-        text_height: schemaAllViewport(configNumber("显示高度")),
+        text_fontSize: schemaAllViewport(configInt("字体大小")),
+        text_width: schemaAllViewport(configInt("显示宽度", 100)),
+        text_height: schemaAllViewport(configInt("显示高度")),
         text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
-        text_lineHeight: schemaAllViewport(configNumber("字体行高")),
-        text_left: schemaAllViewport(configNumber("左侧距离")),
-        text_top: schemaAllViewport(configNumber("顶部距离")),
-        text_padding: schemaAllViewport(configNumber("内边距")),
+        text_lineHeight: schemaAllViewport(configInt("字体行高")),
+        text_left: schemaAllViewport(configInt("左侧距离")),
+        text_top: schemaAllViewport(configInt("顶部距离")),
+        text_padding: schemaAllViewport(configInt("内边距")),
         text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
         text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
-        text_itemGap: schemaAllViewport(configNumber("主副间距")),
+        text_itemGap: schemaAllViewport(configInt("主副间距")),
     }
     return config
 }
@@ -232,13 +302,30 @@ export const configSubTitle = () => {
         sub_text_color: schemaAllViewport(configColor("字体颜色")),
         sub_text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
         sub_text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
-        sub_text_fontSize: schemaAllViewport(configNumber("字体大小")),
-        sub_text_width: schemaAllViewport(configNumber("显示宽度", 100)),
-        sub_text_height: schemaAllViewport(configNumber("显示高度")),
+        sub_text_fontSize: schemaAllViewport(configInt("字体大小")),
+        sub_text_width: schemaAllViewport(configInt("显示宽度", 100)),
+        sub_text_height: schemaAllViewport(configInt("显示高度")),
         sub_text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
-        sub_text_lineHeight: schemaAllViewport(configNumber("字体行高")),
+        sub_text_lineHeight: schemaAllViewport(configInt("字体行高")),
         sub_text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
         sub_verticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
+    }
+    return config
+}
+
+
+// color: "red",
+// borderColor: 'orange',
+// borderWidth: 6,
+// borderType: 'dashed', configBorderType
+// borderCap: 'round',
+// opacity: 0.2
+export const configItemStyle = () => {
+    const config = {
+        itemStyle_color: schemaAllViewport(configColor("字体颜色")),
+        itemStyle_borderType: schemaAllViewport(configBorderType("边框类型")),
+        itemStyle_borderCap: schemaAllViewport(configCap("端点类型")),
+        itemStyle_opacity: schemaAllViewport(configFloat("透明度", 1)),
     }
     return config
 }
