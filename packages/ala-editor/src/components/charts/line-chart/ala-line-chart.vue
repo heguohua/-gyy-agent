@@ -2,36 +2,24 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 14:03:14
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
+ * @LastEditTime: 2025-01-13 10:04:01
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-input-wrapper">
-        <el-form-item :label-position="position" :prop="fieldName" >
-            <template #label>
-                <AlaFormLabel :label="label" :help="help" />
-            </template>
-            <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName">
-
-                <template #prefix v-if="icon">
-                    <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
-                </template>
-
-            </el-input>
-        </el-form-item>
+    <div class="ala-line-chart-wrapper" :style="{ width: '100%', height: '200px' }">
+        <e-charts class="chart" :option="option" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 
-
 // State
 const props = defineProps({
-    label: {
+    title: {
         type: String,
         default: ''
     },
@@ -70,6 +58,14 @@ const props = defineProps({
     iconHeight: {
         type: Number,
         default: 30
+    },
+    xAxisData: {
+        type: Array<string>,
+        default: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    seriesData: {
+        type: Array<number>,
+        default: [820, 932, 901, 934, 1290, 1330, 1320]
     }
 })
 
@@ -85,26 +81,71 @@ const handleChange = (value: string) => {
 
 // Methods
 
-logger.info(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
+logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，props：`, props);
+
+
+
+
+const option = computed(() => {
+    const op = {
+        title: {
+            text: props.title,
+            subtext: "Sub Title",
+            left: "center",
+            top: "center",
+            textStyle: {
+                fontSize: 30
+            },
+            subtextStyle: {
+                fontSize: 20
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: props.xAxisData,
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [
+            {
+                data: props.seriesData,
+                type: 'line',
+            },
+        ],
+    }
+    return op;
+});
+console.log('option', option.value);
+
+
 
 
 // // 发送组件初始化消息
-if (props.bType === 'form') {
-    // 组件挂载后再发送初始化消息
-    watch(() => props.currentId, () => {
-        logger.info(`向 editor-render-drag-form 组件【 发送初始化消息 】，当前组件 id[ ${props.currentId} ]`);
-
-        emit('init', {
-            pid: null,
-            block: props.block,
-        })
-    }, {
-        immediate: true
-    })
-}
+// if (props.bType === 'page') {
 
 
+// 组件挂载后再发送初始化消息
+// watch(() => props.currentId, () => {
+//     logger.info(`向 editor-render-drag-form 组件【 发送初始化消息 】，当前组件 id[ ${props.currentId} ]`);
 
+//     emit('init', {
+//         pid: null,
+//         block: props.block,
+//     })
+// }, {
+//     immediate: true
+// })
+// }
+
+
+// watch(
+//     () => [props.xAxisData, props.seriesData],
+//     () => {
+//         initChart();
+//     },
+//     { deep: true }
+// );
 </script>
 
 <style scoped lang="scss">
@@ -113,5 +154,4 @@ if (props.bType === 'form') {
 // }
 // :deep(.el-input__prefix-inner>:last-child){
 //     margin-right: 4px;
-// }
-</style>
+// }</style>

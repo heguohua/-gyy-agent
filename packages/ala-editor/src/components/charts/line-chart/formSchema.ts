@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 09:03:53
+ * @LastEditTime: 2025-01-13 09:57:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -12,12 +12,11 @@ import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
 
-const label = Type.String({
+const title = Type.String({
     code: "config-input",
-    title: "标签名",
+    title: "标题",
     required: true,
     rules: [
-        { name: 'required', message: '不能为空' },
         { name: 'max', length: 20, message: '最多20个字符' },
         { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
     ]
@@ -196,7 +195,7 @@ const strMax = Type.String({
 
 
 const schema = Type.Object({
-    label: schemaAllViewport(label),
+    title: schemaAllViewport(title),
     placeholder: schemaAllViewport(placeholder),
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
