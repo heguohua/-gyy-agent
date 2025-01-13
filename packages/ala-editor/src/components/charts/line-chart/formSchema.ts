@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 10:51:39
+ * @LastEditTime: 2025-01-13 11:33:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
-import { configTitle } from "@/config/configUtil";
+import { configColor, configFontSize, configFontStyle, configFontWeight, configLineHeight, configTextAlign, configTitle } from "@/config/configUtil";
 
 
 const title_text = Type.String({
@@ -21,6 +21,7 @@ const title_text = Type.String({
         { name: 'max', length: 20, message: '最多20个字符' },
     ]
 })
+
 const title_link = Type.String({
     code: "config-textarea",
     title: "链接",
@@ -211,6 +212,13 @@ const schema = Type.Object({
     // 主标题
     title_text_title: schemaAllViewport(configTitle("主标题配置区")),
     title_text: schemaAllViewport(title_text),
+    title_color: schemaAllViewport(configColor("字体颜色")),
+    title_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
+    title_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+    title_fontSize: schemaAllViewport(configFontSize("字体大小")),
+    title_lineHeight: schemaAllViewport(configLineHeight("字体行高")),
+    title_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
+
     title_link: schemaAllViewport(title_link),
 
     // 副标题

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 09:02:46
+ * @LastEditTime: 2025-01-13 11:03:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -32,6 +32,7 @@ import AlaConfigRadio from '@/components/cps/config/ala-config-radio.vue';
 import AlaConfigCheckbox from '@/components/cps/config/ala-config-checkbox.vue';
 import AlaConfigFormRules from '@/components/cps/config/ala-config-form-rules.vue';
 import AlaConfigTitle from '@/components/cps/config/ala-config-title.vue';
+import AlaConfigColor from '@/components/cps/config/ala-config-color.vue';
 
 
 import AlaInput from '@/components/cps/input/ala-input.vue';
@@ -120,6 +121,7 @@ export default {
     AlaConfigCheckbox,
     AlaConfigFormRules,
     AlaConfigTitle,
+    AlaConfigColor,
 
 
     // ALA架构表单组件

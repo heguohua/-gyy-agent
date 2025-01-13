@@ -2,15 +2,18 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 10:40:56
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-title.vue
+ * @LastEditTime: 2025-01-13 11:06:15
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-color.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="config-title">
-        {{ title }}
+    <div class="config-color">
+        <el-form-item :label="title" :class="isRequired()" :rules="validateRules" :prop="id">
+            <!-- <el-input v-model="input" :placeholder="placeholder" class="input" :name="id" /> -->
+            <el-color-picker v-model="color" show-alpha :predefine="predefineColors" :name="id"/>
+        </el-form-item>
     </div>
 </template>
 
@@ -43,13 +46,30 @@ const props = defineProps({
     }
 })
 
+const predefineColors = ref([
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585',
+  'rgba(255, 69, 0, 0.68)',
+  'rgb(255, 120, 0)',
+  'hsv(51, 100, 98)',
+  'hsva(120, 40, 94, 0.5)',
+  'hsl(181, 100%, 37%)',
+  'hsla(209, 100%, 56%, 0.73)',
+  '#c7158577',
+])
+
 const bType = props.bType
 
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
-const input = ref('')
+const color = ref('')
 
 const isRequired = () => {
     return required ? 'is-required' : ''
@@ -76,13 +96,13 @@ const validateRules = ref([
                     message = rl.message
 
                     if (rl.name === 'required') {
-                        checkResult = validate.required(input.value)
+                        checkResult = validate.required(color.value)
                     } else if (rl.name === 'pattern') {
-                        checkResult = validate.pattern(input.value, rl.pattern)
+                        checkResult = validate.pattern(color.value, rl.pattern)
                     } else if (rl.name === 'min') {
-                        checkResult = validate.min(input.value, rl.length)
+                        checkResult = validate.min(color.value, rl.length)
                     } else if (rl.name === 'max') {
-                        checkResult = validate.max(input.value, rl.length)
+                        checkResult = validate.max(color.value, rl.length)
                     }
 
                     // 终止循环
@@ -109,17 +129,17 @@ const validateRules = ref([
 
 watch(() => formData, (form_data) => {
     if (form_data[key]?.[props.viewport]) {
-        logger.info(`bType[ ${bType} ],config-title组件 【 监听到 】 form_data 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
-        input.value = form_data[key][props.viewport] || defaultValue
+        logger.info(`bType[ ${bType} ],config-color组件 【 监听到 】 form_data 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
+        color.value = form_data[key][props.viewport] || defaultValue
     } else {
-        logger.info(`bType[ ${bType} ],config-title组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
+        logger.info(`bType[ ${bType} ],config-color组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
     }
 }, {
     immediate: true
 })
 
-watch(input, (value) => {
-    if (!value) return;
+watch(color, (value) => {
+    // if (!value) return;
     value = u.trim(value)
     let data = {}
     const _value = value || ''
@@ -129,7 +149,7 @@ watch(input, (value) => {
     } else {
         data = { [props.viewport]: _value, required: required ? required : false, title, rules }
     }
-    logger.info(`config-title组件 input 发生变化,即将调用父组件callback, data`, data);
+    logger.info(`config-color组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {
         data: {
             [key]: data
@@ -144,10 +164,10 @@ watch(input, (value) => {
 watch(() => editorStore.globalParams[bType], () => {
 
     if (formData[key]?.[props.viewport]) {
-        logger.info(`bType[ ${bType} ],config-title组件 【 监听到 】 formData 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
-        input.value = formData[key][props.viewport] || defaultValue
+        logger.info(`bType[ ${bType} ],config-color组件 【 监听到 】 formData 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=formData[key][props.viewport]`, formData[key][props.viewport]);
+        color.value = formData[key][props.viewport] || defaultValue
     } else {
-        logger.info(`bType[ ${bType} ],config-title组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
+        logger.info(`bType[ ${bType} ],config-color组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
     }
 }, { deep: true })
 
@@ -158,12 +178,16 @@ watch(() => editorStore.globalParams[bType], () => {
 </script>
 
 <style scoped lang="scss">
-.config-title {
-    color: var(--el-color-primary);
-    font-size: 0.9rem;
-    background: var(--color-config-block-bg);
-    padding: 4px;
-    border-radius:4px;
-    margin-bottom: 6px;
+.config-color {
+    :deep .el-input__wrapper {
+        background: var(--color-config-block-bg);
+
+        input {
+            &::placeholder {
+                font-size: 0.8rem;
+            }
+        }
+    }
+
 }
 </style>

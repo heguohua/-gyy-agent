@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 10:44:19
+ * @LastEditTime: 2025-01-13 11:31:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -17,8 +17,8 @@
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 
-interface Title{
-    mainTitle:string,
+interface Title {
+    mainTitle: string,
 }
 // State
 const props = defineProps({
@@ -28,6 +28,30 @@ const props = defineProps({
         default: ''
     },
     title_link: {
+        type: String,
+        default: ''
+    },
+    title_color: {
+        type: String,
+        default: ''
+    },
+    title_fontStyle: {
+        type: String,
+        default: ''
+    },
+    title_fontWeight: {
+        type: String,
+        default: ''
+    },
+    title_fontSize: {
+        type: Number,
+        default: 10
+    },
+    title_lineHeight: {
+        type: Number,
+        default: 10
+    },
+    title_textAlign: {
         type: String,
         default: ''
     },
@@ -103,12 +127,16 @@ const option = computed(() => {
     const op = {
         title: {
             text: props.title_text,
-            title_link: props.title_link?props.title_link:'',
+            title_link: props.title_link ? props.title_link : '',
             subtext: props.title_subtext,
             left: "center",
             top: "center",
             textStyle: {
-                fontSize: 30
+                color: props.title_color ? props.title_color : '',
+                fontStyle: props.title_fontStyle ? props.title_fontStyle : '',
+                fontSize: props.title_fontSize ? props.title_fontSize : '',
+                lineHeight: props.title_lineHeight ? props.title_lineHeight : '',
+                textAlign: props.title_textAlign ? props.title_textAlign : '',
             },
             subtextStyle: {
                 fontSize: 20
