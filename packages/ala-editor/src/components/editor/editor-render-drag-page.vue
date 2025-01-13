@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 17:31:49
+ * @LastEditTime: 2025-01-13 08:56:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-page.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <div class="ala-design-form">
 
             <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id"
-                ghost-class="ghost-class" class="edit-render-drag" :clone="clone" :move="move">
+                ghost-class="ghost-class" class="edit-render-drag-page" :clone="clone" :move="move">
 
                 <template #item="{ element }">
 
@@ -94,7 +94,6 @@ import { useEditorStore } from "@/store/useEditorStore"
 import { BaseBlock } from "@/types/editorType";
 import { logger } from "@/utils/logger";
 import EditRenderHover from "./edit-render-hover.vue";
-import End from "../flow/PropertySetting/end.vue";
 
 const editorStore = useEditorStore()
 
@@ -143,7 +142,7 @@ const hoverId = ref('')
 const getComponentNameByCode = computed(() => {
     return (element: { code: string }) => {
         const componentName = alaConsts.COMPONENT_PREFIX + element.code
-        logger.info(`editor-render-drag-form组件中根据组件 code[ ${element.code} ]获取子组件名[ ${componentName} ]`);
+        logger.info(`edit-render-drag-page组件中根据组件 code[ ${element.code} ]获取子组件名[ ${componentName} ]`);
         return componentName
     }
 })
@@ -226,7 +225,7 @@ const clear = (id: string) => {
 }
 
 onMounted(() => {
-    logger.info(`edit-render-drag 组件已挂载, 当前level ` + props.level);
+    logger.info(`edit-render-drag-page 组件已挂载, 当前level ` + props.level);
 
 })
 const formData = ref({ start: 0, end: 0, })
@@ -256,7 +255,7 @@ const styles = (item: any) => {
     columnWidth = columnWidth * occupiedColumnNum
 
     const style = { width: columnWidth + 'px' }
-    logger.info(`计算 editor-render 区域 单个组件 宽度，style`, style);
+    logger.info(`计算 edit-render-drag-page 区域 单个组件 宽度，style`, style);
     return style
 }
 
@@ -266,7 +265,7 @@ const styles = (item: any) => {
 </script>
 
 <style scoped lang="scss">
-.edit-render-drag {
+.edit-render-drag-page {
     width: 100%;
     height: 100%;
     padding: 16px;

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 18:07:35
+ * @LastEditTime: 2025-01-13 09:02:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -88,6 +88,10 @@ import ProcessDesign from '@/pages/process/processDesign.vue';
 import ProcessPreview from '@/pages/process/processPreview.vue';
 
 
+// 图表相关组件
+import AlaLineChart from '@/components/charts/line-chart/ala-line-chart.vue';
+
+
 export default {
     AlaCustomerizationComponentDemo,
 
@@ -169,6 +173,9 @@ export default {
     // 流程引擎相关组件
     ProcessDesign,
     ProcessPreview,
+
+    // 图标相关
+    AlaLineChart,
 
 }
 
