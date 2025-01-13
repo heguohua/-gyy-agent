@@ -1,10 +1,11 @@
+import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport"
 import { Type } from "@sinclair/typebox"
 
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 15:03:38
+ * @LastEditTime: 2025-01-13 15:42:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -194,13 +195,52 @@ export const configTextOverflow = (title: string) => {
     return fontStyle
 }
 
-export const configColor = (title: string, defaultValue?: string) => {
+export const configColor = (title: string, defaultValue = '#bbb') => {
     const color = Type.String({
         code: "config-color",
         default: defaultValue,
         title,
     })
     return color
+}
+
+export const configMainTitle = () => {
+    const config = {
+        text_color: schemaAllViewport(configColor("字体颜色")),
+        text_backgroundColor: schemaAllViewport(configColor("背景颜色", 'rgba(255, 255, 255, 0)')),
+        text_borderRadius: schemaAllViewport(configNumber("圆角半径", 2)),
+        text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
+        text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+        text_fontSize: schemaAllViewport(configNumber("字体大小")),
+        text_width: schemaAllViewport(configNumber("显示宽度", 100)),
+        text_height: schemaAllViewport(configNumber("显示高度")),
+        text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
+        text_lineHeight: schemaAllViewport(configNumber("字体行高")),
+        text_left: schemaAllViewport(configNumber("左侧距离")),
+        text_top: schemaAllViewport(configNumber("顶部距离")),
+        text_padding: schemaAllViewport(configNumber("内边距")),
+        text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
+        text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
+        text_itemGap: schemaAllViewport(configNumber("主副间距")),
+    }
+    return config
+}
+
+
+export const configSubTitle = () => {
+    const config = {
+        sub_text_color: schemaAllViewport(configColor("字体颜色")),
+        sub_text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
+        sub_text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+        sub_text_fontSize: schemaAllViewport(configNumber("字体大小")),
+        sub_text_width: schemaAllViewport(configNumber("显示宽度", 100)),
+        sub_text_height: schemaAllViewport(configNumber("显示高度")),
+        sub_text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
+        sub_text_lineHeight: schemaAllViewport(configNumber("字体行高")),
+        sub_text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
+        sub_verticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
+    }
+    return config
 }
 
 

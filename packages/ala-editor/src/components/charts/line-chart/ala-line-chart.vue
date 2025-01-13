@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 15:02:34
+ * @LastEditTime: 2025-01-13 15:48:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -100,6 +100,58 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    sub_text_color: {
+        type: String,
+        default: ''
+    },
+    sub_text_fontStyle: {
+        type: String,
+        default: ''
+    },
+    sub_text_fontWeight: {
+        type: String,
+        default: ''
+    },
+    sub_text_fontSize: {
+        type: Number,
+        default: 10
+    },
+    sub_text_width: {
+        type: Number,
+        default: 10
+    },
+    sub_text_height: {
+        type: Number,
+        default: 10
+    },
+    sub_text_overflow: {
+        type: String,
+        default: ''
+    },
+    sub_text_lineHeight: {
+        type: Number,
+        default: 10
+    },
+    sub_text_textAlign: {
+        type: String,
+        default: ''
+    },
+    sub_verticalAlign: {
+        type: String,
+        default: ''
+    },
+    sub_text_left: {
+        type: Number,
+        default: 10
+    },
+    sub_text_top: {
+        type: Number,
+        default: 10
+    },
+    sub_text_padding: {
+        type: Number,
+        default: 10
+    },
     position: {
         type: String as () => '' | 'top' | 'left' | 'right',
         default: 'left'
@@ -143,7 +195,8 @@ const props = defineProps({
     seriesData: {
         type: Array<number>,
         default: [820, 932, 901, 934, 1290, 1330, 1320]
-    }
+    },
+
 })
 
 const model = defineModel({
@@ -178,16 +231,26 @@ const option = computed(() => {
             textStyle: {
                 color: props.text_color ? props.text_color : '',
                 fontStyle: props.text_fontStyle ? props.text_fontStyle : '',
+                text_fontWeight: props.text_fontWeight ? props.text_fontWeight : '',
                 fontSize: props.text_fontSize ? props.text_fontSize : '',
                 lineHeight: props.text_lineHeight ? props.text_lineHeight : '',
-                textAlign: props.text_textAlign ? props.text_textAlign : '',
+                textAlign: 'center',
                 textVerticalAlign: props.text_textVerticalAlign ? props.text_textVerticalAlign : '',
                 width: props.text_width ? props.text_width : '',
                 height: props.text_height ? props.text_height : '',
                 overflow: props.text_overflow ? props.text_overflow : '',
             },
             subtextStyle: {
-                fontSize: 20
+                color: props.sub_text_color ? props.sub_text_color : '',
+                fontStyle: props.sub_text_fontStyle ? props.sub_text_fontStyle : '',
+                fontWeight: props.sub_text_fontWeight ? props.sub_text_fontWeight : '',
+                fontSize: props.sub_text_fontSize ? props.sub_text_fontSize : '',
+                lineHeight: props.sub_text_lineHeight ? props.sub_text_lineHeight : '',
+                textAlign: props.sub_text_textAlign ? props.sub_text_textAlign : '',
+                verticalAlign: props.sub_verticalAlign ? props.sub_verticalAlign : '',
+                width: props.sub_text_width ? props.sub_text_width : '',
+                height: props.sub_text_height ? props.sub_text_height : '',
+                overflow: props.sub_text_overflow ? props.sub_text_overflow : '',
             }
         },
         xAxis: {

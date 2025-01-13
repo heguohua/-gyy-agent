@@ -331,8 +331,7 @@ const handleSave = () => {
 
                 .ala-editor-config-tab {
                     .ala-pane-block {
-                        height: calc(100vh - 200px);
-                        padding-bottom: 150px;
+                       
                     }
 
                     margin-top: 12px;
@@ -362,6 +361,8 @@ const handleSave = () => {
 
                     :deep(.el-tabs__content){
                         overflow-y: auto;
+                        height: calc(100vh - 200px);
+                        padding-bottom: 100px;
                     }
                 }
 
