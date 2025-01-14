@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 22:32:55
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-14 11:45:24
+ * @LastEditTime: 2025-01-13 21:04:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/welcome.vue
  * @Description: 
  * 
@@ -15,22 +15,24 @@
         :value="item.num" :backgroundColor="item.backgroundColor" /> -->
 
       <div class="ala-card">
-
         <div class="ala-card-title">
+          <div class="ala-card-image" :style="{ background: item.backgroundColor }">
+            <img :src="getImageSrc(item.imageSrc)" />
+          </div>
           <p class="title">
             {{ item.title }}
           </p>
-          <p class="remark">
-            {{ item.num }}
+        </div>
+
+        <div class="remark">
+          {{ item.num }}
+        </div>
+        <hr class="line" />
+        <div class="add">
+          <p class="week">本周新增：<i :style="{ color: '#409eff', fontWeight: 500 }">{{ item.weekNum }}</i>
           </p>
-          <p class="week">本周新增：<i :style="{ color: '#409eff', fontWeight: 500 }">{{ item.weekNum }}</i></p>
+          <p class="today">今日新增：<i :style="{ color: '#409eff', fontWeight: 500 }">{{ item.dayNum }}</i></p>
         </div>
-
-        <div class="ala-card-image"
-          :style="{ background: item.backgroundColor, boxShadow: '0 0 10px 5px ' + item.backgroundColor }">
-          <img :src="getImageSrc(item.imageSrc)" />
-        </div>
-
       </div>
 
     </template>
@@ -51,14 +53,6 @@ const data = [
   {
     imageSrc: '/welcome/process.svg',
     title: '流程总数',
-    num: 99,
-    backgroundColor: '#ecf5ff',
-    weekNum: 20,
-    dayNum: 5,
-  },
-  {
-    imageSrc: '/welcome/process.svg',
-    title: '已完成流程数',
     num: 99,
     backgroundColor: '#ecf5ff',
     weekNum: 20,
@@ -134,58 +128,97 @@ const data = [
   flex-wrap: wrap;
 
   .ala-card {
-    width: 250px;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-    gap: 16px;
-    background: #fff;
-    padding: 20px 10px;
+    width: 300px;
+    display: inline-block;
+    padding: 20px 30px;
+    background: #ffffff;
     border-radius: 8px;
+    transition: box-shadow 0.3s ease-in-out;
 
     .ala-card-title {
-      width: 150px;
-
-      .title {
-        font-size: 0.9rem;
-        color: var(--el-text-color-regular);
-        line-height: 0.9rem;
-      }
-
-      .remark {
-        font-size: 1.6rem;
-        font-weight: bold;
-        line-height: 1.6rem;
-        margin-top: 8px;
-        margin-bottom: 12px;
-        color: var(--el-menu-text-color);
-      }
-
-      .week {
-        font-size: 0.9rem;
-        color: rgb(61 68 110 / 80%);
-
-        i {}
-      }
-    }
-
-    .ala-card-image {
-      width: 60px;
-      border-radius: 30px;
-      height: 60px;
       display: flex;
-      justify-items: center;
-      align-items: center;
-      justify-content: center;
+      column-gap: 8px;
 
-      img {
+
+      .ala-card-image {
+        display: inline-flex;
         width: 36px;
         height: 36px;
+        border-radius: 16px;
+        align-items: center;
+        justify-items: center;
+        justify-content: center;
+
+
+        img {
+          width: 22px;
+          height: 22px;
+        }
+
+        &:hover {
+          /* 放大 0.1 倍 */
+          transform: scale(1.1);
+        }
+      }
+
+      .title {
+        color: #373737;
+        font-size: 1rem;
       }
     }
+
+
+    &:hover {
+      box-shadow:
+        0 0 14px 4px rgb(249, 249, 249),
+    }
+
+    .line {
+      border-color: rgba(239, 239, 239, 0.4);
+    }
+
+    .add {
+      font-size: 0.9rem;
+      color: #A2A2A2;
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      column-gap: 16px;
+
+      .week {
+        display: inline-block;
+        flex: 1;
+        text-align: left;
+
+        i {
+          font-size: 1.1rem;
+        }
+      }
+
+      .today {
+        display: inline-block;
+        flex: 1;
+        text-align: right;
+
+        i {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+
+
+    .remark {
+      font-size: 1.8rem;
+      color: var(--el-menu-text-color);
+      font-weight: bold;
+      left: -22px;
+      position: relative;
+      line-height: 2rem;
+
+    }
+
+
   }
-
-
 }
 </style>
