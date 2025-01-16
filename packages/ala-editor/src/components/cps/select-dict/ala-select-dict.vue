@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-05 11:24:09
+ * @LastEditTime: 2025-01-16 23:07:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -145,9 +145,16 @@ const handleChange = (value: any) => {
 const query = () => {
   // Methods
   const url = '/a/dict/list'
-  logger.info(`从 dict 模块加载下拉组件数据，url【 ${url} 】，查询参数：`, props.params);
 
-  alaPost(u.url(url), props.params, false, '').then((data: any) => {
+  let params = props.params
+
+  if (typeof params === 'string') {
+    params = u.parseJson(params)
+  }
+
+  logger.info(`从 dict 模块加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
+
+  alaPost(u.url(url), params, false, '').then((data: any) => {
     const response = data;
     if (response.data) {
       const item_s: Array<item> = []
