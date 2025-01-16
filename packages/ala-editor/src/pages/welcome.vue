@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 22:32:55
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-14 11:45:24
+ * @LastEditTime: 2025-01-14 17:30:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/welcome.vue
  * @Description: 
  * 
@@ -39,6 +39,8 @@
 
 <script setup lang="ts">
 import colors from '@/utils/colors';
+import { get } from '@/utils/req';
+import u from '@/utils/u';
 
 const src = ''
 const getImageSrc = (url: String) => {
@@ -57,10 +59,10 @@ const data = [
     dayNum: 5,
   },
   {
-    imageSrc: '/welcome/process.svg',
+    imageSrc: '/welcome/complete.svg',
     title: '已完成流程数',
     num: 99,
-    backgroundColor: '#ecf5ff',
+    backgroundColor: '#f0f9eb',
     weekNum: 20,
     dayNum: 5,
   },
@@ -75,6 +77,14 @@ const data = [
   {
     imageSrc: '/welcome/timeout.svg',
     title: '超时流程数',
+    num: 99,
+    backgroundColor: '#fdf6ec',
+    weekNum: 20,
+    dayNum: 5,
+  },
+  {
+    imageSrc: '/welcome/hang-up.svg',
+    title: '挂起流程数',
     num: 99,
     backgroundColor: '#fdf6ec',
     weekNum: 20,
@@ -97,31 +107,28 @@ const data = [
     dayNum: 5,
   },
   {
-    imageSrc: 'leave.svg',
+    imageSrc: '/welcome/todo.svg',
     title: '待办任务总数',
     num: 99,
-    backgroundColor: colors.warning,
+    backgroundColor: '#ecf5ff',
     weekNum: 20,
     dayNum: 5,
   },
   {
-    imageSrc: 'leave.svg',
-    title: '超时任务总数',
+    imageSrc: '/welcome/timeout-task.svg',
+    title: '超时任务数',
     num: 99,
-    backgroundColor: colors.warning,
-    weekNum: 20,
-    dayNum: 5,
-  },
-  {
-    imageSrc: 'leave.svg',
-    title: '驳回任务总数',
-    num: 99,
-    backgroundColor: colors.warning,
+    backgroundColor: '#fdf6ec',
     weekNum: 20,
     dayNum: 5,
   },
 ]
 
+const url = '/p/instance/statistic'
+get(u.url(url || ''), '').then((response: any) => {
+  console.log('response.data.data:', response.data);
+
+});
 </script>
 
 <style scoped lang="scss">
@@ -134,7 +141,7 @@ const data = [
   flex-wrap: wrap;
 
   .ala-card {
-    width: 250px;
+    width: 230px;
     display: flex;
     align-items: center;
     justify-items: center;
@@ -145,7 +152,7 @@ const data = [
     border-radius: 8px;
 
     .ala-card-title {
-      width: 150px;
+      width: 130px;
 
       .title {
         font-size: 0.9rem;
