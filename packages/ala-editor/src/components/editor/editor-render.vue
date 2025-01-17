@@ -105,6 +105,7 @@ const pageClass = computed(() => {
     background: white;
     transition: right 0.5s cubic-bezier(1, 0, 0.61, 1.01);
     margin: 0 auto;
+    left: -150px;
 
     &.is-mobile {
         width: 375px;

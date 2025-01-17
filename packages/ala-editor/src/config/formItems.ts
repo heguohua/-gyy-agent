@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 10:10:29
+ * @LastEditTime: 2025-01-17 15:08:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -167,9 +167,52 @@ export const seniorFields: BaseBlock[] = [
 export const businessFields: BaseBlock[] = [
     {
         id: "",
-        name: "下拉选(Tree)",
-        code: "select",
+        name: "用户弹窗选择",
+        code: "selectTable",
+        icon: "f_user",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "部门弹窗选择",
+        code: "selectTable",
+        icon: "f_dept",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "角色弹窗选择",
+        code: "selectTable",
+        icon: "role",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "职位弹窗选择",
+        code: "selectTable",
         icon: "select",
         formData: {},
-    }
+    },
+    {
+        id: "",
+        name: "流程弹窗选择",
+        code: "selectTable",
+        icon: "flow_define",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "表单弹窗选择",
+        code: "selectTable",
+        icon: "code_form",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "动态模块弹窗选择",
+        code: "selectTable",
+        icon: "select",
+        formData: {},
+    },
+
 ]
