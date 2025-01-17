@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 17:43:05
+ * @LastEditTime: 2025-01-17 08:18:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -49,9 +49,9 @@
         </el-table>
 
         <!-- 分页列表 -->
-        <el-pagination v-model:current-page="current" :page-sizes="pageSize" layout="total, sizes, prev, pager, next"
-            :total="total" @size-change="handleSizeChange" @current-change="handlePageChange"
-            class="ala-page-pagination" :pager-count="11" background>
+        <el-pagination v-model:current-page="current" :page-sizes="pageSize" :page-size="page.size"
+            layout="total, sizes, prev, pager, next" :total="total" @size-change="handleSizeChange"
+            @current-change="handlePageChange" class="ala-page-pagination" :pager-count="11" background>
         </el-pagination>
 
 
@@ -244,7 +244,7 @@ const loading = ref(true)
 // 分页参数
 const page = reactive({
     "current": 1,
-    "size": 10,
+    "size": 20,
     "total": 0,
     orders: [{
         column: 'id',

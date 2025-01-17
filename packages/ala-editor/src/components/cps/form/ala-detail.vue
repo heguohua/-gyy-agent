@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 13:27:10
+ * @LastEditTime: 2025-01-17 11:13:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -132,7 +132,7 @@ const drawerWidth = (): string => {
 const columnWidth = (item: any) => {
     let labelWidth = lp
 
-    const paddingWidth = 0
+    const paddingWidth = 14
 
     // 假设每个组件都占用 1列，则计算 列平均宽度
     // (总宽度 - paddingWidth)/columnNum
@@ -140,6 +140,11 @@ const columnWidth = (item: any) => {
 
     const occupiedColumnNum = item.formItem.formData.columnNum.desktop || 1
     columnWidth = columnWidth * occupiedColumnNum
+
+    if (occupiedColumnNum > 1) {
+        // 列宽度 需要加上 (occupiedColumnNum-1) * paddingWidth
+        columnWidth += (occupiedColumnNum - 1) * paddingWidth
+    }
 
     logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth.value} ]，form labelWidth[ ${labelWidth.value} ]，form columnNum[ ${columnNum.value} ]，form paddingWidth[ ${paddingWidth} ]，当前组件[ ${item.formItem.code} ]，当前组件列数[ ${occupiedColumnNum} ]`);
 

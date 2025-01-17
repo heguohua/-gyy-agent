@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-04 21:40:45
+ * @LastEditTime: 2025-01-17 08:18:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -43,9 +43,9 @@
         </el-table>
 
         <!-- 分页列表 -->
-        <el-pagination v-model:current-page="current" :page-sizes="pageSize" layout="total, sizes, prev, pager, next"
-            :total="total" @size-change="handleSizeChange" @current-change="handlePageChange"
-            class="ala-page-pagination" :pager-count="11" background>
+        <el-pagination v-model:current-page="current" :page-sizes="pageSize" :page-size="page.size"
+            layout="total, sizes, prev, pager, next" :total="total" @size-change="handleSizeChange"
+            @current-change="handlePageChange" class="ala-page-pagination" :pager-count="11" background>
         </el-pagination>
 
 
@@ -136,15 +136,15 @@ const searchFields = computed(() => {
     const fields: any = []
     if (props.columns) {
         const columns = u.parseJson(props.columns)
-        
-        columns.forEach((column:any) => {
+
+        columns.forEach((column: any) => {
             columnss.value.push(column)
             if (column.isQuery) {
                 fields.push(alaBuildInput(column.prop, t('module.menu.' + column.prop)),)
             }
         })
     }
-    
+
     return fields
 })
 
@@ -325,6 +325,7 @@ defineExpose({ refresh, cancelSelect, clear })
     :deep(.el-table__body-wrapper) {
         min-height: 400px;
     }
+
     :deep(.caret-wrapper .sort-caret) {
         /* 增加边框宽度 */
         border-width: 4px;
