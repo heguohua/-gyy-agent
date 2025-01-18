@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 16:31:14
+ * @LastEditTime: 2025-01-18 23:01:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -39,7 +39,7 @@ const icon = {
   create: 'fluent:add-circle-24-filled',
   upload: 'fluent:arrow-upload-16-filled',
   expand: 'fluent:panel-right-expand-16-regular',
-  contract: 'fluent:panel-left-expand-16-regular',
+  contract: 'clarity:contract-line',
   copy: 'fluent:save-copy-24-regular',
   delete: 'fluent:delete-24-regular',
   drag: 'fluent:grid-dots-20-regular',
@@ -147,6 +147,20 @@ const icon = {
   business_call:"fluent:person-call-16-regular",
   business_log:"octicon:log-24",
 
+  // 供应链中心
+  s_shop:"mingcute:shopping-cart-2-line",
+  s_factory:"gravity-ui:factory",
+  s_exam:"ph:exam-bold",
+  kpi:"carbon:summary-kpi",
+  requirement:"carbon:requirement-usage",
+  product:"ic:outline-production-quantity-limits",
+  inventory:"material-symbols:inventory-2-outline-rounded",
+  inbound:"hugeicons:store-add-02",
+  outbound:"mdi:truck-subtract-outline",
+
+  // 采购产品中心
+  goods:"lsicon:goods-outline",
+  
 }
 
 export default icon
