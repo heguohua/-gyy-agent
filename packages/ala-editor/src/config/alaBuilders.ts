@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 12:12:53
+ * @LastEditTime: 2025-01-18 16:41:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -166,7 +166,7 @@ export function alaBuildNumber(fieldName: string, label: string, rules?: Array<b
  * @returns 
  */
 export function alaBuildCheckbox(fieldName: string, label: string, items: Array<{ [key: string]: string }>, rules?: Array<baseRule>, placeholder?: string): AlaCheckboxSchema {
-    u.checkBoolean(!items, `表单元素checkbox配置项items为空，表单字段名${fieldName}`)
+    u.checkBoolean(!items, `表单元素checkbox配置项items为空，表单字段名${fieldName}`, () => { })
     const item_s = items.map((item => {
         return convertToItem(item)
     }))
@@ -186,7 +186,7 @@ export function alaBuildCheckbox(fieldName: string, label: string, items: Array<
  * @returns 
  */
 export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [key: string]: string }>, rules?: Array<baseRule>, placeholder?: string): AlaRadioSchema {
-    u.checkBoolean(!items, `表单元素radio配置项items为空，表单字段名${fieldName}`)
+    u.checkBoolean(!items, `表单元素radio配置项items为空，表单字段名${fieldName}`, () => { })
     const item_s = items.map((item => {
         return convertToItem(item)
     }))
@@ -206,7 +206,7 @@ export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [
  * @returns 
  */
 export function alaBuildSelect(fieldName: string, label: string, items: Array<{ [key: string]: string }>, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaRadioSchema {
-    u.checkBoolean(!items, `表单元素select配置项items为空，表单字段名${fieldName}`)
+    u.checkBoolean(!items, `表单元素select配置项items为空，表单字段名${fieldName}`, () => { })
     const item_s = items.map((item => {
         return convertToItem(item)
     }))
@@ -227,8 +227,8 @@ export function alaBuildSelect(fieldName: string, label: string, items: Array<{ 
  */
 export function alaBuildSelectApi(fieldName: string, label: string, url: string, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string, other?: { [key: string]: any }): AlaSelectApiSchema {
 
-    u.checkBoolean(!url, `表单元素 select-api 配置项 url 为空，表单字段名${fieldName}`)
-    u.checkBoolean(!itemProperty, `表单元素 select-api 配置项 itemProperty 为空，表单字段名${fieldName}`)
+    u.checkBoolean(!url, `表单元素 select-api 配置项 url 为空，表单字段名${fieldName}`, () => { })
+    u.checkBoolean(!itemProperty, `表单元素 select-api 配置项 itemProperty 为空，表单字段名${fieldName}`, () => { })
     const obj = alaBuildWithOther("AlaSelectApi", fieldName, label, { url, itemProperty, params, ...other }, rules, placeholder)
 
     return obj
@@ -274,9 +274,11 @@ export function alaBuildSelectTree(fieldName: string, label: string, url: string
  */
 export function alaBuildSelectTable(fieldName: string, label: string, url: string, columns: any, itemProperty: { [key: string]: any }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string): AlaSelectTableSchema {
 
-    u.checkBoolean(!url, `表单元素 select-table 配置项 url 为空，表单字段名${fieldName}`)
-    u.checkBoolean(!params, `表单元素 select-table 配置项 params 为空，表单字段名${fieldName}`)
-    u.checkBoolean(!columns, `表单元素 select-table 配置项 columns 为空，表单字段名${fieldName}`)
+    u.checkBoolean(!url, `表单元素 select-table 配置项 url 为空，表单字段名${fieldName}`, () => { })
+    // u.checkBoolean(!params, `表单元素 select-table 配置项 params 为空，表单字段名${fieldName}`, () => { })
+    u.checkBoolean(!columns, `表单元素 select-table 配置项 columns 为空，表单字段名${fieldName}`, () => { })
+
+    params = params ? params : {}
 
     const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns: Array.isArray(columns) ? u.tojson(columns) : columns, itemProperty, isFormDesign: false }, rules, placeholder)
     return obj
