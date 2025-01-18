@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-17 08:18:03
+ * @LastEditTime: 2025-01-18 11:16:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -58,7 +58,7 @@ import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaDelete, alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
-import { ref } from 'vue'
+import { PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -92,7 +92,7 @@ const props = defineProps({
         type: String
     },
     params: {
-        type: Object
+        type: [Object, String] as PropType<object | string>
     },
     // 是否显示 表格前面的 复选框按钮
     showSelectCheckbox: {
@@ -136,15 +136,13 @@ const searchFields = computed(() => {
     const fields: any = []
     if (props.columns) {
         const columns = u.parseJson(props.columns)
-
         columns.forEach((column: any) => {
             columnss.value.push(column)
             if (column.isQuery) {
-                fields.push(alaBuildInput(column.prop, t('module.menu.' + column.prop)),)
+                fields.push(alaBuildInput(column.prop, u.parseI18n(column.label, t)),)
             }
         })
     }
-
     return fields
 })
 
@@ -208,8 +206,36 @@ const queryPageData = () => {
     logger.info(`查询分页列表数据，url【 ${props.url} 】`);
 
     const totalParams = {}
-    u.merged(totalParams, props.params as Record<string, any>);
-    u.merged(totalParams, formParams.value);
+
+    let params = props.params
+
+    console.log('props.params:',props.params);
+    
+
+    if (typeof params === 'string') {
+        params = u.parseJson(params)
+    }
+
+    u.merged(totalParams, params as Record<string, any>);
+
+    if (isDynamicTable) {
+
+        // 当前是 动态分页列表，需要转换查询条件
+        const conditions: any[] = []
+        const fp = formParams.value as { [key: string]: any }
+        Object.keys(fp).forEach((key: string) => {
+            const value = fp[key]
+            if (value) {
+                conditions.push({ column: 'a_' + key, operator: 'rLike', value })
+            }
+        })
+
+        u.merged(totalParams, { conditions });
+
+    } else {
+        // 当前 不是 动态分页列表，不需要转换查询条件，直接合并
+        u.merged(totalParams, formParams.value);
+    }
     loading.value = true
 
     if (!props.url) {
@@ -218,7 +244,7 @@ const queryPageData = () => {
         alaPage(u.url(props.url || ""), page, totalParams, false).then((data: any) => {
             const responsePage = data.data;
             current.value = responsePage.pageNum
-            size.value = responsePage.pageSize
+            // size.value = responsePage.pageSize
             total.value = responsePage.total
 
             if (data?.data?.list) {
@@ -291,6 +317,14 @@ const getRowKeys = (row: any) => {
 const parseLabel = (label: string) => {
     return t(label.slice(3, label.length - 2));
 }
+
+const isDynamicTable = computed(() => {
+    debugger
+    if ((props.url?.indexOf('/l/dynamic/') || -1) > -1) {
+        return true;
+    }
+    return false
+})
 
 // 暴露方法
 defineExpose({ refresh, cancelSelect, clear })

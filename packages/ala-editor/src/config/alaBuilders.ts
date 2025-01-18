@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 20:52:59
+ * @LastEditTime: 2025-01-18 12:12:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -278,7 +278,7 @@ export function alaBuildSelectTable(fieldName: string, label: string, url: strin
     u.checkBoolean(!params, `表单元素 select-table 配置项 params 为空，表单字段名${fieldName}`)
     u.checkBoolean(!columns, `表单元素 select-table 配置项 columns 为空，表单字段名${fieldName}`)
 
-    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns: Array.isArray(columns) ? u.tojson(columns) : columns, itemProperty, isFormDesign: true }, rules, placeholder)
+    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns: Array.isArray(columns) ? u.tojson(columns) : columns, itemProperty, isFormDesign: false }, rules, placeholder)
     return obj
 }
 

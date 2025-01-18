@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-17 08:18:14
+ * @LastEditTime: 2025-01-18 10:48:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-nesting-table.vue
  * @Description: 
  * 
@@ -287,7 +287,7 @@ const queryPageData = () => {
     alaPage(u.url(props.url || ""), page, props.params, true).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum
-        size.value = responsePage.pageSize
+        // size.value = responsePage.pageSize
         total.value = responsePage.total
 
         if (data?.data?.list) {

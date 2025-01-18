@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-04 22:14:26
+ * @LastEditTime: 2025-01-18 11:32:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -132,7 +132,7 @@ const props = defineProps({
     default: ''
   },
   params: {
-    type: Object,
+    type: [Object, String] as PropType<object | string>,
     default: () => ({})
   },
   dialogWidth: {
@@ -275,10 +275,17 @@ const querySelectedData = (items: [{ id: number }]) => {
 
     const ids: number[] = items.map(item => item.id);
 
+    const params = { ids }
+    if (isDynamicTable) {
+      // 当前是 动态分页列表，需要转换查询条件
+      const pm = u.parseJson(props.params as string)
+      u.merged(params, { tableName: pm['tableName'] })
+    }
+
     if (!listUrl) {
       notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
     } else {
-      alaPost(u.url(listUrl || ''), { ids }, false, '').then((data: any) => {
+      alaPost(u.url(listUrl || ''), params, false, '').then((data: any) => {
         const response = data;
         if (response.data && response.data.length > 0) {
           selectedData.value = response.data
@@ -314,6 +321,14 @@ const columnss = computed(() => {
   }
   return fields
 })
+
+const isDynamicTable = computed(() => {
+  if ((props.url?.indexOf('/l/dynamic/') || -1) > -1) {
+    return true;
+  }
+  return false
+})
+
 
 </script>
 
