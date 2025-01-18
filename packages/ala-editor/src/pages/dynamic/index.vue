@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-11 17:51:28
+ * @LastEditTime: 2025-01-18 19:39:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -16,8 +16,8 @@
     <!-- 分页列表 -->
     <PageDynamicTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="showEditButton" :showDeleteButton="showDeleteButton" :showAddButton="showAddButton" :showButtonsColumn="showButtonsColumn" :className="className"
-        :beforeQuery="beforeQuery">
+        :showEditButton="showEditButton" :showDeleteButton="showDeleteButton" :showAddButton="showAddButton"
+        :showButtonsColumn="showButtonsColumn" :className="className" :beforeQuery="beforeQuery">
 
         <template #cols="{ row, columnName, formItem }">
 
@@ -42,7 +42,7 @@
     <!-- 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :fields="addFormFields" :formAttr="formAttr"
         :className="className" />
-   
+
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
 </template>
@@ -281,7 +281,7 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 } else if (code === 'chapter') {
                     formItem = parseChapter(formData)
                 } else if (code === 'selectTable') {
-                    formItem = parseSelectTable(formData)                    
+                    formItem = parseSelectTable(formData)
                 } else if (code === 'selectDict') {
                     formItem = parseSelectDict(formData)
                 } else if (code === 'dateRange') {
@@ -290,7 +290,7 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     formItem.other.startFieldName = formData.startFieldName.desktop
                     formItem.other.endFieldName = formData.endFieldName.desktop
                 }
-                
+
                 addFormFields.value.push(formItem)
 
                 const other = formItem.other || {}
@@ -367,8 +367,8 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
             formAttr.value.useFormTitle = formData.useFormTitle.desktop
 
             // 是否显示新增按钮
-            console.log('formData.showAddButton.desktop:',formData.showAddButton.desktop);
-            
+            console.log('formData.showAddButton.desktop:', formData.showAddButton.desktop);
+
             // 是否显示新增按钮
             showAddButton.value = formData.showAddButton.desktop
             // 是否显示编辑按钮
@@ -418,7 +418,7 @@ const beforeQuery = (params: any) => {
             const formConfigItem = formConfigItems[key]
             const code = formConfigItem.code
             if (code === 'input') {
-                conditions.push({ column: key, operator: 'like', value: params[key] })
+                conditions.push({ column: 'a_' + key, operator: 'like', value: params[key] })
             }
         }
     })

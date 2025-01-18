@@ -83,13 +83,13 @@ export function parseSelect(item: { fieldName: { desktop: string }, label: { des
 
 export function parseSlider(item: { fieldName: { desktop: string }, label: { desktop: string }, max: { desktop: number }, min: { desktop: number }, range: { desktop: boolean }, step: { desktop: number } }) {
     //  alaBuildSlider('weight', "大概体重", 40, 200, 5, [alaRequired()]),
-    const result = alaBuildSlider(item.fieldName.desktop, item.label.desktop, item.min.desktop, item.max.desktop, item.step.desktop,)
+    const result = alaBuildSlider(item.fieldName.desktop, item.label.desktop, item.min?.desktop, item.max?.desktop, item.step?.desktop,)
     logger.info(`解析【 slider 】字段：`, result);
     return result
 }
 
 export function parseRating(item: { fieldName: { desktop: string }, label: { desktop: string }, max: { desktop: number }, allowHalf: { desktop: boolean } }) {
-    const result = alaBuildRating(item.fieldName.desktop, item.label.desktop, item.max.desktop, [], item.allowHalf.desktop)
+    const result = alaBuildRating(item.fieldName.desktop, item.label.desktop, item.max?.desktop, [], item.allowHalf?.desktop)
     logger.info(`解析【 rating 】字段：`, result);
     return result
 }

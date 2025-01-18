@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:24:01
+ * @LastEditTime: 2025-01-18 20:56:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -99,7 +99,7 @@ const styles = computed(() => {
     .ala-radio-group {
         display: inline-flex;
         gap: 16px;
-        height: 32px;
+        min-height: 32px;
 
         .ala-radio-item {
             height: inherit;
