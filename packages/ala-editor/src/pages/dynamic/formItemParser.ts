@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 16:38:39
+ * @LastEditTime: 2025-01-18 18:04:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -15,21 +15,21 @@ import { logger } from "@/utils/logger";
 
 
 
-export function parseInput(item: { fieldName: { desktop: string }, label: { desktop: string }, required: { desktop: boolean }, strMin: { desktop: number }, strMax: { desktop: number }, numberMin: { desktop: number }, numberMax: { desktop: number }, rules: { desktop: string } }) {
+export function parseInput(item: { fieldName: { desktop: string }, label: { desktop: string }, required: { desktop: boolean }, strMin: { desktop: number }, strMax: { desktop: number }, numberMin: { desktop: number }, numberMax: { desktop: number }, rules: { desktop: [] }, placeholder: { desktop: string } }) {
 
-    const result = alaBuildInput(item.fieldName.desktop, item.label.desktop)
+    const result = alaBuildInput(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop)
     logger.info(`解析【 input 】字段：`, result);
     return result
 }
 
-export function parseNumber(item: { fieldName: { desktop: string }, label: { desktop: string } }) {
-    const result = alaBuildNumber(item.fieldName.desktop, item.label.desktop)
+export function parseNumber(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string } }) {
+    const result = alaBuildNumber(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop)
     logger.info(`解析【 number 】字段：`, result);
     return result
 }
 
-export function parseTextarea(item: { fieldName: { desktop: string }, label: { desktop: string } }) {
-    const result = alaBuildTextarea(item.fieldName.desktop, item.label.desktop)
+export function parseTextarea(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string } }) {
+    const result = alaBuildTextarea(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop)
     logger.info(`解析【 textarea 】字段：`, result);
     return result
 }
@@ -60,9 +60,9 @@ export function parseCheckbox(item: { fieldName: { desktop: string }, label: { d
 
 type dataTypee = "date" | "year" | "years" | "month" | "months" | "dates" | "week" | "datetime" | "datetimerange" | "daterange" | "monthrange" | "yearrange";
 
-export function parseDate(item: { fieldName: { desktop: string }, label: { desktop: string }, dateType: { desktop: dataTypee }, format: { desktop: string } }) {
+export function parseDate(item: { fieldName: { desktop: string }, label: { desktop: string }, dateType: { desktop: dataTypee }, format: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string }, start: { desktop: string }, end: { desktop: string } }) {
     // alaBuildDate('bornDate', "出生日期", 'date', "YYYY-MM-DD", [alaRequired()], "", date.YYYY_MM_DD(new Date())),
-    const result = alaBuildDate(item.fieldName.desktop, item.label.desktop, item.dateType.desktop, item.format.desktop)
+    const result = alaBuildDate(item.fieldName.desktop, item.label.desktop, item.dateType.desktop, item.format.desktop, item.rules?.desktop, item.start?.desktop, item.end?.desktop, item.placeholder?.desktop)
     logger.info(`解析【 date 】字段：`, result);
     return result
 }
@@ -125,8 +125,6 @@ export function parseSwitch(item: { fieldName: { desktop: string }, label: { des
 export function parseSelectTable(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: any } }) {
     //  alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
     // const result={}
-    console.log('item:',item);
-    
     const result = alaBuildSelectTable(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.columns.desktop, item.itemProperty.desktop, undefined, item.params?.desktop)
     logger.info(`解析【 selectTable 】字段：`, result);
     return result
@@ -143,10 +141,11 @@ export function parseDateRange(item: { startFieldName: { desktop: string }, endF
 
 
 
-export function parseSelectDict(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: string } }) {
+export function parseSelectDict(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: string }, placeholder: { desktop: string }, rules: { desktop: [] } }) {
     //  alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
     // const result={}
-    const result = alaBuildSelectDict(item.fieldName.desktop, item.label.desktop, item.params.desktop ? JSON.parse(item.params.desktop) : {}, item.itemProperty.desktop)
+
+    const result = alaBuildSelectDict(item.fieldName.desktop, item.label.desktop, item.params.desktop ? JSON.parse(item.params.desktop) : {}, item.itemProperty.desktop, item.rules?.desktop, item.placeholder?.desktop)
     logger.info(`解析【 selectDict 】字段：`, result);
     return result
 }

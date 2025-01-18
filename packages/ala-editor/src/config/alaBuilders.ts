@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 16:41:34
+ * @LastEditTime: 2025-01-18 18:05:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -57,7 +57,7 @@ export function alaBuildWithItems(componentName: string, fieldName: string, labe
     const obj = {
         componentName: componentName,
         label: label,
-        placeholder: placeholder ? placeholder : `请输入${label}`,
+        placeholder: placeholder ? placeholder : '',
         fieldName: fieldName,
         other: {
             items,
@@ -72,7 +72,7 @@ export function alaBuildWithOther(componentName: string, fieldName: string, labe
     const obj = {
         componentName: componentName,
         label: label,
-        placeholder: placeholder ? placeholder : `请输入${label}`,
+        placeholder: placeholder ? placeholder : '',
         fieldName: fieldName,
         other,
         rules
@@ -98,7 +98,7 @@ export function alaBuildNoneFormItem(componentName: string, label?: string, othe
  * @returns 
  */
 export function alaBuildInput(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {
-    const obj = alaBuild("AlaInput", fieldName, label, rules, placeholder)
+    const obj = alaBuild("AlaInput", fieldName, label, rules, placeholder)    
     return obj
 }
 export function alaBuildTextarea(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {

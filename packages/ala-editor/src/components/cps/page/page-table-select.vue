@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 11:16:40
+ * @LastEditTime: 2025-01-18 18:06:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -160,12 +160,10 @@ const selectCheckboxWidth = () => {
 
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {
-    // console.log('分页列表多选items:', items);
     emit('selectedChange', items)
 }
 
 const handleCurrentChange = (item: { id: string }) => {
-    // console.log('分页列表单选item:', item);
 }
 
 

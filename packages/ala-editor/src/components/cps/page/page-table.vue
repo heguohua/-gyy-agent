@@ -211,11 +211,9 @@ const handleAdd = (index: number, item: { id: number }) => {
 }
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {
-    // console.log('分页列表多选items:', items);
 }
 
 const handleCurrentChange = (item: { id: string }) => {
-    // console.log('分页列表单选item:', item);
 }
 
 

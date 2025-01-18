@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 20:40:09
+ * @LastEditTime: 2025-01-18 17:13:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-textarea.vue
  * @Description: 
  * 
@@ -70,7 +70,7 @@ watch(() => formData, (form_data) => {
 })
 
 watch(input, (value) => {
-    if (!value) return;
+    // if (!value) return;
     value = u.trim(value)
     let data = {}
     const _value = value || ''

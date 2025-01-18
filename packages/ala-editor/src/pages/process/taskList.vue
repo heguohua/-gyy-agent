@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 10:30:19
+ * @LastEditTime: 2025-01-18 18:06:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/taskList.vue
  * @Description: 
  * 
@@ -198,7 +198,6 @@ const advancedFields: any = []
 
 
 const handleTask = (item: any) => {
-    console.log('item:', item);
 }
 
 // ######################## 流程详情预览 start ####################################################
