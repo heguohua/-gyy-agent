@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 18:06:35
+ * @LastEditTime: 2025-01-18 18:32:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -137,10 +137,12 @@ const searchFields = computed(() => {
     if (props.columns) {
         const columns = u.parseJson(props.columns)
         columns.forEach((column: any) => {
-            columnss.value.push(column)
+
             if (column.isQuery) {
                 fields.push(alaBuildInput(column.prop, u.parseI18n(column.label, t)),)
             }
+            column['label'] = u.parseI18n(column.label, t)
+            columnss.value.push(column)
         })
     }
     return fields
@@ -207,8 +209,8 @@ const queryPageData = () => {
 
     let params = props.params
 
-    console.log('props.params:',props.params);
-    
+    console.log('props.params:', props.params);
+
 
     if (typeof params === 'string') {
         params = u.parseJson(params)
@@ -216,7 +218,10 @@ const queryPageData = () => {
 
     u.merged(totalParams, params as Record<string, any>);
 
-    if (isDynamicTable) {
+    console.log('isDynamicTable.value:', isDynamicTable());
+
+
+    if (isDynamicTable()) {
 
         // 当前是 动态分页列表，需要转换查询条件
         const conditions: any[] = []
@@ -316,13 +321,14 @@ const parseLabel = (label: string) => {
     return t(label.slice(3, label.length - 2));
 }
 
-const isDynamicTable = computed(() => {
-    debugger
-    if ((props.url?.indexOf('/l/dynamic/') || -1) > -1) {
+const isDynamicTable = () => {
+
+    const url = props.url || ''
+    if (url.indexOf('/l/dynamic/') > -1) {
         return true;
     }
     return false
-})
+}
 
 // 暴露方法
 defineExpose({ refresh, cancelSelect, clear })

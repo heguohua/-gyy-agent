@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 11:32:00
+ * @LastEditTime: 2025-01-18 18:32:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -276,7 +276,7 @@ const querySelectedData = (items: [{ id: number }]) => {
     const ids: number[] = items.map(item => item.id);
 
     const params = { ids }
-    if (isDynamicTable) {
+    if (isDynamicTable()) {
       // 当前是 动态分页列表，需要转换查询条件
       const pm = u.parseJson(props.params as string)
       u.merged(params, { tableName: pm['tableName'] })
@@ -316,18 +316,20 @@ const columnss = computed(() => {
   if (props.columns) {
     const columns = u.parseJson(props.columns)
     columns.forEach((column: any) => {
+      column['label'] = u.parseI18n(column.label, t)
       fields.push(column)
     })
   }
   return fields
 })
 
-const isDynamicTable = computed(() => {
-  if ((props.url?.indexOf('/l/dynamic/') || -1) > -1) {
+const isDynamicTable = () => {
+  const url = props.url || ''
+  if (url.indexOf('/l/dynamic/') > -1) {
     return true;
   }
   return false
-})
+}
 
 
 </script>
