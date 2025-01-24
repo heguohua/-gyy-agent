@@ -2,41 +2,50 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 18:54:21
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/index.vue
+ * @LastEditTime: 2025-01-24 21:49:20
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <!-- 查询条件 -->
-    <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
+    <div class="page">
 
-    <!-- 分页列表 -->
-    <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
-        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showDeleteButton="true" :showAddSubButton="true">
+        <div class="left">
+            树节点
+        </div>
+        <div class="right">
 
-        <!-- 非内嵌表格插槽 -->
-        <template #cols="{ row, columnName }">
-            <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
-                in-valid-name="禁用" :value="row[columnName]" />
-            <template v-else> {{ row[columnName] }} </template>
-        </template>
+            <!-- 查询条件 -->
+            <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
+                @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
 
-        <!-- 内嵌表格插槽 -->
-        <template #innerCols="{ row, columnName }">
-            <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
-                in-valid-name="禁用" :value="row[columnName]" />
-            <template v-else> {{ row[columnName] }} </template>
-        </template>
+            <!-- 分页列表 -->
+            <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
+                :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
+                :showEditButton="true" :showDeleteButton="true" :showAddSubButton="true">
 
-    </PageNestingTable>
+                <!-- 非内嵌表格插槽 -->
+                <template #cols="{ row, columnName }">
+                    <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
+                        in-valid-name="禁用" :value="row[columnName]" />
+                    <template v-else> {{ row[columnName] }} </template>
+                </template>
+
+                <!-- 内嵌表格插槽 -->
+                <template #innerCols="{ row, columnName }">
+                    <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
+                        in-valid-name="禁用" :value="row[columnName]" />
+                    <template v-else> {{ row[columnName] }} </template>
+                </template>
+
+            </PageNestingTable>
 
 
-    <!-- 新增、编辑 -->
-    <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+            <!-- 新增、编辑 -->
+            <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+        </div>
+    </div>
 
 </template>
 
@@ -177,4 +186,20 @@ const advancedFields = [
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.page {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+
+    .left {
+        width: 300px;
+    }
+
+    .right {
+        width: calc(100% - 300px);
+    }
+}
+</style>

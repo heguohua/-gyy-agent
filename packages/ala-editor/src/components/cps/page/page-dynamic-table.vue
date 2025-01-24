@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 18:06:27
+ * @LastEditTime: 2025-01-24 22:06:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -315,6 +315,9 @@ defineExpose({ refresh })
 
 <style scoped lang="scss">
 .ala-page-table {
+    height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 250px;
 
     .ala-page-pagination {
         float: right;
