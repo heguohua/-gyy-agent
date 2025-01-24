@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 23:01:36
+ * @LastEditTime: 2025-01-24 17:24:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -160,6 +160,12 @@ const icon = {
 
   // 采购产品中心
   goods:"lsicon:goods-outline",
+
+  // BI中心
+  dataset:"material-symbols:dataset-linked-outline",
+  database:"fluent:database-plug-connected-20-regular",
+  dashboard:"clarity:dashboard-outline-badged",
+  screen:"ic:round-screenshot-monitor",
   
 }
 

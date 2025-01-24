@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 18:36:07
+ * @LastEditTime: 2025-01-24 17:32:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -141,13 +141,22 @@ export const allMenuComponents: MenuComponent = {
         name: "ProcessMyDoneListPage",
         component: "../pages/process/myDoneList.vue",
         requiresAuth: true,
-        uniqueCheck: true,
+        uniqueCheck: false,
     },
     "/process/myCopy": {
         name: "ProcessMyCopyListPage",
         component: "../pages/process/mySendCopyList.vue",
         requiresAuth: true,
-        uniqueCheck: true,
+    },
+    "/datasource/page": {
+        name: "DatasourceListPage",
+        component: "../pages/bi/datasource/index.vue",
+        requiresAuth: true,
+    },
+    "/dataset/page": {
+        name: "DatasetListPage",
+        component: "../pages/bi/dataset/index.vue",
+        requiresAuth: true,
     },
 
 }
