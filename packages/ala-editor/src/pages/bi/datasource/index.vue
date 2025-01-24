@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-24 21:49:20
+ * @LastEditTime: 2025-01-24 22:22:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="page">
 
         <div class="left">
-            树节点
+            <AlaTree/>
         </div>
         <div class="right">
 
@@ -190,12 +190,14 @@ const advancedFields = [
 .page {
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     justify-items: center;
 
     .left {
         width: 300px;
+        margin-top: 4px;
+        border-radius: 2px;
     }
 
     .right {
