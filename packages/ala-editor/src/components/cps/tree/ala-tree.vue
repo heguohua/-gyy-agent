@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-24 22:41:00
+ * @LastEditTime: 2025-01-25 10:22:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -12,17 +12,28 @@
     <div class="ala-tree-wrapper">
 
         <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expand-all="true"
-            @node-contextmenu="handleNodeContextMenu" :current-node-key="currentNodeId" @node-click="handleNodeClick">
+            @node-contextmenu.stop="handleNodeContextMenu" :current-node-key="currentNodeId"
+            @node-click="handleNodeClick">
             <template #default="{ node, data }">
+                <v-icon image="/tree/folder.svg" width="30px" height="20px" />
                 <span class="custom-node-label">{{ node.label }}</span>
             </template>
         </el-tree>
-        <div class="" v-if="isMenuVisible">
-            <el-popover :placement="placement" :reference-el="contextMenuTarget" width="100px">
-                <p @click="handleAddNode">新增</p>
-                <p @click="handleDeleteNode">删除</p>
-                <p @click="handleMoveNode">移动</p>
-            </el-popover>
+
+        <div class="menu" v-if="isMenuVisible"
+            :style="{ position: 'absolute', left: `${menuPosition.x}px`, top: `${menuPosition.y}px` }">
+
+            <AlaButton :showButton="displayEditButton()" name="edit" @edit="handleEdit()" />
+            <AlaButton :showButton="displayAddSubButton()" name="addSub" @addSub="handleAddSub()" />
+            <AlaButton :showButton="displayDeleteButton()" name="delete" @delete="handleDelete()" />
+
+            <!-- <p @click="handleAddNode">新增</p>
+            <p @click="handleDeleteNode">删除</p>
+            <p @click="handleMoveNode">移动</p> -->
+            <!-- <el-popover v-model:visible="isMenuVisible" :placement="placement" :reference-el="treeRef"
+                width="60px">
+                
+            </el-popover> -->
         </div>
     </div>
 </template>
@@ -114,6 +125,7 @@ const placement = ref<"top" | "bottom" | "left" | "right">("bottom");
 const contextMenuTarget = ref<HTMLElement | null>(null);
 const selectedNode = reactive<TreeNodeData>({});
 const currentNodeId = ref(); // 当前选中的节点 ID
+const menuPosition = ref({ x: 0, y: 0 });
 
 const treeData = reactive<TreeNodeData[]>([
     {
@@ -143,12 +155,26 @@ const handleNodeContextMenu = (
     isMenuVisible.value = true;
     placement.value = "bottom";
     contextMenuTarget.value = event.target as HTMLElement;
-    selectedNode.id = data.id;
-    selectedNode.label = data.label;
-    selectedNode.children = data.children;
+    console.log('event.target as HTMLElement:', event.target as HTMLElement);
+
+    console.log('data:', data);
+    console.log('node:', node);
+    console.log('{ x: event.clientX, y: event.clientY }:', { x: event.clientX, y: event.clientY });
+    menuPosition.value = { x: event.clientX - 8, y: event.clientY - 8 }; // 设置菜单位置
+
+
+
+
+    // selectedNode.id = data.id;
+    // selectedNode.label = data.label;
+    // selectedNode.children = data.children;
+    console.log('data:', data);
+
 };
 
 const handleAddNode = () => {
+    console.log('add');
+
     if (selectedNode) {
         const newNode: TreeNodeData = {
             id: Date.now(),
@@ -184,9 +210,98 @@ const handleMoveNode = () => {
     console.log("移动节点功能尚未实现");
     isMenuVisible.value = false;
 };
+
+
+const handleEdit = () => {
+    console.log('edit:');
+}
+
+const handleDelete = () => {
+    console.log('edit:');
+}
+
+const handleAddSub = () => {
+    console.log('edit:');
+}
+
+const displayEditButton = () => {
+    return true;
+}
+const displayDeleteButton = () => {
+    return true;
+}
+const displayAddSubButton = () => {
+    return true;
+}
 </script>
 
 <style scoped lang="scss">
+.ala-tree-wrapper {
+
+    /* Safari */
+    -webkit-user-select: none;
+    /* Firefox */
+    -moz-user-select: none;
+    /* IE/Edge */
+    -ms-user-select: none;
+    /* 标准语法 */
+    user-select: none;
+
+
+    .menu {
+        padding: 12px 0px;
+        border-radius: 4px;
+        z-index: 2000;
+
+        background: rgba(0, 0, 0, 0.06);
+        border: 1px solid #e4e7ed;
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        flex-wrap: wrap;
+        min-width: 120px;
+
+        :deep(.ala-button-wrapper) {
+            width: 100%;
+            padding: 4px 0px;
+
+            &:hover {
+                background: #e9e9eb;
+            }
+        }
+
+        :deep(.ala-button-wrapper button) {
+            width: inherit;
+            font-size: 0.9rem;
+            border:none;
+            background:none;
+
+            &:hover {
+                background: none;
+            }
+
+        }
+
+        :deep(.ala-button-wrapper button span) {
+           font-weight: normal;
+
+            &:hover {
+                color: none;
+            }
+
+        }
+
+        p {}
+    }
+
+    div {
+        p {}
+    }
+}
+
 // :deep(.el-input__wrapper){
 //     padding-left: 4px;
 // }
