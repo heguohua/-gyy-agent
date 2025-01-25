@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 08:54:51
+ * @LastEditTime: 2025-01-25 22:47:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -141,6 +141,23 @@ watch(() => route.path, (toPath) => {
         height: calc(100% - 30px);
         overflow-y: auto;
         overflow-x: hidden;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+            /* 设置滚动条的宽度 */
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #e2e2e2;
+        }
 
         :deep>ul {
             // width: inherit;

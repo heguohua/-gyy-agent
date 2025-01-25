@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-24 22:22:18
+ * @LastEditTime: 2025-01-25 22:48:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -12,7 +12,8 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree title="数据源目录"/>
+            <AlaTree title="数据源目录" addUrl="/b/datasource/add" treeUrl="/b/datasource/tree"
+                deleteUrl="/b/datasource/delete" updateUrl="/b/datasource/update" />
         </div>
         <div class="right">
 

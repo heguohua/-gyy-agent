@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 17:41:00
+ * @LastEditTime: 2025-01-25 23:00:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -13,19 +13,18 @@
 
         <div class="title">
             <span>{{ title }}</span>
-            <VIconTooltip width="20px" height="20px" content="新增顶级节点" effect="light">
-                <img src="/crud/add.svg" style="width: 20px;height: 20px;" />
+            <VIconTooltip width="20px" height="20px" content="新增顶级节点" effect="light" v-if="displayAddSubButton()">
+                <img src="/crud/add.svg" style="width: 20px;height: 20px;" @click="handleAddTopFolder" />
             </VIconTooltip>
         </div>
 
         <div class="ala-tree">
             <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expand-all="true"
-                @node-contextmenu.stop="showButtonsMenu" :current-node-key="currentNodeId"
-                @node-click="handleNodeClick">
+                @node-contextmenu.stop="showButtonsMenu" @node-click="handleNodeClick">
 
                 <template #default="{ node, data }">
                     <v-icon image="/tree/folder.svg" width="30px" height="20px" />
-                    <span class="custom-node-label">{{ node.label }}</span>
+                    <span class="custom-node-label">{{ data.name }}</span>
                 </template>
 
             </el-tree>
@@ -45,12 +44,23 @@
 
         </div>
     </div>
+
+    <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="params" :fields="basicFields" :formData="formData"
+        labelPosition="top" moduleName="文件夹" :url="addUrl" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
+        :formAttr="formAttr" />
+
 </template>
 
 <script setup lang="ts">
+import { alaBuildHidden, alaBuildInput } from '@/config/alaBuilders';
+import { alaRequired } from '@/config/alaRules';
 import { logger } from '@/utils/logger';
+import { alaDelete, alaPost } from '@/utils/req';
+import u from '@/utils/u';
 import { ElTree } from 'element-plus';
 import { TreeNode, TreeNodeData } from 'element-plus/es/components/tree-v2/src/types';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 
 // State
@@ -72,138 +82,53 @@ const props = defineProps({
     bType: {
         type: String,
         default: 'page'
-    }
+    },
+    addUrl: {
+        type: String,
+        default: ''
+    },
+    updateUrl: {
+        type: String,
+        default: ''
+    },
+    deleteUrl: {
+        type: String,
+        default: ''
+    },
+    treeUrl: {
+        type: String,
+        default: ''
+    },
 })
 
-const model = defineModel({
-    type: String || Number || null || undefined
+// 表单数据保存对象
+const formData = ref({
 })
 
-const emit = defineEmits(['callback', "init"])
+// Methods
+// State
+const showDrawer = defineModel({
+    type: Boolean,
+    default: false
+})
 
-const handleChange = (value: string) => {
-    model.value = value
-}
+
+const emit = defineEmits(["refresh"])
+
 
 // Methods
 
 logger.info(`bType[ ${props.bType} ]，渲染 动态表单 ala-tree 组件，props：`, props);
 
 
-// // 发送组件初始化消息
-if (props.bType === 'form') {
-    // 组件挂载后再发送初始化消息
-    watch(() => props.currentId, () => {
-        logger.info(`向 editor-render-drag-form 组件【 发送初始化消息 】，当前组件 id[ ${props.currentId} ]`);
-
-        emit('init', {
-            pid: null,
-            block: props.block,
-        })
-    }, {
-        immediate: true
-    })
-}
-
 
 const treeRef = ref<InstanceType<typeof ElTree> | null>(null);
 const showButtons = ref(false);
 const selectedNode = reactive<TreeNodeData>({});
-const currentNodeId = ref(); // 当前选中的节点 ID
+const currentNode = ref(); // 当前选中的节点 
 const buttonMenuPosition = ref({ x: 0, y: 0 });
 
-const treeData = reactive<TreeNodeData[]>([
-    {
-        id: 1,
-        label: "Node 1",
-        children: [
-            { id: 11, label: "Node 1-1" },
-            { id: 12, label: "Node 1-2" },
-            { id: 13, label: "Node 1-1" },
-            { id: 14, label: "Node 1-2" },
-        ],
-    },
-    {
-        id: 2,
-        label: "Node 2",
-        children: [
-            { id: 21, label: "Node 2-1" },
-            { id: 22, label: "Node 2-2" },
-            { id: 23, label: "Node 2-1" },
-            { id: 24, label: "Node 2-2" },
-        ],
-    },
-    {
-        id: 3,
-        label: "Node 2",
-        children: [
-            { id: 21, label: "Node 2-1" },
-            { id: 22, label: "Node 2-2" },
-            { id: 23, label: "Node 2-1" },
-            { id: 24, label: "Node 2-2" },
-        ],
-    },
-    {
-        id: 43,
-        label: "Node 2",
-        children: [
-            { id: 21, label: "Node 2-1" },
-            { id: 22, label: "Node 2-2" },
-            { id: 23, label: "Node 2-1" },
-            { id: 24, label: "Node 2-2" },
-        ],
-    },
-    {
-        id: 43,
-        label: "Node 2",
-        children: [
-            { id: 21, label: "Node 2-1" },
-            { id: 22, label: "Node 2-2" },
-            { id: 23, label: "Node 2-1" },
-            { id: 24, label: "Node 2-2" },
-        ],
-    },
-    {
-        id: 43,
-        label: "Node 2",
-        children: [
-            { id: 21, label: "Node 2-1" },
-            { id: 22, label: "Node 2-2" },
-            { id: 23, label: "Node 2-1" },
-            { id: 24, label: "Node 2-2" },
-        ],
-    },
-    {
-        id: 43,
-        label: "Node 2",
-        children: [
-            { id: 21, label: "Node 2-1" },
-            { id: 22, label: "Node 2-2" },
-            { id: 23, label: "Node 2-1" },
-            { id: 24, label: "Node 2-2" },
-        ],
-    },
-    {
-        id: 43,
-        label: "Node 2",
-        children: [
-            { id: 21, label: "Node 2-1" },
-            { id: 22, label: "Node 2-2" },
-            { id: 23, label: "Node 2-1" },
-            { id: 24, label: "Node 2-2" },
-        ],
-    },
-    {
-        id: 43,
-        label: "Node 2",
-        children: [
-            { id: 21, label: "Node 2-1" },
-            { id: 22, label: "Node 2-2" },
-            { id: 23, label: "Node 2-1" },
-            { id: 24, label: "Node 2-2" },
-        ],
-    },
-]);
+const treeData = ref<TreeNodeData[]>([]);
 
 const showButtonsMenu = (
     event: MouseEvent,
@@ -212,46 +137,111 @@ const showButtonsMenu = (
 ) => {
     // 显示菜单
     showButtons.value = true;
-
     // 设置菜单位置
     buttonMenuPosition.value = { x: event.clientX - 8, y: event.clientY - 8 };
-
-    console.log('data:', data.label);
-
-
+    currentNode.value = data; // 更新当前选中的节点 ID
 };
-
 
 const handleNodeClick = (data: { id: null; }) => {
-    currentNodeId.value = data.id; // 更新当前选中的节点 ID
+    currentNode.value = data; // 更新当前选中的节点 ID
 };
 
 
-const handleEdit = () => {
-    console.log('edit:');
-}
-
-const handleDelete = () => {
-    console.log('edit:');
-}
-
-const handleAddSub = () => {
-    console.log('edit:');
-}
-
 const displayEditButton = () => {
-    return true;
+    return props.updateUrl ? true : false;
 }
+
 const displayDeleteButton = () => {
-    return true;
+    return props.deleteUrl ? true : false;
 }
+
 const displayAddSubButton = () => {
-    return true;
+    return props.addUrl ? true : false;
 }
 
 const handleMouseLeave = () => {
     showButtons.value = false
 }
+
+const handleAddTopFolder = () => {
+    formData.value = { pid: 0, type: 'folder', name: '' }
+    showDrawer.value = true
+}
+
+const handleAddSub = () => {
+    formData.value = { pid: currentNode.value.id, type: 'folder', name: '' }
+    showDrawer.value = true
+}
+
+const handleDelete = () => {
+    alaDelete(u.url(props.deleteUrl), { id: currentNode.value.id }, false).then((data: any) => {
+        formData.value = {}
+        queryTree()
+    });
+}
+
+const handleEdit = () => {
+    u.merged(formData.value, currentNode.value)
+    console.log('formData.value:',formData.value);
+    
+    showDrawer.value = true
+}
+
+// 监听表单回调事件
+const confirm = (data: any) => {
+    logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
+    formData.value = {}
+    // 刷新树
+    queryTree()
+
+    emit('refresh', data)
+}
+
+const params = ref({
+    baseInfo: {
+        type: Object,
+        default: {
+            id: null,
+            pid: 0,
+            moduleName: "文件夹",
+            item: {}
+        }
+    },
+})
+
+// 基础表单字段
+const basicFields = computed(() => {
+    return [
+        alaBuildHidden('pid'),// 固定格式
+        alaBuildHidden('id'),// 固定格式
+        alaBuildHidden('nodeType'),
+        alaBuildInput("name", '文件夹名称', [alaRequired()]),
+
+    ]
+})
+
+
+const formAttr = ref({
+    formWidth: 500,
+    columnNum: 1,
+    labelWidth: 150,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
+
+const queryTree = () => {
+
+    alaPost(u.url(props.treeUrl), {}, true, '').then((data: any) => {
+        const response = data;
+        if (response.data) {
+            console.log('response.data', response.data);
+            treeData.value = response.data[0]?.children
+        }
+
+    });
+}
+
+queryTree()
 
 </script>
 
@@ -319,6 +309,12 @@ const handleMouseLeave = () => {
 
         &::-webkit-scrollbar-thumb:hover {
             background: #e2e2e2;
+        }
+
+        :deep(.el-icon) {
+            svg {
+                scale: 1.2;
+            }
         }
     }
 
