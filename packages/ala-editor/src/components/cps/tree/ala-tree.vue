@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 10:22:46
+ * @LastEditTime: 2025-01-25 10:27:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -253,7 +253,7 @@ const displayAddSubButton = () => {
         border-radius: 4px;
         z-index: 2000;
 
-        background: rgba(0, 0, 0, 0.06);
+        background: rgba(248, 248, 248, 1);
         border: 1px solid #e4e7ed;
         box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
         cursor: pointer;
@@ -262,11 +262,12 @@ const displayAddSubButton = () => {
         align-items: center;
         justify-items: center;
         flex-wrap: wrap;
-        min-width: 120px;
+        flex-direction: column;
 
         :deep(.ala-button-wrapper) {
             width: 100%;
             padding: 4px 0px;
+            display: flex;
 
             &:hover {
                 background: #e9e9eb;
