@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-24 22:00:55
+ * @LastEditTime: 2025-01-25 17:41:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -303,7 +303,23 @@ defineExpose({ refresh })
     height: 100vh;
     overflow-y: auto;
     padding-bottom: 250px;
-    
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #e2e2e2;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #e2e2e2;
+    }
+
     .ala-page-pagination {
         float: right;
         margin-top: 8px;

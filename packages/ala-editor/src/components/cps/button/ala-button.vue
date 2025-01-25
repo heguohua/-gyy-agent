@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 20:40:20
+ * @LastEditTime: 2025-01-25 15:52:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/button/ala-button.vue
  * @Description: 
  * 
@@ -12,8 +12,12 @@
 
   <div class="ala-button-wrapper" v-if="displayButton()">
 
+    <div :style="iconStyle" class="icon">
+      <VIcon :icon="icon" :image="image" :width="iconWidth" :height="iconHeight" />
+    </div>
+
     <el-button :size="size" :type="buttonType" @click="handleClick" class="ala-button" v-if="!popConfirm" :plain="plain"
-      :round="round" :circle="circle">
+      :round="round" :circle="circle" :style="buttonStyles">
       {{ $t('buttons.' + name) }}
     </el-button>
 
@@ -21,7 +25,8 @@
       @confirm="onConfirm" :hide-after="50" v-else>
       <template #reference>
 
-        <el-button :size="size" :type="buttonType" class="ala-button" :plain="plain" :round="round" :circle="circle">
+        <el-button :size="size" :type="buttonType" class="ala-button" :plain="plain" :round="round" :circle="circle"
+          :style="buttonStyles">
           {{ $t('buttons.' + name) }}
         </el-button>
 
@@ -42,7 +47,9 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/base/v-icon.vue';
 import { InfoFilled } from '@element-plus/icons-vue'
+import { style } from '@logicflow/extension/es/bpmn-elements/presets/icons';
 import { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -86,7 +93,23 @@ const props = defineProps({
   circle: {
     type: Boolean,
     default: false
-  }
+  },
+  icon: {
+    type: String,
+    default: ''
+  },
+  image: {
+    type: String,
+    default: ''
+  },
+  iconWidth: {
+    type: String,
+    default: '30px'
+  },
+  iconHeight: {
+    type: String,
+    default: '30px'
+  },
 })
 
 const displayButton = () => {
@@ -119,6 +142,26 @@ const iconColor = () => {
   return '#409eff'
 }
 
+
+const buttonStyles = computed(() => {
+  const st: any = {}
+  if (props.icon || props.image) {
+    // 当 按钮左侧有图标时，设置 按钮外层div padding-left 为0
+    st['padding-left'] = '2px'
+    st['justify-content'] = 'left';
+  }
+  return st
+})
+
+const iconStyle = computed(() => {
+  const st: any = {}
+  if (props.icon || props.image) {
+    // 当 按钮左侧有图标时，设置 按钮外层div padding-left 为0
+    st['padding-left'] = '11px'
+  }
+  return st
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -129,7 +172,14 @@ const iconColor = () => {
   gap: 2px;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    justify-items: end;
+  }
 
 
   .popConfirm-button,

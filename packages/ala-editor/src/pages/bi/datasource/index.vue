@@ -12,7 +12,7 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree/>
+            <AlaTree title="数据源目录"/>
         </div>
         <div class="right">
 

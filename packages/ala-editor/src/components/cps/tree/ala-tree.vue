@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 10:27:41
+ * @LastEditTime: 2025-01-25 17:41:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -11,29 +11,38 @@
 <template>
     <div class="ala-tree-wrapper">
 
-        <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expand-all="true"
-            @node-contextmenu.stop="handleNodeContextMenu" :current-node-key="currentNodeId"
-            @node-click="handleNodeClick">
-            <template #default="{ node, data }">
-                <v-icon image="/tree/folder.svg" width="30px" height="20px" />
-                <span class="custom-node-label">{{ node.label }}</span>
-            </template>
-        </el-tree>
+        <div class="title">
+            <span>{{ title }}</span>
+            <VIconTooltip width="20px" height="20px" content="新增顶级节点" effect="light">
+                <img src="/crud/add.svg" style="width: 20px;height: 20px;" />
+            </VIconTooltip>
+        </div>
 
-        <div class="menu" v-if="isMenuVisible"
-            :style="{ position: 'absolute', left: `${menuPosition.x}px`, top: `${menuPosition.y}px` }">
+        <div class="ala-tree">
+            <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expand-all="true"
+                @node-contextmenu.stop="showButtonsMenu" :current-node-key="currentNodeId"
+                @node-click="handleNodeClick">
 
-            <AlaButton :showButton="displayEditButton()" name="edit" @edit="handleEdit()" />
-            <AlaButton :showButton="displayAddSubButton()" name="addSub" @addSub="handleAddSub()" />
-            <AlaButton :showButton="displayDeleteButton()" name="delete" @delete="handleDelete()" />
+                <template #default="{ node, data }">
+                    <v-icon image="/tree/folder.svg" width="30px" height="20px" />
+                    <span class="custom-node-label">{{ node.label }}</span>
+                </template>
 
-            <!-- <p @click="handleAddNode">新增</p>
-            <p @click="handleDeleteNode">删除</p>
-            <p @click="handleMoveNode">移动</p> -->
-            <!-- <el-popover v-model:visible="isMenuVisible" :placement="placement" :reference-el="treeRef"
-                width="60px">
-                
-            </el-popover> -->
+            </el-tree>
+        </div>
+
+        <div class="buttonMenu" v-if="showButtons"
+            :style="{ position: 'absolute', left: `${buttonMenuPosition.x}px`, top: `${buttonMenuPosition.y}px` }"
+            @mouseleave="handleMouseLeave">
+
+            <!-- 注意，注意，注意： 这里的AlaButton不再支持 popConfirm 属性 ！！！ -->
+            <AlaButton :showButton="displayEditButton()" name="edit" @edit="handleEdit()" image="/crud/edit.svg"
+                iconWidth="18px" iconHeight="18px" />
+            <AlaButton :showButton="displayAddSubButton()" name="addSub" @addSub="handleAddSub()" image="/crud/add.svg"
+                iconWidth="20px" iconHeight="20px" />
+            <AlaButton :showButton="displayDeleteButton()" name="delete" @delete="handleDelete()"
+                image="/crud/delete.svg" iconWidth="18px" iconHeight="18px" />
+
         </div>
     </div>
 </template>
@@ -50,15 +59,7 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    position: {
-        type: String as () => '' | 'top' | 'left' | 'right',
-        default: 'left'
-    },
-    placeholder: {
-        type: String,
-        default: ''
-    },
-    fieldName: {
+    title: {
         type: String,
         default: ''
     },
@@ -71,20 +72,6 @@ const props = defineProps({
     bType: {
         type: String,
         default: 'page'
-    },
-    help: {
-        type: String,
-    },
-    icon: {
-        type: String,
-    },
-    iconWidth: {
-        type: Number,
-        default: 30
-    },
-    iconHeight: {
-        type: Number,
-        default: 30
     }
 })
 
@@ -120,12 +107,10 @@ if (props.bType === 'form') {
 
 
 const treeRef = ref<InstanceType<typeof ElTree> | null>(null);
-const isMenuVisible = ref(false);
-const placement = ref<"top" | "bottom" | "left" | "right">("bottom");
-const contextMenuTarget = ref<HTMLElement | null>(null);
+const showButtons = ref(false);
 const selectedNode = reactive<TreeNodeData>({});
 const currentNodeId = ref(); // 当前选中的节点 ID
-const menuPosition = ref({ x: 0, y: 0 });
+const buttonMenuPosition = ref({ x: 0, y: 0 });
 
 const treeData = reactive<TreeNodeData[]>([
     {
@@ -134,6 +119,8 @@ const treeData = reactive<TreeNodeData[]>([
         children: [
             { id: 11, label: "Node 1-1" },
             { id: 12, label: "Node 1-2" },
+            { id: 13, label: "Node 1-1" },
+            { id: 14, label: "Node 1-2" },
         ],
     },
     {
@@ -142,73 +129,101 @@ const treeData = reactive<TreeNodeData[]>([
         children: [
             { id: 21, label: "Node 2-1" },
             { id: 22, label: "Node 2-2" },
+            { id: 23, label: "Node 2-1" },
+            { id: 24, label: "Node 2-2" },
+        ],
+    },
+    {
+        id: 3,
+        label: "Node 2",
+        children: [
+            { id: 21, label: "Node 2-1" },
+            { id: 22, label: "Node 2-2" },
+            { id: 23, label: "Node 2-1" },
+            { id: 24, label: "Node 2-2" },
+        ],
+    },
+    {
+        id: 43,
+        label: "Node 2",
+        children: [
+            { id: 21, label: "Node 2-1" },
+            { id: 22, label: "Node 2-2" },
+            { id: 23, label: "Node 2-1" },
+            { id: 24, label: "Node 2-2" },
+        ],
+    },
+    {
+        id: 43,
+        label: "Node 2",
+        children: [
+            { id: 21, label: "Node 2-1" },
+            { id: 22, label: "Node 2-2" },
+            { id: 23, label: "Node 2-1" },
+            { id: 24, label: "Node 2-2" },
+        ],
+    },
+    {
+        id: 43,
+        label: "Node 2",
+        children: [
+            { id: 21, label: "Node 2-1" },
+            { id: 22, label: "Node 2-2" },
+            { id: 23, label: "Node 2-1" },
+            { id: 24, label: "Node 2-2" },
+        ],
+    },
+    {
+        id: 43,
+        label: "Node 2",
+        children: [
+            { id: 21, label: "Node 2-1" },
+            { id: 22, label: "Node 2-2" },
+            { id: 23, label: "Node 2-1" },
+            { id: 24, label: "Node 2-2" },
+        ],
+    },
+    {
+        id: 43,
+        label: "Node 2",
+        children: [
+            { id: 21, label: "Node 2-1" },
+            { id: 22, label: "Node 2-2" },
+            { id: 23, label: "Node 2-1" },
+            { id: 24, label: "Node 2-2" },
+        ],
+    },
+    {
+        id: 43,
+        label: "Node 2",
+        children: [
+            { id: 21, label: "Node 2-1" },
+            { id: 22, label: "Node 2-2" },
+            { id: 23, label: "Node 2-1" },
+            { id: 24, label: "Node 2-2" },
         ],
     },
 ]);
 
-const handleNodeContextMenu = (
+const showButtonsMenu = (
     event: MouseEvent,
     data: TreeNodeData,
     node: TreeNode
 ) => {
-    event.preventDefault();
-    isMenuVisible.value = true;
-    placement.value = "bottom";
-    contextMenuTarget.value = event.target as HTMLElement;
-    console.log('event.target as HTMLElement:', event.target as HTMLElement);
+    // 显示菜单
+    showButtons.value = true;
 
-    console.log('data:', data);
-    console.log('node:', node);
-    console.log('{ x: event.clientX, y: event.clientY }:', { x: event.clientX, y: event.clientY });
-    menuPosition.value = { x: event.clientX - 8, y: event.clientY - 8 }; // 设置菜单位置
+    // 设置菜单位置
+    buttonMenuPosition.value = { x: event.clientX - 8, y: event.clientY - 8 };
 
+    console.log('data:', data.label);
 
-
-
-    // selectedNode.id = data.id;
-    // selectedNode.label = data.label;
-    // selectedNode.children = data.children;
-    console.log('data:', data);
 
 };
 
-const handleAddNode = () => {
-    console.log('add');
 
-    if (selectedNode) {
-        const newNode: TreeNodeData = {
-            id: Date.now(),
-            label: `New Node ${Date.now()}`,
-        };
-        if (!selectedNode.children) {
-            selectedNode.children = [];
-        }
-        selectedNode.children.push(newNode);
-        isMenuVisible.value = false;
-    }
-};
-
-const handleDeleteNode = () => {
-    if (selectedNode) {
-        const parent = treeRef.value?.getNode(selectedNode.id)?.parent;
-        if (parent) {
-            const parentData = parent.data as TreeNodeData;
-            parentData.children = parentData.children?.filter(
-                (child: { id: any; }) => child.id !== selectedNode.id
-            );
-        }
-        isMenuVisible.value = false;
-    }
-};
 const handleNodeClick = (data: { id: null; }) => {
-    console.log('data:', data);
-
     currentNodeId.value = data.id; // 更新当前选中的节点 ID
-};
-const handleMoveNode = () => {
-    // 实现移动逻辑，这里可以自定义
-    console.log("移动节点功能尚未实现");
-    isMenuVisible.value = false;
 };
 
 
@@ -233,6 +248,11 @@ const displayDeleteButton = () => {
 const displayAddSubButton = () => {
     return true;
 }
+
+const handleMouseLeave = () => {
+    showButtons.value = false
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -247,13 +267,73 @@ const displayAddSubButton = () => {
     /* 标准语法 */
     user-select: none;
 
+    margin-right: 4px;
+    height: 100vh;
 
-    .menu {
+    .title {
+        background: #fff;
+        padding: 4px 0px;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin-bottom: 2px;
+
+        span {
+            width: 80%;
+        }
+
+        .button-add {}
+
+        :deep(.icon-image) {
+            width: 20%;
+            cursor: pointer;
+
+            &:hover {
+                img {
+                    fill: var(--el-button-bg-color);
+                }
+            }
+        }
+    }
+
+
+    .ala-tree {
+        padding: 8px;
+        background: #fff;
+        height: calc(100vh - 100px);
+        overflow-y: auto;
+        padding-bottom: 100px;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+            /* 设置滚动条的宽度 */
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #e2e2e2;
+        }
+    }
+
+    // .ala-tree::-webkit-scrollbar {
+    //     width: 4px;
+    //     /* 设置滚动条的宽度 */
+    // }
+
+
+    .buttonMenu {
         padding: 12px 0px;
         border-radius: 4px;
         z-index: 2000;
+        background: #fff;
 
-        background: rgba(248, 248, 248, 1);
         border: 1px solid #e4e7ed;
         box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
         cursor: pointer;
@@ -270,15 +350,15 @@ const displayAddSubButton = () => {
             display: flex;
 
             &:hover {
-                background: #e9e9eb;
+                background: #F3F7FA;
             }
         }
 
         :deep(.ala-button-wrapper button) {
             width: inherit;
             font-size: 0.9rem;
-            border:none;
-            background:none;
+            border: none;
+            background: none;
 
             &:hover {
                 background: none;
@@ -287,7 +367,7 @@ const displayAddSubButton = () => {
         }
 
         :deep(.ala-button-wrapper button span) {
-           font-weight: normal;
+            font-weight: normal;
 
             &:hover {
                 color: none;
@@ -302,10 +382,4 @@ const displayAddSubButton = () => {
         p {}
     }
 }
-
-// :deep(.el-input__wrapper){
-//     padding-left: 4px;
-// }
-// :deep(.el-input__prefix-inner>:last-child){
-//     margin-right: 4px;
-// }</style>
+</style>

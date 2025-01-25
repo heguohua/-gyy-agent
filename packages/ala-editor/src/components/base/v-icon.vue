@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 09:14:18
+ * @LastEditTime: 2025-01-25 17:03:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon.vue
  * @Description: 
  * 
@@ -40,13 +40,20 @@ const props = defineProps({
 })
 
 const iconSrc = computed(() => iconConfig[props.icon as ConfigIcon])
+
 </script>
 
 <style lang="scss" scoped>
 .icon-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+
   img {
     width: 100%;
     height: 100%;
+    opacity: 0.8;
   }
 }
 </style>

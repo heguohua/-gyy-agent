@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 15:23:40
+ * @LastEditTime: 2025-01-25 17:29:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon-tooltip.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
   <div class="icon">
-    <el-tooltip class="tip" effect="dark" :content="content" :placement="placement" :hide-after="0">
+    <el-tooltip class="tip" :effect="effect" :content="content" :placement="placement" :hide-after="0">
       <div class="image-box">
         <v-icon v-if="icon" class="image" :icon="icon" :width="width" :height="height" />
         <slot v-else class="image" />
@@ -41,6 +41,10 @@ defineProps({
   width: {
     type: String,
     default: '20',
+  },
+  effect: {
+    type: String,
+    default: 'dark',
   },
 })
 </script>
