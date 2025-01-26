@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 23:00:13
+ * @LastEditTime: 2025-01-26 09:24:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -19,7 +19,7 @@
         </div>
 
         <div class="ala-tree">
-            <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expand-all="true"
+            <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expanded-keys="expandedKeys"
                 @node-contextmenu.stop="showButtonsMenu" @node-click="handleNodeClick">
 
                 <template #default="{ node, data }">
@@ -182,8 +182,8 @@ const handleDelete = () => {
 
 const handleEdit = () => {
     u.merged(formData.value, currentNode.value)
-    console.log('formData.value:',formData.value);
-    
+    console.log('formData.value:', formData.value);
+
     showDrawer.value = true
 }
 
@@ -229,13 +229,33 @@ const formAttr = ref({
     useFormTitle: false,
 })
 
+const expandedKeys = ref<Array<Number>>([])
 const queryTree = () => {
 
     alaPost(u.url(props.treeUrl), {}, true, '').then((data: any) => {
         const response = data;
         if (response.data) {
-            console.log('response.data', response.data);
-            treeData.value = response.data[0]?.children
+
+            const data = response.data[0]?.children
+            if (data) {
+                // 查找需要展开的 expandedKeys
+                const keys: Array<Number> = [];
+
+                data.forEach((item: { [key: string]: any }) => {
+                    keys.push(item.id);  // 添加第一级节点
+                    // if (item.children) {
+                    //     item.children.forEach((child: { [key: string]: any }) => {
+                    //         keys.push(child.id);  // 添加第二级节点
+                    //     });
+                    // }
+                });
+                expandedKeys.value = keys
+                // 重设 tree 数据
+                treeData.value = data
+            } else {
+                treeData.value = []
+            }
+
         }
 
     });
