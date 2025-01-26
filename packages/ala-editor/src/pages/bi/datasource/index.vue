@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 10:03:02
+ * @LastEditTime: 2025-01-26 18:41:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -49,27 +49,29 @@
             </PageTable>
 
 
-            <!-- 新增、编辑 -->
-            <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+
         </div>
     </div>
+
+    <!-- datasource 详情页面 -->
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
+
+    <!-- datasource 新增、编辑 -->
+    <DatasourceAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import MenuAdd from '@/pages/menu/menuAdd.vue';
 import { useRoute } from 'vue-router';
-import PageNestingTable from '@/components/cps/page/page-nesting-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildInput, alaBuildSelect, alaBuildSelectApi, alaBuildSelectDict, alaBuildDivider, alaBuildSelectTable, alaBuildSelectTree } from '@/config/alaBuilders';
+import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
-import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
-import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
+import DatasourceAdd from './datasourceAdd.vue';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -157,7 +159,7 @@ const getComponent = ((code: string) => {
 
 
 const formAttr = ref({
-    formWidth: 600,
+    formWidth: 800,
     columnNum: 1,
     labelWidth: 150,
     labelPosition: 'left',

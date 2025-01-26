@@ -375,3 +375,13 @@ export function alaTw(message?: string, trigger = 'change'): patternRule {
     return alaPattern(message ? message : "只能填写繁体中文", /^[\u4e00-\u9fa5\uF900-\uFA2D]+$/, trigger)
 }
 
+/**
+ * linux 端口号范围校验
+ * @param message 
+ * @param trigger 
+ * @returns 
+ */
+export function alaLinuxPort(message?: string, trigger = 'change'): numberRangeRule {
+    return alaNumberRange(0, 65535, message ? message : "端口号范围不正确", trigger)
+}
+

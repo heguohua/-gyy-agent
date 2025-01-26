@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 12:34:01
+ * @LastEditTime: 2025-01-26 18:21:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader/ala-cascader.vue
  * @Description: 
  * 
@@ -14,12 +14,15 @@
       <template #label>
         <AlaFormLabel :label="label" :help="help" />
       </template>
-      <el-cascader :model-value="data" :options="options" :props="configs" @change="handleChange"
-        :clearable="clearable" :showAllLevels="showAllLevels" :filterable="filterable">
+      <el-cascader :model-value="data" :options="options" :props="configs" @change="handleChange" :clearable="clearable"
+        :showAllLevels="showAllLevels" :filterable="filterable" :placeholder="placeholder">
 
         <template #default="{ node, data }">
-          <span>{{ data.label }}</span>
-          <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
+          <div v-if="node.isLeaf" class="c-leaf">
+            <img v-if="data.image" :src="data.image" class="c-image" />
+            <span class="c-title">{{ data.label }}</span>
+          </div>
+          <span v-if="!node.isLeaf"> {{ data.label }}({{ data.children.length }}) </span>
         </template>
 
       </el-cascader>
@@ -90,7 +93,7 @@ const model = defineModel({
 
 
 // const styles = computed(() => ({}))
-const data = ref<CascaderValue>([]) 
+const data = ref<CascaderValue>([])
 const handleChange = (value: any) => {
   data.value = value
 }
@@ -100,8 +103,8 @@ watch(() => data.value, (value: any) => {
 })
 
 watch(() => model.value, (value: any) => {
-  if (model && model.value) {
-    data.value = u.parseJson(model.value)
+  if (value) {
+    data.value = u.parseJson(value)    
   }
 })
 
@@ -109,8 +112,6 @@ watch(() => model.value, (value: any) => {
 
 const options = computed(() => {
   let items: any[] = []
-  console.log('items:', items);
-
   if (props.items) {
     items = u.parseJson(props.items)
   }
@@ -123,6 +124,25 @@ const options = computed(() => {
 .ala-cascader-wrapper {
   :deep(.el-cascader) {
     width: 100%;
+  }
+}
+</style>
+
+<style lang="scss">
+.c-leaf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+
+  .c-image {
+    width: 20%;
+    margin-right: 8%;
+  }
+
+  .c-title {
+    width: 72%;
   }
 }
 </style>
