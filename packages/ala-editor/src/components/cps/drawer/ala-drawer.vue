@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-02 15:05:28
+ * @LastEditTime: 2025-01-26 21:37:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-drawer.vue
  * @Description: 
  * 
@@ -64,7 +64,7 @@ const direction = ref<DrawerProps['direction']>('rtl')
 const emits = defineEmits(["beforeClose"])
 
 const handleClose = (done: () => void) => {
-    emits("beforeClose",done)
+    emits("beforeClose", done)
 }
 
 
@@ -92,6 +92,24 @@ const handleClose = (done: () => void) => {
             align-items: flex-start;
             align-content: flex-start;
             padding-bottom: 30px;
+
+            &::-webkit-scrollbar {
+                width: 4px;
+                /* 设置滚动条的宽度 */
+            }
+
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #b2b2b2;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background: #b2b2b2;
+            }
+
         }
 
         .el-drawer__footer {

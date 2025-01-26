@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:35:38
+ * @LastEditTime: 2025-01-26 20:40:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/ala-textarea.vue
  * @Description: 
  * 
@@ -27,9 +27,11 @@
 </template>
 
 <script setup lang="ts">
+import u from '@/utils/u';
+
 
 // State
-defineProps({
+const props = defineProps({
     label: {
         type: String,
         default: ''
@@ -59,6 +61,10 @@ defineProps({
     iconHeight: {
         type: Number,
         default: 30
+    },
+    cleanNewlineCharacter: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -67,6 +73,9 @@ const model = defineModel({
 })
 
 const handleChange = (value: string) => {
+    if (props.cleanNewlineCharacter) {
+        value = u.cleanJsonString(value)
+    }
     model.value = value
 }
 

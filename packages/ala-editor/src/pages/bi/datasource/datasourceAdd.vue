@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 18:50:45
+ * @LastEditTime: 2025-01-26 21:55:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/datasourceAdd.vue
  * @Description: 
  * 
@@ -12,14 +12,14 @@
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
         labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
-        :formAttr="formAttr" />
+        :formAttr="formAttr" :beforeSave="beforeSave" />
 
 </template>
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword, alaLinuxPort } from '@/config/alaRules';
-import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildDivider, alaBuildSlider, alaBuildSwitch, alaBuildCascader, alaBuildTextarea } from '@/config/alaBuilders';
+import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildDivider, alaBuildSlider, alaBuildSwitch, alaBuildCascader, alaBuildTextarea, alaBuildChapter } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
@@ -43,6 +43,7 @@ const url = '/u/menu/add'
 const updateUrl = '/u/menu/update'
 // 表单数据保存对象
 const formData = reactive<{ [key: string]: any }>({
+    configuration: {}
 })
 
 watch(() => props.baseInfo.item, (item) => {
@@ -58,88 +59,104 @@ watch(() => props.baseInfo.item, (item) => {
 })
 
 
-const guDing = ref([
+const preFields = ref([
     alaBuildHidden('pid'),// 固定格式
     alaBuildHidden('id'),// 固定格式
-    alaBuildCascader('type', '数据源类型', '[{"value":"OLTP","label":"OLTP","children":[{"value":"MySQL","label":"MySQL","image":"/db/mysql.svg"},{"value":"Db2","label":"Db2","image":"/db/db2.svg"},{"value":"MariaDB","label":"MariaDB","image":"/db/mariadb.svg"},{"value":"Mongodb-BI","label":"Mongodb-BI","image":"/db/mongo.svg"},{"value":"Oracle","label":"Oracle","image":"/db/oracle.svg"},{"value":"PostgreSQL","label":"PostgreSQL","image":"/db/postgreSQL.svg"},{"value":"SQL Server","label":"SQL Server","image":"/db/sqlServer.svg"},{"value":"TiDB","label":"TiDB","image":"/db/TiDB.svg"}]},{"value":"OLAP","label":"OLAP","children":[{"value":"Apache Impala","label":"Apache Impala","image":"/db/impala.svg"},{"value":"Apache Doris","label":"Apache Doris","image":"/db/doris.svg"},{"value":"ClickHouse","label":"ClickHouse","image":"/db/clickHouse.svg"},{"value":"StarRocks","label":"StarRocks","image":"/db/starRocks.svg"}]},{"value":"数据湖","label":"数据湖","children":[{"value":"AWS Redshift","label":"AWS Redshift","image":"/db/redshift.svg"}]},{"value":"API数据","label":"API数据","children":[{"value":"API","label":"API","image":"/db/api.svg"}]},{"value":"本地文件","label":"本地文件","children":[{"value":"Excel","label":"Excel","image":"/db/excel.svg"}]}]', [alaRequired()], '请选择数据源类型'),
-    alaBuildInput("name", "数据源名称", [alaRequired(), alaStrLengthRange(2, 32)]),
-    alaBuildTextarea("description", "描述", [], "请输入数据源描述信息"),
-    alaBuildInput("host", "主机名/IP地址", [alaRequired(), alaStrLengthRange(2, 256)]),
-    alaBuildNumber("port", "端口号", [alaRequired(), alaLinuxPort()], "请输入数据源连接端口号"),
+    alaBuildCascader('type', '数据源类型', '[{"value":"OLTP","label":"OLTP","children":[{"value":"MySQL","label":"MySQL","image":"/db/mysql.svg"},{"value":"Db2","label":"Db2","image":"/db/db2.svg"},{"value":"MariaDB","label":"MariaDB","image":"/db/mariadb.svg"},{"value":"Mongodb-BI","label":"Mongodb-BI","image":"/db/mongo.svg"},{"value":"Oracle","label":"Oracle","image":"/db/oracle.svg"},{"value":"PostgreSQL","label":"PostgreSQL","image":"/db/postgreSQL.svg"},{"value":"SQL Server","label":"SQL Server","image":"/db/sqlServer.svg"},{"value":"TiDB","label":"TiDB","image":"/db/TiDB.svg"}]},{"value":"OLAP","label":"OLAP","children":[{"value":"Apache Impala","label":"Apache Impala","image":"/db/impala.svg"},{"value":"Apache Doris","label":"Apache Doris","image":"/db/doris.svg"},{"value":"ClickHouse","label":"ClickHouse","image":"/db/clickHouse.svg"},{"value":"StarRocks","label":"StarRocks","image":"/db/starRocks.svg"}]},{"value":"数据湖","label":"数据湖","children":[{"value":"AWS Redshift","label":"AWS Redshift","image":"/db/redshift.svg"}]},{"value":"API数据","label":"API数据","children":[{"value":"API","label":"API","image":"/db/api.svg"}]},{"value":"本地文件","label":"本地文件","children":[{"value":"Excel","label":"Excel","image":"/db/excel.svg"}]}]', [alaRequired()], '请选择数据源类型', { columnNum: 2 }),
+    alaBuildInput("name", "数据源名称", [alaRequired(), alaStrLengthRange(2, 32)], "请输入数据源名称", { columnNum: 2 }),
+    alaBuildTextarea("description", "描述", [], "请输入数据源描述信息", { columnNum: 2 }),
 
 ])
-const datasourceField = ref<Array<any>>([])
+
+const subFields = ref([
+    alaBuildChapter('数据源连接池配置', "", { columnNum: 2 }),
+    alaBuildNumber("configuration.initialPoolSize", "初始连接数", [alaRequired(), alaNumberRange(5, 15)], "请输入数据源连接池初始连接线程数", { initValue: 5, position: 'left', labelWidth: 110 }),
+    alaBuildNumber("configuration.minPoolSize", "最小连接数", [alaRequired(), alaNumberRange(5, 15)], "请输入数据源连接池最小连接线程数", { initValue: 5, position: 'left', labelWidth: 110 }),
+    alaBuildNumber("configuration.maxPoolSize", "最大连接数", [alaRequired(), alaNumberRange(5, 15)], "请输入数据源连接池最大连接线程数", { initValue: 5, position: 'left', labelWidth: 110 }),
+    alaBuildNumber("configuration.queryTimeout", "查询超时(秒)", [alaRequired(), alaNumberRange(1, 600)], "请输入数据源查询最大超时时间", { initValue: 30, position: 'left', labelWidth: 110 }),
+])
+
+const datasourceFields = ref<Array<any>>([])
+
 // 基础表单字段
 const basicFields = computed(() => {
-    return guDing.value.concat(datasourceField.value)
+    return preFields.value.concat(datasourceFields.value)
 })
 
 watch(() => formData['type'], (value: string) => {
     // 数据源类型发生变化，重新初始化表单区域
-    console.log('value:', value);
 
+    let fields: any[] = []
     if (value === '["OLTP","MySQL"]') {
-        datasourceField.value = [
-            alaBuildInput("name", 'MySQL', [alaRequired()]),
-        ]
+        fields = [
+            alaBuildChapter('数据源连接地址&账号信息', "", { columnNum: 2 }),
+            alaBuildInput("configuration.host", "主机名/IP地址", [alaRequired(), alaStrLengthRange(2, 256)]),
+            alaBuildNumber("configuration.port", "端口号", [alaRequired(), alaLinuxPort()], "请输入数据源连接端口号"),
+            alaBuildInput("configuration.dataBase", "数据库名称", [alaRequired(), alaStrLengthRange(2, 256)]),
+            alaBuildInput("configuration.username", "用户名", [alaRequired(), alaStrLengthRange(2, 256)]),
+            alaBuildPassword("configuration.password", "密码", [alaRequired(), alaStrLengthRange(2, 256)]),
+            alaBuildTextarea("configuration.extraParams", "额外的 JDBC 连接字符串", [alaRequired(), alaStrLengthRange(2, 256)], "请输入数据库连接额外参数信息，如 ‘ ?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true ’", { cleanNewlineCharacter: true, columnNum: 2 }),
+        ].concat(subFields.value)
+
     } else if (value === '["OLTP","Db2"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'Db2', [alaRequired()]),
         ]
     } else if (value === '["OLTP","MariaDB"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'MariaDB', [alaRequired()]),
         ]
     } else if (value === '["OLTP","Mongodb-BI"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'Mongodb-BI', [alaRequired()]),
         ]
     } else if (value === '["OLTP","Oracle"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'Oracle', [alaRequired()]),
         ]
     } else if (value === '["OLTP","PostgreSQL"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'PostgreSQL', [alaRequired()]),
         ]
     } else if (value === '["OLTP","SQL Server"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'SQL Server', [alaRequired()]),
         ]
     } else if (value === '["OLTP","TiDB"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'TiDB', [alaRequired()]),
         ]
     } else if (value === '["OLAP","Apache Impala"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'Apache Impala', [alaRequired()]),
         ]
     } else if (value === '["OLAP","Apache Doris"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'Apache Doris', [alaRequired()]),
         ]
     } else if (value === '["OLAP","ClickHouse"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'ClickHouse', [alaRequired()]),
         ]
     } else if (value === '["OLAP","StarRocks"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'StarRocks', [alaRequired()]),
         ]
     } else if (value === '["数据湖","AWS Redshift"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'AWS Redshift', [alaRequired()]),
         ]
     } else if (value === '["API数据","API"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'API', [alaRequired()]),
         ]
     } else if (value === '["本地文件","Excel"]') {
-        datasourceField.value = [
+        datasourceFields.value = [
             alaBuildInput("name", 'Excel', [alaRequired()]),
         ]
     }
 
+    datasourceFields.value = fields
 
     // datasourceField.value = [
     //     alaBuildSwitch('value', t('module.menu.name') + ' or ' + t('module.menu.url'), t('module.menu.url'), t('module.menu.name'), 2, 1, [alaRequired()]),
@@ -203,11 +220,18 @@ const moduleName = computed(() => {
 // ##########################  以上是公共方法，不需要修改 end #########################################
 const formAttr = ref({
     formWidth: 800,
-    columnNum: 1,
-    labelWidth: 150,
-    labelPosition: 'left',
+    columnNum: 2,
+    labelWidth: 200,
+    labelPosition: 'top',
     useFormTitle: false,
 })
+
+
+const beforeSave = (data: { [key: string]: any }) => {
+    console.log('data:', data);
+    throw '111'
+
+}
 
 
 </script>

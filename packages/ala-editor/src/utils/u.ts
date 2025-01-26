@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 11:38:49
+ * @LastEditTime: 2025-01-26 21:50:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -283,6 +283,23 @@ export default class u {
         return { days, hours: remainingHours, minutes: remainingMinutes }
     }
 
+    /**
+     * Base64加密
+     * @param str 
+     * @returns 
+     */
+    public static base64Encode(str: string): string {
+        return Buffer.from(str).toString('base64');
+    }
+
+    /**
+     * Base64解密
+     * @param str 
+     * @returns 
+     */
+    public static base64Decode(str: string): string {
+        return Buffer.from(str, 'base64').toString('utf8');
+    }
 
 
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 19:31:42
+ * @LastEditTime: 2025-01-26 22:37:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -19,9 +19,11 @@
 
                 <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
                     :style="columnWidth(item)">
-                    <component :is="item.componentName" :label="item.label" :position="labelPosition"
+                    <component :is="item.componentName" :label="item.label"
+                        :position="item.other?.position ? item.other.position : labelPosition"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
-                        :fieldName="item.fieldName" :data="data" @formItemChangeCallback="formItemChangeCallback" />
+                        :fieldName="item.fieldName" :data="data" @formItemChangeCallback="formItemChangeCallback"
+                        @update:modelValue="handleModelValueChange(item.fieldName, $event)" />
                 </div>
 
             </template>
@@ -46,6 +48,7 @@
 <script setup lang="ts">
 import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
+import u from '@/utils/u';
 import { DrawerProps, ElMessageBox } from 'element-plus';
 import { ref } from 'vue'
 
@@ -105,7 +108,7 @@ const saveButton = computed(() => {
 const cancelButton = computed(() => {
     return props.showCancelButton;
 })
-const initiateButton = () => {    
+const initiateButton = () => {
     return props.showInitiateButton;
 }
 
@@ -185,7 +188,6 @@ function confirmClick() {
 // 解构 formAttr，同时保持 formAttr 的响应式
 const { formWidth, labelWidth, labelPosition, columnNum } = toRefs(props.formAttr)
 
-
 // 计算css宽度
 // 1、动态计算 drawer 宽度
 const drawerWidth = computed((): string => {
@@ -193,7 +195,6 @@ const drawerWidth = computed((): string => {
     let width = (formWidth.value + paddingWidth) + 'px'
     return width
 })
-
 
 const columnWidth = (item: any) => {
 
@@ -214,7 +215,31 @@ const columnWidth = (item: any) => {
 
 }
 
+/**
+ * 将形如 user.name 类型的 fieldName 转换为对象属性形式，并赋值给 data 对象
+ * @param fieldName 
+ * @param value 
+ */
+const handleModelValueChange = (fieldName: string, value: any) => {
 
+    if (fieldName.indexOf('.') > -1) {
+        
+        // 说明是多层级属性，则动态更改内嵌属性的值
+        const propertyNames = fieldName.split('.')
+        let tmp: any = value
+
+        for (let i = propertyNames.length - 1; i >= 0; i--) {
+            const obj = Object.create(null);
+            obj[propertyNames[i]] = tmp
+            tmp = obj
+        }
+
+        let data = props.data || {}
+        u.merged(data, tmp)
+
+    }
+
+}
 
 </script>
 <style scoped lang="scss">
@@ -262,6 +287,25 @@ const columnWidth = (item: any) => {
             align-items: flex-start;
             align-content: flex-start;
             padding-bottom: 30px;
+            column-gap: 8px;
+
+            &::-webkit-scrollbar {
+                width: 4px;
+                /* 设置滚动条的宽度 */
+            }
+
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #b2b2b2;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background: #b2b2b2;
+            }
+
         }
 
         .el-drawer__footer {

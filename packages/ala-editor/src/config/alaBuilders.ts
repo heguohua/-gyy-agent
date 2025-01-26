@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 12:12:42
+ * @LastEditTime: 2025-01-26 21:24:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -43,14 +43,22 @@ function convertToItem(config: { [key: string]: string }): Item {
     return item;
 }
 
-export function alaBuild(componentName: string, fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string) {
-    return {
+export function alaBuild(componentName: string, fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }) {
+    const params: any = {
         componentName: componentName,
         label: label,
         placeholder: placeholder ? placeholder : (window as any).ai18n.global.t('form.p-tip') + `${label}`,
         fieldName: fieldName,
         rules,
+        other
     }
+
+    // 手动编写的表单直接复用动态表单 columnNum 逻辑
+    if (other?.columnNum) {
+        params['columnNum'] = other.columnNum
+    }
+
+    return params
 }
 
 export function alaBuildWithItems(componentName: string, fieldName: string, label: string, items: Array<Item>, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }) {
@@ -69,7 +77,7 @@ export function alaBuildWithItems(componentName: string, fieldName: string, labe
 }
 
 export function alaBuildWithOther(componentName: string, fieldName: string, label: string, other: { [key: string]: any }, rules?: Array<baseRule>, placeholder?: string) {
-    const obj = {
+    const obj: any = {
         componentName: componentName,
         label: label,
         placeholder: placeholder ? placeholder : '',
@@ -77,15 +85,25 @@ export function alaBuildWithOther(componentName: string, fieldName: string, labe
         other,
         rules
     }
+
+    if (other?.columnNum) {
+        obj['columnNum'] = other.columnNum
+    }
+
     return obj
 }
 
 export function alaBuildNoneFormItem(componentName: string, label?: string, other?: { [key: string]: any }) {
-    const obj = {
+    const obj: any = {
         componentName: componentName,
         label: label,
         other,
     }
+
+    if (other?.columnNum) {
+        obj['columnNum'] = other.columnNum
+    }
+
     return obj
 }
 
@@ -97,12 +115,12 @@ export function alaBuildNoneFormItem(componentName: string, label?: string, othe
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildInput(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {
-    const obj = alaBuild("AlaInput", fieldName, label, rules, placeholder)
+export function alaBuildInput(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaInputSchema {
+    const obj = alaBuild("AlaInput", fieldName, label, rules, placeholder, other)
     return obj
 }
-export function alaBuildTextarea(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {
-    const obj = alaBuild("AlaTextarea", fieldName, label, rules, placeholder)
+export function alaBuildTextarea(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaInputSchema {
+    const obj = alaBuild("AlaTextarea", fieldName, label, rules, placeholder, other)
     return obj
 }
 
@@ -149,8 +167,8 @@ export function alaBuildPassword(fieldName: string, label: string, rules?: Array
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildNumber(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaNumberSchema {
-    const obj = alaBuild("AlaNumber", fieldName, label, rules, placeholder)
+export function alaBuildNumber(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaNumberSchema {
+    const obj = alaBuild("AlaNumber", fieldName, label, rules, placeholder, other)
     return obj
 }
 
@@ -315,8 +333,12 @@ export function alaBuildDivider(label?: string, position = 'center', height?: nu
  * @param label 组件名字
  * @returns 
  */
-export function alaBuildChapter(label: string, help?: string): any {
-    const obj = alaBuildNoneFormItem("AlaChapter", label, { help })
+export function alaBuildChapter(label: string, help?: string, other?: { [key: string]: any }): any {
+    if (!other) {
+        other = {}
+    }
+    u.merged(other, { help })
+    const obj = alaBuildNoneFormItem("AlaChapter", label, other)
     return obj
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-12 22:03:27
+ * @LastEditTime: 2025-01-26 21:13:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/ala-number.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-input-wrapper">
-        <el-form-item :label="label" :label-position="position" :prop="fieldName">
+        <el-form-item :label="label" :labelWidth="labelWidth" :label-position="position" :prop="fieldName">
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
@@ -58,6 +58,13 @@ const props = defineProps({
     iconHeight: {
         type: Number,
         default: 30
+    },
+    initValue: {
+        type: Number,
+        default: 0
+    },
+    labelWidth: {
+        type: Number,
     }
 })
 
@@ -71,6 +78,9 @@ const handleChange = (value: string) => {
     model.value = Number(value)
 }
 
+if (!model.value) {
+    model.value = props.initValue
+}
 // Methods
 
 </script>
@@ -82,5 +92,4 @@ const handleChange = (value: string) => {
 
 // :deep(.el-input__prefix-inner>:last-child) {
 //     margin-right: 4px;
-// }
-</style>
+// }</style>
