@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 09:31:29
+ * @LastEditTime: 2025-01-26 10:44:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -140,6 +140,7 @@ const handleChange = () => {
             border-radius: var(--border-radius);
             cursor: pointer;
             margin: 17px 5px;
+            align-items: center;
 
             &.is-active,
             &:hover {
@@ -168,6 +169,22 @@ const handleChange = () => {
         height: calc(100vh - var(--edit-header-height));
         overflow: auto;
 
+        &::-webkit-scrollbar {
+            width: 4px;
+            /* 设置滚动条的宽度 */
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #e2e2e2;
+        }
 
     }
 
@@ -185,6 +202,14 @@ const handleChange = () => {
         padding-right: 14px;
         padding-bottom: 14px;
     }
+
+    :deep(.block-item) {
+        svg {
+            width: 22px;
+            height: 22px;
+            opacity: 0.8;
+        }
+    }
 }
 </style>
 <style>
@@ -192,6 +217,8 @@ const handleChange = () => {
     .block-item {
         width: 50% !important;
         max-height: 60px;
+
+
     }
 }
 </style>

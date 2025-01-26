@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 18:05:55
+ * @LastEditTime: 2025-01-26 12:12:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -98,7 +98,7 @@ export function alaBuildNoneFormItem(componentName: string, label?: string, othe
  * @returns 
  */
 export function alaBuildInput(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {
-    const obj = alaBuild("AlaInput", fieldName, label, rules, placeholder)    
+    const obj = alaBuild("AlaInput", fieldName, label, rules, placeholder)
     return obj
 }
 export function alaBuildTextarea(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaInputSchema {
@@ -245,6 +245,19 @@ export function alaBuildSelectApi(fieldName: string, label: string, url: string,
  */
 export function alaBuildSelectDict(fieldName: string, label: string, params: { [key: string]: string }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaSelectDictSchema {
     const obj = alaBuildWithOther("AlaSelectDict", fieldName, label, { params, itemProperty, isFormDesign: false, ...other }, rules, placeholder)
+    return obj
+}
+/**
+ * 
+ * 构建 AlaCascader 组件
+ * @param fieldName 属性名
+ * @param label 字段名字
+ * @param params 查询参数 { propertyName:'name',valueName:'value',}
+ * @param placeholder 占位符
+ * @returns 
+ */
+export function alaBuildCascader(fieldName: string, label: string, items: string, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaSelectDictSchema {
+    const obj = alaBuildWithOther("AlaCascader", fieldName, label, { items, isFormDesign: false, ...other }, rules, placeholder)
     return obj
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 16:03:47
+ * @LastEditTime: 2025-01-26 11:52:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-tab-page.vue
  * @Description: 
  * 
@@ -20,7 +20,7 @@
                         v-for="(item, index) in tabs" :key="item.title">
 
                         <component v-if="showDrawer" :is="getComponent(item.code)" v-bind="item.props"
-                            @close="cancelClick" :previewParams="previewParams"/>
+                            @close="cancelClick" :previewParams="previewParams" />
 
                     </el-tab-pane>
 
@@ -59,7 +59,7 @@ const props = defineProps({
         type: Array<Tab>,
         default: () => ([])
     },
-    previewParams:{
+    previewParams: {
         type: Object as any
     }
 })
@@ -127,6 +127,23 @@ const getComponent = ((code: string) => {
         :deep(.ala-tab-pane) {
             height: 100%;
             overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 4px;
+                /* 设置滚动条的宽度 */
+            }
+
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #e2e2e2;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background: #e2e2e2;
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 09:05:30
+ * @LastEditTime: 2025-01-26 10:48:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -33,6 +33,7 @@ import SelectTreeSchema from '@/components/cps/select-tree/formSchema'
 import SelectTableSchema from '@/components/cps/select-table/formSchema'
 import DividerSchema from '@/components/cps/divider/formSchema'
 import ChapterSchema from '@/components/cps/chapter/formSchema'
+import CascaderSchema from '@/components/cps/cascader/formSchema'
 
 // 图表相关组件
 import AlaLineChartSchema from '@/components/charts/line-chart/formSchema'
@@ -64,6 +65,7 @@ const _allSchemas = {
     selectTable: SelectTableSchema,
     divider: DividerSchema,
     chapter: ChapterSchema,
+    cascader: CascaderSchema,
 
     // 注册 图表 组件
     lineChart:AlaLineChartSchema,

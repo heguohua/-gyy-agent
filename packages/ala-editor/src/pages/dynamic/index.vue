@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 19:39:51
+ * @LastEditTime: 2025-01-26 12:34:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -57,7 +57,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
-import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { parseCascade, parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 import { date } from '@/utils/date';
@@ -289,6 +289,8 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                     formItem = parseDateRange(formData)
                     formItem.other.startFieldName = formData.startFieldName.desktop
                     formItem.other.endFieldName = formData.endFieldName.desktop
+                } else if (code === 'cascader') {
+                    formItem = parseCascade(formData)
                 }
 
                 addFormFields.value.push(formItem)
@@ -312,8 +314,6 @@ alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
                 formItem.other = other
 
                 // 解析表单验证规则
-
-
                 const rules: Array<baseRule> = []
 
                 // 非空验证条件

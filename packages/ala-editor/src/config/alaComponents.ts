@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 11:03:29
+ * @LastEditTime: 2025-01-26 11:42:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -33,6 +33,7 @@ import AlaConfigCheckbox from '@/components/cps/config/ala-config-checkbox.vue';
 import AlaConfigFormRules from '@/components/cps/config/ala-config-form-rules.vue';
 import AlaConfigTitle from '@/components/cps/config/ala-config-title.vue';
 import AlaConfigColor from '@/components/cps/config/ala-config-color.vue';
+import AlaConfigTextareaJson from '@/components/cps/config/ala-config-textarea-json.vue';
 
 
 import AlaInput from '@/components/cps/input/ala-input.vue';
@@ -56,6 +57,8 @@ import AlaSelectTree from '@/components/cps/select-tree/ala-select-tree.vue';
 import AlaDivider from '@/components/cps/divider/ala-divider.vue';
 import AlaChapter from '@/components/cps/chapter/ala-chapter.vue';
 import AlaFormLabel from '@/components/cps/form-label/ala-form-label.vue';
+import AlaCascader from '@/components/cps/cascader/ala-cascader.vue';
+import AlaCascaderDict from '@/components/cps/cascader-dict/ala-cascader-dict.vue';
 
 // 列表、详情页字段渲染组件
 import DetailInputColumn from '@/components/cps/dynamic/DetailInputColumn.vue';
@@ -84,6 +87,7 @@ import AlaDetailNoDrawerTasks from '@/components/cps/form/ala-detail-no-drawer-t
 import AlaDetailNoDrawerFormsHandle from '@/components/cps/form/ala-detail-no-drawer-forms-handle.vue';
 import DetailImageColumn from '@/components/cps/dynamic/DetailImageColumn.vue';
 import DetailTextColorColumn from '@/components/cps/dynamic/DetailTextColorColumn.vue';
+import DetailCascaderColumn from '@/components/cps/dynamic/DetailCascaderColumn.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -122,6 +126,7 @@ export default {
     AlaConfigFormRules,
     AlaConfigTitle,
     AlaConfigColor,
+    AlaConfigTextareaJson,
 
 
     // ALA架构表单组件
@@ -145,6 +150,8 @@ export default {
     AlaDivider,
     AlaChapter,
     AlaFormLabel,
+    AlaCascader,
+    AlaCascaderDict,
 
     // ALA架构列表、详情组件
     DetailInputColumn,
@@ -173,6 +180,7 @@ export default {
     AlaDetailNoDrawerFormsHandle,
     DetailImageColumn,
     DetailTextColorColumn,
+    DetailCascaderColumn,
 
     // 流程引擎相关组件
     ProcessDesign,

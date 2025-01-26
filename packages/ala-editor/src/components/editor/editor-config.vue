@@ -330,9 +330,7 @@ const handleSave = () => {
                 }
 
                 .ala-editor-config-tab {
-                    .ala-pane-block {
-                       
-                    }
+                    .ala-pane-block {}
 
                     margin-top: 12px;
                     margin-bottom: 200px;
@@ -359,10 +357,27 @@ const handleSave = () => {
                         border-bottom: 2px solid var(--el-color-primary);
                     }
 
-                    :deep(.el-tabs__content){
+                    :deep(.el-tabs__content) {
                         overflow-y: auto;
                         height: calc(100vh - 200px);
                         padding-bottom: 100px;
+
+                        &::-webkit-scrollbar {
+                            width: 4px;
+                            /* 设置滚动条的宽度 */
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            background: #f1f1f1;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: #e2e2e2;
+                        }
+
+                        &::-webkit-scrollbar-thumb:hover {
+                            background: #e2e2e2;
+                        }
                     }
                 }
 

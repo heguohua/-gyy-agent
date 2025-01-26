@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 10:36:01
+ * @LastEditTime: 2025-01-26 11:38:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -149,6 +149,17 @@ export default class u {
     }
 
     /**
+     * 去除 JSON字符串 中所有的换行符、空格符
+     * @param str 
+     * @returns 
+     */
+    public static cleanJsonString(str: string) {
+        const cleanedString = str.replace(/[\s\n\r]+/g, '');
+        return cleanedString;
+    }
+
+
+    /**
      * 
      * @param label 解析国际化字符串
      * @param t 
@@ -272,6 +283,6 @@ export default class u {
         return { days, hours: remainingHours, minutes: remainingMinutes }
     }
 
-    
+
 
 }

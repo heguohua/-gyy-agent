@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-17 15:08:34
+ * @LastEditTime: 2025-01-26 10:38:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -59,6 +59,13 @@ export const baseFields: BaseBlock[] = [
         name: "下拉选",
         code: "select",
         icon: "select",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "级联选择",
+        code: "cascader",
+        icon: "f_cascader",
         formData: {},
     },
     {

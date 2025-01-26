@@ -70,6 +70,7 @@ const bType = props.bType
         aspect-ratio: 1 / 1;
         text-align: center;
         border-radius: var(--border-radius);
+        align-items:center;
 
         &:active {
             cursor: grabbing;

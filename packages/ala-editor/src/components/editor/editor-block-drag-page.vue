@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 20:50:19
+ * @LastEditTime: 2025-01-26 10:47:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block-drag-page.vue
  * @Description: 
  * 
@@ -72,6 +72,7 @@ const bType = props.bType
         text-align: center;
         border-radius: var(--border-radius);
         padding: 4px 0px;
+        align-items:center;
 
         &:active {
             cursor: grabbing;

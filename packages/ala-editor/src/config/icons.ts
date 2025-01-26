@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-24 17:24:38
+ * @LastEditTime: 2025-01-26 10:38:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -127,6 +127,7 @@ const icon = {
   f_address:"mdi:address-marker-outline",
   f_city:"fluent:city-16-regular",
   f_wechat:"hugeicons:wechat",
+  f_cascader:"typcn:flow-children",
 
   // 客户中心
   m_customer:"garden:customer-lists-fill-26",
