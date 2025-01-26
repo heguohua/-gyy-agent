@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 22:48:28
+ * @LastEditTime: 2025-01-26 10:03:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -22,31 +22,38 @@
                 @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
 
             <!-- 分页列表 -->
-            <PageNestingTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
+            <!-- 分页列表 -->
+            <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
                 :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-                :showEditButton="true" :showDeleteButton="true" :showAddSubButton="true">
+                :showEditButton="true" :showDeleteButton="true">
 
-                <!-- 非内嵌表格插槽 -->
-                <template #cols="{ row, columnName }">
-                    <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
-                        in-valid-name="禁用" :value="row[columnName]" />
-                    <template v-else> {{ row[columnName] }} </template>
+
+                <template #cols="{ row, columnName, formItem }">
+
+                    <template v-if="formItem.code === 'dateRange'">
+
+                        <component :is="getComponent(formItem.code)"
+                            :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
+                            :formItem="formItem" :data="row" />
+                    </template>
+                    <template v-else>
+                        <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
+                        <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem"
+                            :data="row" v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
+                        <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem"
+                            :data="row" v-else />
+                    </template>
+
                 </template>
 
-                <!-- 内嵌表格插槽 -->
-                <template #innerCols="{ row, columnName }">
-                    <AlaPageViewStatus v-if="columnName === 'delFlag'" :isValid="row.delFlag === 2" valid-name="启用"
-                        in-valid-name="禁用" :value="row[columnName]" />
-                    <template v-else> {{ row[columnName] }} </template>
-                </template>
-
-            </PageNestingTable>
+            </PageTable>
 
 
             <!-- 新增、编辑 -->
             <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
         </div>
     </div>
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
 </template>
 
@@ -61,6 +68,8 @@ import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
+import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -115,18 +124,19 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/u/menu/page"
-const deleteUrl = "/u/menu/delete"
+const url = "/b/datasource/page"
+const deleteUrl = "/b/datasource/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        { prop: 'name', label: t('module.menu.name') },
-        { prop: 'url', label: t('module.menu.url') },
-        { prop: 'delFlag', label: t('common.enable') },
-        { prop: 'icon', label: t('module.menu.icon') },
-        { prop: 'width', label: t('module.menu.width') },
-        { prop: 'height', label: t('module.menu.height') },
+        alaDetailBuild(dType.input, 'name', "数据源名称", 1, true),
+        alaDetailBuild(dType.input, 'type', "类型"),
+        alaDetailBuild(dType.input, 'status', "状态"),
+        alaDetailTextarea(dType.textarea, 'description', '描述', 16),
+        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
+
     ]
 })
 
@@ -137,48 +147,51 @@ const baseFields = computed(() => {
         alaBuildInput("name", t('module.menu.name')),
     ]
 })
-// const baseFields = [
-//     { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input' },
-//     { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea' },
-//     { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password' },
-//     { componentName: 'AlaRadio', label: '单选组件', fieldName: 'radio', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-//     { componentName: 'AlaCheckbox', label: '多选组件', fieldName: 'checkbox', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-//     { componentName: 'AlaSelect', label: '下拉选', fieldName: 'select', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-//     { componentName: 'AlaSwitch', label: '开关', fieldName: 'switch', other: { activeText: "开", inActiveText: "关" } },
-//     // {
-//     //     componentName: 'AlaDate', label: '创建时间', fieldName: 'date', other: {
-//     //         dateType: "datetimerange",
-//     //         format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
-//     //     }
-//     // },
-//     { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider', other: { min: 2, max: 10, step: 1, } },
-//     { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating', other: { max: 8, allowHalf: true } },
-// ]
-
 
 // 高级查询条件
-const advancedFields = [
-    { componentName: 'AlaInput', label: '单行文本框', placeholder: '请输入单行文本', fieldName: 'input2' },
-    { componentName: 'AlaInput', label: '多行文本框', placeholder: '请输入多行文本', fieldName: 'textarea2' },
-    { componentName: 'AlaPassword', label: '密码框', placeholder: '请输入密码', fieldName: 'password2' },
-    { componentName: 'AlaRadio', label: '单选组件', fieldName: 'radio2', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-    { componentName: 'AlaCheckbox', label: '多选组件', fieldName: 'checkbox2', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-    { componentName: 'AlaSelect', label: '下拉选', fieldName: 'select2', other: { items: [{ name: "男", value: "man", }, { name: "女", value: "men", }] } },
-    { componentName: 'AlaSwitch', label: '开关', fieldName: 'switch2', other: { activeText: "开", inActiveText: "关" } },
-    // {
-    //     componentName: 'AlaDate', label: '创建时间', fieldName: 'date2', other: {
-    //         dateType: "datetimerange",
-    //         format: "YYYY-MM-DD HH:mm:ss", start: "2024-11-10", end: "2024-11-13"
-    //     }
-    // },
-    { componentName: 'AlaSlider', label: '取值范围', placeholder: '请指定取值范围', fieldName: 'slider2', other: { min: 2, max: 10, step: 1 } },
-    { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating2', other: { max: 8, allowHalf: true } },
-    alaBuildSelectApi("select_api", "api下拉选", "/u/menu/list", { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
-    alaBuildSelectDict("select_dict", "字典下拉选", {}, { propertyName: 'dictLabel', valueName: 'id' }, undefined, "请选择"),
-    alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
-    alaBuildSelectTree("select_tree", "tree下拉选", "/a/dict/tree", { dictValue: 'i18n' }, { propertyName: 'dictLabel', valueName: 'id', childrenName: 'children' }, undefined, "请选择"),
+const advancedFields: any[] = []
 
-]
+const getComponent = ((code: string) => {
+    return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
+})
+
+
+const formAttr = ref({
+    formWidth: 600,
+    columnNum: 1,
+    labelWidth: 150,
+    labelPosition: 'left',
+    useFormTitle: false,
+})
+
+/**
+ * 详情页面字段
+ */
+const detailFields: any = ref([
+    alaDetailBuild(dType.input, 'name', "数据源名称", 1, true),
+    alaDetailBuild(dType.input, 'type', "类型"),
+    alaDetailBuild(dType.input, 'status', "状态"),
+    alaDetailTextarea(dType.textarea, 'description', '描述', 16),
+    alaDetailBuild(dType.input, 'createdName', "创建人"),
+    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailBuild(dType.input, 'updatedName', "更新人"),
+    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+
+])
+
+const detailItem = reactive({
+    moduleName,
+    item: {}
+})
+
+const showDetailPage = ref(false)
+const showDetail = (item: { [key: string]: any }) => {
+    u.clear(detailItem.item)
+    u.merged(detailItem, { item })
+    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    showDetailPage.value = true
+}
+
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
