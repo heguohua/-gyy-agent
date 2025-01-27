@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 18:21:19
+ * @LastEditTime: 2025-01-27 22:39:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader/ala-cascader.vue
  * @Description: 
  * 
@@ -31,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+import { logger } from '@/utils/logger';
 import u from '@/utils/u'
 import { CascaderValue } from 'element-plus'
 
@@ -55,6 +56,10 @@ const props = defineProps({
     default: ''
   },
   items: {
+    type: String,
+    default: ''
+  },
+  bType: {
     type: String,
     default: ''
   },
@@ -83,6 +88,7 @@ const props = defineProps({
   }
 })
 
+
 const configs = {
   expandTrigger: 'hover' as const,
 }
@@ -90,6 +96,9 @@ const configs = {
 const model = defineModel({
   type: String || Number || Boolean || undefined
 })
+
+logger.info(`bType[ ${props.bType} ]，渲染 动态表单 ala-cascader 组件，props：`, props);
+logger.info(`${model.value}`);
 
 
 // const styles = computed(() => ({}))
@@ -104,8 +113,10 @@ watch(() => data.value, (value: any) => {
 
 watch(() => model.value, (value: any) => {
   if (value) {
-    data.value = u.parseJson(value)    
+    data.value = u.parseJson(value)
   }
+}, {
+  immediate: true
 })
 
 // Methods

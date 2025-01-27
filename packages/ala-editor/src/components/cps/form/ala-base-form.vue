@@ -97,7 +97,11 @@ const confirm = (data: any) => {
 
                     let data = props.formData
                     if (props.beforeSave) {
-                        data = props.beforeSave(data)
+                        if (u.isAsyncFunction(props.beforeSave)) {
+                            data = await props.beforeSave(data)
+                        } else {
+                            data = props.beforeSave(data)
+                        }
                     }
 
                     const response = await postData(data)
@@ -119,7 +123,9 @@ const confirm = (data: any) => {
 
 
                 })
-                .catch(() => {
+                .catch((e) => {
+                    console.log('e:', e);
+
                     logger.info("点击【确认保存】按钮，弹出提示信息框，用户选择【继续编辑】按钮");
                 })
         } else {
@@ -158,7 +164,12 @@ const getFormData = async () => {
     await validate()
     // 删除所有 属性名中包含 . 的属性
     const data = props.formData || {}
-    const fd = u.cloned(data) as { [key: string]: any }
+
+    let fd = u.cloned(data) as { [key: string]: any }
+
+
+    // 转换 xxx.yyy 格式的属性为 {xxx:{yyy:111}}
+    fd = u.unFlattenObject(fd)
 
     Object.keys(fd).forEach((key: string) => {
         if (key.indexOf('.') > -1) {
@@ -236,10 +247,13 @@ const emit = defineEmits(["confirm", "refresh"])
 const formItemChangeCallback = (data: any) => {
     console.log('data-callback:', data);
     u.merged(props.formData || {}, data)
-    console.log('props.formData:', props.formData);
 
 }
 
+watch(() => props.formData, (value: any) => {
+    console.log('props.formData:', props.formData);
+
+}, { immediate: true, deep: true })
 // ##########################  以下是冗余示例代码  #########################################
 
 // 基础查询条件

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 19:44:41
+ * @LastEditTime: 2025-01-27 22:12:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -69,7 +69,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
-import { alaDetailBuild, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import DatasourceAdd from './datasourceAdd.vue';
 import notify from '@/utils/notify';
@@ -111,9 +111,15 @@ const showAdd = (item: { [key: string]: any }) => {
 }
 
 const showEdit = (item: { [key: string]: any }) => {
-    showAddForm.value = true
-    u.merged(baseInfo, { item })
-    logger.info(`【编辑】方法接收到参数 item `, item);
+    // 解密 configuration 字段
+    let it = u.cloned(item) as { [key: string]: any }
+    it['configuration'] = u.parseJson(u.base64Decode(it['configuration']))
+
+    // item['type'] = u.parseJson(item['type'])
+    it = u.flattenObject(it)
+    u.merged(baseInfo, { item: { ...it } })
+
+    logger.info(`【编辑】方法接收到参数 item `, it);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
 }
@@ -140,7 +146,7 @@ const deleteUrl = "/b/datasource/delete"
 const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'name', "数据源名称", 1, true),
-        alaDetailBuild(dType.input, 'type', "类型"),
+        alaDetailCascader(dType.cascader, 'type', "类型"),
         alaDetailBuild(dType.input, 'status', "状态"),
         alaDetailTextarea(dType.textarea, 'description', '描述', 16),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -178,7 +184,7 @@ const formAttr = ref({
  */
 const detailFields: any = ref([
     alaDetailBuild(dType.input, 'name', "数据源名称", 1, true),
-    alaDetailBuild(dType.input, 'type', "类型"),
+    alaDetailCascader(dType.cascader, 'type', "类型"),
     alaDetailBuild(dType.input, 'status', "状态"),
     alaDetailTextarea(dType.textarea, 'description', '描述', 16),
     alaDetailBuild(dType.input, 'createdName', "创建人"),

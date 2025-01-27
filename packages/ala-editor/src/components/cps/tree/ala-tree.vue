@@ -278,14 +278,7 @@ const baseInfo = inject('baseInfo') as { [key: string]: any };
 // 更新分页列表页面 baseInfo 中的folder属性
 watch(() => currentNode.value, (value: any) => {
     baseInfo.folder = value
-    // if (value.id > 0) {
-    //     checkedKeys.value[0] = value.id
-
-    // }
     currentNodeKey.value=value.id
-    console.log('value:', value.id);
-    console.log('checkedKeys.value:', currentNodeKey.value);
-
 })
 
 </script>

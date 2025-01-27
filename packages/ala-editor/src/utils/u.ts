@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 21:50:20
+ * @LastEditTime: 2025-01-27 23:11:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -289,7 +289,7 @@ export default class u {
      * @returns 
      */
     public static base64Encode(str: string): string {
-        return Buffer.from(str).toString('base64');
+        return window.btoa(unescape(encodeURIComponent(str)));
     }
 
     /**
@@ -298,8 +298,71 @@ export default class u {
      * @returns 
      */
     public static base64Decode(str: string): string {
-        return Buffer.from(str, 'base64').toString('utf8');
+        return decodeURIComponent(escape(window.atob(str)));
+    }
+
+    /**
+     * 判断一个方法是同步函数还是异步函数
+     * @param fn 
+     * @returns 
+     */
+    public static isAsyncFunction(fn: Function): boolean {
+        return fn.constructor.name === 'AsyncFunction';
+    }
+
+    /**
+     * 将 嵌套对象转换成单层级对象
+     * @param obj 
+     * @param prefix 
+     * @returns 
+     */
+    public static flattenObject(obj: { [key: string]: any }, prefix: string = '') {
+        let result = {} as { [key: string]: any };
+
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                const value = obj[key];
+                const newKey = prefix ? `${prefix}.${key}` : key;
+                if (value && typeof value === 'object' && !Array.isArray(value)) {
+                    // 如果值是对象，递归处理
+                    const nestedResult = u.flattenObject(value, newKey);
+                    result = { ...result, ...nestedResult };
+                } else {
+                    // 如果值不是对象，直接添加到结果中
+                    result[newKey] = value;
+                }
+            }
+        }
+
+        return result;
     }
 
 
+    /**
+     * flattenObject 的逆向方法
+     * @param obj 
+     * @returns 
+     */
+    public static unFlattenObject(obj: { [key: string]: any }) {
+        const result: { [key: string]: any } = {};
+
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                const value = obj[key];
+                const keys = key.split('.');
+                let current = result;
+                for (let i = 0; i < keys.length - 1; i++) {
+                    const k = keys[i];
+                    if (!current[k] || (typeof current[k]) != 'object') {
+                        current[k] = {};
+                    }
+                    current = current[k];
+                }
+
+                current[keys[keys.length - 1]] = value;
+            }
+        }
+
+        return result;
+    }
 }

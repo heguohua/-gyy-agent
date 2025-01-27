@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 18:19:18
+ * @LastEditTime: 2025-01-27 23:06:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/datasourceAdd.vue
  * @Description: 
  * 
@@ -45,8 +45,8 @@ const props = defineProps({
 const baseInfo = inject('baseInfo') as { [key: string]: any };
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/u/menu/add'
-const updateUrl = '/u/menu/update'
+const url = '/b/datasource/add'
+const updateUrl = '/b/datasource/update'
 // 表单数据保存对象
 const formData = reactive<{ [key: string]: any }>({
     configuration: {}
@@ -55,9 +55,10 @@ const formData = reactive<{ [key: string]: any }>({
 watch(() => props.baseInfo.item, (item) => {
     logger.info(`观察到 baseInfo 中的 item 发生了变化`, item);
     // u.merged(formData, item)
-    if (!item.id) {
-        u.clear(formData)
-    }
+    // if (!item.id) {
+    //     u.clear(formData)
+    // }
+    u.clear(formData)
     Object.assign(formData, item)
     logger.info(`formData数据更新后`, formData);
 }, {
@@ -233,10 +234,23 @@ const formAttr = ref({
 })
 
 
-const beforeSave = (data: { [key: string]: any }) => {
-    console.log('data:', data);
-    throw '111'
+const beforeSave = async (data: { [key: string]: any }) => {
 
+    const d = await alaBaseForm.value.getFormData()
+
+    // 添加 pid
+    if (baseInfo?.folder?.id) {
+        d['pid'] = baseInfo?.folder?.id
+    } else {
+        logger.error(`baseInfo.folder.id【 不存在 ！！！ 】`);
+    }
+
+    // 对 configuration 字段进行 base64加密
+    // delete d['configuration']
+    d['configuration'] = u.base64Encode(u.tojson(d['configuration']))
+    logger.info(`格式化数据后，datasource参数`, d);
+
+    return d
 }
 
 const alaBaseForm = ref()
@@ -250,9 +264,7 @@ const handleValidate = async () => {
         // 添加 pid
         if (baseInfo?.folder?.id) {
             data['pid'] = baseInfo?.folder?.id
-            console.log('data:',data);
-            
-        }else{
+        } else {
             logger.error(`baseInfo.folder.id【 不存在 ！！！ 】`);
         }
 
