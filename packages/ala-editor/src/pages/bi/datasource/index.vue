@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 18:24:03
+ * @LastEditTime: 2025-01-27 19:44:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { PropType, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
@@ -72,6 +72,7 @@ import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import DatasourceAdd from './datasourceAdd.vue';
+import notify from '@/utils/notify';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -87,7 +88,7 @@ const baseInfo = reactive({
     id: null,
     selectedList: Array<{ id: string }>,
     item: {},
-    folder: {}
+    folder: { id: 0 }
 })
 
 provide('baseInfo', baseInfo);
@@ -98,6 +99,10 @@ provide('baseInfo', baseInfo);
 
 const showAddForm = ref(false)
 const showAdd = (item: { [key: string]: any }) => {
+
+    //根节点不能添加数据
+    u.checkBoolean(baseInfo.folder.id === 0, "不能在根节点新增数据", t)
+
     u.clear(baseInfo.item)
     u.merged(baseInfo, { item: { id: null, pid: item.id } })
     logger.info(`【新增】方法接收到参数【 item 】`, item);
