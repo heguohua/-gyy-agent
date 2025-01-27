@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 16:52:01
+ * @LastEditTime: 2025-01-27 18:23:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -194,8 +194,6 @@ const { formWidth, labelWidth, labelPosition, columnNum } = toRefs(props.formAtt
 const drawerWidth = computed((): string => {
     const paddingWidth = 66
     let width = (formWidth.value + paddingWidth) + 'px'
-    console.log('width:',width);
-    console.log('moduleName:',props.moduleName);
     
     return width
 })

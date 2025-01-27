@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 09:24:57
+ * @LastEditTime: 2025-01-27 18:46:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -20,7 +20,7 @@
 
         <div class="ala-tree">
             <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expanded-keys="expandedKeys"
-                @node-contextmenu.stop="showButtonsMenu" @node-click="handleNodeClick">
+                :currentNodeKey="currentNodeKey" @node-contextmenu.stop="showButtonsMenu" @node-click="handleNodeClick">
 
                 <template #default="{ node, data }">
                     <v-icon image="/tree/folder.svg" width="30px" height="20px" />
@@ -59,6 +59,8 @@ import { alaDelete, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { ElTree } from 'element-plus';
 import { TreeNode, TreeNodeData } from 'element-plus/es/components/tree-v2/src/types';
+import { TreeKey } from 'element-plus/es/components/tree/src/tree.type';
+import { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -120,8 +122,6 @@ const emit = defineEmits(["refresh"])
 
 logger.info(`bType[ ${props.bType} ]，渲染 动态表单 ala-tree 组件，props：`, props);
 
-
-
 const treeRef = ref<InstanceType<typeof ElTree> | null>(null);
 const showButtons = ref(false);
 const selectedNode = reactive<TreeNodeData>({});
@@ -182,7 +182,6 @@ const handleDelete = () => {
 
 const handleEdit = () => {
     u.merged(formData.value, currentNode.value)
-    console.log('formData.value:', formData.value);
 
     showDrawer.value = true
 }
@@ -229,7 +228,9 @@ const formAttr = ref({
     useFormTitle: false,
 })
 
-const expandedKeys = ref<Array<Number>>([])
+const expandedKeys = ref<TreeKey[]>([])
+const currentNodeKey = ref("")
+// const defaultCheckedKeys = [27]
 const queryTree = () => {
 
     alaPost(u.url(props.treeUrl), {}, true, '').then((data: any) => {
@@ -237,7 +238,7 @@ const queryTree = () => {
         if (response.data) {
 
             const data = response.data[0]?.children
-            if (data) {
+            if (data && data.length > 0) {
                 // 查找需要展开的 expandedKeys
                 const keys: Array<Number> = [];
 
@@ -249,9 +250,13 @@ const queryTree = () => {
                     //     });
                     // }
                 });
-                expandedKeys.value = keys
+                expandedKeys.value = keys as TreeKey[]
                 // 重设 tree 数据
                 treeData.value = data
+
+                // 如果 currentNode 不存在，则默认选中第一个
+                currentNode.value = data[0]
+
             } else {
                 treeData.value = []
             }
@@ -262,6 +267,15 @@ const queryTree = () => {
 }
 
 queryTree()
+
+const baseInfo = inject('baseInfo') as { [key: string]: any };
+// 更新分页列表页面 baseInfo 中的folder属性
+watch(() => currentNode.value, (value: any) => {
+    baseInfo.folder = value
+    currentNodeKey.value = value.id
+    console.log('defaultCheckedKeys.value:', currentNodeKey.value);
+
+})
 
 </script>
 
@@ -292,7 +306,6 @@ queryTree()
             width: 80%;
         }
 
-        .button-add {}
 
         :deep(.icon-image) {
             width: 20%;
@@ -335,6 +348,10 @@ queryTree()
             svg {
                 scale: 1.2;
             }
+        }
+
+        :deep(.is-current) {
+            background: var(--el-tree-node-hover-bg-color)
         }
     }
 
@@ -391,11 +408,8 @@ queryTree()
 
         }
 
-        p {}
     }
 
-    div {
-        p {}
-    }
+
 }
 </style>

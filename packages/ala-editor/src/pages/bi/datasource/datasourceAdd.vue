@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 16:37:14
+ * @LastEditTime: 2025-01-27 18:19:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/datasourceAdd.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
         labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
-        :formAttr="formAttr" :beforeSave="beforeSave">
+        :formAttr="formAttr" :beforeSave="beforeSave" ref="alaBaseForm">
         <template #buttons>
             <AlaButton :showButton="true" name="validate" @validate="handleValidate()" buttonType="warning"
                 size="default" :plain="true" />
@@ -42,6 +42,7 @@ const props = defineProps({
     },
 })
 
+const baseInfo = inject('baseInfo') as { [key: string]: any };
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
 const url = '/u/menu/add'
@@ -238,9 +239,28 @@ const beforeSave = (data: { [key: string]: any }) => {
 
 }
 
-const handleValidate = () => {
-    console.log('data:');
+const alaBaseForm = ref()
+const handleValidate = async () => {
+
+    const result = await alaBaseForm.value.validate()
+
+    if (result) {
+        const data = await alaBaseForm.value.getFormData()
+
+        // 添加 pid
+        if (baseInfo?.folder?.id) {
+            data['pid'] = baseInfo?.folder?.id
+            console.log('data:',data);
+            
+        }else{
+            logger.error(`baseInfo.folder.id【 不存在 ！！！ 】`);
+        }
+
+    } else {
+        logger.info(`表单校验失败`);
+    }
 }
+
 
 </script>
 

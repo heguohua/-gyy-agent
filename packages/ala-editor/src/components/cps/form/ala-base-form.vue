@@ -73,9 +73,13 @@ const showDrawer = defineModel({
 
 const formRef = ref()
 const confirm = (data: any) => {
+
     logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
+
     formRef.value.validate((valid: boolean) => {
+
         if (valid) {
+
             ElMessageBox.confirm(
                 saveContent(),
                 props.tipTitle,
@@ -124,6 +128,48 @@ const confirm = (data: any) => {
             notify.error(t('pop.warm_title'), "表单数据不正确，请修改")
         }
     });
+}
+
+/**
+ * 校验表单参数的方法
+ */
+const validate = async () => {
+
+    logger.warn("验证表单参数合法性");
+
+    return await formRef.value.validate((valid: boolean) => {
+        if (valid) {
+            // 表单参数验证通过，回调方法，
+            return true
+        } else {
+            // 表单验证失败，阻止提交
+            logger.error(`【 表单验证 不通过 】`);
+            notify.error(t('pop.warm_title'), "表单数据不正确，请修改")
+            return false
+        }
+    });
+}
+
+/**
+ * 去除多级属性名
+ */
+const getFormData = async () => {
+
+    await validate()
+    // 删除所有 属性名中包含 . 的属性
+    const data = props.formData || {}
+    const fd = u.cloned(data) as { [key: string]: any }
+
+    Object.keys(fd).forEach((key: string) => {
+        if (key.indexOf('.') > -1) {
+            delete fd[key]
+        }
+    })
+
+    logger.info("删除嵌套属性名后返参", fd);
+
+    return fd
+
 }
 
 
@@ -216,7 +262,7 @@ const formItemChangeCallback = (data: any) => {
 // { componentName: 'AlaRating', label: '评分', placeholder: '请指定评分', fieldName: 'rating', other: { max: 8, allowHalf: true } },
 // ]
 
-
+defineExpose({ validate, getFormData })
 </script>
 
 <style scoped lang="scss"></style>

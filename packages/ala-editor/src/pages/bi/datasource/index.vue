@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 18:41:42
+ * @LastEditTime: 2025-01-27 18:24:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -86,8 +86,10 @@ const baseInfo = reactive({
     moduleName,
     id: null,
     selectedList: Array<{ id: string }>,
-    item: {}
+    item: {},
+    folder: {}
 })
+
 provide('baseInfo', baseInfo);
 
 // ############## 初始化基本数据，该部分代码不用修改 end ######################################
@@ -112,7 +114,7 @@ const showEdit = (item: { [key: string]: any }) => {
 }
 
 // 查询条件
-const params = reactive({})
+const params = reactive({}) as { [key: string]: any }
 
 const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
 const refresh = () => {
@@ -198,6 +200,11 @@ const showDetail = (item: { [key: string]: any }) => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
+// 监控 baseInfo 中的folder属性，如果有变化，则更新分页列表 params 参数，并刷新分页列表数据
+watch(() => baseInfo.folder, (value: any) => {
+    params['pid'] = value.id
+    refresh()
+})
 
 
 </script>
