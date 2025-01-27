@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 21:55:44
+ * @LastEditTime: 2025-01-27 16:37:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/datasourceAdd.vue
  * @Description: 
  * 
@@ -12,7 +12,12 @@
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
         labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
-        :formAttr="formAttr" :beforeSave="beforeSave" />
+        :formAttr="formAttr" :beforeSave="beforeSave">
+        <template #buttons>
+            <AlaButton :showButton="true" name="validate" @validate="handleValidate()" buttonType="warning"
+                size="default" :plain="true" />
+        </template>
+    </AlaBaseForm>
 
 </template>
 
@@ -233,6 +238,9 @@ const beforeSave = (data: { [key: string]: any }) => {
 
 }
 
+const handleValidate = () => {
+    console.log('data:');
+}
 
 </script>
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 22:37:14
+ * @LastEditTime: 2025-01-27 16:52:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -28,7 +28,7 @@
 
             </template>
             <template #footer>
-                <div style="flex: auto">
+                <div class="ala-drawer-buttons">
                     <el-button @click="cancelClick" v-if="cancelButton">
                         {{ $t('buttons.cancel') }}
                     </el-button>
@@ -38,6 +38,7 @@
                     <el-button type="primary" @click="confirmClick" v-if="initiateButton()">
                         {{ $t('buttons.form_initiate') }}
                     </el-button>
+                    <slot name="buttons"></slot>
                     <!-- <el-button type="primary" @click="confirmClick">{{ $t('button.error') }}</el-button> -->
                 </div>
             </template>
@@ -193,6 +194,9 @@ const { formWidth, labelWidth, labelPosition, columnNum } = toRefs(props.formAtt
 const drawerWidth = computed((): string => {
     const paddingWidth = 66
     let width = (formWidth.value + paddingWidth) + 'px'
+    console.log('width:',width);
+    console.log('moduleName:',props.moduleName);
+    
     return width
 })
 
@@ -223,7 +227,7 @@ const columnWidth = (item: any) => {
 const handleModelValueChange = (fieldName: string, value: any) => {
 
     if (fieldName.indexOf('.') > -1) {
-        
+
         // 说明是多层级属性，则动态更改内嵌属性的值
         const propertyNames = fieldName.split('.')
         let tmp: any = value
@@ -245,7 +249,31 @@ const handleModelValueChange = (fieldName: string, value: any) => {
 <style scoped lang="scss">
 .ala-add-form {
     .ala-drawer {
-        width: 500px !important;
+
+        .ala-form-base-item {
+            display: inline-block;
+        }
+
+        .ala-form-base-item-full-width {
+            width: 100%;
+        }
+
+        .ala-form-base-item-hidden {
+            display: none;
+        }
+
+    }
+}
+</style>
+<style lang="scss">
+.ala-add-form {
+    .ala-drawer {
+
+        h4 {}
+
+        div {}
+
+        .buttons {}
 
 
         .ala-form-base-item {
@@ -310,6 +338,19 @@ const handleModelValueChange = (fieldName: string, value: any) => {
 
         .el-drawer__footer {
             padding-bottom: 6px;
+
+            .ala-drawer-buttons {
+                display: flex;
+                align-items: center;
+                justify-content: end;
+                justify-items: center;
+                column-gap: 8px;
+
+                .el-button {
+                    margin-left: 0px;
+                }
+            }
+
         }
 
         .el-form-item__label {
@@ -318,12 +359,6 @@ const handleModelValueChange = (fieldName: string, value: any) => {
             font-weight: bold;
             justify-content: right;
             text-align: right;
-        }
-
-        .el-drawer__footer {
-            position: absolute;
-            bottom: 0px;
-            right: 0px;
         }
 
         .el-date-editor.el-input,

@@ -2,7 +2,11 @@
     <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="fields" :data="formData"
             :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
-            :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback" />
+            :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback">
+            <template #buttons>
+                <slot name="buttons"></slot>
+            </template>
+        </AlaFormItems>
     </el-form>
 
 </template>
