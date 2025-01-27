@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 18:46:32
+ * @LastEditTime: 2025-01-27 19:31:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -20,7 +20,9 @@
 
         <div class="ala-tree">
             <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expanded-keys="expandedKeys"
-                :currentNodeKey="currentNodeKey" @node-contextmenu.stop="showButtonsMenu" @node-click="handleNodeClick">
+                :expand-on-click-node="false" :currentNodeKey="currentNodeKey"
+                @node-contextmenu.stop="showButtonsMenu" @node-click="handleNodeClick" 
+                :checkStrictly="checkStrictly">
 
                 <template #default="{ node, data }">
                     <v-icon image="/tree/folder.svg" width="30px" height="20px" />
@@ -100,6 +102,10 @@ const props = defineProps({
     treeUrl: {
         type: String,
         default: ''
+    },
+    checkStrictly: {
+        type: Boolean,
+        default: true
     },
 })
 
@@ -230,25 +236,25 @@ const formAttr = ref({
 
 const expandedKeys = ref<TreeKey[]>([])
 const currentNodeKey = ref("")
-// const defaultCheckedKeys = [27]
+// const checkedKeys = ref<TreeKey[]>([0])
 const queryTree = () => {
 
     alaPost(u.url(props.treeUrl), {}, true, '').then((data: any) => {
         const response = data;
         if (response.data) {
 
-            const data = response.data[0]?.children
+            const data = response.data
             if (data && data.length > 0) {
                 // 查找需要展开的 expandedKeys
                 const keys: Array<Number> = [];
 
                 data.forEach((item: { [key: string]: any }) => {
                     keys.push(item.id);  // 添加第一级节点
-                    // if (item.children) {
-                    //     item.children.forEach((child: { [key: string]: any }) => {
-                    //         keys.push(child.id);  // 添加第二级节点
-                    //     });
-                    // }
+                    if (item.children) {
+                        item.children.forEach((child: { [key: string]: any }) => {
+                            keys.push(child.id);  // 添加第二级节点
+                        });
+                    }
                 });
                 expandedKeys.value = keys as TreeKey[]
                 // 重设 tree 数据
@@ -272,8 +278,13 @@ const baseInfo = inject('baseInfo') as { [key: string]: any };
 // 更新分页列表页面 baseInfo 中的folder属性
 watch(() => currentNode.value, (value: any) => {
     baseInfo.folder = value
-    currentNodeKey.value = value.id
-    console.log('defaultCheckedKeys.value:', currentNodeKey.value);
+    // if (value.id > 0) {
+    //     checkedKeys.value[0] = value.id
+
+    // }
+    currentNodeKey.value=value.id
+    console.log('value:', value.id);
+    console.log('checkedKeys.value:', currentNodeKey.value);
 
 })
 
@@ -350,9 +361,11 @@ watch(() => currentNode.value, (value: any) => {
             }
         }
 
-        :deep(.is-current) {
+        :deep(.is-current > .el-tree-node__content) {
             background: var(--el-tree-node-hover-bg-color)
         }
+
+
     }
 
     // .ala-tree::-webkit-scrollbar {
