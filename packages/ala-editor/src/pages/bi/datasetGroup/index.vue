@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-30 20:12:43
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
+ * @LastEditTime: 2025-01-30 20:01:40
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasetGroup/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,8 +12,8 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree title="数据源分类" addUrl="/b/datasource/add" treeUrl="/b/datasource/tree"
-                deleteUrl="/b/datasource/delete" updateUrl="/b/datasource/update" />
+            <AlaTree title="数据集分类" addUrl="/b/datasetGroup/add" treeUrl="/b/datasetGroup/tree"
+                deleteUrl="/b/datasetGroup/delete" updateUrl="/b/datasetGroup/update" />
         </div>
         <div class="right">
 
@@ -53,11 +53,11 @@
         </div>
     </div>
 
-    <!-- datasource 详情页面 -->
+    <!-- datasetGroup 详情页面 -->
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
-    <!-- datasource 新增、编辑 -->
-    <DatasourceAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <!-- datasetGroup 新增、编辑 -->
+    <DatasetGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
 </template>
 
@@ -71,7 +71,7 @@ import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
-import DatasourceAdd from './datasourceAdd.vue';
+import DatasetGroupAdd from './datasetGroupAdd.vue';
 import notify from '@/utils/notify';
 const { t } = useI18n();
 
@@ -89,7 +89,7 @@ const baseInfo = reactive({
     selectedList: Array<{ id: string }>,
     item: {},
     folder: { id: 0 },
-    treeFormData: { type: 'folder' },
+    treeFormData: { nodeType: 'folder' },
 })
 
 provide('baseInfo', baseInfo);
@@ -140,8 +140,8 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/b/datasource/page"
-const deleteUrl = "/b/datasource/delete"
+const url = "/b/datasetGroup/page"
+const deleteUrl = "/b/datasetGroup/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
@@ -160,7 +160,7 @@ const columns = computed(() => {
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("name", '数据源名称'),
+        alaBuildInput("name", '数据集名称'),
     ]
 })
 

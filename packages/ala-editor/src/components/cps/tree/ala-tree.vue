@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 19:31:46
+ * @LastEditTime: 2025-01-30 20:06:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -20,9 +20,8 @@
 
         <div class="ala-tree">
             <el-tree ref="treeRef" :data="treeData" node-key="id" :default-expanded-keys="expandedKeys"
-                :expand-on-click-node="false" :currentNodeKey="currentNodeKey"
-                @node-contextmenu.stop="showButtonsMenu" @node-click="handleNodeClick" 
-                :checkStrictly="checkStrictly">
+                :expand-on-click-node="false" :currentNodeKey="currentNodeKey" @node-contextmenu.stop="showButtonsMenu"
+                @node-click="handleNodeClick" :checkStrictly="checkStrictly">
 
                 <template #default="{ node, data }">
                     <v-icon image="/tree/folder.svg" width="30px" height="20px" />
@@ -170,12 +169,22 @@ const handleMouseLeave = () => {
 }
 
 const handleAddTopFolder = () => {
-    formData.value = { pid: 0, type: 'folder', name: '' }
+    const params = { pid: 0, name: '' }
+    if (baseInfo.treeFormData) {
+        u.merged(params, baseInfo.treeFormData)
+    }
+
+    formData.value = params
     showDrawer.value = true
 }
 
 const handleAddSub = () => {
-    formData.value = { pid: currentNode.value.id, type: 'folder', name: '' }
+    const params = { pid: currentNode.value.id, name: '' }
+    if (baseInfo.treeFormData) {
+        u.merged(params, baseInfo.treeFormData)
+    }
+
+    formData.value = params
     showDrawer.value = true
 }
 
@@ -278,7 +287,7 @@ const baseInfo = inject('baseInfo') as { [key: string]: any };
 // 更新分页列表页面 baseInfo 中的folder属性
 watch(() => currentNode.value, (value: any) => {
     baseInfo.folder = value
-    currentNodeKey.value=value.id
+    currentNodeKey.value = value.id
 })
 
 </script>
