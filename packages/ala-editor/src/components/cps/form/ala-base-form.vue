@@ -251,8 +251,6 @@ const formItemChangeCallback = (data: any) => {
 }
 
 watch(() => props.formData, (value: any) => {
-    console.log('props.formData:', props.formData);
-
 }, { immediate: true, deep: true })
 // ##########################  以下是冗余示例代码  #########################################
 

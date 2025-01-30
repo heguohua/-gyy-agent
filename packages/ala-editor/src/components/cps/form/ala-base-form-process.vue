@@ -194,10 +194,7 @@ const postData = async (item: any): Promise<any> => {
 const emit = defineEmits(["confirm", "refresh"])
 
 const formItemChangeCallback = (data: any) => {
-    console.log('data-callback:', data);
     u.merged(props.formData || {}, data)
-    console.log('props.formData:', props.formData);
-
 }
 
 // ##########################  以下是冗余示例代码  #########################################
