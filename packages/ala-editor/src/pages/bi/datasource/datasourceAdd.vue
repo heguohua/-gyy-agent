@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 23:06:38
+ * @LastEditTime: 2025-01-30 11:10:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/datasourceAdd.vue
  * @Description: 
  * 
@@ -28,6 +28,8 @@ import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuild
 import u from '@/utils/u';
 import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
+import { alaPost } from '@/utils/req';
+import notify from '@/utils/notify';
 const { t } = useI18n();
 
 const props = defineProps({
@@ -102,7 +104,7 @@ watch(() => formData['type'], (value: string) => {
             alaBuildInput("configuration.dataBase", "数据库名称", [alaRequired(), alaStrLengthRange(2, 256)]),
             alaBuildInput("configuration.username", "用户名", [alaRequired(), alaStrLengthRange(2, 256)]),
             alaBuildPassword("configuration.password", "密码", [alaRequired(), alaStrLengthRange(2, 256)]),
-            alaBuildTextarea("configuration.extraParams", "额外的 JDBC 连接字符串", [alaRequired(), alaStrLengthRange(2, 256)], "请输入数据库连接额外参数信息，如 ‘ ?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true ’", { cleanNewlineCharacter: true, columnNum: 2 }),
+            alaBuildTextarea("configuration.extraParams", "额外的 JDBC 连接字符串", [alaRequired(), alaStrLengthRange(2, 256)], "请输入数据库连接额外参数信息，如 ‘ useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true ’", { cleanNewlineCharacter: true, columnNum: 2 }),
         ].concat(subFields.value)
 
     } else if (value === '["OLTP","Db2"]') {
@@ -254,12 +256,15 @@ const beforeSave = async (data: { [key: string]: any }) => {
 }
 
 const alaBaseForm = ref()
+const validateUrl = '/b/datasource/validate'
 const handleValidate = async () => {
 
     const result = await alaBaseForm.value.validate()
 
     if (result) {
         const data = await alaBaseForm.value.getFormData()
+        data['configuration'] = u.base64Encode(u.tojson(data['configuration']))
+        console.log('data:', data);
 
         // 添加 pid
         if (baseInfo?.folder?.id) {
@@ -267,6 +272,12 @@ const handleValidate = async () => {
         } else {
             logger.error(`baseInfo.folder.id【 不存在 ！！！ 】`);
         }
+
+
+        alaPost(u.url(validateUrl), data, false, '').then((response: any) => {
+            notify.success(t('pop.warm_title'), response.data);
+        });
+
 
     } else {
         logger.info(`表单校验失败`);
