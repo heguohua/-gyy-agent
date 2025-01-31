@@ -51,6 +51,7 @@ declare module 'vue' {
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
     AlaFormItems: typeof import('./src/components/cps/form/ala-form-items.vue')['default']
     AlaFormLabel: typeof import('./src/components/cps/form-label/ala-form-label.vue')['default']
+    AlaFullScreen: typeof import('./src/components/cps/full-screen/ala-full-screen.vue')['default']
     AlaHidden: typeof import('./src/components/cps/hidden/ala-hidden.vue')['default']
     AlaImage: typeof import('./src/components/cps/image/ala-image.vue')['default']
     AlaInput: typeof import('./src/components/cps/input/ala-input.vue')['default']

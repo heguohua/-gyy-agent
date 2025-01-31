@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-30 20:01:40
+ * @LastEditTime: 2025-01-31 09:56:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasetGroup/index.vue
  * @Description: 
  * 
@@ -57,7 +57,9 @@
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- datasetGroup 新增、编辑 -->
-    <DatasetGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <!-- <DatasetGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
+
+    <DatasetAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
 </template>
 
@@ -71,7 +73,7 @@ import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
-import DatasetGroupAdd from './datasetGroupAdd.vue';
+import DatasetAdd from './datasetAdd.vue';
 import notify from '@/utils/notify';
 const { t } = useI18n();
 
@@ -218,6 +220,24 @@ watch(() => baseInfo.folder, (value: any) => {
     refresh()
 })
 
+
+// ########################## 数据集编辑页面 start ##################################################################################
+
+// const showDatasetAddPage = ref(false)
+// const showAdd = (item: { [key: string]: any }) => {
+
+//     //根节点不能添加数据
+//     u.checkBoolean(baseInfo.folder.id === 0, "不能在根节点新增数据", t)
+
+//     u.clear(baseInfo.item)
+//     u.merged(baseInfo, { item: { id: null, pid: item.id } })
+//     logger.info(`【新增】方法接收到参数【 item 】`, item);
+//     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+//     showAddForm.value = true
+// }
+
+
+// ########################## 数据集编辑页面 end ##################################################################################
 
 </script>
 
