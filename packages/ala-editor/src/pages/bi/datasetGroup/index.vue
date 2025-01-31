@@ -59,7 +59,7 @@
     <!-- datasetGroup 新增、编辑 -->
     <!-- <DatasetGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
 
-    <DatasetAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <DatasetAdd v-if="showAddForm" @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
 </template>
 

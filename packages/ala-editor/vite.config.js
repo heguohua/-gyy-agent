@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 17:16:33
+ * @LastEditTime: 2025-01-31 17:07:35
  * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -71,7 +71,7 @@ const dc = defineConfig(({ command, mode }) => {
     resolve: {
       alias: {
         '@': ph,
-      },
+      }
     },
     server: {
       proxy: {

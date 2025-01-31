@@ -21,11 +21,24 @@
 
             <div class="middle">
                 <div class="left">
-                    left
+                    <div class="select-datasource">
+                        <h1 class="sd-title">选择数据源</h1>
+                        <AlaSelectApi v-model="datasourceId" url="/b/datasource/list"
+                            :item-property="{ propertyName: 'name', valueName: 'id', }" :params="{ noType: 'folder' }"
+                            placeholder="请选择数据源" />
+                    </div>
+                    <div class="tables">
+                        <h1 class="sd-title">数据表</h1>
+                        
+                        <div class="table-item" v-for="(item, index) in tables" :key="item.tableName">
+                            <VIcon icon="table" />
+                            <p>{{ item.tableName }}</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="right">
-                    <div class="table" :style="{ height: `${tableHeight}px` }">
-                        table
+                    <div class="sql-editor" :style="{ height: `${tableHeight}px` }">
+                        <AlaSqlEditor  />
                     </div>
                     <div class="resizer" @mousedown="startResize">
                         <div class="resizer-button">
@@ -55,6 +68,11 @@
 </template>
 
 <script setup lang="ts">
+import AlaSelectApi from '@/components/cps/select-api/ala-select-api.vue'
+import { logger } from '@/utils/logger'
+import { alaPost } from '@/utils/req'
+import u from '@/utils/u'
+import { table } from 'console'
 import { TabsPaneContext } from 'element-plus'
 import { ref } from 'vue'
 
@@ -121,6 +139,40 @@ const handleSaveAndBack = () => {
 
 }
 
+// ################## 选择数据源 start ####################################################
+
+const datasourceId = ref('')
+interface Table {
+    tableName: string,
+    datasourceId: number
+}
+const tables = ref<Array<Table>>([])
+watch(() => datasourceId.value, (id: any) => {
+    logger.info(`观察到数据源发生变化，即将加载数据源中的表信息，datasourceId[ ${datasourceId.value} ]`);
+
+    // Methods
+    const url = '/b/datasource/getTables'
+
+    let params = { datasourceId: id }
+
+    logger.info(`从 dict 模块加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
+
+    alaPost(u.url(url), params, false, '').then((data: any) => {
+        const response = data;
+        console.log('data:', data);
+        if (response?.data && response.data.length > 0) {
+            const tbs: Table[] = []
+            response.data.forEach((item: { tableName: string, datasourceId: number, }) => {
+                tbs.push({ tableName: item.tableName, datasourceId: item.datasourceId })
+            })
+            tables.value = tbs
+        }
+
+    });
+
+})
+// ################## 选择数据源 end ####################################################
+
 </script>
 
 <style scoped lang="scss">
@@ -140,7 +192,6 @@ const handleSaveAndBack = () => {
         justify-items: center;
         width: 50%;
         padding-left: 4px;
-
 
         :deep(.el-form-item) {
             margin: 0px;
@@ -179,6 +230,51 @@ const handleSaveAndBack = () => {
         width: 300px;
         height: 100%;
         border-right: 1px solid rgba(31, 35, 41, 0.15);
+
+        .sd-title {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .select-datasource {
+            padding: 0px 8px;
+
+            :deep(.el-select__wrapper.is-focused) {
+                box-shadow: 0 0 0 1px var(--el-border-color) inset;
+            }
+
+        }
+
+        .tables {
+            padding: 0px 8px;
+
+            .table-item {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                justify-items: left;
+                padding: 4px 0px;
+                padding-left: 16px;
+                border-radius: 4px;
+
+                &:hover {
+                    cursor: pointer;
+                    background: var(--ala-color-bg);
+
+                }
+
+                :deep(svg) {
+                    width: 20px;
+                    height: 20px;
+                    // opacity: 0.7;
+                    margin-right: 8px;
+                }
+
+                p {}
+            }
+        }
     }
 
 
@@ -186,7 +282,7 @@ const handleSaveAndBack = () => {
         width: calc(100% - 300px);
         height: 100%;
 
-        .table {
+        .sql-editor {
             height: 40%;
             background: var(--ala-color-bg);
         }

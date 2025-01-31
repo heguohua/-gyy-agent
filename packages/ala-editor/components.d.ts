@@ -68,6 +68,7 @@ declare module 'vue' {
     AlaSelectTable: typeof import('./src/components/cps/select-table/ala-select-table.vue')['default']
     AlaSelectTree: typeof import('./src/components/cps/select-tree/ala-select-tree.vue')['default']
     AlaSlider: typeof import('./src/components/cps/slider/ala-slider.vue')['default']
+    AlaSqlEditor: typeof import('./src/components/cps/sql-editor/ala-sql-editor.vue')['default']
     AlaSwitch: typeof import('./src/components/cps/switch/ala-switch.vue')['default']
     AlaTab: typeof import('./src/components/cps/tab/ala-tab.vue')['default']
     AlaTabPage: typeof import('./src/components/cps/form/ala-tab-page.vue')['default']

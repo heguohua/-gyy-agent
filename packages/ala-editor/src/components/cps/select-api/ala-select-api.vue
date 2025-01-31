@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 17:11:13
+ * @LastEditTime: 2025-01-31 14:50:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-api/ala-select-api.vue
  * @Description: 
  * 
@@ -15,7 +15,8 @@
       <template #label>
         <AlaFormLabel :label="label" :help="help" />
       </template>
-      <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName">
+      <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName"
+        :placeholder="placeholder">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>
@@ -88,6 +89,7 @@ const items = ref<Array<item>>([])
 
 const model = defineModel({
   type: [Number, String, Boolean] as PropType<number | string | boolean>,
+  default: ''
 })
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
