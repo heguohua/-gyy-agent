@@ -60,6 +60,8 @@ declare module 'vue' {
     AlaNumber: typeof import('./src/components/cps/number/ala-number.vue')['default']
     AlaPageViewStatus: typeof import('./src/components/cps/page/ala-page-view-status.vue')['default']
     AlaPassword: typeof import('./src/components/cps/password/ala-password.vue')['default']
+    AlaPopover: typeof import('./src/components/cps/popover/ala-popover.vue')['default']
+    AlaPopupDialog: typeof import('./src/components/cps/popover/ala-popup-dialog.vue')['default']
     AlaRadio: typeof import('./src/components/cps/radio/ala-radio.vue')['default']
     AlaRating: typeof import('./src/components/cps/rating/ala-rating.vue')['default']
     AlaSelect: typeof import('./src/components/cps/select/ala-select.vue')['default']

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-31 09:56:10
+ * @LastEditTime: 2025-01-31 19:30:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasetGroup/index.vue
  * @Description: 
  * 
@@ -59,7 +59,7 @@
     <!-- datasetGroup 新增、编辑 -->
     <!-- <DatasetGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
 
-    <DatasetAdd v-if="showAddForm" @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <DatasetAdd v-if="showAddForm" v-model="showAddForm" />
 
 </template>
 

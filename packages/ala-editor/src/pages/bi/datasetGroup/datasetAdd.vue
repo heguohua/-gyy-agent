@@ -29,16 +29,24 @@
                     </div>
                     <div class="tables">
                         <h1 class="sd-title">数据表</h1>
-                        
+
                         <div class="table-item" v-for="(item, index) in tables" :key="item.tableName">
                             <VIcon icon="table" />
-                            <p>{{ item.tableName }}</p>
+                            <p class="tableName">{{ item.tableName }}</p>
+                            <div class="buttons">
+                                <VIcon icon="b_copy" @click="handleCopy(item.tableName)" />
+                                <AlaPopover src="/dataset/columns.svg" image-width="16px" image-height="16px"
+                                    @onShow="showTableFields(item.tableName)">
+                                    sddff
+                                </AlaPopover>
+
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="right">
                     <div class="sql-editor" :style="{ height: `${tableHeight}px` }">
-                        <AlaSqlEditor  />
+                        <AlaSqlEditor />
                     </div>
                     <div class="resizer" @mousedown="startResize">
                         <div class="resizer-button">
@@ -65,12 +73,14 @@
     </AlaFullScreen>
 
 
+
 </template>
 
 <script setup lang="ts">
 import AlaSelectApi from '@/components/cps/select-api/ala-select-api.vue'
 import { logger } from '@/utils/logger'
 import { alaPost } from '@/utils/req'
+import tip from '@/utils/tip'
 import u from '@/utils/u'
 import { table } from 'console'
 import { TabsPaneContext } from 'element-plus'
@@ -171,6 +181,17 @@ watch(() => datasourceId.value, (id: any) => {
     });
 
 })
+
+const handleCopy = (value: string) => {
+    u.copy(value)
+    tip.success('已复制')
+}
+
+const showTableFields = (tableName: string) => {
+    console.log('showTableFields:', tableName);
+}
+
+
 // ################## 选择数据源 end ####################################################
 
 </script>
@@ -239,6 +260,8 @@ watch(() => datasourceId.value, (id: any) => {
         }
 
         .select-datasource {
+            .sd-title {}
+
             padding: 0px 8px;
 
             :deep(.el-select__wrapper.is-focused) {
@@ -250,7 +273,10 @@ watch(() => datasourceId.value, (id: any) => {
         .tables {
             padding: 0px 8px;
 
+            .sd-title {}
+
             .table-item {
+
                 display: flex;
                 align-items: center;
                 justify-content: left;
@@ -265,11 +291,32 @@ watch(() => datasourceId.value, (id: any) => {
 
                 }
 
+                .tableName {}
+
+                .buttons {
+                    margin-left: 2px;
+                    align-items: center;
+                    justify-content: center;
+                    justify-items: center;
+                    display: none;
+
+                    :deep(svg) {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                &:hover {
+                    .buttons {
+                        display: flex;
+                    }
+                }
+
                 :deep(svg) {
                     width: 20px;
                     height: 20px;
                     // opacity: 0.7;
-                    margin-right: 8px;
+                    margin-right: 4px;
                 }
 
                 p {}

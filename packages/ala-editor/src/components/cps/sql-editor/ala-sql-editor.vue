@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-31 16:56:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-31 17:25:33
+ * @LastEditTime: 2025-01-31 18:00:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/sql-editor/ala-sql-editor.vue
  * @Description: 
  * 
@@ -10,6 +10,9 @@
 -->
 <template>
     <div class="ala-sql-editor">
+        <div class="header">
+            <AlaButton :showButton="true" name="format" @format="handleFormat()" buttonType="primary" />
+        </div>
         <v-ace-editor v-model:value="sqlContent" lang="sql" :theme="theme" :options="editorOptions" class="sql-editor"
             @init="editorInit" />
         <!-- <div class="editor-buttons">
@@ -23,21 +26,24 @@ import { ref, onMounted } from 'vue';
 import { VAceEditor } from 'vue3-ace-editor';
 
 import * as ace from 'ace-builds';
-ace.config.set('basePath','/static/src-min-noconflict/');
+ace.config.set('basePath', '/static/src-min-noconflict/');
 import 'ace-builds/src-noconflict/mode-sql';
-import 'ace-builds/src-noconflict/theme-github';
+import 'ace-builds/src-noconflict/theme-chrome';
 import 'ace-builds/src-min-noconflict/ext-language_tools';
-// import { format } from 'sql-formatter';
+import { format } from 'sql-formatter';
 
 // State
-const sqlContent = ref('SELECT * FROM your_table_name');
+// const sqlContent = ref('-- \nselect * from xxx');
+const sqlContent = ref('-- \nselect ocd.* from oauth_client_details ocd left join sys_user su on ocd.user_id = su.id');
 const theme = ref('chrome');
 const editorOptions = ref({
-    fontSize: '14px',
+    fontSize: '16px',
+    fontFamily: 'monospace', // 设置字体类型
+    showPrintMargin: false, // 隐藏打印边距
+    highlightActiveLine: true, // 高亮当前行
     enableBasicAutocompletion: true,
     enableLiveAutocompletion: true,
     enableSnippets: true,
-    showPrintMargin: false,
 });
 
 // Methods
@@ -65,14 +71,34 @@ const editorInit = (editor: any) => {
         },
     });
 };
+
+
+const handleFormat = () => {
+    sqlContent.value = format(sqlContent.value)
+}
+
 </script>
 
 <style scoped lang="scss">
 .ala-sql-editor {
     width: 100%;
-    height: 100%;
-    .sql-editor{
+    height: calc(100% - 38px);
+
+    // box-shadow: 0 0 0 1px var(--el-border-color) inset;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        height: 36px;
+
+        // background: #fff;
+        // box-shadow: 0 0 0 1px var(--el-border-color) inset;
+    }
+
+    .sql-editor {
         height: 100%;
+
     }
 }
 </style>

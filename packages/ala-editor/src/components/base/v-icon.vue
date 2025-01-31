@@ -2,17 +2,19 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 17:03:29
+ * @LastEditTime: 2025-01-31 19:18:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" />
-  <div v-if="image" class="icon-image" :style="{ height, width }">
+
+  <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" @click="handleClick($event)" />
+  <div v-if="image" class="icon-image" :style="{ height, width }" @click="handleClick($event)">
     <img :src="image" />
   </div>
+
 </template>
 
 <script lang="ts" setup>
@@ -41,6 +43,10 @@ const props = defineProps({
 
 const iconSrc = computed(() => iconConfig[props.icon as ConfigIcon])
 
+const emits = defineEmits(["click"])
+const handleClick = (event: MouseEvent) => {
+  emits('click', event)
+} 
 </script>
 
 <style lang="scss" scoped>

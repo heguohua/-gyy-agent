@@ -12,7 +12,7 @@
   <div class="icon">
     <el-tooltip class="tip" :effect="effect" :content="content" :placement="placement" :hide-after="0">
       <div class="image-box">
-        <v-icon v-if="icon" class="image" :icon="icon" :width="width" :height="height" />
+        <v-icon v-if="icon" :icon="icon" :width="width" :height="height" />
         <slot v-else class="image" />
       </div>
     </el-tooltip>

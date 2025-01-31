@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-31 16:18:15
+ * @LastEditTime: 2025-01-31 18:16:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -168,6 +168,7 @@ const icon = {
   dashboard:"clarity:dashboard-outline-badged",
   screen:"ic:round-screenshot-monitor",
   table:"material-symbols-light:table-outline-sharp",
+  b_copy:"ph:copy-simple",
   
 }
 

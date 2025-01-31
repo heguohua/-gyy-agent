@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 23:11:01
+ * @LastEditTime: 2025-01-31 18:36:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -365,4 +365,22 @@ export default class u {
 
         return result;
     }
+
+
+    public static async copy(textToCopy: string) {
+        // 创建一个临时的 textarea 元素
+        const textarea = document.createElement('textarea');
+        textarea.value = textToCopy;
+        textarea.style.position = 'fixed'; // 防止滚动到页面底部
+        textarea.style.opacity = '0'; // 隐藏 textarea
+        document.body.appendChild(textarea);
+
+        // 选中并复制内容
+        textarea.select();
+        document.execCommand('copy');
+
+        // 移除临时的 textarea 元素
+        document.body.removeChild(textarea);
+    };
+
 }
