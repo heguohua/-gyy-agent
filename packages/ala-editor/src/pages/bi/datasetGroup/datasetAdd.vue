@@ -35,15 +35,19 @@
                             <p class="tableName">{{ item.tableName }}</p>
                             <div class="buttons">
                                 <VIcon icon="b_copy" @click="handleCopy(item.tableName)" />
+
                                 <AlaPopover src="/dataset/columns.svg" image-width="16px" image-height="16px"
                                     @onShow="showTableFields(item.tableName)">
+
                                     <table class="table-fields">
 
                                         <thead>
-                                            <th>字段名</th>
-                                            <th>字段描述</th>
-                                            <th>字段类型</th>
-                                            <th>操作</th>
+                                            <tr>
+                                                <th>字段名</th>
+                                                <th>字段描述</th>
+                                                <th>字段类型</th>
+                                                <th>操作</th>
+                                            </tr>
                                         </thead>
 
                                         <tbody>
@@ -68,7 +72,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div class="sql-editor" :style="{ height: `${tableHeight}px` }">
+                    <div class="sql-editor" :style="{ height: `${topHeight}px` }">
                         <AlaSqlEditor ref="alaSqlEditor">
 
                             <template #header>
@@ -82,15 +86,16 @@
 
                         </div>
                     </div>
-                    <div class="preview" :style="{ height: `${previewHeight}px` }">
+                    <div class="preview" :style="{ height: `${bottomHeight}px` }">
                         <el-tabs v-model="activeName" class="ala-tabs" @tab-click="handleClick" :stretch="true">
                             <el-tab-pane label="数据预览" name="dataPreview" class="ala-tab-pane">
-                                数据预览
+                                <AlaSimpleTable :headers="previewDataHeaders" :rows="previewDataRows" />
+                                <AlaBlankImage title="点击上方【 运行 】按钮，即可查看SQL执行结果" />
                             </el-tab-pane>
 
-                            <el-tab-pane label="批量设置" name="batchConfig" class="ala-tab-pane">
+                            <!-- <el-tab-pane label="批量设置" name="batchConfig" class="ala-tab-pane">
                                 批量设置
-                            </el-tab-pane>
+                            </el-tab-pane> -->
 
                         </el-tabs>
                     </div>
@@ -106,6 +111,7 @@
 </template>
 
 <script setup lang="ts">
+import AlaBlankImage from '@/components/cps/blank/ala-blank-image.vue'
 import AlaSelectApi from '@/components/cps/select-api/ala-select-api.vue'
 import alaType from '@/utils/alaType'
 import { logger } from '@/utils/logger'
@@ -125,8 +131,8 @@ const baseInfo = inject('baseInfo') as { [key: string]: any };
 // Methods
 const height = window.innerHeight
 const unitHeight = window.innerHeight / 3
-const tableHeight = ref(unitHeight) // 初始顶部区域高度
-const previewHeight = ref(unitHeight * 2 - 16) // 初始底部区域高度
+const topHeight = ref(unitHeight * 2) // 初始顶部区域高度
+const bottomHeight = ref(unitHeight - 16) // 初始底部区域高度
 let isResizing = false
 
 const startResize = (e: MouseEvent) => {
@@ -140,8 +146,8 @@ const resize = (e: MouseEvent) => {
         const newTopHeight = e.clientY - 100 // 假设顶部距离窗口顶部100px
         const newBottomHeight = height - newTopHeight // 假设整个容器高度为400px
         if (newTopHeight > 100 && newBottomHeight > 100) { // 限制最小高度
-            tableHeight.value = newTopHeight
-            previewHeight.value = newBottomHeight
+            topHeight.value = newTopHeight
+            bottomHeight.value = newBottomHeight
         }
     }
 }
@@ -165,9 +171,9 @@ const model = defineModel({
     type: Boolean
 })
 
-const activeName: any = ref("")
+const activeName: any = ref("dataPreview")
 const handleClick = (tab: TabsPaneContext, event: Event) => {
-    activeName.value = tab.paneName
+    // activeName.value = tab.paneName
 }
 
 const close = () => {
@@ -276,24 +282,40 @@ const handleRun = () => {
     const sql = u.base64Encode(alaSqlEditor.value.sqlContent)
     const id = datasourceId.value
     u.checkEmpty(id, "数据源", t)
-    console.log('sql:', sql);
-    console.log('baseInfo:', datasourceId.value);
 
     let params = { sql, datasourceId: id, sqlVariableDetails: u.tojson([]) }
 
     logger.info(`加载sql预览数据，url【 ${url} 】，查询参数：`, params);
 
-    alaPost(u.url(url), params, false, '').then((data: any) => {
-        const response = data;
-        if (response?.data && response.data.length > 0) {
-            const tbs: Table[] = []
-            console.log('response.data:', response.data);
+    alaPost(u.url(url), params, false, '').then((response: any) => {
+
+        if (response?.data?.data?.data && response.data.data.data.length > 0) {
+
+            const data = response.data.data.data
+            const fields = response.data.data.fields
+
+            const f: any[] = []
+
+            fields.forEach((field: any) => {
+                f.push({ name: field.originName, label: field.originName })
+            })
+            previewDataHeaders.value = f
+            previewDataRows.value = data
+
 
         }
 
     });
 
 }
+
+// 预览数据区域变量
+const previewDataHeaders = ref<Array<any>>([])
+const previewDataRows = ref<Array<any>>([])
+
+
+
+
 
 // ################## sql编辑器 end ####################################################
 
@@ -504,11 +526,24 @@ const handleRun = () => {
             height: calc(60% - 10px);
 
             .ala-tabs {
+                height: 100%;
+
                 :deep(.el-tabs__item) {
                     height: 30px;
                 }
 
-                .ala-tab-pane {}
+                :deep(.el-tabs__header) {
+                    margin: 0px !important;
+                }
+
+                :deep(.el-tabs__active-bar) {
+                    background-color: #F4F7FA;
+                    height: 1px;
+                }
+
+                :deep(.ala-tab-pane) {
+                    height: 100%;
+                }
             }
         }
     }
