@@ -37,7 +37,30 @@
                                 <VIcon icon="b_copy" @click="handleCopy(item.tableName)" />
                                 <AlaPopover src="/dataset/columns.svg" image-width="16px" image-height="16px"
                                     @onShow="showTableFields(item.tableName)">
-                                    sddff
+                                    <table class="table-fields">
+
+                                        <thead>
+                                            <th>字段名</th>
+                                            <th>字段描述</th>
+                                            <th>字段类型</th>
+                                            <th>操作</th>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr v-for="(item, index) in tableFields" :key="item.columnName">
+                                                <td>
+                                                    <VIcon :image="getIcon(item.type, item.columnName)" width="16px"
+                                                        height="16px" />&nbsp;{{
+                                                            item.columnName }}
+                                                </td>
+                                                <td>{{ item.remark }}</td>
+                                                <td>{{ item.type }}</td>
+                                                <td>
+                                                    <VIcon icon="b_copy" @click="handleCopy(item.columnName)" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </AlaPopover>
 
                             </div>
@@ -165,11 +188,10 @@ watch(() => datasourceId.value, (id: any) => {
 
     let params = { datasourceId: id }
 
-    logger.info(`从 dict 模块加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
+    logger.info(`加载数据源中的表信息，url【 ${url} 】，查询参数：`, params);
 
     alaPost(u.url(url), params, false, '').then((data: any) => {
         const response = data;
-        console.log('data:', data);
         if (response?.data && response.data.length > 0) {
             const tbs: Table[] = []
             response.data.forEach((item: { tableName: string, datasourceId: number, }) => {
@@ -187,10 +209,48 @@ const handleCopy = (value: string) => {
     tip.success('已复制')
 }
 
+interface TableField {
+    columnName: string,
+    remark: string,
+    type: string
+}
+const tableFields = ref<Array<TableField>>([])
 const showTableFields = (tableName: string) => {
-    console.log('showTableFields:', tableName);
+    const params = { datasourceId: datasourceId.value, tableName, info: u.tojson({ table: tableName, sql: "" }), "type": "db" }
+
+    const url = '/b/datasetTableField/tableField'
+
+    logger.info(`加载数据源中的表字段信息，url【 ${url} 】，查询参数：`, params);
+
+    tableFields.value = []
+
+    alaPost(u.url(url), params, false, '').then((data: any) => {
+        const response = data;
+        if (response?.data && response.data.length > 0) {
+            const tfs: TableField[] = []
+            response.data.forEach((item: { originName: string, description: string, type: string, datasourceId: number, }) => {
+                tfs.push({ columnName: item.originName, remark: item.description, type: item.type })
+            })
+            tableFields.value = tfs
+        }
+
+    });
 }
 
+const getIcon = (type: string, columnName: string) => {
+    let image = '/dataset/'
+    if (columnName === 'created_time' || columnName === 'updated_time') {
+        image += 'date.svg'
+    } else if (type.toLocaleLowerCase().indexOf('int') > -1) {
+        image += 'number.svg'
+    } else if (type.toLocaleLowerCase().indexOf('date') > -1 || type.toLocaleLowerCase().indexOf('datetime') > -1) {
+        image += 'date.svg'
+    } else {
+        image += 'text.svg'
+    }
+
+    return image
+}
 
 // ################## 选择数据源 end ####################################################
 
@@ -294,6 +354,47 @@ const showTableFields = (tableName: string) => {
                 .tableName {}
 
                 .buttons {
+                    .table-fields {
+                        text-align: left;
+                        padding: 4px 32px;
+
+                        thead {
+                            height: 32px;
+                            line-height: 32px;
+                            background: var(--ala-color-bg);
+
+                            th {
+                                padding: 0px 8px;
+                                max-width: 200px;
+                                word-wrap: break-word;
+
+                            }
+                        }
+
+                        tbody {
+                            overflow-y: auto;
+
+                            tr {
+                                height: 26px;
+                                line-height: 26px;
+                                border-bottom: 1px solid var(--ala-color-bg);
+
+                                td {
+                                    padding: 0px 8px;
+                                    max-width: 200px;
+                                    word-wrap: break-word;
+                                    line-height: 26px;
+
+                                    :deep(.icon-image) {
+                                        display: inline-block;
+                                        width: 26px;
+                                        height: 26px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     margin-left: 2px;
                     align-items: center;
                     justify-content: center;
