@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-31 16:56:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-01 08:58:23
+ * @LastEditTime: 2025-02-01 19:44:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/sql-editor/ala-sql-editor.vue
  * @Description: 
  * 
@@ -11,6 +11,7 @@
 <template>
     <div class="ala-sql-editor">
         <div class="header">
+            <slot name=header></slot>
             <AlaButton :showButton="true" name="format" @format="handleFormat()" buttonType="primary" />
         </div>
         <v-ace-editor v-model:value="sqlContent" lang="sql" :theme="theme" :options="editorOptions" class="sql-editor"
@@ -35,7 +36,7 @@ import { format } from 'sql-formatter';
 
 // State
 // const sqlContent = ref('-- \nselect * from xxx');
-const sqlContent = ref('-- \nselect ocd.* from oauth_client_details ocd left join sys_user su on ocd.user_id = su.id');
+const sqlContent = ref('-- \nselect sm.* from sys_menu sm left join sys_user su on sm.created_by = su.id');
 const theme = ref('chrome');
 const editorOptions = ref({
     fontSize: '16px',
@@ -77,6 +78,10 @@ const editorInit = (editor: any) => {
 const handleFormat = () => {
     sqlContent.value = format(sqlContent.value)
 }
+
+defineExpose({
+    sqlContent
+})
 
 </script>
 

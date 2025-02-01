@@ -69,7 +69,13 @@
                 </div>
                 <div class="right">
                     <div class="sql-editor" :style="{ height: `${tableHeight}px` }">
-                        <AlaSqlEditor />
+                        <AlaSqlEditor ref="alaSqlEditor">
+
+                            <template #header>
+                                <AlaButton :showButton="true" name="run" @run="handleRun()" buttonType="default" />
+                            </template>
+
+                        </AlaSqlEditor>
                     </div>
                     <div class="resizer" @mousedown="startResize">
                         <div class="resizer-button">
@@ -101,6 +107,7 @@
 
 <script setup lang="ts">
 import AlaSelectApi from '@/components/cps/select-api/ala-select-api.vue'
+import alaType from '@/utils/alaType'
 import { logger } from '@/utils/logger'
 import { alaPost } from '@/utils/req'
 import tip from '@/utils/tip'
@@ -108,8 +115,11 @@ import u from '@/utils/u'
 import { table } from 'console'
 import { TabsPaneContext } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 // State
+const baseInfo = inject('baseInfo') as { [key: string]: any };
 
 
 // Methods
@@ -238,21 +248,56 @@ const showTableFields = (tableName: string) => {
 }
 
 const getIcon = (type: string, columnName: string) => {
-    let image = '/dataset/'
+    let image = ''
     if (columnName === 'created_time' || columnName === 'updated_time') {
-        image += 'date.svg'
-    } else if (type.toLocaleLowerCase().indexOf('int') > -1) {
-        image += 'number.svg'
-    } else if (type.toLocaleLowerCase().indexOf('date') > -1 || type.toLocaleLowerCase().indexOf('datetime') > -1) {
-        image += 'date.svg'
+        image = alaType.getIconByColumnType('DATE')
     } else {
-        image += 'text.svg'
+        image = alaType.getIconByColumnType(type)
     }
 
     return image
 }
 
 // ################## 选择数据源 end ####################################################
+
+// ################## sql编辑器 start ####################################################
+
+const alaSqlEditor = ref()
+const handleRun = () => {
+
+    // Methods
+    const url = '/b/datasetTable/previewSql'
+
+    // {
+    // "sql": "c2VsZWN0ICogZnJvbSBzeXNfbWVudSBsaW1pdCAke2xpbWl0TnVtfQ==",
+    // "datasourceId": "1076863062130167808",
+    // "sqlVariableDetails": "[{\"variableName\":\"limitNum\",\"alias\":\"\",\"type\":[\"LONG\"],\"required\":false,\"defaultValue\":\"10\",\"details\":\"\",\"defaultValueScope\":\"ALLSCOPE\"}]"
+    // }
+    const sql = u.base64Encode(alaSqlEditor.value.sqlContent)
+    const id = datasourceId.value
+    u.checkEmpty(id, "数据源", t)
+    console.log('sql:', sql);
+    console.log('baseInfo:', datasourceId.value);
+
+    let params = { sql, datasourceId: id, sqlVariableDetails: u.tojson([]) }
+
+    logger.info(`加载sql预览数据，url【 ${url} 】，查询参数：`, params);
+
+    alaPost(u.url(url), params, false, '').then((data: any) => {
+        const response = data;
+        if (response?.data && response.data.length > 0) {
+            const tbs: Table[] = []
+            console.log('response.data:', response.data);
+
+        }
+
+    });
+
+}
+
+// ################## sql编辑器 end ####################################################
+
+
 
 </script>
 
