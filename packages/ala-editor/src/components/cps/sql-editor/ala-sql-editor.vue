@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-31 16:56:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-31 18:00:25
+ * @LastEditTime: 2025-02-01 08:58:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/sql-editor/ala-sql-editor.vue
  * @Description: 
  * 
@@ -26,7 +26,8 @@ import { ref, onMounted } from 'vue';
 import { VAceEditor } from 'vue3-ace-editor';
 
 import * as ace from 'ace-builds';
-ace.config.set('basePath', '/static/src-min-noconflict/');
+// 设置 basePath
+ace.config.set('basePath', '/node_modules/ace-builds/src-noconflict');
 import 'ace-builds/src-noconflict/mode-sql';
 import 'ace-builds/src-noconflict/theme-chrome';
 import 'ace-builds/src-min-noconflict/ext-language_tools';
