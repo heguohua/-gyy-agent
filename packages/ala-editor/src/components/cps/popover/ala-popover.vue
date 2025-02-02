@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-31 19:05:16
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-01 09:55:45
+ * @LastEditTime: 2025-02-02 16:33:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/popover/ala-popover.vue
  * @Description: 
  * 
@@ -13,8 +13,10 @@
         <el-popover placement="right" :trigger="trigger" @show="show" popper-class="ala-popover-class" :hide-after="0"
             :show-after="200" :teleported="false">
             <template #reference>
-                <img v-if="src" :src="src" :style="{ width: imageWidth, height: imageHeight }" />
-                <p v-if="text">{{ text }}</p>
+                <div class="ala-popover-title">
+                    <img v-if="src" :src="src" :style="{ width: imageWidth, height: imageHeight }" />
+                    <p v-if="text">&nbsp;{{ text }}</p>
+                </div>
             </template>
             <slot></slot>
         </el-popover>
@@ -61,6 +63,15 @@ const show = () => {
 
 <style lang="scss">
 .ala-popover {
+    cursor: pointer;
+
+    .ala-popover-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+    }
+
     .ala-popover-class {
         width: auto !important;
     }

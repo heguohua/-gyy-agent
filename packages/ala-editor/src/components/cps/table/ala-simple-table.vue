@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-02 10:23:01
+ * @LastEditTime: 2025-02-02 16:34:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/table/ala-simple-table.vue
  * @Description: 
  * 
@@ -14,8 +14,13 @@
         <table v-if="rows.length > 0">
             <thead class="thead">
                 <tr>
+                    
                     <th v-for="(header, index) in headers" :key="index">
-                        <img :src="getIcon(header)" :width="iconWidth" :height="iconHeight" />&nbsp;{{ header.label }}
+                        <AlaPopover :src="getIcon(header)" :imageWidth="iconWidth+'px'" :imageHeight="iconHeight+'px'" :text="header.name" trigger="hover">
+                            <template #default>
+                                {{ header.label }}
+                            </template>
+                        </AlaPopover>
                     </th>
                 </tr>
             </thead>

@@ -306,7 +306,9 @@ const handleRun = () => {
             const f: any[] = []
 
             fields.forEach((field: any) => {
-                f.push({ name: field.originName, label: field.originName, type: field.type })
+                console.log('field:',field);
+                
+                f.push({ name: field.originName, label: field.name, type: field.type })
             })
             previewDataHeaders.value = f
             previewDataRows.value = data
