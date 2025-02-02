@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-01 22:49:02
+ * @LastEditTime: 2025-02-02 10:23:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/table/ala-simple-table.vue
  * @Description: 
  * 
@@ -10,17 +10,19 @@
 -->
 <template>
     <div class="ala-simple-table-wrapper">
-        <table>
+        <AlaBlankImage v-if="rows.length == 0" title="没有查询到数据，请检查SQL是否书写正确" />
+        <table v-if="rows.length > 0">
             <thead class="thead">
                 <tr>
                     <th v-for="(header, index) in headers" :key="index">
-                        {{ header.label }}
+                        <img :src="getIcon(header)" :width="iconWidth" :height="iconHeight" />&nbsp;{{ header.label }}
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(row, rowIndex) in rows" :key="rowIndex">
-                    <td v-for="(header, index) in headers" :key="rowIndex + '-' + index">
+                    <td v-for="(header, index) in headers" :key="rowIndex + '-' + index" :class="getTdClass(header)"
+                        :data-full-text="row[header.name]">
                         {{ row[header.name] }}
                     </td>
                 </tr>
@@ -30,12 +32,14 @@
 </template>
 
 <script setup lang="ts">
+import alaType from '@/utils/alaType';
 import { logger } from '@/utils/logger';
 
 
 interface Header {
     name: string, // 属性名
     label: string // 字段名
+    type: string // 字段类型
 }
 
 interface Row {
@@ -78,11 +82,11 @@ const props = defineProps({
     },
     iconWidth: {
         type: Number,
-        default: 30
+        default: 16
     },
     iconHeight: {
         type: Number,
-        default: 30
+        default: 16
     },
     headers: {
         type: Array<Header>,
@@ -106,7 +110,25 @@ const emit = defineEmits(['callback', "init"])
 logger.info(`bType[ ${props.bType} ]，渲染 动态表格 ala-simple-table 组件，props：`, props);
 
 
-// // 发送组件初始化消息
+const getIcon = (header: Header) => {
+    return alaType.getIconByColumnType(header.type)
+}
+
+
+const getTdClass = (header: Header) => {
+    const alaTypee = alaType.getIconByColumnType(header.type)
+    let clazz = ''
+    if (alaTypee.indexOf('number') > 0) {
+        clazz = 'number'
+    } else if (alaTypee.indexOf('date') > 0) {
+        clazz = 'date'
+    } else if (alaTypee.indexOf('decimal') > 0) {
+        clazz = 'decimal'
+    } else {
+        clazz = ''
+    }
+    return clazz
+}
 
 
 
@@ -122,16 +144,20 @@ logger.info(`bType[ ${props.bType} ]，渲染 动态表格 ala-simple-table 组�
         height: 100%;
         width: 100%;
         overflow-x: auto;
+        table-layout: fixed;
 
         .thead {
             background: var(--ala-color-bg);
             height: 38px;
             position: sticky;
             top: 0;
+            z-index: 2011;
+
             tr {
                 th {
                     text-align: left;
                     padding: 4px 8px;
+                    white-space: nowrap;
                 }
             }
         }
@@ -146,7 +172,42 @@ logger.info(`bType[ ${props.bType} ]，渲染 动态表格 ala-simple-table 组�
                 td {
                     text-align: left;
                     padding: 4px 8px;
+                    white-space: nowrap;
+
+                    max-width: 250px;
+                    /* 设置最大宽度 */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
+
+                td:hover {
+                    overflow: auto;
+                    white-space: wrap;
+                    background: var(--el-color-primary);
+                    color: #fff;
+                }
+
+                // 数值 类型样式
+                .number {
+                    color: var(--el-color-success-dark-2);
+                    font-weight: bold;
+                }
+
+                // 日期 类型样式
+                .date {}
+
+                // 小数 类型样式
+                .decimal {}
+            }
+
+            tr:nth-child(even) {
+                /* 设置偶数行的背景色 */
+                background-color: var(--ala-color-bg);
+            }
+
+            tr:hover {
+                background-color: var(--el-color-primary-light-9);
+                cursor: pointer;
             }
         }
     }

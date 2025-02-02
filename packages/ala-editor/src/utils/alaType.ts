@@ -1,3 +1,13 @@
+/*
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2025-02-01 19:36:41
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2025-02-02 08:34:41
+ * @FilePath: /1-low-coding/packages/ala-editor/src/utils/alaType.ts
+ * @Description: 
+ * 
+ * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+ */
 export default class alaType {
     public static getIconByColumnType(type: string): string {
         const tmp = type.toUpperCase()
@@ -43,6 +53,7 @@ export default class alaType {
             case "UINT16":
             case "UINT32":
             case "UINT64":
+            case "TINYINT":
                 return "/dataset/number.svg"; // 整型
             case "NUMBER":
             case "FLOAT":
@@ -60,7 +71,6 @@ export default class alaType {
             case "FLOAT64":
                 return "/dataset/decimal.svg"; // 浮点
             case "BIT":
-            case "TINYINT":
             case "BOOL":
             case "BOOLEAN":
                 return "/dataset/boolean.svg"; // 布尔

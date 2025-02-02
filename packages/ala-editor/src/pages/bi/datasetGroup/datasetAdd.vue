@@ -89,8 +89,9 @@
                     <div class="preview" :style="{ height: `${bottomHeight}px` }">
                         <el-tabs v-model="activeName" class="ala-tabs" @tab-click="handleClick" :stretch="true">
                             <el-tab-pane label="数据预览" name="dataPreview" class="ala-tab-pane">
-                                <AlaSimpleTable :headers="previewDataHeaders" :rows="previewDataRows" />
-                                <AlaBlankImage title="点击上方【 运行 】按钮，即可查看SQL执行结果" />
+                                <AlaSimpleTable v-if="!showEmptyInfo" :headers="previewDataHeaders"
+                                    :rows="previewDataRows" />
+                                <AlaBlankImage v-if="showEmptyInfo" title="点击上方【 运行 】按钮，即可查看SQL执行结果" />
                             </el-tab-pane>
 
                             <!-- <el-tab-pane label="批量设置" name="batchConfig" class="ala-tab-pane">
@@ -287,6 +288,14 @@ const handleRun = () => {
 
     logger.info(`加载sql预览数据，url【 ${url} 】，查询参数：`, params);
 
+    //先清空上一次数据，放置干扰
+    if (showEmptyInfo.value) {
+        showEmptyInfo.value = false
+    }
+    previewDataHeaders.value = []
+    previewDataRows.value = []
+
+
     alaPost(u.url(url), params, false, '').then((response: any) => {
 
         if (response?.data?.data?.data && response.data.data.data.length > 0) {
@@ -297,7 +306,7 @@ const handleRun = () => {
             const f: any[] = []
 
             fields.forEach((field: any) => {
-                f.push({ name: field.originName, label: field.originName })
+                f.push({ name: field.originName, label: field.originName, type: field.type })
             })
             previewDataHeaders.value = f
             previewDataRows.value = data
@@ -310,6 +319,7 @@ const handleRun = () => {
 }
 
 // 预览数据区域变量
+const showEmptyInfo = ref(true)
 const previewDataHeaders = ref<Array<any>>([])
 const previewDataRows = ref<Array<any>>([])
 
