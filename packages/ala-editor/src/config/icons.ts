@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-01 10:27:04
+ * @LastEditTime: 2025-02-03 16:03:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -39,6 +39,7 @@ const icon = {
   create: 'fluent:add-circle-24-filled',
   upload: 'fluent:arrow-upload-16-filled',
   expand: 'fluent:panel-right-expand-16-regular',
+  close: 'fluent:panel-left-expand-16-regular',
   contract: 'clarity:contract-line',
   copy: 'fluent:save-copy-24-regular',
   delete: 'fluent:delete-24-regular',

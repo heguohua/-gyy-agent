@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 10:44:18
+ * @LastEditTime: 2025-02-03 16:00:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block.vue
  * @Description: 
  * 
@@ -170,7 +170,7 @@ const handleChange = () => {
         overflow: auto;
 
         &::-webkit-scrollbar {
-            width: 4px;
+            width: 2%;
             /* 设置滚动条的宽度 */
         }
 

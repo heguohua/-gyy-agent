@@ -1,8 +1,8 @@
 <template>
     <div class="editor-config" ref="target" :class="{ 'is-show': editorStore.configPanelShow[bType] }">
         <div class="icon-group">
-            <v-icon-tooltip class="" :icon="editorStore.configPanelShow[bType] ? 'contract' : 'expand'"
-                :content="editorStore.configPanelShow[bType] ? '收齐侧边栏' : '展开侧边栏'" @click.native="panelSwitch" />
+            <v-icon-tooltip class="" :icon="editorStore.configPanelShow[bType] ? 'close' : 'expand'"
+                :content="editorStore.configPanelShow[bType] ? '收起侧边栏' : '展开侧边栏'" @click.native="panelSwitch" />
             <div class="content">
                 <transition-group name="fade">
                     <div :key="bType + 'tg'">
