@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 17:52:58
+ * @LastEditTime: 2025-02-03 19:03:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -289,7 +289,7 @@ export const configMainTitle = () => {
         text_borderRadius: schemaAllViewport(configInt("圆角半径", 2)),
         text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
         text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
-        text_fontSize: schemaAllViewport(configInt("字体大小")),
+        text_fontSize: schemaAllViewport(configInt("字体大小", 14)),
         text_width: schemaAllViewport(configInt("显示宽度", 100)),
         text_height: schemaAllViewport(configInt("显示高度")),
         text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
@@ -310,7 +310,7 @@ export const configSubTitle = () => {
         sub_text_color: schemaAllViewport(configColor("字体颜色")),
         sub_text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
         sub_text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
-        sub_text_fontSize: schemaAllViewport(configInt("字体大小")),
+        sub_text_fontSize: schemaAllViewport(configInt("字体大小", 10)),
         sub_text_width: schemaAllViewport(configInt("显示宽度", 100)),
         sub_text_height: schemaAllViewport(configInt("显示高度")),
         sub_text_overflow: schemaAllViewport(configTextOverflow("换行策略")),

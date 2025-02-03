@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-28 09:41:05
+ * @LastEditTime: 2025-02-03 21:07:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -11,13 +11,13 @@
 <template>
     <div class="ala-date-picker-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
-            <template #label>
+            <template #label v-if="label">
                 <AlaFormLabel :label="label" :help="help" />
             </template>
             <!-- 注意，注意，注意 el-date-picker 中必须使用 @update:model-value 更新数据值-->
             <el-date-picker :model-value="model" :disabled-date="disabledDate" :type="dateType"
                 :placeholder="placeholder" :size="size" @update:model-value="handleChange"
-                :picker-options="pickerOptions" :id="fieldName" />
+                :picker-options="pickerOptions" :id="fieldName" :format="format" />
 
         </el-form-item>
 
@@ -93,7 +93,8 @@ const handleChange = (value: Date | null) => {
         model.value = milliseconds
 
     } else {
-        logger.error("注意，注意，注意：当前选择日期后为null");
+        model.value = ''
+        // logger.error("注意，注意，注意：当前选择日期后为null");
     }
 }
 

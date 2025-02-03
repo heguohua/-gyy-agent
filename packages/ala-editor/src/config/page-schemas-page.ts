@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 16:27:25
+ * @LastEditTime: 2025-02-03 18:53:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-page.ts
  * @Description: 
  * 
@@ -39,6 +39,7 @@ const width = Type.Number({
     code: "config-int",
     title: "页面宽度",
     placeholder: "请输入页面宽度",
+    default: 900,
     other: {
         min: 400,
         max: 1920,
