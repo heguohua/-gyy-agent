@@ -352,7 +352,7 @@ const handleSave = () => {
 
                     }
 
-                    :deep(.is-active) {
+                    :deep(.el-tabs__item.is-active) {
                         border-bottom: 2px solid var(--el-color-primary);
                     }
 

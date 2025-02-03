@@ -34,8 +34,9 @@ import AlaConfigFormRules from '@/components/cps/config/ala-config-form-rules.vu
 import AlaConfigTitle from '@/components/cps/config/ala-config-title.vue';
 import AlaConfigColor from '@/components/cps/config/ala-config-color.vue';
 import AlaConfigTextareaJson from '@/components/cps/config/ala-config-textarea-json.vue';
+import AlaConfigCollapseItem from '@/components/cps/config/ala-config-collapse-item.vue';
 
-
+// form 表单组件
 import AlaInput from '@/components/cps/input/ala-input.vue';
 import AlaTextarea from '@/components/cps/textarea/ala-textarea.vue';
 import AlaSlider from '@/components/cps/slider/ala-slider.vue';
@@ -127,6 +128,7 @@ export default {
     AlaConfigTitle,
     AlaConfigColor,
     AlaConfigTextareaJson,
+    AlaConfigCollapseItem,
 
 
     // ALA架构表单组件

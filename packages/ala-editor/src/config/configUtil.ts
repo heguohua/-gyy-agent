@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 16:50:41
+ * @LastEditTime: 2025-02-03 17:52:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -14,6 +14,14 @@ import { Type } from "@sinclair/typebox"
 export const configTitle = (title: string) => {
     const title_title = Type.String({
         code: "config-title",
+        title,
+    })
+    return title_title
+}
+
+export const configCollapseItem = (title: string) => {
+    const title_title = Type.String({
+        code: "config-collapse-item",
         title,
     })
     return title_title
@@ -291,7 +299,6 @@ export const configMainTitle = () => {
         text_padding: schemaAllViewport(configInt("内边距")),
         text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
         text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
-        text_itemGap: schemaAllViewport(configInt("主副间距")),
     }
     return config
 }
@@ -299,6 +306,7 @@ export const configMainTitle = () => {
 
 export const configSubTitle = () => {
     const config = {
+        text_itemGap: schemaAllViewport(configInt("主副间距")),
         sub_text_color: schemaAllViewport(configColor("字体颜色")),
         sub_text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
         sub_text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
