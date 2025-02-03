@@ -14,7 +14,7 @@
         <table v-if="rows.length > 0">
             <thead class="thead">
                 <tr>
-                    
+                        
                     <th v-for="(header, index) in headers" :key="index">
                         <AlaPopover :src="getIcon(header)" :imageWidth="iconWidth+'px'" :imageHeight="iconHeight+'px'" :text="header.name" trigger="hover">
                             <template #default>
@@ -199,10 +199,10 @@ const getTdClass = (header: Header) => {
                 }
 
                 // 日期 类型样式
-                .date {}
+                // .date {}
 
                 // 小数 类型样式
-                .decimal {}
+                // .decimal {}
             }
 
             tr:nth-child(even) {

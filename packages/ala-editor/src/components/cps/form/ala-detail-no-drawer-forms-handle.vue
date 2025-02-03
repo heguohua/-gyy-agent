@@ -365,7 +365,7 @@ formData.value['args'] = item.value.formKey
 u.checkNull(item.value['formKey'], "当前审批节点Form表单配置信息", t)
 const formConfigs = u.parseJson(item.value['formKey'])
 u.checkNull(formConfigs, "当前审批节点Form表单配置信息", t)
-u.checkBoolean(formConfigs.length == 0, "当前审批节点Form表单配置信息", t)
+u.checkTrue(formConfigs.length == 0, "当前审批节点Form表单配置信息", t)
 
 formConfigs.forEach(async (form: Form) => {
 

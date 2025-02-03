@@ -7,10 +7,10 @@
             <div class="header">
                 <div class="left">
                     <v-icon-tooltip icon="back" content="返回" @click="close" />
-                    <ala-input class="dataset-input" />
+                    <ala-input class="dataset-input" placeholder="请填写数据集名称" v-model="dataset.name" />
                 </div>
                 <div class="right">
-                    <AlaButton :showButton="true" name="saveAndBack" @save="handleSaveAndBack()" buttonType="default" />
+                    <AlaButton :showButton="true" name="saveAndBack" @saveAndBack="handleSave(true)" buttonType="default" />
                     <AlaButton :showButton="true" name="save" @save="handleSave()" buttonType="primary" />
                 </div>
             </div>
@@ -114,9 +114,11 @@
 <script setup lang="ts">
 import AlaBlankImage from '@/components/cps/blank/ala-blank-image.vue'
 import AlaSelectApi from '@/components/cps/select-api/ala-select-api.vue'
+import Snowflake from '@/utils/Snowflake'
 import alaType from '@/utils/alaType'
 import { logger } from '@/utils/logger'
-import { alaPost } from '@/utils/req'
+import notify from '@/utils/notify'
+import { alaPost, get } from '@/utils/req'
 import tip from '@/utils/tip'
 import u from '@/utils/u'
 import { table } from 'console'
@@ -128,6 +130,10 @@ const { t } = useI18n();
 // State
 const baseInfo = inject('baseInfo') as { [key: string]: any };
 
+// 注册 雪花id 生成算法实例
+const now = Date.now(); // 获取当前时间的毫秒时间戳
+const lastThreeDigits = now % 1000; // 取模运算获取最后三位
+const snowflake = new Snowflake(lastThreeDigits); // 机器节点 ID 为 1
 
 // Methods
 const height = window.innerHeight
@@ -177,17 +183,13 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
     // activeName.value = tab.paneName
 }
 
+const emits = defineEmits(['refresh'])
 const close = () => {
     model.value = false
+    emits('refresh')
 }
 
-const handleSave = () => {
 
-}
-
-const handleSaveAndBack = () => {
-
-}
 
 // ################## 选择数据源 start ####################################################
 
@@ -306,9 +308,8 @@ const handleRun = () => {
             const f: any[] = []
 
             fields.forEach((field: any) => {
-                console.log('field:',field);
-                
-                f.push({ name: field.originName, label: field.name, type: field.type })
+                // 组装 数据集预览表格 - 表头字段
+                f.push({ name: field.originName, label: field.description, type: field.type })
             })
             previewDataHeaders.value = f
             previewDataRows.value = data
@@ -330,6 +331,232 @@ const previewDataRows = ref<Array<any>>([])
 
 
 // ################## sql编辑器 end ####################################################
+
+// ################## dataset 数据保存、编辑 start ####################################################
+interface Field {
+    id?: string,
+    datasourceId: string,
+    datasetTableId?: string,
+    datasetGroupId?: string,
+    chartId?: string,
+    originName: string,
+    name: string,
+    dbFieldName?: string,
+    description: string,
+    alaName?: string,
+    groupType: string,
+    type: string,
+    precision?: number,
+    scale?: number,
+    alaType: number,
+    alaExtractType: number,
+    extField: number,
+    checked: number, // 1-是，2-否
+    columnIndex?: number,
+    lastSyncTime?: number,
+    dateFormat?: string,
+    dateFormatType?: string,
+    fieldShortName?: string,
+    desensitized?: number, // 1-是，2-否
+}
+
+interface CurrentDataset {
+    id?: string, // id
+    datasourceId: string, // 数据源 id
+    type: string, // 固定值 sql，后续可以扩充表
+    tableName: string, // 同最外层 name
+    info: string, // {"table":"三个字段","sql":"c2VsZWN0IHNtLmlkLHNtLm5hbWUsc20udXJsIGZyb20gc3lzX21lbnUgc20gd2hlcmUgc20uaWQgPiAke21pbklkfQ=="}
+    sqlVariableDetails: string, //[{"variableName":"minId","alias":"","type":["LONG"],"required":false,"defaultValue":"10","details":"","defaultValueScope":"ALLSCOPE"}]
+}
+
+interface Union {
+    currentDataset: CurrentDataset,
+    currentDatasetFields: Array<Field>,
+    childrenDataset: [],
+    unionToParent: {
+        unionType: string,
+        unionFields: []
+    }
+}
+
+interface Dataset {
+    id?: number,
+    nodeType: string,
+    name: string,
+    pid: number,
+    union: Array<Union>,
+    allFields: Array<Field>,
+}
+
+const dataset = ref<Dataset>({
+    name: '',
+    nodeType: 'dataset',
+    pid: 0,
+    union: [],
+    allFields: []
+})
+
+if (baseInfo.datasetGroup.id) {
+    // 当前是编辑数据集，则加载原始数据
+    const url = '/b/datasetGroup/details'
+
+    get(u.url(url), { id: baseInfo.datasetGroup.id }).then((response: any) => {
+
+        console.log('response:', response?.data);
+
+        if (response?.data?.data) {
+
+            const data = response.data.data
+            console.log('data:', data);
+
+            const name = data.name
+            const pid = data.pid
+            const union = data.union
+            const currentDataset = union[0].currentDataset
+            const dId = currentDataset.datasourceId
+            let info = {} as any
+            if (currentDataset.info) {
+                info = u.parseJson(currentDataset.info)
+            }
+            const sql = u.base64Decode(info.sql)
+
+
+            const dt = dataset.value
+            dt.name = name
+            baseInfo.datasetGroup.pid = pid
+            datasourceId.value = dId
+            if (sql) {
+                alaSqlEditor.value.sqlContent = sql
+            }
+
+
+            // fields.forEach((field: any) => {
+
+            // })
+        } else {
+            notify.error(t('pop.warm_title'), "没有加载到数据集原始数据！")
+        }
+    });
+
+}
+
+
+const handleSave = async (closeAddPage = false) => {
+
+    // 校验数据
+    const dt = dataset.value
+
+    const id = baseInfo.datasetGroup.id
+    const pid = baseInfo.datasetGroup.pid
+
+    if (id) {
+        dt.id = id
+    }
+    u.checkEmpty(pid, "数据集目录", t)
+    dt.pid = pid
+
+    // 检查 数据集名称 是否存在 ？
+    u.checkEmpty(dt.name, '数据集名称', t)
+
+    // 检查 数据源id 是否存在 ？
+    u.checkEmpty(datasourceId.value, '数据源id', t)
+
+    const sql = alaSqlEditor.value.sqlContent
+    u.checkEmpty(sql, "查询SQL", t)
+
+    // 根据 sql 调用api接口获取当前sql的配置字段信息
+
+    // 检查 数据集 字段配置是否正确
+    // u.checkTrue(dt.union.length === 0, '请先运行SQL，并检查查询结果是否正确？', t)
+    // u.checkTrue(dt.allFields.length === 0, '请先运行SQL，并检查查询结果是否正确？', t)
+
+    // {
+    //     "datasourceId": "1076863062130167808",
+    //     "id": "7291757393132654592",
+    //     "info": "{\"table\":\"联表查询\",\"sql\":\"CgpzZWxlY3Qgc20uaWQsc20ubmFtZSxzdS5uaWNrX25hbWUgZnJvbSBzeXNfbWVudSBzbSBsZWZ0IGpvaW4gc3lzX3VzZXIgc3Ugb24gc20uY3JlYXRlZF9ieSA9IHN1LmlkIG9yZGVyIGJ5IHN1Lm5pY2tfbmFtZSBkZXNj\"}",
+    //     "tableName": "联表查询",
+    //     "type": "sql"
+    // }
+    const tableFieldsUrl = '/b/datasetTableField/tableField'
+    const tableFieldsParams = {
+        tableName: dt.name,
+        datasourceId: datasourceId.value,
+        info: u.tojson({
+            table: dt.name,
+            sql: u.base64Encode(sql)
+        }),
+        type: 'sql'
+    }
+
+    const allFields: Field[] = []
+
+    await alaPost(u.url(tableFieldsUrl), tableFieldsParams, false, '').then((response: any) => {
+
+        if (response?.data && response.data.length > 0) {
+
+            const fields = response.data
+
+            fields.forEach((field: any) => {
+                allFields.push({
+                    // id: snowflake.nextId(), //
+                    datasourceId: datasourceId.value, //
+                    originName: field.originName, //
+                    name: field.name, //
+                    description: field.type, //
+                    groupType: field.groupType, //
+                    type: field.type, //
+                    alaType: field.alaType, //
+                    alaExtractType: field.alaExtractType, //
+                    extField: field.extField, //
+                    checked: field.checked //
+                })
+            })
+        }
+    });
+
+
+    // 组装 union
+    const currentDataset: CurrentDataset = {
+        datasourceId: datasourceId.value,
+        type: 'sql',
+        tableName: dt.name,
+        sqlVariableDetails: '[]',
+        info: u.tojson({
+            table: dt.name,
+            sql: u.base64Encode(sql)
+        }),
+    }
+
+    dt.union = [
+        {
+            currentDataset,
+            currentDatasetFields: allFields,
+            childrenDataset: [],
+            unionToParent: {
+                "unionType": "left",
+                "unionFields": []
+            }
+        }
+    ]
+
+    // 组装 allFields
+    dt.allFields = allFields
+
+    const datasetUrl = id ? '/b/datasetGroup/updateDatasetGroup' : '/b/datasetGroup/create'
+    alaPost(u.url(datasetUrl), dt, false, '').then((response: any) => {
+        notify.success(t('pop.warm_title'), "保存成功");
+        console.log('closeAddPage:',closeAddPage);
+        
+        if (closeAddPage) {
+            close()
+        } else {
+            emits('refresh')
+        }
+    });
+
+}
+
+// ################## dataset 数据保存、编辑 end ####################################################
 
 
 
@@ -362,7 +589,9 @@ const previewDataRows = ref<Array<any>>([])
             }
         }
 
-        .dataset-input {}
+        .dataset-input {
+            width: 270px;
+        }
     }
 
     .right {

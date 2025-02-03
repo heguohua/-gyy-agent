@@ -167,7 +167,7 @@ const submit = async () => {
     const lf = loginForm.value
     u.checkNull(lf.scabbard, "请输入您的【 用户名 】", t)
     u.checkNull(lf.sword, "请输入您的【 密码 】", t)
-    u.checkBoolean(!lf.agree, "请阅读协议并【 勾选 】同意", t)
+    u.checkTrue(!lf.agree, "请阅读协议并【 勾选 】同意", t)
 
     alaPost(u.url("/login"), lf).then((data: any) => {
         // 登录成功

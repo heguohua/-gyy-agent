@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-31 16:56:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-01 19:44:35
+ * @LastEditTime: 2025-02-03 10:51:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/sql-editor/ala-sql-editor.vue
  * @Description: 
  * 
@@ -14,8 +14,8 @@
             <slot name=header></slot>
             <AlaButton :showButton="true" name="format" @format="handleFormat()" buttonType="primary" />
         </div>
-        <v-ace-editor v-model:value="sqlContent" lang="sql" :theme="theme" :options="editorOptions" class="sql-editor"
-            @init="editorInit" />
+        <v-ace-editor v-model:value="sqlContent" lang="sql" :theme="theme" :options="editorOptions"
+            class="ala-sql-editor-ace" @init="editorInit" />
         <!-- <div class="editor-buttons">
             <el-button type="primary" @click="formatSql">格式化</el-button>
         </div> -->
@@ -102,9 +102,19 @@ defineExpose({
         // box-shadow: 0 0 0 1px var(--el-border-color) inset;
     }
 
-    .sql-editor {
+    .ala-sql-editor-ace {
         height: 100%;
+        background: #EFF0F1;
 
+        :deep(.ace_gutter) {
+            background: var(--ala-color-bg);
+            color: var(--el-color-info-light-5);
+        }
+
+        :deep(.ace_gutter-active-line) {
+            color: var(--el-color-primary);
+            font-weight: bold;
+        }
     }
 }
 </style>

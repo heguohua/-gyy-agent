@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-31 18:36:04
+ * @LastEditTime: 2025-02-02 17:48:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -65,7 +65,7 @@ export default class u {
      * @param remark 
      * @param title 
      */
-    public static checkBoolean(obj: boolean, i18nKey: string, t: Function, title = "t('pop.warm_title')") {
+    public static checkTrue(obj: boolean, i18nKey: string, t: Function, title = "t('pop.warm_title')") {
         if (obj) {
             const notifyTitle = (title.startsWith("t('") || title.startsWith('t("') ? t(title.slice(3, -2)) : title)
             const content = (i18nKey.startsWith("t('") || i18nKey.startsWith('t("') ? t(i18nKey.slice(3, -2)) : i18nKey)

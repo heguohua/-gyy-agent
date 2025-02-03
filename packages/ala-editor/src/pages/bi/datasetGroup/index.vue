@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-31 19:30:28
+ * @LastEditTime: 2025-02-03 11:59:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasetGroup/index.vue
  * @Description: 
  * 
@@ -19,7 +19,7 @@
 
             <!-- 查询条件 -->
             <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-                @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
+                @showAdd="showAdd()" labelWidth="180px" :showAddButton="true" />
 
             <!-- 分页列表 -->
             <!-- 分页列表 -->
@@ -59,7 +59,7 @@
     <!-- datasetGroup 新增、编辑 -->
     <!-- <DatasetGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
 
-    <DatasetAdd v-if="showAddForm" v-model="showAddForm" />
+    <DatasetAdd v-if="showAddForm" v-model="showAddForm" @refresh="refresh" />
 
 </template>
 
@@ -89,8 +89,8 @@ const baseInfo = reactive({
     moduleName,
     id: null,
     selectedList: Array<{ id: string }>,
-    item: {},
     folder: { id: 0 },
+    datasetGroup: { pid: 0, id: undefined },
     treeFormData: { nodeType: 'folder' },
 })
 
@@ -101,29 +101,27 @@ provide('baseInfo', baseInfo);
 // ############## 分页列表通用方法，该部分代码不用修改 start ######################################
 
 const showAddForm = ref(false)
-const showAdd = (item: { [key: string]: any }) => {
+const showAdd = () => {
 
     //根节点不能添加数据
-    u.checkBoolean(baseInfo.folder.id === 0, "不能在根节点新增数据", t)
+    u.checkTrue(baseInfo.folder.id === 0, "不能在根节点新增数据", t)
 
-    u.clear(baseInfo.item)
-    u.merged(baseInfo, { item: { id: null, pid: item.id } })
-    logger.info(`【新增】方法接收到参数【 item 】`, item);
+    u.clear(baseInfo.datasetGroup)
+    u.merged(baseInfo, { datasetGroup: { id: null, pid: baseInfo.folder.id } })
+
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+
     showAddForm.value = true
 }
 
 const showEdit = (item: { [key: string]: any }) => {
-    // 解密 configuration 字段
-    let it = u.cloned(item) as { [key: string]: any }
-    it['configuration'] = u.parseJson(u.base64Decode(it['configuration']))
 
-    // item['type'] = u.parseJson(item['type'])
-    it = u.flattenObject(it)
-    u.merged(baseInfo, { item: { ...it } })
+    u.clear(baseInfo.datasetGroup)
+    u.merged(baseInfo, { datasetGroup: { id: item.id } })
 
-    logger.info(`【编辑】方法接收到参数 item `, it);
+    logger.info(`【编辑】方法接收到参数 item `, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+
     showAddForm.value = true
 }
 

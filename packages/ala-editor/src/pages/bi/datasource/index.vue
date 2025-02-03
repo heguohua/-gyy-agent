@@ -102,7 +102,7 @@ const showAddForm = ref(false)
 const showAdd = (item: { [key: string]: any }) => {
 
     //根节点不能添加数据
-    u.checkBoolean(baseInfo.folder.id === 0, "不能在根节点新增数据", t)
+    u.checkTrue(baseInfo.folder.id === 0, "不能在根节点新增数据", t)
 
     u.clear(baseInfo.item)
     u.merged(baseInfo, { item: { id: null, pid: item.id } })
