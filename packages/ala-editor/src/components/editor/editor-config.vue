@@ -330,7 +330,6 @@ const handleSave = () => {
                 }
 
                 .ala-editor-config-tab {
-                    .ala-pane-block {}
 
                     margin-top: 12px;
                     margin-bottom: 200px;
