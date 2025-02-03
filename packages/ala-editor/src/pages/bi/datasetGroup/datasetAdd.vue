@@ -628,7 +628,6 @@ const handleSave = async (closeAddPage = false) => {
         }
 
         .select-datasource {
-            .sd-title {}
 
             padding: 0px 8px;
 
@@ -640,8 +639,6 @@ const handleSave = async (closeAddPage = false) => {
 
         .tables {
             padding: 0px 8px;
-
-            .sd-title {}
 
             .table-item {
 
@@ -658,8 +655,6 @@ const handleSave = async (closeAddPage = false) => {
                     background: var(--ala-color-bg);
 
                 }
-
-                .tableName {}
 
                 .buttons {
                     .table-fields {
@@ -728,7 +723,6 @@ const handleSave = async (closeAddPage = false) => {
                     margin-right: 4px;
                 }
 
-                p {}
             }
         }
     }
