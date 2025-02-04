@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 17:03:26
+ * @LastEditTime: 2025-02-04 08:47:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-line-chart-wrapper" :style="{ width: '100%', height: '200px' }">
+    <div class="ala-line-chart-wrapper" :style="{ width: '100%', height: '200px' }" ref="chartWrapper">
         <e-charts class="chart" :option="option" ref="chart" />
     </div>
 </template>
@@ -218,6 +218,21 @@ const props = defineProps({
 
 })
 
+const width = ref(0); // 用于存储宽度
+const height = ref(0); // 用于存储高度
+
+// 创建一个 ResizeObserver 实例
+const resizeObserver = new ResizeObserver((entries) => {
+    for (let entry of entries) {
+        const { width: newWidth, height: newHeight } = entry.contentRect;
+        width.value = newWidth; // 更新宽度
+        height.value = newHeight; // 更新高度
+        console.log(`宽度: ${newWidth}, 高度: ${newHeight}`);
+        chart.value.resize()
+    }
+});
+
+
 const model = defineModel({
     type: String || Number || null || undefined
 })
@@ -315,15 +330,36 @@ const option = computed(() => {
 });
 console.log('option', option.value);
 
-const chart = ref<any>()
-watch(() => editorStore.pageConfig[props.bType].formData?.width, (newValue) => {
-    console.log('newValue:', newValue);
+// 图标外层对象div实例
+const chartWrapper = ref()
 
-    chart.value.resize()
-}, {
-    immediate: true,
-    deep: true
-})
+// 图标 echarts 实例
+const chart = ref<any>()
+
+// 在组件挂载时添加观察器
+onMounted(() => {
+    if (chartWrapper.value) {
+        resizeObserver.observe(chartWrapper.value);
+    }
+});
+
+// 在组件卸载时移除观察器
+onUnmounted(() => {
+    if (chartWrapper.value) {
+        resizeObserver.unobserve(chartWrapper.value);
+    }
+    if (chart.value) {
+        chart.value.dispose()
+    }
+});
+// watch(() => editorStore.pageConfig[props.bType].formData?.width, (newValue) => {
+//     console.log('newValue:', newValue);
+
+//     // chart.value.resize()
+// }, {
+//     immediate: true,
+//     deep: true
+// })
 
 // // 发送组件初始化消息
 // if (props.bType === 'page') {

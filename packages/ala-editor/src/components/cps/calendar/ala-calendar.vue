@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 21:46:33
+ * @LastEditTime: 2025-02-03 22:10:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -26,7 +26,9 @@
         </div>
         <div class="right">
           <!-- alaBuildDate('bornDate', "出生日期", 'date', "YYYY-MM-DD", [alaRequired()], "", date.YYYY_MM_DD(new Date())), -->
-          <AlaDate v-model="month" placeholder="请选择月份" dateType="month" /> &nbsp;本月
+          <AlaDate v-model="month" placeholder="请选择月份" dateType="month" format="YYYY-MM" />
+          <p @click="handleSwitchCurrentMonth()">本月</p>
+
         </div>
       </div>
       <el-calendar v-model="today" class="ala-calendar" />
@@ -46,11 +48,12 @@
         </div>
         <div class="right">
           <!-- alaBuildDate('bornDate', "出生日期", 'date', "YYYY-MM-DD", [alaRequired()], "", date.YYYY_MM_DD(new Date())), -->
-          <AlaDate v-model="month" placeholder="请选择周" dateType="week" format="yyyy 第 WW 周"/> &nbsp;本周
+          <!-- <AlaDate v-model="month" placeholder="请选择周" dateType="week" format="yyyy 第 WW 周"/>  -->
+          <p @click="handleSwitchCurrentMonth()">本周</p>
         </div>
       </div>
       <div class="ala-week">
-        week
+        <AlaWeek :date="new Date().getTime()" />
       </div>
     </div>
     <div v-if="props.showDay && dateType === '日'" label="日" name="日" class="ala-calendar-day">
@@ -68,7 +71,9 @@
         </div>
         <div class="right">
           <!-- alaBuildDate('bornDate', "出生日期", 'date', "YYYY-MM-DD", [alaRequired()], "", date.YYYY_MM_DD(new Date())), -->
-          <AlaDate v-model="month" placeholder="请选择月份" dateType="date" /> &nbsp;今日
+          <AlaDate v-model="month" placeholder="请选择月份" dateType="date" />
+          <p @click="handleSwitchCurrentMonth()">今日</p>
+
         </div>
       </div>
       <div class="ala-day">
@@ -199,6 +204,9 @@ const query = () => {
   }
 }
 
+const handleSwitchCurrentMonth = () => {
+
+}
 // 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
 // const isFormDesign = computed(() => props.isFormDesign)
 // if (!isFormDesign.value) {
@@ -220,24 +228,26 @@ const query = () => {
   .header {
     display: flex;
     padding: 8px 0px;
+    /* Safari */
+    -webkit-user-select: none;
+    /* Firefox */
+    -moz-user-select: none;
+    /* IE/Edge */
+    -ms-user-select: none;
+    /* 标准语法 */
+    user-select: none;
 
     .left {
       display: flex;
       width: 50%;
+
 
       .switch-button {
         display: inline-flex;
         border: 1px solid #E5E7EC;
         border-radius: 4px;
         cursor: pointer;
-        /* Safari */
-        -webkit-user-select: none;
-        /* Firefox */
-        -moz-user-select: none;
-        /* IE/Edge */
-        -ms-user-select: none;
-        /* 标准语法 */
-        user-select: none;
+
 
         p {
           width: 38px;
@@ -284,6 +294,20 @@ const query = () => {
 
       :deep(.el-form-item--default) {
         margin-bottom: 0px;
+      }
+
+      p {
+        text-align: center;
+        font-size: 0.9rem;
+        background: #fff;
+        padding: 4px 16px;
+        border: 1px solid #E5E7EC;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+          color: var(--el-color-primary)
+        }
       }
 
     }
