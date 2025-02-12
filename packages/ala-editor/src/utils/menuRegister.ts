@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-30 19:48:41
+ * @LastEditTime: 2025-02-12 21:49:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -156,6 +156,11 @@ export const allMenuComponents: MenuComponent = {
     "/datasetGroup/page": {
         name: "DatasetGroupListPage",
         component: "../pages/bi/datasetGroup/index.vue",
+        requiresAuth: true,
+    },
+    "/chatGroup/page": {
+        name: "ChatGroupListPage",
+        component: "../pages/im/chatGroup/chatGroupList.vue",
         requiresAuth: true,
     },
 

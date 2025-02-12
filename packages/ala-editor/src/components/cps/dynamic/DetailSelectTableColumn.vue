@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:43:43
+ * @LastEditTime: 2025-02-12 22:54:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -51,7 +51,7 @@ const props = defineProps({
 
 // Methods
 const showValue = computed(() => {
-    const values = props.value
+    const values = toRaw(props.value)
     const propertyName = props.formItem.formData.itemProperty.desktop.propertyName
     const results: string[] = []
 

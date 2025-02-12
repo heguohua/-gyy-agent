@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 16:03:46
+ * @LastEditTime: 2025-02-12 21:30:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -91,7 +91,10 @@ const icon = {
   instance: 'simple-icons:processwire',// 流程实例
   task: 'hugeicons:task-edit-01',// 流程实例
 
-  
+  // IM中心
+  im: 'uiw:message',// im中心
+  chatGroup: 'flowbite:users-group-outline',// 聊天群
+
 
   // 数据分析
   chart: "memory:chart-bar",

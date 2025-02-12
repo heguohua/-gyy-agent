@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 12:37:13
+ * @LastEditTime: 2025-02-12 22:55:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -25,6 +25,14 @@ export function alaDetailDeepBuild(componentName: string, columnName: string, in
 
 
 export function alaDetailSelectDict(componentName: string, columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object) {
+    return {
+        prop: columnName,
+        label: label,
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName } }, columnNum: { desktop: columnNum }, ...other } },
+    }
+}
+
+export function alaDetailSelectTable(componentName: string, columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
