@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 21:24:35
+ * @LastEditTime: 2025-02-13 15:44:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -203,7 +203,7 @@ export function alaBuildCheckbox(fieldName: string, label: string, items: Array<
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [key: string]: string }>, rules?: Array<baseRule>, placeholder?: string): AlaRadioSchema {
+export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [key: string]: any }>, rules?: Array<baseRule>, placeholder?: string): AlaRadioSchema {
     u.checkTrue(!items, `表单元素radio配置项items为空，表单字段名${fieldName}`, () => { })
     const item_s = items.map((item => {
         return convertToItem(item)

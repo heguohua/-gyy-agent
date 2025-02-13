@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:33:33
+ * @LastEditTime: 2025-02-13 16:15:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailRadioColumn.vue
  * @Description: 
  * 
@@ -11,11 +11,13 @@
 <template>
 
     <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-    <p class="value">{{ showValue }}</p>
+    <p class="value" :style="style">{{ showValue }}</p>
 
 </template>
 
 <script setup lang="ts">
+import u from '@/utils/u'
+
 
 // State
 const props = defineProps({
@@ -28,7 +30,7 @@ const props = defineProps({
         default: {}
     },
     value: {
-        type: String,
+        type: [String, Number, Boolean, Object] as PropType<string | number | boolean | object>,
         default: ''
     },
     label: {
@@ -47,14 +49,30 @@ const props = defineProps({
 
 // Methods
 
+const color = ref('')
+const style = computed(() => {
+    const st = {}
+
+    if (color.value) {
+        u.merged(st, { color: color.value, fontWeight: 'bold' })
+    }
+
+    return st
+})
+
 const showValue = computed(() => {
     let value = props.value
     const items = props.formItem.formData.items.desktop
     if (items) {
         items.forEach((item: any) => {
-            if (item.value === value) {
-                value = item.name
-            }
+
+            Object.keys(item).forEach((key: string) => {
+                if (item[key] === value) {
+                    value = key
+                    color.value = item.color
+                }
+            })
+
         })
     }
     return value

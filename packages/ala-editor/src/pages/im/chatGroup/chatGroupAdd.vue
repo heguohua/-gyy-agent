@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-12 22:34:25
+ * @LastEditTime: 2025-02-13 15:42:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/im/chatGroup/chatGroupAdd.vue
  * @Description: 
  * 
@@ -64,7 +64,9 @@ const basicFields = computed(() => {
         alaBuildInput("name", '群名称', [alaRequired()]),
         alaBuildSelectTable("masters", "群主", "/u/user/page", [{ prop: 'nickName', label: '用户姓名', isQuery: true }], { propertyName: 'nickName', valueName: 'id' }, [alaRequired()], {}, "请选择群主"), 
         alaBuildSelectTable("groupUsers", "群成员", "/u/user/page", [{ prop: 'nickName', label: '用户姓名', isQuery: true }], { propertyName: 'nickName', valueName: 'id' }, [alaRequired()], {}, "请选择群成员"),
-        alaBuildInput("portrait", '群头像', [alaRequired()]),
+        // alaBuildSwitch("status", "群状态", "全员禁言", "正常", 2, 1, [], ""),
+        alaBuildRadio('status', "群状态", [{ '正常': 1 }, { '全员禁言': 2 }, { '回收': 3 }], [alaRequired()]),
+        alaBuildInput("portrait", '群头像', []),
         alaBuildTextarea("notice", "群公告", [], "请输入群公告"),
 
     ]

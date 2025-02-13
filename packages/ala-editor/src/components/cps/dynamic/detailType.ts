@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-29 19:25:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-12 22:56:20
+ * @LastEditTime: 2025-02-13 15:53:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/detailType.ts
  * @Description: 
  * 
@@ -20,5 +20,6 @@ export class dType {
     public static readonly cascader = 'cascader'
 
     public static readonly textColor = 'textColor'
+    public static readonly radio = 'radio'
 
 }

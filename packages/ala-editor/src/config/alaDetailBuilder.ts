@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-12 22:55:07
+ * @LastEditTime: 2025-02-13 15:58:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -19,7 +19,7 @@ export function alaDetailDeepBuild(componentName: string, columnName: string, in
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other, innerColumnName: { desktop: innerColumnName },  } },
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other, innerColumnName: { desktop: innerColumnName }, } },
     }
 }
 
@@ -29,6 +29,15 @@ export function alaDetailSelectDict(componentName: string, columnName: string, l
         prop: columnName,
         label: label,
         formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName } }, columnNum: { desktop: columnNum }, ...other } },
+    }
+}
+
+
+export function alaDetailRadio(componentName: string, columnName: string, label: string, items: Array<{ [key: string]: any }>, columnNum = 1, detail = false, other?: Object) {
+    return {
+        prop: columnName,
+        label: label,
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, items: { desktop: items }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 
@@ -69,6 +78,6 @@ export function alaDetailCascader(componentName: string, columnName: string, lab
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail,  columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, columnNum: { desktop: columnNum }, ...other } },
     }
 }

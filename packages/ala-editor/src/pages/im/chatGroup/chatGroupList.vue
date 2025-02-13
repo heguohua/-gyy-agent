@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-12 23:07:06
+ * @LastEditTime: 2025-02-13 16:24:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/im/chatGroup/chatGroupList.vue
  * @Description: 
  * 
@@ -57,11 +57,12 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSelectTable, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailRadio, alaDetailSelectDict, alaDetailSelectTable, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
+import colors from '@/utils/colors';
 const { t } = useI18n();
 const router = useRouter()
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -175,13 +176,13 @@ const deleteUrl = "/im/chatGroup/delete"
 const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'name', "群名称", 1, true),
-        alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName"),
-        alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName"),
+        alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName", undefined, undefined, { columnWidth: { desktop: '150' } }),
+        alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName", undefined, undefined, { columnWidth: { desktop: '600' } }),
         // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-        alaDetailBuild(dType.input, 'portrait', "群头像"),
-        alaDetailTextarea(dType.textarea, 'notice', "群公告"),
-        alaDetailBuild(dType.input, 'createdName', "创建人"),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
+        alaDetailBuild(dType.input, 'portrait', "群头像", undefined, undefined, { columnWidth: { desktop: '100' } }),
+        alaDetailBuild(dType.input, 'createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
+        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -199,6 +200,7 @@ const detailFields: any = ref([
     alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName"),
     alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName"),
     alaDetailBuild(dType.input, 'portrait', "群头像"),
+    alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }]),
     alaDetailBuild(dType.textarea, 'notice', "群公告"),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 20:56:17
+ * @LastEditTime: 2025-02-13 15:46:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -26,11 +26,13 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
+import { PropType } from 'vue';
 
 
 interface Item {
     name: string,
-    value: string
+    value: any
+
 }
 
 // State
@@ -61,7 +63,7 @@ const props = defineProps({
 })
 
 const model = defineModel({
-    type: String || Number || Boolean || undefined
+    type: [String, Number, Boolean, undefined] as PropType<string | number | boolean | undefined>
 })
 logger.info(`bType[ $bType ],ala-radio组件被渲染, props :`, props);
 
