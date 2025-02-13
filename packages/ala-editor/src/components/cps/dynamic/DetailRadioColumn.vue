@@ -69,7 +69,9 @@ const showValue = computed(() => {
             Object.keys(item).forEach((key: string) => {
                 if (item[key] === value) {
                     value = key
-                    color.value = item.color
+                    if(item.color){
+                        color.value = item.color
+                    }
                 }
             })
 
