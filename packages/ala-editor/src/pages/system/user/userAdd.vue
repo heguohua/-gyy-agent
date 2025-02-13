@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-12 22:34:25
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/im/chatGroup/chatGroupAdd.vue
+ * @LastEditTime: 2025-02-13 11:26:39
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userAdd.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -39,8 +39,8 @@ const props = defineProps({
 
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/im/chatGroup/add'
-const updateUrl = '/im/chatGroup/update'
+const url = '/u/user/add'
+const updateUrl = '/u/user/update'
 // 表单数据保存对象
 const formData = reactive({
 })
@@ -61,11 +61,13 @@ watch(() => props.baseInfo.item, (item) => {
 const basicFields = computed(() => {
     return [
         alaBuildHidden('id'),// 固定格式
-        alaBuildInput("name", '群名称', [alaRequired()]),
-        alaBuildSelectTable("masters", "群主", "/u/user/page", [{ prop: 'nickName', label: '用户姓名', isQuery: true }], { propertyName: 'nickName', valueName: 'id' }, [alaRequired()], {}, "请选择群主"), 
-        alaBuildSelectTable("groupUsers", "群成员", "/u/user/page", [{ prop: 'nickName', label: '用户姓名', isQuery: true }], { propertyName: 'nickName', valueName: 'id' }, [alaRequired()], {}, "请选择群成员"),
-        alaBuildInput("portrait", '群头像', [alaRequired()]),
-        alaBuildTextarea("notice", "群公告", [], "请输入群公告"),
+        alaBuildInput("scabbard", '登录账号', [alaRequired()]),
+        alaBuildPassword("sword", '登录密码', []),
+        alaBuildInput("nickName", '用户昵称', [alaRequired()]),
+        alaBuildInput("mobile", '手机号', [alaRequired(),alaPhone()]),
+        alaBuildInput("email", '邮箱', [alaRequired(),alaEmail()]),
+        alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
+        alaBuildInput("iconPath", '用户头像', []),
 
     ]
 })

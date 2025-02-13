@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-12 23:07:06
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/im/chatGroup/chatGroupList.vue
+ * @LastEditTime: 2025-02-13 11:27:15
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userList.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -40,7 +40,7 @@
     </PageTable>
 
     <!-- 新增、编辑 -->
-    <chatGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <userAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
@@ -51,7 +51,7 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
-import chatGroupAdd from '@/pages/im/chatGroup/chatGroupAdd.vue';
+import userAdd from '@/pages/system/user/userAdd.vue';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
@@ -167,19 +167,28 @@ const formAttr = ref({
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/im/chatGroup/page"
-const deleteUrl = "/im/chatGroup/delete"
+const url = "/u/user/page"
+const deleteUrl = "/u/user/delete"
 // const cls = alaBuildSelectTable("forms", "表单", "/l/lowcodingConfig/page", [{ prop: 'name', label: '表单名称', isQuery: true }], { propertyName: 'name', valueName: 'id', otherProperty: ['className'] }, undefined, { formType: 'flow' }, "请选择")
+
+// alaBuildInput("scabbard", '登录账号', [alaRequired()]),
+// alaBuildPassword("sword", '登录密码', [alaRequired()]),
+// alaBuildInput("nickName", '用户昵称', [alaRequired()]),
+// alaBuildInput("mobile", '手机号', [alaRequired(),alaPhone()]),
+// alaBuildInput("email", '邮箱', [alaRequired(),alaEmail()]),
+// alaBuildInput("iconPath", '用户头像', []),
+// alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
+
 
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'name', "群名称", 1, true),
-        alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName"),
-        alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName"),
-        // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-        alaDetailBuild(dType.input, 'portrait', "群头像"),
-        alaDetailTextarea(dType.textarea, 'notice', "群公告"),
+        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
+        alaDetailBuild(dType.input, 'nickName', "用户昵称"),
+        alaDetailBuild(dType.input, 'mobile', "手机号"),
+        alaDetailBuild(dType.input, 'email', "邮箱"),
+        alaDetailBuild(dType.input, 'iconPath', "用户头像"),
+        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
         alaDetailBuild(dType.input, 'createdName', "创建人"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
@@ -195,16 +204,16 @@ const columns = computed(() => {
  * 详情页面字段
  */
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'name', "群名称", 1, true),
-    alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName"),
-    alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName"),
-    alaDetailBuild(dType.input, 'portrait', "群头像"),
-    alaDetailBuild(dType.textarea, 'notice', "群公告"),
+    alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
+    alaDetailBuild(dType.input, 'nickName', "用户昵称"),
+    alaDetailBuild(dType.input, 'mobile', "手机号"),
+    alaDetailBuild(dType.input, 'email', "邮箱"),
+    alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
+    alaDetailBuild(dType.input, 'iconPath', "用户头像"),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.input, 'updatedName', "更新人"),
     alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
 
 ])
 
