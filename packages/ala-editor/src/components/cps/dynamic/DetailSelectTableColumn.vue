@@ -67,6 +67,7 @@ const showValue = computed(() => {
 
 <style scoped lang="scss">
 .select-table {
+    display: flex;
     gap: 4px;
 
     .ala-select-table-value {

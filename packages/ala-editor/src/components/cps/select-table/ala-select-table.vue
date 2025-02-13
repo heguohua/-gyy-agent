@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 18:32:36
+ * @LastEditTime: 2025-02-13 10:27:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -10,29 +10,19 @@
 -->
 <template>
   <div class="ala-select-table-wrapper">
-    <!-- <span :class="clasz">{{ label }}</span>  -->
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
-      <!-- <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName">
-        <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
-          <el-option :key="item.value" :label="item.name" :value="item.value" />
-        </div>
-      </el-select> -->
 
-      <!-- <el-input :disabled="true" suffix-icon="el-icon-more" @click.native="openDialog" :model-value="model" :id="fieldName">
-      </el-input> -->
       <template #label>
         <AlaFormLabel :label="label" :help="help" />
       </template>
       <div class="ala-select-customer ala-form-item-border" :style="styles">
-        <!-- <input type="hidden" :model-value="model" :id="fieldName"> -->
-        <p class="placeholder" v-if="!model || model.length === 0">{{ $t('form.p-select-1') }} {{ label }}</p>
+        <p class="placeholder" v-if="!model || model.length === 0">{{
+          placeholder ? placeholder : ($t('form.p-select-1') +label) }}
+        </p>
         <p class="show-values" v-if="model && model.length != 0" v-html="showValue"></p>
       </div>
       <div class="ala-select-customer-icon">
         <v-icon class="icon" icon="f_user" @click="openDialog" />
-        <!-- <v-icon class="icon" icon="f_dept" @click="openDialog" /> -->
-        <!-- <v-icon class="icon" icon="f_role" @click="openDialog" /> -->
-        <!-- <v-icon class="icon" icon="f_duty" @click="openDialog" /> -->
       </div>
     </el-form-item>
 
