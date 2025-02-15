@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-17 11:15:53
+ * @LastEditTime: 2025-02-15 11:43:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTextareaColumn.vue
  * @Description: 
  * 
@@ -58,7 +58,7 @@ const showValue = computed(() => {
     if (props.isDetailPage) {
         return props.value
     }
-    const maxlength = props.formItem.formData.pageMax.desktop || 6
+    const maxlength = props.formItem.formData.pageMax?.desktop || 6
     let value = props.value
     if (value && value.length > maxlength) {
         value = value.slice(0, maxlength) + '...'

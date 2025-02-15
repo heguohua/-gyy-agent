@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 10:34:32
+ * @LastEditTime: 2025-02-15 11:22:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -161,6 +161,11 @@ export const allMenuComponents: MenuComponent = {
     "/chatGroup/page": {
         name: "ChatGroupListPage",
         component: "../pages/im/chatGroup/chatGroupList.vue",
+        requiresAuth: true,
+    },
+    "/chatMsg/page": {
+        name: "ChatMsgListPage",
+        component: "../pages/im/chatMsg/chatMsgList.vue",
         requiresAuth: true,
     },
 
