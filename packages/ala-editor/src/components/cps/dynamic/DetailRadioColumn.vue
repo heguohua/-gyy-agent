@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 16:15:56
+ * @LastEditTime: 2025-02-24 10:10:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailRadioColumn.vue
  * @Description: 
  * 
@@ -71,6 +71,8 @@ const showValue = computed(() => {
                     value = key
                     if(item.color){
                         color.value = item.color
+                    }else{
+                        color.value = ''
                     }
                 }
             })

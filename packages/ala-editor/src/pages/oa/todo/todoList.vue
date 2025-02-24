@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-23 22:33:31
+ * @LastEditTime: 2025-02-24 11:01:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/oa/todo/todoList.vue
  * @Description: 
  * 
@@ -180,10 +180,11 @@ const columns = computed(() => {
 
         alaDetailDate(dType.date, 'startTime', "开始时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
         alaDetailDate(dType.date, 'endTime', "结束时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
+        alaDetailRadio(dType.radio, 'status', "日程状态", [{ '未开始': 1 }, { '已关闭': 2, 'color': colors.info }, { '已完成': 3, 'color': colors.success }, { '已延期': 4, 'color': colors.danger }, { '进行中': 5, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '150' } }),
 
         // 1-不重复，2-每天，3-每周，4-每半个月，5-每一个月，6-每2个月，7-每3个月，8-每半年，9-每一年，10-每个工作日，11-每2天，12-每3天，14-每4天，15-每5天，16-每10天
         alaDetailRadio(dType.radio, 'repeatType', "重复类型", [{ '不重复': 1 }, { '每天': 2, 'color': colors.primary }, { '每周': 3, 'color': colors.success }, { '每半个月': 4, 'color': colors.danger }, { '每一个月': 5 }, { '每2个月': 6 }, { '每3个月': 7 }, { '每半年': 8 }, { '每一年': 9 }, { '每个工作日': 10 }, { '每2天': 11 }, { '每3天': 12 }, { '每4天': 14 }, { '每5天': 15 }, { '每10天': 16 }], undefined, undefined, { columnWidth: { desktop: '150' } }),
-
+        alaDetailRadio(dType.radio, 'noticeType', "提醒类型", [{ '开始时': 1 }, { '提前5分钟': 2, 'color': colors.primary }, { '提前10分钟': 3, 'color': colors.success }, { '提前15分钟': 4, 'color': colors.primary }, { '提前30分钟': 5, 'color': colors.primary }, { '提前1小时': 6, 'color': colors.primary }, { '提前2小时': 7, 'color': colors.primary }, { '提前1天': 8, 'color': colors.danger }, { '提前2天': 9, 'color': colors.danger }, { '提前1周': 10, 'color': colors.danger }, { '提前2周': 11, 'color': colors.danger }], undefined, undefined, { columnWidth: { desktop: '150' } }),
         alaDetailBuild(dType.input, 'createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
 
@@ -196,8 +197,16 @@ const detailFields: any = ref([
     alaDetailBuild(dType.input, 'subject', "待办主题", 1, true),
     alaDetailDate(dType.date, 'startTime', "开始时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
     alaDetailDate(dType.date, 'endTime', "结束时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
+    alaDetailRadio(dType.radio, 'repeatType', "重复类型", [{ '不重复': 1 }, { '每天': 2, 'color': colors.primary }, { '每周': 3, 'color': colors.success }, { '每半个月': 4, 'color': colors.danger }, { '每一个月': 5 }, { '每2个月': 6 }, { '每3个月': 7 }, { '每半年': 8 }, { '每一年': 9 }, { '每个工作日': 10 }, { '每2天': 11 }, { '每3天': 12 }, { '每4天': 14 }, { '每5天': 15 }, { '每10天': 16 }], undefined, undefined, { columnWidth: { desktop: '150' } }),
+    // 待办状态，1-未开始、2-已关闭、3-已完成、4-已延期、5-进行中
+    alaDetailRadio(dType.radio, 'status', "日程状态", [{ '未开始': 1 }, { '已关闭': 2, 'color': colors.info }, { '已完成': 3, 'color': colors.success }, { '已延期': 4, 'color': colors.danger }, { '进行中': 5, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '150' } }),
+    // 提醒类型，1-开始时、2-提前5分钟、3-提前10分钟、4-提前15分钟、5-提前30分钟、6-提前1小时、7-提前2小时、8-提前1天、9-提前2天、10-提前1周、11-提前2周
+    alaDetailRadio(dType.radio, 'noticeType', "提醒类型", [{ '开始时': 1 }, { '提前5分钟': 2, 'color': colors.primary }, { '提前10分钟': 3, 'color': colors.success }, { '提前15分钟': 4, 'color': colors.primary }, { '提前30分钟': 5, 'color': colors.primary }, { '提前1小时': 6, 'color': colors.primary }, { '提前2小时': 7, 'color': colors.primary }, { '提前1天': 8, 'color': colors.danger }, { '提前2天': 9, 'color': colors.danger }, { '提前1周': 10, 'color': colors.danger }, { '提前2周': 11, 'color': colors.danger }], undefined, undefined, { columnWidth: { desktop: '150' } }),
+    alaDetailTextarea(dType.textarea, 'remark', '日程描述'),
     alaDetailBuild(dType.input, 'createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
+    alaDetailBuild(dType.input, 'updatedName', "更新人", undefined, undefined, { columnWidth: { desktop: '150' } }),
+    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
 ])
 
 // 基础查询条件

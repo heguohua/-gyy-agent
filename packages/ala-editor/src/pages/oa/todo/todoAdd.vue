@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-23 22:48:12
+ * @LastEditTime: 2025-02-24 11:00:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/oa/todo/todoAdd.vue
  * @Description: 
  * 
@@ -40,8 +40,8 @@ const props = defineProps({
 
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/im/chatGroup/add'
-const updateUrl = '/im/chatGroup/update'
+const url = '/p/todo/add'
+const updateUrl = '/p/todo/update'
 // 表单数据保存对象
 const formData = reactive({
 })
@@ -76,13 +76,12 @@ const basicFields = computed(() => {
 
         alaBuildHidden('id'),// 固定格式
         alaBuildInput("subject", '待办主题', [alaRequired()]),
-
+        alaBuildDate("startTime", "开始时间", "datetime", "YYYY-MM-DD HH:mm", [alaRequired()], "", "", "请选择开始时间"),
+        alaBuildDate("endTime", "结束时间", "datetime", "YYYY-MM-DD HH:mm", [alaRequired()], "", "", "请选择结束时间"),
+        alaBuildRadio('repeatType', "重复类型", [{ '不重复': 1 }, { '每天': 2 }, { '每周': 3 }, { '每半个月': 4 }, { '每一个月': 5 }, { '每2个月': 6 }, { '每3个月': 7 }, { '每半年': 8 }, { '每一年': 9 }, { '每个工作日': 10 }, { '每2天': 11 }, { '每3天': 12 }, { '每4天': 14 }, { '每5天': 15 }, { '每10天': 16 }], [alaRequired()]),
+        alaBuildRadio('noticeType', "提醒类型", [{ '开始时': 1 }, { '提前5分钟': 2 }, { '提前10分钟': 3 }, { '提前15分钟': 4 }, { '提前30分钟': 5 }, { '提前1小时': 6 }, { '提前2小时': 7 }, { '提前1天': 8 }, { '提前2天': 9 }, { '提前1周': 10 }, { '提前2周': 11 }], [alaRequired()]),
         alaBuildTextarea("remark", "日程描述", [], "请输入日程描述"),
 
-        alaBuildDate("startTime", "开始时间", "datetime", "YYYY-MM-DD", [], "", "", "请选择开始时间"),
-        alaBuildDate("endTime", "结束时间", "datetime", "YYYY-MM-DD", [], "", "", "请选择结束时间"),
-
-        alaBuildRadio('重复类型', "群状态", [{ '不重复': 1 }, { '每天': 2 }, { '每周': 3 }, { '每半个月': 4 }, { '每一个月': 5 }, { '每2个月': 6 }, { '每3个月': 7 }, { '每半年': 8 }, { '每一年': 9 }, { '每个工作日': 10 }, { '每2天': 11 }, { '每3天': 12 }, { '每4天': 14 }, { '每5天': 15 }, { '每10天': 16 }])
 
 
     ]
