@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-24 11:01:41
+ * @LastEditTime: 2025-02-24 16:12:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/oa/todo/todoList.vue
  * @Description: 
  * 
@@ -178,8 +178,8 @@ const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'subject', "待办主题", 1, true),
 
-        alaDetailDate(dType.date, 'startTime', "开始时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
-        alaDetailDate(dType.date, 'endTime', "结束时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
+        alaDetailDate(dType.date, 'startTime', "开始时间", 'YYYY-MM-DD HH:mm', undefined, undefined, { columnWidth: { desktop: '200' } }),
+        alaDetailDate(dType.date, 'endTime', "结束时间", 'YYYY-MM-DD HH:mm', undefined, undefined, { columnWidth: { desktop: '200' } }),
         alaDetailRadio(dType.radio, 'status', "日程状态", [{ '未开始': 1 }, { '已关闭': 2, 'color': colors.info }, { '已完成': 3, 'color': colors.success }, { '已延期': 4, 'color': colors.danger }, { '进行中': 5, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '150' } }),
 
         // 1-不重复，2-每天，3-每周，4-每半个月，5-每一个月，6-每2个月，7-每3个月，8-每半年，9-每一年，10-每个工作日，11-每2天，12-每3天，14-每4天，15-每5天，16-每10天
@@ -195,8 +195,8 @@ const columns = computed(() => {
  */
 const detailFields: any = ref([
     alaDetailBuild(dType.input, 'subject', "待办主题", 1, true),
-    alaDetailDate(dType.date, 'startTime', "开始时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
-    alaDetailDate(dType.date, 'endTime', "结束时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
+    alaDetailDate(dType.date, 'startTime', "开始时间", 'YYYY-MM-DD HH:mm', undefined, undefined, { columnWidth: { desktop: '200' } }),
+    alaDetailDate(dType.date, 'endTime', "结束时间", 'YYYY-MM-DD HH:mm', undefined, undefined, { columnWidth: { desktop: '200' } }),
     alaDetailRadio(dType.radio, 'repeatType', "重复类型", [{ '不重复': 1 }, { '每天': 2, 'color': colors.primary }, { '每周': 3, 'color': colors.success }, { '每半个月': 4, 'color': colors.danger }, { '每一个月': 5 }, { '每2个月': 6 }, { '每3个月': 7 }, { '每半年': 8 }, { '每一年': 9 }, { '每个工作日': 10 }, { '每2天': 11 }, { '每3天': 12 }, { '每4天': 14 }, { '每5天': 15 }, { '每10天': 16 }], undefined, undefined, { columnWidth: { desktop: '150' } }),
     // 待办状态，1-未开始、2-已关闭、3-已完成、4-已延期、5-进行中
     alaDetailRadio(dType.radio, 'status', "日程状态", [{ '未开始': 1 }, { '已关闭': 2, 'color': colors.info }, { '已完成': 3, 'color': colors.success }, { '已延期': 4, 'color': colors.danger }, { '进行中': 5, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '150' } }),
