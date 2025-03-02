@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 15:58:59
+ * @LastEditTime: 2025-03-02 18:51:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -42,6 +42,14 @@ export function alaDetailRadio(componentName: string, columnName: string, label:
 }
 
 export function alaDetailSelectTable(componentName: string, columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object) {
+    return {
+        prop: columnName,
+        label: label,
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName } }, columnNum: { desktop: columnNum }, ...other } },
+    }
+}
+
+export function alaDetailSelectTree(componentName: string, columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,

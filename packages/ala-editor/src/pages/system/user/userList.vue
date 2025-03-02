@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 11:27:15
+ * @LastEditTime: 2025-03-02 19:06:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userList.vue
  * @Description: 
  * 
@@ -57,7 +57,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSelectTable, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import { alaPost } from '@/utils/req';
@@ -183,14 +183,15 @@ const deleteUrl = "/u/user/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
-        alaDetailBuild(dType.input, 'nickName', "用户昵称"),
-        alaDetailBuild(dType.input, 'mobile', "手机号"),
+        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true, { columnWidth: { desktop: '120' } }),
+        alaDetailBuild(dType.input, 'nickName', "用户昵称", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailBuild(dType.input, 'mobile', "手机号", 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailBuild(dType.input, 'email', "邮箱"),
-        alaDetailBuild(dType.input, 'iconPath', "用户头像"),
-        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
+        alaDetailBuild(dType.input, 'iconPath', "用户头像", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailBuild(dType.input, 'createdName', "创建人"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -214,6 +215,7 @@ const detailFields: any = ref([
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.input, 'updatedName', "更新人"),
     alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
 
 ])
 

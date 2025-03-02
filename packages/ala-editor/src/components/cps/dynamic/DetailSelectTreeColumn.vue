@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:34:07
+ * @LastEditTime: 2025-03-02 19:03:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTreeColumn.vue
  * @Description: 
  * 
@@ -10,13 +10,13 @@
 -->
 <template>
     <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-    <p class="value">{{ value }}</p>
+    <p class="value">{{ showValue }}</p>
 </template>
 
 <script setup lang="ts">
 
 // State
-defineProps({
+const props = defineProps({
     data: {
         type: Object,
         default: {}
@@ -26,8 +26,8 @@ defineProps({
         default: {}
     },
     value: {
-        type: String,
-        default: ''
+        type: Object,
+        default: {}
     },
     label: {
         type: String,
@@ -44,6 +44,13 @@ defineProps({
 })
 
 // Methods
+const showValue = computed(() => {
+    const value = toRaw(props.value)
+    const propertyName = props.formItem.formData.itemProperty.desktop.propertyName
+    if (value) {
+        return value[propertyName] ? value[propertyName] : "..."
+    }
+})
 
 </script>
 
