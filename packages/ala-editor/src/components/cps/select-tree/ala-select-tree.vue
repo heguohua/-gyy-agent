@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 17:11:46
+ * @LastEditTime: 2025-03-02 18:34:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -102,6 +102,9 @@ const model = defineModel({
   default: ''
 })
 
+console.log('model: ---> ', model);
+
+
 const query = () => {
 
   // Methods
@@ -141,11 +144,43 @@ const handleChange = () => {
   model.value = currentModel.value
 }
 
-onMounted(() => {
-  if (model.value) {
-    currentModel.value = model.value
+// onMounted(() => {
+//   if (model.value) {
+//     currentModel.value = model.value
+//   }
+// })
+
+
+const findNodeById = (node: Item, targetId: any): Item | undefined => {
+  // 如果当前节点的 value 等于目标 id，则直接返回当前节点
+  if (node.value === targetId) {
+    return node;
   }
+
+  // 如果当前节点有子节点，递归查找子节点
+  if (node.children) {
+    for (const child of node.children) {
+      const result = findNodeById(child, targetId); // 递归调用
+      if (result) return result; // 如果找到目标节点，返回结果
+    }
+  }
+
+  // 如果当前节点及其子节点中都没有找到目标节点，返回 undefined
+  return undefined;
+}
+
+
+watch(() => model.value, () => {
+  if (model && model.value) {
+    currentModel.value = model.value
+  } else {
+    currentModel.value = ''
+  }
+}, {
+  immediate: true
 })
+
+
 
 </script>
 

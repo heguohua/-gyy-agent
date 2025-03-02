@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 11:26:39
+ * @LastEditTime: 2025-03-02 18:26:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userAdd.vue
  * @Description: 
  * 
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword } from '@/config/alaRules';
-import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildDivider, alaBuildSlider, alaBuildSwitch, alaBuildSelectDict, alaBuildTextarea, alaBuildSelectTable } from '@/config/alaBuilders';
+import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildDivider, alaBuildSlider, alaBuildSwitch, alaBuildSelectDict, alaBuildTextarea, alaBuildSelectTable, alaBuildSelectTree } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
@@ -48,9 +48,10 @@ const formData = reactive({
 watch(() => props.baseInfo.item, (item) => {
     logger.info(`观察到 baseInfo 中的 item 发生了变化`, item);
     // u.merged(formData, item)
-    if (!item.id) {
-        u.clear(formData)
-    }
+    // if (!item.id) {
+    //     u.clear(formData)
+    // }
+    u.clear(formData)
     Object.assign(formData, item)
     logger.info(`formData数据更新后`, formData);
 }, {
@@ -64,10 +65,11 @@ const basicFields = computed(() => {
         alaBuildInput("scabbard", '登录账号', [alaRequired()]),
         alaBuildPassword("sword", '登录密码', []),
         alaBuildInput("nickName", '用户昵称', [alaRequired()]),
-        alaBuildInput("mobile", '手机号', [alaRequired(),alaPhone()]),
-        alaBuildInput("email", '邮箱', [alaRequired(),alaEmail()]),
+        alaBuildInput("mobile", '手机号', [alaRequired(), alaPhone()]),
+        alaBuildInput("email", '邮箱', [alaRequired(), alaEmail()]),
         alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
         alaBuildInput("iconPath", '用户头像', []),
+        alaBuildSelectTree("organizationId", "所属部门", "/u/organization/tree", {  }, { propertyName: 'name', valueName: 'id', childrenName: 'children' }, undefined, "请选择用户所属部门"),
 
     ]
 })
