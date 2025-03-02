@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-30 20:06:48
+ * @LastEditTime: 2025-03-02 16:07:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -47,8 +47,8 @@
     </div>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="params" :fields="basicFields" :formData="formData"
-        labelPosition="top" moduleName="文件夹" :url="addUrl" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
-        :formAttr="formAttr" />
+        labelPosition="top" :moduleName="baseInfo.moduleName" :url="addUrl" :updateUrl="updateUrl"
+        :tipTitle="$t('pop.warm_title')" :formAttr="formAttr" />
 
 </template>
 
@@ -229,7 +229,7 @@ const basicFields = computed(() => {
         alaBuildHidden('pid'),// 固定格式
         alaBuildHidden('id'),// 固定格式
         alaBuildHidden('nodeType'),
-        alaBuildInput("name", '文件夹名称', [alaRequired()]),
+        alaBuildInput("name", baseInfo.moduleName.replaceAll('管理', '') + '名称', [alaRequired()]),
 
     ]
 })
@@ -284,6 +284,10 @@ const queryTree = () => {
 queryTree()
 
 const baseInfo = inject('baseInfo') as { [key: string]: any };
+
+console.log('baseInfo:', baseInfo.moduleName);
+
+
 // 更新分页列表页面 baseInfo 中的folder属性
 watch(() => currentNode.value, (value: any) => {
     baseInfo.folder = value
