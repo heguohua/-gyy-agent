@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-02 18:34:03
+ * @LastEditTime: 2025-03-03 09:55:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -25,7 +25,8 @@
           children: itemProperty.childrenName,
           label: itemProperty.propertyName, // 自定义label属性名
           value: itemProperty.valueName // 自定义value属性名
-        }" />
+        }" :clearable="clearable" :default-expand-all="defaultExpandAll" :default-expanded-keys="defaultExpandedKeys"
+        :placeholder="placeholder" :check-strictly="checkStrictly" node-key="id" :show-checkbox="showCheckbox"/>
 
     </el-form-item>
   </div>
@@ -83,6 +84,26 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  clearable: {
+    type: Boolean,
+    default: false
+  },
+  defaultExpandAll: {
+    type: Boolean,
+    default: false
+  },
+  checkStrictly: {
+    type: Boolean,
+    default: false
+  },
+  showCheckbox: {
+    type: Boolean,
+    default: false
+  },
+  defaultExpandedKeys: {
+    type: Array<number>,
+    default: () => ([0])
+  },
   help: {
     type: String,
   }
@@ -101,8 +122,6 @@ const model = defineModel({
   type: [Number, String, Boolean] as PropType<number | string | boolean>,
   default: ''
 })
-
-console.log('model: ---> ', model);
 
 
 const query = () => {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-02 18:26:06
+ * @LastEditTime: 2025-03-03 09:55:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userAdd.vue
  * @Description: 
  * 
@@ -69,7 +69,10 @@ const basicFields = computed(() => {
         alaBuildInput("email", '邮箱', [alaRequired(), alaEmail()]),
         alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
         alaBuildInput("iconPath", '用户头像', []),
-        alaBuildSelectTree("organizationId", "所属部门", "/u/organization/tree", {  }, { propertyName: 'name', valueName: 'id', childrenName: 'children' }, undefined, "请选择用户所属部门"),
+        alaBuildSelectTree("organizationId", "所属部门", "/u/organization/tree", {}, { propertyName: 'name', valueName: 'id', childrenName: 'children' }, undefined, "请选择用户所属部门", {
+            clearable: true,
+            checkStrictly: true,
+        }),
 
     ]
 })
