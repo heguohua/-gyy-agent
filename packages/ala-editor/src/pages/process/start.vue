@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-11 20:12:00
+ * @LastEditTime: 2025-03-03 21:04:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -83,7 +83,7 @@ const showValue = (value: string) => {
     return value
 }
 
-const url = '/p/define/listForApply'
+const url = '/p/define/searchForApply'
 const params = { state: 1 }
 const defines = ref<any>([])
 onActivated(() => {
