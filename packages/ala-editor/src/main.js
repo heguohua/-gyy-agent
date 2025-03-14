@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 16:05:52
+ * @LastEditTime: 2025-03-14 11:14:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -29,6 +29,9 @@ app.use(pinia);
 app.use(router);
 
 
+// 注册拖拽指令
+import dragVueDirectives from '@/utils/dragSwitch'
+app.use(dragVueDirectives)
 
 // 集成 element-plus
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -97,7 +100,7 @@ configAxios(app);
 import Echarts from 'vue-echarts'
 import * as echarts from 'echarts'
 // 使用组件
-app.component('e-charts',Echarts)
+app.component('e-charts', Echarts)
 // 全局挂载 echarts
 app.config.globalProperties.$echarts = echarts
 

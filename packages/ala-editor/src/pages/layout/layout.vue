@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-24 21:58:18
+ * @LastEditTime: 2025-03-14 17:31:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -32,8 +32,24 @@
                 </KeepAlive> -->
             </div>
         </div>
-    </div>
 
+
+    </div>
+    <div class="drag-wrapper" v-dragSwitch="true">
+        <div class="ala_container" @mouseenter="showTip(true)" @mouseleave="showTip(false)">
+
+            <div class="ala_container_inner">
+                <img class="ai-button-icon" src="/ai/ai-button.svg" />
+            </div>
+
+            <div v-if="tipShow" class="tip">
+                嗨，我是小智
+                <div class="button" @click="toAiAssistPage">
+                    点我获取帮助
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -54,6 +70,7 @@ import { changLanguage, useLocale } from '@/hooks/useLocale'
 // 使用useLocale
 const { changeLocale } = useLocale()
 import { useI18n } from 'vue-i18n';
+import { ElStep } from 'element-plus';
 const { t } = useI18n();
 const { getLocaleMessage } = useI18n();
 
@@ -105,6 +122,16 @@ onMounted(() => {
 // State
 
 // Methods
+const tipShow = ref(false)
+const showTip = (isShow: boolean) => {
+    tipShow.value = isShow
+    console.log('tipShow.value:', tipShow.value);
+
+}
+
+const toAiAssistPage = () => {
+    router.push({ name: "AiAssistPage", query: {} })
+}
 
 </script>
 
@@ -154,5 +181,82 @@ onMounted(() => {
     }
 
 
+
+
+}
+
+.ala_container {
+
+
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    user-select: none;
+    z-index: 9999;
+    bottom: 80px;
+    right: 80px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform: rotate(180deg);
+
+
+    .tip {
+        // position: absolute;
+        top: -200%;
+        position: static;
+        width: 150px;
+
+        transform: rotate(180deg);
+        background: #F85047;
+        border-radius: 10px;
+        padding: 8px;
+        color: #fff;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .button {
+            font-size: 14px;
+            padding: 4px;
+            background: #fff;
+            color: #F85047;
+            width: 120px;
+            border-radius: 4px;
+            margin-top: 8px;
+
+            &:hover {
+                font-weight: bold;
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    .ala_container_inner {
+        text-align: center;
+        width: 100%;
+        padding-bottom: 15px;
+
+        .ai-button-icon {
+            width: 100%;
+            background: none;
+
+        }
+    }
+
+
+
+    // &:hover{
+    //     background:red;
+    //     &::before{
+    //         content:'hello'
+
+    //     }
+    // }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-23 21:58:47
+ * @LastEditTime: 2025-03-14 16:28:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -176,6 +176,11 @@ export const allMenuComponents: MenuComponent = {
     "/todo/mypage": {
         name: "TodoListMyPage",
         component: "../pages/oa/todoMy/todoList.vue",
+        requiresAuth: true,
+    },
+    "/aiAssist/page": {
+        name: "AiAssistPage",
+        component: "../pages/ai/aiAssist.vue",
         requiresAuth: true,
     },
 

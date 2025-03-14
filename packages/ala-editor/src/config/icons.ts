@@ -1,8 +1,10 @@
+import { todo } from "node:test"
+
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-12 21:30:54
+ * @LastEditTime: 2025-03-14 16:27:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -94,6 +96,19 @@ const icon = {
   // IM中心
   im: 'uiw:message',// im中心
   chatGroup: 'flowbite:users-group-outline',// 聊天群
+
+  // 文件中心
+  file: 'fa-regular:file-word',// 
+  file_center: 'famicons:document-attach-outline',// 
+
+  // 文件中心
+  ai_assist: 'tdesign:service',// 
+  ai_center: 'prime:microchip-ai',// 
+
+  // 文件中心
+  todo: 'hugeicons:task-edit-01',// 
+  my_todo: 'ix:tasks-done',// 
+  oa_center: 'material-symbols:work-history-outline',// 
 
 
   // 数据分析
