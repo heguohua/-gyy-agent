@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-03-14 17:55:06
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-15 18:31:34
+ * @LastEditTime: 2025-03-15 23:25:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/ai/ai-chat.vue
  * @Description: 
  * 
@@ -28,8 +28,10 @@
 </template>
 
 <script setup lang="ts">
+import { WebSocketClient } from '@/utils/websocket';
 import { defineComponent, ref } from 'vue';
-
+import { useAlaStore } from '@/store/ala-store';
+const alaStore = useAlaStore()
 
 type Message = {
   id: number
@@ -67,6 +69,15 @@ const sendMessage = (event: any) => {
   }
 
 };
+
+
+
+watch(() => alaStore.get('ai_message'), (message: string) => {
+  console.log('接收到 message ----- >:', message);
+  messages.value.push({ id: messages.value.length + 1, text: message, userId: 0 });
+})
+
+
 
 </script>
 

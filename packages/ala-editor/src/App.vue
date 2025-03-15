@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 15:03:29
+ * @LastEditTime: 2025-03-15 23:19:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/App.vue
  * @Description: APP.vue 主文件
  * 
@@ -18,12 +18,16 @@
     </div>
 </template>
 
-<script setup>
-import { alaConsts } from './config/alaConsts';
-import Layout from './pages/layout/layout.vue';
-import Login from './pages/login.vue';
-import { logger } from './utils/logger';
-import lstore from './utils/lstore';
+<script setup lang="ts">
+import { alaConsts } from '@/config/alaConsts';
+import Layout from '@/pages/layout/layout.vue';
+import Login from '@/pages/login.vue';
+import { logger } from '@/utils/logger';
+import lstore from '@/utils/lstore';
+import u from '@/utils/u';
+import { WebSocketClient } from '@/utils/websocket';
+import { useAlaStore } from '@/store/ala-store';
+const alaStore = useAlaStore()
 
 const checkLogin = computed(() => {
     let isLogined = false;
@@ -35,5 +39,37 @@ const checkLogin = computed(() => {
     }
     return isLogined;
 })
+
+// 建立 ws 连接
+let ws: WebSocketClient
+
+onMounted(() => {
+    const wsUrl = u.wsUrl()
+    ws = new WebSocketClient(wsUrl);
+    ws.on('ws:message', (event: MessageEvent) => {
+        console.log('接收到 ws 服务端推送消息:', event.data);
+
+        const outMessage = u.parseJson(event.data)
+        const message = u.parseJson(outMessage.content)
+        if(message.messageType && message.messageType === 'ai_full'){
+            // 当前是ai智能体回复的完整消息体
+            alaStore.set('ai_message',message.content)
+
+            console.log('接收到 - 1 - message ----- >:', message.content);
+            console.log('接收到 - 2 - message ----- >:', alaStore.get('ai_message'));
+
+        }
+
+
+    });
+});
+
+onUnmounted(() => {
+    if (ws) {
+        ws.close();
+    }
+});
+
+
 </script>
 <style lang="scss" scoped></style>
