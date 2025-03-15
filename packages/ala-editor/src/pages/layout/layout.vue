@@ -193,7 +193,7 @@ const toAiAssistPage = () => {
     position: fixed;
     user-select: none;
     z-index: 9999;
-    bottom: 80px;
+    bottom: 140px;
     right: 80px;
 
     display: flex;

@@ -33,6 +33,9 @@ app.use(router);
 import dragVueDirectives from '@/utils/dragSwitch'
 app.use(dragVueDirectives)
 
+
+
+
 // 集成 element-plus
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
