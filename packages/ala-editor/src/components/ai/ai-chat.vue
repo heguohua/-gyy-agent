@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-03-14 17:55:06
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-15 23:25:45
+ * @LastEditTime: 2025-03-16 11:11:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/ai/ai-chat.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <!-- <div class="chat-header">
         你是谁
       </div> -->
-    <div class="chat-messages">
+    <div class="chat-messages" ref="chatMessagesWrapper">
       <div class="message" :class="message.userId != 0 ? 'self' : ''" v-for="message in messages" :key="message.id">
         <div class="message-content">
           <AlaMessage :icon="message.userId === 0 ? '/ai/assist.svg' : '/ai/user.svg'" :content="message.text"
@@ -32,17 +32,23 @@ import { WebSocketClient } from '@/utils/websocket';
 import { defineComponent, ref } from 'vue';
 import { useAlaStore } from '@/store/ala-store';
 const alaStore = useAlaStore()
+import { alaPost } from '@/utils/req';
+import notify from '@/utils/notify';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+import u from '@/utils/u';
+
 
 type Message = {
-  id: number
+  id: string
   text: string
   userId: number
 }
 
 const messages = ref<Array<Message>>([
-  { id: 1, text: 'Hi，我是 Kimi~\n很高兴遇见你！你可以随时把网址🔗或者文件📄发给我，我来帮你看看', userId: 0 },
-  { id: 2, text: '嗨！我是Kimi，一个由月之暗面科技有限公司开发的人工智能助手。我擅长用文字交流，无论是中文还是英文都能轻松应对，还能帮你处理文件、搜索信息，甚至帮你整理思路、解答问题。如果你需要帮忙，尽管开口吧！', userId: 0 },
-  { id: 3, text: '你是谁', userId: 1 },
+  { id: '1', text: 'Hi，我是 Kimi~\n很高兴遇见你！你可以随时把网址🔗或者文件📄发给我，我来帮你看看', userId: 0 },
+  { id: '2', text: '嗨！我是Kimi，一个由月之暗面科技有限公司开发的人工智能助手。我擅长用文字交流，无论是中文还是英文都能轻松应对，还能帮你处理文件、搜索信息，甚至帮你整理思路、解答问题。如果你需要帮忙，尽管开口吧！', userId: 0 },
+  { id: '3', text: '你是谁', userId: 1 },
 ]);
 
 const inputText = ref('');
@@ -52,8 +58,22 @@ const sendMessage = (event: any) => {
   // 检查是否按下了 Alt + Enter
   if (event.altKey && event.key === 'Enter') {
     if (inputText.value.trim()) {
-      messages.value.push({ id: messages.value.length + 1, text: inputText.value, userId: 1 });
-      inputText.value = '';
+
+
+      alaPost(u.url('/ai/chat/chat'), { message: inputText.value }, false, '').then((data: any) => {
+        const response = data;
+        console.log(response)
+        if (response.ok) {
+
+        }
+        messages.value.push({ id: messages.value.length + 1, text: inputText.value, userId: 1 });
+        inputText.value = '';
+      });
+
+
+    } else {
+      notify.warn(t('pop.warm_title'), "请先输入消息")
+
     }
   } else if (event.key === 'Enter') {
 
@@ -72,9 +92,37 @@ const sendMessage = (event: any) => {
 
 
 
-watch(() => alaStore.get('ai_message'), (message: string) => {
-  console.log('接收到 message ----- >:', message);
-  messages.value.push({ id: messages.value.length + 1, text: message, userId: 0 });
+const chatMessagesWrapper = ref()
+
+let lastMessageId = ''
+
+watch(() => alaStore.get('ai_message'), (message: AiMessage) => {
+  // console.log('接收到 message ----- >:', message);
+
+  if (message.finishReason) {
+    // 说明当前回复终止了
+    lastMessageId = ''
+  } else {
+
+    if (lastMessageId && lastMessageId === message.messageId) {
+      // 说明当前消息是最后一条回复的中间过程消息片段
+      const lastMessage = messages.value[messages.value.length - 1]
+      lastMessage.text += message.content
+    } else {
+      lastMessageId = message.messageId
+      messages.value.push({ id: message.messageId, text: message.content, userId: 0 });
+    }
+
+  }
+
+  // 获取最后一个子元素并滚动到它的位置
+
+  nextTick(() => {
+    // 在 DOM 更新后执行滚动
+    chatMessagesWrapper.value.scrollTop = chatMessagesWrapper.value.scrollHeight;
+  })
+
+
 })
 
 
@@ -93,7 +141,7 @@ watch(() => alaStore.get('ai_message'), (message: string) => {
   border-radius: 8px;
   overflow: hidden;
   position: relative;
-  padding-bottom: 80px;
+  padding-bottom: 90px;
 
   .chat-header {
     background-color: #f5f5f5;
@@ -110,7 +158,7 @@ watch(() => alaStore.get('ai_message'), (message: string) => {
 
 
     &::-webkit-scrollbar {
-      width: 2px;
+      width: 4px;
       /* 设置滚动条的宽度 */
     }
 
@@ -119,11 +167,11 @@ watch(() => alaStore.get('ai_message'), (message: string) => {
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #e1e1e1;
+      background: #cfcfcf;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-      background: #e1e1e1;
+      background: #cfcfcf;
     }
 
     &:first-child {

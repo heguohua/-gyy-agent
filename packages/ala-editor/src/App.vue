@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-15 23:19:08
+ * @LastEditTime: 2025-03-16 10:01:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/App.vue
  * @Description: APP.vue 主文件
  * 
@@ -47,18 +47,16 @@ onMounted(() => {
     const wsUrl = u.wsUrl()
     ws = new WebSocketClient(wsUrl);
     ws.on('ws:message', (event: MessageEvent) => {
-        console.log('接收到 ws 服务端推送消息:', event.data);
 
         const outMessage = u.parseJson(event.data)
         const message = u.parseJson(outMessage.content)
-        if(message.messageType && message.messageType === 'ai_full'){
+        if (message.messageType && message.messageType === 'ai_full') {
             // 当前是ai智能体回复的完整消息体
-            alaStore.set('ai_message',message.content)
-
-            console.log('接收到 - 1 - message ----- >:', message.content);
-            console.log('接收到 - 2 - message ----- >:', alaStore.get('ai_message'));
-
+            alaStore.set('ai_message', message)
+        } else if (message.content === 'pong') {
+            console.log('接收到 ws 服务端【 心跳回复 】');
         }
+
 
 
     });

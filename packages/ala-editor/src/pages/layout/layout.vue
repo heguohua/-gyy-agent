@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-14 17:31:01
+ * @LastEditTime: 2025-03-16 09:17:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -125,7 +125,7 @@ onMounted(() => {
 const tipShow = ref(false)
 const showTip = (isShow: boolean) => {
     tipShow.value = isShow
-    console.log('tipShow.value:', tipShow.value);
+    // console.log('tipShow.value:', tipShow.value);
 
 }
 
