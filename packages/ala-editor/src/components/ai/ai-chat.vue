@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-03-14 17:55:06
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-16 11:11:24
+ * @LastEditTime: 2025-03-16 16:36:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/ai/ai-chat.vue
  * @Description: 
  * 
@@ -37,6 +37,7 @@ import notify from '@/utils/notify';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 import u from '@/utils/u';
+import { AiMessage } from '@/config/types';
 
 
 type Message = {
@@ -46,9 +47,7 @@ type Message = {
 }
 
 const messages = ref<Array<Message>>([
-  { id: '1', text: 'Hi，我是 Kimi~\n很高兴遇见你！你可以随时把网址🔗或者文件📄发给我，我来帮你看看', userId: 0 },
-  { id: '2', text: '嗨！我是Kimi，一个由月之暗面科技有限公司开发的人工智能助手。我擅长用文字交流，无论是中文还是英文都能轻松应对，还能帮你处理文件、搜索信息，甚至帮你整理思路、解答问题。如果你需要帮忙，尽管开口吧！', userId: 0 },
-  { id: '3', text: '你是谁', userId: 1 },
+  { id: '1', text: 'Hi，我是小智~\n很高兴遇见你！我是你的私人助手，您可以随时问我问题。', userId: 0 },
 ]);
 
 const inputText = ref('');
@@ -62,12 +61,11 @@ const sendMessage = (event: any) => {
 
       alaPost(u.url('/ai/chat/chat'), { message: inputText.value }, false, '').then((data: any) => {
         const response = data;
-        console.log(response)
-        if (response.ok) {
-
+        if (response.code === 200) {
+          messages.value.push({ id: messages.value.length + 1 + '', text: inputText.value, userId: 1 });
+          inputText.value = '';
         }
-        messages.value.push({ id: messages.value.length + 1, text: inputText.value, userId: 1 });
-        inputText.value = '';
+
       });
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-03 21:04:38
+ * @LastEditTime: 2025-04-05 16:22:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -405,7 +405,8 @@ const ruleFunctions: { [key: string]: Function } = {
 <style scoped lang="scss">
 .ala-start {
     padding: 20px;
-
+    overflow-y: auto;
+    height: 100%;
 
     .one-class {
         margin-bottom: 22px;

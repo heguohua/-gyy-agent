@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 22:10:02
+ * @LastEditTime: 2025-03-16 11:23:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -323,8 +323,6 @@ const handleSwitchCurrentMonth = () => {
     }
   }
 
-  .ala-calendar-week {}
 
-  .ala-calendar-day {}
 }
 </style>
