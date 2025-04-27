@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-14 16:27:21
+ * @LastEditTime: 2025-04-27 11:48:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -190,6 +190,14 @@ const icon = {
   b_copy:"ph:copy-simple",
   b_text:"mingcute:text-line",
   
+  // IoT中心
+  iot:"eos-icons:iot",
+  point:"carbon:temperature-hot",
+  model:"file-icons:3d-model",
+  driver:"ix:connector-hex",
+  equipment:"carbon:iot-platform",
+  iotData:"carbon:data-reference",
+
 }
 
 export default icon
