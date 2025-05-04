@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-04 22:40:21
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/device/index.vue
+ * @LastEditTime: 2025-05-04 22:38:37
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/deviceArea/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,8 +12,8 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree title="设备分类" addUrl="/iot/deviceGroup/add" treeUrl="/iot/deviceGroup/tree"
-                deleteUrl="/iot/deviceGroup/delete" updateUrl="/iot/deviceGroup/update" />
+            <AlaTree title="物理空间" addUrl="/iot/deviceAreaGroup/add" treeUrl="/iot/deviceAreaGroup/tree"
+                deleteUrl="/iot/deviceAreaGroup/delete" updateUrl="/iot/deviceAreaGroup/update" />
         </div>
         <div class="right">
 
@@ -70,7 +70,7 @@ import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
-import Add from '@/pages/iot/device/add.vue';
+import Add from '@/pages/iot/deviceArea/add.vue';
 import notify from '@/utils/notify';
 const { t } = useI18n();
 

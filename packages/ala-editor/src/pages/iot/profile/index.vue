@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-04 21:18:38
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/model/index.vue
+ * @LastEditTime: 2025-05-04 22:39:02
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,8 +12,8 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree title="组织架构" addUrl="/u/organization/add" treeUrl="/u/organization/tree"
-                deleteUrl="/u/organization/delete" updateUrl="/u/organization/update" />
+            <AlaTree title="模型分类" addUrl="/iot/profileGroup/add" treeUrl="/iot/profileGroup/tree"
+                deleteUrl="/iot/profileGroup/delete" updateUrl="/iot/profileGroup/update" />
         </div>
         <div class="right">
 
@@ -70,7 +70,7 @@ import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
-import Add from '@/pages/iot/model/add.vue';
+import Add from '@/pages/iot/profile/add.vue';
 import notify from '@/utils/notify';
 const { t } = useI18n();
 

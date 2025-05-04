@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-02 16:07:34
+ * @LastEditTime: 2025-05-04 22:43:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -47,7 +47,7 @@
     </div>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="params" :fields="basicFields" :formData="formData"
-        labelPosition="top" :moduleName="baseInfo.moduleName" :url="addUrl" :updateUrl="updateUrl"
+        labelPosition="top" :moduleName="title" :url="addUrl" :updateUrl="updateUrl"
         :tipTitle="$t('pop.warm_title')" :formAttr="formAttr" />
 
 </template>
@@ -229,7 +229,7 @@ const basicFields = computed(() => {
         alaBuildHidden('pid'),// 固定格式
         alaBuildHidden('id'),// 固定格式
         alaBuildHidden('nodeType'),
-        alaBuildInput("name", baseInfo.moduleName.replaceAll('管理', '') + '名称', [alaRequired()]),
+        alaBuildInput("name", props.title.replaceAll('管理', '') + '名称', [alaRequired()]),
 
     ]
 })
