@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-14 16:28:00
+ * @LastEditTime: 2025-05-04 21:21:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -181,6 +181,16 @@ export const allMenuComponents: MenuComponent = {
     "/aiAssist/page": {
         name: "AiAssistPage",
         component: "../pages/ai/aiAssist.vue",
+        requiresAuth: true,
+    },
+    "/thingModel/page": {
+        name: "thingModelPage",
+        component: "../pages/iot/model/index.vue",
+        requiresAuth: true,
+    },
+    "/device/page": {
+        name: "devicePage",
+        component: "../pages/iot/device/index.vue",
         requiresAuth: true,
     },
 
