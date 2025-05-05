@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 22:13:32
+ * @LastEditTime: 2025-05-05 22:39:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-page.vue
  * @Description: 
  * 
@@ -46,7 +46,7 @@
 
     </div>
     <!-- dept 详情页面 -->
-    <!-- <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" /> -->
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- dept 新增、编辑 -->
     <!-- <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
@@ -99,10 +99,29 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    // 是否显示 按钮列
     noButtons: {
         type: Boolean,
         default: false
+    },
+    formAttr: {
+        type: Object as any,
+        default: () => {
+            return reactive({
+                formWidth: 800,
+                columnNum: 1,
+                labelWidth: 150,
+                labelPosition: 'left',
+                useFormTitle: false
+            })
+        }
+    },
+    detailFields: {
+        type: Array<any>,
+        default: () => []
+    },
+    baseFields: {
+        type: Array<any>,
+        default: () => []
     },
 })
 
@@ -165,24 +184,7 @@ const refresh = () => {
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
 
-/**
- * 详情页面字段
- */
-const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'profileName', "模型名称", 1, true),
-    alaDetailBuild(dType.input, 'createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.input, 'updatedName', "更新人"),
-    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
-])
-
-// 基础查询条件
-const baseFields = computed(() => {
-    return [
-        alaBuildInput("profileName", '物模型名称'),
-    ]
-})
 
 // 高级查询条件
 const advancedFields: any[] = []
@@ -192,12 +194,7 @@ const getComponent = ((code: string) => {
 })
 
 
-const formAttr = ref({
-    columnNum: 1,
-    labelWidth: 150,
-    labelPosition: 'left',
-    useFormTitle: false,
-})
+
 
 /**
  * 详情页面字段

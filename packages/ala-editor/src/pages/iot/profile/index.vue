@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 22:14:22
+ * @LastEditTime: 2025-05-05 22:41:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -261,10 +261,35 @@ const devicePageColumns = [
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
 ]
 
+const deviceFormWidth = reactive({
+    formWidth: 800,
+    columnNum: 1,
+    labelWidth: 150,
+    labelPosition: 'left',
+    useFormTitle: false
+})
+
+const deviceDetailFields = ref([
+    alaDetailBuild(dType.input, 'deviceName', "设备名称", 1, true),
+    alaDetailBuild(dType.input, 'deviceCode', "资产编号"),
+    alaDetailSelectTable(dType.selectTable, 'profiles', "物模型", "profileName"),
+    alaDetailBuild(dType.input, 'deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
+    alaDetailSwitchImage(dType.switchImage, 'online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
+    alaDetailBuild(dType.input, 'createdName', "创建人"),
+    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailBuild(dType.input, 'updatedName', "更新人"),
+    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+])
+
+// 基础查询条件
+const deviceBaseFields = ref([
+    alaBuildInput("deviceName", '设备名称'),
+])
+
 const tabsModel = reactive([
     { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
-    { title: '模型点位', code: 'AlaDetailPage', props: { url: "/iot/profile/page", deleteUrl: "/iot/profile/delete", columns: pointPageColumns } },
-    { title: '关联设备', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, showAddButton: true } },
+    { title: '模型点位', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, detailFields: deviceDetailFields, baseFields: deviceBaseFields } },
+    { title: '关联设备', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, detailFields: deviceDetailFields, baseFields: deviceBaseFields } },
 ])
 const tabs = computed(() => {
     return tabsModel
