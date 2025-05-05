@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 18:28:56
+ * @LastEditTime: 2025-05-05 19:18:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/device/add.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
         labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
         :formAttr="formAttr" :beforeSave="beforeSave" ref="alaBaseForm">
-       
+
     </AlaBaseForm>
 
 </template>
@@ -69,7 +69,8 @@ const basicFields = computed(() => {
     return [
         alaBuildHidden('id'),// 固定格式
         alaBuildInput("deviceName", '设备名称', [alaRequired()]),
-        alaBuildSelectTable("profileId", "物模型", "/iot/profile/page", [{ prop: 'profileName', label: '模型名称', isQuery: true },{ prop: 'profileCode', label: '模型编号' }], { propertyName: 'profileName', valueName: 'id' }, undefined, {}, "请选择"),
+        alaBuildInput("deviceCode", '资产编号', [alaRequired()]),
+        alaBuildSelectTable("profiles", "物模型", "/iot/profile/page", [{ prop: 'profileName', label: '模型名称', isQuery: true }, { prop: 'profileCode', label: '模型编号' }], { propertyName: 'profileName', valueName: 'id' }, undefined, {}, "请选择", 'model'),
         // alaBuildInput("profileCode", '模型编号', [alaRequired()]),
     ]
 })
@@ -118,11 +119,8 @@ const beforeSave = async (data: { [key: string]: any }) => {
         logger.error(`baseInfo.folder.id【 不存在 ！！！ 】`);
     }
 
-    console.log('data: --->',data);
-    
-    
     // 转换 profileId
-    if(data.profileId && data.profileId.length > 0){
+    if (data.profileId && data.profileId.length > 0) {
         d.profileId = data.profileId[0].id
     }
 

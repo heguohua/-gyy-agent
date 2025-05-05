@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-29 19:25:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-02 18:52:57
+ * @LastEditTime: 2025-05-05 20:21:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/detailType.ts
  * @Description: 
  * 
@@ -15,6 +15,7 @@ export class dType {
     public static readonly selectTable = 'selectTable'
     public static readonly selectTree = 'selectTree'
     public static readonly switch = 'switch'
+    public static readonly switchImage = 'switchImage'
     public static readonly textarea = 'textarea'
     public static readonly date = 'date'
     public static readonly deep = 'deep'

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-02 18:51:03
+ * @LastEditTime: 2025-05-05 19:54:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -62,6 +62,14 @@ export function alaDetailSwitch(componentName: string, columnName: string, label
         prop: columnName,
         label: label,
         formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, activeText: { desktop: activeText }, activeValue: { desktop: activeValue }, inActiveText: { desktop: inActiveText }, inActiveValue: { desktop: inActiveValue }, columnNum: { desktop: columnNum }, ...other } },
+    }
+}
+
+export function alaDetailSwitchImage(componentName: string, columnName: string, label: string, items: Array<{ [key: string]: any }>, columnNum = 1, detail = false, other?: Object) {
+    return {
+        prop: columnName,
+        label: label,
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, items: { desktop: items }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 

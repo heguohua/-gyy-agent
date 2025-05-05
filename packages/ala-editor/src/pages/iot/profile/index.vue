@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 11:27:44
+ * @LastEditTime: 2025-05-05 21:34:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -73,7 +73,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
-import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailSelectTable, alaDetailSwitchImage, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import Add from '@/pages/iot/profile/add.vue';
 import profileAdd from '@/pages/iot/profile/profileAdd.vue';
@@ -253,11 +253,12 @@ const pointPageColumns = [
 ]
 const devicePageColumns = [
     alaDetailBuild(dType.input, 'deviceName', "设备名称", 1, true),
-    alaDetailBuild(dType.input, 'deviceCode', "设备编号"),
-    alaDetailBuild(dType.input, 'groupArea.name', "所属区域"),
-    alaDetailBuild(dType.input, 'createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-
+    alaDetailBuild(dType.input, 'deviceCode', "资产编号"),
+    alaDetailSelectTable(dType.selectTable, 'profiles', "物模型", "profileName", 1, false, { columnWidth: { desktop: '150' } }),
+    alaDetailBuild(dType.input, 'deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
+    alaDetailSwitchImage(dType.switchImage, 'online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
+    alaDetailBuild(dType.input, 'createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
+    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
 ]
 
 const tabsModel = reactive([

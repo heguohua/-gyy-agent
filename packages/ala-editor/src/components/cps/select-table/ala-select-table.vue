@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 10:27:53
+ * @LastEditTime: 2025-05-05 18:52:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -17,12 +17,12 @@
       </template>
       <div class="ala-select-customer ala-form-item-border" :style="styles">
         <p class="placeholder" v-if="!model || model.length === 0">{{
-          placeholder ? placeholder : ($t('form.p-select-1') +label) }}
+          placeholder ? placeholder : ($t('form.p-select-1') + label) }}
         </p>
         <p class="show-values" v-if="model && model.length != 0" v-html="showValue"></p>
       </div>
       <div class="ala-select-customer-icon">
-        <v-icon class="icon" icon="f_user" @click="openDialog" />
+        <v-icon class="icon" :icon="icon" @click="openDialog" />
       </div>
     </el-form-item>
 
@@ -151,6 +151,10 @@ const props = defineProps({
   },
   help: {
     type: String,
+  },
+  icon: {
+    type: String,
+    default: 'f_user'
   }
 })
 
@@ -158,7 +162,6 @@ const model = defineModel({
   type: Array<any>,
   default: () => { return [] }
 })
-
 
 const styles = computed(() => {
   return { minWidth: props.width + 'px' }

@@ -65,6 +65,7 @@ import AlaCascaderDict from '@/components/cps/cascader-dict/ala-cascader-dict.vu
 import DetailInputColumn from '@/components/cps/dynamic/DetailInputColumn.vue';
 import DetailDateColumn from '@/components/cps/dynamic/DetailDateColumn.vue';
 import DetailSwitchColumn from '@/components/cps/dynamic/DetailSwitchColumn.vue';
+import DetailSwitchImageColumn from '@/components/cps/dynamic/DetailSwitchImageColumn.vue';
 import DetailXiaoshuColumn from '@/components/cps/dynamic/DetailXiaoshuColumn.vue';
 import DetailNumberColumn from '@/components/cps/dynamic/DetailNumberColumn.vue';
 import DetailRadioColumn from '@/components/cps/dynamic/DetailRadioColumn.vue';
@@ -160,6 +161,7 @@ export default {
     DetailInputColumn,
     DetailDateColumn,
     DetailSwitchColumn,
+    DetailSwitchImageColumn,
     DetailXiaoshuColumn,
     DetailNumberColumn,
     DetailRadioColumn,
