@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 11:23:04
+ * @LastEditTime: 2025-05-05 22:13:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-page.vue
  * @Description: 
  * 
@@ -11,37 +11,45 @@
 <template>
 
 
-    <!-- 查询条件 -->
-    <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
+    <div class="page-tab">
+        <!-- 查询条件 -->
+        <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
+            @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="showAddButton" />
 
-    <!-- 分页列表 -->
-    <!-- 分页列表 -->
-    <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
-        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showAddButton="true" :showDeleteButton="true">
+        <!-- 分页列表 -->
+        <!-- 分页列表 -->
+        <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
+            :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
+            :showEditButton="showEditButton" :showAddButton="showAddButton" :showDeleteButton="showDeleteButton"
+            :noButtons="noButtons">
 
 
-        <template #cols="{ row, columnName, formItem }">
-            <template v-if="formItem.code === 'dateRange'">
+            <template #cols="{ row, columnName, formItem }">
+                <template v-if="formItem.code === 'dateRange'">
 
-                <component :is="getComponent(formItem.code)"
-                    :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
-                    :formItem="formItem" :data="row" />
+                    <component :is="getComponent(formItem.code)"
+                        :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
+                        :formItem="formItem" :data="row" />
+                </template>
+                <template v-else>
+                    <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
+                    <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem"
+                        :data="row" v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
+                    <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem"
+                        :data="row" v-else />
+                </template>
+
             </template>
-            <template v-else>
-                <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
-                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
-                    v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
-                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
-                    v-else />
-            </template>
-
-        </template>
 
 
-    </PageTable>
+        </PageTable>
 
+    </div>
+    <!-- dept 详情页面 -->
+    <!-- <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" /> -->
+
+    <!-- dept 新增、编辑 -->
+    <!-- <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
 
 </template>
 
@@ -64,6 +72,9 @@ const showDrawer = defineModel({
 })
 
 const props = defineProps({
+    previewParams: {
+        type: Object as any
+    },
     url: {
         type: String
     },
@@ -72,6 +83,26 @@ const props = defineProps({
     },
     columns: {
         type: Array<any>
+    },
+    // 是否显示 编辑 按钮
+    showEditButton: {
+        type: Boolean,
+        default: false
+    },
+    // 是否显示 编辑 按钮
+    showDeleteButton: {
+        type: Boolean,
+        default: false
+    },
+    // 是否显示 新增 按钮
+    showAddButton: {
+        type: Boolean,
+        default: false
+    },
+    // 是否显示 按钮列
+    noButtons: {
+        type: Boolean,
+        default: false
     },
 })
 
@@ -102,12 +133,8 @@ provide('baseInfo', baseInfo);
 
 const showAddForm = ref(false)
 const showAdd = (item: { [key: string]: any }) => {
-
-    //根节点不能添加数据
-    u.checkTrue(baseInfo.folder.id === 0, "不能在根节点新增数据", t)
-
     u.clear(baseInfo.item)
-    u.merged(baseInfo, { item: { id: null, groupId: baseInfo.folder.id } })
+    u.merged(baseInfo, item)
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
@@ -181,30 +208,21 @@ const detailItem = reactive({
     item: {}
 })
 
+const showDetailPage = ref(false)
 const showDetail = (item: { [key: string]: any }) => {
-
     u.clear(detailItem.item)
     u.merged(detailItem, { item })
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
-
-    // 组装 基本信息 
-    // previewParams.data = detailItem
-    // console.log('previewParams.data:', previewParams.data);
-
-
-    // // 组装 审核表单预览页面参数
-    // previewParams.forms = []
-
-    // // 组装 审批记录 页面参数
-    // // previewParams.instanceId = row.instanceId
-
-    // showPreviewPage.value = true
-
+    showDetailPage.value = true
 }
 
 
 </script>
 <style scoped lang="scss">
+.page-tab {
+    padding-right: 15px;
+}
+
 .ala-detail-timeline {
 
     .title {
