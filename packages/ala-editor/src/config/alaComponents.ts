@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 11:42:39
+ * @LastEditTime: 2025-05-05 11:04:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -85,6 +85,7 @@ import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import AlaDetailNoDrawer from '@/components/cps/form/ala-detail-no-drawer.vue';
 import AlaDetailNoDrawerForms from '@/components/cps/form/ala-detail-no-drawer-forms.vue';
 import AlaDetailNoDrawerTasks from '@/components/cps/form/ala-detail-no-drawer-tasks.vue';
+import AlaDetailPage from '@/components/cps/form/ala-detail-page.vue';
 import AlaDetailNoDrawerFormsHandle from '@/components/cps/form/ala-detail-no-drawer-forms-handle.vue';
 import DetailImageColumn from '@/components/cps/dynamic/DetailImageColumn.vue';
 import DetailTextColorColumn from '@/components/cps/dynamic/DetailTextColorColumn.vue';
@@ -179,6 +180,7 @@ export default {
     AlaDetailNoDrawer,
     AlaDetailNoDrawerForms,
     AlaDetailNoDrawerTasks,
+    AlaDetailPage,
     AlaDetailNoDrawerFormsHandle,
     DetailImageColumn,
     DetailTextColorColumn,

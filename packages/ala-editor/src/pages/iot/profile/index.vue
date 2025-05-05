@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 10:44:18
+ * @LastEditTime: 2025-05-05 11:27:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -52,8 +52,13 @@
         </div>
     </div>
 
-    <!-- dept 详情页面 -->
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
+    <!-- 详情页面 -->
+    <!-- <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" /> -->
+
+    <!-- 详情预览页面 -->
+    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" :title="'【 详情 】' + moduleName.replaceAll('管理', '')"
+        width="1800" :tabs="tabs" :previewParams="previewParams" />
+
 
     <!-- dept 新增、编辑 -->
     <profileAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
@@ -112,7 +117,7 @@ const showAdd = (item: { [key: string]: any }) => {
 }
 
 const showEdit = (item: { [key: string]: any }) => {
-    
+
     u.merged(baseInfo, item)
 
     logger.info(`【编辑】方法接收到参数 item `, item);
@@ -183,7 +188,6 @@ const getComponent = ((code: string) => {
 
 
 const formAttr = ref({
-    formWidth: 800,
     columnNum: 1,
     labelWidth: 150,
     labelPosition: 'left',
@@ -199,12 +203,25 @@ const detailItem = reactive({
     item: {}
 })
 
-const showDetailPage = ref(false)
 const showDetail = (item: { [key: string]: any }) => {
+
     u.clear(detailItem.item)
     u.merged(detailItem, { item })
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
-    showDetailPage.value = true
+
+    // 组装 基本信息 
+    previewParams.data = detailItem
+    console.log('previewParams.data:', previewParams.data);
+
+
+    // 组装 审核表单预览页面参数
+    previewParams.forms = []
+
+    // 组装 审批记录 页面参数
+    // previewParams.instanceId = row.instanceId
+
+    showPreviewPage.value = true
+
 }
 
 
@@ -213,15 +230,44 @@ const showDetail = (item: { [key: string]: any }) => {
 
 // 监控 baseInfo 中的folder属性，如果有变化，则更新分页列表 params 参数，并刷新分页列表数据
 watch(() => baseInfo.folder, (value: any) => {
-    if(value.id){
+    if (value.id) {
         params['groupId'] = value.id
-    }else{
+    } else {
         params['groupId'] = undefined
     }
     refresh()
 })
 
+// ######################## 流程详情预览 start ####################################################
+const showPreviewPage = ref(false)
+const previewParams = reactive<any>({ forms: [], defineId: 0 })
 
+// 分页列表中列属性配置
+const pointPageColumns = [
+    alaDetailBuild(dType.input, 'profileName', "模型名称", 1, true),
+    alaDetailBuild(dType.input, 'profileCode', "模型编号"),
+    alaDetailBuild(dType.input, 'group.name', "模型分组"),
+    alaDetailBuild(dType.input, 'createdName', "创建人"),
+    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+
+]
+const devicePageColumns = [
+    alaDetailBuild(dType.input, 'deviceName', "设备名称", 1, true),
+    alaDetailBuild(dType.input, 'deviceCode', "设备编号"),
+    alaDetailBuild(dType.input, 'groupArea.name', "所属区域"),
+    alaDetailBuild(dType.input, 'createdName', "创建人"),
+    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+
+]
+
+const tabsModel = reactive([
+    { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
+    { title: '模型点位', code: 'AlaDetailPage', props: { url: "/iot/profile/page", deleteUrl: "/iot/profile/delete", columns: pointPageColumns } },
+    { title: '关联设备', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns } },
+])
+const tabs = computed(() => {
+    return tabsModel
+})
 </script>
 
 <style lang="scss" scoped>
