@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 10:38:43
+ * @LastEditTime: 2025-05-05 10:44:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -170,7 +170,7 @@ const detailFields: any = ref([
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("name", '物模型名称'),
+        alaBuildInput("profileName", '物模型名称'),
     ]
 })
 
