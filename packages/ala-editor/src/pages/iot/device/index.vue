@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-04 22:40:21
+ * @LastEditTime: 2025-05-05 18:39:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/device/index.vue
  * @Description: 
  * 
@@ -12,20 +12,20 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree title="设备分类" addUrl="/iot/deviceGroup/add" treeUrl="/iot/deviceGroup/tree"
-                deleteUrl="/iot/deviceGroup/delete" updateUrl="/iot/deviceGroup/update" />
+            <AlaTree title="设备位置" addUrl="/iot/deviceAreaGroup/add" treeUrl="/iot/deviceAreaGroup/tree"
+                deleteUrl="/iot/deviceAreaGroup/delete" updateUrl="/iot/deviceAreaGroup/update" />
         </div>
         <div class="right">
 
             <!-- 查询条件 -->
             <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-                @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="false" />
+                @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
 
             <!-- 分页列表 -->
             <!-- 分页列表 -->
             <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
                 :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-                :showEditButton="false" :showAddButton="false" :showDeleteButton="false" :noButtons="true">
+                :showEditButton="true" :showAddButton="true" :showDeleteButton="true">
 
 
                 <template #cols="{ row, columnName, formItem }">
@@ -139,18 +139,18 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/u/user/pageByOrganization"
-const deleteUrl = "/u/user/delete"
+const url = "/iot/device/page"
+const deleteUrl = "/iot/device/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
-        alaDetailBuild(dType.input, 'nickName', "用户昵称"),
-        alaDetailBuild(dType.input, 'mobile', "手机号"),
-        alaDetailBuild(dType.input, 'email', "邮箱"),
-        alaDetailBuild(dType.input, 'iconPath', "用户头像"),
-        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
+        alaDetailBuild(dType.input, 'deviceName', "设备名称", 1, true),
+        alaDetailBuild(dType.input, 'deviceCode', "资产编号"),
+        alaDetailBuild(dType.input, 'profile', "物模型", 1, false, { deepColumnName: { desktop: 'profileName' } }),
+        alaDetailBuild(dType.input, 'deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
+
+        alaDetailBuild(dType.input, 'status', "设备在/离线状态"),
         alaDetailBuild(dType.input, 'createdName', "创建人"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
@@ -166,23 +166,21 @@ const columns = computed(() => {
  * 详情页面字段
  */
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
-    alaDetailBuild(dType.input, 'nickName', "用户昵称"),
-    alaDetailBuild(dType.input, 'mobile', "手机号"),
-    alaDetailBuild(dType.input, 'email', "邮箱"),
-    alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
-    alaDetailBuild(dType.input, 'iconPath', "用户头像"),
+    alaDetailBuild(dType.input, 'deviceName', "设备名称", 1, true),
+    alaDetailBuild(dType.input, 'deviceCode', "资产编号"),
+    alaDetailBuild(dType.input, 'profile', "物模型", 1, false, { deepColumnName: { desktop: 'profileName' } }),
+    alaDetailBuild(dType.input, 'deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
+    alaDetailBuild(dType.input, 'status', "设备在/离线状态"),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.input, 'updatedName', "更新人"),
     alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
-
 ])
 
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("nickName", '用户昵称'),
+        alaBuildInput("deviceName", '设备名称'),
     ]
 })
 
@@ -207,7 +205,7 @@ const formAttr = ref({
  */
 
 const detailItem = reactive({
-    moduleName:'系统用户',
+    moduleName: '系统用户',
     item: {}
 })
 
@@ -225,7 +223,11 @@ const showDetail = (item: { [key: string]: any }) => {
 
 // 监控 baseInfo 中的folder属性，如果有变化，则更新分页列表 params 参数，并刷新分页列表数据
 watch(() => baseInfo.folder, (value: any) => {
-    params['pid'] = value.id
+    if (value.id) {
+        params['groupId'] = value.id
+    } else {
+        params['groupId'] = undefined
+    }
     refresh()
 })
 

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-30 11:10:14
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/datasourceAdd.vue
+ * @LastEditTime: 2025-05-05 18:24:29
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/add.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -51,7 +51,6 @@ const url = '/b/datasource/add'
 const updateUrl = '/b/datasource/update'
 // 表单数据保存对象
 const formData = reactive<{ [key: string]: any }>({
-    configuration: {}
 })
 
 watch(() => props.baseInfo.item, (item) => {
