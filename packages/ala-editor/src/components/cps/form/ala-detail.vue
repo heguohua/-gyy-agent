@@ -163,7 +163,7 @@ const labelWidth = () => {
 }
 
 const getModuleName = () => {
-    return props.data?.moduleName ? props.data?.moduleName : props.moduleName
+    return props.data?.moduleName ? props.data?.moduleName.replaceAll('管理', '') : props.moduleName.replaceAll('管理', '')
 }
 
 </script>

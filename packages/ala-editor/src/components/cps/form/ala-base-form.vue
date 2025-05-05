@@ -1,7 +1,7 @@
 <template>
     <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="fields" :data="formData"
-            :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
+            :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName.replaceAll('管理','')" :operationType="operationType"
             :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback">
             <template #buttons>
                 <slot name="buttons"></slot>

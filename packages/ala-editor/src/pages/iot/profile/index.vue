@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-04 22:39:02
+ * @LastEditTime: 2025-05-05 10:38:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -19,13 +19,13 @@
 
             <!-- 查询条件 -->
             <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-                @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="false" />
+                @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
 
             <!-- 分页列表 -->
             <!-- 分页列表 -->
             <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
                 :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-                :showEditButton="false" :showAddButton="false" :showDeleteButton="false" :noButtons="true">
+                :showEditButton="true" :showAddButton="true" :showDeleteButton="true">
 
 
                 <template #cols="{ row, columnName, formItem }">
@@ -56,7 +56,7 @@
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- dept 新增、编辑 -->
-    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <profileAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
 </template>
 
@@ -71,6 +71,7 @@ import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import Add from '@/pages/iot/profile/add.vue';
+import profileAdd from '@/pages/iot/profile/profileAdd.vue';
 import notify from '@/utils/notify';
 const { t } = useI18n();
 
@@ -104,22 +105,17 @@ const showAdd = (item: { [key: string]: any }) => {
     u.checkTrue(baseInfo.folder.id === 0, "不能在根节点新增数据", t)
 
     u.clear(baseInfo.item)
-    u.merged(baseInfo, { item: { id: null, pid: item.id } })
+    u.merged(baseInfo, { item: { id: null, groupId: baseInfo.folder.id } })
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
 }
 
 const showEdit = (item: { [key: string]: any }) => {
-    // 解密 configuration 字段
-    let it = u.cloned(item) as { [key: string]: any }
-    it['configuration'] = u.parseJson(u.base64Decode(it['configuration']))
+    
+    u.merged(baseInfo, item)
 
-    // item['type'] = u.parseJson(item['type'])
-    it = u.flattenObject(it)
-    u.merged(baseInfo, { item: { ...it } })
-
-    logger.info(`【编辑】方法接收到参数 item `, it);
+    logger.info(`【编辑】方法接收到参数 item `, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
 }
@@ -139,18 +135,15 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/u/user/pageByOrganization"
-const deleteUrl = "/u/user/delete"
+const url = "/iot/profile/page"
+const deleteUrl = "/iot/profile/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
-        alaDetailBuild(dType.input, 'nickName', "用户昵称"),
-        alaDetailBuild(dType.input, 'mobile', "手机号"),
-        alaDetailBuild(dType.input, 'email', "邮箱"),
-        alaDetailBuild(dType.input, 'iconPath', "用户头像"),
-        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
+        alaDetailBuild(dType.input, 'profileName', "模型名称", 1, true),
+        alaDetailBuild(dType.input, 'profileCode', "模型编号"),
+        alaDetailBuild(dType.input, 'group.name', "模型分组"),
         alaDetailBuild(dType.input, 'createdName', "创建人"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
@@ -166,12 +159,7 @@ const columns = computed(() => {
  * 详情页面字段
  */
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
-    alaDetailBuild(dType.input, 'nickName', "用户昵称"),
-    alaDetailBuild(dType.input, 'mobile', "手机号"),
-    alaDetailBuild(dType.input, 'email', "邮箱"),
-    alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
-    alaDetailBuild(dType.input, 'iconPath', "用户头像"),
+    alaDetailBuild(dType.input, 'profileName', "模型名称", 1, true),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.input, 'updatedName', "更新人"),
@@ -182,7 +170,7 @@ const detailFields: any = ref([
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("nickName", '用户昵称'),
+        alaBuildInput("name", '物模型名称'),
     ]
 })
 
@@ -207,7 +195,7 @@ const formAttr = ref({
  */
 
 const detailItem = reactive({
-    moduleName:'系统用户',
+    moduleName,
     item: {}
 })
 
@@ -225,7 +213,11 @@ const showDetail = (item: { [key: string]: any }) => {
 
 // 监控 baseInfo 中的folder属性，如果有变化，则更新分页列表 params 参数，并刷新分页列表数据
 watch(() => baseInfo.folder, (value: any) => {
-    params['pid'] = value.id
+    if(value.id){
+        params['groupId'] = value.id
+    }else{
+        params['groupId'] = undefined
+    }
     refresh()
 })
 
