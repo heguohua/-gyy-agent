@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 11:39:57
+ * @LastEditTime: 2025-05-06 21:08:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-card.vue
  * @Description: 
  * 
@@ -111,7 +111,7 @@ const props = defineProps({
                 formWidth: 800,
                 columnNum: 1,
                 labelWidth: 150,
-                labelPosition: 'left',
+                labelPosition: 'top',
                 useFormTitle: false
             })
         }
@@ -133,6 +133,9 @@ const props = defineProps({
         default: null
     },
 })
+
+
+console.log('props.formAttr: -----> ', props.formAttr);
 
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -233,11 +236,13 @@ const showDetail = (item: { [key: string]: any }) => {
 const formData = reactive<{ [key: string]: any }>({
 })
 // 监听表单回调事件
-const emit = defineEmits(["refresh","close"])
+const emit = defineEmits(["refresh", "close"])
 const confirm = (data: any) => {
     logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
     logger.warn("新增页面 confirm 接收到回调数据，当前formData数据为", formData);
-    emit('refresh', data)
+    // emit('refresh', data)
+
+    refresh()
 }
 
 const alaBaseForm = ref()

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-15 20:45:30
+ * @LastEditTime: 2025-05-06 22:45:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -390,5 +390,19 @@ export default class u {
         // 移除临时的 textarea 元素
         document.body.removeChild(textarea);
     };
+
+    public static parseNameByValue(items: Array<any>, value: string) {
+        let v = value
+        if (items) {
+            items.forEach((item: any) => {
+                for (const [key, val] of Object.entries(item)) {
+                    if (val === v) {
+                        v = key
+                    }
+                }
+            })
+        }
+        return v
+    }
 
 }

@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-04-27 11:48:53
+ * @LastEditTime: 2025-05-06 22:40:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -197,6 +197,10 @@ const icon = {
   driver:"ix:connector-hex",
   equipment:"carbon:iot-platform",
   iotData:"carbon:data-reference",
+  flag:"hugeicons:flag-01",
+  flag_point:"solar:map-point-rotate-outline",
+  info:"material-symbols:page-info-outline",
+  iot_point:"icon-park-outline:setting-config",
 
 }
 

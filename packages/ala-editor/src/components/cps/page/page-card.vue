@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 11:31:22
+ * @LastEditTime: 2025-05-06 21:24:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-card.vue
  * @Description: 
  * 
@@ -10,11 +10,11 @@
 -->
 <template>
     <div class="ala-page-card">
-        
-        <template class="" v-for="(item,index) in onePageList" :key="item.id" :class="" >
+
+        <template class="" v-for="(item, index) in onePageList" :key="item.id" :class="">
             <slot name="item" :row="item"></slot>
         </template>
-       
+
         <!-- <el-pagination v-model:current-page="current" :page-sizes="pageSize" :page-size="page.size"
             layout="total, sizes, prev, pager, next" :total="total" @size-change="handleSizeChange"
             @current-change="handlePageChange" class="ala-page-pagination" :pager-count="11" background>
@@ -116,11 +116,11 @@ const displayDeleteButton = () => {
     return props.showDeleteButton;
 }
 const displayAddButton = () => {
-    console.log('props.showAddButton:',props.showAddButton);
+    console.log('props.showAddButton:', props.showAddButton);
 
     return props.showAddButton;
 }
-const displayAddSubButton = () => {    
+const displayAddSubButton = () => {
     return props.showAddSubButton;
 }
 
@@ -193,7 +193,7 @@ const loading = ref(true)
 // 分页参数
 const page = reactive({
     "current": 1,
-    "size": 20,
+    "size": 10000,
     "total": 0,
     orders: [{
         column: 'id',

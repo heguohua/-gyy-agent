@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 10:27:56
+ * @LastEditTime: 2025-05-06 22:35:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
 
-  <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" @click="handleClick($event)" />
+  <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" @click="handleClick($event)" :style="styles" />
   <div v-if="image" class="icon-image" :style="{ height, width }" @click="handleClick($event)">
     <img :src="image" />
   </div>
@@ -43,6 +43,10 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  color: {
+    type: String,
+    default: () => ''
+  },
 })
 
 const iconSrc = computed(() => iconConfig[props.icon as ConfigIcon])
@@ -50,7 +54,16 @@ const iconSrc = computed(() => iconConfig[props.icon as ConfigIcon])
 const emits = defineEmits(["click"])
 const handleClick = (event: MouseEvent) => {
   emits('click', event)
-} 
+}
+
+const styles = computed(() => {
+  let st = {} as any
+  if (props.color) {
+    st.color = props.color
+
+  }
+  return st
+})
 </script>
 
 <style lang="scss" scoped>

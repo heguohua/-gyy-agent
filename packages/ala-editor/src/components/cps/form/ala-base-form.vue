@@ -71,10 +71,6 @@ const showDrawer = defineModel({
     default: false
 })
 
-watch(() => showDrawer.value, (v: any) => {
-    console.log('观察到 showDrawer 的值发生变化: ------ >', showDrawer.value);
-}, { deep: true,immediate:true })
-
 const formRef = ref()
 const confirm = (data: any) => {
 

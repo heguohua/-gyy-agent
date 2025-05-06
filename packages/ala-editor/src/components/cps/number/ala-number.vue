@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 21:13:36
+ * @LastEditTime: 2025-05-06 23:11:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/ala-number.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
                 <AlaFormLabel :label="label" :help="help" />
             </template>
             <el-input type="number" :model-value="model" @input="handleChange" :placeholder="placeholder"
-                :id="fieldName">
+                :id="fieldName" :min="min" :max="max">
                 <template #prefix v-if="icon">
                     <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
                 </template>
@@ -62,6 +62,18 @@ const props = defineProps({
     initValue: {
         type: Number,
         default: 0
+    },
+    step: {
+        type: Number,
+        default: 0
+    },
+    min: {
+        type: Number,
+        default: -9007199254740991
+    },
+    max: {
+        type: Number,
+        default: 9007199254740991
     },
     labelWidth: {
         type: Number,

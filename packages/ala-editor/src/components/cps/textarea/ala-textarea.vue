@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 20:40:51
+ * @LastEditTime: 2025-05-06 20:34:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/ala-textarea.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
                 <AlaFormLabel :label="label" :help="help" />
             </template>
             <el-input type="textarea" autosize :model-value="model" @input="handleChange" :placeholder="placeholder"
-                :id="fieldName">
+                :id="fieldName" class="ala-textarea-el-input">
 
                 <template #prefix v-if="icon">
                     <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
@@ -87,7 +87,7 @@ const handleChange = (value: string) => {
 .ala-textarea-wrapper {
     :deep(.el-textarea__inner) {
         padding: 0px 11px;
-        min-height: 32px !important;
+        min-height: 64px !important;
     }
 }
 </style>

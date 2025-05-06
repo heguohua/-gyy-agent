@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 11:35:07
+ * @LastEditTime: 2025-05-06 23:04:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -69,7 +69,7 @@
 import { PropType, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { logger } from '@/utils/logger';
-import { alaBuildHidden, alaBuildInput, alaBuildSelectTable } from '@/config/alaBuilders';
+import { alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildTextarea } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
@@ -93,7 +93,7 @@ const baseInfo = reactive({
     moduleName,
     id: null,
     selectedList: Array<{ id: string }>,
-    item: {},
+    item: {} as any,
     folder: { id: 0 },
     treeFormData: { type: 'folder' },
 })
@@ -267,7 +267,7 @@ const deviceFormWidth = reactive({
     formWidth: 800,
     columnNum: 1,
     labelWidth: 150,
-    labelPosition: 'left',
+    labelPosition: 'top',
     useFormTitle: false
 })
 
@@ -292,21 +292,46 @@ const deviceBaseFields = ref([
 const pointAddFields = computed(() => {
     return [
         alaBuildHidden('id'),// 固定格式
-        alaBuildInput("deviceName", '设备名称', [alaRequired()]),
-        alaBuildInput("deviceCode", '资产编号', [alaRequired()]),
-        alaBuildSelectTable("profiles", "物模型", "/iot/profile/page", [{ prop: 'profileName', label: '模型名称', isQuery: true }, { prop: 'profileCode', label: '模型编号' }], { propertyName: 'profileName', valueName: 'id' }, undefined, {}, "请选择", 'model'),
+        alaBuildHidden('profileId'),// 固定格式
+        alaBuildInput("pointName", '点位名称', [alaRequired()]),
+        alaBuildInput("platformName", '平台属性名', [alaRequired()]),
+        alaBuildInput("pointCode", '设备属性名（支持 xxx.yyy.zzz 格式多层级取值）', [alaRequired()]),
+        // 点位数据类型：0-字符串,1-字节,2-短整数,3-整数,4-长整数,5-浮点数,6-双精度浮点数,7-布尔
+        alaBuildSelect("pointTypeFlag", "点位数据类型", [{ '字符串': '0' }, { '浮点数': '5' }, { '双精度浮点数': '6' }, { '短整数': '2' }, { '整数': '3' }, { '长整数': '4' }, { '字节': '1' }, { '布尔': '7' }], [alaRequired()], "请选择数据类型", { clearable: true }),
+        // 读写标识，1-只读、2-只写、3-读写
+        alaBuildRadio('rwFlag', "读写标识", [{ '只读': '1' }, { '只写': '2' }, { '读写': '3' }], [alaRequired()]),
+        alaBuildNumber("valueDecimal", "数据精度", [alaRequired()], "请输入高度", { initValue: 2, min: 0, max: 6, step: 1 }),
+
+        alaBuildSelectDict("unitDict", "数值单位", { "dictValue": "unit" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择数值单位", {}),
+
+        alaBuildNumber("baseValue", "基础值", [], "请输入基础值", { initValue: 0, min: 0 }),
+        alaBuildNumber("multiple", "倍数", [], "请输入基础值", { initValue: 0, min: 0 }),
+
+        alaBuildTextarea("remark", "备注", [], "请输入点位说明"),
+
+
+        // alaBuildInput("deviceCode", '资产编号', [alaRequired()]),
+        // alaBuildSelectTable("profiles", "物模型", "/iot/profile/page", [{ prop: 'profileName', label: '模型名称', isQuery: true }, { prop: 'profileCode', label: '模型编号' }], { propertyName: 'profileName', valueName: 'id' }, undefined, {}, "请选择", 'model'),
         // alaBuildInput("profileCode", '模型编号', [alaRequired()]),
     ]
 })
 
 
 const beforeSaveFun = (data: any) => {
+    data.unitDict = data.unitDict[0]
+    data.profileId = detailItem.item.id
     console.log('beforeSaveFun: ---> ', data);
+    return data;
 }
+
+// 基础查询条件
+const pointBaseFields = ref([
+    alaBuildInput("pointName", '点位名称'),
+])
 
 const tabsModel = reactive([
     { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
-    { title: '模型点位', code: 'AlaDetailCard', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, formFields: pointAddFields, detailFields: deviceDetailFields, baseFields: deviceBaseFields, moduleName: '点位', showAddButton: true, component: 'PointCard', beforeSave: beforeSaveFun } },
+    { title: '模型点位', code: 'AlaDetailCard', props: { url: "/iot/point/page", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, formFields: pointAddFields, detailFields: deviceDetailFields, baseFields: pointBaseFields, moduleName: '点位', showAddButton: true, component: 'PointCard', addUrl: '/iot/point/add', updateUrl: '/iot/point/update', deleteUrl: '/iot/point/delete', beforeSave: beforeSaveFun } },
     { title: '关联设备', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, detailFields: deviceDetailFields, baseFields: deviceBaseFields, moduleName: '设备' } },
 ])
 
