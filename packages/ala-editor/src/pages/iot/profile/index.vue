@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 22:41:37
+ * @LastEditTime: 2025-05-06 08:43:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -289,7 +289,7 @@ const deviceBaseFields = ref([
 const tabsModel = reactive([
     { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
     { title: '模型点位', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, detailFields: deviceDetailFields, baseFields: deviceBaseFields } },
-    { title: '关联设备', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, detailFields: deviceDetailFields, baseFields: deviceBaseFields } },
+    { title: '关联设备', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, detailFields: deviceDetailFields, baseFields: deviceBaseFields, moduleName: '设备' } },
 ])
 const tabs = computed(() => {
     return tabsModel

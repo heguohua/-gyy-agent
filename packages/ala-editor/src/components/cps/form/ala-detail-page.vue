@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 08:28:22
+ * @LastEditTime: 2025-05-06 08:42:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-page.vue
  * @Description: 
  * 
@@ -81,6 +81,9 @@ const props = defineProps({
     deleteUrl: {
         type: String
     },
+    moduleName: {
+        type: String
+    },
     columns: {
         type: Array<any>
     },
@@ -130,8 +133,7 @@ const props = defineProps({
 // 1、获取当前模块名
 const route = useRoute();
 const moduleName = computed(() => {
-    const code = route.meta.menuCode as string;
-    return t(code)
+    return props.moduleName
 })
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
