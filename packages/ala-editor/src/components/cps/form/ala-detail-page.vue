@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 22:39:22
+ * @LastEditTime: 2025-05-06 08:28:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-page.vue
  * @Description: 
  * 
@@ -218,6 +218,7 @@ const showDetail = (item: { [key: string]: any }) => {
 <style scoped lang="scss">
 .page-tab {
     padding-right: 15px;
+
 }
 
 .ala-detail-timeline {
@@ -269,5 +270,11 @@ const showDetail = (item: { [key: string]: any }) => {
         color: var(--el-color-info);
         font-weight: bold;
     }
+}
+</style>
+
+<style>
+.el-drawer__header h4{
+    text-align: center;
 }
 </style>

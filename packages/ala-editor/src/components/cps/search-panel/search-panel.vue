@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 15:17:26
+ * @LastEditTime: 2025-05-06 08:40:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -188,6 +188,9 @@ defineExpose({ clear })
                 font-size: 0.8rem;
                 padding: 0px;
                 vertical-align: top;
+                align-items: baseline;
+            }
+            :deep(.ala-button-wrapper){
                 align-items: baseline;
             }
         }
