@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 08:42:38
+ * @LastEditTime: 2025-05-06 09:28:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-page.vue
  * @Description: 
  * 
@@ -172,6 +172,9 @@ const showEdit = (item: { [key: string]: any }) => {
 
 // 查询条件
 const params = reactive({}) as { [key: string]: any }
+watch(()=>props.previewParams.params,(value:object)=>{
+    u.merged(params, props.previewParams.params)
+},{immediate:true,deep:true})
 
 const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
 const refresh = () => {
@@ -276,7 +279,7 @@ const showDetail = (item: { [key: string]: any }) => {
 </style>
 
 <style>
-.el-drawer__header h4{
+.el-drawer__header h4 {
     text-align: center;
 }
 </style>
