@@ -81,7 +81,7 @@ const handleClose = (done: () => void) => {
     }
 }
 
-const emits = defineEmits(['refresh'])
+const emits = defineEmits(['refresh','close'])
 /**
  * 点击取消按钮，关闭弹窗
  */

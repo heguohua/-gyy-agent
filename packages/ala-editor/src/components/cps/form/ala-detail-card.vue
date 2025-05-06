@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 09:28:37
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-page.vue
+ * @LastEditTime: 2025-05-06 11:39:57
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-card.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -17,39 +17,30 @@
             @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="showAddButton" />
 
         <!-- 分页列表 -->
-        <!-- 分页列表 -->
-        <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
+        <PageCard ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
             :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
             :showEditButton="showEditButton" :showAddButton="showAddButton" :showDeleteButton="showDeleteButton"
             :noButtons="noButtons">
 
-
-            <template #cols="{ row, columnName, formItem }">
-                <template v-if="formItem.code === 'dateRange'">
-
-                    <component :is="getComponent(formItem.code)"
-                        :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
-                        :formItem="formItem" :data="row" />
-                </template>
-                <template v-else>
-                    <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
-                    <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem"
-                        :data="row" v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
-                    <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem"
-                        :data="row" v-else />
-                </template>
-
+            <template #item="{ row }">
+                <component :is="component" :data="row" />
             </template>
 
-
-        </PageTable>
+        </PageCard>
 
     </div>
-    <!-- dept 详情页面 -->
+
+    <!-- 详情页面 -->
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
-    <!-- dept 新增、编辑 -->
+    <!-- 新增、编辑 -->
     <!-- <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
+
+
+    <AlaBaseForm v-model="showAddForm" @confirm="confirm" v-bind="props" :fields="formFields" :formData="formData"
+        labelPosition="top" :moduleName="moduleName" :url="addUrl" :updateUrl="updateUrl"
+        :tipTitle="$t('pop.warm_title')" :formAttr="formAttr" :beforeSave="beforeSave" ref="alaBaseForm">
+    </AlaBaseForm>
 
 </template>
 
@@ -63,13 +54,8 @@ import u from '@/utils/u';
 import { PropType, ref } from 'vue'
 import { dType } from '../dynamic/detailType';
 import { useI18n } from 'vue-i18n';
-import PageTable from '../page/page-table.vue';
+import PageCard from '../page/page-card.vue';
 const { t } = useI18n();
-
-const showDrawer = defineModel({
-    type: Boolean,
-    default: false
-})
 
 const props = defineProps({
     previewParams: {
@@ -78,10 +64,22 @@ const props = defineProps({
     url: {
         type: String
     },
+    addUrl: {
+        type: String,
+        default: () => ""
+    },
+    updateUrl: {
+        type: String,
+        default: () => ""
+    },
     deleteUrl: {
-        type: String
+        type: String,
+        default: () => ""
     },
     moduleName: {
+        type: String
+    },
+    component: {
         type: String
     },
     columns: {
@@ -122,9 +120,17 @@ const props = defineProps({
         type: Array<any>,
         default: () => []
     },
+    formFields: {
+        type: Array<any>,
+        default: () => []
+    },
     baseFields: {
         type: Array<any>,
         default: () => []
+    },
+    beforeSave: {
+        type: Function,
+        default: null
     },
 })
 
@@ -158,8 +164,13 @@ const showAdd = (item: { [key: string]: any }) => {
     u.merged(baseInfo, item)
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    showAddForm.value = true
+    showAddForm.value = !showAddForm.value
 }
+
+watch(() => showAddForm.value, (v: any) => {
+    console.log('观察到 showAddForm 的值发生变化: ------ >', showAddForm.value);
+}, { deep: true })
+
 
 const showEdit = (item: { [key: string]: any }) => {
 
@@ -172,11 +183,11 @@ const showEdit = (item: { [key: string]: any }) => {
 
 // 查询条件
 const params = reactive({}) as { [key: string]: any }
-watch(()=>props.previewParams.params,(value:object)=>{
+watch(() => props.previewParams.params, (value: object) => {
     u.merged(params, props.previewParams.params)
-},{immediate:true,deep:true})
+}, { immediate: true, deep: true })
 
-const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
+const pageRef = ref<InstanceType<typeof PageCard> | null>(null)
 const refresh = () => {
     if (pageRef.value) {
         pageRef.value.refresh(params)
@@ -216,6 +227,35 @@ const showDetail = (item: { [key: string]: any }) => {
     u.merged(detailItem, { item })
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     showDetailPage.value = true
+}
+
+// 表单数据保存对象
+const formData = reactive<{ [key: string]: any }>({
+})
+// 监听表单回调事件
+const emit = defineEmits(["refresh","close"])
+const confirm = (data: any) => {
+    logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
+    logger.warn("新增页面 confirm 接收到回调数据，当前formData数据为", formData);
+    emit('refresh', data)
+}
+
+const alaBaseForm = ref()
+const beforeSave = async (data: { [key: string]: any }) => {
+
+    if (props.beforeSave) {
+        if (u.isAsyncFunction(props.beforeSave)) {
+            data = await props.beforeSave(data)
+        } else {
+            data = props.beforeSave(data)
+        }
+    }
+
+    // 对 configuration 字段进行 base64加密
+    // delete d['configuration']
+    logger.info(`格式化数据后，data参数`, data);
+
+    return data
 }
 
 

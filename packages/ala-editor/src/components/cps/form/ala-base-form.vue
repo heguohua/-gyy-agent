@@ -1,8 +1,8 @@
 <template>
     <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
         <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="fields" :data="formData"
-            :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName.replaceAll('管理','')" :operationType="operationType"
-            :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback">
+            :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName.replaceAll('管理', '')"
+            :operationType="operationType" :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback">
             <template #buttons>
                 <slot name="buttons"></slot>
             </template>
@@ -70,6 +70,10 @@ const showDrawer = defineModel({
     type: Boolean,
     default: false
 })
+
+watch(() => showDrawer.value, (v: any) => {
+    console.log('观察到 showDrawer 的值发生变化: ------ >', showDrawer.value);
+}, { deep: true,immediate:true })
 
 const formRef = ref()
 const confirm = (data: any) => {

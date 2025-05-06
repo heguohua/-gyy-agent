@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 09:28:37
+ * @LastEditTime: 2025-05-06 11:35:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-page.vue
  * @Description: 
  * 
@@ -172,9 +172,9 @@ const showEdit = (item: { [key: string]: any }) => {
 
 // 查询条件
 const params = reactive({}) as { [key: string]: any }
-watch(()=>props.previewParams.params,(value:object)=>{
+watch(() => props.previewParams.params, (value: object) => {
     u.merged(params, props.previewParams.params)
-},{immediate:true,deep:true})
+}, { immediate: true, deep: true })
 
 const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
 const refresh = () => {
@@ -217,6 +217,9 @@ const showDetail = (item: { [key: string]: any }) => {
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     showDetailPage.value = true
 }
+
+// 屏蔽  [Vue warn]: Extraneous non-emits event listeners (close) were passed to 报错问题
+const emit = defineEmits(["close"])
 
 
 </script>

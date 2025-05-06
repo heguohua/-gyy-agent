@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 09:39:16
+ * @LastEditTime: 2025-05-06 10:18:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -96,6 +96,10 @@ import DetailCascaderColumn from '@/components/cps/dynamic/DetailCascaderColumn.
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
 import ProcessPreview from '@/pages/process/processPreview.vue';
+
+
+// IoT平台相关组件
+import PointCard from '@/components/iot/pointCard.vue';
 
 
 // 图表相关组件
@@ -196,6 +200,9 @@ export default {
 
     // 图标相关
     AlaLineChart,
+
+    // IoT平台相关
+    PointCard,
 
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 09:39:43
+ * @LastEditTime: 2025-05-06 11:35:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -69,7 +69,7 @@
 import { PropType, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { logger } from '@/utils/logger';
-import { alaBuildInput } from '@/config/alaBuilders';
+import { alaBuildHidden, alaBuildInput, alaBuildSelectTable } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
@@ -78,6 +78,7 @@ import { dType } from '@/components/cps/dynamic/detailType';
 import Add from '@/pages/iot/profile/add.vue';
 import profileAdd from '@/pages/iot/profile/profileAdd.vue';
 import notify from '@/utils/notify';
+import { alaRequired } from '@/config/alaRules';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -211,7 +212,7 @@ const showDetail = (item: { [key: string]: any }) => {
 
     // 组装 基本信息 
     previewParams.data = detailItem
-    previewParams.params = { profileId: item.id }
+    // previewParams.params = { profileId: item.id }
     console.log('previewParams:', previewParams);
 
 
@@ -287,17 +288,33 @@ const deviceBaseFields = ref([
     alaBuildInput("deviceName", '设备名称'),
 ])
 
+// 基础表单字段
+const pointAddFields = computed(() => {
+    return [
+        alaBuildHidden('id'),// 固定格式
+        alaBuildInput("deviceName", '设备名称', [alaRequired()]),
+        alaBuildInput("deviceCode", '资产编号', [alaRequired()]),
+        alaBuildSelectTable("profiles", "物模型", "/iot/profile/page", [{ prop: 'profileName', label: '模型名称', isQuery: true }, { prop: 'profileCode', label: '模型编号' }], { propertyName: 'profileName', valueName: 'id' }, undefined, {}, "请选择", 'model'),
+        // alaBuildInput("profileCode", '模型编号', [alaRequired()]),
+    ]
+})
 
+
+const beforeSaveFun = (data: any) => {
+    console.log('beforeSaveFun: ---> ', data);
+}
 
 const tabsModel = reactive([
     { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
-    { title: '模型点位', code: 'AlaDetailCard', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, detailFields: deviceDetailFields, baseFields: deviceBaseFields, moduleName: '点位' } },
+    { title: '模型点位', code: 'AlaDetailCard', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, formFields: pointAddFields, detailFields: deviceDetailFields, baseFields: deviceBaseFields, moduleName: '点位', showAddButton: true, component: 'PointCard', beforeSave: beforeSaveFun } },
     { title: '关联设备', code: 'AlaDetailPage', props: { url: "/iot/device/page", deleteUrl: "/iot/device/delete", columns: devicePageColumns, noButtons: true, formAttr: deviceFormWidth, detailFields: deviceDetailFields, baseFields: deviceBaseFields, moduleName: '设备' } },
 ])
 
 const tabs = computed(() => {
     return tabsModel
 })
+
+
 
 </script>
 
