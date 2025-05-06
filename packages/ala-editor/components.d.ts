@@ -47,6 +47,7 @@ declare module 'vue' {
     AlaDate: typeof import('./src/components/cps/date/ala-date.vue')['default']
     AlaDateRange: typeof import('./src/components/cps/date-range/ala-date-range.vue')['default']
     AlaDetail: typeof import('./src/components/cps/form/ala-detail.vue')['default']
+    AlaDetailCard: typeof import('./src/components/cps/form/ala-detail-card.vue')['default']
     AlaDetailNoDrawer: typeof import('./src/components/cps/form/ala-detail-no-drawer.vue')['default']
     AlaDetailNoDrawerForms: typeof import('./src/components/cps/form/ala-detail-no-drawer-forms.vue')['default']
     AlaDetailNoDrawerFormsHandle: typeof import('./src/components/cps/form/ala-detail-no-drawer-forms-handle.vue')['default']
