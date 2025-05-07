@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-07 11:10:26
+ * @LastEditTime: 2025-05-07 11:13:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -305,7 +305,7 @@ const pointAddFields = computed(() => {
         alaBuildSelectDict("unitDict", "数值单位", { "dictValue": "unit" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择数值单位", {}),
 
         alaBuildNumber("baseValue", "基础值", [], "请输入基础值", { initValue: 0, min: 0 }),
-        alaBuildNumber("multiple", "倍数", [], "请输入基础值", { initValue: 0, min: 0 }),
+        alaBuildNumber("multiple", "倍数", [], "请输入基础值", { initValue: 1, min: 0 }),
 
         alaBuildTextarea("remark", "备注", [], "请输入点位说明"),
 
