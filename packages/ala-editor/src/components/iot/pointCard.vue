@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-06 10:15:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 23:18:40
+ * @LastEditTime: 2025-05-07 10:26:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/iot/pointCard.vue
  * @Description: 
 
@@ -60,6 +60,11 @@
                 <p class="value">{{ data.multiple }}</p>
             </div>
             <div class="row">
+                <v-icon class="image" icon="flag_point" width="18" :color="colors.primary" />
+                <p class="label">状态： </p>
+                <p class="value" v-html="parseStatus(data.deleted)"></p>
+            </div>
+            <div class="row">
                 <v-icon class="image" icon="info" width="18" :color="colors.info" />
                 <p class="label">创建人： </p>
                 <p class="value">{{ data.createdName }}</p>
@@ -77,11 +82,11 @@
         </div>
         <div class="buttons">
             <!-- <v-icon class="image" icon="iot_point" width="24" height="24" :color="colors.primary"/> -->
-            <AlaButton v-if="data.deleted == 1" :showButton="true" name="disable" @agree="handleAgree()" buttonType="danger" :plain="true"
-                size="small" />
-            <AlaButton v-else :showButton="true" name="enable" @reject="handleReject()" buttonType="primary" :plain="true"
-                size="small" />
-            <AlaButton :showButton="true" name="edit" @reject="handleReject()" :plain="true" size="small" />
+            <AlaButton v-if="data.deleted == 1" :showButton="true" name="disable" @disable="handleDisable(data)"
+                buttonType="danger" :plain="true" size="small" />
+            <AlaButton v-else :showButton="true" name="enable" @enable="handleEnable(data)" buttonType="primary"
+                :plain="true" size="small" />
+            <AlaButton :showButton="true" name="edit" @edit="handleEdit(data)" :plain="true" size="small" />
             <!-- <AlaButton :showButton="true" name="delete" @reject="handleReject()" buttonType="danger" :plain="true"
                 size="small" /> -->
 
@@ -94,7 +99,8 @@ import colors from '@/utils/colors'
 import { date } from '@/utils/date'
 import u from '@/utils/u'
 import { ref } from 'vue'
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 // State
 const props = defineProps({
     data: {
@@ -107,6 +113,28 @@ const props = defineProps({
 const pointTypeFlags = [{ '字符串': '0' }, { '浮点数': '5' }, { '双精度浮点数': '6' }, { '短整数': '2' }, { '整数': '3' }, { '长整数': '4' }, { '字节': '1' }, { '布尔': '7' }]
 const rwFlags = [{ '只读': '1' }, { '只写': '2' }, { '读写': '3' }]
 
+
+const emits = defineEmits(["edit", "enable", "disable"])
+const handleEnable = (item: any) => {
+    emits('enable', item)
+}
+const handleDisable = (item: any) => {
+    emits('disable', item)
+}
+const handleEdit = (item: any) => {
+    emits('edit', item)
+}
+
+
+const parseStatus = (status: number) => {
+    let text = '状态未知'
+    if (status === 1) {
+        text = '<p style="color:#409eff;font-weight:bold;">' + t('buttons.enable') + '中</p>'
+    } else if (status === 2) {
+        text = '<p style="color:#f56c6c;font-weight:bold;">已' + t('buttons.disable') + '</p>'
+    }
+    return text
+}
 
 </script>
 
@@ -165,7 +193,15 @@ const rwFlags = [{ '只读': '1' }, { '只写': '2' }, { '读写': '3' }]
                 opacity: 0.7;
             }
 
-            .value {}
+            .value {
+                .enable {
+                    color: var(--el-color-primary)
+                }
+
+                .disable {
+                    color: red
+                }
+            }
 
             p {}
         }

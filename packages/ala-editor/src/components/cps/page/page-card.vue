@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 21:24:26
+ * @LastEditTime: 2025-05-07 09:48:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-card.vue
  * @Description: 
  * 
@@ -12,7 +12,8 @@
     <div class="ala-page-card">
 
         <template class="" v-for="(item, index) in onePageList" :key="item.id" :class="">
-            <slot name="item" :row="item"></slot>
+            <slot name="item" :row="item" @edit="handleEdit" @enable="handleEnable" @disable="handleDisable"
+                @add="handleAdd" @delete="handleDelete"></slot>
         </template>
 
         <!-- <el-pagination v-model:current-page="current" :page-sizes="pageSize" :page-size="page.size"
@@ -131,52 +132,6 @@ const deleteContent = () => {
 
 
 
-const handleEdit = (index: number, item: any) => {
-    logger.info(`点击【 编辑 】按钮，当前行数据`, item);
-    baseInfo.item = { ...item }
-    logger.info(`baseInfo`, baseInfo);
-    emit("edit", item)
-}
-
-const handleDelete = (index: number, item: { id: number }) => {
-    logger.info(`点击【 删除 】按钮，当前行数据`, item);
-
-    ElMessageBox.confirm(
-        deleteContent(),
-        props.tipTitle,
-        {
-            confirmButtonText: t("buttons.confirm"),
-            cancelButtonText: t("buttons.cancel"),
-            type: 'warning',
-        })
-        .then(() => {
-            logger.info("用户选择【确认】按钮，即将删除数据，当前对象id为：", item.id);
-            // postData(props.formData)
-            // emit("confirm", props.formData)
-            postData(item)
-        })
-        .catch(() => {
-            logger.info("用户选择【返回】按钮");
-        })
-
-
-}
-
-const postData = (item: { id: number }) => {
-
-    // 刷新列表数据
-    alaDelete(u.url(props.deleteUrl || ""), { id: item.id }, false).then((data: any) => {
-        const response = data;
-        refresh(response)
-    });
-}
-
-
-const handleAdd = (index: number, item: { id: number }) => {
-    logger.info(`点击【 添加子级 】按钮，当前行id【 ${item.id} 】当前行数据`, item);
-    emit("add", item)
-}
-
 // State
 const refresh = (data: any) => {
     logger.warn("card页面接收到回调数据，即将刷新数据", data);
@@ -184,9 +139,7 @@ const refresh = (data: any) => {
     queryPageData()
 }
 
-// 排序字段发生变化
-const sortChange = (a: any, b: any, c: any) => {
-}
+
 
 const loading = ref(true)
 // 分页列表通用代码
@@ -236,8 +189,48 @@ onMounted(() => {
 
 
 // Methods
-const emit = defineEmits(["add", "edit"])
+const emit = defineEmits(["add", "edit", "enable", "disable", "delete"])
 defineExpose({ refresh })
+
+const handleAdd = (item: { id: number }) => {
+    emit("add", item)
+}
+const handleEnable = (item: any) => {
+    emit('enable', item)
+}
+
+const handleDisable = (item: any) => {
+    emit('disable', item)
+}
+
+
+const handleEdit = (item: any) => {
+    emit("edit", item)
+}
+
+const handleDelete = (item: { id: number }) => {
+    logger.info(`点击【 删除 】按钮，当前行数据`, item);
+
+    ElMessageBox.confirm(
+        deleteContent(),
+        props.tipTitle,
+        {
+            confirmButtonText: t("buttons.confirm"),
+            cancelButtonText: t("buttons.cancel"),
+            type: 'warning',
+        })
+        .then(() => {
+            logger.info("用户选择【确认】按钮，即将删除数据，当前对象id为：", item.id);
+            // postData(props.formData)
+            emit("delete", item)
+            // postData(item)
+        })
+        .catch(() => {
+            logger.info("用户选择【返回】按钮");
+        })
+
+
+}
 
 </script>
 

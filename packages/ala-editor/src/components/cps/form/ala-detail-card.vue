@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 21:08:40
+ * @LastEditTime: 2025-05-07 10:12:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-card.vue
  * @Description: 
  * 
@@ -23,7 +23,8 @@
             :noButtons="noButtons">
 
             <template #item="{ row }">
-                <component :is="component" :data="row" />
+                <component :is="component" :data="row" @edit="handleEdit" @enable="handleEnable"
+                    @disable="handleDisable" @add="handleAdd" @delete="handleDelete" />
             </template>
 
         </PageCard>
@@ -167,7 +168,7 @@ const showAdd = (item: { [key: string]: any }) => {
     u.merged(baseInfo, item)
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    showAddForm.value = !showAddForm.value
+    showAddForm.value = true
 }
 
 watch(() => showAddForm.value, (v: any) => {
@@ -177,11 +178,13 @@ watch(() => showAddForm.value, (v: any) => {
 
 const showEdit = (item: { [key: string]: any }) => {
 
+    console.log('item: --- = ', item);
+
     u.merged(baseInfo, item)
 
-    logger.info(`【编辑】方法接收到参数 item `, item);
-    logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    showAddForm.value = true
+    // logger.info(`【编辑】方法接收到参数 item `, item);
+    // logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    // showAddForm.value = true
 }
 
 // 查询条件
@@ -261,6 +264,48 @@ const beforeSave = async (data: { [key: string]: any }) => {
     logger.info(`格式化数据后，data参数`, data);
 
     return data
+}
+
+
+const handleAdd = (item: { id: number }) => {
+    console.log('handleAdd: ---> ', item);
+}
+const handleEnable = (item: any) => {
+    console.log('handleEnable: ---> ', item);
+    updateStatus(item.id, { deleted: 1 })
+}
+
+const handleDisable = (item: any) => {
+    console.log('handleDisable: ---> ', item);
+    updateStatus(item.id, { deleted: 2 })
+}
+
+
+const handleEdit = (item: any) => {
+    console.log('handleEdit: ---> ', item);
+
+    u.clear(formData)
+    u.merged(formData, item)
+    logger.info(`【新增】方法接收到参数【 item 】`, item);
+    logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    showAddForm.value = true
+
+}
+
+const handleDelete = (item: { id: number }) => {
+    console.log('handleDelete: ---> ', item);
+}
+
+
+const updateStatus = (id: number, data: object) => {
+
+    alaPost(u.url('/iot/point/updateStatus'), { id, ...data }, false, 'PUT').then((data: any) => {
+        const response = data;
+        if (response.code === 200) {
+            refresh()
+        }
+    });
+
 }
 
 
