@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-07 10:12:13
+ * @LastEditTime: 2025-05-07 11:11:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-card.vue
  * @Description: 
  * 
@@ -136,8 +136,6 @@ const props = defineProps({
 })
 
 
-console.log('props.formAttr: -----> ', props.formAttr);
-
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
@@ -171,17 +169,10 @@ const showAdd = (item: { [key: string]: any }) => {
     showAddForm.value = true
 }
 
-watch(() => showAddForm.value, (v: any) => {
-    console.log('观察到 showAddForm 的值发生变化: ------ >', showAddForm.value);
-}, { deep: true })
-
 
 const showEdit = (item: { [key: string]: any }) => {
 
-    console.log('item: --- = ', item);
-
     u.merged(baseInfo, item)
-
     // logger.info(`【编辑】方法接收到参数 item `, item);
     // logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     // showAddForm.value = true
@@ -189,7 +180,9 @@ const showEdit = (item: { [key: string]: any }) => {
 
 // 查询条件
 const params = reactive({}) as { [key: string]: any }
-watch(() => props.previewParams.params, (value: object) => {
+watch(() => props.previewParams.params, (value: object) => {    
+    console.log('props.previewParams.params: ------> ',props.previewParams.params);
+    
     u.merged(params, props.previewParams.params)
 }, { immediate: true, deep: true })
 
@@ -211,29 +204,16 @@ const refresh = () => {
 // 高级查询条件
 const advancedFields: any[] = []
 
-const getComponent = ((code: string) => {
-    return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
-})
-
-
-
-
 /**
  * 详情页面字段
  */
-
 const detailItem = reactive({
     moduleName,
     item: {}
 })
 
 const showDetailPage = ref(false)
-const showDetail = (item: { [key: string]: any }) => {
-    u.clear(detailItem.item)
-    u.merged(detailItem, { item })
-    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
-    showDetailPage.value = true
-}
+
 
 // 表单数据保存对象
 const formData = reactive<{ [key: string]: any }>({
@@ -271,18 +251,15 @@ const handleAdd = (item: { id: number }) => {
     console.log('handleAdd: ---> ', item);
 }
 const handleEnable = (item: any) => {
-    console.log('handleEnable: ---> ', item);
     updateStatus(item.id, { deleted: 1 })
 }
 
 const handleDisable = (item: any) => {
-    console.log('handleDisable: ---> ', item);
     updateStatus(item.id, { deleted: 2 })
 }
 
 
 const handleEdit = (item: any) => {
-    console.log('handleEdit: ---> ', item);
 
     u.clear(formData)
     u.merged(formData, item)

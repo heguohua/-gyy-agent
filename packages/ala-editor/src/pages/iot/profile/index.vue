@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 23:04:18
+ * @LastEditTime: 2025-05-07 11:10:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -212,7 +212,7 @@ const showDetail = (item: { [key: string]: any }) => {
 
     // 组装 基本信息 
     previewParams.data = detailItem
-    // previewParams.params = { profileId: item.id }
+    previewParams.params = { profileId: item.id }
     console.log('previewParams:', previewParams);
 
 

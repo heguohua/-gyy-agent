@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-06 10:15:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-07 10:26:41
+ * @LastEditTime: 2025-05-07 10:56:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/iot/pointCard.vue
  * @Description: 
 
@@ -152,9 +152,6 @@ const parseStatus = (status: number) => {
     border-radius: 4px;
 
     .title {
-        .image {}
-
-        p {}
 
         width: 99%;
         height: 40px;
@@ -202,11 +199,7 @@ const parseStatus = (status: number) => {
                     color: red
                 }
             }
-
-            p {}
         }
-
-
     }
 
     .buttons {
