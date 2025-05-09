@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-06 10:15:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-07 10:56:10
+ * @LastEditTime: 2025-05-09 19:54:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/iot/pointCard.vue
  * @Description: 
 
@@ -28,6 +28,13 @@
             </div>
             <div class="row">
                 <v-icon class="image" icon="flag_point" width="18" :color="colors.primary" />
+                <p class="label">点位业务类型：</p>
+                <p class="value">
+                    {{ u.parseNameByValue(operationTypes, data.operationType + '') }}
+                </p>
+            </div>
+            <div class="row">
+                <v-icon class="image" icon="flag_point" width="18" :color="colors.primary" />
                 <p class="label">点位数据类型：</p>
                 <p class="value">
                     {{ u.parseNameByValue(pointTypeFlags, data.pointTypeFlag + '') }}
@@ -42,7 +49,8 @@
             <div class="row">
                 <v-icon class="image" icon="flag_point" width="18" :color="colors.primary" />
                 <p class="label">数据单位： </p>
-                <p class="value">{{ data.unitDict.dictLabel }} ( {{ data.unitDict.dictCode }} )</p>
+                <p class="value" v-if="data.unitDict.dictCode">{{ data.unitDict.dictLabel }} ( {{ data.unitDict.dictCode }} )</p>
+                <p class="value" v-else="data.unitDict.dictCode">{{ data.unitDict.dictLabel }} </p>
             </div>
             <div class="row">
                 <v-icon class="image" icon="flag_point" width="18" :color="colors.primary" />
@@ -111,6 +119,8 @@ const props = defineProps({
 
 // Methods
 const pointTypeFlags = [{ '字符串': '0' }, { '浮点数': '5' }, { '双精度浮点数': '6' }, { '短整数': '2' }, { '整数': '3' }, { '长整数': '4' }, { '字节': '1' }, { '布尔': '7' }]
+// 1-属性点,2-告警点,3-控制点
+const operationTypes = [{ '属性点': '1' }, { '告警点': '2' }, { '控制点': '3' }]
 const rwFlags = [{ '只读': '1' }, { '只写': '2' }, { '读写': '3' }]
 
 
@@ -143,7 +153,7 @@ const parseStatus = (status: number) => {
 
     display: inline-flex;
     flex-wrap: wrap;
-    width: 32%;
+    width: 48%;
     margin-right: 1%;
     margin-bottom: 1%;
     // background:red;
