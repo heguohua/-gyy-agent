@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-07 11:13:28
+ * @LastEditTime: 2025-05-09 22:57:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -149,7 +149,7 @@ const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'profileName', "模型名称", 1, true),
         alaDetailBuild(dType.input, 'profileCode', "模型编号"),
-        alaDetailBuild(dType.input, 'group.name', "模型分组"),
+        alaDetailBuild(dType.input, 'profileGroup', "模型分类", 1, false, { deepColumnName: { desktop: 'name' } }),
         alaDetailBuild(dType.input, 'createdName', "创建人"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
@@ -166,6 +166,7 @@ const columns = computed(() => {
  */
 const detailFields: any = ref([
     alaDetailBuild(dType.input, 'profileName', "模型名称", 1, true),
+    alaDetailBuild(dType.input, 'profileGroup', "模型分类", 1, false, { deepColumnName: { desktop: 'name' } }),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.input, 'updatedName', "更新人"),
@@ -232,6 +233,7 @@ const showDetail = (item: { [key: string]: any }) => {
 
 // 监控 baseInfo 中的folder属性，如果有变化，则更新分页列表 params 参数，并刷新分页列表数据
 watch(() => baseInfo.folder, (value: any) => {
+    u.clear(params)
     if (value.id) {
         params['groupId'] = value.id
     } else {
@@ -245,14 +247,7 @@ const showPreviewPage = ref(false)
 const previewParams = reactive<any>({ forms: [], defineId: 0 })
 
 // 分页列表中列属性配置
-const pointPageColumns = [
-    alaDetailBuild(dType.input, 'profileName', "模型名称", 1, true),
-    alaDetailBuild(dType.input, 'profileCode', "模型编号"),
-    alaDetailBuild(dType.input, 'group.name', "模型分组"),
-    alaDetailBuild(dType.input, 'createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
-]
 const devicePageColumns = [
     alaDetailBuild(dType.input, 'deviceName', "设备名称", 1, true),
     alaDetailBuild(dType.input, 'deviceCode', "资产编号"),
