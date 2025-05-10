@@ -127,6 +127,11 @@ const refresh = () => {
     }
 }
 
+
+setInterval(() => {
+    refresh()
+}, 5 * 1000);
+
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
 
@@ -140,11 +145,11 @@ const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'deviceName', "设备名称", 1, true),
         alaDetailBuild(dType.input, 'deviceCode', "资产编号"),
-        alaDetailSelectTable(dType.selectTable, 'profiles', "物模型", "profileName",1,false,{columnWidth: { desktop: '150' }}),
+        alaDetailSelectTable(dType.selectTable, 'profiles', "物模型", "profileName", 1, false, { columnWidth: { desktop: '150' } }),
         alaDetailBuild(dType.input, 'deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
-        alaDetailSwitchImage(dType.switchImage, 'online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px',columnWidth: { desktop: '140' } }),
-        alaDetailBuild(dType.input, 'createdName', "创建人",1,false,{columnWidth: { desktop: '120' }}),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss',1,false,{columnWidth: { desktop: '180' }}),
+        alaDetailSwitchImage(dType.switchImage, 'online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
+        alaDetailBuild(dType.input, 'createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
     ]
 })
 /**
@@ -155,7 +160,7 @@ const detailFields: any = ref([
     alaDetailBuild(dType.input, 'deviceCode', "资产编号"),
     alaDetailSelectTable(dType.selectTable, 'profiles', "物模型", "profileName"),
     alaDetailBuild(dType.input, 'deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
-    alaDetailSwitchImage(dType.switchImage, 'online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px',columnWidth: { desktop: '140' } }),
+    alaDetailSwitchImage(dType.switchImage, 'online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
     alaDetailBuild(dType.input, 'createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.input, 'updatedName', "更新人"),
