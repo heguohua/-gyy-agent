@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-25 17:52:19
+ * @LastEditTime: 2025-05-25 18:17:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_d3基础示例.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <svg ref="barChart" width="600" height="400"></svg>
+    <svg class="svg" ref="barChart" width="600" height="400"></svg>
 
 </template>
 
@@ -67,22 +67,24 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss">
-svg {
+<style scoped lang="scss">
+.svg {
     border: 1px solid #ccc;
-    /* 为SVG添加边框 */
 
-    .bar {
+    /* 为SVG添加边框 */
+    :deep(.bar) {
         /* 条形样式 */
         fill: rgb(239, 77, 75);
         /* 条形颜色 */
     }
 
-    .axis {
+    :deep(.axis){
         /* 轴样式 */
-        font: 10px sans-serif;
+        font: 14px sans-serif;
+        color: blue;
         /* 字体大小和类型 */
     }
+
 
 }
 </style>
