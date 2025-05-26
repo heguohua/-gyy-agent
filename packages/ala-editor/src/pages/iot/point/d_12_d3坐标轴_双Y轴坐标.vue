@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 19:44:59
+ * @LastEditTime: 2025-05-26 19:55:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_12_d3坐标轴_双Y轴坐标.vue
  * @Description: 
  * 
@@ -25,7 +25,7 @@ onMounted(() => {
 
     const svg = d3.select(chart.value);
 
-    const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+    const margin = { top: 20, right: 40, bottom: 30, left: 40 };
     const width = +svg.attr("width") - margin.left - margin.right;
     const height = +svg.attr("height") - margin.top - margin.bottom;
     const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
@@ -41,7 +41,7 @@ onMounted(() => {
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
-    const xScale = ad3.aScaleBand(data, 'name', [0, 300])
+    const xScale = ad3.aScaleBand(data, 'name', [0, width])
 
     const ticks = ad3.aTick(xScale, 'bottom')
 
@@ -75,7 +75,7 @@ onMounted(() => {
     const y2Scale = ad3.aScaleLinear(y2Data, [0, height], true)
 
     // 修改，修改，修改：只需要修改这里
-    const y2Ticks = ad3.aTick(y2Scale, 'right', undefined, 2, 0, 0, 0)
+    const y2Ticks = ad3.aTick(y2Scale, 'right', undefined, 2, 6, 0, 0)
 
     const y2AxisAttrs = new Map<string, any>()
     y2AxisAttrs.set("class", "ala-axis-y-right")
