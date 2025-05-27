@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 18:43:13
+ * @LastEditTime: 2025-05-26 21:45:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -22,6 +22,9 @@
     <d_10_d3坐标轴_正交坐标/>
     <d_11_d3坐标轴_横线型正交坐标/>
     <d_12_d3坐标轴_双Y轴坐标/>
+    <e_1_圆环图/>
+    <e_2_百分比进度/>
+    <e_3_雷达图/>
 
 </template>
 
@@ -40,6 +43,9 @@ import d_9_d3坐标轴_带状坐标 from './d_9_d3坐标轴_带状坐标.vue'
 import d_10_d3坐标轴_正交坐标 from './d_10_d3坐标轴_正交坐标.vue'
 import d_11_d3坐标轴_横线型正交坐标 from './d_11_d3坐标轴_横线型正交坐标.vue'
 import d_12_d3坐标轴_双Y轴坐标 from './d_12_d3坐标轴_双Y轴坐标.vue'
+import e_1_圆环图 from './e_1_圆环图.vue'
+import e_2_百分比进度 from './e_2_百分比进度.vue'
+import e_3_雷达图 from './e_3_雷达图.vue'
 
 // Methods
 
