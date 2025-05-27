@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 22:45:45
+ * @LastEditTime: 2025-05-27 15:13:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -81,6 +81,7 @@ export default class u {
             throw `${title}`
         }
     }
+
     /**
      * 对象深度clone方法
      * @param e object
@@ -89,6 +90,14 @@ export default class u {
     public static cloned(obj: object) {
         return cloneDeep({ ...obj })
     }
+
+    /**
+     * 对象深度clone方法
+     */
+    public static clonedAny<T>(obj: T):T {
+        return cloneDeep(obj)
+    }
+
     /**
      * 对象深度 合并 方法
      * @param target 
@@ -404,5 +413,28 @@ export default class u {
         }
         return v
     }
+
+
+    /**
+     * 根据 一个数组中对象的某个属性的值为key，快速将一个数组转化为 Map 方式
+     * @param items 
+     * @param keyName 
+     * @returns 
+     */
+    public static array2Map<T extends { [key: string]: any }, K extends keyof T>(items: T[], keyName: K): Map<T[K], T> {
+
+        const map = new Map<T[K], T>();
+
+        for (const item of items) {
+            const key = item[keyName];
+            const value = u.cloned(item) as T;
+            map.set(key, value);
+        }
+
+        return map
+    }
+
+
+
 
 }
