@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 10:57:50
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_13_基础折线图.vue
+ * @LastEditTime: 2025-05-27 11:44:10
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_14_带顶点的折线图.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="chart-wraper">
+    <div class="chart-wrapper" ref="chartWrapper">
         <svg class="svg" ref="chart" width="350" height="250"></svg>
     </div>
 </template>
@@ -20,7 +20,7 @@ import * as d3 from 'd3';
 import * as ad3 from '@/components/charts/utils/dChart';
 
 const chart = ref<HTMLDivElement | null>(null)
-const chart2 = ref()
+const chartWrapper = ref<HTMLDivElement | null>(null)
 
 interface DataPoint {
     name: string
@@ -91,7 +91,29 @@ onMounted(() => {
         .attr('d', line)
 
 
+    // Circle 点和 tooltip
+    const tooltip = d3.select(chartWrapper.value)
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0)
 
+    group.selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', d => (xScale(d.name) || 0) + xScale.bandwidth() / 2)
+        .attr('cy', d => yScale(d.value))
+        .attr('r', 4)
+        .attr('fill', 'steelblue')
+        .on('mouseover', (event, d) => {
+            tooltip.transition().duration(200).style('opacity', 0.9)
+            tooltip.html(`${d.name}<br/>值: ${d.value}`)
+                .style('left', `${event.offsetX + 10}px`)
+                .style('top', `${event.offsetY - 28}px`)
+        })
+        .on('mouseout', () => {
+            tooltip.transition().duration(500).style('opacity', 0)
+        })
 
 })
 
@@ -100,8 +122,9 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.chart-wraper {
+.chart-wrapper {
     display: inline-flex;
+    position: relative;
 
     .svg {
 
@@ -109,19 +132,8 @@ onMounted(() => {
         background: #fff;
         border-radius: 4px;
 
-
-        // :deep(path) {
-        //     stroke: var(--el-color-primary);
-        // }
-
-        // :deep(line) {
-        //     stroke: red;
-        // }
-
         :deep(text) {
-            // color: #ef4d4b;
             font-size: 1.2em;
-
         }
 
         :deep(.ala-axis-y) {
@@ -140,6 +152,22 @@ onMounted(() => {
             position: relative;
         }
 
+
+
+    }
+
+    :deep(.tooltip) {
+        position: absolute;
+        text-align: center;
+        padding: 6px 8px;
+        background: rgb(255, 1, 1);
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 12px;
+        pointer-events: none;
+        z-index: 10;
+        border-radius: 4px;
+        color: #fff;
     }
 }
 </style>

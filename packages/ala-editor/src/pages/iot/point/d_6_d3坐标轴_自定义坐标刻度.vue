@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 09:52:38
+ * @LastEditTime: 2025-05-27 11:07:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_6_d3坐标轴_自定义坐标刻度.vue
  * @Description: 
  * 
@@ -19,7 +19,7 @@ import { onMounted, ref } from 'vue'
 import * as d3 from 'd3';
 import * as ad3 from '@/components/charts/utils/dChart';
 
-const chart = ref()
+const chart = ref<HTMLDivElement | null>(null)
 
 onMounted(() => {
 

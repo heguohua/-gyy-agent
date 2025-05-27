@@ -19,7 +19,7 @@ import { onMounted, ref } from 'vue'
 import * as d3 from 'd3';
 import * as ad3 from '@/components/charts/utils/dChart';
 
-const chart = ref()
+const chart = ref<HTMLDivElement | null>(null)
 
 onMounted(() => {
 
