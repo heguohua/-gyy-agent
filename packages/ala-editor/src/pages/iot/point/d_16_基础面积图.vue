@@ -100,7 +100,8 @@ onMounted(() => {
     // 绘制面积
     group.append('path')
         .datum(data)
-        .attr('fill', 'lightsteelblue')
+        .attr('class', 'area-path')
+        .attr('fill', '#ef4d4b')
         .attr('d', area)
 
     group.append('path')
@@ -185,6 +186,10 @@ onMounted(() => {
                 stroke-width: 0.06em;
                 stroke-dasharray: 16, 16;
             }
+        }
+
+        :deep(.area-path) {
+            opacity: 0.1;
         }
 
         :deep(.line-path) {
