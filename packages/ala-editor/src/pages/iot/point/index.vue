@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 16:47:52
+ * @LastEditTime: 2025-05-27 16:51:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -14,6 +14,7 @@
     <div class="demo">
 
 
+        <d_204_透明度渐变柱状图 />
         <d_203_不同颜色渐变柱状图 />
         <d_202_圆角柱状图 />
         <d_201_基础柱状图 />
@@ -69,6 +70,7 @@ import d_18_堆叠折线图 from './d_18_堆叠折线图.vue'
 import d_201_基础柱状图 from './d_201_基础柱状图.vue'
 import d_202_圆角柱状图 from './d_202_圆角柱状图.vue'
 import d_203_不同颜色渐变柱状图 from './d_203_不同颜色渐变柱状图.vue'
+import d_204_透明度渐变柱状图 from './d_204_透明度渐变柱状图.vue'
 
 
 
