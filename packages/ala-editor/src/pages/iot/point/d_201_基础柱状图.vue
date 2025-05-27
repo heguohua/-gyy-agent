@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 16:10:21
+ * @LastEditTime: 2025-05-27 16:36:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_201_基础柱状图.vue
  * @Description: 
  * 
@@ -107,7 +107,7 @@ onMounted(() => {
                 .style('top', `${event.offsetY - 28}px`)
         })
         .on('mouseout', () => {
-            //   tooltip.transition().duration(300).style('opacity', 0)
+              tooltip.transition().duration(300).style('opacity', 0)
         })
         .transition()
         .duration(800)

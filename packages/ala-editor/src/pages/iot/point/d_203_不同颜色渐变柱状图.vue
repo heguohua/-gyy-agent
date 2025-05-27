@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 16:36:07
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_202_圆角柱状图.vue
+ * @LastEditTime: 2025-05-27 16:47:13
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_203_渐变柱状图.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -45,7 +45,7 @@ onMounted(() => {
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
     aTitleAttrs.set('y', 30)
-    const title = ad3.aText(group, "圆角柱状图", aTitleAttrs)
+    const title = ad3.aText(group, "渐变柱状图", aTitleAttrs)
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
@@ -89,6 +89,32 @@ onMounted(() => {
         .attr('class', 'tooltip')
         .style('opacity', 0)
 
+
+    // 定义渐变逻辑
+
+    // 添加渐变定义
+    const defs = svg.append('defs')
+
+    defs.append('linearGradient')
+        .attr('id', 'bar-gradient')
+        .attr('x1', '0%')
+        .attr('y1', '100%')  // 从下到上
+        .attr('x2', '0%')
+        .attr('y2', '0%')
+        .attr('gradientUnits', 'userSpaceOnUse')  // 关键：按坐标轴长度适配
+        .selectAll('stop')
+        .data([
+            { offset: '0%', color: 'blue' },  // 底部
+            { offset: '70%', color: 'red' },  // 底部
+        ])
+        .enter()
+        .append('stop')
+        .attr('offset', d => d.offset)
+        .attr('stop-color', d => d.color)
+
+
+
+
     // 绘制柱子
     group.selectAll('.bar')
         .data(data)
@@ -101,7 +127,7 @@ onMounted(() => {
         .attr('height', 0)
         .attr('rx', xScale.bandwidth() / 2) // 横向圆角半径
         .attr('ry', xScale.bandwidth() / 2) // 纵向圆角半径
-        .attr('fill', colors.chartColors[5])
+        .attr('fill', 'url(#bar-gradient)')
         .on('mouseover', (event, d) => {
             tooltip.transition().duration(200).style('opacity', 0.9)
             tooltip.html(`${d.name}<br/>值: ${d.value}`)
@@ -109,7 +135,7 @@ onMounted(() => {
                 .style('top', `${event.offsetY - 28}px`)
         })
         .on('mouseout', () => {
-              tooltip.transition().duration(300).style('opacity', 0)
+            tooltip.transition().duration(300).style('opacity', 0)
         })
         .transition()
         .duration(800)

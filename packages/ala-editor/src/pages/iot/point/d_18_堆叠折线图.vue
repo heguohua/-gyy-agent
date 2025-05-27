@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 15:24:26
+ * @LastEditTime: 2025-05-27 16:31:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_18_堆叠折线图.vue
  * @Description: 
  * 
@@ -148,6 +148,7 @@ onMounted(() => {
         .attr('opacity', '0.7')
         .attr('stroke-width', 2)
         .attr('d', line)
+        
 
     // Circle 点和 tooltip
     const tooltip = d3.select(chartWrapper.value)
@@ -188,7 +189,7 @@ onMounted(() => {
                 .attr('r', 4); // 半径扩大到原来的 1.5 倍（ 假设初始半径为4 ）
 
         })
-
+        
 })
 
 // Methods
