@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 09:55:24
+ * @LastEditTime: 2025-05-27 10:57:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_13_基础折线图.vue
  * @Description: 
  * 
@@ -59,7 +59,9 @@ onMounted(() => {
     const xAxis = ad3.aAxis(group, ticks, xAxisAttrs)
 
 
-    const yData: any[] = [0, 30, 40, 50, 10, 20];
+    // const yData: any[] =  [0, 30, 40, 50, 10, 20];
+    const yData: any[] = Array.from(new Set(data.map((d) => d.value)));
+    yData.push(0)
 
 
     const yScale = ad3.aScaleLinear(yData, [0, height], true)
@@ -76,15 +78,20 @@ onMounted(() => {
 
     // Create line generator
     const line = d3.line<DataPoint>()
-        .x(d => xScale(d.name) as number)
+        .x(d => (xScale(d.name) || 0) + xScale.bandwidth() / 2)
         .y(d => yScale(d.value));
 
     group.append('path')
         .datum(data)
+        .attr('class', 'line-path')
         .attr('fill', 'none')
-        .attr('stroke', 'steelblue')
+        .attr('stroke', '#ef4d4b')
+        .attr('opacity', '0.7')
         .attr('stroke-width', 2)
         .attr('d', line)
+
+
+
 
 })
 
@@ -127,6 +134,10 @@ onMounted(() => {
                 stroke-width: 0.06em;
                 stroke-dasharray: 16, 16;
             }
+        }
+
+        :deep(.line-path) {
+            position: relative;
         }
 
     }
