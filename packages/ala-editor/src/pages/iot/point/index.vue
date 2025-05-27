@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 14:30:40
+ * @LastEditTime: 2025-05-27 16:04:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -29,6 +29,7 @@
         <d_16_基础面积图 />
         <d_17_多条折线图 />
         <d_18_堆叠折线图 />
+        <d_201_基础柱状图 />
 
 
 
@@ -62,6 +63,7 @@ import d_15_平滑折线图 from './d_15_平滑折线图.vue'
 import d_16_基础面积图 from './d_16_基础面积图.vue'
 import d_17_多条折线图 from './d_17_多条折线图.vue'
 import d_18_堆叠折线图 from './d_18_堆叠折线图.vue'
+import d_201_基础柱状图 from './d_201_基础柱状图.vue'
 
 
 

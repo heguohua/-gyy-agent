@@ -9,7 +9,7 @@
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="chart-wraper">
+    <div class="chart-wrapper">
         <svg class="svg" ref="chart" width="350" height="250"></svg>
     </div>
 </template>
@@ -63,7 +63,7 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.chart-wraper {
+.chart-wrapper {
     display: inline-flex;
 
     .svg {

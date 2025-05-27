@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 10:57:50
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_13_基础折线图.vue
+ * @LastEditTime: 2025-05-27 16:08:27
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_201_基础柱状图.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="chart-wrapper">
+    <div class="chart-wrapper" ref="chartWrapper">
         <svg class="svg" ref="chart" width="350" height="250"></svg>
     </div>
 </template>
@@ -20,7 +20,7 @@ import * as d3 from 'd3';
 import * as ad3 from '@/components/charts/utils/dChart';
 
 const chart = ref<HTMLDivElement | null>(null)
-const chart2 = ref()
+const chartWrapper = ref()
 
 interface DataPoint {
     name: string
@@ -39,16 +39,17 @@ onMounted(() => {
 
 
     // 示例数据
-    const data: DataPoint[] = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 567 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }];
+    const data: DataPoint[] = [{ name: '一月', value: 130 }, { name: '三月', value: 310 }, { name: '五月', value: 56 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }];
 
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
     aTitleAttrs.set('y', 30)
-    const title = ad3.aText(group, "基础折线图", aTitleAttrs)
+    const title = ad3.aText(group, "柱状图", aTitleAttrs)
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
     const xScale = ad3.aScaleBand(data, 'name', [0, width])
+    xScale.padding(0.4) // 控制柱形条之间的间距
 
     const ticks = ad3.aTick(xScale, 'bottom')
 
@@ -76,19 +77,41 @@ onMounted(() => {
     const yAxis = ad3.aAxis(group, yTicks, yAxisAttrs)
 
 
+
     // Create line generator
     const line = d3.line<DataPoint>()
         .x(d => (xScale(d.name) || 0) + xScale.bandwidth() / 2)
         .y(d => yScale(d.value));
 
-    group.append('path')
-        .datum(data)
-        .attr('class', 'line-path')
-        .attr('fill', 'none')
-        .attr('stroke', '#ef4d4b')
-        .attr('opacity', '0.7')
-        .attr('stroke-width', 2)
-        .attr('d', line)
+    const tooltip = d3.select(chartWrapper.value)
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0)
+
+    // 绘制柱子
+    group.selectAll('.bar')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('x', d => (xScale(d.name) || 0))
+        .attr('width', xScale.bandwidth())
+        .attr('y', height) // 初始高度为底部，用于动画
+        .attr('height', 0)
+        .attr('fill', 'steelblue')
+        .on('mouseover', (event, d) => {
+            tooltip.transition().duration(200).style('opacity', 0.9)
+            tooltip.html(`${d.name}<br/>值: ${d.value}`)
+                .style('left', `${event.offsetX + 10}px`)
+                .style('top', `${event.offsetY - 28}px`)
+        })
+        .on('mouseout', () => {
+            //   tooltip.transition().duration(300).style('opacity', 0)
+        })
+        .transition()
+        .duration(800)
+        .attr('y', d => yScale(d.value))
+        .attr('height', d => height - yScale(d.value))
 
 
 
@@ -102,6 +125,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .chart-wrapper {
     display: inline-flex;
+    position: relative;
 
     .svg {
 
@@ -140,6 +164,20 @@ onMounted(() => {
             position: relative;
         }
 
+    }
+
+    :deep(.tooltip) {
+        position: absolute;
+        text-align: center;
+        padding: 6px 8px;
+        background: rgb(255, 1, 1);
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 12px;
+        pointer-events: none;
+        z-index: 10;
+        border-radius: 4px;
+        color: #fff;
     }
 }
 </style>
