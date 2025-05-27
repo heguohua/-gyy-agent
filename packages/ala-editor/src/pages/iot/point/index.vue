@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 11:05:29
+ * @LastEditTime: 2025-05-27 11:49:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -25,6 +25,7 @@
         <d_12_d3坐标轴_双Y轴坐标 />
         <d_13_基础折线图 />
         <d_14_带顶点的折线图 />
+        <d_15_平滑折线图 />
 
 
 
@@ -53,6 +54,7 @@ import d_11_d3坐标轴_横线型正交坐标 from './d_11_d3坐标轴_横线型
 import d_12_d3坐标轴_双Y轴坐标 from './d_12_d3坐标轴_双Y轴坐标.vue'
 import d_13_基础折线图 from './d_13_基础折线图.vue'
 import d_14_带顶点的折线图 from './d_14_带顶点的折线图.vue'
+import d_15_平滑折线图 from './d_15_平滑折线图.vue'
 
 
 

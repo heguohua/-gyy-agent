@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 11:48:57
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_14_带顶点的折线图.vue
+ * @LastEditTime: 2025-05-27 13:37:52
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_15_平滑折线图.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -44,7 +44,7 @@ onMounted(() => {
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
     aTitleAttrs.set('y', 30)
-    const title = ad3.aText(group, "带顶点的折线图", aTitleAttrs)
+    const title = ad3.aText(group, "平滑折线图", aTitleAttrs)
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
@@ -66,7 +66,6 @@ onMounted(() => {
 
     const yScale = ad3.aScaleLinear(yData, [0, height], true)
 
-    // 修改，修改，修改：只需要修改这里
     const yTicks = ad3.aTick(yScale, 'left', undefined, 2, 6, -width, 0)
 
     const yAxisAttrs = new Map<string, any>()
@@ -79,7 +78,16 @@ onMounted(() => {
     // Create line generator
     const line = d3.line<DataPoint>()
         .x(d => (xScale(d.name) || 0) + xScale.bandwidth() / 2)
-        .y(d => yScale(d.value));
+        .y(d => yScale(d.value))
+        // 修改，修改，修改
+        .curve(d3.curveMonotoneX); // 使用平滑曲线
+
+    // d3.curveLinear: 直线（默认值）。
+    // d3.curveMonotoneX: X 轴方向的平滑曲线（适合大多数折线图的平滑效果）。
+    // d3.curveMonotoneY: Y 轴方向的平滑曲线。
+    // d3.curveBasis: 基于控制点的 B 样条曲线。
+    // d3.curveCardinal: 基于张力参数的曲线。
+    // d3.curveCatmullRom: Catmull-Rom 样条曲线。
 
     group.append('path')
         .datum(data)
@@ -89,6 +97,7 @@ onMounted(() => {
         .attr('opacity', '0.7')
         .attr('stroke-width', 2)
         .attr('d', line)
+
 
 
     // Circle 点和 tooltip
@@ -110,9 +119,25 @@ onMounted(() => {
             tooltip.html(`${d.name}<br/>值: ${d.value}`)
                 .style('left', `${event.offsetX + 10}px`)
                 .style('top', `${event.offsetY - 28}px`)
+
+            // 修改，修改，修改
+            // 鼠标悬停时扩大半径
+            d3.select(event.target)
+                .transition()
+                .duration(200) // 动画过渡时间
+                .attr('r', 6); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
+
         })
-        .on('mouseout', () => {
+        .on('mouseout', (event, d) => {
             tooltip.transition().duration(500).style('opacity', 0)
+
+            // 修改，修改，修改
+            // 鼠标悬停时扩大半径
+            d3.select(event.target)
+                .transition()
+                .duration(200) // 动画过渡时间
+                .attr('r', 4); // 半径扩大到原来的 1.5 倍（ 假设初始半径为4 ）
+
         })
 
 })
@@ -152,6 +177,13 @@ onMounted(() => {
             position: relative;
         }
 
+
+        // :deep(circle){
+        //     position: absolute;
+        //     &:hover{
+        //         transform: scale(1.5);
+        //     }
+        // }
 
 
     }
