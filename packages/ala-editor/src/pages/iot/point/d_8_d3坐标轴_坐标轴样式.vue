@@ -2,15 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 18:45:38
+ * @LastEditTime: 2025-05-27 09:51:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_8_d3坐标轴_坐标轴样式.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <svg class="svg" ref="chart" width="350" height="250"></svg>
-
+    <div class="chart-wraper">
+        <svg class="svg" ref="chart" width="350" height="250"></svg>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -62,26 +63,30 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.svg {
+.chart-wraper {
+    display: inline-flex;
 
-    margin-right: 6px;
-    background: #fff;
-    border-radius: 4px;
+    .svg {
+
+        margin-right: 6px;
+        background: #fff;
+        border-radius: 4px;
 
 
-    :deep(path) {
-        stroke: var(--el-color-primary);
+        :deep(path) {
+            stroke: var(--el-color-primary);
+        }
+
+        :deep(line) {
+            stroke: red;
+        }
+
+        :deep(text) {
+            color: blue;
+            font-size: 1.4em;
+
+        }
+
     }
-
-    :deep(line) {
-        stroke: red;
-    }
-
-    :deep(text) {
-        color: blue;
-        font-size: 1.4em;
-
-    }
-
 }
 </style>

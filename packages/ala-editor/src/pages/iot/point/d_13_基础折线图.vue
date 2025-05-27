@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 09:50:44
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_9_d3坐标轴_带状坐标.vue
+ * @LastEditTime: 2025-05-27 09:55:24
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_13_基础折线图.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -20,6 +20,12 @@ import * as d3 from 'd3';
 import * as ad3 from '@/components/charts/utils/dChart';
 
 const chart = ref()
+const chart2 = ref()
+
+interface DataPoint {
+    name: string
+    value: number
+}
 
 onMounted(() => {
 
@@ -28,16 +34,17 @@ onMounted(() => {
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
     const width = +svg.attr("width") - margin.left - margin.right;
     const height = +svg.attr("height") - margin.top - margin.bottom;
+    // const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
     const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
 
     // 示例数据
-    const data: any[] = [{ name: '大象' }, { name: '狮子' }, { name: '老虎' }, { name: '羚羊' }, { name: '长颈鹿' }];
+    const data: DataPoint[] = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 567 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }];
 
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
     aTitleAttrs.set('y', 30)
-    const title = ad3.aText(group, "带状坐标", aTitleAttrs)
+    const title = ad3.aText(group, "基础折线图", aTitleAttrs)
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
@@ -52,9 +59,32 @@ onMounted(() => {
     const xAxis = ad3.aAxis(group, ticks, xAxisAttrs)
 
 
+    const yData: any[] = [0, 30, 40, 50, 10, 20];
 
 
+    const yScale = ad3.aScaleLinear(yData, [0, height], true)
 
+    // 修改，修改，修改：只需要修改这里
+    const yTicks = ad3.aTick(yScale, 'left', undefined, 2, 6, -width, 0)
+
+    const yAxisAttrs = new Map<string, any>()
+    yAxisAttrs.set("class", "ala-axis-y")
+    yAxisAttrs.set("transform", `translate(0,0)`)
+
+    const yAxis = ad3.aAxis(group, yTicks, yAxisAttrs)
+
+
+    // Create line generator
+    const line = d3.line<DataPoint>()
+        .x(d => xScale(d.name) as number)
+        .y(d => yScale(d.value));
+
+    group.append('path')
+        .datum(data)
+        .attr('fill', 'none')
+        .attr('stroke', 'steelblue')
+        .attr('stroke-width', 2)
+        .attr('d', line)
 
 })
 
@@ -82,9 +112,21 @@ onMounted(() => {
         // }
 
         :deep(text) {
-            color: #ef4d4b;
-            font-size: 1.4em;
+            // color: #ef4d4b;
+            font-size: 1.2em;
 
+        }
+
+        :deep(.ala-axis-y) {
+            path {
+                stroke: none;
+            }
+
+            line {
+                stroke-opacity: 0.4;
+                stroke-width: 0.06em;
+                stroke-dasharray: 16, 16;
+            }
         }
 
     }

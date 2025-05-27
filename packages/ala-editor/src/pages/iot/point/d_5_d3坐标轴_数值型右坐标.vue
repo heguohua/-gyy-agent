@@ -2,15 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 18:27:25
+ * @LastEditTime: 2025-05-27 09:53:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_5_d3坐标轴_数值型右坐标.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <svg class="svg" ref="chart" width="350" height="250"></svg>
-
+    <div class="chart-wraper">
+        <svg class="svg" ref="chart" width="350" height="250"></svg>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -29,7 +30,7 @@ onMounted(() => {
     const height = +svg.attr("height") - margin.top - margin.bottom;
     const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-    
+
     // 示例数据
     const data: any[] = [0, 30, 40, 50, 10, 20];
 
@@ -47,7 +48,7 @@ onMounted(() => {
     xAxisAttrs.set("transform", `translate(${width},0)`)
 
     const xAxis = ad3.aAxis(group, ticks, xAxisAttrs)
-    
+
 
 
 
@@ -60,12 +61,16 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.svg {
+.chart-wraper {
+    display: inline-flex;
 
-    margin-right: 6px;
-    background: #fff;
-    border-radius: 4px;
+    .svg {
+
+        margin-right: 6px;
+        background: #fff;
+        border-radius: 4px;
 
 
+    }
 }
 </style>

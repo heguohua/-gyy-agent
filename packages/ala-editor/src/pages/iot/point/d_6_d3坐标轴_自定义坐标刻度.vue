@@ -2,15 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 18:26:59
+ * @LastEditTime: 2025-05-27 09:52:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_6_d3坐标轴_自定义坐标刻度.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <svg class="svg" ref="chart" width="350" height="250"></svg>
-
+    <div class="chart-wraper">
+        <svg class="svg" ref="chart" width="350" height="250"></svg>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -61,12 +62,16 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.svg {
+.chart-wraper {
+    display: inline-flex;
 
-    margin-right: 6px;
-    background: #fff;
-    border-radius: 4px;
+    .svg {
+
+        margin-right: 6px;
+        background: #fff;
+        border-radius: 4px;
 
 
+    }
 }
 </style>

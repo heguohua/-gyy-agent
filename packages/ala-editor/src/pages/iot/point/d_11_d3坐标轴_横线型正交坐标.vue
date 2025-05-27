@@ -2,15 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 19:13:21
+ * @LastEditTime: 2025-05-27 09:49:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_11_d3坐标轴_横线型正交坐标.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <svg class="svg" ref="chart" width="350" height="250"></svg>
-
+    <div class="chart-wraper">
+        <svg class="svg" ref="chart" width="350" height="250"></svg>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -32,7 +33,7 @@ onMounted(() => {
 
 
     // 示例数据
-    const data: any[] = [{ name: '大象' }, { name: '狮子' }, { name: '老虎' }, { name: '蚂蚁' }, { name: '长颈鹿' }];
+    const data: any[] = [{ name: '大象' }, { name: '狮子' }, { name: '老虎' }, { name: '羚羊' }, { name: '长颈鹿' }];
 
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
@@ -41,7 +42,7 @@ onMounted(() => {
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
-    const xScale = ad3.aScaleBand(data, 'name', [0, 300])
+    const xScale = ad3.aScaleBand(data, 'name', [0, width])
 
     const ticks = ad3.aTick(xScale, 'bottom')
 
@@ -74,38 +75,43 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.svg {
+.chart-wraper {
 
-    margin-right: 6px;
-    background: #fff;
-    border-radius: 4px;
+    display: inline-flex;
+
+    .svg {
+
+        margin-right: 6px;
+        background: #fff;
+        border-radius: 4px;
 
 
-    // :deep(path) {
-    //     stroke: var(--el-color-primary);
-    // }
+        // :deep(path) {
+        //     stroke: var(--el-color-primary);
+        // }
 
-    // :deep(line) {
-    //     stroke: red;
-    // }
+        // :deep(line) {
+        //     stroke: red;
+        // }
 
-    :deep(text) {
-        color: #ef4d4b;
-        font-size: 1.4em;
+        :deep(text) {
+            color: #ef4d4b;
+            font-size: 1.4em;
 
-    }
-
-    :deep(.ala-axis-y) {
-        path {
-            stroke: none;
         }
 
-        line {
-            stroke-opacity: 0.4;
-            stroke-width: 0.06em;
-            stroke-dasharray: 16, 16;
-        }
-    }
+        :deep(.ala-axis-y) {
+            path {
+                stroke: none;
+            }
 
+            line {
+                stroke-opacity: 0.4;
+                stroke-width: 0.06em;
+                stroke-dasharray: 16, 16;
+            }
+        }
+
+    }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 21:45:37
+ * @LastEditTime: 2025-05-27 09:56:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -11,20 +11,27 @@
 <template>
     <!-- <d_0_d3基础示例/>
     <d_1_d3基础教程/> -->
-    <d_2_d3坐标轴_数值型上坐标/>
-    <d_3_d3坐标轴_数值型下坐标/>
-    <d_4_d3坐标轴_数值型左坐标/>
-    <d_5_d3坐标轴_数值型右坐标/>
-    <d_6_d3坐标轴_自定义坐标刻度/>
-    <d_7_d3坐标轴_修改刻度线长度/>
-    <d_8_d3坐标轴_坐标轴样式/>
-    <d_9_d3坐标轴_带状坐标/>
-    <d_10_d3坐标轴_正交坐标/>
-    <d_11_d3坐标轴_横线型正交坐标/>
-    <d_12_d3坐标轴_双Y轴坐标/>
-    <e_1_圆环图/>
-    <e_2_百分比进度/>
-    <e_3_雷达图/>
+    <div class="demo">
+        <d_2_d3坐标轴_数值型上坐标 />
+        <d_3_d3坐标轴_数值型下坐标 />
+        <d_4_d3坐标轴_数值型左坐标 />
+        <d_5_d3坐标轴_数值型右坐标 />
+        <d_6_d3坐标轴_自定义坐标刻度 />
+        <d_7_d3坐标轴_修改刻度线长度 />
+        <d_8_d3坐标轴_坐标轴样式 />
+        <d_9_d3坐标轴_带状坐标 />
+        <d_10_d3坐标轴_正交坐标 />
+        <d_11_d3坐标轴_横线型正交坐标 />
+        <d_12_d3坐标轴_双Y轴坐标 />
+        <d_13_基础折线图 />
+
+
+
+        <e_1_圆环图 />
+        <e_2_百分比进度 />
+        <e_3_雷达图 />
+        <e_5_折线图 />
+    </div>
 
 </template>
 
@@ -43,12 +50,23 @@ import d_9_d3坐标轴_带状坐标 from './d_9_d3坐标轴_带状坐标.vue'
 import d_10_d3坐标轴_正交坐标 from './d_10_d3坐标轴_正交坐标.vue'
 import d_11_d3坐标轴_横线型正交坐标 from './d_11_d3坐标轴_横线型正交坐标.vue'
 import d_12_d3坐标轴_双Y轴坐标 from './d_12_d3坐标轴_双Y轴坐标.vue'
+import d_13_基础折线图 from './d_13_基础折线图.vue'
+
+
+
 import e_1_圆环图 from './e_1_圆环图.vue'
 import e_2_百分比进度 from './e_2_百分比进度.vue'
 import e_3_雷达图 from './e_3_雷达图.vue'
+import e_5_折线图 from './e_5_折线图.vue'
 
 // Methods
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.demo {
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 300px;
+}
+</style>

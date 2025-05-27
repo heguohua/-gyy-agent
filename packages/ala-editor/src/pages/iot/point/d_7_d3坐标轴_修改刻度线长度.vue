@@ -2,15 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 18:40:00
+ * @LastEditTime: 2025-05-27 09:51:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_7_d3坐标轴_修改刻度线长度.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <svg class="svg" ref="chart" width="350" height="250"></svg>
-
+    <div class="chart-wraper">
+        <svg class="svg" ref="chart" width="350" height="250"></svg>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -45,9 +46,9 @@ onMounted(() => {
     // 修改，修改，修改： 这里添加 最后一个 参数
     const ticks = ad3.aTick(xScale, 'bottom', undefined, 18, 10, 8, 30)
 
-    console.log('ticks:',ticks.tickSize());
-    console.log('ticks:',ticks.tickPadding());
-    
+    console.log('ticks:', ticks.tickSize());
+    console.log('ticks:', ticks.tickPadding());
+
 
 
     const xAxisAttrs = new Map<string, any>()
@@ -68,12 +69,16 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.svg {
+.chart-wraper {
+    display: inline-flex;
 
-    margin-right: 6px;
-    background: #fff;
-    border-radius: 4px;
+    .svg {
+
+        margin-right: 6px;
+        background: #fff;
+        border-radius: 4px;
 
 
+    }
 }
 </style>

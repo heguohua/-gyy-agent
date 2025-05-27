@@ -9,8 +9,9 @@
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <svg class="svg" ref="chart" width="350" height="250"></svg>
-
+    <div class="chart-wraper">
+        <svg class="svg" ref="chart" width="350" height="250"></svg>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -32,7 +33,7 @@ onMounted(() => {
 
 
     // 示例数据
-    const data: any[] = [{ name: '大象' }, { name: '狮子' }, { name: '老虎' }, { name: '蚂蚁' }, { name: '长颈鹿' }];
+    const data: any[] = [{ name: '大象' }, { name: '狮子' }, { name: '老虎' }, { name: '羚羊' }, { name: '长颈鹿' }];
 
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
@@ -91,53 +92,58 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.svg {
+.chart-wraper {
+    display: inline-flex;
 
-    margin-right: 6px;
-    background: #fff;
-    border-radius: 4px;
+    .svg {
+
+        margin-right: 6px;
+        background: #fff;
+        border-radius: 4px;
 
 
-    // :deep(path) {
-    //     stroke: var(--el-color-primary);
-    // }
+        // :deep(path) {
+        //     stroke: var(--el-color-primary);
+        // }
 
-    // :deep(line) {
-    //     stroke: red;
-    // }
+        // :deep(line) {
+        //     stroke: red;
+        // }
 
-    :deep(text) {
-        color: #ef4d4b;
-        font-size: 1.4em;
+        :deep(text) {
+            color: #ef4d4b;
+            font-size: 1.4em;
+
+        }
+
+
+
+        :deep(.ala-axis-y) {
+            path {
+                stroke: none;
+            }
+
+            line {
+                stroke-opacity: 0.4;
+                stroke-width: 0.06em;
+                stroke-dasharray: 16, 16;
+            }
+        }
+
+        :deep(.ala-axis-y-right) {
+            float: right;
+
+            path {
+                stroke: none;
+            }
+
+            line {
+                stroke-opacity: 0.4;
+                stroke-width: 0.06em;
+                stroke-dasharray: 16, 16;
+            }
+        }
 
     }
-
-
-
-    :deep(.ala-axis-y) {
-        path {
-            stroke: none;
-        }
-
-        line {
-            stroke-opacity: 0.4;
-            stroke-width: 0.06em;
-            stroke-dasharray: 16, 16;
-        }
-    }
-
-    :deep(.ala-axis-y-right) {
-        float: right;
-        path {
-            stroke: none;
-        }
-
-        line {
-            stroke-opacity: 0.4;
-            stroke-width: 0.06em;
-            stroke-dasharray: 16, 16;
-        }
-    }
-
 }
 </style>

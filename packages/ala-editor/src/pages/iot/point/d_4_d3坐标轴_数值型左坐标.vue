@@ -2,15 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 18:11:49
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_2_d3坐标轴.vue
+ * @LastEditTime: 2025-05-27 09:53:24
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_4_d3坐标轴_数值型左坐标.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <svg class="svg" ref="chart" width="350" height="250"></svg>
-
+    <div class="chart-wraper">
+        <svg class="svg" ref="chart" width="350" height="250"></svg>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -47,7 +48,7 @@ onMounted(() => {
     xAxisAttrs.set("transform", `translate(0,0)`)
 
     const xAxis = ad3.aAxis(group, ticks, xAxisAttrs)
-    
+
 
 
 
@@ -60,12 +61,16 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.svg {
+.chart-wraper {
+    display: inline-flex;
 
-    margin-right: 6px;
-    background: #fff;
-    border-radius: 4px;
+    .svg {
+
+        margin-right: 6px;
+        background: #fff;
+        border-radius: 4px;
 
 
+    }
 }
 </style>
