@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 16:08:27
+ * @LastEditTime: 2025-05-27 16:10:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_201_基础柱状图.vue
  * @Description: 
  * 
@@ -18,6 +18,7 @@
 import { onMounted, ref } from 'vue'
 import * as d3 from 'd3';
 import * as ad3 from '@/components/charts/utils/dChart';
+import colors from '@/utils/colors';
 
 const chart = ref<HTMLDivElement | null>(null)
 const chartWrapper = ref()
@@ -44,7 +45,7 @@ onMounted(() => {
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
     aTitleAttrs.set('y', 30)
-    const title = ad3.aText(group, "柱状图", aTitleAttrs)
+    const title = ad3.aText(group, "基础柱状图", aTitleAttrs)
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
@@ -98,7 +99,7 @@ onMounted(() => {
         .attr('width', xScale.bandwidth())
         .attr('y', height) // 初始高度为底部，用于动画
         .attr('height', 0)
-        .attr('fill', 'steelblue')
+        .attr('fill', colors.chartColors[5])
         .on('mouseover', (event, d) => {
             tooltip.transition().duration(200).style('opacity', 0.9)
             tooltip.html(`${d.name}<br/>值: ${d.value}`)
