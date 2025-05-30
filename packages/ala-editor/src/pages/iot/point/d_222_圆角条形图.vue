@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 15:37:37
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_221_基础条形图.vue
+ * @LastEditTime: 2025-05-30 15:38:36
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_222_圆角条形图.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -45,12 +45,12 @@ onMounted(() => {
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
     aTitleAttrs.set('y', 30)
-    const title = ad3.aText(group, "基础条形图", aTitleAttrs)
+    const title = ad3.aText(group, "圆角条形图", aTitleAttrs)
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
     const yScale = ad3.aScaleBand(data, 'name', [0, height])
-    // yScale.padding(0.4) // 控制柱形条之间的间距
+    yScale.padding(0.2) // 控制柱形条之间的间距
 
     const ticks = ad3.aTick(yScale, 'left')
 
@@ -101,6 +101,9 @@ onMounted(() => {
         .attr('x', 0)
         .attr('height', yScale.bandwidth() )
         .attr('width', 0)
+
+        .attr('rx', yScale.bandwidth() / 2) // 横向圆角半径
+        .attr('ry', yScale.bandwidth() / 2) // 纵向圆角半径
 
         .attr('fill', colors.chartColors[5])
         .on('mouseover', (event, d) => {
