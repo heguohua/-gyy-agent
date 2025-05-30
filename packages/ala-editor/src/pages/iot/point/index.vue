@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 15:57:46
+ * @LastEditTime: 2025-05-30 16:30:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -14,6 +14,7 @@
     <div class="demo">
 
 
+        <d_228_携带数据的条形图 />
         <d_227_中轴线条形图 />
         <d_226_横向透明度渐变条形图 />
         <d_225_纵向透明度渐变条形图 />
@@ -86,6 +87,7 @@ import d_224_不同颜色横向渐变条形图 from './d_224_不同颜色横向�
 import d_225_纵向透明度渐变条形图 from './d_225_纵向透明度渐变条形图.vue'
 import d_226_横向透明度渐变条形图 from './d_226_横向透明度渐变条形图.vue'
 import d_227_中轴线条形图 from './d_227_中轴线条形图.vue'
+import d_228_携带数据的条形图 from './d_228_携带数据的条形图.vue'
 
 
 
