@@ -1,3 +1,13 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2025-05-26 21:44:13
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2025-05-30 16:25:51
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/e_1_圆环图.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
     <div class="donut-chart">
         <svg ref="svgRef" :width="size" :height="size"></svg>
@@ -46,13 +56,13 @@ onMounted(() => {
             d3.select(this)
                 .transition()
                 .duration(200)
-                .attr('d', arcHover);
+                // .attr('d', arcHover);
         })
         .on('mouseout', function (event, d) {
             d3.select(this)
                 .transition()
                 .duration(200)
-                .attr('d', arc);
+                // .attr('d', arc);
         });
 
     // 中心数字

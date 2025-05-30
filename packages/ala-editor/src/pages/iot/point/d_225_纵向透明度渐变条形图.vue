@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 15:51:45
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_225_透明度渐变条形图.vue
+ * @LastEditTime: 2025-05-30 16:25:24
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_225_纵向透明度渐变条形图.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -176,9 +176,7 @@ onMounted(() => {
         }
 
         :deep(.ala-axis-y) {
-            path {
-                //stroke: none;
-            }
+           
 
             line {
                 stroke-opacity: 0.4;

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 15:54:18
+ * @LastEditTime: 2025-05-30 16:25:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_226_横向透明度渐变条形图.vue
  * @Description: 
  * 
@@ -176,10 +176,7 @@ onMounted(() => {
         }
 
         :deep(.ala-axis-y) {
-            path {
-                //stroke: none;
-            }
-
+  
             line {
                 stroke-opacity: 0.4;
                 stroke-width: 0.06em;
