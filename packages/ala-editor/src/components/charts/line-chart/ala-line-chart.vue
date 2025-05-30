@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-04 08:47:39
+ * @LastEditTime: 2025-05-30 21:33:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-line-chart-wrapper" :style="{ width: '100%', height: '200px' }" ref="chartWrapper">
+    <div class="ala-line-chart-wrapper" :style="{ width: '20%', height: '200px' }" ref="chartWrapper">
         <e-charts class="chart" :option="option" ref="chart" />
     </div>
 </template>

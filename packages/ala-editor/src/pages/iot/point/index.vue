@@ -2,112 +2,86 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 16:49:05
+ * @LastEditTime: 2025-05-30 18:47:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <!-- <d_0_d3基础示例/>
-    <d_1_d3基础教程/> -->
-    <div class="demo">
+    <div class="left-admin" >
+      <div class="chart">
+        <d_229_使用path绘制条形图  @mousedown="startDrag" :style="{ left: panelPosition.x + 'px', top: panelPosition.y + 'px' }"/>
+        <d_229_使用path绘制条形图  @mousedown="startDrag" :style="{ left: panelPosition.x + 'px', top: panelPosition.y + 'px' }"/>
+        <d_229_使用path绘制条形图  @mousedown="startDrag" :style="{ left: panelPosition.x + 'px', top: panelPosition.y + 'px' }"/>
+      </div>
 
-
-        <d_229_使用path绘制条形图 />
-        <d_228_携带数据的条形图 />
-        <d_227_中轴线条形图 />
-        <d_226_横向透明度渐变条形图 />
-        <d_225_纵向透明度渐变条形图 />
-        <d_224_不同颜色横向渐变条形图 />
-        <d_223_不同颜色纵向渐变条形图 />
-        <d_222_圆角条形图 />
-        <d_221_基础条形图 />
-        <d_204_透明度渐变柱状图 />
-        <d_203_不同颜色渐变柱状图 />
-        <d_202_圆角柱状图 />
-        <d_201_基础柱状图 />
-        <d_18_堆叠折线图 />
-        <d_17_多条折线图 />
-        <d_16_基础面积图 />
-        <d_15_平滑折线图 />
-        <d_14_带顶点的折线图 />
-        <d_13_基础折线图 />
-        <d_12_d3坐标轴_双Y轴坐标 />
-        <d_11_d3坐标轴_横线型正交坐标 />
-        <d_10_d3坐标轴_正交坐标 />
-        <d_9_d3坐标轴_带状坐标 />
-        <d_8_d3坐标轴_坐标轴样式 />
-        <d_7_d3坐标轴_修改刻度线长度 />
-        <d_6_d3坐标轴_自定义坐标刻度 />
-        <d_5_d3坐标轴_数值型右坐标 />
-        <d_4_d3坐标轴_数值型左坐标 />
-        <d_3_d3坐标轴_数值型下坐标 />
-        <d_2_d3坐标轴_数值型上坐标 />
-
-
-        <e_1_圆环图 />
-        <e_2_百分比进度 />
-        <e_3_雷达图 />
-        <e_5_折线图 />
-        <e_6_堆叠折线图 />
-        <e_7_条形图 />
     </div>
-
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import d_0_d3基础示例 from './d_0_d3基础示例.vue'
-import d_1_d3基础教程 from './d_1_d3基础教程.vue'
-import d_2_d3坐标轴_数值型上坐标 from './d_2_d3坐标轴_数值型上坐标.vue'
-import d_3_d3坐标轴_数值型下坐标 from './d_3_d3坐标轴_数值型下坐标.vue'
-import d_4_d3坐标轴_数值型左坐标 from './d_4_d3坐标轴_数值型左坐标.vue'
-import d_5_d3坐标轴_数值型右坐标 from './d_5_d3坐标轴_数值型右坐标.vue'
-import d_6_d3坐标轴_自定义坐标刻度 from './d_6_d3坐标轴_自定义坐标刻度.vue'
-import d_7_d3坐标轴_修改刻度线长度 from './d_7_d3坐标轴_修改刻度线长度.vue'
-import d_8_d3坐标轴_坐标轴样式 from './d_8_d3坐标轴_坐标轴样式.vue'
-import d_9_d3坐标轴_带状坐标 from './d_9_d3坐标轴_带状坐标.vue'
-import d_10_d3坐标轴_正交坐标 from './d_10_d3坐标轴_正交坐标.vue'
-import d_11_d3坐标轴_横线型正交坐标 from './d_11_d3坐标轴_横线型正交坐标.vue'
-import d_12_d3坐标轴_双Y轴坐标 from './d_12_d3坐标轴_双Y轴坐标.vue'
-import d_13_基础折线图 from './d_13_基础折线图.vue'
-import d_14_带顶点的折线图 from './d_14_带顶点的折线图.vue'
-import d_15_平滑折线图 from './d_15_平滑折线图.vue'
-import d_16_基础面积图 from './d_16_基础面积图.vue'
-import d_17_多条折线图 from './d_17_多条折线图.vue'
-import d_18_堆叠折线图 from './d_18_堆叠折线图.vue'
-import d_201_基础柱状图 from './d_201_基础柱状图.vue'
-import d_202_圆角柱状图 from './d_202_圆角柱状图.vue'
-import d_203_不同颜色渐变柱状图 from './d_203_不同颜色渐变柱状图.vue'
-import d_204_透明度渐变柱状图 from './d_204_透明度渐变柱状图.vue'
-import d_221_基础条形图 from './d_221_基础条形图.vue'
-import d_222_圆角条形图 from './d_222_圆角条形图.vue'
-import d_223_不同颜色纵向渐变条形图 from './d_223_不同颜色纵向渐变条形图.vue'
-import d_224_不同颜色横向渐变条形图 from './d_224_不同颜色横向渐变条形图.vue'
-import d_225_纵向透明度渐变条形图 from './d_225_纵向透明度渐变条形图.vue'
-import d_226_横向透明度渐变条形图 from './d_226_横向透明度渐变条形图.vue'
-import d_227_中轴线条形图 from './d_227_中轴线条形图.vue'
-import d_228_携带数据的条形图 from './d_228_携带数据的条形图.vue'
-import d_229_使用path绘制条形图 from './d_229_使用path绘制条形图.vue'
-
-
-
-import e_1_圆环图 from './e_1_圆环图.vue'
-import e_2_百分比进度 from './e_2_百分比进度.vue'
-import e_3_雷达图 from './e_3_雷达图.vue'
-import e_5_折线图 from './e_5_折线图.vue'
-import e_6_堆叠折线图 from './e_6_堆叠折线图.vue'
-import e_7_条形图 from './e_7_条形图.vue'
-
-// Methods
-
-</script>
-
-<style scoped lang="scss">
-.demo {
-    height: 100%;
-    overflow-y: auto;
-    padding-bottom: 300px;
-}
-</style>
+  </template>
+   
+  <script setup>
+  import { ref, onBeforeUnmount } from 'vue'
+  import d_229_使用path绘制条形图 from './d_229_使用path绘制条形图.vue'  
+   
+  // 新增状态
+  // const panelPosition = ref({ x: 8, y: 80 })
+  const panelWidth = 443
+  const panelPosition = ref({
+    x: 0,
+    y: 0
+    // x: 0.5,
+    // y: 0.5
+  })
+  let isDragging = false
+  let startX = 0
+  let startY = 0
+  let initialX = 0
+  let initialY = 0
+  // 鼠标按下事件
+  const startDrag = e => {
+    isDragging = true
+    startX = e.clientX
+    startY = e.clientY
+    initialX = panelPosition.value.x
+    initialY = panelPosition.value.y
+    document.addEventListener('mousemove', onDrag)
+    document.addEventListener('mouseup', stopDrag)
+  }
+   
+  // 鼠标移动事件
+  const onDrag = e => {
+    if (!isDragging) return
+   
+    const dx = e.clientX - startX
+    const dy = e.clientY - startY
+   
+    let newX = initialX + dx
+    let newY = initialY + dy
+   
+    newX = Math.max(newX, 8)
+    newX = Math.min(newX, window.innerWidth - panelWidth - 8)
+    panelPosition.value = {
+      x: newX,
+      y: newY
+    }
+  }
+  // 鼠标释放事件
+  const stopDrag = () => {
+    isDragging = false
+    document.removeEventListener('mousemove', onDrag)
+    document.removeEventListener('mouseup', stopDrag)
+  }
+  // 组件卸载时清理事件
+  onBeforeUnmount(() => {
+    document.removeEventListener('mousemove', onDrag)
+    document.removeEventListener('mouseup', stopDrag)
+  })
+  </script>
+   
+  <style lang="scss" scoped>
+  .left-admin {
+    
+    position: fixed;
+    cursor: move;
+  }
+  </style>

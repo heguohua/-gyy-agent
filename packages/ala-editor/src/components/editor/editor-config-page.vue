@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 16:27:42
+ * @LastEditTime: 2025-05-30 19:32:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-page.vue
  * @Description: 
  * 
@@ -20,7 +20,7 @@
 import { ref } from 'vue'
 import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
-import { pageSchemasForm, pageSchemasPage } from '@/config/schemas';
+import { pageSchemasForm, pageSchemasPage, screenSchemasPage } from '@/config/schemas';
 import { updateBlockConfigFormData } from './nested';
 import { BasePage } from '@/types/editorType';
 import { merge } from 'lodash';
@@ -42,7 +42,7 @@ const initProperties = () => {
     } else if (bType === 'page') {
         return pageSchemasPage.properties
     } else if (bType === 'screen') {
-        
+        return screenSchemasPage.properties
     }
     return {}
 }

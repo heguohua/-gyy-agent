@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-25 17:10:52
+ * @LastEditTime: 2025-05-30 21:53:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -87,7 +87,8 @@ export const allMenuComponents: MenuComponent = {
     },
     "/editor/screenDesign": {
         name: "ScreenDesignPage",
-        component: "../pages/lowcoding/screen-design-editor.vue",
+        // component: "../pages/lowcoding/screen-design-editor.vue",
+        component: "../pages/drag/Designer.vue",
         requiresAuth: true,
         uniqueCheck: true,
     },
