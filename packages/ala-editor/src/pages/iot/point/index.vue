@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 15:37:06
+ * @LastEditTime: 2025-05-30 15:57:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -13,7 +13,12 @@
     <d_1_d3基础教程/> -->
     <div class="demo">
 
-        
+
+        <d_227_中轴线条形图 />
+        <d_226_横向透明度渐变条形图 />
+        <d_225_纵向透明度渐变条形图 />
+        <d_224_不同颜色横向渐变条形图 />
+        <d_223_不同颜色纵向渐变条形图 />
         <d_222_圆角条形图 />
         <d_221_基础条形图 />
         <d_204_透明度渐变柱状图 />
@@ -76,6 +81,11 @@ import d_203_不同颜色渐变柱状图 from './d_203_不同颜色渐变柱状�
 import d_204_透明度渐变柱状图 from './d_204_透明度渐变柱状图.vue'
 import d_221_基础条形图 from './d_221_基础条形图.vue'
 import d_222_圆角条形图 from './d_222_圆角条形图.vue'
+import d_223_不同颜色纵向渐变条形图 from './d_223_不同颜色纵向渐变条形图.vue'
+import d_224_不同颜色横向渐变条形图 from './d_224_不同颜色横向渐变条形图.vue'
+import d_225_纵向透明度渐变条形图 from './d_225_纵向透明度渐变条形图.vue'
+import d_226_横向透明度渐变条形图 from './d_226_横向透明度渐变条形图.vue'
+import d_227_中轴线条形图 from './d_227_中轴线条形图.vue'
 
 
 

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 16:47:13
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_203_渐变柱状图.vue
+ * @LastEditTime: 2025-05-30 15:41:58
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_203_不同颜色渐变柱状图.vue
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -45,7 +45,7 @@ onMounted(() => {
 
     const aTitleAttrs = ad3.aTitleAttrs(width)
     aTitleAttrs.set('y', 30)
-    const title = ad3.aText(group, "渐变柱状图", aTitleAttrs)
+    const title = ad3.aText(group, "不同颜色渐变柱状图", aTitleAttrs)
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
