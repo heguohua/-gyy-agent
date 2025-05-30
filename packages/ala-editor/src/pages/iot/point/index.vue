@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 16:51:58
+ * @LastEditTime: 2025-05-30 11:23:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -14,6 +14,7 @@
     <div class="demo">
 
 
+        <d_221_基础条形图 />
         <d_204_透明度渐变柱状图 />
         <d_203_不同颜色渐变柱状图 />
         <d_202_圆角柱状图 />
@@ -42,6 +43,7 @@
         <e_3_雷达图 />
         <e_5_折线图 />
         <e_6_堆叠折线图 />
+        <e_7_条形图 />
     </div>
 
 </template>
@@ -71,6 +73,7 @@ import d_201_基础柱状图 from './d_201_基础柱状图.vue'
 import d_202_圆角柱状图 from './d_202_圆角柱状图.vue'
 import d_203_不同颜色渐变柱状图 from './d_203_不同颜色渐变柱状图.vue'
 import d_204_透明度渐变柱状图 from './d_204_透明度渐变柱状图.vue'
+import d_221_基础条形图 from './d_221_基础条形图.vue'
 
 
 
@@ -79,6 +82,7 @@ import e_2_百分比进度 from './e_2_百分比进度.vue'
 import e_3_雷达图 from './e_3_雷达图.vue'
 import e_5_折线图 from './e_5_折线图.vue'
 import e_6_堆叠折线图 from './e_6_堆叠折线图.vue'
+import e_7_条形图 from './e_7_条形图.vue'
 
 // Methods
 
