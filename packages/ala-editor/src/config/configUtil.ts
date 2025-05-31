@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 19:03:38
+ * @LastEditTime: 2025-05-31 19:29:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -246,6 +246,17 @@ export const configFloat = (title: string, defaultValue = 0, min = 0) => {
 }
 
 
+export const configText = (title: string, defaultValue = '', rules: Array<any> = []) => {
+    const config = Type.String({
+        code: "config-input",
+        title,
+        default: defaultValue,
+        rules: rules
+    })
+    return config
+}
+
+
 export const configTextOverflow = (title: string) => {
 
     const fontStyle = Type.Array(
@@ -334,6 +345,19 @@ export const configItemStyle = () => {
         itemStyle_borderType: schemaAllViewport(configBorderType("边框类型")),
         itemStyle_borderCap: schemaAllViewport(configCap("端点类型")),
         itemStyle_opacity: schemaAllViewport(configFloat("透明度", 1)),
+    }
+    return config
+}
+
+
+export const configStyle = () => {
+    const config = {
+        width: schemaAllViewport(configText("宽度", '150px')),
+        height: schemaAllViewport(configText("高度", '100px')),
+        x: schemaAllViewport(configText("X坐标", '20px')),
+        y: schemaAllViewport(configText("Y坐标", '10px')),
+        backgroundColor: schemaAllViewport(configColor("背景色")),
+        radius: schemaAllViewport(configText("圆角大小", '0px')),
     }
     return config
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 10:50:49
+ * @LastEditTime: 2025-05-31 18:48:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-input.vue
  * @Description: 
  * 
@@ -52,6 +52,12 @@ const { formData, parentKey, key, id } = data.value
 
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref('')
+
+
+if (defaultValue) {
+    input.value = defaultValue
+}
+
 
 const isRequired = () => {
     return required ? 'is-required' : ''

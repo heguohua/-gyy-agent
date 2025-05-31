@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 16:17:22
+ * @LastEditTime: 2025-05-31 17:02:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block-drag-page.vue
  * @Description: 
  * 
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 
 import { move, clone, dragGroup } from "@/components/editor/nested"
+import u from "@/utils/u"
 import { el } from "element-plus/es/locale"
 
 const props = defineProps({
@@ -58,7 +59,7 @@ const bType = props.bType
 // Methods
 // 兼容 HTML5 拖放 API + 自定义画布 方式实现的拖拽
 const onDragStart = (e: DragEvent, element: any) => {
-    e.dataTransfer?.setData('alaChartCode', element.code)
+    e.dataTransfer?.setData('alaChartBlock', u.tojson(element))
 }
 
 </script>

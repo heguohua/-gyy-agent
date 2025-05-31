@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 16:38:06
+ * @LastEditTime: 2025-05-31 17:27:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
-import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem } from "@/config/configUtil";
+import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle } from "@/config/configUtil";
 
 
 const title_text = Type.String({
@@ -207,10 +207,14 @@ const strMax = Type.String({
 
 
 
+const cs = configStyle()
 const cmt = configMainTitle()
 const cst = configSubTitle()
 const cis = configItemStyle()
 const schema = Type.Object({
+    // 主标题
+    configStyle: schemaAllViewport(configCollapseItem("图形样式")),
+    ...cs,
     // 主标题
     configMainTitle: schemaAllViewport(configCollapseItem("主标题配置区")),
     text_text: schemaAllViewport(title_text),

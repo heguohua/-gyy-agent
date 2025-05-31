@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 16:40:50
+ * @LastEditTime: 2025-05-31 19:33:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -10,11 +10,27 @@
 -->
 <template>
     <div class="drop-canvas" @dragover.prevent @drop="onDrop" ref="canvasRef">
-        <div v-for="(item, index) in droppedComponents" :key="item.id" :id="item.id" class="dropped-item"
+        <!-- <div v-for="(item, index) in droppedComponents" :key="item.id" :id="item.id" class="dropped-item"
             :style="{ top: item.y + 'px', left: item.x + 'px', width: item.width + 'px', height: item.height + 'px', }"
             @mousedown="startDrag" @click="onClick">
             {{ item.type }}
-        </div>
+        </div> -->
+
+        <template v-for="(element, index) in blockList" :key="element.id">
+            <div class="dropped-item" :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
+                :style="styles(element)" @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''" @mousedown="startDrag">
+
+                <Transition name="fade">
+                    <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name" @copy="copy"
+                        @clear="clear" :bType="bType">
+                    </EditRenderHover>
+                </Transition>
+
+                <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
+                    :viewport="editorStore.viewport[bType]" :currentId="element.id" :formData="element.formData"
+                    :pid="pid" :block="element" :bType="bType" />
+            </div>
+        </template>
 
         <!-- 对齐参考线 -->
         <div v-for="line in guidelines" :key="line.id" :class="['guide-line', line.direction]" :style="lineStyle(line)">
@@ -73,7 +89,7 @@ defineOptions({
 
 const props = defineProps({
     blockList: {
-        type: Array,
+        type: Array<any>,
         required: true,
         default: () => []
     },
@@ -223,38 +239,48 @@ const canvasRef = ref<HTMLElement | null>(null)
 
 const droppedComponents = reactive<DroppedItem[]>([])
 
-const onClick = (e: MouseEvent) => {
-    const targetElement = e.target as HTMLElement;
-    const idValue = targetElement.id;
-    const item = droppedComponents.find((i) => i.id === idValue)!
-    console.log('当前图形 x :', item.x);
-    console.log('当前图形 y :', item.y);
-    console.log('当前图形 宽度 :', item.width);
-    console.log('当前图形 高度 :', item.height);
+// const onClick = (e: MouseEvent) => {
+//     const targetElement = e.target as HTMLElement;
+//     const idValue = targetElement.id;
+//     const item = droppedComponents.find((i) => i.id === idValue)!
+//     console.log('当前图形 x :', item.x);
+//     console.log('当前图形 y :', item.y);
+//     console.log('当前图形 宽度 :', item.width);
+//     console.log('当前图形 高度 :', item.height);
 
-}
+// }
 
 
 const onDrop = (e: DragEvent) => {
 
-    const type = e.dataTransfer?.getData('alaChartCode')
+    let block: any = e.dataTransfer?.getData('alaChartBlock')!
+    block = u.parseJson(block)
 
-    console.log('e.target:', e.target);
+    block.id = u.uuid()
 
+
+    console.log('e.target:', block);
+
+    const type = block.code
+
+    setCurrentSelect(block)
     debugger
 
     console.log('type:', type);
 
     if (!type) return
 
-    droppedComponents.push({
-        id: Date.now().toString(),
-        type,
-        x: e.offsetX,
-        y: e.offsetY,
-        width: 200 * (Math.random() + 0.5),
-        height: 100 * (Math.random() + 0.5),
-    })
+
+    props.blockList.push(block)
+
+    // droppedComponents.push({
+    //     id: Date.now().toString(),
+    //     type,
+    //     x: e.offsetX,
+    //     y: e.offsetY,
+    //     width: 200 * (Math.random() + 0.5),
+    //     height: 100 * (Math.random() + 0.5),
+    // })
 }
 
 // 鼠标按下事件
@@ -437,6 +463,22 @@ function getSnappedPosition(id: string, x: number, y: number) {
 
 
 
+const styles = (element: any) => {
+    // const style = { top: element.formData.y + 'px', left: item.x + 'px', width: item.width + 'px', height: item.height + 'px', }
+    const style = { 
+        width: element.formData.width?.desktop, 
+        height: element.formData.height?.desktop, 
+        left: element.formData.x?.desktop, 
+        top: element.formData.y?.desktop, 
+        borderRadius: element.formData.radius?.desktop, 
+    }
+
+    console.log('element : ---> ', element);
+
+    return style
+}
+
+
 </script>
 
 <style scoped lang="scss">
@@ -451,11 +493,11 @@ function getSnappedPosition(id: string, x: number, y: number) {
         // position: fixed;
         position: absolute;
         background: #fff;
-        border: 1px solid #000;
+        // border: 1px solid #000;
         // padding: 4px 8px;
         user-select: none;
         display: inline-flex;
-        background: red;
+        // background: red;
     }
 
     .guide-line {
