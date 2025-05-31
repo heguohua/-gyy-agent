@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 16:10:54
+ * @LastEditTime: 2025-05-31 16:17:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block-drag-page.vue
  * @Description: 
  * 
@@ -56,13 +56,11 @@ const bType = props.bType
 // State
 
 // Methods
+// 兼容 HTML5 拖放 API + 自定义画布 方式实现的拖拽
 const onDragStart = (e: DragEvent, element: any) => {
-
-    console.log('e:', e);
-    console.log('element:', element.code);
-
     e.dataTransfer?.setData('alaChartCode', element.code)
 }
+
 </script>
 
 <style scoped lang="scss">
