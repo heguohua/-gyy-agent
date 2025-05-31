@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-30 21:51:44
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 15:52:36
+ * @LastEditTime: 2025-05-31 16:11:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/drag/DropCanvas.vue
  * @Description: 
  * 
@@ -47,14 +47,17 @@ const onClick = (e: MouseEvent) => {
     console.log('当前图形 宽度 :', item.width);
     console.log('当前图形 高度 :', item.height);
 
-
 }
 
 
 const onDrop = (e: DragEvent) => {
 
-    const type = e.dataTransfer?.getData('component-type')
+    const type = e.dataTransfer?.getData('alaChartCode')
 
+    console.log('e.target:',e.target);
+
+    debugger
+    
     console.log('type:', type);
 
     if (!type) return

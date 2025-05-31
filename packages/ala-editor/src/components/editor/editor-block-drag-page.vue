@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 10:47:59
+ * @LastEditTime: 2025-05-31 16:10:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block-drag-page.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
 
         <template #item="{ element }">
 
-            <div class="block-item">
+            <div class="block-item" @dragstart="onDragStart($event, element)">
                 <div class="block-name">{{ element.name }}</div>
                 <div class="block-image">
                     <img :src="'/charts/' + element.icon" />
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 
 import { move, clone, dragGroup } from "@/components/editor/nested"
+import { el } from "element-plus/es/locale"
 
 const props = defineProps({
     list: {
@@ -55,7 +56,13 @@ const bType = props.bType
 // State
 
 // Methods
+const onDragStart = (e: DragEvent, element: any) => {
 
+    console.log('e:', e);
+    console.log('element:', element.code);
+
+    e.dataTransfer?.setData('alaChartCode', element.code)
+}
 </script>
 
 <style scoped lang="scss">
@@ -72,7 +79,7 @@ const bType = props.bType
         text-align: center;
         border-radius: var(--border-radius);
         padding: 4px 0px;
-        align-items:center;
+        align-items: center;
 
         &:active {
             cursor: grabbing;

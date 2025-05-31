@@ -9,28 +9,28 @@
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-
-    <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
+    <DropCanvas />
+    <!-- <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
         class="edit-render-drag" :clone="clone" :move="move">
         <template #item="{ element }">
 
-            <div class="page-block">
+            <div class="page-block"> -->
 
-                <!-- 
+    <!-- 
                     1、渲染普通组件 
                     2、更新 editorStore.currentSelect 值 
                  
                 -->
-                <div :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
-                    @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''">
+    <!-- <div :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
+                    @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''"> -->
 
-                    <!-- <Transition name="fade">
+    <!-- <Transition name="fade">
                             <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
                                 @copy="copy" @clear="clear" :bType="bType">
 
                             </EditRenderHover>
                         </Transition> -->
-
+    <!-- 
                     <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
                         :viewport="editorStore.viewport[bType]" :currentId="element.id" :formData="element.formData"
                         :pid="pid" :block="element" :bType="bType" />
@@ -38,7 +38,7 @@
 
             </div>
         </template>
-    </draggable>
+</draggable> -->
 </template>
 
 <script setup lang="ts">
@@ -50,7 +50,7 @@ import { useEditorStore } from "@/store/useEditorStore"
 import { BaseBlock } from "@/types/editorType";
 import { logger } from "@/utils/logger";
 import EditRenderHover from "./edit-render-hover.vue";
-
+ import DropCanvas from '@/pages/drag/DropCanvas.vue'
 const editorStore = useEditorStore()
 
 defineOptions({
