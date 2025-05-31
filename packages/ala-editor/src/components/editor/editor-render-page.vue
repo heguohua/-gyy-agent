@@ -2,50 +2,48 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 21:31:55
+ * @LastEditTime: 2025-05-31 09:22:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="page-blocks">
 
-        <draggable :list="blockList"  :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
-            class="edit-render-drag" :clone="clone" @start="handleStart" @move="handleMove" @end="handleEnd">
-            <template #item="{ element }">
+    <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
+        class="edit-render-drag" :clone="clone" :move="move">
+        <template #item="{ element }">
 
-                <div class="page-block">
+            <div class="page-block">
 
-                    <!-- 
+                <!-- 
                     1、渲染普通组件 
                     2、更新 editorStore.currentSelect 值 
                  
                 -->
-                    <div :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
-                        @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''">
+                <div :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
+                    @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''">
 
-                        <!-- <Transition name="fade">
+                    <!-- <Transition name="fade">
                             <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
                                 @copy="copy" @clear="clear" :bType="bType">
 
                             </EditRenderHover>
                         </Transition> -->
 
-                        <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
-                            :viewport="editorStore.viewport[bType]" :currentId="element.id" :formData="element.formData"
-                            :pid="pid" :block="element" :bType="bType" />
-                    </div>
-
+                    <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
+                        :viewport="editorStore.viewport[bType]" :currentId="element.id" :formData="element.formData"
+                        :pid="pid" :block="element" :bType="bType" />
                 </div>
-            </template>
-        </draggable>
-    </div>
+
+            </div>
+        </template>
+    </draggable>
 </template>
 
 <script setup lang="ts">
 
-import { clone, findNodeById, replaceNodeId } from "@/components/editor/nested"
+import { move, clone, nestedClass, findNodeById, replaceNodeId } from "@/components/editor/nested"
 import { alaConsts } from "@/config/alaConsts";
 
 import { useEditorStore } from "@/store/useEditorStore"

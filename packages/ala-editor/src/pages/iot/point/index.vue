@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 18:47:56
+ * @LastEditTime: 2025-05-31 09:16:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -12,8 +12,8 @@
     <div class="left-admin" >
       <div class="chart">
         <d_229_使用path绘制条形图  @mousedown="startDrag" :style="{ left: panelPosition.x + 'px', top: panelPosition.y + 'px' }"/>
-        <d_229_使用path绘制条形图  @mousedown="startDrag" :style="{ left: panelPosition.x + 'px', top: panelPosition.y + 'px' }"/>
-        <d_229_使用path绘制条形图  @mousedown="startDrag" :style="{ left: panelPosition.x + 'px', top: panelPosition.y + 'px' }"/>
+        <!-- <d_229_使用path绘制条形图  @mousedown="startDrag" :style="{ left: panelPosition.x + 'px', top: panelPosition.y + 'px' }"/>
+        <d_229_使用path绘制条形图  @mousedown="startDrag" :style="{ left: panelPosition.x + 'px', top: panelPosition.y + 'px' }"/> -->
       </div>
 
     </div>

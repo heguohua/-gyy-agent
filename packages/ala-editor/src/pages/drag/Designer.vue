@@ -1,8 +1,9 @@
 <template>
     <div class="designer">
       <div class="sidebar">
-        <DraggableComponent type="text" label="文本组件" />
+        <DraggableComponent type="ala-line-chart" label="文本组件" />
         <DraggableComponent type="chart" label="图表组件" />
+        <DraggableComponent type="ala-line-chart" label="条形图" />
       </div>
       <div class="canvas-area">
         <DropCanvas />
