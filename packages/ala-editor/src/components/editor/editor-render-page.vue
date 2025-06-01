@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-01 10:28:06
+ * @LastEditTime: 2025-06-01 10:36:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="drop-canvas" @dragover.prevent @drop="onDrop" ref="canvasRef">
+    <div class="drop-canvas" @dragover.prevent @drop="onDrop" ref="canvasRef" :style="{ background: canvasBackground }">
         <!-- <div v-for="(item, index) in droppedComponents" :key="item.id" :id="item.id" class="dropped-item"
             :style="{ top: item.y + 'px', left: item.x + 'px', width: item.width + 'px', height: item.height + 'px', }"
             @mousedown="startDrag" @click="onClick">
@@ -541,6 +541,13 @@ const styles = (element: any) => {
 }
 
 
+const canvasBackground = ref()
+watch(() => editorStore.pageConfig[bType].formData?.background.desktop, (v) => {
+    canvasBackground.value = v
+}, {
+    immediate: true
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -548,8 +555,8 @@ const styles = (element: any) => {
     position: relative;
     width: 100%;
     height: 600px;
-    background-color: #f5f5f5;
-    border: 2px dashed #ccc;
+    // background-color: #f5f5f5;
+    border: 1px dashed var(--color-edit-render-block-border-hover);
 
     .dropped-item {
         // position: fixed;
