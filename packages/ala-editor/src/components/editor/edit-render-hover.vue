@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-20 19:10:48
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 13:12:52
+ * @LastEditTime: 2025-06-01 09:41:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/edit-render-hover.vue
  * @Description: 
  * 
@@ -10,9 +10,9 @@
 -->
 <template>
     <div class="edit-render-hover">
-        <v-icon-tooltip icon="drag" :content="'按住拖动' + name" class="item drag" @click.stop="" />
-        <v-icon-tooltip icon="copy" content="复制" class="item" @click.stop="copy" />
-        <v-icon-tooltip icon="delete" content="删除" class="item" @click.stop="clear" />
+        <v-icon-tooltip v-if="showDrag" icon="drag" :content="'按住拖动' + name" class="item drag" @click.stop="" />
+        <v-icon-tooltip v-if="showCopy" icon="copy" content="复制" class="item" @click.stop="copy" />
+        <v-icon-tooltip v-if="showDelete" icon="delete" content="删除" class="item" @click.stop="clear" />
     </div>
 </template>
 
@@ -29,6 +29,18 @@ const props = defineProps({
     bType: {
         type: String,
         default: 'page'
+    },
+    showCopy: {
+        type: Boolean,
+        default: () => true
+    },
+    showDelete: {
+        type: Boolean,
+        default: () => true
+    },
+    showDrag: {
+        type: Boolean,
+        default: () => true
     },
 })
 

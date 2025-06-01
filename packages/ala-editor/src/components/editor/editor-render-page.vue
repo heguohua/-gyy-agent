@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 19:33:32
+ * @LastEditTime: 2025-06-01 10:28:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -18,11 +18,12 @@
 
         <template v-for="(element, index) in blockList" :key="element.id">
             <div class="dropped-item" :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
-                :style="styles(element)" @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''" @mousedown="startDrag">
+                :style="styles(element)" @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''">
+                <!-- @mousedown="startDrag"> -->
 
                 <Transition name="fade">
                     <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name" @copy="copy"
-                        @clear="clear" :bType="bType">
+                        @clear="clear" :bType="bType" :showDrag="false">
                     </EditRenderHover>
                 </Transition>
 
@@ -80,6 +81,7 @@ import DropCanvas from '@/pages/drag/DropCanvas.vue'
 
 import u from '@/utils/u'
 import { reactive } from 'vue'
+import { nanoid } from "@/utils/nanoid";
 
 const editorStore = useEditorStore()
 
@@ -138,6 +140,8 @@ onMounted(() => {
 })
 // State
 
+const currentSelectedBlock = ref<BaseBlock>()
+
 // Methods
 
 // const addedBlock = (element) => {
@@ -149,6 +153,9 @@ onMounted(() => {
  * @param element 
  */
 const setCurrentSelect = (block: BaseBlock) => {
+
+
+    currentSelectedBlock.value = block
 
     block.parent = props.pid
     logger.info("edit-block-drag组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
@@ -195,9 +202,50 @@ const handleNodeById = (arr: BaseBlock[], nodeId: string, type: 'copy' | 'clear'
 
 const copy = (id: string) => {
     if (!editorStore.blockConfig[bType]?.length) return
-    const newBlockConfig = handleNodeById(editorStore.blockConfig[bType], id, 'copy')
+    const newBlockConfigs = handleNodeById(editorStore.blockConfig[bType], id, 'copy')
+
+    // 稍微移动x、y距离，方便识别
+    // const formData = {
+    //     x:{
+    //         desktop:newBlockConfig.formData.x.desktop
+    //     }
+    // }
+
+    const newBlockConfig = newBlockConfigs[newBlockConfigs.length - 1]!
+
+    console.log('newBlockConfig: ---> ', newBlockConfig);
+
+
+    let x = newBlockConfig.formData!.x.desktop
+    if (x.includes('%')) {
+        x = +(x.replaceAll('%', '')) * (1 + 0.1) + '%'
+    } else if (x.includes('px')) {
+        x = +(x.replaceAll('px', '')) * 2 + 'px'
+    }
+
+    let y = newBlockConfig.formData!.y.desktop
+    if (y.includes('%')) {
+        y = +(y.replaceAll('%', '')) * (1 + 0.1) + '%'
+    } else if (y.includes('px')) {
+        y = +(y.replaceAll('px', '')) * 2 + 'px'
+    }
+
+    const formData = {
+        x: {
+            desktop: x
+        },
+        y: {
+            desktop: y
+        }
+    }
+
+    u.merged(newBlockConfig.formData!, formData)
+
+    console.log('newBlockConfig: ---> ', newBlockConfig);
+
+
     editorStore.setCurrentSelect({}, bType)
-    editorStore.setBlockConfig(newBlockConfig, bType)
+    editorStore.setBlockConfig(newBlockConfigs, bType)
 }
 
 const clear = (id: string) => {
@@ -256,7 +304,7 @@ const onDrop = (e: DragEvent) => {
     let block: any = e.dataTransfer?.getData('alaChartBlock')!
     block = u.parseJson(block)
 
-    block.id = u.uuid()
+    block.id = nanoid(8)
 
 
     console.log('e.target:', block);
@@ -264,7 +312,6 @@ const onDrop = (e: DragEvent) => {
     const type = block.code
 
     setCurrentSelect(block)
-    debugger
 
     console.log('type:', type);
 
@@ -291,7 +338,8 @@ const startDrag = (e: MouseEvent) => {
 
     document.addEventListener('mousemove', onDrag)
     document.addEventListener('mouseup', stopDrag)
-
+    // 防止事件冒泡
+    e.stopPropagation();
 }
 // 鼠标移动事件
 const onDrag = (e: MouseEvent) => {
@@ -305,26 +353,40 @@ const onDrag = (e: MouseEvent) => {
     console.log('canvasRect.x: ', canvasRect.x);
     console.log('canvasRect.y: ', canvasRect.y);
 
-    const targetElement = e.target as HTMLElement;
-    const idValue = targetElement.id;
-    const item = droppedComponents.find((i) => i.id === idValue)!
+    // const targetElement = e.target as HTMLElement;
+    // e.currentTarget 是原始触发事件的 div
+    const idValue = currentSelectedBlock.value!.id;
+    // const item = droppedComponents.find((i) => i.id === idValue)!
+    // if (!item) return
+    // const snapResult = getSnappedPosition(item.id, item.x, item.y)
+
+    // item.x = snapResult.x
+    // item.y = snapResult.y
+
+    // console.log('snapResult:', snapResult);
+
+
+    // guidelines.value = snapResult.guidelines
+    // if (snapResult.guidelines.length > 0) {
+    //     debugger
+    // }
+
+    if (!idValue) return
+
+    const item = props.blockList.find((i) => i.id === idValue)!
     if (!item) return
-    const snapResult = getSnappedPosition(item.id, item.x, item.y)
-
-    item.x = snapResult.x
-    item.y = snapResult.y
-
-    console.log('snapResult:', snapResult);
-
-
-    guidelines.value = snapResult.guidelines
-    if (snapResult.guidelines.length > 0) {
-        debugger
+    const xy = {
+        formData: {
+            x: {
+                desktop: e.clientX - canvasRect.x - 20
+            },
+            y: {
+                desktop: e.clientY - canvasRect.y - 20
+            }
+        }
     }
 
-    droppedComponents[0].x = e.clientX - canvasRect.x - 20
-
-    droppedComponents[0].y = e.clientY - canvasRect.y - 20
+    u.merged(currentSelectedBlock.value!, xy)
 
     // const dx = e.clientX - startX
     // const dy = e.clientY - startY
@@ -423,7 +485,7 @@ function getSnappedPosition(id: string, x: number, y: number) {
 
                 if (diff <= snapThreshold) {
                     guidelines.push({
-                        id: `v-${u.uuid()}`,
+                        id: `v-${nanoid(8)}`,
                         direction: 'vertical',
                         position: otherValue
                     })
@@ -444,7 +506,7 @@ function getSnappedPosition(id: string, x: number, y: number) {
                 const diff = Math.abs(value - otherValue)
                 if (diff <= snapThreshold) {
                     guidelines.push({
-                        id: `h-${u.uuid()}`,
+                        id: `h-${nanoid(8)}`,
                         direction: 'horizontal',
                         position: otherValue
                     })
@@ -465,12 +527,12 @@ function getSnappedPosition(id: string, x: number, y: number) {
 
 const styles = (element: any) => {
     // const style = { top: element.formData.y + 'px', left: item.x + 'px', width: item.width + 'px', height: item.height + 'px', }
-    const style = { 
-        width: element.formData.width?.desktop, 
-        height: element.formData.height?.desktop, 
-        left: element.formData.x?.desktop, 
-        top: element.formData.y?.desktop, 
-        borderRadius: element.formData.radius?.desktop, 
+    const style = {
+        width: element.formData.width?.desktop,
+        height: element.formData.height?.desktop,
+        left: element.formData.x?.desktop,
+        top: element.formData.y?.desktop,
+        borderRadius: element.formData.radius?.desktop,
     }
 
     console.log('element : ---> ', element);
@@ -498,6 +560,12 @@ const styles = (element: any) => {
         user-select: none;
         display: inline-flex;
         // background: red;
+
+        &:hover,
+        &.is-active {
+            // 注意不能像block-render做成after，否则组件无法拖入嵌套容器里
+            border: 1px dashed var(--color-edit-render-block-border-hover);
+        }
     }
 
     .guide-line {
@@ -513,5 +581,7 @@ const styles = (element: any) => {
             height: 1px;
         }
     }
+
+
 }
 </style>

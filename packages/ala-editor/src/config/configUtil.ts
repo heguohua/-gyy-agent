@@ -352,9 +352,9 @@ export const configItemStyle = () => {
 
 export const configStyle = () => {
     const config = {
-        width: schemaAllViewport(configText("宽度", '150px')),
-        height: schemaAllViewport(configText("高度", '100px')),
-        x: schemaAllViewport(configText("X坐标", '20px')),
+        width: schemaAllViewport(configText("宽度", '500px')),
+        height: schemaAllViewport(configText("高度", '300px')),
+        x: schemaAllViewport(configText("X坐标", '200px')),
         y: schemaAllViewport(configText("Y坐标", '10px')),
         backgroundColor: schemaAllViewport(configColor("背景色")),
         radius: schemaAllViewport(configText("圆角大小", '0px')),
