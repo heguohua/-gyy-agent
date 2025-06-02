@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 20:08:18
+ * @LastEditTime: 2025-06-02 21:33:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -129,7 +129,6 @@ const titleStyles = computed(() => {
             style.lineHeight = text_fontSize + 'px'
         }
 
-
     }
 
     return style
@@ -149,7 +148,6 @@ const calculateValue = (sourceValue: number, value: string) => {
         v = sourceValue * (+(value.replaceAll('%', '').trim())) / 100
     }
     return v
-
 }
 
 // 4、绘制图形
@@ -175,7 +173,6 @@ const drawChart = () => {
     const width = +svg.attr("width") - margin.left - margin.right;
     let height = +svg.attr("height") - margin.top - margin.bottom;
 
-
     // 高度减去外标题上下 padding 的距离
     const mainTitleText = formData.mainTitleText?.desktop
     const freeTitle = formData.freeTitle?.desktop
@@ -190,7 +187,6 @@ const drawChart = () => {
     const data: DataPoint[] = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 567 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }];
 
     // 6、添加图形标题
-
     if (mainTitleText && !freeTitle) {
 
         // 说明用户配置了主标题
@@ -233,17 +229,73 @@ const drawChart = () => {
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
-    const xScale = ad3.aScaleBand(data, 'name', [0, width])
+    // 7、添加 X 坐标轴
+    const xName = formData.xName?.desktop
+    const scaleXType = formData.scaleXType?.desktop || 'scaleLinear'
+    console.log('scaleXType:', scaleXType);
 
-    const ticks = ad3.aTick(xScale, 'bottom')
-
-    const xAxisAttrs = new Map<string, any>()
-    xAxisAttrs.set("class", "ala-axis")
-    xAxisAttrs.set("transform", `translate(0,${height})`)
-
-    const xAxis = ad3.aAxis(group, ticks, xAxisAttrs)
+    let xScale = undefined
+    if ('scaleLinear' === scaleXType) {
 
 
+
+    } else if ('scaleOrdinal' === scaleXType) {
+
+        xScale = ad3.aScaleBand(data, xName, [0, width])
+
+        const ticks = ad3.aTick(xScale, 'bottom')
+
+        const xAxisAttrs = new Map<string, any>()
+        // xAxisAttrs.set("class", "ala-axis")
+        xAxisAttrs.set("transform", `translate(0,${height})`)
+
+        const xAxis = ad3.aAxis(group, ticks, xAxisAttrs)
+
+        // 轴线和刻度颜色
+        // xAxis.style('color', 'red')
+
+        // 坐标值字体样式
+        xAxis.style("stroke", "blue")
+        xAxis.style("font-size", "14px")
+        xAxis.style("font-weight", "100")
+        // 对齐方式
+        xAxis.style("text-anchor", "middle")
+        // xAxis.tickPadding(10)
+
+        // 设置 轴线 样式
+        xAxis.selectAll('.domain')
+            .style("stroke-width", 1.5) // 轴线宽度
+            .style('stroke', 'red') // 轴线颜色
+
+        // 设置 刻度线 样式
+        xAxis.selectAll('line')
+        .attr('y2', -150) // 刻度线长度
+            .style("stroke-width", 3.5) // 刻度线宽度
+            .style('stroke', 'blue') // 刻度线颜色
+            .style("stroke-dasharray", "18,20") // 虚线样式，8-虚线线段长度、2-虚线间隔
+            .style("stroke-linecap", "round") // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+
+
+        // 设置 刻度标签 样式
+        xAxis.selectAll('text')
+            .attr('dy', 30) //  设置 标签和轴线 间的距离
+            .style('transform', 'rotate(-30deg)') //  设置 标签 旋转角度
+            // .style("text-anchor", "end") // start 、 middle 、 end
+            .style("text-anchor", "end") // 设置 标签 对齐方式
+
+
+
+        // xAxis.attr("transform", "rotate(-5)")
+        // xAxis.style("fill", "green")
+        // xAxis.attr('dy',10)
+
+        // 
+        // xAxis.style("stroke-width", 2)
+
+    }
+
+
+    // 8、添加 Y 坐标轴
     // const yData: any[] =  [0, 30, 40, 50, 10, 20];
     const yData: any[] = Array.from(new Set(data.map((d) => d.value)));
     yData.push(0)
@@ -263,7 +315,7 @@ const drawChart = () => {
 
     // Create line generator
     const line = d3.line<DataPoint>()
-        .x(d => (xScale(d.name) || 0) + xScale.bandwidth() / 2)
+        .x(d => (xScale!(d.name) || 0) + xScale!.bandwidth() / 2)
         .y(d => yScale(d.value));
 
     group.append('path')

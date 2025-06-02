@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 19:56:36
+ * @LastEditTime: 2025-06-02 20:40:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -379,5 +379,74 @@ export const configStyle = () => {
 
 
 
+
+export const configScale = (title: string) => {
+
+    const scales = Type.Array(
+        Type.Object({
+            name: Type.String(),
+            value: Type.String(),
+        }),
+        {
+            code: "config-select",
+            title,
+            default: [{
+                name: '线性比例尺',
+                value: 'scaleLinear',
+            }, {
+                name: '序数比例尺',
+                value: 'scaleOrdinal',
+            }, {
+                name: '时间比例尺',
+                value: 'scaleTime',
+            }, {
+                name: '量化比例尺',
+                value: 'scaleQuantize',
+            }, {
+                name: '对数比例尺',
+                value: 'scaleLog',
+            }, {
+                name: '指数比例尺',
+                value: 'scalePow',
+            }, {
+                name: '恒等比例尺',
+                value: 'scaleIdentity',
+            }, {
+                name: '分位数比例尺',
+                value: 'scaleQuantile',
+            }, {
+                name: '顺序量表比例尺',
+                value: 'scaleSequential',
+            }],
+        }
+    );
+
+
+    return scales
+}
+
+export const configXScale = () => {
+    const config = {
+        xName: schemaAllViewport(configText("属性名", 'name')),
+        scaleXType: schemaAllViewport(configScale('比例尺')),
+        // text_fontSize: schemaAllViewport(configInt("字体大小", 14)),
+        // text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+        // text_left: schemaAllViewport(configText("左偏移", '20px')),
+        // text_top: schemaAllViewport(configText("上偏移", '10px')),
+        // text_bottom: schemaAllViewport(configText("下偏移", '10px')),
+        // text_backgroundColor: schemaAllViewport(configColor("背景颜色", 'rgba(255, 255, 255, 0)')),
+        // text_borderRadius: schemaAllViewport(configInt("圆角半径", 2)),
+        // text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
+        // text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+        // text_width: schemaAllViewport(configInt("显示宽度", 100)),
+        // text_height: schemaAllViewport(configInt("显示高度")),
+        // text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
+        // text_lineHeight: schemaAllViewport(configInt("字体行高")),
+        // text_padding: schemaAllViewport(configInt("内边距")),
+        // text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
+        // text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
+    }
+    return config
+}
 
 

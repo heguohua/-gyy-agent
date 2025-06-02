@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 19:38:03
+ * @LastEditTime: 2025-06-02 20:27:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
-import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle, configBoolean, configText } from "@/config/configUtil";
+import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle, configBoolean, configText, configXScale } from "@/config/configUtil";
 
 
 const mainTitleText = Type.String({
@@ -211,18 +211,29 @@ const cs = configStyle()
 const cmt = configMainTitle()
 const cst = configSubTitle()
 const cis = configItemStyle()
+const xScale = configXScale()
 const schema = Type.Object({
+
     // 主标题
     configStyle: schemaAllViewport(configCollapseItem("图形样式")),
     ...cs,
+
     // 主标题
-    configMainTitle: schemaAllViewport(configCollapseItem("图表标题")),
+    configMainTitle: schemaAllViewport(configCollapseItem("图形标题")),
     mainTitleText: schemaAllViewport(mainTitleText),
+
     // 通用 主标题 配置
     ...cmt,
     mainTitleLink: schemaAllViewport(mainTitleLink),
     freeTitle: schemaAllViewport(configBoolean('外部标题？')),
     freeTitleIcon: schemaAllViewport(configText('外部标题图标', 'bar-chart.svg')),
+
+    // X坐标轴
+    xScale: schemaAllViewport(configCollapseItem("X坐标轴")),
+    ...xScale,
+
+    // Y坐标轴
+    yScale: schemaAllViewport(configCollapseItem("Y坐标轴")),
 
 
     // 副标题
