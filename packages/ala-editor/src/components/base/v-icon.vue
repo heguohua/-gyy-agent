@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 22:35:41
+ * @LastEditTime: 2025-06-02 19:22:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon.vue
  * @Description: 
  * 
@@ -11,8 +11,9 @@
 <template>
 
   <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" @click="handleClick($event)" :style="styles" />
-  <div v-if="image" class="icon-image" :style="{ height, width }" @click="handleClick($event)">
-    <img :src="image" />
+  <div v-if="image" class="icon-image" :style="{ height, width }" @click="handleClick($event)" :height="height"
+    :width="width">
+    <img :src="image"/>
   </div>
 
 </template>

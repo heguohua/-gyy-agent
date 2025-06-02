@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 19:29:40
+ * @LastEditTime: 2025-06-02 19:27:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -293,23 +293,33 @@ export const configColor = (title: string, defaultValue = '#bbb') => {
     return color
 }
 
+export const configBoolean = (title: string, defaultValue = false) => {
+    const bool = Type.String({
+        code: "config-boolean",
+        title: title,
+        default: defaultValue,
+    })
+    return bool
+}
+
 export const configMainTitle = () => {
     const config = {
-        text_color: schemaAllViewport(configColor("字体颜色")),
-        text_backgroundColor: schemaAllViewport(configColor("背景颜色", 'rgba(255, 255, 255, 0)')),
-        text_borderRadius: schemaAllViewport(configInt("圆角半径", 2)),
-        text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
-        text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+        text_color: schemaAllViewport(configColor("字体颜色", '#3D446E')),
         text_fontSize: schemaAllViewport(configInt("字体大小", 14)),
-        text_width: schemaAllViewport(configInt("显示宽度", 100)),
-        text_height: schemaAllViewport(configInt("显示高度")),
-        text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
-        text_lineHeight: schemaAllViewport(configInt("字体行高")),
-        text_left: schemaAllViewport(configInt("左侧距离")),
-        text_top: schemaAllViewport(configInt("顶部距离")),
-        text_padding: schemaAllViewport(configInt("内边距")),
-        text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
-        text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
+        text_left: schemaAllViewport(configText("左偏移", '20px')),
+        text_top: schemaAllViewport(configText("上偏移", '10px')),
+        text_bottom: schemaAllViewport(configText("下偏移", '10px')),
+        // text_backgroundColor: schemaAllViewport(configColor("背景颜色", 'rgba(255, 255, 255, 0)')),
+        // text_borderRadius: schemaAllViewport(configInt("圆角半径", 2)),
+        // text_fontStyle: schemaAllViewport(configFontStyle("字体风格")),
+        // text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+        // text_width: schemaAllViewport(configInt("显示宽度", 100)),
+        // text_height: schemaAllViewport(configInt("显示高度")),
+        // text_overflow: schemaAllViewport(configTextOverflow("换行策略")),
+        // text_lineHeight: schemaAllViewport(configInt("字体行高")),
+        // text_padding: schemaAllViewport(configInt("内边距")),
+        // text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
+        // text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
     }
     return config
 }
@@ -356,8 +366,12 @@ export const configStyle = () => {
         height: schemaAllViewport(configText("高度", '300px')),
         x: schemaAllViewport(configText("X坐标", '200px')),
         y: schemaAllViewport(configText("Y坐标", '10px')),
-        backgroundColor: schemaAllViewport(configColor("背景色")),
+        backgroundColor: schemaAllViewport(configColor("背景色", '#fff')),
         radius: schemaAllViewport(configText("圆角大小", '0px')),
+        top: schemaAllViewport(configFloat("上边距", 20, 0)),
+        bottom: schemaAllViewport(configFloat("下边距", 20, 0)),
+        left: schemaAllViewport(configFloat("左边距", 20, 0)),
+        right: schemaAllViewport(configFloat("右边距", 20, 0)),
     }
     return config
 }

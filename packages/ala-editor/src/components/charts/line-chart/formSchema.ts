@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 17:27:03
+ * @LastEditTime: 2025-06-02 19:38:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -11,10 +11,10 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
-import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle } from "@/config/configUtil";
+import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle, configBoolean, configText } from "@/config/configUtil";
 
 
-const title_text = Type.String({
+const mainTitleText = Type.String({
     code: "config-input",
     title: "标题",
     rules: [
@@ -22,9 +22,9 @@ const title_text = Type.String({
     ]
 })
 
-const title_link = Type.String({
+const mainTitleLink = Type.String({
     code: "config-textarea",
-    title: "链接",
+    title: "跳转地址",
 })
 
 
@@ -216,24 +216,25 @@ const schema = Type.Object({
     configStyle: schemaAllViewport(configCollapseItem("图形样式")),
     ...cs,
     // 主标题
-    configMainTitle: schemaAllViewport(configCollapseItem("主标题配置区")),
-    text_text: schemaAllViewport(title_text),
-
+    configMainTitle: schemaAllViewport(configCollapseItem("图表标题")),
+    mainTitleText: schemaAllViewport(mainTitleText),
     // 通用 主标题 配置
     ...cmt,
+    mainTitleLink: schemaAllViewport(mainTitleLink),
+    freeTitle: schemaAllViewport(configBoolean('外部标题？')),
+    freeTitleIcon: schemaAllViewport(configText('外部标题图标', 'bar-chart.svg')),
 
-    text_link: schemaAllViewport(title_link),
 
     // 副标题
-    configSubTitle: schemaAllViewport(configCollapseItem("副标题配置区")),
-    text_subtext: schemaAllViewport(title_subtext),
+    // configSubTitle: schemaAllViewport(configCollapseItem("副标题配置区")),
+    // text_subtext: schemaAllViewport(title_subtext),
     // 通用 副标题 配置
-    ...cst,
+    // ...cst,
 
     configItemStyle_title: schemaAllViewport(configCollapseItem("分类端点配置区")),
     ...cis,
 
-    
+
 })
 
 

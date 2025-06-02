@@ -2,29 +2,28 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 20:23:28
+ * @LastEditTime: 2025-06-02 19:44:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <!-- <div class="ala-line-chart-wrapper" :style="{ width: width, height: height }" ref="chartWrapper"> -->
-    <div class="ala-line-chart-wrapper"
-        :style="{ width: '100%', height: '100%', borderRadius: formData.radius?.desktop, }" ref="chartWrapper">
-        <!-- <e-charts class="chart" :option="option" ref="chart" /> -->
-        <svg class="ala-line-chart-svg" ref="chart" :width="dWidth" :height="dHeight"></svg>
+    <div class="ala-line-chart-wrapper" :style="divStyles" ref="chartWrapper">
+        <div v-if="formData.freeTitle.desktop" class="title" :style="titleStyles">
+            <VIcon v-if="formData.freeTitleIcon.desktop" :image="'/bi/' + formData.freeTitleIcon.desktop"
+                :width="formData.text_fontSize.desktop + 'px'" :height="formData.text_fontSize.desktop + 'px'" />
+            {{ formData.mainTitleText.desktop }}
+        </div>
+        <svg class="ala-line-chart-svg" ref="chart" :width="dWidth" :height="dHeight" :style="svgStyle"></svg>
     </div>
 </template>
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { useEditorStore } from '@/store/useEditorStore';
-const editorStore = useEditorStore()
+import * as d3 from 'd3';
+import * as ad3 from '@/components/charts/utils/dChart';
 
-interface Title {
-    mainTitle: string,
-}
 // State
 const props = defineProps({
     bType: {
@@ -37,234 +36,194 @@ const props = defineProps({
 })
 
 
-
-// 创建一个 ResizeObserver 实例
-// const resizeObserver = new ResizeObserver((entries) => {
-//     for (let entry of entries) {
-//         const { width: newWidth, height: newHeight } = entry.contentRect;
-//         lWidth.value = newWidth; // 更新宽度
-//         lHeight.value = newHeight; // 更新高度
-//         console.log(`宽度: ${newWidth}, 高度: ${newHeight}`);
-//         chart.value.resize()
-//     }
-// });
-
-
-const model = defineModel({
-    type: String || Number || null || undefined
-})
-
 const emit = defineEmits(['callback', "init"])
-
-const handleChange = (value: string) => {
-    model.value = value
-}
 
 // Methods
 
 logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，props：`, props);
 
 
-
 const dWidth = ref()
 const dHeight = ref()
 watch(() => props.formData, (v) => {
     nextTick(() => {
+        const formData = props.formData
+
+        // 计算svg整体宽度
         dWidth.value = +(chartWrapper.value.offsetWidth)
-        dHeight.value = +(chartWrapper.value.offsetHeight)
-        console.log('dWidth.value ----> :', dWidth.value);
-        console.log('dHeight.value ----> :', dHeight.value);
-        nextTick(()=>{
+
+        // 计算svg整体高度
+        // 外层div高度 - 外标题高度
+        let height = +(chartWrapper.value.offsetHeight)
+
+        const mainTitleText = formData.mainTitleText.desktop
+        const freeTitle = formData.freeTitle.desktop
+        const text_fontSize = formData.text_fontSize.desktop
+        const text_top = formData.text_top.desktop
+        const text_bottom = formData.text_bottom.desktop
+        if (mainTitleText && freeTitle) {
+            const newHeight = height - (text_fontSize + calculateValue(height, text_top) + calculateValue(height, text_bottom))
+            height = newHeight
+        }
+        dHeight.value = height
+
+        nextTick(() => {
             drawChart()
         })
     })
 
 }, { immediate: true, deep: true })
 
-// watch(() => props.formData.height.desktop, (v) => {
-//     nextTick(() => {
-//         dHeight.value = +(chartWrapper.value.offsetHeight)
-//         console.log('dHeight.value ----> :', dHeight.value);
-//         drawChart()
-//     })
-// }, { immediate: true, deep: true })
-
-// const option = computed(() => {
-// const op = {
-//     title: {
-//         text: props.text_text ? props.text_text : '',
-//         text_link: props.text_link ? props.text_link : '',
-//         subtext: props.text_subtext ? props.text_subtext : '',
-//         left: props.text_left ? props.text_left : '',
-//         top: props.text_top ? props.text_top : '',
-//         itemGap: props.text_itemGap ? props.text_itemGap : '',
-//         padding: props.text_padding ? props.text_padding : '',
-//         backgroundColor: props.text_backgroundColor ? props.text_backgroundColor : '',
-//         borderRadius: props.text_borderRadius ? props.text_borderRadius : '',
-//         textStyle: {
-//             color: props.text_color ? props.text_color : '',
-//             fontStyle: props.text_fontStyle ? props.text_fontStyle : '',
-//             text_fontWeight: props.text_fontWeight ? props.text_fontWeight : '',
-//             fontSize: props.text_fontSize ? props.text_fontSize : '',
-//             lineHeight: props.text_lineHeight ? props.text_lineHeight : '',
-//             textAlign: 'center',
-//             textVerticalAlign: props.text_textVerticalAlign ? props.text_textVerticalAlign : '',
-//             width: props.text_width ? props.text_width : '',
-//             height: props.text_height ? props.text_height : '',
-//             overflow: props.text_overflow ? props.text_overflow : '',
-//         },
-//         subtextStyle: {
-//             color: props.sub_text_color ? props.sub_text_color : '',
-//             fontStyle: props.sub_text_fontStyle ? props.sub_text_fontStyle : '',
-//             fontWeight: props.sub_text_fontWeight ? props.sub_text_fontWeight : '',
-//             fontSize: props.sub_text_fontSize ? props.sub_text_fontSize : '',
-//             lineHeight: props.sub_text_lineHeight ? props.sub_text_lineHeight : '',
-//             textAlign: props.sub_text_textAlign ? props.sub_text_textAlign : '',
-//             verticalAlign: props.sub_verticalAlign ? props.sub_verticalAlign : '',
-//             width: props.sub_text_width ? props.sub_text_width : '',
-//             height: props.sub_text_height ? props.sub_text_height : '',
-//             overflow: props.sub_text_overflow ? props.sub_text_overflow : '',
-//         }
-//     },
-//     xAxis: {
-//         type: 'category',
-//         data: props.xAxisData,
-//     },
-//     yAxis: {
-//         type: 'value',
-//     },
-//     series: [
-//         {
-//             data: props.seriesData,
-//             type: 'line',
-//             lineStyle: {
-//                 color: "blue",
-//                 width: 6,
-//                 type: 'dashed',
-//                 cap: 'round',
-//                 opacity: 0.2
-//             },
-//             itemStyle: {
-//                 color: props.itemStyle_color ? props.itemStyle_color : '',
-//                 borderType: props.itemStyle_borderType ? props.itemStyle_borderType : '',
-//                 borderCap: props.itemStyle_borderCap ? props.itemStyle_borderCap : '',
-//                 opacity: props.itemStyle_opacity ? props.itemStyle_opacity : '',
-//             },
-//             label: {
-//                 show: true,
-//                 position: 'bottom',
-//                 distance: 20,
-//                 rotate: 20,
-//                 textStyle: {
-//                     fontSize: 20,
-//                     color: 'red',
-//                     fontWeight: '100'
-
-//                 }
-//             }
-//         },
-//     ],
-// }
-//     return op;
-// });
-// console.log('option', option.value);
-
 // 图标外层对象div实例
 const chartWrapper = ref()
 
-// 图标 echarts 实例
-// const chart = ref<any>()
-
-// 在组件挂载时添加观察器
-onMounted(() => {
-    // if (chartWrapper.value) {
-    //     resizeObserver.observe(chartWrapper.value);
-    // }
-});
-
-// 在组件卸载时移除观察器
-onUnmounted(() => {
-    // if (chartWrapper.value) {
-    //     resizeObserver.unobserve(chartWrapper.value);
-    // }
-    // if (chart.value) {
-    //     chart.value.dispose()
-    // }
-});
-// watch(() => editorStore.pageConfig[props.bType].formData?.width, (newValue) => {
-//     console.log('newValue:', newValue);
-
-//     // chart.value.resize()
-// }, {
-//     immediate: true,
-//     deep: true
-// })
-
-// // 发送组件初始化消息
-// if (props.bType === 'page') {
-
-
-// 组件挂载后再发送初始化消息
-// watch(() => props.currentId, () => {
-//     logger.info(`向 editor-render-drag-form 组件【 发送初始化消息 】，当前组件 id[ ${props.currentId} ]`);
-
-//     emit('init', {
-//         pid: null,
-//         block: props.block,
-//     })
-// }, {
-//     immediate: true
-// })
-// }
-
-
-// watch(
-//     () => [props.xAxisData, props.seriesData],
-//     () => {
-//         initChart();
-//     },
-//     { deep: true }
-// );
-
-
-import * as d3 from 'd3';
-import * as ad3 from '@/components/charts/utils/dChart';
-
 const chart = ref<HTMLDivElement | null>(null)
+
+// 1、设置svg图形 外部div 样式
+const divStyles = computed(() => {
+    const style: { [key: string]: any } = { width: '100%', height: '100%', borderRadius: props.formData.radius?.desktop }
+    return style
+})
+
+// 2、设置 svg 图形样式
+const svgStyle = computed(() => {
+    const style: { [key: string]: any } = {}
+    style.background = props.formData.backgroundColor.desktop
+    style.borderRadius = props.formData.radius.desktop
+    return style
+})
+
+// 3、计算外部标题的样式
+const titleStyles = computed(() => {
+
+    const style: { [key: string]: any } = {}
+    const formData = props.formData
+
+    const mainTitleText = formData.mainTitleText.desktop
+    const freeTitle = formData.freeTitle.desktop
+
+    if (mainTitleText && freeTitle) {
+
+        // 说明用户配置了主标题
+        // 文字颜色
+        const text_color = formData.text_color.desktop
+        style.color = text_color
+
+        // 文字水平偏移距离
+        const text_left = formData.text_left.desktop
+        style.paddingLeft = text_left
+
+        // 设置垂直偏移
+        const text_top = formData.text_top.desktop
+        const text_bottom = formData.text_bottom.desktop
+        style.paddingTop = text_top
+        style.paddingBottom = text_bottom
+
+        // 文字大小
+        const text_fontSize = formData.text_fontSize.desktop
+        style.fontSize = text_fontSize + 'px'
+        style.lineHeight = text_fontSize + 'px'
+
+    }
+
+    return style
+})
 
 interface DataPoint {
     name: string
     value: number
 }
 
-// onMounted(() => {
-//     drawChart()
-// })
+// 计算 px 和 % 具体的值
+const calculateValue = (sourceValue: number, value: string) => {
+    let v = 0
+    if (value.includes('px')) {
+        v = +(value.replaceAll('px', '').trim())
+    } else if (value.includes('%')) {
+        v = sourceValue * (+(value.replaceAll('%', '').trim())) / 100
+    }
+    return v
 
+}
+
+// 4、绘制图形
 const drawChart = () => {
+
+    const formData = props.formData
+
+    // 1、查找 svg 图形组件
     const svg = d3.select(chart.value);
-    // 清除原有的图形元素，例如路径、圆、文本等
+
+    // 2、清除原有的图形元素，例如路径、圆、文本等
     svg.selectAll("*").remove();
 
-    // console.log('width ---> :', width.v);
-    console.log('svg.attr("width") ---> :', svg.attr("width"));
-    console.log('svg.attr("height") ---> :', svg.attr("height"));
+    // 3、计算 svg 图形内边距信息
+    const margin = {
+        top: formData.top.desktop,
+        bottom: formData.bottom.desktop,
+        left: formData.left.desktop,
+        right: formData.right.desktop,
+    };
 
-
-    const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+    // 4、计算 svg 图形宽度、高度
     const width = +svg.attr("width") - margin.left - margin.right;
-    const height = +svg.attr("height") - margin.top - margin.bottom;
-    // const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-    const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+    let height = +svg.attr("height") - margin.top - margin.bottom;
 
+
+    // 高度减去外标题上下padding的距离
+    const mainTitleText = formData.mainTitleText.desktop
+    const freeTitle = formData.freeTitle.desktop
+
+
+    // const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // 5、设置 svg 内部顶层 group 的坐标原点
+    const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
     // 示例数据
     const data: DataPoint[] = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 567 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }];
 
+    // 6、添加图形标题
 
-    const aTitleAttrs = ad3.aTitleAttrs(width)
-    aTitleAttrs.set('y', 30)
-    const title = ad3.aText(group, "基础折线图", aTitleAttrs)
+    if (mainTitleText && !freeTitle) {
+
+        // 说明用户配置了主标题
+
+        const titleAttrs = new Map<string, any>()
+
+        // 文字颜色
+        const text_color = formData.text_color.desktop
+        titleAttrs.set("fill", text_color)
+
+        // 文字水平偏移距离
+        let titleLeft = 0
+        const text_left = formData.text_left.desktop
+        if (text_left) {
+            titleLeft = calculateValue(width, text_left)
+        }
+        titleAttrs.set("x", titleLeft)
+        titleAttrs.set("text-anchor", 'middle')
+
+        // 设置垂直偏移
+        titleAttrs.set("dominant-baseline", 'middle')
+        let titleTop = 0
+        const text_top = formData.text_top.desktop
+        if (text_top) {
+            titleTop = calculateValue(height, text_top)
+        }
+        const text_bottom = formData.text_bottom.desktop
+        if (text_bottom) {
+            titleTop += calculateValue(height, text_bottom)
+        }
+        titleAttrs.set('y', titleTop)
+        const title = ad3.aText(group, mainTitleText, titleAttrs)
+
+        // 文字大小
+        const text_fontSize = formData.text_fontSize.desktop
+        title.style("font-size", text_fontSize);
+
+    }
+
     // 添加文本后再次修改文本样式
     // title.attr("fill", '#ef4d4b')
 
@@ -317,22 +276,25 @@ const drawChart = () => {
 
 <style scoped lang="scss">
 .ala-line-chart-wrapper {
+
     display: inline-flex;
+    height: auto;
+    flex-wrap: wrap;
+
+    .title {
+        display: flex;
+        align-items: center;
+        // justify-content: center;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+
+        :deep(.icon-image) {
+            margin-right: 8px;
+        }
+    }
 
     .ala-line-chart-svg {
-
-        margin-right: 6px;
-        background: #fff;
-        border-radius: 4px;
-
-
-        // :deep(path) {
-        //     stroke: var(--el-color-primary);
-        // }
-
-        // :deep(line) {
-        //     stroke: red;
-        // }
 
         :deep(text) {
             // color: #ef4d4b;

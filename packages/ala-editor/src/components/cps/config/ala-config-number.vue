@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 10:19:59
+ * @LastEditTime: 2025-06-02 16:45:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-number.vue
  * @Description: 
  * 
@@ -50,6 +50,10 @@ const { formData, parentKey, key, id } = data.value
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref(0)
 
+if (defaultValue) {
+    input.value = defaultValue
+}
+
 const isRequired = () => {
     return required ? 'is-required' : ''
 }
@@ -75,7 +79,9 @@ watch(input, (value) => {
     } else {
         data = { [props.viewport]: Number(_value), required: required ? required : false, title, rules }
     }
+    
     logger.info(`config-number组件 input 发生变化,即将调用父组件callback, data`, data);
+    
     emit("callback", {
         data: {
             [key]: data

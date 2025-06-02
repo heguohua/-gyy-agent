@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-11 16:18:49
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 13:22:28
+ * @LastEditTime: 2025-06-02 17:14:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/colors.ts
  * @Description: 
  * 
@@ -20,6 +20,8 @@ export default class colors {
     public static infoLow = '#f4f4f5'
     public static dangerLow = '#fef0f0'
     public static primaryLow = '#ecf5ff'
+    
+    public static alaRed = '#ef4d4b'
 
     public static chartColors = ['#1D78FF', '#206afb', '#00b781', '#ff8a19', '#EF4D4B', '#9575EA', '#67C7C9']
 
