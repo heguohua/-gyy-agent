@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 19:44:16
+ * @LastEditTime: 2025-06-02 20:02:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -107,22 +107,28 @@ const titleStyles = computed(() => {
         // 说明用户配置了主标题
         // 文字颜色
         const text_color = formData.text_color.desktop
-        style.color = text_color
+        if (text_color) style.color = text_color
+        // 文字粗细
+        const text_fontWeight = formData.text_fontWeight?.desktop || 400
+        if (text_fontWeight) style.fontWeight = text_fontWeight
 
         // 文字水平偏移距离
         const text_left = formData.text_left.desktop
-        style.paddingLeft = text_left
+        if (text_left) style.paddingLeft = text_left
 
         // 设置垂直偏移
         const text_top = formData.text_top.desktop
         const text_bottom = formData.text_bottom.desktop
-        style.paddingTop = text_top
-        style.paddingBottom = text_bottom
+        if (text_top) style.paddingTop = text_top
+        if (text_bottom) style.paddingBottom = text_bottom
 
         // 文字大小
         const text_fontSize = formData.text_fontSize.desktop
-        style.fontSize = text_fontSize + 'px'
-        style.lineHeight = text_fontSize + 'px'
+        if (text_fontSize) {
+            style.fontSize = text_fontSize + 'px'
+            style.lineHeight = text_fontSize + 'px'
+        }
+
 
     }
 
@@ -170,7 +176,7 @@ const drawChart = () => {
     let height = +svg.attr("height") - margin.top - margin.bottom;
 
 
-    // 高度减去外标题上下padding的距离
+    // 高度减去外标题上下 padding 的距离
     const mainTitleText = formData.mainTitleText.desktop
     const freeTitle = formData.freeTitle.desktop
 

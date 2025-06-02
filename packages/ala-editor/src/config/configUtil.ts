@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 19:27:44
+ * @LastEditTime: 2025-06-02 19:56:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -306,6 +306,7 @@ export const configMainTitle = () => {
     const config = {
         text_color: schemaAllViewport(configColor("字体颜色", '#3D446E')),
         text_fontSize: schemaAllViewport(configInt("字体大小", 14)),
+        text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
         text_left: schemaAllViewport(configText("左偏移", '20px')),
         text_top: schemaAllViewport(configText("上偏移", '10px')),
         text_bottom: schemaAllViewport(configText("下偏移", '10px')),
