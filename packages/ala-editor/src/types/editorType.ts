@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-16 16:55:10
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 12:06:32
+ * @LastEditTime: 2025-06-02 09:37:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/types/editorType.ts
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  */
 // import type { BlockSchemaFormData } from '@/config/schema'
 
-import { AlaPageFormSchemaForm, BlockSchemaKeys, BlockSchemas } from "@/config/schemas"
+import { AlaPageFormSchemaForm, AlaPageFormSchemaScreen, BlockSchemaKeys, BlockSchemas } from "@/config/schemas"
 
 export type Viewport = 'mobile' | 'desktop'
 
@@ -58,6 +58,18 @@ export interface BasePage {
    */
   // formData?: Partial<>
   formData?: AlaPageFormSchemaForm
+
+  id?: number
+
+}
+
+export interface ScreenPage {
+
+  /**
+   * 配置内容
+   */
+  // formData?: Partial<>
+  formData?: AlaPageFormSchemaScreen
 
   id?: number
 

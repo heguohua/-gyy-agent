@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-01 10:36:55
+ * @LastEditTime: 2025-06-02 10:29:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="drop-canvas" @dragover.prevent @drop="onDrop" ref="canvasRef" :style="{ background: canvasBackground }">
+    <div class="drop-canvas" @dragover.prevent @drop="onDrop" ref="canvasRef" :style="canvasStyles">
         <!-- <div v-for="(item, index) in droppedComponents" :key="item.id" :id="item.id" class="dropped-item"
             :style="{ top: item.y + 'px', left: item.x + 'px', width: item.width + 'px', height: item.height + 'px', }"
             @mousedown="startDrag" @click="onClick">
@@ -82,6 +82,7 @@ import DropCanvas from '@/pages/drag/DropCanvas.vue'
 import u from '@/utils/u'
 import { reactive } from 'vue'
 import { nanoid } from "@/utils/nanoid";
+import { dType } from "../cps/dynamic/detailType";
 
 const editorStore = useEditorStore()
 
@@ -525,17 +526,86 @@ function getSnappedPosition(id: string, x: number, y: number) {
 
 
 
-const styles = (element: any) => {
-    // const style = { top: element.formData.y + 'px', left: item.x + 'px', width: item.width + 'px', height: item.height + 'px', }
-    const style = {
-        width: element.formData.width?.desktop,
-        height: element.formData.height?.desktop,
-        left: element.formData.x?.desktop,
-        top: element.formData.y?.desktop,
-        borderRadius: element.formData.radius?.desktop,
+const flowDisplay = () => {
+    return editorStore.pageConfig['screen'].formData?.flow.desktop
+}
+
+const gapX = () => {
+    return editorStore.pageConfig['screen'].formData?.gapX.desktop
+}
+const gapY = () => {
+    return editorStore.pageConfig['screen'].formData?.gapY.desktop
+}
+
+const canvasStyles = computed(() => {
+
+    let style: { [key: string]: any } = {}
+
+    const flow = editorStore.pageConfig['screen'].formData?.flow.desktop
+    const columnGap = editorStore.pageConfig['screen'].formData?.columnGap.desktop
+    const rowGap = editorStore.pageConfig['screen'].formData?.rowGap.desktop
+    const paddingTop = editorStore.pageConfig['screen'].formData?.paddingTop.desktop
+    const paddingLeft = editorStore.pageConfig['screen'].formData?.paddingLeft.desktop
+
+
+    if (flow) {
+
+        style = {
+            background: canvasBackground.value,
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'flex-start',
+            height: 'auto',
+        }
+
+        if (columnGap) style['columnGap'] = columnGap
+        if (rowGap) style['rowGap'] = rowGap
+        if (paddingTop) style['paddingTop'] = paddingTop
+        if (paddingLeft) style['paddingLeft'] = paddingLeft
+        style['paddingBottom'] = '50px'
+
+
+    } else {
+        style = {
+            background: canvasBackground.value
+        }
     }
 
-    console.log('element : ---> ', element);
+    return style
+})
+
+
+const styles = (element: any) => {
+
+    const isFlow = flowDisplay()
+
+    let style = undefined
+    if (isFlow) {
+
+        // 当前是流式布局
+        style = {
+            width: element.formData.width?.desktop,
+            height: element.formData.height?.desktop,
+            borderRadius: element.formData.radius?.desktop,
+            position: 'relative',
+        }
+
+    } else {
+
+        // 当前是绝对布局
+        style = {
+            width: element.formData.width?.desktop,
+            height: element.formData.height?.desktop,
+            left: element.formData.x?.desktop,
+            top: element.formData.y?.desktop,
+            borderRadius: element.formData.radius?.desktop,
+            position: 'absolute',
+        }
+
+    }
+
+
+    // const style = { top: element.formData.y + 'px', left: item.x + 'px', width: item.width + 'px', height: item.height + 'px', }
 
     return style
 }
@@ -560,7 +630,6 @@ watch(() => editorStore.pageConfig[bType].formData?.background.desktop, (v) => {
 
     .dropped-item {
         // position: fixed;
-        position: absolute;
         background: #fff;
         // border: 1px solid #000;
         // padding: 4px 8px;

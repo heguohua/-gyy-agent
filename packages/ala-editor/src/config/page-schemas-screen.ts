@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 19:31:12
+ * @LastEditTime: 2025-06-02 10:23:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-screen.ts
  * @Description: 
  * 
@@ -15,7 +15,7 @@ import { min } from "lodash";
 const background = Type.Boolean({
     code: "config-color",
     title: "背景色",
-    default: '',
+    default: '#fff',
 })
 // { name: 'required', message: '不能为空' },
 // { name: 'pattern', pattern: 'phone', message: '只能填写手机号' },
@@ -25,8 +25,8 @@ const background = Type.Boolean({
 const title = Type.String({
     id: "config-input",
     code: "config-input",
-    title: "标题",
-    placeholder: "请输入页面标题",
+    title: "页面名称",
+    placeholder: "请输入页面名称",
     required: true,
     rules: [
         { name: 'required', message: '不能为空' },
@@ -42,7 +42,7 @@ const width = Type.Number({
     default: 900,
     other: {
         min: 400,
-        max: 1920,
+        max: 5260,
         step: 50
     }
 })
@@ -183,27 +183,65 @@ const showUpdatedTime = Type.String({
     default: false,
 })
 
+const flow = Type.String({
+    code: "config-boolean",
+    title: "流式布局？",
+    default: false,
+})
 
+
+const paddingTop = Type.String({
+    code: "config-input",
+    title: "上边距",
+    placeholder: "请输入上边距",
+    required: false
+})
+
+const paddingLeft = Type.String({
+    code: "config-input",
+    title: "左边距",
+    placeholder: "请输入左边距",
+    required: false
+})
+
+const gapX = Type.String({
+    code: "config-input",
+    title: "横向间距",
+    placeholder: "请输入横向间距",
+    required: false
+})
+
+const gapY = Type.String({
+    code: "config-input",
+    title: "纵向间距",
+    placeholder: "请输入纵向间距",
+    required: false
+})
 
 
 const schema = Type.Object({
     background: schemaAllViewport(background),
     title: schemaAllViewport(title),
     width: schemaAllViewport(width),
-    labelWidth: schemaAllViewport(labelWidth),
-    position: schemaAllViewport(position),
-    moduleName: schemaAllViewport(moduleName),
-    formType: schemaAllViewport(formType),
-    columnNum: schemaAllViewport(columnNum),
-    useFormTitle: schemaAllViewport(useFormTitle),
-    showButtonsColumn: schemaAllViewport(showButtonsColumn),
-    showAddButton: schemaAllViewport(showAddButton),
-    showEditButton: schemaAllViewport(showEditButton),
-    showDeleteButton: schemaAllViewport(showDeleteButton),
-    showCreatedBy: schemaAllViewport(showCreatedBy),
-    showCreatedTime: schemaAllViewport(showCreatedTime),
-    showUpdatedBy: schemaAllViewport(showUpdatedBy),
-    showUpdatedTime: schemaAllViewport(showUpdatedTime),
+    flow: schemaAllViewport(flow),
+    paddingTop: schemaAllViewport(paddingTop),
+    paddingLeft: schemaAllViewport(paddingLeft),
+    columnGap: schemaAllViewport(gapX),
+    rowGap: schemaAllViewport(gapY),
+    // labelWidth: schemaAllViewport(labelWidth),
+    // position: schemaAllViewport(position),
+    // moduleName: schemaAllViewport(moduleName),
+    // formType: schemaAllViewport(formType),
+    // columnNum: schemaAllViewport(columnNum),
+    // useFormTitle: schemaAllViewport(useFormTitle),
+    // showButtonsColumn: schemaAllViewport(showButtonsColumn),
+    // showAddButton: schemaAllViewport(showAddButton),
+    // showEditButton: schemaAllViewport(showEditButton),
+    // showDeleteButton: schemaAllViewport(showDeleteButton),
+    // showCreatedBy: schemaAllViewport(showCreatedBy),
+    // showCreatedTime: schemaAllViewport(showCreatedTime),
+    // showUpdatedBy: schemaAllViewport(showUpdatedBy),
+    // showUpdatedTime: schemaAllViewport(showUpdatedTime),
 })
 
 

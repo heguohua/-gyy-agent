@@ -2,13 +2,13 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:03:43
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-09 12:10:05
+ * @LastEditTime: 2025-06-02 09:41:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/store/useEditorStore.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
-import { BaseBlock, BasePage, Viewport } from '@/types/editorType'
+import { BaseBlock, BasePage, ScreenPage, Viewport } from '@/types/editorType'
 import { BaseBlockNull } from '@/types/editorType'
 import { defineStore } from 'pinia'
 import { logger } from '@/utils/logger'
@@ -45,7 +45,7 @@ export const useEditorStore = defineStore('editorStore', {
         pageConfig: {
             page: { formData: {} } as BasePage,
             form: { formData: {} } as BasePage,
-            screen: { formData: {} } as BasePage,
+            screen: { formData: {} } as ScreenPage,
         } as Record<string, BasePage>,
     }),
     getters: {

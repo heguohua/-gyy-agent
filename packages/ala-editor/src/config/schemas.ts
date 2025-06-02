@@ -104,6 +104,7 @@ import _AlaPageSchemaScreen, { type AlaPageSchemaScreen } from '@/config/page-sc
 
 export type AlaPageFormSchemaForm = AlaPageSchemaForm
 export type AlaPageFormSchemaPage = AlaPageSchemaPage
+export type AlaPageFormSchemaScreen = AlaPageSchemaScreen
 export const pageSchemasForm = _AlaPageSchemaForm
 export const pageSchemasPage = _AlaPageSchemaPage
 export const screenSchemasPage = _AlaPageSchemaScreen
