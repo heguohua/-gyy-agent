@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 20:02:56
+ * @LastEditTime: 2025-06-02 20:08:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -10,10 +10,10 @@
 -->
 <template>
     <div class="ala-line-chart-wrapper" :style="divStyles" ref="chartWrapper">
-        <div v-if="formData.freeTitle.desktop" class="title" :style="titleStyles">
-            <VIcon v-if="formData.freeTitleIcon.desktop" :image="'/bi/' + formData.freeTitleIcon.desktop"
-                :width="formData.text_fontSize.desktop + 'px'" :height="formData.text_fontSize.desktop + 'px'" />
-            {{ formData.mainTitleText.desktop }}
+        <div v-if="formData.freeTitle?.desktop" class="title" :style="titleStyles">
+            <VIcon v-if="formData.freeTitleIcon?.desktop" :image="'/bi/' + formData.freeTitleIcon?.desktop"
+                :width="formData.text_fontSize?.desktop + 'px'" :height="formData.text_fontSize?.desktop + 'px'" />
+            {{ formData.mainTitleText?.desktop }}
         </div>
         <svg class="ala-line-chart-svg" ref="chart" :width="dWidth" :height="dHeight" :style="svgStyle"></svg>
     </div>
@@ -56,11 +56,11 @@ watch(() => props.formData, (v) => {
         // 外层div高度 - 外标题高度
         let height = +(chartWrapper.value.offsetHeight)
 
-        const mainTitleText = formData.mainTitleText.desktop
-        const freeTitle = formData.freeTitle.desktop
-        const text_fontSize = formData.text_fontSize.desktop
-        const text_top = formData.text_top.desktop
-        const text_bottom = formData.text_bottom.desktop
+        const mainTitleText = formData.mainTitleText?.desktop
+        const freeTitle = formData.freeTitle?.desktop
+        const text_fontSize = formData.text_fontSize?.desktop
+        const text_top = formData.text_top?.desktop
+        const text_bottom = formData.text_bottom?.desktop
         if (mainTitleText && freeTitle) {
             const newHeight = height - (text_fontSize + calculateValue(height, text_top) + calculateValue(height, text_bottom))
             height = newHeight
@@ -88,8 +88,8 @@ const divStyles = computed(() => {
 // 2、设置 svg 图形样式
 const svgStyle = computed(() => {
     const style: { [key: string]: any } = {}
-    style.background = props.formData.backgroundColor.desktop
-    style.borderRadius = props.formData.radius.desktop
+    style.background = props.formData.backgroundColor?.desktop
+    style.borderRadius = props.formData.radius?.desktop
     return style
 })
 
@@ -99,31 +99,31 @@ const titleStyles = computed(() => {
     const style: { [key: string]: any } = {}
     const formData = props.formData
 
-    const mainTitleText = formData.mainTitleText.desktop
-    const freeTitle = formData.freeTitle.desktop
+    const mainTitleText = formData.mainTitleText?.desktop
+    const freeTitle = formData.freeTitle?.desktop
 
     if (mainTitleText && freeTitle) {
 
         // 说明用户配置了主标题
         // 文字颜色
-        const text_color = formData.text_color.desktop
+        const text_color = formData.text_color?.desktop
         if (text_color) style.color = text_color
         // 文字粗细
         const text_fontWeight = formData.text_fontWeight?.desktop || 400
         if (text_fontWeight) style.fontWeight = text_fontWeight
 
         // 文字水平偏移距离
-        const text_left = formData.text_left.desktop
+        const text_left = formData.text_left?.desktop
         if (text_left) style.paddingLeft = text_left
 
         // 设置垂直偏移
-        const text_top = formData.text_top.desktop
-        const text_bottom = formData.text_bottom.desktop
+        const text_top = formData.text_top?.desktop
+        const text_bottom = formData.text_bottom?.desktop
         if (text_top) style.paddingTop = text_top
         if (text_bottom) style.paddingBottom = text_bottom
 
         // 文字大小
-        const text_fontSize = formData.text_fontSize.desktop
+        const text_fontSize = formData.text_fontSize?.desktop
         if (text_fontSize) {
             style.fontSize = text_fontSize + 'px'
             style.lineHeight = text_fontSize + 'px'
@@ -165,10 +165,10 @@ const drawChart = () => {
 
     // 3、计算 svg 图形内边距信息
     const margin = {
-        top: formData.top.desktop,
-        bottom: formData.bottom.desktop,
-        left: formData.left.desktop,
-        right: formData.right.desktop,
+        top: formData.top?.desktop,
+        bottom: formData.bottom?.desktop,
+        left: formData.left?.desktop,
+        right: formData.right?.desktop,
     };
 
     // 4、计算 svg 图形宽度、高度
@@ -177,8 +177,8 @@ const drawChart = () => {
 
 
     // 高度减去外标题上下 padding 的距离
-    const mainTitleText = formData.mainTitleText.desktop
-    const freeTitle = formData.freeTitle.desktop
+    const mainTitleText = formData.mainTitleText?.desktop
+    const freeTitle = formData.freeTitle?.desktop
 
 
     // const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
@@ -198,12 +198,12 @@ const drawChart = () => {
         const titleAttrs = new Map<string, any>()
 
         // 文字颜色
-        const text_color = formData.text_color.desktop
+        const text_color = formData.text_color?.desktop
         titleAttrs.set("fill", text_color)
 
         // 文字水平偏移距离
         let titleLeft = 0
-        const text_left = formData.text_left.desktop
+        const text_left = formData.text_left?.desktop
         if (text_left) {
             titleLeft = calculateValue(width, text_left)
         }
@@ -213,11 +213,11 @@ const drawChart = () => {
         // 设置垂直偏移
         titleAttrs.set("dominant-baseline", 'middle')
         let titleTop = 0
-        const text_top = formData.text_top.desktop
+        const text_top = formData.text_top?.desktop
         if (text_top) {
             titleTop = calculateValue(height, text_top)
         }
-        const text_bottom = formData.text_bottom.desktop
+        const text_bottom = formData.text_bottom?.desktop
         if (text_bottom) {
             titleTop += calculateValue(height, text_bottom)
         }
@@ -225,7 +225,7 @@ const drawChart = () => {
         const title = ad3.aText(group, mainTitleText, titleAttrs)
 
         // 文字大小
-        const text_fontSize = formData.text_fontSize.desktop
+        const text_fontSize = formData.text_fontSize?.desktop
         title.style("font-size", text_fontSize);
 
     }
