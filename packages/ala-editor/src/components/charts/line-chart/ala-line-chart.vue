@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 16:44:28
+ * @LastEditTime: 2025-06-03 19:33:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -425,6 +425,50 @@ const drawChart = () => {
             .attr("stroke-linecap", line_dashed_point) // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
     }
 
+
+    // 11、设置端点样式
+    const line_inflection_point = formData.line_inflection_point?.desktop || 0
+    const line_inflection_color = formData.line_inflection_color?.desktop || 'red'
+    const y_label_unit = formData.y_label_unit?.desktop || ''
+
+    // Circle 点和 tooltip
+    const tooltip = d3.select(chartWrapper.value)
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0)
+
+    group.selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', (d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
+        .attr('cy', (d: any) => yScale(d[yName]))
+        .attr('r', line_inflection_point)
+        .attr('fill', line_inflection_color)
+        .on('mouseover', (event, d: any) => {
+
+            tooltip.transition().duration(200).style('opacity', 1)
+
+            tooltip.html(`
+                <div class='tooltip-title' style='color:${line_inflection_color}'>${d[xName]}</div>
+                <div class='tooltip-row'>
+                    <p class='category'>值：</p>
+                    <p class='value-wrapper'>
+                        <i class='value' style='color:${line_inflection_color}'>${d[yName]}</i>
+                        <i class='unit'>${y_label_unit}</i>
+                    </p>
+                </div>
+                
+            `)
+                .style('left', `${event.offsetX + 10}px`)
+                .style('top', `${event.offsetY - 28}px`)
+
+        })
+        .on('mouseout', () => {
+            tooltip.transition().duration(500).style('opacity', 0)
+        })
+
+
 }
 
 
@@ -451,6 +495,58 @@ const drawChart = () => {
         }
     }
 
+    :deep(.tooltip) {
+        position: absolute;
+        text-align: center;
+        padding: 1rem;
+        background: rgb(255, 255, 255);
+        box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.2);
+        font-size: 12px;
+        pointer-events: none;
+        z-index: 10;
+        border-radius: 4px;
 
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+
+        .tooltip-title {
+            width: 100%;
+            display: flex;
+            font-size: 1.2rem;
+            line-height: 1.2rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .tooltip-row {
+            width: 100%;
+            display: flex;
+            line-height: 1.3rem;
+
+            .category {
+                font-size: 1rem;
+            }
+
+            .value-wrapper {
+                font-size: 1rem;
+                display: flex;
+
+                i {
+                    display: flex;
+                    flex-wrap: nowrap;
+                }
+
+                .value {
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                }
+
+                .unit {
+                    margin-left: 0.2rem;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
 }
 </style>

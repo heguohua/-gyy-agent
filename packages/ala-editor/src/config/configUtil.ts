@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 16:33:38
+ * @LastEditTime: 2025-06-03 19:18:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -537,6 +537,7 @@ export const configScaleLinearScale = () => {
         y_label_textAnchor: schemaAllViewport(configTextAnchor("标签对齐方式")),
         y_label_dy: schemaAllViewport(configInt("标签轴线间距", -16, -100)),
         y_label_rotate: schemaAllViewport(configInt("标签旋转角度", 0, -359)),
+        y_label_unit: schemaAllViewport(configText("数据单位")),
 
 
     }
@@ -552,6 +553,8 @@ export const configLine = () => {
         line_color: schemaAllViewport(configColor("折线颜色")),
         line_dashed_style: schemaAllViewport(configText("虚线样式(6,4)")),
         line_dashed_point: schemaAllViewport(configCap('虚线端点样式')),
+        line_inflection_point: schemaAllViewport(configFloat("拐点半径", 6, 0, 0.2)),
+        line_inflection_color: schemaAllViewport(configColor("拐点颜色")),
 
 
     }
