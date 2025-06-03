@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 20:40:49
+ * @LastEditTime: 2025-06-03 09:37:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -37,7 +37,7 @@ export const configFontStyle = (title: string) => {
         {
             code: "config-select",
             title,
-            default: [{
+            options: [{
                 name: '正常字',
                 value: 'normal',
             }, {
@@ -47,6 +47,7 @@ export const configFontStyle = (title: string) => {
                 name: '斜体字',
                 value: 'oblique',
             }],
+            default: 'normal'
         }
     );
 
@@ -64,7 +65,7 @@ export const configTextAlign = (title: string) => {
         {
             code: "config-select",
             title,
-            default: [{
+            options: [{
                 name: '自动',
                 value: 'auto',
             }, {
@@ -77,6 +78,7 @@ export const configTextAlign = (title: string) => {
                 name: '居中对齐',
                 value: 'center',
             }],
+            default: 'left',
         }
     );
 
@@ -94,7 +96,7 @@ export const configTextVerticalAlign = (title: string) => {
         {
             code: "config-select",
             title,
-            default: [{
+            options: [{
                 name: '自动',
                 value: 'auto',
             }, {
@@ -107,6 +109,7 @@ export const configTextVerticalAlign = (title: string) => {
                 name: '底部对齐',
                 value: 'bottom',
             }],
+            default: 'middle',
         }
     );
 
@@ -124,7 +127,7 @@ export const configBorderType = (title: string) => {
         {
             code: "config-select",
             title,
-            default: [{
+            options: [{
                 name: '实线',
                 value: 'solid',
             }, {
@@ -134,6 +137,7 @@ export const configBorderType = (title: string) => {
                 name: '点线',
                 value: 'dotted',
             }],
+            default: 'solid',
         }
     );
 
@@ -151,7 +155,7 @@ export const configCap = (title: string) => {
         {
             code: "config-select",
             title,
-            default: [{
+            options: [{
                 name: '方形',
                 value: 'butt',
             }, {
@@ -161,6 +165,7 @@ export const configCap = (title: string) => {
                 name: '正方形',
                 value: 'square',
             }],
+            default: 'butt',
         }
     );
 
@@ -178,7 +183,7 @@ export const configFontWeight = (title: string) => {
         {
             code: "config-select",
             title,
-            default: [{
+            options: [{
                 name: '100',
                 value: '100',
             }, {
@@ -206,6 +211,7 @@ export const configFontWeight = (title: string) => {
                 name: '900',
                 value: '900',
             }],
+            default: '400',
         }
     );
 
@@ -267,7 +273,7 @@ export const configTextOverflow = (title: string) => {
         {
             code: "config-select",
             title,
-            default: [{
+            options: [{
                 name: '截断',
                 value: 'truncate',
             }, {
@@ -277,6 +283,7 @@ export const configTextOverflow = (title: string) => {
                 name: '内换行',
                 value: 'breakAll',
             }],
+            default:'break',
         }
     );
 
@@ -380,17 +387,17 @@ export const configStyle = () => {
 
 
 
-export const configScale = (title: string) => {
+export const configScale = (title: string, defaultValue = 'scaleOrdinal') => {
 
     const scales = Type.Array(
         Type.Object({
             name: Type.String(),
-            value: Type.String(),
+            value: Type.String()
         }),
         {
             code: "config-select",
             title,
-            default: [{
+            options: [{
                 name: '线性比例尺',
                 value: 'scaleLinear',
             }, {
@@ -418,6 +425,7 @@ export const configScale = (title: string) => {
                 name: '顺序量表比例尺',
                 value: 'scaleSequential',
             }],
+            default: 'scaleOrdinal'
         }
     );
 
@@ -428,7 +436,7 @@ export const configScale = (title: string) => {
 export const configXScale = () => {
     const config = {
         xName: schemaAllViewport(configText("属性名", 'name')),
-        scaleXType: schemaAllViewport(configScale('比例尺')),
+        scaleXType: schemaAllViewport(configScale('比例尺类型', 'scaleOrdinal')),
         // text_fontSize: schemaAllViewport(configInt("字体大小", 14)),
         // text_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
         // text_left: schemaAllViewport(configText("左偏移", '20px')),

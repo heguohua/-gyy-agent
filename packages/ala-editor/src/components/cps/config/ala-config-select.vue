@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 10:17:49
+ * @LastEditTime: 2025-06-03 09:33:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-select.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
             <el-input v-model="input" :placeholder="placeholder" class="input" readonly />
 
             <el-select v-model="input" placeholder="请选择" :clearable="clearable">
-                <el-option v-for="item in defaultValue" :key="item.value" :label="item.name" :value="item.value" />
+                <el-option v-for="item in options" :key="item.value" :label="item.name" :value="item.value" />
             </el-select>
             <!-- @change="handleChange" -->
         </el-form-item>
@@ -64,9 +64,11 @@ const props = defineProps({
 const bType = props.bType
 
 const { data } = toRefs(props)
+console.log('data: --->', data);
+
 const { formData, parentKey, key, id, properties } = data.value
 
-const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
+const { title, default: defaultValue, options, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref('')
 
 const isRequired = () => {
@@ -74,9 +76,12 @@ const isRequired = () => {
 }
 
 
-logger.info(`bType[ ${bType} ],config-select组件被渲染, items :`, defaultValue);
-logger.info(`bType[ ${bType} ],config-select组件被渲染, items :`, defaultValue);
+logger.info(`bType[ ${bType} ],config-select组件被渲染, options :`, options);
+logger.info(`bType[ ${bType} ],config-select组件被渲染, defaultValue :`, defaultValue);
 
+if (defaultValue) {
+    input.value = defaultValue
+}
 
 watch(() => formData, (form_data) => {
     if (form_data[key]?.[props.viewport]) {

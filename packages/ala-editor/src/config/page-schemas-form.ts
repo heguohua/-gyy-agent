@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 17:50:05
+ * @LastEditTime: 2025-06-03 09:38:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -59,7 +59,7 @@ const labelWidth = Type.Number({
 const position = Type.String({
     code: "config-select",
     title: "标签位置",
-    default: [{
+    options: [{
         name: '左侧',
         value: 'left',
     }, {
@@ -71,7 +71,8 @@ const position = Type.String({
     }],
     other: {
         clearable: true,
-    }
+    },
+    default: 'left'
 })
 
 const moduleName = Type.Number({
@@ -92,7 +93,7 @@ const moduleName = Type.Number({
 const formType = Type.String({
     code: "config-select",
     title: "表单类型",
-    default: [{
+    options: [{
         name: '列表表单',
         value: 'pageForm',
     }, {
@@ -107,7 +108,8 @@ const formType = Type.String({
     ],
     other: {
         clearable: true
-    }
+    },
+    default: 'pageForm'
 })
 
 

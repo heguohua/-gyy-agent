@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 09:56:00
+ * @LastEditTime: 2025-06-03 09:35:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/formSchema.ts
  * @Description: 
  * 
@@ -52,7 +52,8 @@ const dateType = Type.Array(
     {
         code: "config-select",
         title: "时间类型",
-        default: AlaDateType,
+        options: AlaDateType,
+        default: 'date',
         required: true,
     }
 );
@@ -66,7 +67,8 @@ const format = Type.Array(
     {
         code: "config-select",
         title: "时间格式",
-        default: AlaDateFormat,
+        options: AlaDateFormat,
+        default: 'HH:mm',
         required: true,
     }
 );

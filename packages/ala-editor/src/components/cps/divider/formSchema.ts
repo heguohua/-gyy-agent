@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-19 15:30:02
+ * @LastEditTime: 2025-06-03 09:36:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/divider/formSchema.ts
  * @Description: 
  * 
@@ -32,7 +32,7 @@ const height = Type.Number({
 const lineStyle = Type.String({
     code: "config-select",
     title: "分隔线样式",
-    default: [{
+    options: [{
         name: '实线',
         value: 'solid',
     }, {
@@ -44,7 +44,8 @@ const lineStyle = Type.String({
     }, {
         name: '双实线',
         value: 'double',
-    }]
+    }],
+    default: 'solid',
 })
 const columnNum = Type.Number({
     code: "config-int",

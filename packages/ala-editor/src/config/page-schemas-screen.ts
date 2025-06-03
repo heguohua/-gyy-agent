@@ -60,7 +60,7 @@ const labelWidth = Type.Number({
 const position = Type.String({
     code: "config-select",
     title: "标签位置",
-    default: [{
+    options: [{
         name: '左侧',
         value: 'left',
     }, {
@@ -72,7 +72,8 @@ const position = Type.String({
     }],
     other: {
         clearable: true,
-    }
+    },
+    default: 'left'
 })
 
 const moduleName = Type.Number({
@@ -93,7 +94,7 @@ const moduleName = Type.Number({
 const formType = Type.String({
     code: "config-select",
     title: "表单类型",
-    default: [{
+    options: [{
         name: '列表表单',
         value: 'pageForm',
     }, {
@@ -108,7 +109,8 @@ const formType = Type.String({
     ],
     other: {
         clearable: true
-    }
+    },
+    default: 'pageForm'
 })
 
 

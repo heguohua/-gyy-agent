@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 17:49:14
+ * @LastEditTime: 2025-06-03 09:20:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
 
             <el-collapse v-model="activeNames">
 
-                <div class="" v-for="( item, index ) in formItems" :key="bType + '-' + index" :class="bem('render')"
+                <div class="" v-for="(item, index) in formItems" :key="bType + '-' + index" :class="bem('render')"
                     @click="">
 
                     <template v-if="item.code">
@@ -22,7 +22,7 @@
                         <!-- 说明是 config-collapse-item 组件 -->
                         <el-collapse-item :title="item.title" :name="item.title">
 
-                            <template class="" v-for="( component, innerIndex ) in item.components"
+                            <template class="" v-for="(component, innerIndex) in item.components"
                                 :key="bType + '-' + index+'-'+innerIndex">
 
                                 <component v-if="getComponent(component)" :is="getComponent(component)"
@@ -88,6 +88,9 @@ const getComponent = computed(() => {
         const title = item.properties[editorStore.viewport[bType]].title
         const componentName = alaConsts.COMPONENT_PREFIX + code
         logger.info(`bType[ ${bType} ],editor-config-render中渲染动态 属性表单 组件, code: ${componentName}, title: ${title}`);
+
+        console.log('item : -----> ', item);
+
         return componentName
     }
 })
