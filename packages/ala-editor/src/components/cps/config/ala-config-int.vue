@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 18:58:21
+ * @LastEditTime: 2025-06-03 10:52:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-int.vue
  * @Description: 
  * 
@@ -106,7 +106,7 @@ watch(() => formData, (form_data) => {
 })
 
 watch(input, (value) => {
-    if (!value) return;
+    if (value !== 0 && !value) return;
     let data = {}
     const _value = value || ''
 

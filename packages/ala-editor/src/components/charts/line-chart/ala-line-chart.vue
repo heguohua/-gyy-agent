@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 21:33:11
+ * @LastEditTime: 2025-06-03 10:56:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -232,56 +232,70 @@ const drawChart = () => {
     // 7、添加 X 坐标轴
     const xName = formData.xName?.desktop
     const scaleXType = formData.scaleXType?.desktop || 'scaleLinear'
-    console.log('scaleXType:', scaleXType);
 
     let xScale = undefined
     if ('scaleLinear' === scaleXType) {
 
 
-
     } else if ('scaleOrdinal' === scaleXType) {
 
+        // 以下不需要修改
         xScale = ad3.aScaleBand(data, xName, [0, width])
-
         const ticks = ad3.aTick(xScale, 'bottom')
-
         const xAxisAttrs = new Map<string, any>()
-        // xAxisAttrs.set("class", "ala-axis")
         xAxisAttrs.set("transform", `translate(0,${height})`)
-
         const xAxis = ad3.aAxis(group, ticks, xAxisAttrs)
 
-        // 轴线和刻度颜色
-        // xAxis.style('color', 'red')
-
-        // 坐标值字体样式
-        xAxis.style("stroke", "blue")
-        xAxis.style("font-size", "14px")
-        xAxis.style("font-weight", "100")
-        // 对齐方式
-        xAxis.style("text-anchor", "middle")
-        // xAxis.tickPadding(10)
-
         // 设置 轴线 样式
+        const x_axis_width = formData.x_axis_width?.desktop
+        const x_axis_color = formData.x_axis_color?.desktop
+
         xAxis.selectAll('.domain')
-            .style("stroke-width", 1.5) // 轴线宽度
-            .style('stroke', 'red') // 轴线颜色
+            .style("stroke-width", x_axis_width) // 轴线宽度
+            .style('stroke', x_axis_color) // 轴线颜色
 
         // 设置 刻度线 样式
-        xAxis.selectAll('line')
-        .attr('y2', -150) // 刻度线长度
-            .style("stroke-width", 3.5) // 刻度线宽度
-            .style('stroke', 'blue') // 刻度线颜色
-            .style("stroke-dasharray", "18,20") // 虚线样式，8-虚线线段长度、2-虚线间隔
-            .style("stroke-linecap", "round") // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
 
+        let x_scaleMarks_length = formData.x_scaleMarks_length?.desktop
+        const x_scaleMarks_width = formData.x_scaleMarks_width?.desktop
+        const x_scaleMarks_color = formData.x_scaleMarks_color?.desktop
+        const x_dashed_line_style = formData.x_dashed_line_style?.desktop
+        const x_dashed_line_point = formData.x_dashed_line_point?.desktop
+
+        x_scaleMarks_length = calculateValue(height, x_scaleMarks_length)
+
+        xAxis.selectAll('line')
+            .attr('y2', x_scaleMarks_length) // 刻度线长度
+            .style("stroke-width", x_scaleMarks_width) // 刻度线宽度
+            .style('stroke', x_scaleMarks_color) // 刻度线颜色
+
+        if (x_dashed_line_style) {
+            xAxis.selectAll('line')
+                .style("stroke-dasharray", x_dashed_line_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
+                .style("stroke-linecap", x_dashed_line_point) // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+        }
+
+        // 刻度标签字体样式
+
+        const x_label_color = formData.x_label_color?.desktop || 'red'
+        const x_label_fontSize = formData.x_label_fontSize?.desktop || 14
+        const x_label_weight = formData.x_label_weight?.desktop || 400
+        const x_label_textAnchor = formData.x_label_textAnchor?.desktop || 'middle'
+        const x_label_dy = formData.x_label_dy?.desktop || 6
+        const x_label_rotate = formData.x_label_rotate?.desktop || 0
+
+
+        xAxis.style("stroke", x_label_color)
+        xAxis.style("font-size", x_label_fontSize + "px")
+        xAxis.style("font-weight", x_label_weight)
+        // 对齐方式
+        xAxis.style("text-anchor", x_label_textAnchor)
+        // xAxis.tickPadding(10)
 
         // 设置 刻度标签 样式
         xAxis.selectAll('text')
-            .attr('dy', 30) //  设置 标签和轴线 间的距离
-            .style('transform', 'rotate(-30deg)') //  设置 标签 旋转角度
-            // .style("text-anchor", "end") // start 、 middle 、 end
-            .style("text-anchor", "end") // 设置 标签 对齐方式
+            .attr('dy', x_label_dy) //  设置 标签和轴线 间的距离
+            .style('transform', `rotate(${x_label_rotate}deg)`) //  设置 标签 旋转角度
 
 
 
@@ -356,7 +370,7 @@ const drawChart = () => {
 
         :deep(text) {
             // color: #ef4d4b;
-            font-size: 1.2em;
+            // font-size: 1.2em;
 
         }
 

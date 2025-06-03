@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 09:20:17
+ * @LastEditTime: 2025-06-03 10:38:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
@@ -88,8 +88,6 @@ const getComponent = computed(() => {
         const title = item.properties[editorStore.viewport[bType]].title
         const componentName = alaConsts.COMPONENT_PREFIX + code
         logger.info(`bType[ ${bType} ],editor-config-render中渲染动态 属性表单 组件, code: ${componentName}, title: ${title}`);
-
-        console.log('item : -----> ', item);
 
         return componentName
     }
