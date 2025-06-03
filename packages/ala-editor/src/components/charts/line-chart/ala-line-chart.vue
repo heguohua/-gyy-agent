@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 19:33:44
+ * @LastEditTime: 2025-06-03 19:44:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -404,6 +404,22 @@ const drawChart = () => {
     const line = d3.line<DataPoint>()
         .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
         .y((d: any) => yScale(d[yName]));
+
+    const line_curve_style = formData.line_curve_style?.desktop || 'curveLinear'
+
+    if (line_curve_style === 'curveLinear') {
+        line.curve(d3.curveLinear)
+    } else if (line_curve_style === 'curveMonotoneX') {
+        line.curve(d3.curveMonotoneX)
+    } else if (line_curve_style === 'curveMonotoneY') {
+        line.curve(d3.curveMonotoneY)
+    } else if (line_curve_style === 'curveBasis') {
+        line.curve(d3.curveBasis)
+    } else if (line_curve_style === 'curveCardinal') {
+        line.curve(d3.curveCardinal)
+    } else if (line_curve_style === 'curveCatmullRom') {
+        line.curve(d3.curveCatmullRom)
+    }
 
     // 10、绘制折线
     const line_width = formData.line_width?.desktop || 1

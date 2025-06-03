@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 19:18:49
+ * @LastEditTime: 2025-06-03 19:42:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -166,6 +166,43 @@ export const configCap = (title: string) => {
                 value: 'square',
             }],
             default: 'butt',
+        }
+    );
+
+
+    return config
+}
+
+export const configCurveStyle = (title: string) => {
+
+    const config = Type.Array(
+        Type.Object({
+            name: Type.String(),
+            value: Type.String(),
+        }),
+        {
+            code: "config-select",
+            title,
+            options: [{
+                name: '直线',
+                value: 'curveLinear',
+            }, {
+                name: 'X轴平滑',
+                value: 'curveMonotoneX',
+            }, {
+                name: 'Y轴平滑',
+                value: 'curveMonotoneY',
+            }, {
+                name: 'B样条曲线',
+                value: 'curveBasis',
+            }, {
+                name: '张力曲线',
+                value: 'curveCardinal',
+            }, {
+                name: 'Catmull-Rom曲线',
+                value: 'curveCatmullRom',
+            }],
+            default: 'curveLinear',
         }
     );
 
@@ -555,6 +592,7 @@ export const configLine = () => {
         line_dashed_point: schemaAllViewport(configCap('虚线端点样式')),
         line_inflection_point: schemaAllViewport(configFloat("拐点半径", 6, 0, 0.2)),
         line_inflection_color: schemaAllViewport(configColor("拐点颜色")),
+        line_curve_style: schemaAllViewport(configCurveStyle("平滑策略")),
 
 
     }
