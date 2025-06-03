@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 19:53:08
+ * @LastEditTime: 2025-06-03 20:00:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -466,11 +466,11 @@ const drawChart = () => {
             tooltip.transition().duration(200).style('opacity', 1)
 
             tooltip.html(`
-                <div class='tooltip-title' style='color:${line_inflection_color}'>${d[xName]}</div>
+                <div class='tooltip-title' style='color:${line_color}'>${d[xName]}</div>
                 <div class='tooltip-row'>
                     <p class='category'>值：</p>
                     <p class='value-wrapper'>
-                        <i class='value' style='color:${line_inflection_color}'>${d[yName]}</i>
+                        <i class='value' style='color:${line_color}'>${d[yName]}</i>
                         <i class='unit'>${y_label_unit}</i>
                     </p>
                 </div>
