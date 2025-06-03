@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 20:00:50
+ * @LastEditTime: 2025-06-03 20:12:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -148,6 +148,23 @@ const calculateValue = (sourceValue: number, value: string) => {
         v = sourceValue * (+(value.replaceAll('%', '').trim())) / 100
     }
     return v
+}
+
+
+const addCurve = (line: any, line_curve_style: string) => {
+    if (line_curve_style === 'curveLinear') {
+        line.curve(d3.curveLinear)
+    } else if (line_curve_style === 'curveMonotoneX') {
+        line.curve(d3.curveMonotoneX)
+    } else if (line_curve_style === 'curveMonotoneY') {
+        line.curve(d3.curveMonotoneY)
+    } else if (line_curve_style === 'curveBasis') {
+        line.curve(d3.curveBasis)
+    } else if (line_curve_style === 'curveCardinal') {
+        line.curve(d3.curveCardinal)
+    } else if (line_curve_style === 'curveCatmullRom') {
+        line.curve(d3.curveCatmullRom)
+    }
 }
 
 // 4、绘制图形
@@ -407,19 +424,7 @@ const drawChart = () => {
 
     const line_curve_style = formData.line_curve_style?.desktop || 'curveLinear'
 
-    if (line_curve_style === 'curveLinear') {
-        line.curve(d3.curveLinear)
-    } else if (line_curve_style === 'curveMonotoneX') {
-        line.curve(d3.curveMonotoneX)
-    } else if (line_curve_style === 'curveMonotoneY') {
-        line.curve(d3.curveMonotoneY)
-    } else if (line_curve_style === 'curveBasis') {
-        line.curve(d3.curveBasis)
-    } else if (line_curve_style === 'curveCardinal') {
-        line.curve(d3.curveCardinal)
-    } else if (line_curve_style === 'curveCatmullRom') {
-        line.curve(d3.curveCatmullRom)
-    }
+    addCurve(line, line_curve_style)
 
     // 10、绘制折线
     const line_width = formData.line_width?.desktop || 1
@@ -442,7 +447,29 @@ const drawChart = () => {
     }
 
 
-    // 11、设置端点样式
+    // 11、添加区域图生成器
+    const addArea = formData.addArea?.desktop || false
+    const areaColor = formData.areaColor?.desktop || 'red'
+    if (addArea) {
+        const area = d3.area<DataPoint>()
+            .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
+            .y0(height)
+            .y1((d: any) => yScale(d[yName]))
+        // .curve(d3.curveMonotoneX)
+        addCurve(area, line_curve_style)
+
+        // 绘制面积
+        group.append('path')
+            .datum(data)
+            .attr('class', 'area-path')
+            .attr('fill', areaColor)
+            .attr('d', area)
+
+    }
+
+
+
+    // 12、设置端点样式
     const line_inflection_point = formData.line_inflection_point?.desktop || 0
     const line_inflection_color = formData.line_inflection_color?.desktop || 'red'
     const y_label_unit = formData.y_label_unit?.desktop || ''
@@ -496,6 +523,8 @@ const drawChart = () => {
                 .duration(100) // 动画过渡时间
                 .attr('r', line_inflection_point); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
         })
+
+
 
 
 }
