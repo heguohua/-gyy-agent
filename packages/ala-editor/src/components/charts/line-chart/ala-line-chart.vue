@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 10:56:10
+ * @LastEditTime: 2025-06-03 16:44:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -311,35 +311,120 @@ const drawChart = () => {
 
     // 8、添加 Y 坐标轴
     // const yData: any[] =  [0, 30, 40, 50, 10, 20];
-    const yData: any[] = Array.from(new Set(data.map((d) => d.value)));
-    yData.push(0)
+    const yName = formData.yName?.desktop
+    const scaleYType = formData.scaleYType?.desktop || 'scaleLinear'
+
+    let yScale: any = undefined
+
+    if ('scaleLinear' === scaleYType) {
+
+        // 查找纵坐标值范围集合
+        const yData: any[] = Array.from(new Set(data.map((d: any) => d[yName])));
+
+        // 先按照最小值百分比填充，如果最小值百分比不存在则再按照 补充 0 值填充
+        const addMinPercentage = formData.addMinPercentage?.desktop
+
+        if (addMinPercentage) {
+            const minValue = d3.min(yData)
+            yData.push(minValue * addMinPercentage / 100)
+        } else {
+            const addZero = formData.addZero?.desktop || false
+            if (addZero) yData.push(0)
+        }
+
+        yScale = ad3.aScaleLinear(yData, [0, height], true)
+
+        // 纵坐标轴 在 右侧
+        // const yTicks = ad3.aTick(yScale, 'right', undefined, 2, 6, width, 0)
+
+        const yTicks = ad3.aTick(yScale, 'left', undefined, 2, 6, -width, 0)
+
+        const yAxisAttrs = new Map<string, any>()
+        yAxisAttrs.set("class", "ala-axis-y")
+        yAxisAttrs.set("transform", `translate(0,0)`)
+
+        const yAxis = ad3.aAxis(group, yTicks, yAxisAttrs)
+
+        // 设置 轴线 样式
+        const y_axis_width = formData.y_axis_width?.desktop
+        const y_axis_color = formData.y_axis_color?.desktop
+
+        yAxis.selectAll('.domain')
+            .style("stroke-width", y_axis_width) // 轴线宽度
+            .style('stroke', y_axis_color) // 轴线颜色
+
+        // 设置 刻度线 样式
+        let y_scaleMarks_length = formData.y_scaleMarks_length?.desktop
+        const y_scaleMarks_width = formData.y_scaleMarks_width?.desktop
+        const y_scaleMarks_color = formData.y_scaleMarks_color?.desktop
+        const y_dashed_line_style = formData.y_dashed_line_style?.desktop
+        const y_dashed_line_point = formData.y_dashed_line_point?.desktop
+
+        // 这里和 x 轴不同，height 换成了 width
+        y_scaleMarks_length = calculateValue(width, y_scaleMarks_length)
+
+        yAxis.selectAll('line')
+            // 这里和 x 轴不同，y2 换成了 x2
+            .attr('x2', y_scaleMarks_length) // 刻度线长度
+            .style("stroke-width", y_scaleMarks_width) // 刻度线宽度
+            .style('stroke', y_scaleMarks_color) // 刻度线颜色
+
+        if (y_dashed_line_style) {
+            yAxis.selectAll('line')
+                .style("stroke-dasharray", y_dashed_line_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
+                .style("stroke-linecap", y_dashed_line_point) // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+        }
+
+        // 刻度标签字体样式
+        const y_label_color = formData.y_label_color?.desktop || 'red'
+        const y_label_fontSize = formData.y_label_fontSize?.desktop || 14
+        const y_label_weight = formData.y_label_weight?.desktop || 400
+        const y_label_textAnchor = formData.y_label_textAnchor?.desktop || 'middle'
+        const y_label_dy = formData.y_label_dy?.desktop || 6
+        const y_label_rotate = formData.y_label_rotate?.desktop || 0
+
+        yAxis.style("stroke", y_label_color)
+        yAxis.style("font-size", y_label_fontSize + "px")
+        yAxis.style("font-weight", y_label_weight)
+        // 对齐方式
+        yAxis.style("text-anchor", y_label_textAnchor)
+        // xAxis.tickPadding(10)
+
+        // 设置 刻度标签 样式
+        yAxis.selectAll('text')
+            .attr('dx', y_label_dy) //  设置 标签和轴线 间的距离
+            .style('transform', `rotate(${y_label_rotate}deg)`) //  设置 标签 旋转角度
 
 
-    const yScale = ad3.aScaleLinear(yData, [0, height], true)
+    } else if ('scaleOrdinal' === scaleYType) {
 
-    // 修改，修改，修改：只需要修改这里
-    const yTicks = ad3.aTick(yScale, 'left', undefined, 2, 6, -width, 0)
+    }
 
-    const yAxisAttrs = new Map<string, any>()
-    yAxisAttrs.set("class", "ala-axis-y")
-    yAxisAttrs.set("transform", `translate(0,0)`)
-
-    const yAxis = ad3.aAxis(group, yTicks, yAxisAttrs)
-
-
-    // Create line generator
+    // 9、创建 折线 生成器
     const line = d3.line<DataPoint>()
-        .x(d => (xScale!(d.name) || 0) + xScale!.bandwidth() / 2)
-        .y(d => yScale(d.value));
+        .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
+        .y((d: any) => yScale(d[yName]));
 
-    group.append('path')
+    // 10、绘制折线
+    const line_width = formData.line_width?.desktop || 1
+    const line_color = formData.line_color?.desktop || 'red'
+    const line_dashed_style = formData.line_dashed_style?.desktop || ''
+    const line_dashed_point = formData.line_dashed_point?.desktop || 0
+
+    const path = group.append('path')
         .datum(data)
         .attr('class', 'line-path')
         .attr('fill', 'none')
-        .attr('stroke', '#ef4d4b')
-        .attr('opacity', '0.7')
-        .attr('stroke-width', 2)
+        .attr('stroke', line_color)
+        // .attr('opacity', '0.7')
+        .attr('stroke-width', line_width)
         .attr('d', line)
+
+    if (line_dashed_style) {
+        path.attr("stroke-dasharray", line_dashed_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
+            .attr("stroke-linecap", line_dashed_point) // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+    }
+
 }
 
 
@@ -366,30 +451,6 @@ const drawChart = () => {
         }
     }
 
-    .ala-line-chart-svg {
 
-        :deep(text) {
-            // color: #ef4d4b;
-            // font-size: 1.2em;
-
-        }
-
-        :deep(.ala-axis-y) {
-            path {
-                stroke: none;
-            }
-
-            line {
-                stroke-opacity: 0.4;
-                stroke-width: 0.06em;
-                stroke-dasharray: 16, 16;
-            }
-        }
-
-        :deep(.line-path) {
-            position: relative;
-        }
-
-    }
 }
 </style>

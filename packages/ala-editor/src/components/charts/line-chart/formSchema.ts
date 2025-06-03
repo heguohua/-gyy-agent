@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 20:27:05
+ * @LastEditTime: 2025-06-03 16:34:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
-import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle, configBoolean, configText, configXScale } from "@/config/configUtil";
+import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle, configBoolean, configText, configScaleOrdinalScale, configScaleLinearScale, configLine } from "@/config/configUtil";
 
 
 const mainTitleText = Type.String({
@@ -211,7 +211,9 @@ const cs = configStyle()
 const cmt = configMainTitle()
 const cst = configSubTitle()
 const cis = configItemStyle()
-const xScale = configXScale()
+const xScale = configScaleOrdinalScale()
+const yScale = configScaleLinearScale()
+const line = configLine()
 const schema = Type.Object({
 
     // 主标题
@@ -234,6 +236,11 @@ const schema = Type.Object({
 
     // Y坐标轴
     yScale: schemaAllViewport(configCollapseItem("Y坐标轴")),
+    ...yScale,
+
+    // 折线样式
+    line: schemaAllViewport(configCollapseItem("折线")),
+    ...line,
 
 
     // 副标题

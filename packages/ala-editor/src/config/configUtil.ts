@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 10:58:15
+ * @LastEditTime: 2025-06-03 16:33:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -454,7 +454,7 @@ export const configScale = (title: string, defaultValue = 'scaleOrdinal') => {
                 name: '顺序量表比例尺',
                 value: 'scaleSequential',
             }],
-            default: 'scaleOrdinal'
+            default: defaultValue
         }
     );
 
@@ -462,7 +462,7 @@ export const configScale = (title: string, defaultValue = 'scaleOrdinal') => {
     return scales
 }
 
-export const configXScale = () => {
+export const configScaleOrdinalScale = () => {
     const config = {
         xName: schemaAllViewport(configText("属性名", 'name')),
         scaleXType: schemaAllViewport(configScale('比例尺类型', 'scaleOrdinal')),
@@ -470,11 +470,11 @@ export const configXScale = () => {
 
         // 轴线
         x_axis_color: schemaAllViewport(configColor("轴线颜色")),
-        x_axis_width: schemaAllViewport(configFloat("轴线宽度", 1, 0.2, 0.2)),
+        x_axis_width: schemaAllViewport(configFloat("轴线宽度", 1, 0, 0.2)),
 
         // 刻度线
         x_scaleMarks_length: schemaAllViewport(configText("刻度线长度", '10px')),
-        x_scaleMarks_width: schemaAllViewport(configFloat("刻度线宽度", 1, 0.2, 0.2)),
+        x_scaleMarks_width: schemaAllViewport(configFloat("刻度线宽度", 1, 0, 0.2)),
         x_scaleMarks_color: schemaAllViewport(configColor("刻度线颜色")),
         x_dashed_line_style: schemaAllViewport(configText("虚线样式(6,4)")),
         x_dashed_line_point: schemaAllViewport(configCap('虚线端点样式')),
@@ -505,6 +505,55 @@ export const configXScale = () => {
         // text_padding: schemaAllViewport(configInt("内边距")),
         // text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
         // text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
+    }
+    return config
+}
+
+
+export const configScaleLinearScale = () => {
+    const config = {
+        yName: schemaAllViewport(configText("属性名", 'value')),
+        scaleYType: schemaAllViewport(configScale('比例尺类型', 'scaleLinear')),
+
+        addZero: schemaAllViewport(configBoolean('填补零值？')),
+        addMinPercentage: schemaAllViewport(configFloat("填补最小值%", 0, 1, 0.1)),
+
+        // 轴线
+        y_axis_color: schemaAllViewport(configColor("轴线颜色")),
+        y_axis_width: schemaAllViewport(configFloat("轴线宽度", 1, 0, 0.2)),
+
+        // 刻度线
+        y_scaleMarks_length: schemaAllViewport(configText("刻度线长度", '10px')),
+        y_scaleMarks_width: schemaAllViewport(configFloat("刻度线宽度", 1, 0, 0.2)),
+        y_scaleMarks_color: schemaAllViewport(configColor("刻度线颜色")),
+        y_dashed_line_style: schemaAllViewport(configText("虚线样式(6,4)")),
+        y_dashed_line_point: schemaAllViewport(configCap('虚线端点样式')),
+
+
+        // 标签
+        y_label_color: schemaAllViewport(configColor("标签字体颜色")),
+        y_label_fontSize: schemaAllViewport(configInt("标签字体大小", 14)),
+        y_label_weight: schemaAllViewport(configFontWeight("标签字体粗细")),
+        y_label_textAnchor: schemaAllViewport(configTextAnchor("标签对齐方式")),
+        y_label_dy: schemaAllViewport(configInt("标签轴线间距", -16, -100)),
+        y_label_rotate: schemaAllViewport(configInt("标签旋转角度", 0, -359)),
+
+
+    }
+    return config
+}
+
+
+export const configLine = () => {
+    const config = {
+
+        // 刻度线
+        line_width: schemaAllViewport(configFloat("折线宽度", 1, 0, 0.2)),
+        line_color: schemaAllViewport(configColor("折线颜色")),
+        line_dashed_style: schemaAllViewport(configText("虚线样式(6,4)")),
+        line_dashed_point: schemaAllViewport(configCap('虚线端点样式')),
+
+
     }
     return config
 }
