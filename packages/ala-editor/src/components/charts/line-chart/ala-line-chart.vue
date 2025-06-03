@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 19:44:59
+ * @LastEditTime: 2025-06-03 19:53:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -479,9 +479,22 @@ const drawChart = () => {
                 .style('left', `${event.offsetX + 10}px`)
                 .style('top', `${event.offsetY - 28}px`)
 
+
+            // 鼠标悬停时扩大半径
+            d3.select(event.target)
+                .transition()
+                .duration(200) // 动画过渡时间
+                .attr('r', line_inflection_point * 1.5); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
+
         })
-        .on('mouseout', () => {
+        .on('mouseout', (event, d: any) => {
             tooltip.transition().duration(500).style('opacity', 0)
+
+            // 鼠标悬停时扩大半径
+            d3.select(event.target)
+                .transition()
+                .duration(100) // 动画过渡时间
+                .attr('r', line_inflection_point); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
         })
 
 
