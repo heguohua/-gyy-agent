@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 10:29:03
+ * @LastEditTime: 2025-06-04 18:09:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -215,21 +215,29 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
     const line_color = formData.line_color?.desktop || 'red';
     const line_dashed_style = formData.line_dashed_style?.desktop || '';
     const line_dashed_point = formData.line_dashed_point?.desktop || 0;
+    const lineAnimation = formData.lineAnimation?.desktop || false;
 
     const path = group.append('path')
         .datum(data)
+        // .enter()
         .attr('class', 'line-path')
         .attr('fill', 'none')
         .attr('stroke', line_color)
         // .attr('opacity', '0.7')
         .attr('stroke-width', line_width)
-        .attr('d', line);
+        .attr('d', line)
+    // 然后使用过渡来显示路径
+    // 透明度变化动画
+    if (lineAnimation) {
+        path.transition()
+            .duration(1000)
+            .attr('opacity', 1);
+    }
 
     if (line_dashed_style) {
         path.attr("stroke-dasharray", line_dashed_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
             .attr("stroke-linecap", line_dashed_point); // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
     }
-    return line_color;
 }
 
 
@@ -237,13 +245,14 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
  * 绘制 线性 坐标轴
  * @param formData 
  * @param data 
- * @param yName 
  * @param height 
  * @param width 
  * @param group 
  * @returns 
  */
-export const drawScaleLinear = (formData: Record<string, any>, data: DataPoint[], yName: any, height: number, width: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+export const drawScaleLinear = (formData: Record<string, any>, data: DataPoint[], height: number, width: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+
+    const yName = formData.yName?.desktop
 
     const yData: any[] = Array.from(new Set(data.map((d: any) => d[yName])));
 
@@ -326,13 +335,14 @@ export const drawScaleLinear = (formData: Record<string, any>, data: DataPoint[]
  * 绘制 序列 坐标轴 
  * @param formData 
  * @param data 
- * @param xName 
  * @param width 
  * @param height 
  * @param group 
  * @returns 
  */
-export const drawScaleOrdinal = (formData: Record<string, any>, data: DataPoint[], xName: any, width: number, height: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+export const drawScaleOrdinal = (formData: Record<string, any>, data: DataPoint[], width: number, height: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+
+    const xName = formData.xName?.desktop
 
     const xScale = aScaleBand(data, xName, [0, width]);
     const ticks = aTick(xScale, 'bottom');
@@ -436,4 +446,106 @@ export const drawMainTitle = (formData: Record<string, any>, width: number, heig
     title.style("font-size", text_fontSize);
 }
 
+
+/**
+ * 计算 svg 实际可用高度
+ * 外层div高度 - 外部标题栏高度
+ * @param height 
+ * @param formData 
+ * @returns 
+ */
+export const calculateSVGHeight = (height: number, formData: Record<string, any>) => {
+
+    const mainTitleText = formData.mainTitleText?.desktop;
+    const freeTitle = formData.freeTitle?.desktop;
+    const text_fontSize = formData.text_fontSize?.desktop;
+    const text_top = formData.text_top?.desktop;
+    const text_bottom = formData.text_bottom?.desktop;
+
+    if (mainTitleText && freeTitle) {
+        const newHeight = height - (text_fontSize + calculateValue(height, text_top) + calculateValue(height, text_bottom));
+        height = newHeight;
+    }
+
+    return height;
+}
+
+/**
+ * 绘制 折线图中的 拐点，并设置拐点 tooltip显示和隐藏逻辑
+ * @param formData 
+ * @param group 
+ * @param data 
+ * @param xScale 
+ * @param yScale 
+ * @param xName 
+ * @param yName 
+ * @param tooltip 
+ */
+export const drawLineCircle = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: DataPoint[], xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any) => {
+
+    const tooltip = d3.select(chartWrapper).append('div').attr('class', 'ala-chart-tooltip').style('opacity', 0)
+
+    const xName = formData.xName?.desktop
+    const yName = formData.yName?.desktop
+
+    const line_inflection_point = formData.line_inflection_point?.desktop || 0
+    const line_inflection_color = formData.line_inflection_color?.desktop || 'red'
+    const y_label_unit = formData.y_label_unit?.desktop || ''
+    const line_color = formData.line_color?.desktop || 'red'
+    const circleAnimation = formData.circleAnimation?.desktop || false
+
+    const circle = group.selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', (d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
+        .attr('cy', (d: any) => yScale(d[yName]))
+        .attr('r', line_inflection_point)
+        .attr('fill', line_inflection_color)
+        .on('mouseover', (event, d: any) => {
+
+            // 添加 tooltip
+            tooltip.html(`
+                <div class='tooltip-title' style='color:${line_color}'>${d[xName]}</div>
+                <div class='tooltip-row'>
+                    <p class='category'>值：</p>
+                    <p class='value-wrapper'>
+                        <i class='value' style='color:${line_color}'>${d[yName]}</i>
+                        <i class='unit'>${y_label_unit}</i>
+                    </p>
+                </div>
+                
+            `)
+                .style('left', `${event.offsetX + 10}px`)
+                .style('top', `${event.offsetY - 28}px`);
+
+            // 显示 tooltip
+            tooltip.transition().duration(200).style('opacity', 1);
+
+            // 鼠标悬停时扩大半径
+            d3.select(event.target)
+                .transition()
+                .duration(200) // 动画过渡时间
+                .attr('r', line_inflection_point * 1.5); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
+
+        })
+        .on('mouseout', (event, d: any) => {
+
+            // 隐藏 tooltip
+            tooltip.transition().duration(500).style('opacity', 0);
+
+            // 鼠标悬停时扩大半径
+            d3.select(event.target)
+                .transition()
+                .duration(100) // 动画过渡时间
+                .attr('r', line_inflection_point);
+        })
+
+    if (circleAnimation) {
+        circle.transition()
+            .duration(1500)
+            .attr('opacity', 1);
+    }
+
+}
 export default DataPoint

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 10:32:44
+ * @LastEditTime: 2025-06-04 11:18:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -40,30 +40,28 @@ const emit = defineEmits(['callback', "init"])
 // Methods
 logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，props：`, props);
 
+// 示例数据
+const data = ref<DataPoint[]>([]);
+data.value = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 567 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }]
+
+// 图标外层对象div实例
+const chartWrapper = ref()
+// svg图形
+const chart = ref<HTMLDivElement | null>(null)
+
+// 0、宽度、高度变化时更新图表
 const dWidth = ref()
 const dHeight = ref()
 watch(() => props.formData, (v) => {
     nextTick(() => {
         const formData = props.formData
-
         // 计算svg整体宽度
         dWidth.value = +(chartWrapper.value.offsetWidth)
-
         // 计算svg整体高度
         // 外层div高度 - 外标题高度
-        let height = +(chartWrapper.value.offsetHeight)
-
-        const mainTitleText = formData.mainTitleText?.desktop
-        const freeTitle = formData.freeTitle?.desktop
-        const text_fontSize = formData.text_fontSize?.desktop
-        const text_top = formData.text_top?.desktop
-        const text_bottom = formData.text_bottom?.desktop
-        if (mainTitleText && freeTitle) {
-            const newHeight = height - (text_fontSize + ad3.calculateValue(height, text_top) + ad3.calculateValue(height, text_bottom))
-            height = newHeight
-        }
+        let height = +(chartWrapper.value.offsetHeight);
+        height = ad3.calculateSVGHeight(height, formData);
         dHeight.value = height
-
         nextTick(() => {
             drawChart()
         })
@@ -71,18 +69,14 @@ watch(() => props.formData, (v) => {
 
 }, { immediate: true, deep: true })
 
-// 图标外层对象div实例
-const chartWrapper = ref()
 
-const chart = ref<HTMLDivElement | null>(null)
-
-// 1、设置svg图形 外部div 样式
+// 1、动态设置svg图形 外部div 样式
 const divStyles = computed(() => {
     const style: { [key: string]: any } = { width: '100%', height: '100%', borderRadius: props.formData.radius?.desktop }
     return style
 })
 
-// 2、设置 svg 图形样式
+// 2、动态设置 svg 图形样式
 const svgStyle = computed(() => {
     const style: { [key: string]: any } = {}
     style.background = props.formData.backgroundColor?.desktop
@@ -94,21 +88,19 @@ const svgStyle = computed(() => {
 const titleStyles = computed(() => {
 
     const formData = props.formData
-
     const mainTitleText = formData.mainTitleText?.desktop
     const freeTitle = formData.freeTitle?.desktop
-
     let style: { [key: string]: any } = {}
-
     if (mainTitleText && freeTitle) {
         style = ad3.mainTitleCssStyle(formData)
     }
-
     return style
 })
 
 // 4、绘制图形
 const drawChart = () => {
+
+    logger.info(`即将绘制折线....`)
 
     const formData = props.formData
 
@@ -130,26 +122,18 @@ const drawChart = () => {
     const width = +svg.attr("width") - margin.left - margin.right;
     let height = +svg.attr("height") - margin.top - margin.bottom;
 
-    // 高度减去外标题上下 padding 的距离
-    const mainTitleText = formData.mainTitleText?.desktop
-    const freeTitle = formData.freeTitle?.desktop
-
     // const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
     // 5、设置 svg 内部顶层 group 的坐标原点
     const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // 示例数据
-    const data: DataPoint[] = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 567 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }];
-
     // 6、添加图形标题
+    const mainTitleText = formData.mainTitleText?.desktop
+    const freeTitle = formData.freeTitle?.desktop
     if (mainTitleText && !freeTitle) {
         // 说明用户配置了主标题
         ad3.drawMainTitle(formData, width, height, group);
     }
-
-    // 添加文本后再次修改文本样式
-    // title.attr("fill", '#ef4d4b')
 
     // 7、添加 X 坐标轴
     const xName = formData.xName?.desktop
@@ -160,18 +144,16 @@ const drawChart = () => {
 
     } else if ('scaleOrdinal' === scaleXType) {
         // 以下不需要修改
-        xScale = ad3.drawScaleOrdinal(formData, data, xName, width, height, group); //  设置 标签 旋转角度
+        xScale = ad3.drawScaleOrdinal(formData, data.value, width, height, group); //  设置 标签 旋转角度
     }
 
     // 8、添加 Y 坐标轴
-    // const yData: any[] =  [0, 30, 40, 50, 10, 20];
     const yName = formData.yName?.desktop
     const scaleYType = formData.scaleYType?.desktop || 'scaleLinear'
 
     let yScale: any = undefined
-
     if ('scaleLinear' === scaleYType) {
-        yScale = ad3.drawScaleLinear(formData, data, yName, height, width, group);
+        yScale = ad3.drawScaleLinear(formData, data.value, height, width, group);
     } else if ('scaleOrdinal' === scaleYType) {
 
     }
@@ -185,84 +167,32 @@ const drawChart = () => {
     ad3.curveStyle(line, line_curve_style)
 
     // 10、绘制折线
-    const line_color = ad3.drawLine(formData, group, data, line);
+    ad3.drawLine(formData, group, data.value, line);
 
     // 11、添加区域图生成器
     const addArea = formData.addArea?.desktop || false
     const areaColor = formData.areaColor?.desktop || 'red'
     if (addArea) {
-
         const area = d3.area<DataPoint>()
             .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
             .y0(height)
             .y1((d: any) => yScale(d[yName]))
-
         // 设定曲线样式 
         ad3.curveStyle(area, line_curve_style)
         // 绘制面积
-        ad3.drawArea(group, data, areaColor, area);
-
+        ad3.drawArea(group, data.value, areaColor, area);
     }
 
-    // 12、设置端点样式
-    const line_inflection_point = formData.line_inflection_point?.desktop || 0
-    const line_inflection_color = formData.line_inflection_color?.desktop || 'red'
-    const y_label_unit = formData.y_label_unit?.desktop || ''
-
-    // Circle 点和 tooltip
-    const tooltip = d3.select(chartWrapper.value)
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0)
-
-    group.selectAll('circle')
-        .data(data)
-        .enter()
-        .append('circle')
-        .attr('cx', (d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
-        .attr('cy', (d: any) => yScale(d[yName]))
-        .attr('r', line_inflection_point)
-        .attr('fill', line_inflection_color)
-        .on('mouseover', (event, d: any) => {
-
-            // 添加 tooltip
-            tooltip.html(`
-                <div class='tooltip-title' style='color:${line_color}'>${d[xName]}</div>
-                <div class='tooltip-row'>
-                    <p class='category'>值：</p>
-                    <p class='value-wrapper'>
-                        <i class='value' style='color:${line_color}'>${d[yName]}</i>
-                        <i class='unit'>${y_label_unit}</i>
-                    </p>
-                </div>
-                
-            `)
-                .style('left', `${event.offsetX + 10}px`)
-                .style('top', `${event.offsetY - 28}px`)
-
-            // 显示 tooltip
-            tooltip.transition().duration(200).style('opacity', 1)
-
-            // 鼠标悬停时扩大半径
-            d3.select(event.target)
-                .transition()
-                .duration(200) // 动画过渡时间
-                .attr('r', line_inflection_point * 1.5); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
-
-        })
-        .on('mouseout', (event, d: any) => {
-
-            // 隐藏 tooltip
-            tooltip.transition().duration(500).style('opacity', 0)
-
-            // 鼠标悬停时扩大半径
-            d3.select(event.target)
-                .transition()
-                .duration(100) // 动画过渡时间
-                .attr('r', line_inflection_point); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
-        })
+    // 12、设置端点样式，Circle 点和 tooltip
+    ad3.drawLineCircle(formData, group, data.value, xScale!, yScale, chartWrapper.value);
 
 }
+
+onMounted(() => {
+    setInterval(() => {
+        drawChart()
+    }, 3000);
+})
 
 </script>
 
@@ -286,7 +216,7 @@ const drawChart = () => {
         }
     }
 
-    :deep(.tooltip) {
+    :deep(.ala-chart-tooltip) {
         position: absolute;
         text-align: center;
         padding: 1rem;

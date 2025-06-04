@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 10:29:11
+ * @LastEditTime: 2025-06-04 11:05:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -526,26 +526,15 @@ function getSnappedPosition(id: string, x: number, y: number) {
 
 
 
-const flowDisplay = () => {
-    return editorStore.pageConfig['screen'].formData?.flow.desktop
-}
-
-const gapX = () => {
-    return editorStore.pageConfig['screen'].formData?.gapX.desktop
-}
-const gapY = () => {
-    return editorStore.pageConfig['screen'].formData?.gapY.desktop
-}
-
 const canvasStyles = computed(() => {
 
     let style: { [key: string]: any } = {}
 
-    const flow = editorStore.pageConfig['screen'].formData?.flow.desktop
-    const columnGap = editorStore.pageConfig['screen'].formData?.columnGap.desktop
-    const rowGap = editorStore.pageConfig['screen'].formData?.rowGap.desktop
-    const paddingTop = editorStore.pageConfig['screen'].formData?.paddingTop.desktop
-    const paddingLeft = editorStore.pageConfig['screen'].formData?.paddingLeft.desktop
+    const flow = editorStore.pageConfig['screen'].formData?.flow?.desktop
+    const columnGap = editorStore.pageConfig['screen'].formData?.columnGap?.desktop
+    const rowGap = editorStore.pageConfig['screen'].formData?.rowGap?.desktop
+    const paddingTop = editorStore.pageConfig['screen'].formData?.paddingTop?.desktop
+    const paddingLeft = editorStore.pageConfig['screen'].formData?.paddingLeft?.desktop
 
 
     if (flow) {
@@ -577,7 +566,7 @@ const canvasStyles = computed(() => {
 
 const styles = (element: any) => {
 
-    const isFlow = flowDisplay()
+    const isFlow = editorStore.pageConfig['screen'].formData?.flow.desktop
 
     let style = undefined
     if (isFlow) {
@@ -612,7 +601,7 @@ const styles = (element: any) => {
 
 
 const canvasBackground = ref()
-watch(() => editorStore.pageConfig[bType].formData?.background.desktop, (v) => {
+watch(() => editorStore.pageConfig[bType].formData?.background?.desktop, (v) => {
     canvasBackground.value = v
 }, {
     immediate: true
