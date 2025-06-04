@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 18:09:58
+ * @LastEditTime: 2025-06-04 18:32:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -217,21 +217,40 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
     const line_dashed_point = formData.line_dashed_point?.desktop || 0;
     const lineAnimation = formData.lineAnimation?.desktop || false;
 
+    // const path = group.append('path')
+    //     .datum(data)
+    //     .attr('class', 'line-path')
+    //     .attr('fill', 'none')
+    //     .attr('stroke', line_color)
+    //     .attr('stroke-width', line_width)
+    //     .attr('d', line)
+
     const path = group.append('path')
         .datum(data)
-        // .enter()
         .attr('class', 'line-path')
         .attr('fill', 'none')
         .attr('stroke', line_color)
-        // .attr('opacity', '0.7')
         .attr('stroke-width', line_width)
         .attr('d', line)
+
+
     // 然后使用过渡来显示路径
     // 透明度变化动画
     if (lineAnimation) {
-        path.transition()
-            .duration(1000)
-            .attr('opacity', 1);
+
+        // 获取 path 总长度
+        const totalLength = path.node()!.getTotalLength();
+        path
+            .attr("stroke-dasharray", totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(1000) // 动画时间 2 秒
+            .ease(d3.easeLinear)
+            .attr("stroke-dashoffset", 0);
+
+        // path.transition()
+        //     .duration(1000)
+        //     .attr('opacity', 1);
     }
 
     if (line_dashed_style) {
@@ -483,6 +502,7 @@ export const calculateSVGHeight = (height: number, formData: Record<string, any>
  */
 export const drawLineCircle = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: DataPoint[], xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any) => {
 
+    d3.select(chartWrapper).selectAll('.ala-chart-tooltip').remove()
     const tooltip = d3.select(chartWrapper).append('div').attr('class', 'ala-chart-tooltip').style('opacity', 0)
 
     const xName = formData.xName?.desktop
@@ -543,7 +563,7 @@ export const drawLineCircle = (formData: Record<string, any>, group: d3.Selectio
 
     if (circleAnimation) {
         circle.transition()
-            .duration(1500)
+            .duration(2000)
             .attr('opacity', 1);
     }
 
