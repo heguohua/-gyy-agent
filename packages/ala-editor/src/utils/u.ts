@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 15:13:05
+ * @LastEditTime: 2025-06-04 21:37:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -436,5 +436,21 @@ export default class u {
 
 
 
+    public static randomizeProperty<T extends Record<string, any>>(data: T[], key: keyof T): T[] {
+        return data.map(item => {
+            const value = item[key];
+
+            // 确保这个值是数字
+            if (typeof value !== 'number') {
+                throw new Error(`属性 "${String(key)}" 的值不是数字，无法进行随机乘法`);
+            }
+
+            const multiplier = Math.random() * 2; // 0 到 2 之间的随机数
+            return {
+                ...item,
+                [key]: value * multiplier
+            };
+        });
+    }
 
 }

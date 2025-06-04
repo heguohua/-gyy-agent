@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 19:32:53
+ * @LastEditTime: 2025-06-04 21:45:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -37,6 +37,7 @@ import CascaderSchema from '@/components/cps/cascader/formSchema'
 
 // 图表相关组件
 import AlaLineChartSchema from '@/components/charts/line-chart/formSchema'
+import AlaMultiLineChartSchema from '@/components/charts/line-chart/multiLineSchema'
 
 
 const _allSchemas = {
@@ -68,7 +69,8 @@ const _allSchemas = {
     cascader: CascaderSchema,
 
     // 注册 图表 组件
-    lineChart:AlaLineChartSchema,
+    lineChart: AlaLineChartSchema,
+    multiLineChart: AlaMultiLineChartSchema,
 }
 
 

@@ -66,6 +66,7 @@ declare module 'vue' {
     AlaLineChart: typeof import('./src/components/charts/line-chart/ala-line-chart.vue')['default']
     AlaLink: typeof import('./src/components/cps/link/ala-link.vue')['default']
     AlaMessage: typeof import('./src/components/ai/ala-message.vue')['default']
+    AlaMultiLineChart: typeof import('./src/components/charts/line-chart/ala-multi-line-chart.vue')['default']
     AlaNumber: typeof import('./src/components/cps/number/ala-number.vue')['default']
     AlaPageViewStatus: typeof import('./src/components/cps/page/ala-page-view-status.vue')['default']
     AlaPassword: typeof import('./src/components/cps/password/ala-password.vue')['default']
