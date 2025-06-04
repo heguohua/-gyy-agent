@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 20:12:29
+ * @LastEditTime: 2025-06-04 10:32:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 import * as d3 from 'd3';
-import * as ad3 from '@/components/charts/utils/dChart';
+import DataPoint, * as ad3 from '@/components/charts/utils/dChart';
 
 // State
 const props = defineProps({
@@ -35,13 +35,10 @@ const props = defineProps({
     }
 })
 
-
 const emit = defineEmits(['callback', "init"])
 
 // Methods
-
 logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，props：`, props);
-
 
 const dWidth = ref()
 const dHeight = ref()
@@ -62,7 +59,7 @@ watch(() => props.formData, (v) => {
         const text_top = formData.text_top?.desktop
         const text_bottom = formData.text_bottom?.desktop
         if (mainTitleText && freeTitle) {
-            const newHeight = height - (text_fontSize + calculateValue(height, text_top) + calculateValue(height, text_bottom))
+            const newHeight = height - (text_fontSize + ad3.calculateValue(height, text_top) + ad3.calculateValue(height, text_bottom))
             height = newHeight
         }
         dHeight.value = height
@@ -96,76 +93,19 @@ const svgStyle = computed(() => {
 // 3、计算外部标题的样式
 const titleStyles = computed(() => {
 
-    const style: { [key: string]: any } = {}
     const formData = props.formData
 
     const mainTitleText = formData.mainTitleText?.desktop
     const freeTitle = formData.freeTitle?.desktop
 
+    let style: { [key: string]: any } = {}
+
     if (mainTitleText && freeTitle) {
-
-        // 说明用户配置了主标题
-        // 文字颜色
-        const text_color = formData.text_color?.desktop
-        if (text_color) style.color = text_color
-        // 文字粗细
-        const text_fontWeight = formData.text_fontWeight?.desktop || 400
-        if (text_fontWeight) style.fontWeight = text_fontWeight
-
-        // 文字水平偏移距离
-        const text_left = formData.text_left?.desktop
-        if (text_left) style.paddingLeft = text_left
-
-        // 设置垂直偏移
-        const text_top = formData.text_top?.desktop
-        const text_bottom = formData.text_bottom?.desktop
-        if (text_top) style.paddingTop = text_top
-        if (text_bottom) style.paddingBottom = text_bottom
-
-        // 文字大小
-        const text_fontSize = formData.text_fontSize?.desktop
-        if (text_fontSize) {
-            style.fontSize = text_fontSize + 'px'
-            style.lineHeight = text_fontSize + 'px'
-        }
-
+        style = ad3.mainTitleCssStyle(formData)
     }
 
     return style
 })
-
-interface DataPoint {
-    name: string
-    value: number
-}
-
-// 计算 px 和 % 具体的值
-const calculateValue = (sourceValue: number, value: string) => {
-    let v = 0
-    if (value.includes('px')) {
-        v = +(value.replaceAll('px', '').trim())
-    } else if (value.includes('%')) {
-        v = sourceValue * (+(value.replaceAll('%', '').trim())) / 100
-    }
-    return v
-}
-
-
-const addCurve = (line: any, line_curve_style: string) => {
-    if (line_curve_style === 'curveLinear') {
-        line.curve(d3.curveLinear)
-    } else if (line_curve_style === 'curveMonotoneX') {
-        line.curve(d3.curveMonotoneX)
-    } else if (line_curve_style === 'curveMonotoneY') {
-        line.curve(d3.curveMonotoneY)
-    } else if (line_curve_style === 'curveBasis') {
-        line.curve(d3.curveBasis)
-    } else if (line_curve_style === 'curveCardinal') {
-        line.curve(d3.curveCardinal)
-    } else if (line_curve_style === 'curveCatmullRom') {
-        line.curve(d3.curveCatmullRom)
-    }
-}
 
 // 4、绘制图形
 const drawChart = () => {
@@ -194,7 +134,6 @@ const drawChart = () => {
     const mainTitleText = formData.mainTitleText?.desktop
     const freeTitle = formData.freeTitle?.desktop
 
-
     // const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
     // 5、设置 svg 内部顶层 group 的坐标原点
@@ -205,42 +144,8 @@ const drawChart = () => {
 
     // 6、添加图形标题
     if (mainTitleText && !freeTitle) {
-
         // 说明用户配置了主标题
-
-        const titleAttrs = new Map<string, any>()
-
-        // 文字颜色
-        const text_color = formData.text_color?.desktop
-        titleAttrs.set("fill", text_color)
-
-        // 文字水平偏移距离
-        let titleLeft = 0
-        const text_left = formData.text_left?.desktop
-        if (text_left) {
-            titleLeft = calculateValue(width, text_left)
-        }
-        titleAttrs.set("x", titleLeft)
-        titleAttrs.set("text-anchor", 'middle')
-
-        // 设置垂直偏移
-        titleAttrs.set("dominant-baseline", 'middle')
-        let titleTop = 0
-        const text_top = formData.text_top?.desktop
-        if (text_top) {
-            titleTop = calculateValue(height, text_top)
-        }
-        const text_bottom = formData.text_bottom?.desktop
-        if (text_bottom) {
-            titleTop += calculateValue(height, text_bottom)
-        }
-        titleAttrs.set('y', titleTop)
-        const title = ad3.aText(group, mainTitleText, titleAttrs)
-
-        // 文字大小
-        const text_fontSize = formData.text_fontSize?.desktop
-        title.style("font-size", text_fontSize);
-
+        ad3.drawMainTitle(formData, width, height, group);
     }
 
     // 添加文本后再次修改文本样式
@@ -253,78 +158,10 @@ const drawChart = () => {
     let xScale = undefined
     if ('scaleLinear' === scaleXType) {
 
-
     } else if ('scaleOrdinal' === scaleXType) {
-
         // 以下不需要修改
-        xScale = ad3.aScaleBand(data, xName, [0, width])
-        const ticks = ad3.aTick(xScale, 'bottom')
-        const xAxisAttrs = new Map<string, any>()
-        xAxisAttrs.set("transform", `translate(0,${height})`)
-        const xAxis = ad3.aAxis(group, ticks, xAxisAttrs)
-
-        // 设置 轴线 样式
-        const x_axis_width = formData.x_axis_width?.desktop
-        const x_axis_color = formData.x_axis_color?.desktop
-
-        xAxis.selectAll('.domain')
-            .style("stroke-width", x_axis_width) // 轴线宽度
-            .style('stroke', x_axis_color) // 轴线颜色
-
-        // 设置 刻度线 样式
-
-        let x_scaleMarks_length = formData.x_scaleMarks_length?.desktop
-        const x_scaleMarks_width = formData.x_scaleMarks_width?.desktop
-        const x_scaleMarks_color = formData.x_scaleMarks_color?.desktop
-        const x_dashed_line_style = formData.x_dashed_line_style?.desktop
-        const x_dashed_line_point = formData.x_dashed_line_point?.desktop
-
-        x_scaleMarks_length = calculateValue(height, x_scaleMarks_length)
-
-        xAxis.selectAll('line')
-            .attr('y2', x_scaleMarks_length) // 刻度线长度
-            .style("stroke-width", x_scaleMarks_width) // 刻度线宽度
-            .style('stroke', x_scaleMarks_color) // 刻度线颜色
-
-        if (x_dashed_line_style) {
-            xAxis.selectAll('line')
-                .style("stroke-dasharray", x_dashed_line_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
-                .style("stroke-linecap", x_dashed_line_point) // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
-        }
-
-        // 刻度标签字体样式
-
-        const x_label_color = formData.x_label_color?.desktop || 'red'
-        const x_label_fontSize = formData.x_label_fontSize?.desktop || 14
-        const x_label_weight = formData.x_label_weight?.desktop || 400
-        const x_label_textAnchor = formData.x_label_textAnchor?.desktop || 'middle'
-        const x_label_dy = formData.x_label_dy?.desktop || 6
-        const x_label_rotate = formData.x_label_rotate?.desktop || 0
-
-
-        xAxis.style("stroke", x_label_color)
-        xAxis.style("font-size", x_label_fontSize + "px")
-        xAxis.style("font-weight", x_label_weight)
-        // 对齐方式
-        xAxis.style("text-anchor", x_label_textAnchor)
-        // xAxis.tickPadding(10)
-
-        // 设置 刻度标签 样式
-        xAxis.selectAll('text')
-            .attr('dy', x_label_dy) //  设置 标签和轴线 间的距离
-            .style('transform', `rotate(${x_label_rotate}deg)`) //  设置 标签 旋转角度
-
-
-
-        // xAxis.attr("transform", "rotate(-5)")
-        // xAxis.style("fill", "green")
-        // xAxis.attr('dy',10)
-
-        // 
-        // xAxis.style("stroke-width", 2)
-
+        xScale = ad3.drawScaleOrdinal(formData, data, xName, width, height, group); //  设置 标签 旋转角度
     }
-
 
     // 8、添加 Y 坐标轴
     // const yData: any[] =  [0, 30, 40, 50, 10, 20];
@@ -334,85 +171,7 @@ const drawChart = () => {
     let yScale: any = undefined
 
     if ('scaleLinear' === scaleYType) {
-
-        // 查找纵坐标值范围集合
-        const yData: any[] = Array.from(new Set(data.map((d: any) => d[yName])));
-
-        // 先按照最小值百分比填充，如果最小值百分比不存在则再按照 补充 0 值填充
-        const addMinPercentage = formData.addMinPercentage?.desktop
-
-        if (addMinPercentage) {
-            const minValue = d3.min(yData)
-            yData.push(minValue * addMinPercentage / 100)
-        } else {
-            const addZero = formData.addZero?.desktop || false
-            if (addZero) yData.push(0)
-        }
-
-        yScale = ad3.aScaleLinear(yData, [0, height], true)
-
-        // 纵坐标轴 在 右侧
-        // const yTicks = ad3.aTick(yScale, 'right', undefined, 2, 6, width, 0)
-
-        const yTicks = ad3.aTick(yScale, 'left', undefined, 2, 6, -width, 0)
-
-        const yAxisAttrs = new Map<string, any>()
-        yAxisAttrs.set("class", "ala-axis-y")
-        yAxisAttrs.set("transform", `translate(0,0)`)
-
-        const yAxis = ad3.aAxis(group, yTicks, yAxisAttrs)
-
-        // 设置 轴线 样式
-        const y_axis_width = formData.y_axis_width?.desktop
-        const y_axis_color = formData.y_axis_color?.desktop
-
-        yAxis.selectAll('.domain')
-            .style("stroke-width", y_axis_width) // 轴线宽度
-            .style('stroke', y_axis_color) // 轴线颜色
-
-        // 设置 刻度线 样式
-        let y_scaleMarks_length = formData.y_scaleMarks_length?.desktop
-        const y_scaleMarks_width = formData.y_scaleMarks_width?.desktop
-        const y_scaleMarks_color = formData.y_scaleMarks_color?.desktop
-        const y_dashed_line_style = formData.y_dashed_line_style?.desktop
-        const y_dashed_line_point = formData.y_dashed_line_point?.desktop
-
-        // 这里和 x 轴不同，height 换成了 width
-        y_scaleMarks_length = calculateValue(width, y_scaleMarks_length)
-
-        yAxis.selectAll('line')
-            // 这里和 x 轴不同，y2 换成了 x2
-            .attr('x2', y_scaleMarks_length) // 刻度线长度
-            .style("stroke-width", y_scaleMarks_width) // 刻度线宽度
-            .style('stroke', y_scaleMarks_color) // 刻度线颜色
-
-        if (y_dashed_line_style) {
-            yAxis.selectAll('line')
-                .style("stroke-dasharray", y_dashed_line_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
-                .style("stroke-linecap", y_dashed_line_point) // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
-        }
-
-        // 刻度标签字体样式
-        const y_label_color = formData.y_label_color?.desktop || 'red'
-        const y_label_fontSize = formData.y_label_fontSize?.desktop || 14
-        const y_label_weight = formData.y_label_weight?.desktop || 400
-        const y_label_textAnchor = formData.y_label_textAnchor?.desktop || 'middle'
-        const y_label_dy = formData.y_label_dy?.desktop || 6
-        const y_label_rotate = formData.y_label_rotate?.desktop || 0
-
-        yAxis.style("stroke", y_label_color)
-        yAxis.style("font-size", y_label_fontSize + "px")
-        yAxis.style("font-weight", y_label_weight)
-        // 对齐方式
-        yAxis.style("text-anchor", y_label_textAnchor)
-        // xAxis.tickPadding(10)
-
-        // 设置 刻度标签 样式
-        yAxis.selectAll('text')
-            .attr('dx', y_label_dy) //  设置 标签和轴线 间的距离
-            .style('transform', `rotate(${y_label_rotate}deg)`) //  设置 标签 旋转角度
-
-
+        yScale = ad3.drawScaleLinear(formData, data, yName, height, width, group);
     } else if ('scaleOrdinal' === scaleYType) {
 
     }
@@ -421,53 +180,29 @@ const drawChart = () => {
     const line = d3.line<DataPoint>()
         .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
         .y((d: any) => yScale(d[yName]));
-
     const line_curve_style = formData.line_curve_style?.desktop || 'curveLinear'
-
-    addCurve(line, line_curve_style)
+    // 设定曲线样式
+    ad3.curveStyle(line, line_curve_style)
 
     // 10、绘制折线
-    const line_width = formData.line_width?.desktop || 1
-    const line_color = formData.line_color?.desktop || 'red'
-    const line_dashed_style = formData.line_dashed_style?.desktop || ''
-    const line_dashed_point = formData.line_dashed_point?.desktop || 0
-
-    const path = group.append('path')
-        .datum(data)
-        .attr('class', 'line-path')
-        .attr('fill', 'none')
-        .attr('stroke', line_color)
-        // .attr('opacity', '0.7')
-        .attr('stroke-width', line_width)
-        .attr('d', line)
-
-    if (line_dashed_style) {
-        path.attr("stroke-dasharray", line_dashed_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
-            .attr("stroke-linecap", line_dashed_point) // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
-    }
-
+    const line_color = ad3.drawLine(formData, group, data, line);
 
     // 11、添加区域图生成器
     const addArea = formData.addArea?.desktop || false
     const areaColor = formData.areaColor?.desktop || 'red'
     if (addArea) {
+
         const area = d3.area<DataPoint>()
             .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
             .y0(height)
             .y1((d: any) => yScale(d[yName]))
-        // .curve(d3.curveMonotoneX)
-        addCurve(area, line_curve_style)
 
+        // 设定曲线样式 
+        ad3.curveStyle(area, line_curve_style)
         // 绘制面积
-        group.append('path')
-            .datum(data)
-            .attr('class', 'area-path')
-            .attr('fill', areaColor)
-            .attr('d', area)
+        ad3.drawArea(group, data, areaColor, area);
 
     }
-
-
 
     // 12、设置端点样式
     const line_inflection_point = formData.line_inflection_point?.desktop || 0
@@ -490,8 +225,7 @@ const drawChart = () => {
         .attr('fill', line_inflection_color)
         .on('mouseover', (event, d: any) => {
 
-            tooltip.transition().duration(200).style('opacity', 1)
-
+            // 添加 tooltip
             tooltip.html(`
                 <div class='tooltip-title' style='color:${line_color}'>${d[xName]}</div>
                 <div class='tooltip-row'>
@@ -506,6 +240,8 @@ const drawChart = () => {
                 .style('left', `${event.offsetX + 10}px`)
                 .style('top', `${event.offsetY - 28}px`)
 
+            // 显示 tooltip
+            tooltip.transition().duration(200).style('opacity', 1)
 
             // 鼠标悬停时扩大半径
             d3.select(event.target)
@@ -515,6 +251,8 @@ const drawChart = () => {
 
         })
         .on('mouseout', (event, d: any) => {
+
+            // 隐藏 tooltip
             tooltip.transition().duration(500).style('opacity', 0)
 
             // 鼠标悬停时扩大半径
@@ -524,12 +262,7 @@ const drawChart = () => {
                 .attr('r', line_inflection_point); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
         })
 
-
-
-
 }
-
-
 
 </script>
 

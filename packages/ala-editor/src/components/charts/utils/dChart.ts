@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-26 18:34:44
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dchart.ts
+ * @LastEditTime: 2025-06-04 10:29:03
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -60,7 +60,7 @@ export const aTick = (scale: any, direction: 'top' | 'bottom' | 'left' | 'right'
     } else if (direction === 'top') {
         d = d3.axisTop(scale)
     }
-    
+
     d.tickSize(tickSize)
     d.tickPadding(tickPadding)
     d.tickSizeInner(tickSizeInner)
@@ -118,3 +118,322 @@ export const aScaleBand = (data: Array<any>, categoryName: string, ranges: Array
     return bandScale;
 }
 
+// 计算 px 和 % 具体的值
+export const calculateValue = (sourceValue: number, value: string) => {
+    let v = 0
+    if (value.includes('px')) {
+        v = +(value.replaceAll('px', '').trim())
+    } else if (value.includes('%')) {
+        v = sourceValue * (+(value.replaceAll('%', '').trim())) / 100
+    }
+    return v
+}
+
+/**
+ *  计算 图形标题样式（ 非 svg 图形中的主标题 ）
+ * @param formData 
+ * @param value 
+ * @returns 
+ */
+export const mainTitleCssStyle = (formData: { [key: string]: any }) => {
+
+    const style: { [key: string]: any } = {}
+
+    const text_color = formData.text_color?.desktop
+    if (text_color) style.color = text_color
+    // 文字粗细
+    const text_fontWeight = formData.text_fontWeight?.desktop || 400
+    if (text_fontWeight) style.fontWeight = text_fontWeight
+
+    // 文字水平偏移距离
+    const text_left = formData.text_left?.desktop
+    if (text_left) style.paddingLeft = text_left
+
+    // 设置垂直偏移
+    const text_top = formData.text_top?.desktop
+    const text_bottom = formData.text_bottom?.desktop
+    if (text_top) style.paddingTop = text_top
+    if (text_bottom) style.paddingBottom = text_bottom
+
+    // 文字大小
+    const text_fontSize = formData.text_fontSize?.desktop
+    if (text_fontSize) {
+        style.fontSize = text_fontSize + 'px'
+        style.lineHeight = text_fontSize + 'px'
+    }
+
+    return style
+}
+
+/**
+ * 设定曲线样式
+ * @param line 
+ * @param line_curve_style 
+ */
+export const curveStyle = (line: any, line_curve_style: string) => {
+    if (line_curve_style === 'curveLinear') {
+        line.curve(d3.curveLinear)
+    } else if (line_curve_style === 'curveMonotoneX') {
+        line.curve(d3.curveMonotoneX)
+    } else if (line_curve_style === 'curveMonotoneY') {
+        line.curve(d3.curveMonotoneY)
+    } else if (line_curve_style === 'curveBasis') {
+        line.curve(d3.curveBasis)
+    } else if (line_curve_style === 'curveCardinal') {
+        line.curve(d3.curveCardinal)
+    } else if (line_curve_style === 'curveCatmullRom') {
+        line.curve(d3.curveCatmullRom)
+    }
+}
+
+interface DataPoint {
+    name: string
+    value: number
+}
+
+export const drawArea = (group: any, data: DataPoint[], areaColor: any, area: d3.Area<DataPoint>) => {
+    group.append('path')
+        .datum(data)
+        .attr('class', 'area-path')
+        .attr('fill', areaColor)
+        .attr('d', area);
+}
+
+
+
+/**
+ * 绘制折线
+ * @param formData 
+ * @param group 
+ * @param data 
+ * @param line 
+ * @returns 
+ */
+export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: DataPoint[], line: d3.Line<DataPoint>) => {
+
+    const line_width = formData.line_width?.desktop || 1;
+    const line_color = formData.line_color?.desktop || 'red';
+    const line_dashed_style = formData.line_dashed_style?.desktop || '';
+    const line_dashed_point = formData.line_dashed_point?.desktop || 0;
+
+    const path = group.append('path')
+        .datum(data)
+        .attr('class', 'line-path')
+        .attr('fill', 'none')
+        .attr('stroke', line_color)
+        // .attr('opacity', '0.7')
+        .attr('stroke-width', line_width)
+        .attr('d', line);
+
+    if (line_dashed_style) {
+        path.attr("stroke-dasharray", line_dashed_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
+            .attr("stroke-linecap", line_dashed_point); // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+    }
+    return line_color;
+}
+
+
+/**
+ * 绘制 线性 坐标轴
+ * @param formData 
+ * @param data 
+ * @param yName 
+ * @param height 
+ * @param width 
+ * @param group 
+ * @returns 
+ */
+export const drawScaleLinear = (formData: Record<string, any>, data: DataPoint[], yName: any, height: number, width: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+
+    const yData: any[] = Array.from(new Set(data.map((d: any) => d[yName])));
+
+    // 先按照最小值百分比填充，如果最小值百分比不存在则再按照 补充 0 值填充
+    const addMinPercentage = formData.addMinPercentage?.desktop;
+
+    if (addMinPercentage) {
+        const minValue = d3.min(yData);
+        yData.push(minValue * addMinPercentage / 100);
+    } else {
+        const addZero = formData.addZero?.desktop || false;
+        if (addZero) yData.push(0);
+    }
+
+    const yScale = aScaleLinear(yData, [0, height], true);
+
+    // 纵坐标轴 在 右侧
+    // const yTicks = ad3.aTick(yScale, 'right', undefined, 2, 6, width, 0)
+    const yTicks = aTick(yScale, 'left', undefined, 2, 6, -width, 0);
+
+    const yAxisAttrs = new Map<string, any>();
+    yAxisAttrs.set("class", "ala-axis-y");
+    yAxisAttrs.set("transform", `translate(0,0)`);
+
+    const yAxis = aAxis(group, yTicks, yAxisAttrs);
+
+    // 设置 轴线 样式
+    const y_axis_width = formData.y_axis_width?.desktop;
+    const y_axis_color = formData.y_axis_color?.desktop;
+
+    yAxis.selectAll('.domain')
+        .style("stroke-width", y_axis_width) // 轴线宽度
+        .style('stroke', y_axis_color); // 轴线颜色
+
+    // 设置 刻度线 样式
+    let y_scaleMarks_length = formData.y_scaleMarks_length?.desktop;
+    const y_scaleMarks_width = formData.y_scaleMarks_width?.desktop;
+    const y_scaleMarks_color = formData.y_scaleMarks_color?.desktop;
+    const y_dashed_line_style = formData.y_dashed_line_style?.desktop;
+    const y_dashed_line_point = formData.y_dashed_line_point?.desktop;
+
+    // 这里和 x 轴不同，height 换成了 width
+    y_scaleMarks_length = calculateValue(width, y_scaleMarks_length);
+
+    yAxis.selectAll('line')
+        // 这里和 x 轴不同，y2 换成了 x2
+        .attr('x2', y_scaleMarks_length) // 刻度线长度
+        .style("stroke-width", y_scaleMarks_width) // 刻度线宽度
+        .style('stroke', y_scaleMarks_color); // 刻度线颜色
+
+    if (y_dashed_line_style) {
+        yAxis.selectAll('line')
+            .style("stroke-dasharray", y_dashed_line_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
+            .style("stroke-linecap", y_dashed_line_point); // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+    }
+
+    // 刻度标签字体样式
+    const y_label_color = formData.y_label_color?.desktop || 'red';
+    const y_label_fontSize = formData.y_label_fontSize?.desktop || 14;
+    const y_label_weight = formData.y_label_weight?.desktop || 400;
+    const y_label_textAnchor = formData.y_label_textAnchor?.desktop || 'middle';
+    const y_label_dy = formData.y_label_dy?.desktop || 6;
+    const y_label_rotate = formData.y_label_rotate?.desktop || 0;
+
+    yAxis.style("stroke", y_label_color);
+    yAxis.style("font-size", y_label_fontSize + "px");
+    yAxis.style("font-weight", y_label_weight);
+    // 对齐方式
+    yAxis.style("text-anchor", y_label_textAnchor);
+    // xAxis.tickPadding(10)
+    // 设置 刻度标签 样式
+    yAxis.selectAll('text')
+        .attr('dx', y_label_dy) //  设置 标签和轴线 间的距离
+        .style('transform', `rotate(${y_label_rotate}deg)`); //  设置 标签 旋转角度
+
+    return yScale;
+}
+
+/**
+ * 绘制 序列 坐标轴 
+ * @param formData 
+ * @param data 
+ * @param xName 
+ * @param width 
+ * @param height 
+ * @param group 
+ * @returns 
+ */
+export const drawScaleOrdinal = (formData: Record<string, any>, data: DataPoint[], xName: any, width: number, height: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+
+    const xScale = aScaleBand(data, xName, [0, width]);
+    const ticks = aTick(xScale, 'bottom');
+    const xAxisAttrs = new Map<string, any>();
+    xAxisAttrs.set("transform", `translate(0,${height})`);
+    const xAxis = aAxis(group, ticks, xAxisAttrs);
+
+    // 设置 轴线 样式
+    const x_axis_width = formData.x_axis_width?.desktop;
+    const x_axis_color = formData.x_axis_color?.desktop;
+
+    xAxis.selectAll('.domain')
+        .style("stroke-width", x_axis_width) // 轴线宽度
+        .style('stroke', x_axis_color); // 轴线颜色
+
+    // 设置 刻度线 样式
+    let x_scaleMarks_length = formData.x_scaleMarks_length?.desktop;
+    const x_scaleMarks_width = formData.x_scaleMarks_width?.desktop;
+    const x_scaleMarks_color = formData.x_scaleMarks_color?.desktop;
+    const x_dashed_line_style = formData.x_dashed_line_style?.desktop;
+    const x_dashed_line_point = formData.x_dashed_line_point?.desktop;
+
+    x_scaleMarks_length = calculateValue(height, x_scaleMarks_length);
+
+    xAxis.selectAll('line')
+        .attr('y2', x_scaleMarks_length) // 刻度线长度
+        .style("stroke-width", x_scaleMarks_width) // 刻度线宽度
+        .style('stroke', x_scaleMarks_color); // 刻度线颜色
+
+    if (x_dashed_line_style) {
+        xAxis.selectAll('line')
+            .style("stroke-dasharray", x_dashed_line_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
+            .style("stroke-linecap", x_dashed_line_point); // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+    }
+
+    // 刻度标签字体样式
+    const x_label_color = formData.x_label_color?.desktop || 'red';
+    const x_label_fontSize = formData.x_label_fontSize?.desktop || 14;
+    const x_label_weight = formData.x_label_weight?.desktop || 400;
+    const x_label_textAnchor = formData.x_label_textAnchor?.desktop || 'middle';
+    const x_label_dy = formData.x_label_dy?.desktop || 6;
+    const x_label_rotate = formData.x_label_rotate?.desktop || 0;
+
+    xAxis.style("stroke", x_label_color);
+    xAxis.style("font-size", x_label_fontSize + "px");
+    xAxis.style("font-weight", x_label_weight);
+    // 对齐方式
+    xAxis.style("text-anchor", x_label_textAnchor);
+    // xAxis.tickPadding(10)
+    // 设置 刻度标签 样式
+    xAxis.selectAll('text')
+        .attr('dy', x_label_dy) //  设置 标签和轴线 间的距离
+        .style('transform', `rotate(${x_label_rotate}deg)`); //  设置 标签 旋转角度
+
+    return xScale;
+}
+
+
+/**
+ * 绘制 图形中的 主标题
+ * @param formData 
+ * @param width 
+ * @param height 
+ * @param group 
+ */
+export const drawMainTitle = (formData: Record<string, any>, width: number, height: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+
+    const mainTitleText = formData.mainTitleText?.desktop
+
+    const titleAttrs = new Map<string, any>();
+
+    // 文字颜色
+    const text_color = formData.text_color?.desktop;
+    titleAttrs.set("fill", text_color);
+
+    // 文字水平偏移距离
+    let titleLeft = 0;
+    const text_left = formData.text_left?.desktop;
+    if (text_left) {
+        titleLeft = calculateValue(width, text_left);
+    }
+    titleAttrs.set("x", titleLeft);
+    titleAttrs.set("text-anchor", 'middle');
+
+    // 设置垂直偏移
+    titleAttrs.set("dominant-baseline", 'middle');
+    let titleTop = 0;
+    const text_top = formData.text_top?.desktop;
+    if (text_top) {
+        titleTop = calculateValue(height, text_top);
+    }
+    const text_bottom = formData.text_bottom?.desktop;
+    if (text_bottom) {
+        titleTop += calculateValue(height, text_bottom);
+    }
+    titleAttrs.set('y', titleTop);
+    const title = aText(group, mainTitleText, titleAttrs);
+
+    // 文字大小
+    const text_fontSize = formData.text_fontSize?.desktop;
+    title.style("font-size", text_fontSize);
+}
+
+export default DataPoint
