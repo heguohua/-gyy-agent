@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 11:18:25
+ * @LastEditTime: 2025-06-04 19:41:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -42,7 +42,7 @@ logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，prop
 
 // 示例数据
 const data = ref<DataPoint[]>([]);
-data.value = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 567 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }]
+data.value = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 569 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }]
 
 // 图标外层对象div实例
 const chartWrapper = ref()
@@ -151,9 +151,32 @@ const drawChart = () => {
     const yName = formData.yName?.desktop
     const scaleYType = formData.scaleYType?.desktop || 'scaleLinear'
 
+    // 组装多组 y 轴数据
+    let yData: any[] = Array.from(new Set(data.value.map((d: any) => d[yName])));
+    // let yData: any[] = [];
+    // const maxValue = d3.max(data.value, (d: any) => d[yName])
+    // const minValue = d3.min(data.value, (d: any) => d[yName])
+    // console.log('maxValue:', maxValue);
+
+    // yData.push(minValue)
+    // yData.push(maxValue)
+    // const decimalNum = formData.decimalNum?.desktop;
+
+    // const num = 5
+    // const levelNum = num - 2
+    // const v = (maxValue - minValue) / levelNum
+    // console.log('v:', v.toFixed(decimalNum));
+    // for (let i = 1; i <= levelNum; i++) {
+    //     yData.push(minValue + v * i)
+    // }
+
+
+
+
     let yScale: any = undefined
     if ('scaleLinear' === scaleYType) {
-        yScale = ad3.drawScaleLinear(formData, data.value, height, width, group);
+        yScale = ad3.drawScaleLinear(formData, yData, height, width, group)
+    
     } else if ('scaleOrdinal' === scaleYType) {
 
     }
@@ -167,7 +190,8 @@ const drawChart = () => {
     ad3.curveStyle(line, line_curve_style)
 
     // 10、绘制折线
-    ad3.drawLine(formData, group, data.value, line);
+    const line_color = formData.line_color?.desktop || 'red';
+    ad3.drawLine(formData, group, data.value, line, line_color);
 
     // 11、添加区域图生成器
     const addArea = formData.addArea?.desktop || false

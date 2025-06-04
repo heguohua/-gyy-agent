@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 18:04:30
+ * @LastEditTime: 2025-06-04 20:28:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -554,6 +554,8 @@ export const configScaleLinearScale = () => {
 
         addZero: schemaAllViewport(configBoolean('填补零值？')),
         addMinPercentage: schemaAllViewport(configFloat("填补最小值%", 0, 1, 0.1)),
+        // decimalNum: schemaAllViewport(configInt("小数位数", 0, 0)),
+        levelNum: schemaAllViewport(configInt("分段数", 5, 0)),
 
         // 轴线
         y_axis_color: schemaAllViewport(configColor("轴线颜色")),

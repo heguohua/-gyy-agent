@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 18:40:14
+ * @LastEditTime: 2025-06-04 20:27:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -209,10 +209,9 @@ export const drawArea = (group: any, data: DataPoint[], areaColor: any, area: d3
  * @param line 
  * @returns 
  */
-export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: DataPoint[], line: d3.Line<DataPoint>) => {
+export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: DataPoint[], line: d3.Line<DataPoint>, line_color: string) => {
 
     const line_width = formData.line_width?.desktop || 1;
-    const line_color = formData.line_color?.desktop || 'red';
     const line_dashed_style = formData.line_dashed_style?.desktop || '';
     const line_dashed_point = formData.line_dashed_point?.desktop || 0;
     const lineAnimation = formData.lineAnimation?.desktop || false;
@@ -269,17 +268,16 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
  * @param group 
  * @returns 
  */
-export const drawScaleLinear = (formData: Record<string, any>, data: DataPoint[], height: number, width: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
-
-    const yName = formData.yName?.desktop
-
-    const yData: any[] = Array.from(new Set(data.map((d: any) => d[yName])));
+export const drawScaleLinear = (formData: Record<string, any>, yData: any[], height: number, width: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
 
     // 先按照最小值百分比填充，如果最小值百分比不存在则再按照 补充 0 值填充
     const addMinPercentage = formData.addMinPercentage?.desktop;
 
+    const maxValue = d3.max(yData)
+
+
     if (addMinPercentage) {
-        const minValue = d3.min(yData);
+        const minValue = d3.min(yData)
         yData.push(minValue * addMinPercentage / 100);
     } else {
         const addZero = formData.addZero?.desktop || false;
@@ -291,6 +289,13 @@ export const drawScaleLinear = (formData: Record<string, any>, data: DataPoint[]
     // 纵坐标轴 在 右侧
     // const yTicks = ad3.aTick(yScale, 'right', undefined, 2, 6, width, 0)
     const yTicks = aTick(yScale, 'left', undefined, 2, 6, -width, 0);
+
+    // 计算纵坐标档位数
+    // const decimalNum = formData.decimalNum?.desktop
+    let levelNum = formData.levelNum?.desktop
+    if (levelNum) {
+        yTicks.ticks(levelNum)
+    }
 
     const yAxisAttrs = new Map<string, any>();
     yAxisAttrs.set("class", "ala-axis-y");
