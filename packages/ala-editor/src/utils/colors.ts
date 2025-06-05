@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-11 16:18:49
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 17:14:48
+ * @LastEditTime: 2025-06-05 09:58:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/colors.ts
  * @Description: 
  * 
@@ -23,7 +23,7 @@ export default class colors {
     
     public static alaRed = '#ef4d4b'
 
-    public static chartColors = ['#1D78FF', '#206afb', '#00b781', '#ff8a19', '#EF4D4B', '#9575EA', '#67C7C9']
+    public static chartColors = ['#448FF6', '#67C7C9', '#70CC74', '#F3BB50', '#EC755A', '#9575E9']
 
 
 

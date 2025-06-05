@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 10:23:35
+ * @LastEditTime: 2025-06-05 10:18:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-screen.ts
  * @Description: 
  * 
@@ -39,7 +39,8 @@ const width = Type.Number({
     code: "config-int",
     title: "页面宽度",
     placeholder: "请输入页面宽度",
-    default: 900,
+    // default: 900,
+    default: 1500,
     other: {
         min: 400,
         max: 5260,
@@ -188,7 +189,7 @@ const showUpdatedTime = Type.String({
 const flow = Type.String({
     code: "config-boolean",
     title: "流式布局？",
-    default: false,
+    default: true,
 })
 
 

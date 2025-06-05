@@ -51,6 +51,10 @@ const { formData, parentKey, key, id } = data.value
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 const input = ref(false)
 
+if (defaultValue) {
+    input.value = defaultValue
+}
+
 const isRequired = () => {
     return required ? 'is-required' : ''
 }

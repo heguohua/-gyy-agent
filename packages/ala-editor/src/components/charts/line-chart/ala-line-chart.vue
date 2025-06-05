@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 19:41:24
+ * @LastEditTime: 2025-06-05 09:13:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -100,7 +100,6 @@ const titleStyles = computed(() => {
 // 4、绘制图形
 const drawChart = () => {
 
-    logger.info(`即将绘制折线....`)
 
     const formData = props.formData
 

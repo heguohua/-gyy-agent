@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 21:19:18
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
+ * @LastEditTime: 2025-06-05 10:29:03
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -43,12 +43,6 @@ logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，prop
 
 // 示例数据
 const data = ref<Array<DataPoint[]>>([]);
-data.value = [[{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 569 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }]]
-
-data.value.push(u.randomizeProperty(data.value[0], 'value'))
-data.value.push(u.randomizeProperty(data.value[0], 'value'))
-data.value.push(u.randomizeProperty(data.value[0], 'value'))
-data.value.push(u.randomizeProperty(data.value[0], 'value'))
 
 // 图标外层对象div实例
 const chartWrapper = ref()
@@ -105,8 +99,6 @@ const titleStyles = computed(() => {
 
 // 4、绘制图形
 const drawChart = () => {
-
-    logger.info(`即将绘制折线....`)
 
     const formData = props.formData
 
@@ -184,34 +176,50 @@ const drawChart = () => {
 
     // 10、绘制折线
 
-    data.value.forEach(one => {
-        const line_color = formData.line_color?.desktop || 'red';
-        ad3.drawLine(formData, group, one, line, line_color);
+    data.value.forEach((one, index) => {
+        const line_color = formData.line_color?.desktop;
+        ad3.drawLine(formData, group, one, line, line_color[index]);
     })
 
 
 
     // 11、添加区域图生成器
-    const addArea = formData.addArea?.desktop || false
-    const areaColor = formData.areaColor?.desktop || 'red'
-    if (addArea) {
-        const area = d3.area<DataPoint>()
-            .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
-            .y0(height)
-            .y1((d: any) => yScale(d[yName]))
-        // 设定曲线样式 
-        ad3.curveStyle(area, line_curve_style)
-        // 绘制面积
-        ad3.drawArea(group, data.value[0], areaColor, area);
-    }
+    // const addArea = formData.addArea?.desktop || false
+    // const areaColor = formData.areaColor?.desktop || 'red'
+    // if (addArea) {
+    //     const area = d3.area<DataPoint>()
+    //         .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
+    //         .y0(height)
+    //         .y1((d: any) => yScale(d[yName]))
+    //     // 设定曲线样式 
+    //     ad3.curveStyle(area, line_curve_style)
+    //     // 绘制面积
+    //     ad3.drawArea(group, data.value[0], areaColor, area);
+    // }
 
     // 12、设置端点样式，Circle 点和 tooltip
-    ad3.drawLineCircle(formData, group, data.value[0], xScale!, yScale, chartWrapper.value);
+    // data.value.forEach(one => {
+    //     ad3.drawLineCircle(formData, group,one, xScale!, yScale, chartWrapper.value);
+    // })
+    ad3.drawLineCircles(formData, group, data.value, xScale!, yScale, chartWrapper.value);
+    // ad3.drawLineCircle(formData, group,data.value[1], xScale!, yScale, chartWrapper.value);
+    // ad3.drawLineCircle(formData, group,data.value[2], xScale!, yScale, chartWrapper.value);
+
 
 }
 
 onMounted(() => {
     setInterval(() => {
+
+
+        data.value = [[{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 569 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }]]
+
+        data.value.push(u.randomizeProperty(data.value[0], 'value'))
+        data.value.push(u.randomizeProperty(data.value[0], 'value'))
+        data.value.push(u.randomizeProperty(data.value[0], 'value'))
+        data.value.push(u.randomizeProperty(data.value[0], 'value'))
+
+
         drawChart()
     }, 3000);
 })

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 11:05:52
+ * @LastEditTime: 2025-06-05 09:14:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -160,8 +160,6 @@ const setCurrentSelect = (block: BaseBlock) => {
 
     block.parent = props.pid
     logger.info("edit-block-drag组件 被点击,即将更新 editorStore.currentSelect 和 editorStore.blockConfig");
-
-    console.log('block:', block);
 
     const id = block.id;
 

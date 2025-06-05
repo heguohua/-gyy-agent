@@ -27,6 +27,7 @@ declare module 'vue' {
     AlaConfigCheckbox: typeof import('./src/components/cps/config/ala-config-checkbox.vue')['default']
     AlaConfigCollapseItem: typeof import('./src/components/cps/config/ala-config-collapse-item.vue')['default']
     AlaConfigColor: typeof import('./src/components/cps/config/ala-config-color.vue')['default']
+    AlaConfigColors: typeof import('./src/components/cps/config/ala-config-colors.vue')['default']
     AlaConfigColumn: typeof import('./src/components/cps/config/ala-config-column.vue')['default']
     AlaConfigFiles: typeof import('./src/components/cps/config/ala-config-files.vue')['default']
     AlaConfigFormRules: typeof import('./src/components/cps/config/ala-config-form-rules.vue')['default']

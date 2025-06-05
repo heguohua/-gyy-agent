@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 21:43:30
+ * @LastEditTime: 2025-06-05 09:21:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -33,6 +33,7 @@ import AlaConfigCheckbox from '@/components/cps/config/ala-config-checkbox.vue';
 import AlaConfigFormRules from '@/components/cps/config/ala-config-form-rules.vue';
 import AlaConfigTitle from '@/components/cps/config/ala-config-title.vue';
 import AlaConfigColor from '@/components/cps/config/ala-config-color.vue';
+import AlaConfigColors from '@/components/cps/config/ala-config-colors.vue';
 import AlaConfigTextareaJson from '@/components/cps/config/ala-config-textarea-json.vue';
 import AlaConfigCollapseItem from '@/components/cps/config/ala-config-collapse-item.vue';
 
@@ -135,6 +136,7 @@ export default {
     AlaConfigFormRules,
     AlaConfigTitle,
     AlaConfigColor,
+    AlaConfigColors,
     AlaConfigTextareaJson,
     AlaConfigCollapseItem,
 
