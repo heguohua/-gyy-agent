@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 10:33:47
+ * @LastEditTime: 2025-06-05 12:05:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -603,49 +603,73 @@ export const drawLineCircles = (formData: Record<string, any>, group: d3.Selecti
             .attr('fill', line_inflection_colors[index])
             .on('mouseover', (event, d: any) => {
 
-                // 添加 tooltip
-                tooltip.html(`
-                <div class='tooltip-title' style='color:${line_colors[index]}'>${d[xName]}</div>
-                <div class='tooltip-row'>
-                    <p class='category'>值：</p>
-                    <p class='value-wrapper'>
-                        <i class='value' style='color:${line_colors[index]}'>${d[yName]}</i>
-                        <i class='unit'>${y_label_unit}</i>
-                    </p>
-                </div>
-                
-            `)
-                    .style('left', `${event.offsetX + 10}px`)
-                    .style('top', `${event.offsetY - 28}px`);
+                //     // 添加 tooltip
+                //     tooltip.html(`
+                //     <div class='tooltip-title' style='color:${line_colors[index]}'>${d[xName]}</div>
+                //     <div class='tooltip-row'>
+                //         <p class='category'>值：</p>
+                //         <p class='value-wrapper'>
+                //             <i class='value' style='color:${line_colors[index]}'>${d[yName]}</i>
+                //             <i class='unit'>${y_label_unit}</i>
+                //         </p>
+                //     </div>
 
-                // 显示 tooltip
-                tooltip.transition().duration(200).style('opacity', 1);
+                // `)
+                //         .style('left', `${event.offsetX + 10}px`)
+                //         .style('top', `${event.offsetY - 28}px`);
 
-                // 鼠标悬停时扩大半径
-                d3.select(event.target)
-                    .transition()
-                    .duration(200) // 动画过渡时间
-                    .attr('r', line_inflection_point * 1.5); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
+                //     // 显示 tooltip
+                //     tooltip.transition().duration(200).style('opacity', 1);
+
+                //     // 鼠标悬停时扩大半径
+                //     d3.select(event.target)
+                //         .transition()
+                //         .duration(200) // 动画过渡时间
+                //         .attr('r', line_inflection_point * 1.5); // 半径扩大到原来的 1.5 倍（假设初始半径为4）
 
             })
             .on('mouseout', (event, d: any) => {
 
-                // 隐藏 tooltip
-                tooltip.transition().duration(500).style('opacity', 0);
+                // // 隐藏 tooltip
+                // tooltip.transition().duration(500).style('opacity', 0);
 
-                // 鼠标悬停时扩大半径
-                d3.select(event.target)
-                    .transition()
-                    .duration(100) // 动画过渡时间
-                    .attr('r', line_inflection_point);
+                // // 鼠标悬停时扩大半径
+                // d3.select(event.target)
+                //     .transition()
+                //     .duration(100) // 动画过渡时间
+                //     .attr('r', line_inflection_point);
             })
 
-            if (circleAnimation) {
-                circle.transition()
-                    .duration(circleAnimationTime)
-                    .attr('opacity', 1);
-            }
+        if (circleAnimation) {
+            circle.transition()
+                .duration(circleAnimationTime)
+                .attr('opacity', 1);
+        }
     })
+
+
+    const xData = data[0]
+
+    const tooltip_group = group.append('g')
+        .attr('class', 'tooltip-group')
+
+    const tooltip_rect = tooltip_group.selectAll('tooltip-rect')
+        .data(xData)
+        .enter()
+        .append('rect')
+        .attr('x', (d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 5 * 2)
+        .attr('y', 0)
+        .attr('width', xScale!.bandwidth() / 5)
+        .attr('height', '100%')
+        .attr('fill', 'rgb(55 255 255 / 0%)')
+        .on('mouseover', (event, d: any) => {
+            d3.select(event.target).transition().duration(200).style('fill', 'rgb(55 255 255 / 10%)');
+            // .attr('fill', 'orange');
+        })
+        .on('mouseout', (event, d: any) => {
+            d3.select(event.target).transition().duration(200).style('fill', 'rgb(55 255 255 / 0%)');
+
+        })
 
 
 
