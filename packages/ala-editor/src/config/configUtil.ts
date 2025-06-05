@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 17:00:23
+ * @LastEditTime: 2025-06-05 20:03:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -329,6 +329,16 @@ export const configText = (title: string, defaultValue = '', rules: Array<any> =
     return config
 }
 
+export const configTextarea = (title: string, defaultValue = '', rules: Array<any> = []) => {
+    const config = Type.String({
+        code: "config-textarea",
+        title,
+        default: defaultValue,
+        rules: rules
+    })
+    return config
+}
+
 
 export const configTextOverflow = (title: string) => {
 
@@ -446,10 +456,10 @@ export const configItemStyle = () => {
 
 export const configStyle = () => {
     const config = {
-        // width: schemaAllViewport(configText("宽度", '500px')),
-        // height: schemaAllViewport(configText("高度", '300px')),        
-        width: schemaAllViewport(configText("宽度", '100%')),
-        height: schemaAllViewport(configText("高度", '600px')),
+        width: schemaAllViewport(configText("宽度", '500px')),
+        height: schemaAllViewport(configText("高度", '300px')),        
+        // width: schemaAllViewport(configText("宽度", '100%')),
+        // height: schemaAllViewport(configText("高度", '600px')),
         x: schemaAllViewport(configText("X坐标", '200px')),
         y: schemaAllViewport(configText("Y坐标", '10px')),
         backgroundColor: schemaAllViewport(configColor("背景色", '#fff')),
@@ -606,7 +616,7 @@ export const configLine = () => {
         line_dashed_point: schemaAllViewport(configCap('虚线端点样式')),
         lineAnimation: schemaAllViewport(configBoolean('折线动画？')),
         lineAnimationTime: schemaAllViewport(configInt('折线动画时间',1000,1)),
-        line_inflection_point: schemaAllViewport(configFloat("拐点半径", 6, 0, 0.2)),
+        line_inflection_point: schemaAllViewport(configFloat("拐点半径", 4, 0, 0.2)),
         line_inflection_color: schemaAllViewport(configColor("拐点颜色")),
         circleAnimation: schemaAllViewport(configBoolean('拐点动画？')),
         circleAnimationTime: schemaAllViewport(configInt('拐点动画时间',2000,1)),
@@ -629,13 +639,38 @@ export const configLines = () => {
         line_dashed_point: schemaAllViewport(configCap('虚线端点样式')),
         lineAnimation: schemaAllViewport(configBoolean('折线动画？')),
         lineAnimationTime: schemaAllViewport(configInt('折线动画时间',1000,1)),
-        line_inflection_point: schemaAllViewport(configFloat("拐点半径", 6, 0, 0.2)),
+        line_inflection_point: schemaAllViewport(configFloat("拐点半径", 4, 0, 0.2)),
         line_inflection_color: schemaAllViewport(configColors("拐点颜色",colors.chartColors)),
         circleAnimation: schemaAllViewport(configBoolean('拐点动画？')),
         circleAnimationTime: schemaAllViewport(configInt('拐点动画时间',2000,1)),
         line_curve_style: schemaAllViewport(configCurveStyle("平滑策略")),
         addArea: schemaAllViewport(configBoolean('添加区域图')),
         areaColor: schemaAllViewport(configColor('区域图颜色')),
+
+    }
+    return config
+}
+
+
+export const configApis = () => {
+    const config = {
+
+        // 刻度线
+        data_url: schemaAllViewport(configTextarea("数据API")),
+        data_time: schemaAllViewport(configInt('数据刷新间隔',5000,1000)),
+        data_request_enabled: schemaAllViewport(configBoolean('开启API请求？'))
+        // line_color: schemaAllViewport(configColors("折线颜色",colors.chartColors)),
+        // line_dashed_style: schemaAllViewport(configText("虚线样式(6,4)")),
+        // line_dashed_point: schemaAllViewport(configCap('虚线端点样式')),
+        // lineAnimation: schemaAllViewport(configBoolean('折线动画？')),
+        // lineAnimationTime: schemaAllViewport(configInt('折线动画时间',1000,1)),
+        // line_inflection_point: schemaAllViewport(configFloat("拐点半径", 4, 0, 0.2)),
+        // line_inflection_color: schemaAllViewport(configColors("拐点颜色",colors.chartColors)),
+        // circleAnimation: schemaAllViewport(configBoolean('拐点动画？')),
+        // circleAnimationTime: schemaAllViewport(configInt('拐点动画时间',2000,1)),
+        // line_curve_style: schemaAllViewport(configCurveStyle("平滑策略")),
+        // addArea: schemaAllViewport(configBoolean('添加区域图')),
+        // areaColor: schemaAllViewport(configColor('区域图颜色')),
 
     }
     return config

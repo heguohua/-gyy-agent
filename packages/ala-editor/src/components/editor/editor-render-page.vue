@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 09:14:20
+ * @LastEditTime: 2025-06-05 20:13:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -611,7 +611,7 @@ watch(() => editorStore.pageConfig[bType].formData?.background?.desktop, (v) => 
 .drop-canvas {
     position: relative;
     width: 100%;
-    height: 600px;
+    min-height: 600px;
     // background-color: #f5f5f5;
     border: 1px dashed var(--color-edit-render-block-border-hover);
 

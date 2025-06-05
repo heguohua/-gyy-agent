@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 10:18:16
+ * @LastEditTime: 2025-06-05 20:21:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-screen.ts
  * @Description: 
  * 
@@ -15,7 +15,7 @@ import { min } from "lodash";
 const background = Type.Boolean({
     code: "config-color",
     title: "背景色",
-    default: '#fff',
+    default: 'rgb(255, 255, 255,0.01)',
 })
 // { name: 'required', message: '不能为空' },
 // { name: 'pattern', pattern: 'phone', message: '只能填写手机号' },
@@ -40,7 +40,7 @@ const width = Type.Number({
     title: "页面宽度",
     placeholder: "请输入页面宽度",
     // default: 900,
-    default: 1500,
+    default: 1280,
     other: {
         min: 400,
         max: 5260,
@@ -197,6 +197,7 @@ const paddingTop = Type.String({
     code: "config-input",
     title: "上边距",
     placeholder: "请输入上边距",
+    default:'10px',
     required: false
 })
 
@@ -204,6 +205,7 @@ const paddingLeft = Type.String({
     code: "config-input",
     title: "左边距",
     placeholder: "请输入左边距",
+    default:'10px',
     required: false
 })
 
@@ -211,6 +213,7 @@ const gapX = Type.String({
     code: "config-input",
     title: "横向间距",
     placeholder: "请输入横向间距",
+    default:'1%',
     required: false
 })
 
@@ -218,6 +221,7 @@ const gapY = Type.String({
     code: "config-input",
     title: "纵向间距",
     placeholder: "请输入纵向间距",
+    default:'1%',
     required: false
 })
 

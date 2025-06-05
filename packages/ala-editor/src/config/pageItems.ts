@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 21:42:13
+ * @LastEditTime: 2025-06-05 20:23:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/pageItems.ts
  * @Description: 
  * 
@@ -24,7 +24,7 @@ export const lineChart: BaseBlock[] = [
         id: "",
         name: "分组折线图",
         code: "multiLineChart",
-        icon: "line-chart.png",
+        icon: "line-chart-multi.jpg",
         formData: {},
     }
 ]

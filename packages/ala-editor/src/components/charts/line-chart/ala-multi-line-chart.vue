@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 17:50:55
+ * @LastEditTime: 2025-06-05 20:01:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -208,22 +208,42 @@ const drawChart = () => {
 
 }
 
+// 开启数据请求
 onMounted(() => {
+
+    // 第一次加载数据
+    queryDataAndDrawChart()
+
+    // 定时刷新数据
+    const intervals = props.formData.data_time.desktop || 5000
     setInterval(() => {
-    // setTimeout(() => {
+        queryDataAndDrawChart()
+    }, intervals);
+
+})
+
+const queryDataAndDrawChart = () => {
+
+    const data_request_enabled = props.formData.data_request_enabled.desktop || false
+
+    if (data_request_enabled) {
+        // 调用 api 接口加载数据
+        data.value = []
 
 
+
+    } else {
+        // 使用模拟数据
         data.value = [[{ name: '一月', value: 300, category: '服装鞋帽' }, { name: '三月', value: 210, category: '服装鞋帽' }, { name: '五月', value: 569, category: '服装鞋帽' }, { name: '七月', value: 183, category: '服装鞋帽' }, { name: '九月', value: 235, category: '服装鞋帽' }, { name: '十一月', value: 478, category: '服装鞋帽' }]]
         data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '家居用品' }))
         data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '母婴用品' }))
         data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '美妆护肤‌' }))
         data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '‌电子产品' }))
         data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '食品生鲜' }))
+    }
+    drawChart()
 
-
-        drawChart()
-    }, 3000);
-})
+}
 
 </script>
 

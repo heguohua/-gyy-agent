@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 09:34:18
+ * @LastEditTime: 2025-06-05 20:15:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-color.vue
  * @Description: 
  * 
@@ -22,6 +22,7 @@ import { useEditorStore } from '@/store/useEditorStore';
 import { logger } from '@/utils/logger';
 import u from '@/utils/u';
 import validate from '@/utils/validate';
+import { log } from 'console';
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -70,8 +71,12 @@ const { formData, parentKey, key, id } = data.value
 
 const { title, default: defaultValue, placeholder, required, rules } = data.value.properties[props.viewport]
 
-const color = ref(defaultValue ? defaultValue : '#409eff')
+const color = ref()
+console.log('defaultValue -----> :',defaultValue);
 
+if (defaultValue) {
+    color.value = defaultValue
+}
 
 const isRequired = () => {
     return required ? 'is-required' : ''

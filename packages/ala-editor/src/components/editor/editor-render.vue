@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 19:23:47
+ * @LastEditTime: 2025-06-05 20:07:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -18,12 +18,14 @@
 
         <!-- 渲染 大屏 拖拽编辑区域组件 -->
         <EditorRenderPage v-else-if="bType === 'screen'" :blockList="blockList" :group="dragGroup" class="render"
-            :bType="bType"></EditorRenderPage>
+            :bType="bType">
+
+
+        </EditorRenderPage>
 
         <!-- 渲染 表单 拖拽编辑区域组件 -->
         <EditorRenderDragForm v-else-if="bType === 'form'" :blockList="blockList" :group="dragGroup" class="render"
             :bType="bType" :labelWidth="labelWidth"></EditorRenderDragForm>
-
 
 
         <!-- 以下是空列表渲染节点 -->
@@ -32,6 +34,7 @@
                 <v-icon class="icon" icon="dragBlank" />
             </template>
         </el-empty>
+
     </div>
 </template>
 
