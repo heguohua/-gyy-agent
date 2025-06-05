@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 11:59:15
+ * @LastEditTime: 2025-06-05 17:44:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -213,12 +213,12 @@ onMounted(() => {
     setTimeout(() => {
 
 
-        data.value = [[{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 569 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }]]
-
-        data.value.push(u.randomizeProperty(data.value[0], 'value'))
-        data.value.push(u.randomizeProperty(data.value[0], 'value'))
-        data.value.push(u.randomizeProperty(data.value[0], 'value'))
-        data.value.push(u.randomizeProperty(data.value[0], 'value'))
+        data.value = [[{ name: '一月', value: 300, category: '服装鞋帽' }, { name: '三月', value: 210, category: '服装鞋帽' }, { name: '五月', value: 569, category: '服装鞋帽' }, { name: '七月', value: 183, category: '服装鞋帽' }, { name: '九月', value: 235, category: '服装鞋帽' }, { name: '十一月', value: 478, category: '服装鞋帽' }]]
+        data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '家居用品' }))
+        data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '母婴用品' }))
+        data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '美妆护肤‌' }))
+        data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '‌电子产品' }))
+        data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '食品生鲜' }))
 
 
         drawChart()
@@ -265,15 +265,25 @@ onMounted(() => {
         .tooltip-title {
             width: 100%;
             display: flex;
-            font-size: 1.2rem;
-            line-height: 1.2rem;
+            font-size: 1.5rem;
+            line-height: 2rem;
             padding-bottom: 0.5rem;
+            font-weight: bold;
         }
 
         .tooltip-row {
             width: 100%;
             display: flex;
-            line-height: 1.3rem;
+            white-space: nowrap;
+            line-height: 2rem;
+            align-items: center;
+
+            .tooltip-label {
+                width: 1.2rem;
+                height: 0.8rem;
+                border-radius: 0.1rem;
+                margin-right: 0.5rem;
+            }
 
             .category {
                 font-size: 1rem;

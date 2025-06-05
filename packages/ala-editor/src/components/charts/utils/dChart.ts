@@ -2,13 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 12:05:04
+ * @LastEditTime: 2025-06-05 17:48:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
+import u from '@/utils/u';
 import * as d3 from 'd3';
 
 export const aTitleAttrs = (width: number) => {
@@ -189,6 +190,8 @@ export const curveStyle = (line: any, line_curve_style: string) => {
 interface DataPoint {
     name: string
     value: number
+    category: string
+    originalIndex: number
 }
 
 export const drawArea = (group: any, data: DataPoint[], areaColor: any, area: d3.Area<DataPoint>) => {
@@ -590,6 +593,8 @@ export const drawLineCircles = (formData: Record<string, any>, group: d3.Selecti
     const line_colors = formData.line_color?.desktop || ['red']
     const circleAnimation = formData.circleAnimation?.desktop || false
     const circleAnimationTime = formData.circleAnimationTime?.desktop || 2000
+    const x_scaleMarks_color = formData.x_scaleMarks_color?.desktop || 'red'
+    const decimalNum = formData.decimalNum?.desktop || 0
 
     data.forEach((one, index) => {
 
@@ -653,26 +658,100 @@ export const drawLineCircles = (formData: Record<string, any>, group: d3.Selecti
     const tooltip_group = group.append('g')
         .attr('class', 'tooltip-group')
 
-    const tooltip_rect = tooltip_group.selectAll('tooltip-rect')
+    const tooltip_column = tooltip_group.selectAll('g')
         .data(xData)
         .enter()
-        .append('rect')
-        .attr('x', (d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 5 * 2)
-        .attr('y', 0)
-        .attr('width', xScale!.bandwidth() / 5)
-        .attr('height', '100%')
-        .attr('fill', 'rgb(55 255 255 / 0%)')
-        .on('mouseover', (event, d: any) => {
-            d3.select(event.target).transition().duration(200).style('fill', 'rgb(55 255 255 / 10%)');
-            // .attr('fill', 'orange');
+        .append('g')
+        .attr('class', 'tooltip-column')
+        .attr('transform', (d: any) =>
+            `translate(${(xScale!(d[xName]) || 0)}, 0)`
+        )
+        .style('opacity', '0')
+
+
+
+    // 将原始二维数组的数据进行行列转换，方便循环遍历渲染某一列的点
+    const columnData = u.transpose2DArray(data)
+
+    tooltip_column.each(function (d, index) {
+
+        const currentGroup = d3.select(this)
+
+        currentGroup.append('rect')
+            .attr('width', xScale!.bandwidth())
+            .attr('height', '100%')
+            .attr('fill', 'rgb(55 255 255 / 0%)')
+
+        currentGroup.selectAll('circle')
+            .data(columnData[index]) // 假设每个 d 里有个 points 数组
+            .enter()
+            .append('circle')
+            .attr('cx', (d: any) => xScale!.bandwidth() / 2)
+            .attr('cy', (d: any) => yScale(d[yName]))
+            .attr('r', 6)
+            .attr('fill', (d: any, i: number) => line_inflection_colors[i])
+
+
+        currentGroup.append('line')
+            .attr('x1', (d: any) => xScale!.bandwidth() / 2)
+            .attr('x2', (d: any) => xScale!.bandwidth() / 2)
+            .attr('y1', '-1%')
+            .attr('y2', '90%') // 或 '100%'，取决于上下文单位
+            .attr('stroke', x_scaleMarks_color)
+            .attr('stroke-width', 1)
+            .style("stroke-dasharray", '20,12') // 虚线样式，8-虚线线段长度、2-虚线间隔
+            .style("stroke-linecap", 'round'); // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+
+
+        currentGroup.on('mouseover', (event, d: any) => {
+
+            // 显示拐点
+            d3.select(this).transition().duration(1000).style('opacity', '1');
+
+            // 显示 tooltip 系列信息
+            const sortedColumnData = u.sortByProperty(columnData[index], 'value', true)
+            const rows: string[] = []
+            sortedColumnData.forEach((one) => {
+                rows.push(
+                    `
+                    <div class='tooltip-row'>
+                        <i class='tooltip-label' style='background:${line_colors[one.originalIndex]}'>&nbsp;</i>
+                        <p class='category'>${one.category}：</p>
+                        <p class='value-wrapper'>
+                            <i class='value'>${one.value.toFixed(decimalNum)}</i>
+                            <i class='unit'>${y_label_unit}</i>
+                        </p>
+                    </div>
+                `
+                )
+            })
+
+            // 添加 tooltip
+            const transform = d3.select(this).attr('transform');
+            const match = /translate\(([-\d.]+),\s*([-\d.]+)\)/.exec(transform || '');
+            const x = match ? parseFloat(match[1]) : 0;
+
+            tooltip.html(`
+                    <div class='tooltip-title' style='color:${line_colors[sortedColumnData[0].originalIndex]}'>${d[xName]}</div>
+                    <div class='tooltip-rows'>
+                        ${rows.join('')}
+                    </div>
+
+                `)
+                .style('left', `${x + (xScale!.bandwidth())}px`)
+                .style('top', `${25 + Math.random() * 10}%`);
+
+            // 显示 tooltip
+            tooltip.transition().duration(200).style('opacity', 1);
+
+
+
+        }).on('mouseout', (event, d: any) => {
+            d3.select(this).transition().duration(200).style('opacity', '0');
+            tooltip.transition().duration(500).style('opacity', 0);
         })
-        .on('mouseout', (event, d: any) => {
-            d3.select(event.target).transition().duration(200).style('fill', 'rgb(55 255 255 / 0%)');
 
-        })
-
-
-
+    })
 
 
 }

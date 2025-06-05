@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 21:37:22
+ * @LastEditTime: 2025-06-05 17:15:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -94,7 +94,7 @@ export default class u {
     /**
      * 对象深度clone方法
      */
-    public static clonedAny<T>(obj: T):T {
+    public static clonedAny<T>(obj: T): T {
         return cloneDeep(obj)
     }
 
@@ -452,5 +452,57 @@ export default class u {
             };
         });
     }
+
+
+    /**
+     * 数组 行转列
+     * @param data 
+     * @returns 
+     */
+    public static transpose2DArray<T>(data: T[][]): T[][] {
+        if (data.length === 0) return [];
+
+        const rowCount = data.length;
+        const colCount = data[0].length;
+
+        const result: T[][] = [];
+
+        for (let col = 0; col < colCount; col++) {
+            const newRow: T[] = [];
+            for (let row = 0; row < rowCount; row++) {
+                newRow.push(data[row][col]);
+            }
+            result.push(newRow);
+        }
+
+        return result;
+    }
+
+
+
+    public static mergeIntoEach<T extends object, U extends object>(sourceArray: T[], additional: U): (T & U)[] {
+        return sourceArray.map(item => ({
+            ...item,
+            ...additional
+        }));
+    }
+
+
+    public static sortByProperty<T>(array: T[], key: keyof T, descending: boolean = false): T[] {
+        return [...array].map((item, index) => ({ ...item, originalIndex: index }))
+            .sort((a, b) => {
+                const valA = a[key];
+                const valB = b[key];
+
+                if (valA == null && valB == null) return 0;
+                if (valA == null) return descending ? 1 : -1;
+                if (valB == null) return descending ? -1 : 1;
+
+                if (valA < valB) return descending ? 1 : -1;
+                if (valA > valB) return descending ? -1 : 1;
+                return 0;
+            });
+    }
+
 
 }
