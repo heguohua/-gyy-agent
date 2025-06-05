@@ -5,7 +5,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 20:28:21
+ * @LastEditTime: 2025-06-05 09:00:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -593,9 +593,11 @@ export const configLine = () => {
         line_dashed_style: schemaAllViewport(configText("虚线样式(6,4)")),
         line_dashed_point: schemaAllViewport(configCap('虚线端点样式')),
         lineAnimation: schemaAllViewport(configBoolean('折线动画？')),
+        lineAnimationTime: schemaAllViewport(configInt('折线动画时间',1000,1)),
         line_inflection_point: schemaAllViewport(configFloat("拐点半径", 6, 0, 0.2)),
         line_inflection_color: schemaAllViewport(configColor("拐点颜色")),
         circleAnimation: schemaAllViewport(configBoolean('拐点动画？')),
+        circleAnimationTime: schemaAllViewport(configInt('拐点动画时间',1000,1)),
         line_curve_style: schemaAllViewport(configCurveStyle("平滑策略")),
         addArea: schemaAllViewport(configBoolean('添加区域图')),
         areaColor: schemaAllViewport(configColor('区域图颜色')),

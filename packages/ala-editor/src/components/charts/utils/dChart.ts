@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 20:27:59
+ * @LastEditTime: 2025-06-05 09:03:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -215,6 +215,7 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
     const line_dashed_style = formData.line_dashed_style?.desktop || '';
     const line_dashed_point = formData.line_dashed_point?.desktop || 0;
     const lineAnimation = formData.lineAnimation?.desktop || false;
+    const lineAnimationTime = formData.lineAnimationTime?.desktop || 1000;
 
     // const path = group.append('path')
     //     .datum(data)
@@ -243,7 +244,7 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
             .attr("stroke-dasharray", totalLength)
             .attr("stroke-dashoffset", totalLength)
             .transition()
-            .duration(1000) // 动画时间 2 秒
+            .duration(lineAnimationTime) // 动画时间 2 秒
             .ease(d3.easeLinear)
             .attr("stroke-dashoffset", 0);
 
@@ -518,6 +519,7 @@ export const drawLineCircle = (formData: Record<string, any>, group: d3.Selectio
     const y_label_unit = formData.y_label_unit?.desktop || ''
     const line_color = formData.line_color?.desktop || 'red'
     const circleAnimation = formData.circleAnimation?.desktop || false
+    const circleAnimationTime= formData.circleAnimationTime?.desktop || 2000
 
     const circle = group.selectAll('circle')
         .data(data)
@@ -568,7 +570,7 @@ export const drawLineCircle = (formData: Record<string, any>, group: d3.Selectio
 
     if (circleAnimation) {
         circle.transition()
-            .duration(2000)
+            .duration(circleAnimationTime)
             .attr('opacity', 1);
     }
 
