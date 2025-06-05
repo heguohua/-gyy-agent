@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 09:13:38
+ * @LastEditTime: 2025-06-05 20:38:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -23,6 +23,7 @@
 import { logger } from '@/utils/logger';
 import * as d3 from 'd3';
 import DataPoint, * as ad3 from '@/components/charts/utils/dChart';
+import u from '@/utils/u';
 
 // State
 const props = defineProps({
@@ -42,7 +43,7 @@ logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，prop
 
 // 示例数据
 const data = ref<DataPoint[]>([]);
-data.value = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 569 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }]
+data.value = [{ name: '一月', value: 300, category: '服装鞋帽' }, { name: '三月', value: 210, category: '服装鞋帽' }, { name: '五月', value: 569, category: '服装鞋帽' }, { name: '七月', value: 183, category: '服装鞋帽' }, { name: '九月', value: 235, category: '服装鞋帽' }, { name: '十一月', value: 478, category: '服装鞋帽' }]
 
 // 图标外层对象div实例
 const chartWrapper = ref()
@@ -175,7 +176,7 @@ const drawChart = () => {
     let yScale: any = undefined
     if ('scaleLinear' === scaleYType) {
         yScale = ad3.drawScaleLinear(formData, yData, height, width, group)
-    
+
     } else if ('scaleOrdinal' === scaleYType) {
 
     }
@@ -211,11 +212,38 @@ const drawChart = () => {
 
 }
 
+
+// 开启数据请求
 onMounted(() => {
+
+    // 第一次加载数据
+    queryDataAndDrawChart()
+
+    // 定时刷新数据
+    const intervals = props.formData.data_time.desktop || 5000
     setInterval(() => {
-        drawChart()
-    }, 3000);
+        queryDataAndDrawChart()
+    }, intervals);
+
 })
+
+const queryDataAndDrawChart = () => {
+
+    const data_request_enabled = props.formData.data_request_enabled.desktop || false
+
+    if (data_request_enabled) {
+        // 调用 api 接口加载数据
+        data.value = []
+
+
+
+    } else {
+        // 使用模拟数据
+        data.value = u.randomizeProperty(data.value, 'value')
+    }
+    drawChart()
+
+}
 
 </script>
 
