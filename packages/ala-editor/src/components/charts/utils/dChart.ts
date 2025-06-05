@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 17:48:13
+ * @LastEditTime: 2025-06-05 17:50:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -191,7 +191,7 @@ interface DataPoint {
     name: string
     value: number
     category: string
-    originalIndex: number
+    originalIndex?: number
 }
 
 export const drawArea = (group: any, data: DataPoint[], areaColor: any, area: d3.Area<DataPoint>) => {

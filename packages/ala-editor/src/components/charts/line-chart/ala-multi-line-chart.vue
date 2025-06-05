@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 17:44:39
+ * @LastEditTime: 2025-06-05 17:50:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -209,8 +209,8 @@ const drawChart = () => {
 }
 
 onMounted(() => {
-    // setInterval(() => {
-    setTimeout(() => {
+    setInterval(() => {
+    // setTimeout(() => {
 
 
         data.value = [[{ name: '一月', value: 300, category: '服装鞋帽' }, { name: '三月', value: 210, category: '服装鞋帽' }, { name: '五月', value: 569, category: '服装鞋帽' }, { name: '七月', value: 183, category: '服装鞋帽' }, { name: '九月', value: 235, category: '服装鞋帽' }, { name: '十一月', value: 478, category: '服装鞋帽' }]]
