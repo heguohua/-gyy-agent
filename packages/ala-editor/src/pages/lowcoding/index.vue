@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 18:31:32
+ * @LastEditTime: 2025-06-06 19:31:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -142,13 +142,13 @@ const deleteUrl = "/l/lowcodingConfig/delete"
 const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'name', t('module.lowcoding.name')),
-        alaDetailSelect("formType", "页面类型", formTypes),
+        alaDetailSelect("formType", t('module.lowcoding.pageType'), formTypes),
         alaDetailBuild(dType.input, 'className', t('module.lowcoding.className')),
-        alaDetailBuild(dType.input, 'version', t('module.lowcoding.version')),
-        alaDetailBuild(dType.input, 'createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
-        alaDetailBuild(dType.input, 'updatedName', "更新人"),
-        alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+        // alaDetailBuild(dType.input, 'version', t('module.lowcoding.version')),
+        alaDetailBuild(dType.input, 'createdName', t('common.createdBy'), 1, false, { columnWidth: { desktop: '140' } }),
+        alaDetailDate(dType.date, 'createdTime', t('common.createdTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+        alaDetailBuild(dType.input, 'updatedName', t('common.updatedBy')),
+        alaDetailDate(dType.date, 'updatedTime', t('common.updatedTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
     ]
 })
 
