@@ -89,6 +89,11 @@ const getComponent = computed(() => {
         const componentName = alaConsts.COMPONENT_PREFIX + code
         logger.info(`bType[ ${bType} ],editor-config-render中渲染动态 属性表单 组件, code: ${componentName}, title: ${title}`);
 
+        if(code === 'select-api'){
+            console.log('item: -----> ',item);
+            
+        }
+
         return componentName
     }
 })

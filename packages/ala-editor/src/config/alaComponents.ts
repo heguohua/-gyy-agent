@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 09:21:50
+ * @LastEditTime: 2025-06-06 10:42:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -27,6 +27,7 @@ import AlaConfigKeyValue from '@/components/cps/config/ala-config-key-value.vue'
 import AlaConfigNumber from '@/components/cps/config/ala-config-number.vue';
 import AlaConfigBoolean from '@/components/cps/config/ala-config-boolean.vue';
 import AlaConfigSelect from '@/components/cps/config/ala-config-select.vue';
+import AlaConfigSelectApi from '@/components/cps/config/ala-config-select-api.vue';
 import AlaConfigInt from '@/components/cps/config/ala-config-int.vue';
 import AlaConfigRadio from '@/components/cps/config/ala-config-radio.vue';
 import AlaConfigCheckbox from '@/components/cps/config/ala-config-checkbox.vue';
@@ -130,6 +131,7 @@ export default {
     AlaConfigNumber,
     AlaConfigBoolean,
     AlaConfigSelect,
+    AlaConfigSelectApi,
     AlaConfigInt,
     AlaConfigRadio,
     AlaConfigCheckbox,

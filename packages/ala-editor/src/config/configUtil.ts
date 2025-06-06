@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 20:42:35
+ * @LastEditTime: 2025-06-06 10:56:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -395,6 +395,41 @@ export const configBoolean = (title: string, defaultValue = false) => {
     return bool
 }
 
+export const configSelectTable = (title: string, defaultValue = false) => {
+    const st = Type.Object(
+        {
+            code: Type.String(),
+            title: Type.String(),
+            default: Type.Object({
+
+            }),
+        },
+        {
+            code: "config-select",
+            title,
+            default: 'break',
+        }
+    )
+    return st
+}
+export const configSelectApi = (title: string, defaultValue = {}) => {
+    const st = Type.Object(
+        {
+            code: Type.String(),
+            title: Type.String(),
+            other: Type.Object({
+
+            }),
+        },
+        {
+            code: "config-select-api",
+            title,
+            default: defaultValue
+        }
+    )
+    return st
+}
+
 export const configMainTitle = () => {
     const config = {
         text_color: schemaAllViewport(configColor("字体颜色", '#3D446E')),
@@ -656,7 +691,14 @@ export const configApis = () => {
     const config = {
 
         // 刻度线
-        data_url: schemaAllViewport(configTextarea("数据API")),
+        // data_url: schemaAllViewport(configTextarea("数据API")),
+        // data_params: schemaAllViewport(configTextarea("请求参数")),
+        dataSetId: schemaAllViewport(configSelectApi('数据集', {
+            url: '/b/datasetTable/list', itemProperty: {
+                propertyName: 'tableName',
+                valueName: 'id',
+            }
+        })),
         data_time: schemaAllViewport(configInt('数据刷新间隔', 5000, 1000)),
         data_request_enabled: schemaAllViewport(configBoolean('开启API请求？'))
         // line_color: schemaAllViewport(configColors("折线颜色",colors.chartColors)),

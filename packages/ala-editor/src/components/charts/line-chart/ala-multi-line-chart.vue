@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 20:01:40
+ * @LastEditTime: 2025-06-06 08:34:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -24,6 +24,7 @@ import { logger } from '@/utils/logger';
 import * as d3 from 'd3';
 import DataPoint, * as ad3 from '@/components/charts/utils/dChart';
 import u from '@/utils/u';
+import { alaPost } from '@/utils/req';
 
 // State
 const props = defineProps({
@@ -206,6 +207,28 @@ const drawChart = () => {
     // ad3.drawLineCircle(formData, group,data.value[2], xScale!, yScale, chartWrapper.value);
 
 
+}
+
+
+const query = () => {
+    // Methods
+    const url = '/a/dict/list'
+
+    let params = props.formData.params?.desktop || {}
+
+    if (typeof params === 'string') {
+        params = u.parseJson(params)
+    }
+
+    logger.info(`从 api 图标数据，url【 ${url} 】，查询参数：`, params);
+
+    alaPost(u.url(url), params, false, '').then((data: any) => {
+        const response = data;
+        if (response.data) {
+
+        }
+
+    });
 }
 
 // 开启数据请求

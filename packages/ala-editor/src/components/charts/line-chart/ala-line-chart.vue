@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 20:38:49
+ * @LastEditTime: 2025-06-06 11:36:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -24,6 +24,7 @@ import { logger } from '@/utils/logger';
 import * as d3 from 'd3';
 import DataPoint, * as ad3 from '@/components/charts/utils/dChart';
 import u from '@/utils/u';
+import { alaPost } from '@/utils/req';
 
 // State
 const props = defineProps({
@@ -43,7 +44,7 @@ logger.info(`bType[ ${props.bType} ]，动态渲染 ala-line-chart 组件，prop
 
 // 示例数据
 const data = ref<DataPoint[]>([]);
-data.value = [{ name: '一月', value: 300, category: '服装鞋帽' }, { name: '三月', value: 210, category: '服装鞋帽' }, { name: '五月', value: 569, category: '服装鞋帽' }, { name: '七月', value: 183, category: '服装鞋帽' }, { name: '九月', value: 235, category: '服装鞋帽' }, { name: '十一月', value: 478, category: '服装鞋帽' }]
+const demoData = [{ name: '一月', value: 300, category: '服装鞋帽' }, { name: '三月', value: 210, category: '服装鞋帽' }, { name: '五月', value: 569, category: '服装鞋帽' }, { name: '七月', value: 183, category: '服装鞋帽' }, { name: '九月', value: 235, category: '服装鞋帽' }, { name: '十一月', value: 478, category: '服装鞋帽' }]
 
 // 图标外层对象div实例
 const chartWrapper = ref()
@@ -118,6 +119,11 @@ const drawChart = () => {
         right: formData.right?.desktop,
     };
 
+
+    if (svg.empty()) {
+        logger.error('svg为空')
+        return
+    }
     // 4、计算 svg 图形宽度、高度
     const width = +svg.attr("width") - margin.left - margin.right;
     let height = +svg.attr("height") - margin.top - margin.bottom;
@@ -213,6 +219,28 @@ const drawChart = () => {
 }
 
 
+const query = () => {
+    // Methods
+    const url = '/b/datasetTable/query'
+
+    let dataSetId = props.formData.dataSetId?.desktop || {}
+    let params =  {id:dataSetId}
+
+
+    logger.info(`从 api 图标数据，url【 ${url} 】，查询参数：`, params);
+
+    alaPost(u.url(url), params, false, '').then((data: any) => {
+
+        const response = data;
+        console.log('response:', response);
+        if (response.data) {
+
+        }
+
+    });
+}
+
+
 // 开启数据请求
 onMounted(() => {
 
@@ -229,17 +257,18 @@ onMounted(() => {
 
 const queryDataAndDrawChart = () => {
 
+    console.log('props.formData:', props.formData);
+
+
     const data_request_enabled = props.formData.data_request_enabled.desktop || false
 
     if (data_request_enabled) {
         // 调用 api 接口加载数据
         data.value = []
-
-
-
+        query()
     } else {
         // 使用模拟数据
-        data.value = u.randomizeProperty(data.value, 'value')
+        data.value = u.randomizeProperty(demoData, 'value')
     }
     drawChart()
 

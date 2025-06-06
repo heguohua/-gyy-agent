@@ -39,6 +39,7 @@ declare module 'vue' {
     AlaConfigObject: typeof import('./src/components/cps/config/ala-config-object.vue')['default']
     AlaConfigRadio: typeof import('./src/components/cps/config/ala-config-radio.vue')['default']
     AlaConfigSelect: typeof import('./src/components/cps/config/ala-config-select.vue')['default']
+    AlaConfigSelectApi: typeof import('./src/components/cps/config/ala-config-select-api.vue')['default']
     AlaConfigTextarea: typeof import('./src/components/cps/config/ala-config-textarea.vue')['default']
     AlaConfigTextareaJson: typeof import('./src/components/cps/config/ala-config-textarea-json.vue')['default']
     AlaConfigTitle: typeof import('./src/components/cps/config/ala-config-title.vue')['default']
