@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 17:15:01
+ * @LastEditTime: 2025-06-06 16:45:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -504,5 +504,33 @@ export default class u {
             });
     }
 
+
+    public static renameKeyInArray<T extends Record<string, any>>(
+        array: T[],
+        oldKey: string,
+        newKey: string
+    ): Array<Omit<T, typeof oldKey> & Record<typeof newKey, any>> {
+        return array.map(item => {
+            const { [oldKey]: oldValue, ...rest } = item;
+            return {
+                ...rest,
+                [newKey]: oldValue,
+            };
+        });
+    }
+
+    public static convertPropertyToNumber<T extends Record<string, any>>(
+        array: T[],
+        key: string
+    ): Array<Omit<T, typeof key> & Record<typeof key, number>> {
+        return array.map(item => {
+            const value = item[key];
+            const numberValue = value === '' ? 0 : Number(value);
+            return {
+                ...item,
+                [key]: isNaN(numberValue) ? 0 : numberValue,
+            };
+        });
+    }
 
 }

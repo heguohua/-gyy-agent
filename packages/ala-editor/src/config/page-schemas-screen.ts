@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 20:21:02
+ * @LastEditTime: 2025-06-06 16:59:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-screen.ts
  * @Description: 
  * 
@@ -104,6 +104,9 @@ const formType = Type.String({
     }, {
         name: '流程表单',
         value: 'flow',
+    }, {
+        name: '大屏/页面设计',
+        value: 'screen',
     }],
     rules: [
         { name: 'required', message: '不能为空' },
@@ -237,8 +240,8 @@ const schema = Type.Object({
     rowGap: schemaAllViewport(gapY),
     // labelWidth: schemaAllViewport(labelWidth),
     // position: schemaAllViewport(position),
-    // moduleName: schemaAllViewport(moduleName),
-    // formType: schemaAllViewport(formType),
+    moduleName: schemaAllViewport(moduleName),
+    formType: schemaAllViewport(formType),
     // columnNum: schemaAllViewport(columnNum),
     // useFormTitle: schemaAllViewport(useFormTitle),
     // showButtonsColumn: schemaAllViewport(showButtonsColumn),

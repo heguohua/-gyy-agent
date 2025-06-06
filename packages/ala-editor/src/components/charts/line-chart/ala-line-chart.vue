@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 11:36:04
+ * @LastEditTime: 2025-06-06 17:06:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -224,23 +224,28 @@ const query = () => {
     const url = '/b/datasetTable/query'
 
     let dataSetId = props.formData.dataSetId?.desktop || {}
-    let params =  {id:dataSetId}
+    let params = { id: dataSetId }
 
 
     logger.info(`从 api 图标数据，url【 ${url} 】，查询参数：`, params);
 
-    alaPost(u.url(url), params, false, '').then((data: any) => {
+    alaPost(u.url(url), params, false, '').then((response: any) => {
 
-        const response = data;
-        console.log('response:', response);
-        if (response.data) {
+        const d = response.data?.data
+        const yName = props.formData.yName.desktop
+
+        if (d) {
+            const dd = u.convertPropertyToNumber(d, yName)
+            data.value = dd as any
+            drawChart()
 
         }
+
 
     });
 }
 
-
+let timerId: number
 // 开启数据请求
 onMounted(() => {
 
@@ -249,15 +254,19 @@ onMounted(() => {
 
     // 定时刷新数据
     const intervals = props.formData.data_time.desktop || 5000
-    setInterval(() => {
+    timerId = window.setInterval(() => {
         queryDataAndDrawChart()
     }, intervals);
 
 })
+onUnmounted(() => {
+    if (timerId) {
+        logger.info(`即将清除id为【 ${timerId} 】的定时器`)
+        clearInterval(timerId);
+    }
+})
 
 const queryDataAndDrawChart = () => {
-
-    console.log('props.formData:', props.formData);
 
 
     const data_request_enabled = props.formData.data_request_enabled.desktop || false
@@ -266,11 +275,23 @@ const queryDataAndDrawChart = () => {
         // 调用 api 接口加载数据
         data.value = []
         query()
+
     } else {
         // 使用模拟数据
-        data.value = u.randomizeProperty(demoData, 'value')
+        let newData: Array<any> = u.randomizeProperty(demoData, 'value')
+        const xName = props.formData.xName.desktop
+        const yName = props.formData.yName.desktop
+        if (xName != 'name') {
+            newData = u.renameKeyInArray(newData, 'name', xName)
+        }
+        if (yName != 'value') {
+            newData = u.renameKeyInArray(newData, 'value', yName)
+        }
+
+        data.value = newData
+        drawChart()
+
     }
-    drawChart()
 
 }
 
