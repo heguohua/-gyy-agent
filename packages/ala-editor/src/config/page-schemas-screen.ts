@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 16:59:26
+ * @LastEditTime: 2025-06-06 18:14:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-screen.ts
  * @Description: 
  * 
@@ -11,6 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { min } from "lodash";
+import { formTypes } from "@/components/cps/dynamic/formTypes";
 
 const background = Type.Boolean({
     code: "config-color",
@@ -94,20 +95,8 @@ const moduleName = Type.Number({
 
 const formType = Type.String({
     code: "config-select",
-    title: "表单类型",
-    options: [{
-        name: '列表表单',
-        value: 'pageForm',
-    }, {
-        name: '子表单',
-        value: 'child',
-    }, {
-        name: '流程表单',
-        value: 'flow',
-    }, {
-        name: '大屏/页面设计',
-        value: 'screen',
-    }],
+    title: "页面类型",
+    options: formTypes,
     rules: [
         { name: 'required', message: '不能为空' },
     ],
@@ -200,7 +189,7 @@ const paddingTop = Type.String({
     code: "config-input",
     title: "上边距",
     placeholder: "请输入上边距",
-    default:'10px',
+    default: '10px',
     required: false
 })
 
@@ -208,7 +197,7 @@ const paddingLeft = Type.String({
     code: "config-input",
     title: "左边距",
     placeholder: "请输入左边距",
-    default:'10px',
+    default: '10px',
     required: false
 })
 
@@ -216,7 +205,7 @@ const gapX = Type.String({
     code: "config-input",
     title: "横向间距",
     placeholder: "请输入横向间距",
-    default:'1%',
+    default: '1%',
     required: false
 })
 
@@ -224,7 +213,7 @@ const gapY = Type.String({
     code: "config-input",
     title: "纵向间距",
     placeholder: "请输入纵向间距",
-    default:'1%',
+    default: '1%',
     required: false
 })
 

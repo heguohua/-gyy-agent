@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 19:33:42
+ * @LastEditTime: 2025-06-06 18:31:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -18,8 +18,22 @@
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
         :showEditButton="true" :showDeleteButton="true">
 
-        <template #cols="{ row, columnName }">
-            {{ row[columnName] }}
+
+        <template #cols="{ row, columnName, formItem }">
+            <template v-if="formItem.code === 'dateRange'">
+
+                <component :is="getComponent(formItem.code)"
+                    :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
+                    :formItem="formItem" :data="row" />
+            </template>
+            <template v-else>
+                <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
+                <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
+                    v-else />
+            </template>
+
         </template>
 
         <template #btns="{ row }">
@@ -27,6 +41,15 @@
             <AlaButton :showButton="true" name="force_publish" @force_publish="handleForcePublish(row)"
                 buttonType="danger" />
         </template>
+        <!-- <template #cols="{ row, columnName }">
+            {{ row[columnName] }}
+        </template>
+
+        <template #btns="{ row }">
+            <AlaButton :showButton="true" name="publish" @publish="handlePublish(row)" buttonType="primary" />
+            <AlaButton :showButton="true" name="force_publish" @force_publish="handleForcePublish(row)"
+                buttonType="danger" />
+        </template> -->
 
     </PageTable>
 
@@ -40,11 +63,14 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildInput } from '@/config/alaBuilders';
+import { alaBuildInput, alaBuildSelect } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
+import { alaDetailBuild, alaDetailDate, alaDetailSelect } from '@/config/alaDetailBuilder';
+import { formTypes } from '@/components/cps/dynamic/formTypes';
+import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 const router = useRouter()
 
@@ -79,7 +105,7 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
-     // 解除 响应式引用，防止新增页面数据影响列表数据
+    // 解除 响应式引用，防止新增页面数据影响列表数据
     const entity = toRaw(item)
     entity.typeEntity = [{ id: entity.type }]
 
@@ -115,10 +141,14 @@ const deleteUrl = "/l/lowcodingConfig/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        { prop: 'name', label: t('module.lowcoding.name') },
-        { prop: 'type', label: t('module.lowcoding.type') },
-        { prop: 'class_name', label: t('module.lowcoding.className') },
-        { prop: 'version', label: t('module.lowcoding.version') },
+        alaDetailBuild(dType.input, 'name', t('module.lowcoding.name')),
+        alaDetailSelect("formType", "页面类型", formTypes),
+        alaDetailBuild(dType.input, 'className', t('module.lowcoding.className')),
+        alaDetailBuild(dType.input, 'version', t('module.lowcoding.version')),
+        alaDetailBuild(dType.input, 'createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+        alaDetailBuild(dType.input, 'updatedName', "更新人"),
+        alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
     ]
 })
 
@@ -151,7 +181,16 @@ const baseFields = computed(() => {
 // 高级查询条件
 const advancedFields: any[] = []
 
+const getComponent = ((code: string) => {
+    return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
+})
 
+const showDetail = (item: { [key: string]: any }) => {
+    // u.clear(detailItem.item)
+    // u.merged(detailItem, { item })
+    // logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    // showDetailPage.value = true
+}
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 

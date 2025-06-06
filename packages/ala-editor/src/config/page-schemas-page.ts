@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 09:39:31
+ * @LastEditTime: 2025-06-06 18:14:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-page.ts
  * @Description: 
  * 
@@ -11,6 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { min } from "lodash";
+import { formTypes } from "@/components/cps/dynamic/formTypes";
 
 const background = Type.Boolean({
     code: "config-color",
@@ -93,17 +94,8 @@ const moduleName = Type.Number({
 
 const formType = Type.String({
     code: "config-select",
-    title: "表单类型",
-    options: [{
-        name: '列表表单',
-        value: 'pageForm',
-    }, {
-        name: '子表单',
-        value: 'child',
-    }, {
-        name: '流程表单',
-        value: 'flow',
-    }],
+    title: "页面类型",
+    options: formTypes,
     rules: [
         { name: 'required', message: '不能为空' },
     ],

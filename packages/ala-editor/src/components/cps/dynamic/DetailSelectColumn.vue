@@ -49,6 +49,7 @@ const props = defineProps({
 const showValue = computed(() => {
     let value = props.value
     const items = props.formItem.formData.items.desktop
+    
     if (items) {
         items.forEach((item: any) => {
             if (item.value === value) {
