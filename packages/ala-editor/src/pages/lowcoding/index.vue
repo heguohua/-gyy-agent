@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 19:40:50
+ * @LastEditTime: 2025-06-07 10:23:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -118,7 +118,7 @@ const showEdit = (item: { [key: string]: any }) => {
     // showAddForm.value = true
     // 打开form编辑页面
     const formType = item.formType
-    if (formType === 'screen') {
+    if (formType === 'screen' || formType === 'page') {
         router.push({ name: "ScreenDesignPage", query: { type: 'edit', id: entity.id } })
     } else {
         router.push({ name: "FormDesignPage", query: { type: 'edit', id: entity.id } })
