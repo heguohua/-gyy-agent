@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 17:57:25
+ * @LastEditTime: 2025-06-07 17:05:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -474,6 +474,37 @@ export const drawMainTitle = (formData: Record<string, any>, width: number, heig
     title.style("font-size", text_fontSize);
 }
 
+/**
+ * 绘制文本
+ * @param content 
+ * @param fontColor 
+ * @param fontSize 
+ * @param x 
+ * @param y 
+ * @param group 
+ */
+export const drawText = (content: string, fontColor: string, fontSize: number, x: number, y: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+
+    const titleAttrs = new Map<string, any>();
+
+    // 文字颜色
+    titleAttrs.set("fill", fontColor);
+
+    // 文字水平偏移距离
+    titleAttrs.set("x", x);
+    titleAttrs.set("text-anchor", 'middle');
+
+    // 设置垂直偏移
+    titleAttrs.set("dominant-baseline", 'middle');
+
+    titleAttrs.set('y', y);
+    titleAttrs.set("font-size", fontSize);
+    const title = aText(group, content, titleAttrs);
+
+    // 文字大小
+    // title.style("font-size", fontSize);
+}
+
 
 /**
  * 计算 svg 实际可用高度
@@ -578,6 +609,53 @@ export const drawLineCircle = (formData: Record<string, any>, group: d3.Selectio
     }
 
 }
+export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: DataPoint[], xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any) => {
+
+    const xName = formData.xName?.desktop
+    const yName = formData.yName?.desktop
+
+
+    const circleAnimation = formData.circleAnimation?.desktop || false
+    const circleAnimationTime = formData.circleAnimationTime?.desktop || 2000
+
+    const line_label_color = formData.line_label_color?.desktop || 'red'
+    const line_label_fontSize = formData.line_label_fontSize?.desktop || 12
+    const line_label_fontWeight = formData.line_label_fontWeight?.desktop || 400
+    const line_label_left = formData.line_label_left?.desktop || 0
+    const line_label_bottom = formData.line_label_bottom?.desktop || 0
+    const y_label_unit = formData.y_label_unit?.desktop || ''
+
+
+    // const labels = group.selectAll('text')
+    //     .data(data)
+    //     .enter()
+    //     .append('text')
+    //     .attr('x', (d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2 + line_label_left)
+    //     .attr('y', (d: any) => yScale(d[yName]) - line_label_bottom)
+    //     .attr("text-anchor", "middle")
+    //     .attr("font-size", line_label_fontSize + "px")
+    //     .attr("fill", line_label_color)
+    //     .text((d: any) => d[yName]);
+    const labels = group.selectAll("text.label")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "label")
+        .attr("x", (d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2 + line_label_left)
+        .attr("y", (d: any) => yScale(d[yName]) - line_label_bottom) // 提前 10 像素，避免重叠圆点
+        .attr("text-anchor", "middle")
+        .attr("font-size", line_label_fontSize + "px")
+        .attr("font-weight", line_label_fontWeight)
+        .attr("fill", line_label_color)
+        .text((d: any) => d[yName] + y_label_unit);
+
+    if (circleAnimation) {
+        labels.transition()
+            .duration(circleAnimationTime)
+            .attr('opacity', 1);
+    }
+
+}
 
 export const drawLineCircles = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: Array<DataPoint[]>, xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any) => {
 
@@ -606,7 +684,7 @@ export const drawLineCircles = (formData: Record<string, any>, group: d3.Selecti
             .attr('cy', (d: any) => yScale(d[yName]))
             .attr('r', line_inflection_point)
             .attr('fill', line_inflection_colors[index])
-            
+
 
         if (circleAnimation) {
             circle.transition()

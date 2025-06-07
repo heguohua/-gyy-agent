@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 17:06:50
+ * @LastEditTime: 2025-06-07 17:10:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -216,6 +216,12 @@ const drawChart = () => {
     // 12、设置端点样式，Circle 点和 tooltip
     ad3.drawLineCircle(formData, group, data.value, xScale!, yScale, chartWrapper.value);
 
+    // 绘制数据标签文本
+    const addLineLabel = formData.addLineLabel?.desktop || false;
+    if (addLineLabel) {
+        ad3.drawLineLabel(formData, group, data.value, xScale!, yScale, chartWrapper.value);
+    }
+
 }
 
 
@@ -254,6 +260,9 @@ onMounted(() => {
 
     // 定时刷新数据
     const intervals = props.formData.data_time.desktop || 5000
+
+    console.log('intervals:', intervals);
+
     timerId = window.setInterval(() => {
         queryDataAndDrawChart()
     }, intervals);

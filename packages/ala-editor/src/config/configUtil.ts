@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 10:56:12
+ * @LastEditTime: 2025-06-07 17:09:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -658,6 +658,20 @@ export const configLine = () => {
         line_curve_style: schemaAllViewport(configCurveStyle("平滑策略")),
         addArea: schemaAllViewport(configBoolean('添加区域图')),
         areaColor: schemaAllViewport(configColor('区域图颜色')),
+
+
+    }
+    return config
+}
+
+export const configLineLabel = () => {
+    const config = {
+        addLineLabel: schemaAllViewport(configBoolean('启用标签', true)),
+        line_label_color: schemaAllViewport(configColor("字体颜色", colors.chartColors[0])),
+        line_label_fontSize: schemaAllViewport(configInt("字体大小", 14)),
+        line_label_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+        line_label_left: schemaAllViewport(configInt("字体左偏移", 10)),
+        line_label_bottom: schemaAllViewport(configInt("字体上偏移", 10)),
 
     }
     return config
