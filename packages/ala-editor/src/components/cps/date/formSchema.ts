@@ -94,7 +94,7 @@ const columnNum = Type.Number({
 const columnWidth = Type.String({
     code: "config-int",
     title: "单列宽度",
-    default: 16,
+    default: 0,
     other: {
         min: 0,
         max: 500,
