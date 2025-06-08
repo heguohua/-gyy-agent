@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-02 19:06:55
+ * @LastEditTime: 2025-06-08 10:54:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userList.vue
  * @Description: 
  * 
@@ -42,7 +42,7 @@
     <!-- 新增、编辑 -->
     <userAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formConfigs.systemUser.detailAttr" />
 
 
 </template>
@@ -62,6 +62,7 @@ import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
+import formConfigs from '@/config/formConfigs';
 const { t } = useI18n();
 const router = useRouter()
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -152,13 +153,7 @@ const showPreviewPage = ref(false)
 //     showPreviewPage.value = true
 // }
 
-const formAttr = ref({
-    formWidth: 600,
-    columnNum: 1,
-    labelWidth: 150,
-    labelPosition: 'left',
-    useFormTitle: false,
-})
+
 
 
 

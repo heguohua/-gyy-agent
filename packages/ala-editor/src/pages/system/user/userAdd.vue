@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 10:11:24
+ * @LastEditTime: 2025-06-08 10:55:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userAdd.vue
  * @Description: 
  * 
@@ -10,9 +10,9 @@
 -->
 <template>
 
-    <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
+    <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="formConfigs.systemUser.formFields" :formData="formData"
         :columnNum="1" labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl"
-        :tipTitle="$t('pop.warm_title')" :formAttr="formAttr" :beforeSave="beforeSave" />
+        :tipTitle="$t('pop.warm_title')" :formAttr="formConfigs.systemUser.formAttr" :beforeSave="beforeSave" />
 
 </template>
 
@@ -110,7 +110,6 @@ const beforeSave = (item: any) => {
 }
 // ##########################  以上是公共方法，不需要修改 end #########################################
 // { value: { labelWidth: 90, columnNum: 1, formWidth: 500 } }
-const formAttr = ref(formConfigs.systemUser.formAttr)
 
 
 </script>
