@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-03 09:55:59
+ * @LastEditTime: 2025-06-08 10:11:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userAdd.vue
  * @Description: 
  * 
@@ -23,6 +23,7 @@ import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuild
 import u from '@/utils/u';
 import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
+import formConfigs from '@/config/formConfigs';
 const { t } = useI18n();
 
 const props = defineProps({
@@ -60,21 +61,7 @@ watch(() => props.baseInfo.item, (item) => {
 
 // 基础表单字段
 const basicFields = computed(() => {
-    return [
-        alaBuildHidden('id'),// 固定格式
-        alaBuildInput("scabbard", '登录账号', [alaRequired()]),
-        alaBuildPassword("sword", '登录密码', []),
-        alaBuildInput("nickName", '用户昵称', [alaRequired()]),
-        alaBuildInput("mobile", '手机号', [alaRequired(), alaPhone()]),
-        alaBuildInput("email", '邮箱', [alaRequired(), alaEmail()]),
-        alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
-        alaBuildInput("iconPath", '用户头像', []),
-        alaBuildSelectTree("organizationId", "所属部门", "/u/organization/tree", {}, { propertyName: 'name', valueName: 'id', childrenName: 'children' }, undefined, "请选择用户所属部门", {
-            clearable: true,
-            checkStrictly: true,
-        }),
-
-    ]
+    return formConfigs.systemUser.formFields
 })
 
 // // 基础表单字段
@@ -123,13 +110,7 @@ const beforeSave = (item: any) => {
 }
 // ##########################  以上是公共方法，不需要修改 end #########################################
 // { value: { labelWidth: 90, columnNum: 1, formWidth: 500 } }
-const formAttr = ref({
-    formWidth: 500,
-    columnNum: 1,
-    labelWidth: 150,
-    labelPosition: 'right',
-    useFormTitle: false,
-})
+const formAttr = ref(formConfigs.systemUser.formAttr)
 
 
 </script>
