@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 10:58:31
+ * @LastEditTime: 2025-06-08 11:23:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -11,6 +11,8 @@
 import { alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildPassword, alaBuildSelectTree } from "@/config/alaBuilders"
 import { alaEmail, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
+import { alaDetailBuild, alaDetailDate, alaDetailSelectTree } from "../alaDetailBuilder"
+import { dType } from "@/components/cps/dynamic/detailType"
 
 const systemUser: FormConfig = {
     formAttr: {
@@ -41,7 +43,34 @@ const systemUser: FormConfig = {
         labelWidth: 150,
         labelPosition: 'left',
         useFormTitle: false,
-    }
+    },
+    detailFields: [
+        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
+        alaDetailBuild(dType.input, 'nickName', "用户昵称"),
+        alaDetailBuild(dType.input, 'mobile', "手机号"),
+        alaDetailBuild(dType.input, 'email', "邮箱"),
+        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
+        alaDetailBuild(dType.input, 'iconPath', "用户头像"),
+        alaDetailBuild(dType.input, 'createdName', "创建人"),
+        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailBuild(dType.input, 'updatedName', "更新人"),
+        alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
+
+    ],
+    pageApi: '/u/user/page',
+    pageFields: [
+        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true, { columnWidth: { desktop: '120' } }),
+        alaDetailBuild(dType.input, 'nickName', "用户昵称", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailBuild(dType.input, 'mobile', "手机号", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailBuild(dType.input, 'email', "邮箱"),
+        alaDetailBuild(dType.input, 'iconPath', "用户头像", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailBuild(dType.input, 'createdName', "创建人"),
+        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
+    ]
+
 }
 
 

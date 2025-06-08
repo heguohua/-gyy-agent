@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 10:54:26
+ * @LastEditTime: 2025-06-08 11:25:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userList.vue
  * @Description: 
  * 
@@ -14,8 +14,8 @@
         @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
 
     <!-- 分页列表 -->
-    <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
-        :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
+    <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="formConfigs.systemUser.pageFields"
+        :params="params" :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
         :showEditButton="true" :showAddButton="true" :showDeleteButton="true">
 
 
@@ -42,29 +42,24 @@
     <!-- 新增、编辑 -->
     <userAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formConfigs.systemUser.detailAttr" />
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="formConfigs.systemUser.detailFields"
+        :formAttr="formConfigs.systemUser.detailAttr" />
 
 
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
 import userAdd from '@/pages/system/user/userAdd.vue';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
-import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
-import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
-import { alaPost } from '@/utils/req';
-import notify from '@/utils/notify';
 import formConfigs from '@/config/formConfigs';
 const { t } = useI18n();
-const router = useRouter()
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
 const route = useRoute();
@@ -121,14 +116,6 @@ const refresh = () => {
     }
 }
 
-/**
- * 动态解析国际化字符串
- * @param label 
- */
-const parseLabel = (label: string) => {
-    return t(label);
-}
-
 const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
@@ -145,16 +132,6 @@ const showDetail = (item: { [key: string]: any }) => {
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     showDetailPage.value = true
 }
-const showPreviewPage = ref(false)
-// const showPreview = (item: { [key: string]: any }) => {
-//     u.clear(detailItem.item)
-//     u.merged(detailItem, { item })
-//     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
-//     showPreviewPage.value = true
-// }
-
-
-
 
 
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
@@ -162,7 +139,7 @@ const showPreviewPage = ref(false)
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/u/user/page"
+const url = formConfigs.systemUser.pageApi
 const deleteUrl = "/u/user/delete"
 // const cls = alaBuildSelectTable("forms", "表单", "/l/lowcodingConfig/page", [{ prop: 'name', label: '表单名称', isQuery: true }], { propertyName: 'name', valueName: 'id', otherProperty: ['className'] }, undefined, { formType: 'flow' }, "请选择")
 
@@ -176,43 +153,7 @@ const deleteUrl = "/u/user/delete"
 
 
 // 分页列表中列属性配置
-const columns = computed(() => {
-    return [
-        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true, { columnWidth: { desktop: '120' } }),
-        alaDetailBuild(dType.input, 'nickName', "用户昵称", 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailBuild(dType.input, 'mobile', "手机号", 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailBuild(dType.input, 'email', "邮箱"),
-        alaDetailBuild(dType.input, 'iconPath', "用户头像", 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailBuild(dType.input, 'createdName', "创建人"),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
 
-        // { prop: 'displayName', label: '名称' },
-        // { prop: 'name', label: '唯一编码' },
-        // { prop: 'type', label: '流程分类' },
-        // { prop: 'isDeployed', label: '是否已部署' },
-        // { prop: 'remark', label: '备注' },
-        // { prop: 'updatedTime', label: '更新时间' },
-    ]
-})
-/**
- * 详情页面字段
- */
-const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
-    alaDetailBuild(dType.input, 'nickName', "用户昵称"),
-    alaDetailBuild(dType.input, 'mobile', "手机号"),
-    alaDetailBuild(dType.input, 'email', "邮箱"),
-    alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
-    alaDetailBuild(dType.input, 'iconPath', "用户头像"),
-    alaDetailBuild(dType.input, 'createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.input, 'updatedName', "更新人"),
-    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
-
-])
 
 // 基础查询条件
 const baseFields = computed(() => {
@@ -229,60 +170,6 @@ const advancedFields: any = []
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 
-const handlePreview = (row: any) => {
-    console.log('row:', row);
-    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
-    u.merged(previewPageProps, { id: row.id })
-    showPreviewPage.value = true
-}
-
-const handleDeploy = (row: any) => {
-    const deployUrl = '/p/design/deploy'
-    alaPost(u.url(deployUrl), { id: row.id }, false, '').then((data: any) => {
-        const response = data;
-        if (response.data) {
-            notify.success(t('pop.warm_title'), t('buttons.flow_deploy') + '成功')
-            refresh()
-        }
-    });
-}
-
-
-const handleRedeploy = (row: any) => {
-    const deployUrl = '/p/design/redeploy'
-    alaPost(u.url(deployUrl), { id: row.id }, false, '').then((data: any) => {
-        const response = data;
-        if (response.data) {
-            notify.success(t('pop.warm_title'), t('buttons.flow_redeploy') + '成功')
-            refresh()
-        }
-    });
-}
-
-
-const handleClone = (row: any) => {
-    const deployUrl = '/p/design/clone'
-    alaPost(u.url(deployUrl), { id: row.id }, false, '').then((data: any) => {
-        const response = data;
-        if (response.data) {
-            notify.success(t('pop.warm_title'), t('buttons.flow_redeploy') + '成功')
-            refresh()
-        }
-    });
-}
-
-
-const handleDesign = (row: any) => {
-    router.push({ name: "Design", query: { id: row.id } })
-}
-
-const previewPageProps = reactive({})
-
-const tabs = computed(() => {
-    return reactive([
-        { title: '流程图', code: 'ProcessDesign', props: { ...previewPageProps, viewer: true } },
-    ])
-})
 </script>
 
 <style lang="scss" scoped></style>
