@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 21:37:41
+ * @LastEditTime: 2025-06-08 14:47:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-drawer.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <div class="ala-drawer-wrapper">
 
         <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer"
-            :size="width" :with-header="withHeader()">
+            :size="width" :with-header="withHeader()" >
 
             <template #header v-if="withHeader()">
                 <h4>{{ title }}</h4>

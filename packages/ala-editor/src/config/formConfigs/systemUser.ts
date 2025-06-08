@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 11:23:48
+ * @LastEditTime: 2025-06-08 13:21:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -14,7 +14,7 @@ import FormConfig from "@/config/formConfigs/formConfig"
 import { alaDetailBuild, alaDetailDate, alaDetailSelectTree } from "../alaDetailBuilder"
 import { dType } from "@/components/cps/dynamic/detailType"
 
-const systemUser: FormConfig = {
+export const systemUser: FormConfig = {
     formAttr: {
         formWidth: 500,
         columnNum: 1,
@@ -74,4 +74,3 @@ const systemUser: FormConfig = {
 }
 
 
-export default systemUser
