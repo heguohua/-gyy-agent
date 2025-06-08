@@ -103,6 +103,14 @@ const props = defineProps({
     }
 })
 
+watch(() => props.formAttr, (v: any) => {
+    console.log('观察到props.formAttr发生变化:', props.formAttr);
+
+}, {
+    immediate: true,
+    deep: true
+})
+
 const saveButton = computed(() => {
     return props.showSaveButton;
 })
@@ -194,7 +202,7 @@ const { formWidth, labelWidth, labelPosition, columnNum } = toRefs(props.formAtt
 const drawerWidth = computed((): string => {
     const paddingWidth = 66
     let width = (formWidth.value + paddingWidth) + 'px'
-    
+
     return width
 })
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 15:37:18
+ * @LastEditTime: 2025-06-08 16:25:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import { getDetailConfig } from '@/config/formConfigs';
+import { formConfigParse } from '@/pages/dynamic/formConfigParser';
 import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
@@ -61,8 +62,6 @@ const props = defineProps({
 })
 
 const { formItem } = toRefs(props)
-
-
 
 // Methods
 const showValue = computed(() => {
@@ -120,11 +119,23 @@ const showDetail = async (item: string, index: number) => {
     console.log('props.value:---》', props.value);
     console.log('props.value[index]:---》', props.value[index]);
 
-    const formConfig = getDetailConfig('/u/user/page')
+    // 先从 缓存中加载
+    let formConfig = getDetailConfig(url)
+
+    if (!formConfig) {
+        // 说明缓存中没加载到表单配置
+        if (url === '/l/dynamic/page') {
+            // 说明是动态表单，调用接口加载
+        } else {
+            // 说明当前模块不是动态表单，那么当前模块是非动态表单模块，但是未在 formConfig 中配置表单信息
+            logger.error(`当前模块是非动态表单模块，但是【 未在 formConfig 中配置表单 】信息，url[${url}]，params[${u.tojson(params)}]`)
+        }
+    }
+
     console.log('formConfig:', formConfig);
 
     dAttr.value = formConfig?.detailAttr as any
-    dFields.value =formConfig?.detailFields as any
+    dFields.value = formConfig?.detailFields as any
 
     const value = props.value[index][valueName]
 
