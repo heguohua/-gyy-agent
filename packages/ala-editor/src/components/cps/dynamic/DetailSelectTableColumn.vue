@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 14:58:26
+ * @LastEditTime: 2025-06-08 15:37:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -27,6 +27,7 @@
 <script setup lang="ts">
 import { getDetailConfig } from '@/config/formConfigs';
 import { logger } from '@/utils/logger';
+import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -94,18 +95,28 @@ const detailItem = reactive({
 })
 
 
+const query = async (url: string, params: any): Promise<any> => {
+    // Methods
+    logger.info(`从 api 图标数据，url【 ${url} 】，查询参数：`, params);
+
+    const result = await alaPost(u.url(url), params, false, '').then((response: any) => {
+        return response
+    });
+    return result
+}
+
+
+
 const showDetailPage = ref(false)
 
-
-const showDetail = (item: string, index: number) => {
+const showDetail = async (item: string, index: number) => {
     const { formData } = formItem.value
     const url = formData.url.desktop
     const params = formData.params.desktop
-    const itemProperty = formData.itemProperty.desktop
+    const valueName = formData.itemProperty.desktop.valueName
     console.log('formData:---》', formData);
     console.log('url:---》', url);
     console.log('params:---》', params);
-    console.log('itemProperty.valueName:---》', itemProperty.valueName);
     console.log('props.value:---》', props.value);
     console.log('props.value[index]:---》', props.value[index]);
 
@@ -113,11 +124,36 @@ const showDetail = (item: string, index: number) => {
     console.log('formConfig:', formConfig);
 
     dAttr.value = formConfig?.detailAttr as any
-    debugger
-    u.clear(detailItem.item)
-    u.merged(detailItem.item, { id: index })
-    logger.info(`当前模块【 DetailSelectTableColumn --- detailItem 】对象参数为`, detailItem);
-    showDetailPage.value = true
+    dFields.value =formConfig?.detailFields as any
+
+    const value = props.value[index][valueName]
+
+    const queryParams = u.merged({ [valueName]: value }, params)
+    console.log('queryParams:', queryParams);
+
+    const response = await query(url, { body: queryParams, page: { orders: [], current: 1, size: 10 } })
+
+    console.log('response ------> :', response);
+
+    if (response.data?.list) {
+        if (response.data.list.length === 0) {
+            logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${url}]接口，返回【 空数组 】`)
+        } else if (response.data.list.length > 1) {
+            logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${url}]接口，返回【 数据多于1条 】`)
+        } else {
+            // 说明刚好查询到一条数据
+
+            u.clear(detailItem.item)
+            u.merged(detailItem.item, response.data.list[0])
+            logger.info(`当前模块【 DetailSelectTableColumn --- detailItem 】对象参数为`, detailItem);
+            showDetailPage.value = true
+
+        }
+    } else {
+        logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${url}]接口，返回【 数据为空 】，response[ ${u.tojson(response)} ]`)
+    }
+
+
 
 
 
