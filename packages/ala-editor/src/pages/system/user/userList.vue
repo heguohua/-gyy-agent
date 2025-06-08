@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 11:25:11
+ * @LastEditTime: 2025-06-08 11:30:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userList.vue
  * @Description: 
  * 
@@ -158,7 +158,7 @@ const deleteUrl = "/u/user/delete"
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("displayName", '名称'),
+        alaBuildInput("nickName", '用户昵称'),
     ]
 })
 
