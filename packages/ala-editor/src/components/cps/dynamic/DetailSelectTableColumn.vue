@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-12 22:54:40
+ * @LastEditTime: 2025-06-07 20:44:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -48,6 +48,10 @@ const props = defineProps({
         default: false
     }
 })
+console.log('props:',props);
+const formData = props.formItem.formData
+const params = formData.params.desktop
+const url = formData.url.desktop
 
 // Methods
 const showValue = computed(() => {
@@ -62,7 +66,12 @@ const showValue = computed(() => {
     }
     return results
 })
+function myInitLogic() {
+  console.log("组件被创建时立即执行，不需要挂载");
+}
 
+// 组件一创建，setup 执行时就会自动调用
+myInitLogic();
 </script>
 
 <style scoped lang="scss">
@@ -75,6 +84,12 @@ const showValue = computed(() => {
         padding: 0px 4px;
         border-radius: 3px;
         display: inline-block;
+    }
+
+    &:hover {
+        color: var(--el-menu-active-color);
+        cursor: pointer;
+        font-weight: bold;
     }
 }
 </style>

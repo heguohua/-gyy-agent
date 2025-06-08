@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-16 09:17:37
+ * @LastEditTime: 2025-06-08 09:58:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -20,16 +20,12 @@
 
 
                 <router-view v-slot="{ Component, route }">
-
-                    <keep-alive :exclude="['Design']">
-                        <component :is="Component" :key="route.path" />
+                    <keep-alive v-if="route.meta.keepAlive">
+                        <component :is="Component" :key="path(route, Component)" />
                     </keep-alive>
-
+                    <component v-else :is="Component" :key="path(route, Component)" />
                 </router-view>
 
-                <!-- <KeepAlive>
-                    <RouterView />
-                </KeepAlive> -->
             </div>
         </div>
 
@@ -131,6 +127,10 @@ const showTip = (isShow: boolean) => {
 
 const toAiAssistPage = () => {
     router.push({ name: "AiAssistPage", query: {} })
+}
+
+const path = (route: any, component: any) => {
+    return route.path
 }
 
 </script>

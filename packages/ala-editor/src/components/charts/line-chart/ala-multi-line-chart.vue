@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 08:34:16
+ * @LastEditTime: 2025-06-08 09:09:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -232,19 +232,26 @@ const query = () => {
 }
 
 // 开启数据请求
-onMounted(() => {
+let timerId: number
+onActivated(() => {
 
     // 第一次加载数据
     queryDataAndDrawChart()
 
     // 定时刷新数据
     const intervals = props.formData.data_time.desktop || 5000
-    setInterval(() => {
+
+    timerId = window.setInterval(() => {
         queryDataAndDrawChart()
     }, intervals);
 
 })
-
+onDeactivated(() => {
+    if (timerId) {
+        logger.info(`即将清除id为【 ${timerId} 】的定时器`)
+        clearInterval(timerId);
+    }
+})
 const queryDataAndDrawChart = () => {
 
     const data_request_enabled = props.formData.data_request_enabled.desktop || false

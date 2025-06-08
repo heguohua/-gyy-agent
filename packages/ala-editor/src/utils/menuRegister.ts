@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 15:57:43
+ * @LastEditTime: 2025-06-08 09:58:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -214,6 +214,11 @@ export default class MenuUtil {
                 // logger.info('  '.repeat(level) + `ID: ${menu.id}, Name: ${menu.name}`);
                 logger.info('==》'.repeat(level) + `Level: ${level}, ID: ${menu.id}, Name: ${menu.name}`);
 
+                let keepAlive = true
+                if (menu.url && menu.url.startsWith('/bi/')) {
+                    keepAlive = false
+                }
+
                 if (menu.url) {
                     let menuComponent = allMenuComponents[menu.url]
                     if (menuComponent) {
@@ -228,6 +233,7 @@ export default class MenuUtil {
                                 menuCode: menu.code,
                                 viewName: menuComponent.viewName,
                                 uniqueCheck: menuComponent.uniqueCheck,
+                                keepAlive: keepAlive
                             },
                         });
                     } else if (menu.fullPath) {
@@ -249,6 +255,7 @@ export default class MenuUtil {
                                 requiresAuth: menuComponent.requiresAuth,
                                 menuName: menu.name,
                                 menuCode: menu.code,
+                                keepAlive: keepAlive
                             },
                         });
 
