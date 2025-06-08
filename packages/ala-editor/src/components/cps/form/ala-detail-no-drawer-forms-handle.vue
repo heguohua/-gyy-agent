@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 22:39:02
+ * @LastEditTime: 2025-06-08 17:21:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -611,6 +611,8 @@ const postData = async (url: string, item: any): Promise<any> => {
                 align-items: center;
                 justify-content: right;
                 border-radius: 2px;
+                margin-top: 0;
+                margin-bottom: 0;
             }
 
             :deep(.value) {
@@ -624,7 +626,8 @@ const postData = async (url: string, item: any): Promise<any> => {
                 align-items: center;
                 justify-content: left;
                 border-radius: 2px;
-
+                margin-top: 0;
+                margin-bottom: 0;
             }
 
             :deep(.value svg) {
@@ -682,6 +685,8 @@ const postData = async (url: string, item: any): Promise<any> => {
                 align-items: center;
                 justify-content: right;
                 border-radius: 2px;
+                margin-top: 0;
+                margin-bottom: 0;
             }
 
             :deep(.value) {
@@ -695,7 +700,8 @@ const postData = async (url: string, item: any): Promise<any> => {
                 align-items: center;
                 justify-content: left;
                 border-radius: 2px;
-
+                margin-top: 0;
+                margin-bottom: 0;
             }
 
             :deep(.value svg) {

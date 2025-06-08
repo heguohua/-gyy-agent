@@ -4,7 +4,7 @@ import { AlaField } from "@/config/fieldSchemas"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:49:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 11:28:19
+ * @LastEditTime: 2025-06-08 17:47:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/formConfig.ts
  * @Description: 
  * 
@@ -17,4 +17,6 @@ export default interface FormConfig {
     detailFields: Array<any>
     pageApi: string
     pageFields?: Array<any>
+    moduleName?: string
+
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 13:21:43
+ * @LastEditTime: 2025-06-08 17:48:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -69,7 +69,8 @@ export const systemUser: FormConfig = {
         alaDetailBuild(dType.input, 'createdName', "创建人"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
-    ]
+    ],
+    moduleName: 'user'
 
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 16:33:26
+ * @LastEditTime: 2025-06-08 17:20:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer.vue
  * @Description: 
  * 
@@ -150,6 +150,8 @@ watch(() => props.previewParams.data, (newValue) => {
             align-items: center;
             justify-content: right;
             border-radius: 2px;
+            margin-top: 0;
+            margin-bottom: 0;
         }
 
         :deep(.value) {
@@ -163,7 +165,8 @@ watch(() => props.previewParams.data, (newValue) => {
             align-items: center;
             justify-content: left;
             border-radius: 2px;
-
+            margin-top: 0;
+            margin-bottom: 0;
         }
 
         :deep(.value svg) {

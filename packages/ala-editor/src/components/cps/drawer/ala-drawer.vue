@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 14:47:55
+ * @LastEditTime: 2025-06-08 17:22:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/drawer/ala-drawer.vue
  * @Description: 
  * 
@@ -81,6 +81,9 @@ const handleClose = (done: () => void) => {
             font-size: 1.1rem !important;
             background: #F9F9FA !important;
             padding: 4px 0px !important;
+            h4{
+                margin: 0px;
+            }
         }
 
         .el-drawer__body {

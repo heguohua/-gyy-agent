@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 16:25:31
+ * @LastEditTime: 2025-06-08 17:50:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -25,7 +25,8 @@
 </template>
 
 <script setup lang="ts">
-import { getDetailConfig } from '@/config/formConfigs';
+import { getDetailConfig, setDetailConfig } from '@/config/formConfigs';
+import FormConfig from '@/config/formConfigs/formConfig';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
 import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
@@ -80,13 +81,15 @@ const showValue = computed(() => {
 
 // ########################################## 关联对象详情 ########################################################
 
-
+const mName = ref('')
 const moduleName = computed(() => {
-    // const code = route.meta.menuCode as string;
-    // console.log('code:', code);
+    let name = ''
+    if (mName.value) {
+        name = t('menu.' + mName.value)
+    }
+    // console.log('name ---->:', name);
 
-    // return t(code)
-    return '112233'
+    return name
 })
 const detailItem = reactive({
     moduleName,
@@ -111,13 +114,13 @@ const showDetailPage = ref(false)
 const showDetail = async (item: string, index: number) => {
     const { formData } = formItem.value
     const url = formData.url.desktop
-    const params = formData.params.desktop
+    let params = formData.params.desktop
     const valueName = formData.itemProperty.desktop.valueName
-    console.log('formData:---》', formData);
-    console.log('url:---》', url);
-    console.log('params:---》', params);
-    console.log('props.value:---》', props.value);
-    console.log('props.value[index]:---》', props.value[index]);
+    // console.log('formData:---》', formData);
+    // console.log('url:---》', url);
+    // console.log('params:---》', params);
+    // console.log('props.value:---》', props.value);
+    // console.log('props.value[index]:---》', props.value[index]);
 
     // 先从 缓存中加载
     let formConfig = getDetailConfig(url)
@@ -125,26 +128,69 @@ const showDetail = async (item: string, index: number) => {
     if (!formConfig) {
         // 说明缓存中没加载到表单配置
         if (url === '/l/dynamic/page') {
-            // 说明是动态表单，调用接口加载
+            // 说明是动态表单，则根据新的key加载缓存对象
+            const { tableName: className } = u.parseJson(params)
+
+
+            formConfig = getDetailConfig(className)
+
+            if (!formConfig) {
+                // 调用接口加载
+
+                // 加载模型定义文件
+                const list_url = "/l/lowcodingConfig/list"
+                const list_params = { className }
+                logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`, params)
+
+                const configs = await formConfigParse(list_url, list_params)
+                // console.log('configs:', configs);
+                formConfig = {
+                    formAttr: configs.formAttr,
+                    detailAttr: configs.formAttr,
+                    formFields: configs.addFormFields,
+                    detailFields: configs.detailFields,
+                    pageApi: url
+                }
+
+                // 将 formConfig 放置到缓存中
+
+                setDetailConfig(className, formConfig)
+
+            }
+
         } else {
             // 说明当前模块不是动态表单，那么当前模块是非动态表单模块，但是未在 formConfig 中配置表单信息
             logger.error(`当前模块是非动态表单模块，但是【 未在 formConfig 中配置表单 】信息，url[${url}]，params[${u.tojson(params)}]`)
         }
     }
 
-    console.log('formConfig:', formConfig);
+    // console.log('formConfig:', formConfig);
 
     dAttr.value = formConfig?.detailAttr as any
     dFields.value = formConfig?.detailFields as any
 
     const value = props.value[index][valueName]
 
+    if (params.indexOf('tableName') > 0) {
+
+        // 说明当前关联字段是动态表单
+        params = u.parseJson(params)
+        params.className = params.tableName
+
+        const conditions = [{ column: 'id', operator: '=', value }]
+        u.merged(params, { conditions })
+
+        mName.value = params.tableName
+
+    } else {
+        mName.value = formConfig?.moduleName!
+    }
     const queryParams = u.merged({ [valueName]: value }, params)
-    console.log('queryParams:', queryParams);
+    // console.log('queryParams:', queryParams);
 
     const response = await query(url, { body: queryParams, page: { orders: [], current: 1, size: 10 } })
 
-    console.log('response ------> :', response);
+    // console.log('response ------> :', response);
 
     if (response.data?.list) {
         if (response.data.list.length === 0) {

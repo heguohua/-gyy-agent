@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:39:48
+ * @LastEditTime: 2025-06-08 17:25:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/chapter/ala-chapter.vue
  * @Description: 
  * 
@@ -77,7 +77,7 @@ const styles = computed(() => {
     justify-content: left;
     align-items: center;
     background: var(--al-title-color);
-    padding: 8px;
+    padding: 0px 8px;
     border-radius: 4px;
     margin-bottom: 12px;
     box-shadow: 8px 0 0 0 var(--al-title-color), -8px 0 0 0 var(--al-title-color);

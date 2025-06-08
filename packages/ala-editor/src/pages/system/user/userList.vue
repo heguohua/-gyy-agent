@@ -66,8 +66,6 @@ const route = useRoute();
 
 const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
-    console.log('code:', code);
-
     return t(code)
 })
 // 2、定义当前编辑对象id

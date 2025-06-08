@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 16:51:44
+ * @LastEditTime: 2025-06-08 16:53:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -179,8 +179,8 @@ const formAttr = ref({
 
 
 const formAttrs = computed(() => {
-    console.log('formAttr.value:',formAttr.value);
-    
+    console.log('formAttr.value:', formAttr.value);
+
     return formAttr.value
 })
 
@@ -273,7 +273,7 @@ onMounted(async () => {
     showDeleteButton.value = configs.showDeleteButton
     showEditButton.value = configs.showEditButton
     showButtonsColumn.value = configs.showButtonsColumn
-    u.merged(formAttr.value,configs.formAttr)
+    u.merged(formAttr.value, configs.formAttr)
 
 })
 

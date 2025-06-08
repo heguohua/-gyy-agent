@@ -81,7 +81,7 @@ const styles = computed(() => {
         justify-content: left;
         align-items: center;
         background: var(--al-title-color);
-        padding: 8px;
+        padding: 0px 8px;
         border-radius: 4px;
         margin-bottom: 12px;
         box-shadow: 8px 0 0 0 var(--al-title-color), -8px 0 0 0 var(--al-title-color);
