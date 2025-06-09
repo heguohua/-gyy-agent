@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 15:49:40
+ * @LastEditTime: 2025-06-09 21:26:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -122,7 +122,7 @@ const { formWidth, labelPosition, labelWidth: lp, columnNum } = toRefs(props.for
 // 1、动态计算 drawer 宽度
 const drawerWidth = (): string => {
     const paddingWidth = 66
-    let width = (formWidth.value + paddingWidth) + 'px'
+    let width = (formWidth.value + paddingWidth) * (1 + Math.random() * 0.1) + 'px'
     return width
 }
 
@@ -177,6 +177,7 @@ const getModuleName = () => {
             display: flex;
             margin-bottom: 12px;
             margin-right: 7px;
+
             :deep(.title) {
                 text-align: right;
                 padding: 8px 0px 8px 0px;
