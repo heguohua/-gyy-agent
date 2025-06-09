@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-07 18:47:24
+ * @LastEditTime: 2025-06-09 20:47:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/formSchema.ts
  * @Description: 
  * 
@@ -149,7 +149,34 @@ const required = Type.String({
     title: "必填字段？",
     default: false,
 })
+const icon = Type.String({
+    code: "config-input",
+    title: "头部图标",
+    default: "",
+})
 
+const iconWidth = Type.String({
+    code: "config-int",
+    title: "图标宽度",
+    default: 16,
+    other: {
+        min: 1,
+        max: 50,
+        controlsPosition: ''
+    }
+})
+
+
+const iconHeight = Type.String({
+    code: "config-int",
+    title: "图标高度",
+    default: 16,
+    other: {
+        min: 1,
+        max: 50,
+        controlsPosition: ''
+    }
+})
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -166,6 +193,9 @@ const schema = Type.Object({
     help: schemaAllViewport(help),
     columnNum: schemaAllViewport(columnNum),
     columnWidth: schemaAllViewport(columnWidth),
+    icon: schemaAllViewport(icon),
+    iconWidth: schemaAllViewport(iconWidth),
+    iconHeight: schemaAllViewport(iconHeight),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),

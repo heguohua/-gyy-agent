@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 18:52:43
+ * @LastEditTime: 2025-06-09 20:48:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -22,7 +22,7 @@
         <p class="show-values" v-if="model && model.length != 0" v-html="showValue"></p>
       </div>
       <div class="ala-select-customer-icon">
-        <v-icon class="icon" :icon="icon" @click="openDialog" />
+        <v-icon class="icon" :icon="icon" @click="openDialog" :width="iconWidth" :height="iconHeight" />
       </div>
     </el-form-item>
 
@@ -155,6 +155,14 @@ const props = defineProps({
   icon: {
     type: String,
     default: 'f_user'
+  },
+  iconWidth: {
+    type: Number,
+    default: 30
+  },
+  iconHeight: {
+    type: Number,
+    default: 30
   }
 })
 
