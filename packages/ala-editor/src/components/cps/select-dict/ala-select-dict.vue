@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-16 23:07:20
+ * @LastEditTime: 2025-06-09 19:39:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -126,8 +126,13 @@ watch(() => model.value, () => {
       // 普通类型
       localValue.value = model.value
     }
+  } else {
+    localValue.value = null
   }
 
+}, {
+  immediate: true,
+  deep: true
 })
 
 const handleChange = (value: any) => {

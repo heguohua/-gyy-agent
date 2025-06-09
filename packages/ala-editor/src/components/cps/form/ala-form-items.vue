@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 18:23:30
+ * @LastEditTime: 2025-06-09 19:34:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -142,7 +142,7 @@ const showDrawer = defineModel({
 })
 
 
-const emit = defineEmits(["confirm", "formItemChangeCallback"])
+const emit = defineEmits(["confirm", "formItemChangeCallback", "cancel"])
 const formItemChangeCallback = (data: any) => {
     console.log('data:', data);
 
@@ -175,10 +175,10 @@ const handleClose = (done: () => void) => {
 }
 
 /**
- * 点击取消按钮，关闭弹窗
+ * 点击取消按钮，关闭弹窗 
  */
 function cancelClick() {
-    showDrawer.value = false
+    emit("cancel", {})
 }
 
 /**

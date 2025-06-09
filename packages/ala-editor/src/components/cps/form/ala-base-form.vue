@@ -1,6 +1,6 @@
 <template>
     <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
-        <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="fields" :data="formData"
+        <AlaFormItems v-model="showDrawer" @confirm="confirm" @cancel="cancel" v-bind="props" :fields="fields" :data="formData"
             :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName.replaceAll('管理', '')"
             :operationType="operationType" :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback">
             <template #buttons>
@@ -135,6 +135,11 @@ const confirm = (data: any) => {
         }
     });
 }
+
+const cancel =()=>{
+    u.clear(props.formData)
+    showDrawer.value = false
+} 
 
 /**
  * 校验表单参数的方法
