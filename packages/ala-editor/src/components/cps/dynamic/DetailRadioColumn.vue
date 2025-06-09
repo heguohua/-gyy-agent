@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-24 10:10:38
+ * @LastEditTime: 2025-06-09 19:09:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailRadioColumn.vue
  * @Description: 
  * 
@@ -60,15 +60,21 @@ const style = computed(() => {
     return st
 })
 
+
+// 2025-6-9 修复分页列表、详情页面值回显异常bug
 const showValue = computed(() => {
-    let value = props.value
+    const value = props.value
     const items = props.formItem.formData.items.desktop
+
+
+    let v = undefined
+    
     if (items) {
         items.forEach((item: any) => {
 
             Object.keys(item).forEach((key: string) => {
                 if (item[key] === value) {
-                    value = key
+                    v = item.name
                     if(item.color){
                         color.value = item.color
                     }else{
@@ -79,7 +85,7 @@ const showValue = computed(() => {
 
         })
     }
-    return value
+    return v
 })
 
 </script>

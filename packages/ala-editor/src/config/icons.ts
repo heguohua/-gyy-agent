@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-09 14:21:05
+ * @LastEditTime: 2025-06-09 18:29:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -43,6 +43,7 @@ const icon = {
   expand: 'fluent:panel-right-expand-16-regular',
   close: 'fluent:panel-left-expand-16-regular',
   contract: 'clarity:contract-line',
+  seal: 'tdesign:seal',
   copy: 'fluent:save-copy-24-regular',
   delete: 'fluent:delete-24-regular',
   drag: 'fluent:grid-dots-20-regular',
@@ -160,6 +161,7 @@ const icon = {
   payment_return:"mdi:credit-card-refund-outline",
   invoice:"basil:invoice-outline",
   payment_apply:"stash:hand-holding-dollar",
+  payment:"streamline-freehand:credit-card-payment",
   payment_receive:"hugeicons:money-receive-square",
   customer_service:"ri:customer-service-2-fill",
   business_plane:"uil:plane-fly",
@@ -231,6 +233,12 @@ const icon = {
   good_check:"icon-park-outline:check-in",
   good_win_loss:"carbon:chart-win-loss",
   alert:"fluent:alert-urgent-24-regular",
+
+  // 基础数据
+  basic_data:"uil:database-alt",
+  no:"tabler:number",
+
+  
 
 }
 
