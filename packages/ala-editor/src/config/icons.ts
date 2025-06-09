@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-02 19:18:43
+ * @LastEditTime: 2025-06-09 14:21:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -177,6 +177,10 @@ const icon = {
   inventory:"material-symbols:inventory-2-outline-rounded",
   inbound:"hugeicons:store-add-02",
   outbound:"mdi:truck-subtract-outline",
+  goods_return:"streamline:return-2-solid",
+  goods_shopping:"streamline-freehand:mobile-shopping-cart",
+  goods_quotation:"solar:tag-price-outline",
+  goods_inquiry:"solar:user-hand-up-broken",
 
   // 采购产品中心
   goods:"lsicon:goods-outline",
@@ -201,6 +205,32 @@ const icon = {
   flag_point:"solar:map-point-rotate-outline",
   info:"material-symbols:page-info-outline",
   iot_point:"icon-park-outline:setting-config",
+
+  // 物流配送中心
+  truck:"hugeicons:delivery-truck-01",
+  enterprise:"carbon:enterprise",
+  service:"streamline-freehand:security-it-service",
+  survey:"wpf:survey",
+  price:"solar:tag-price-outline",
+  commission:"fluent-mdl2:commitments",
+  commission_detail:"majesticons:checkbox-list-detail",
+  commission_delivery:"iconamoon:delivery-fast",
+  commission_calculator:"solar:calculator-linear",
+
+  
+  // 仓储中心
+  logistics:"lsicon:management-stockout-filled",
+  prediction:"material-symbols:batch-prediction-outline",
+  tracking:"hugeicons:delivery-tracking-02",
+  quality_testing:"fluent-mdl2:test-impact-solid",
+  take_goods:"tdesign:undertake-transaction",
+  good_outbound:"icon-park-outline:outbound",
+  good_inbound:"fluent:picture-in-picture-exit-24-regular",
+  package:"mingcute:package-line",
+  good_inventory:"lsicon:inventory-filled",
+  good_check:"icon-park-outline:check-in",
+  good_win_loss:"carbon:chart-win-loss",
+  alert:"fluent:alert-urgent-24-regular",
 
 }
 

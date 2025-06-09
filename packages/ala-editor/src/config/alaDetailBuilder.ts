@@ -43,7 +43,7 @@ export function alaDetailRadio(componentName: string, columnName: string, label:
     }
 }
 
-export function alaDetailSelect( columnName: string, label: string, items: Array<{ [key: string]: any }>, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailSelect(columnName: string, label: string, items: Array<{ [key: string]: any }>, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
@@ -51,11 +51,11 @@ export function alaDetailSelect( columnName: string, label: string, items: Array
     }
 }
 
-export function alaDetailSelectTable(componentName: string, columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailSelectTable(componentName: string, columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object, valueName = 'id') {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName } }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName, valueName: 'id' } }, columnNum: { desktop: columnNum }, params: { desktop: '{}' }, ...other } },
     }
 }
 

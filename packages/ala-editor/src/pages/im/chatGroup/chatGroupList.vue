@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 16:24:38
+ * @LastEditTime: 2025-06-09 15:17:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/im/chatGroup/chatGroupList.vue
  * @Description: 
  * 
@@ -63,6 +63,7 @@ import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
 import colors from '@/utils/colors';
+import formConfigs from '@/config/formConfigs';
 const { t } = useI18n();
 const router = useRouter()
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -176,8 +177,8 @@ const deleteUrl = "/im/chatGroup/delete"
 const columns = computed(() => {
     return [
         alaDetailBuild(dType.input, 'name', "群名称", 1, true),
-        alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName", undefined, undefined, { columnWidth: { desktop: '150' } }),
-        alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName", undefined, undefined, { columnWidth: { desktop: '600' } }),
+        alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName", undefined, undefined, { columnWidth: { desktop: '150' }, url: { desktop: formConfigs.systemUser.pageApi } }),
+        alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName", undefined, undefined, { columnWidth: { desktop: '600' }, url: { desktop: formConfigs.systemUser.pageApi } }),
         // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
         alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailBuild(dType.input, 'portrait', "群头像", undefined, undefined, { columnWidth: { desktop: '100' } }),
@@ -197,8 +198,8 @@ const columns = computed(() => {
  */
 const detailFields: any = ref([
     alaDetailBuild(dType.input, 'name', "群名称", 1, true),
-    alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName"),
-    alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName"),
+    alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName", undefined, undefined, { url: { desktop: formConfigs.systemUser.pageApi } }),
+    alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName", undefined, undefined, { url: { desktop: formConfigs.systemUser.pageApi } }),
     alaDetailBuild(dType.input, 'portrait', "群头像"),
     alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }]),
     alaDetailBuild(dType.textarea, 'notice', "群公告"),
