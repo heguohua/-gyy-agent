@@ -1,4 +1,4 @@
-import { alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import { alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
 
@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 15:21:33
+ * @LastEditTime: 2025-06-10 21:01:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -166,5 +166,16 @@ export function parseFile(item: { fieldName: { desktop: string }, label: { deskt
         fileTypes: item.fileTypes.desktop
     })
     logger.info(`解析【 file 】字段：`, result);
+    return result
+}
+
+export function parseImage(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: Array<baseRule> }, placeholder: { desktop: string }, oneLevel: { desktop: string }, secondLevel: { desktop: string }, columnWidth: { desktop: number }, imageWidth: { desktop: number } }) {
+    const result = alaBuildImage(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop, {
+        oneLevel: item.oneLevel.desktop,
+        secondLevel: item.secondLevel.desktop,
+        columnWidth: item.columnWidth.desktop,
+        imageWidth: item.imageWidth?.desktop,
+    })
+    logger.info(`解析【 image 】字段：`, result);
     return result
 }

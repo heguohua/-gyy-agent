@@ -221,6 +221,7 @@ const handleDelete = (file: AFile) => {
     })
 }
 
+
 // Methods
 </script>
 

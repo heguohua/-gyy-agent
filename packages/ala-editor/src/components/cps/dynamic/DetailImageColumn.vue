@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 11:39:30
+ * @LastEditTime: 2025-06-10 21:40:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailImageColumn.vue
  * @Description: 
  * 
@@ -11,20 +11,26 @@
 <template>
     <template v-if="isDetailColumn">
         <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-        <div v-for="(url, index) in value" :key="index" class="ala-image detail-link" @click="showDetail">
-            <img class="image" :src="url" :style="{ width: width, height: height }" />
+        <div class="ala-image value">
+            <img class="image" :src="image" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
+                :key="index" @click="showDetail" />
         </div>
     </template>
     <template v-else>
         <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-        <div v-for="(url, index) in value" :key="index" class="ala-image">
-            <img class="image" :src="url" :style="{ width: width, height: height }" />
+        <div class="value ala-image">
+            <img class="image" :src="image" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
+                :key="index" />
         </div>
     </template>
 
 </template>
 
 <script setup lang="ts">
+import { alaDownload } from '@/utils/req';
+import u from '@/utils/u';
+import { number } from 'echarts';
+
 
 // State
 const props = defineProps({
@@ -37,8 +43,8 @@ const props = defineProps({
         default: {}
     },
     value: {
-        type: Array<string>,
-        default: () => ([])
+        type: String,
+        default: () => ''
     },
     label: {
         type: String,
@@ -59,33 +65,79 @@ const props = defineProps({
 const isDetailColumn = computed(() => {
     return props.formItem.formData?.detail?.desktop
 })
-console.log('value:', props.value);
 
 const emit = defineEmits(['showDetail'])
 const showDetail = () => {
     emit('showDetail', props.data)
 }
 
+
+
+
 // Methods
 
-const width = computed(() => {
-    return props.formItem.formData.width?.desktop || ''
+const imageWidth = computed(() => {
+    // (props.formItem.formData?.imageWidth?.desktop || 50) + 'px'
+    const num = localValues.value.length
+    const width = (Math.round(100 / num) - 2) + '%'
+    return width
 })
+// Methods
+interface AFile {
+    id: number,
+    fid: string,
+    fileName: string
+    classify: string
+    url: string
+}
 
-const height = computed(() => {
-    return props.formItem.formData.height?.desktop || ''
+const localValues = ref<Array<string>>([])
+
+watch(() => props.value, () => {
+
+    if (props.value) {
+
+        const images = u.parseJson(props.value)
+
+        images.forEach(async (image: AFile) => {
+
+            const result = await alaDownload(u.url('/f/ossfile/download'), { fid: image.fid }).then((data: any) => {
+                const response = data;
+                return response
+            })
+
+            const blob = new Blob([result.data])
+            const reader = new FileReader()
+
+            reader.onloadend = () => {
+                const base64 = reader.result
+                if (typeof base64 === 'string') {
+                    localValues.value.push(base64)
+                }
+            }
+
+            reader.onerror = (e) => {
+                console.log('e:', e)
+            }
+
+            reader.readAsDataURL(blob) // 转成 base64
+
+        })
+
+    } else {
+        localValues.value = []
+    }
+
+}, {
+    immediate: true,
+    deep: true
 })
 
 </script>
 
 <style scoped lang="scss">
 .ala-image {
-    display: inline-flex;
-    align-items:center;
-    justify-content: center;
+    justify-content: space-between !important;
+    padding-right: 8px !important;
 }
-
-
-
-
 </style>

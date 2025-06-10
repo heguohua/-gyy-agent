@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 08:36:55
+ * @LastEditTime: 2025-06-10 20:36:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -238,10 +238,6 @@ const parseLabel = (label: string) => {
 }
 
 const getComponent = ((code: string) => {
-    if(code === 'file'){
-        console.log('file: ----->');
-        
-    }
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
 
