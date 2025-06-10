@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 11:31:41
+ * @LastEditTime: 2025-06-10 18:52:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -201,6 +201,55 @@ export function post(url: string, params = {}) {
         reject(error);
       });
   });
+}
+
+
+export function alaDownload(url: string, params = {}) {
+  return new Promise((resolve, reject) => {
+
+    axiosInstance({
+      url: url,
+      method: 'post',
+      data: params,
+      responseType: 'blob', // 👈 关键，确保响应为 Blob（二进制）
+    })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      })
+
+    // axiosInstance({
+    //   url: url,
+    //   method: 'post',
+    //   data: params,
+    // })
+    //   .then((response) => {
+    //     resolve(response);
+    //   })
+    //   .catch((error) => {
+    //     reject(error);
+    //   });
+  });
+  // axiosInstance({
+  //   url: url,
+  //   method: 'post',
+  //   data: params,
+  //   responseType: 'blob', // 👈 关键，确保响应为 Blob（二进制）
+  //   timeout: 10000,
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   }
+  // })
+  //   .then((response) => {
+  //     resolve(response);
+  //   })
+  //   .catch((error) => {
+  //     reject(error);
+  //   })
+
+  // })
 }
 
 /*

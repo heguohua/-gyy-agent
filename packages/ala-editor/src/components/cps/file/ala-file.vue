@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 16:36:25
+ * @LastEditTime: 2025-06-10 18:12:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/ala-file.vue
  * @Description: 
  * 
@@ -18,8 +18,8 @@
       <div class="ala-files">
         <div v-if="localValues && localValues.length > 0" class="files">
           <div class="one-file" v-for="(item, index) in localValues" :key="u.uuid()">
-            <p>{{ item.fileName }}</p>
-            <i @click="handlePreview(item)" class="button">{{ $t('buttons.preview') }}</i>
+            <p class="file-name">{{ item.fileName }}</p>
+            <i @click="handlePreview(item)" class="button">{{ $t('buttons.download') }}</i>
             <i @click="handleDelete(item)" class="button">{{ $t('buttons.delete') }}</i>
           </div>
         </div>
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { alaDelete, alaPost } from '@/utils/req'
+import { alaDelete, alaDownload, alaPost } from '@/utils/req'
 import u from '@/utils/u'
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -100,8 +100,6 @@ const model = defineModel({
 })
 watch(() => model.value, () => {
 
-  console.log('model.value -- 111 -->:', model.value);
-
   if (model && model.value) {
     localValues.value = u.parseJson(model.value)
   } else {
@@ -137,13 +135,10 @@ const handleFileChange = async (event: any) => {
     for (let i = 0; i < target.files.length; i++) {
       const f: File = target.files[i]
       const result = await upload(f, secondLevel, oneLevel)
-      console.log('result:', result);
       if (result.code === 200 && result.data?.id) {
         const m = u.parseJson(model.value)
         m.push(result.data)
         model.value = u.tojson(m)
-        console.log('model.value -- 222 -->:', model.value);
-
         target.value = ""
       }
     }
@@ -169,8 +164,24 @@ const selectFile = () => {
   fileInput.value.click()
 }
 
-const handlePreview = (item: AFile) => {
-  console.log('file handlePreview : ----->', item);
+const handlePreview = async (file: AFile) => {
+
+  const result = await alaDownload(u.url('/f/ossfile/download'), { fid: file.fid }).then((data: any) => {
+    const response = data;
+    return response
+  });
+
+  const blob = new Blob([result.data]);
+  const downloadUrl = window.URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = downloadUrl;
+  a.download = file.fileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(downloadUrl); // 释放内存
+
 }
 
 const deleteContent = (fileName: string) => {
@@ -234,8 +245,25 @@ const handleDelete = (file: AFile) => {
         display: flex;
         flex-wrap: nowrap;
 
+        .file-name {
+          color: var(--el-color-primary);
+        }
+
         .button {
-          margin-left: 10px;
+          margin-left: 1rem;
+          /* Safari */
+          -webkit-user-select: none;
+          /* Firefox */
+          -moz-user-select: none;
+          /* IE/Edge */
+          -ms-user-select: none;
+          /* 标准语法 */
+          user-select: none;
+
+          &:hover {
+            cursor: pointer;
+            color: var(--el-color-primary)
+          }
         }
 
       }
@@ -250,6 +278,10 @@ const handleDelete = (file: AFile) => {
       justify-content: center;
       border-radius: 0.2rem;
       cursor: pointer;
+
+      &:hover {
+        font-weight: bold;
+      }
 
 
       .hidden-input {
