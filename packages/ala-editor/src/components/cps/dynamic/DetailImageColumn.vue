@@ -112,7 +112,7 @@ watch(() => props.value, () => {
             reader.onloadend = () => {
                 const base64 = reader.result
                 if (typeof base64 === 'string') {
-                    localValues.value.push(base64.replace('data:application/octet-stream',`data:image/${u.fileExtension(image.fileName)}`))
+                    localValues.value.push(base64.replace('data:application/octet-stream', `data:image/${u.fileExtension(image.fileName)}`))
                 }
             }
 
@@ -139,5 +139,15 @@ watch(() => props.value, () => {
 .ala-image {
     justify-content: space-between !important;
     padding-right: 8px !important;
+
+    .image {
+        border: 1px solid #e9e9e9;
+        padding: 1%;
+        border-radius: 4px;
+
+        &:hover {
+            border: none;
+        }
+    }
 }
 </style>
