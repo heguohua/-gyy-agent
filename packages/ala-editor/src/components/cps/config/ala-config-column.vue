@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 11:40:11
+ * @LastEditTime: 2025-06-10 14:58:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-column.vue
  * @Description: 
  * 
@@ -67,10 +67,8 @@ const realDefaultValue = Array.from({ length: minItems }, () => defaultValue)
 const columns = ref<number[]>([])
 
 logger.info(`bType[ ${bType} ],config-column组件渲染 pid【 ${props.pid} 】, data :`);
-console.log('data:', data);
 
 logger.info(`bType[ ${bType} ],config-column组件渲染, formData :`, formData);
-console.log('formData:', formData);
 
 logger.info(`bType[ ${bType} ],config-column组件渲染, defaultValue[ ${defaultValue} ]`);
 logger.info(`bType[ ${bType} ],config-column组件渲染, realDefaultValue :`, realDefaultValue);

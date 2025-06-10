@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 10:02:52
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/formSchema.ts
+ * @LastEditTime: 2025-06-10 16:47:05
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/schema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -29,6 +29,7 @@ const placeholder = Type.String({
     title: "占位符",
     default: "",
 })
+
 
 const fieldName = Type.String({
     code: "config-input",
@@ -109,13 +110,86 @@ const required = Type.String({
     default: false,
 })
 
+const fileTypes = Type.Array(
+    Type.Object({
+        name: Type.String(),
+        value: Type.String(),
+    }),
+    {
+        code: "config-checkbox",
+        title: "文件类型",
+        checkbox: [{
+            name: '图片类',
+            value: 'image/*',
+        }, {
+            name: '音频类',
+            value: 'audio/*',
+        }, {
+            name: '视频类',
+            value: 'video/*',
+        }, {
+            name: 'TXT',
+            value: '.txt',
+        }, {
+            name: 'PDF',
+            value: '.pdf',
+        }, {
+            name: 'Word',
+            value: '.doc,.docx',
+        }, {
+            name: 'Excel',
+            value: '.xls,.xlsx',
+        }, {
+            name: 'PPT',
+            value: '.ppt,.pptx',
+        }, {
+            name: 'zip、rar、7z',
+            value: '.zip,.rar,.7z',
+        }],
+    }
+);
+
+
+const multipleFile = Type.String({
+    code: "config-boolean",
+    title: "多文件选择？",
+    default: false,
+})
+
+
+const oneLevel = Type.String({
+    code: "config-input",
+    title: "一级分类",
+    default: "",
+    required: true,
+})
+
+const secondLevel = Type.String({
+    code: "config-input",
+    title: "二级分类",
+    default: "",
+    required: true,
+})
+
+const strMax = Type.String({
+    code: "config-int",
+    title: "最大长度",
+    other: {
+        min: 1000,
+        max: 20000
+    }
+})
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
     width: schemaAllViewport(width),
-    items: schemaAllViewport(items),
+    fileTypes: schemaAllViewport(fileTypes),
     fieldName: schemaAllViewport(fieldName),
+    strMax: schemaAllViewport(strMax),
+    oneLevel: schemaAllViewport(oneLevel),
+    secondLevel: schemaAllViewport(secondLevel),
+    multipleFile: schemaAllViewport(multipleFile),
     help: schemaAllViewport(help),
     columnNum: schemaAllViewport(columnNum),
     columnWidth: schemaAllViewport(columnWidth),
@@ -126,7 +200,7 @@ const schema = Type.Object({
 })
 
 
-export type AlaFormSelectSchema = Static<typeof schema>
+export type AlaFormFileSchema = Static<typeof schema>
 
 export default schema
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 09:05:38
+ * @LastEditTime: 2025-06-10 14:59:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -184,10 +184,6 @@ function cancelClick() {
  */
 function confirmClick() {
     emit("confirm", {
-        // data: {
-        //     [key]: data
-        // },
-        // id
         abc: 123
     })
 }
@@ -248,7 +244,6 @@ const handleModelValueChange = (fieldName: string, value: any) => {
     }
 
 }
-console.log('props.fields ----》:',props.fields);
 
 </script>
 <style scoped lang="scss">

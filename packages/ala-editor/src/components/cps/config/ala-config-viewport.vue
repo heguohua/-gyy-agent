@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-23 11:11:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-24 14:51:13
+ * @LastEditTime: 2025-06-10 14:58:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-viewport.vue
  * @Description: 
  * 
@@ -58,10 +58,8 @@ const { formData, parentKey, key, id } = data.value
 const { title, default: defaultValue } = data.value.properties[props.viewport]
 
 logger.info(`bType[ ${bType} ],config-viewport组件渲染, data :`);
-console.log('data:', data);
 
 logger.info(`bType[ ${bType} ],config-viewport组件渲染, formData :`, formData);
-console.log('formData:', formData);
 
 logger.info(`bType[ ${bType} ],config-viewport组件渲染, defaultValue[ ${defaultValue} ]`);
 

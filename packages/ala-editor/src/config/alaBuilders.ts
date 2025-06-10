@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 09:34:28
+ * @LastEditTime: 2025-06-10 14:45:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -224,8 +224,8 @@ export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildFile(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaRadioSchema {
-    const obj = alaBuild("AlaFile", fieldName, label, rules, placeholder)
+export function alaBuildFile(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaRadioSchema {
+    const obj = alaBuild("AlaFile", fieldName, label, rules, placeholder, other)
     return obj
 }
 

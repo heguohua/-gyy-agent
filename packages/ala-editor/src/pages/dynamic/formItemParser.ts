@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 09:37:21
+ * @LastEditTime: 2025-06-10 15:21:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -159,8 +159,12 @@ export function parseCascade(item: { fieldName: { desktop: string }, label: { de
 
 
 
-export function parseFile(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: Array<baseRule> }, placeholder: { desktop: string } }) {
-    const result = alaBuildFile(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop)
+export function parseFile(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: Array<baseRule> }, placeholder: { desktop: string }, oneLevel: { desktop: string }, secondLevel: { desktop: string }, fileTypes: { desktop: string[] } }) {
+    const result = alaBuildFile(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop, {
+        oneLevel: item.oneLevel.desktop,
+        secondLevel: item.secondLevel.desktop,
+        fileTypes: item.fileTypes.desktop
+    })
     logger.info(`解析【 file 】字段：`, result);
     return result
 }
