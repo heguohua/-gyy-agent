@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 18:12:45
+ * @LastEditTime: 2025-06-10 19:02:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/ala-file.vue
  * @Description: 
  * 
@@ -221,9 +221,7 @@ const handleDelete = (file: AFile) => {
     })
 }
 
-
 // Methods
-
 </script>
 
 <style scoped lang="scss">
@@ -296,8 +294,5 @@ const handleDelete = (file: AFile) => {
 
   }
 
-  div {
-    .icon {}
-  }
 }
 </style>

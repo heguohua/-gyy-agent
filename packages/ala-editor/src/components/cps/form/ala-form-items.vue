@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 14:59:13
+ * @LastEditTime: 2025-06-10 19:01:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -268,13 +268,6 @@ const handleModelValueChange = (fieldName: string, value: any) => {
 <style lang="scss">
 .ala-add-form {
     .ala-drawer {
-
-        h4 {}
-
-        div {}
-
-        .buttons {}
-
 
         .ala-form-base-item {
             display: inline-block;
