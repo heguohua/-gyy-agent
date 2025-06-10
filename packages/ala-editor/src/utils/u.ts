@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 16:45:50
+ * @LastEditTime: 2025-06-10 21:52:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -531,6 +531,19 @@ export default class u {
                 [key]: isNaN(numberValue) ? 0 : numberValue,
             };
         });
+    }
+    /**
+     * 从文件名中提取文件后缀
+     * @param filename 文件名，如 "example.pdf" 或 "archive.tar.gz"
+     * @returns 文件后缀（不包含 .），如 "pdf" 或 "gz"，若无后缀则返回空字符串
+     */
+    public static fileExtension(filename: string): string {
+        if (typeof filename !== 'string') return '';
+        const lastDotIndex = filename.lastIndexOf('.');
+        if (lastDotIndex === -1 || lastDotIndex === filename.length - 1) {
+            return '';
+        }
+        return filename.slice(lastDotIndex + 1).toLowerCase();
     }
 
 }

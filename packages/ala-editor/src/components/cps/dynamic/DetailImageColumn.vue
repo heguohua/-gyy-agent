@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 21:40:37
+ * @LastEditTime: 2025-06-10 21:54:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailImageColumn.vue
  * @Description: 
  * 
@@ -112,7 +112,7 @@ watch(() => props.value, () => {
             reader.onloadend = () => {
                 const base64 = reader.result
                 if (typeof base64 === 'string') {
-                    localValues.value.push(base64)
+                    localValues.value.push(base64.replace('data:application/octet-stream',`data:image/${u.fileExtension(image.fileName)}`))
                 }
             }
 
