@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 13:10:43
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/schema.ts
+ * @LastEditTime: 2024-12-23 10:02:52
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/formSchema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -11,75 +11,122 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 
-const display = Type.Boolean({
-    code: "config-viewport",
-    title: "屏幕",
-    default: true,
-})
-
-const src = Type.String({
-    code: "config-files",
-    title: "图片",
-    default: "",
-})
-
-const link = Type.String({
+const label = Type.String({
     code: "config-input",
-    title: "链接",
-    default: "",
-    placeholder: "请输入链接",
+    title: "标签名",
+    required: true,
+    rules: [
+        { name: 'required', message: '不能为空' },
+        { name: 'max', length: 20, message: '最多20个字符' },
+        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
+    ]
 })
 
-const width = Type.String({
+
+
+const placeholder = Type.String({
+    code: "config-input",
+    title: "占位符",
+    default: "",
+})
+
+const fieldName = Type.String({
+    code: "config-input",
+    title: "字段名",
+    required: true,
+    rules: [
+        { name: 'required', message: '不能为空' },
+        { name: 'min', length: 3, message: '最少3个字符' },
+        { name: 'max', length: 30, message: '最多30个字符' },
+        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
+        { name: 'pattern', pattern: 'LOrl', message: '只能包含大写字母、小写字母' },
+    ]
+})
+const width = Type.Number({
     code: "config-input",
     title: "宽度",
-    default: "100%",
-    placeholder: "请输入宽度",
-
-})
-
-const height = Type.String({
-    code: "config-input",
-    title: "高度",
-    default: "300px",
-    placeholder: "请输入高度",
-
-})
-
-const style = Type.String({
-    code: "config-textarea",
-    title: "样式",
     default: "",
-    placeholder: "请输入样式",
-
 })
 
-const imageSchema = {
-    file: Type.Object(
-        {
-            display: schemaAllViewport(display),
-            src: schemaAllViewport(src),
-            style: schemaAllViewport(style),
-        }
-    )
-}
 
-const schema = Type.Object(imageSchema)
+const items = Type.Array(
+    Type.Object({
+        name: Type.String(),
+        value: Type.String(),
+    }),
+    {
+        code: "config-key-value",
+        title: "选项",
+        default: [],
+        required: true,
+    }
+);
+const help = Type.String({
+    code: "config-textarea",
+    title: "提示信息",
+    default: "",
+})
+
+const columnNum = Type.Number({
+    code: "config-int",
+    title: "占用列数",
+    placeholder: "请输入占用列数",
+    default: 1,
+    // 绑定 element-plus 原始组件的其他属性
+    other: {
+        min: 1,
+        controlsPosition: ''
+    }
+})
+
+const columnWidth = Type.String({
+    code: "config-int",
+    title: "单列宽度",
+    default: 0,
+    other: {
+        min: 0,
+        max: 500,
+        step: 10,
+        controlsPosition: ''
+    }
+})
+
+const showInSearch = Type.String({
+    code: "config-boolean",
+    title: "查询条件？",
+    default: false,
+})
+
+const showInTable = Type.String({
+    code: "config-boolean",
+    title: "列表显示？",
+    default: false,
+})
+
+const required = Type.String({
+    code: "config-boolean",
+    title: "必填字段？",
+    default: false,
+})
 
 
-// const schema = {
-//     image: Type.Object({
-//         display: schemaAllViewport(display),
-//         src: schemaAllViewport(src),
-//         link: schemaAllViewport(link),
-//         width: schemaAllViewport(width),
-//         height: schemaAllViewport(height),
-//         style: schemaAllViewport(style),
-//     })
-// }
+const schema = Type.Object({
+    label: schemaAllViewport(label),
+    placeholder: schemaAllViewport(placeholder),
+    width: schemaAllViewport(width),
+    items: schemaAllViewport(items),
+    fieldName: schemaAllViewport(fieldName),
+    help: schemaAllViewport(help),
+    columnNum: schemaAllViewport(columnNum),
+    columnWidth: schemaAllViewport(columnWidth),
+    showInSearch: schemaAllViewport(showInSearch),
+    showInTable: schemaAllViewport(showInTable),
+    required: schemaAllViewport(required),
+    // style: schemaAllViewport(style),
+})
 
 
-export type AlaConfigFileSchema = Static<typeof schema>
+export type AlaFormSelectSchema = Static<typeof schema>
 
 export default schema
 

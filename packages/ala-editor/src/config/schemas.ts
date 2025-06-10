@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-04 21:45:03
+ * @LastEditTime: 2025-06-10 08:55:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -42,7 +42,7 @@ import AlaMultiLineChartSchema from '@/components/charts/line-chart/multiLineSch
 
 const _allSchemas = {
     image: imageSchema,
-    configFile: fileSchema,
+    file: fileSchema,
     column: columnSchema,
     configColumnSchema: configColumnSchema,
 

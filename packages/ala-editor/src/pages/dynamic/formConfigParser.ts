@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 16:41:33
+ * @LastEditTime: 2025-06-10 09:36:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -14,7 +14,7 @@ import { alaBuildInput } from "@/config/alaBuilders";
 import { date } from "@/utils/date";
 import { alaPost } from "@/utils/req";
 import u from "@/utils/u";
-import { parseCascade, parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { parseCascade, parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseFile, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 import { logger } from "@/utils/logger";
@@ -168,6 +168,11 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                         formItem.other.endFieldName = formData.endFieldName.desktop
                     } else if (code === 'cascader') {
                         formItem = parseCascade(formData)
+                    } else if (code === 'file') {
+                        formItem = parseFile(formData)
+                    } else {
+                        logger.error(`【 错误，错误，错误 】发现未知类型[ ${code} ]的【 form字段 】`)
+                        console.log('formData:', formData);
                     }
 
                     addFormFields.push(formItem)
@@ -244,7 +249,6 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                 formAttr.useFormTitle = formData.useFormTitle.desktop
 
                 // 是否显示新增按钮
-                console.log('formData.showAddButton.desktop:', formData.showAddButton.desktop);
 
                 // 是否显示新增按钮
                 showAddButton = formData.showAddButton.desktop

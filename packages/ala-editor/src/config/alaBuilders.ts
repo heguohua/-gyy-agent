@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 13:23:07
+ * @LastEditTime: 2025-06-10 09:34:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -210,6 +210,22 @@ export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [
         return convertToItem(item)
     }))
     const obj = alaBuildWithItems("AlaRadio", fieldName, label, item_s, rules, placeholder)
+    return obj
+}
+
+
+/**
+ * 
+ * 构建 AlaFile 组件
+ * @param fieldName 属性名
+ * @param label 字段名字
+ * @param items radio选项，格式[{name:value},{name:value}]，例如 [{'男':'man'},{'女':'men'},{'未知':'unknown'}]
+ * @param rules element-plus 中form表单验证规则
+ * @param placeholder 占位符
+ * @returns 
+ */
+export function alaBuildFile(fieldName: string, label: string, rules?: Array<baseRule>, placeholder?: string): AlaRadioSchema {
+    const obj = alaBuild("AlaFile", fieldName, label, rules, placeholder)
     return obj
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-19 13:23:16
+ * @LastEditTime: 2025-06-10 08:47:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/image/schema.ts
  * @Description: 
  * 
@@ -10,12 +10,6 @@
  */
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
-
-const display = Type.Boolean({
-    code: "config-viewport",
-    title: "屏幕",
-    default: true,
-})
 
 const src = Type.String({
     code: "config-files",
@@ -55,7 +49,6 @@ const style = Type.String({
 })
 
 const schema = Type.Object({
-    display: schemaAllViewport(display),
     src: schemaAllViewport(src),
     link: schemaAllViewport(link),
     width: schemaAllViewport(width),

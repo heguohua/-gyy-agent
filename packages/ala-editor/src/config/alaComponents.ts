@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 10:42:46
+ * @LastEditTime: 2025-06-10 08:52:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -10,6 +10,7 @@
  */
 import AlaImage from '@/components/cps/image/ala-image.vue';
 import AlaEmpty from '@/components/cps/empty/ala-empty.vue';
+import AlaFile from '@/components/cps/file/ala-file.vue';
 import AlaLink from '@/components/cps/link/ala-link.vue';
 import AlaColumn from '@/components/cps/column/ala-column.vue';
 
@@ -117,6 +118,7 @@ export default {
     AlaEmpty,
     AlaLink,
     AlaColumn,
+    AlaFile,
 
     // editor-config 区域表单组件
     AlaConfigInput,

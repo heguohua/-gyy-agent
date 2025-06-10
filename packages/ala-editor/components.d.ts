@@ -59,6 +59,7 @@ declare module 'vue' {
     AlaDrawer: typeof import('./src/components/cps/drawer/ala-drawer.vue')['default']
     AlaElConfigProvider: typeof import('./src/components/i18n/AlaElConfigProvider.vue')['default']
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
+    AlaFile: typeof import('./src/components/cps/file/ala-file.vue')['default']
     AlaFormItems: typeof import('./src/components/cps/form/ala-form-items.vue')['default']
     AlaFormLabel: typeof import('./src/components/cps/form-label/ala-form-label.vue')['default']
     AlaFullScreen: typeof import('./src/components/cps/full-screen/ala-full-screen.vue')['default']

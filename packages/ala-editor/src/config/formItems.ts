@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-26 10:38:47
+ * @LastEditTime: 2025-06-10 08:53:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -12,13 +12,6 @@ import { BaseBlock } from "./blocks";
 import { BlockSchemas, BlockSchemaKeys } from "./schemas";
 
 export const baseFields: BaseBlock[] = [
-    {
-        id: "",
-        name: "图片",
-        code: "image",
-        icon: "image",
-        formData: {},
-    },
     {
         id: "",
         name: "单行输入",
@@ -108,6 +101,20 @@ export const baseFields: BaseBlock[] = [
         name: "时间",
         code: "date",
         icon: "time",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "图片",
+        code: "image",
+        icon: "image",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "文件",
+        code: "file",
+        icon: "file",
         formData: {},
     },
 ]
