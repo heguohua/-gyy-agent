@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-09 19:34:53
+ * @LastEditTime: 2025-06-10 08:34:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -104,8 +104,6 @@ const props = defineProps({
 })
 
 watch(() => props.formAttr, (v: any) => {
-    console.log('观察到props.formAttr发生变化:', props.formAttr);
-
 }, {
     immediate: true,
     deep: true

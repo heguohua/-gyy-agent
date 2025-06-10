@@ -63,6 +63,8 @@ const props = defineProps({
 // 解构 formAttr，同时保持 formAttr 的响应式
 const { labelWidth } = toRefs(props.formAttr)
 
+console.log('props.fields:',props.fields);
+
 
 // Methods
 // State
