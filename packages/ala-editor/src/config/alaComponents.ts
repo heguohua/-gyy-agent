@@ -95,6 +95,7 @@ import AlaDetailNoDrawerFormsHandle from '@/components/cps/form/ala-detail-no-dr
 import DetailImageColumn from '@/components/cps/dynamic/DetailImageColumn.vue';
 import DetailTextColorColumn from '@/components/cps/dynamic/DetailTextColorColumn.vue';
 import DetailCascaderColumn from '@/components/cps/dynamic/DetailCascaderColumn.vue';
+import DetailFileColumn from '@/components/cps/dynamic/DetailFileColumn.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -200,6 +201,7 @@ export default {
     DetailImageColumn,
     DetailTextColorColumn,
     DetailCascaderColumn,
+    DetailFileColumn,
 
     // 流程引擎相关组件
     ProcessDesign,

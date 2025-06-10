@@ -238,6 +238,10 @@ const parseLabel = (label: string) => {
 }
 
 const getComponent = ((code: string) => {
+    if(code === 'file'){
+        console.log('file: ----->');
+        
+    }
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
 
