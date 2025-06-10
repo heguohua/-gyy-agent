@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 19:01:50
+ * @LastEditTime: 2025-06-10 22:20:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -309,6 +309,7 @@ const handleModelValueChange = (fieldName: string, value: any) => {
             align-content: flex-start;
             padding-bottom: 30px;
             column-gap: 8px;
+            // justify-content: space-around;
 
             &::-webkit-scrollbar {
                 width: 4px;

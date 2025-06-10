@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 13:38:15
+ * @LastEditTime: 2025-06-10 22:16:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailChapterColumn.vue
  * @Description: 
  * 
@@ -85,6 +85,7 @@ const styles = computed(() => {
         border-radius: 4px;
         margin-bottom: 12px;
         box-shadow: 8px 0 0 0 var(--al-title-color), -8px 0 0 0 var(--al-title-color);
+        height: 34px;
 
         .ala-chapter-icon {
             display: inline-block;
