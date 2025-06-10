@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 22:19:15
+ * @LastEditTime: 2025-06-10 22:40:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -118,12 +118,22 @@ function cancelClick() {
 
 const { formWidth, labelPosition, labelWidth: lp, columnNum } = toRefs(props.formAttr)
 
+
+const fw = ref<number>(0)
+watch(() => formWidth.value, (v) => {
+    fw.value = formWidth.value * (1 + Math.random() * 0.16)
+}, {
+    immediate: true,
+    deep: true
+})
+
 // 计算css宽度
 // 1、动态计算 drawer 宽度
 const drawerWidth = (): string => {
     const paddingWidth = 66
     // let width = (formWidth.value + paddingWidth) * (1 + Math.random() * 0.1) + 'px'
-    let width = (formWidth.value + paddingWidth) + 'px'
+    // formWidth.value = formWidth.value * (1 + Math.random() * 0.1)    
+    let width = (fw.value + paddingWidth) + 'px'
     return width
 }
 
@@ -137,7 +147,7 @@ const columnWidth = (item: any) => {
 
     // 假设每个组件都占用 1列，则计算 列平均宽度
     // (总宽度 - paddingWidth)/columnNum
-    let columnWidth = Math.floor((formWidth.value - paddingWidth) / columnNum.value)
+    let columnWidth = Math.floor((fw.value - paddingWidth) / columnNum.value)
 
     const occupiedColumnNum = item.formItem.formData.columnNum.desktop || 1
     columnWidth = columnWidth * occupiedColumnNum
@@ -147,7 +157,7 @@ const columnWidth = (item: any) => {
         columnWidth += (occupiedColumnNum - 1) * paddingWidth
     }
 
-    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${formWidth.value} ]，form labelWidth[ ${labelWidth.value} ]，form columnNum[ ${columnNum.value} ]，form paddingWidth[ ${paddingWidth} ]，当前组件[ ${item.formItem.code} ]，当前组件列数[ ${occupiedColumnNum} ]`);
+    logger.info(`重新计算动态form渲染区域组件宽度，form width[ ${fw.value} ]，form labelWidth[ ${labelWidth.value} ]，form columnNum[ ${columnNum.value} ]，form paddingWidth[ ${paddingWidth} ]，当前组件[ ${item.formItem.code} ]，当前组件列数[ ${occupiedColumnNum} ]`);
 
     const style = { width: columnWidth + 'px' }
     // logger.info(`计算 动态表单 区域 单个组件 宽度，style`, style);
