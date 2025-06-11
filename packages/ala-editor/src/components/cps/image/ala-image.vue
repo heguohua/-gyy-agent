@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 20:38:28
+ * @LastEditTime: 2025-06-11 18:00:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/image/ala-image.vue
  * @Description: 
  * 
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { alaDelete, alaDownload, alaPost } from '@/utils/req'
+import { alaDelete, alaDownload, alaPost, alaUpload } from '@/utils/req'
 import u from '@/utils/u'
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -104,6 +104,7 @@ watch(() => model.value, () => {
     localValues.value = u.parseJson(model.value)
   } else {
     localValues.value = []
+    model.value = '[]'
   }
 
 }, {
@@ -143,7 +144,7 @@ const upload = async (file: File, bizPath: string, classify: string) => {
   formData.append('file', file)
   formData.append('bizPath', bizPath)
   formData.append('classify', classify)
-  const result = await alaPost(u.url('/f/ossfile/upload'), formData, false, 'POST').then((data: any) => {
+  const result = await alaUpload(u.url('/f/ossfile/upload'), formData, false, 'POST').then((data: any) => {
     const response = data;
     return response
   });

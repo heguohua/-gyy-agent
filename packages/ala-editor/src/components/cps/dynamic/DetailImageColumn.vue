@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 21:54:38
+ * @LastEditTime: 2025-06-11 18:44:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailImageColumn.vue
  * @Description: 
  * 
@@ -72,8 +72,6 @@ const showDetail = () => {
 }
 
 
-
-
 // Methods
 
 const imageWidth = computed(() => {
@@ -82,6 +80,7 @@ const imageWidth = computed(() => {
     const width = (Math.round(100 / num) - 2) + '%'
     return width
 })
+
 // Methods
 interface AFile {
     id: number,
@@ -95,6 +94,8 @@ const localValues = ref<Array<string>>([])
 
 watch(() => props.value, () => {
 
+    localValues.value = []
+    
     if (props.value) {
 
         const images = u.parseJson(props.value)
@@ -124,9 +125,7 @@ watch(() => props.value, () => {
 
         })
 
-    } else {
-        localValues.value = []
-    }
+    } 
 
 }, {
     immediate: true,

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 11:34:23
+ * @LastEditTime: 2025-06-11 18:01:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/ala-file.vue
  * @Description: 
  * 
@@ -104,6 +104,7 @@ watch(() => model.value, () => {
     localValues.value = u.parseJson(model.value)
   } else {
     localValues.value = []
+    model.value = '[]'
   }
 
 }, {
