@@ -151,7 +151,7 @@ const columns = computed(() => {
         alaDetailInput('profileCode', "模型编号"),
         alaDetailInput('profileGroup', "模型分类", 1, false, { deepColumnName: { desktop: 'name' } }),
         alaDetailInput('createdName', "创建人"),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -168,9 +168,9 @@ const detailFields: any = ref([
     alaDetailInput('profileName', "模型名称", 1, true),
     alaDetailInput('profileGroup', "模型分类", 1, false, { deepColumnName: { desktop: 'name' } }),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 
@@ -254,7 +254,7 @@ const devicePageColumns = [
     alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
     alaDetailSwitchImage(dType.switchImage, 'online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
     alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
 ]
 
 const deviceFormWidth = reactive({
@@ -272,9 +272,9 @@ const deviceDetailFields = ref([
     alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
     alaDetailSwitchImage(dType.switchImage, 'online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 ])
 
 // 基础查询条件

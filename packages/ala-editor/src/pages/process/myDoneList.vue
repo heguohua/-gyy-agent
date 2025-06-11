@@ -170,8 +170,8 @@ const columns = computed(() => {
         alaDetailInput('displayName', "流程节点", 1, false),
         alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
         alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
-        alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
-        alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
+        alaDetailDate( 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'operator', label: '发起人' },
         // { prop: 'createdTime', label: '发起时间' },
@@ -216,8 +216,8 @@ const detailFields: any = ref([
     alaDetailInput('displayName', "流程节点"),
     alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
     alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
-    alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
-    alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
+    alaDetailDate( 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
 ])
 
 // forms: { id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },

@@ -178,7 +178,7 @@ const columns = computed(() => {
         alaDetailRadio(dType.radio, 'msgType', "消息类型", [{ '文本': "text" }, { '音频': "audio", 'color': colors.primaryLow }, { '视频': 'video', 'color': colors.primaryLow }, { '图片': 'image', 'color': colors.success }, { '文件': 'file', 'color': colors.dangerLow }]),
         alaDetailBuild(dType.textarea, 'content', "消息内容"),
 
-        alaDetailDate(dType.date, 'createdTime', "发送时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'createdTime', "发送时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -197,7 +197,7 @@ const detailFields: any = ref([
     alaDetailRadio(dType.radio, 'msgType', "消息类型", [{ '文本': "text" }, { '音频': "audio", 'color': colors.primaryLow }, { '视频': 'video', 'color': colors.primaryLow }, { '图片': 'image', 'color': colors.success }, { '文件': 'file', 'color': colors.dangerLow }]),
     alaDetailBuild(dType.textarea, 'content', "消息内容"),
 
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 

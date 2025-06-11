@@ -162,9 +162,9 @@ const detailFields: any = ref([
     alaDetailSwitch(dType.switch, 'state', "状态", "启用", 1, "禁用", 2),
     alaDetailInput('version', "版本号"),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "重新部署人"),
-    alaDetailDate(dType.date, 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 const detailItem = reactive({
@@ -203,8 +203,8 @@ const columns = computed(() => {
         alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
         alaDetailSwitch(dType.switch, 'state', "状态", "启用", 1, "禁用", 2),
         alaDetailInput('version', "版本号"),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailDate(dType.date, 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
 
 
         // { prop: 'displayName', label: '名称' },

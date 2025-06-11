@@ -152,9 +152,9 @@ const columns = computed(() => {
         alaDetailInput('className', t('module.lowcoding.className')),
         // alaDetailInput( 'version', t('module.lowcoding.version')),
         alaDetailInput('createdName', t('common.createdBy'), 1, false, { columnWidth: { desktop: '140' } }),
-        alaDetailDate(dType.date, 'createdTime', t('common.createdTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+        alaDetailDate( 'createdTime', t('common.createdTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
         alaDetailInput('updatedName', t('common.updatedBy')),
-        alaDetailDate(dType.date, 'updatedTime', t('common.updatedTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+        alaDetailDate( 'updatedTime', t('common.updatedTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
     ]
 })
 

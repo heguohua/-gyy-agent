@@ -302,8 +302,8 @@ const columns = computed(() => {
     return [
         alaDetailInput( 'defineDisplayName', "流程名称", 1, true),
         alaDetailInput( 'operatorName', "发起人"),
-        alaDetailDate(dType.date, 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailDate(dType.date, 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // alaDetailInput( 'stateName', "审批状态"),
         alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
@@ -323,8 +323,8 @@ const columns = computed(() => {
 // alaDetailInput( 'name', "唯一编码"),
 // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
 // alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
-// alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-// alaDetailDate(dType.date, 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
+// alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+// alaDetailDate( 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
 
 
 // 基础查询条件
@@ -406,8 +406,8 @@ const detailItem = reactive({
 const detailFields: any = ref([
     alaDetailInput( 'defineDisplayName', "流程名称", 1, true),
     alaDetailInput( 'operatorName', "发起人"),
-    alaDetailDate(dType.date, 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailDate(dType.date, 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
 ])
 

@@ -181,7 +181,7 @@ const columns = computed(() => {
         alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailInput('portrait', "群头像", undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
+        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -202,9 +202,9 @@ const detailFields: any = ref([
     alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }]),
     alaDetailBuild(dType.textarea, 'notice', "群公告"),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
 
 ])

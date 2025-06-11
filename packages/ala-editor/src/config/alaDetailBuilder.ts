@@ -4,7 +4,7 @@ import { dType } from "@/components/cps/dynamic/detailType"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:03:10
+ * @LastEditTime: 2025-06-11 16:09:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -119,11 +119,11 @@ export function alaDetailTextarea(componentName: string, columnName: string, lab
 }
 
 
-export function alaDetailDate(componentName: string, columnName: string, label: string, format = "YYYY-MM-DD", columnNum = 1, detail = false, other?: Object) {
+export function alaDetailDate(columnName: string, label: string, format = "YYYY-MM-DD", columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, format: { desktop: format }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.date, formData: { fieldName: { desktop: columnName }, format: { desktop: format }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 

@@ -49,12 +49,12 @@ export const systemUser: FormConfig = {
         alaDetailInput('nickName', "用户昵称"),
         alaDetailInput('mobile', "手机号"),
         alaDetailInput('email', "邮箱"),
-        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
+        alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD'),
         alaDetailInput('iconPath', "用户头像"),
         alaDetailInput('createdName', "创建人"),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailInput('updatedName', "更新人"),
-        alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
 
     ],
@@ -65,9 +65,9 @@ export const systemUser: FormConfig = {
         alaDetailInput('mobile', "手机号", 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('email', "邮箱"),
         alaDetailInput('iconPath', "用户头像", 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('createdName', "创建人"),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
     ],
     moduleName: 'user'

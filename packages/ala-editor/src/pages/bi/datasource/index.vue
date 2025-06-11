@@ -150,7 +150,7 @@ const columns = computed(() => {
         alaDetailCascader(dType.cascader, 'type', "类型"),
         alaDetailInput('status', "状态"),
         alaDetailTextarea(dType.textarea, 'description', '描述', 16),
-        alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
 
     ]
@@ -189,9 +189,9 @@ const detailFields: any = ref([
     alaDetailInput('status', "状态"),
     alaDetailTextarea(dType.textarea, 'description', '描述', 16),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 
