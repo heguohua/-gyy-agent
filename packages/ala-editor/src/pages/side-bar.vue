@@ -1,3 +1,13 @@
+<!--
+ * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @Date: 2024-11-08 20:47:30
+ * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ * @LastEditTime: 2025-06-11 15:57:22
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/side-bar.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+-->
 <template>
     <el-aside width="200px">
         <el-menu default-active="1" class="el-menu-vertical-ala" @open="handleOpen" @close="handleClose"
@@ -35,11 +45,9 @@ const props = defineProps({
 const isCollapse = ref(false);
 
 const handleOpen = (key, keyPath) => {
-    console.log(key, keyPath);
 };
 
 const handleClose = (key, keyPath) => {
-    console.log(key, keyPath);
 };
 
 const toggleCollapse = () => {

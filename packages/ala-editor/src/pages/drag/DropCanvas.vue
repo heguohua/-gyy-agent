@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-30 21:51:44
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 16:11:33
+ * @LastEditTime: 2025-06-11 15:57:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/drag/DropCanvas.vue
  * @Description: 
  * 
@@ -42,10 +42,6 @@ const onClick = (e: MouseEvent) => {
     const targetElement = e.target as HTMLElement;
     const idValue = targetElement.id;
     const item = droppedComponents.find((i) => i.id === idValue)!
-    console.log('当前图形 x :', item.x);
-    console.log('当前图形 y :', item.y);
-    console.log('当前图形 宽度 :', item.width);
-    console.log('当前图形 高度 :', item.height);
 
 }
 
@@ -53,12 +49,6 @@ const onClick = (e: MouseEvent) => {
 const onDrop = (e: DragEvent) => {
 
     const type = e.dataTransfer?.getData('alaChartCode')
-
-    console.log('e.target:',e.target);
-
-    debugger
-    
-    console.log('type:', type);
 
     if (!type) return
 
@@ -75,8 +65,6 @@ const onDrop = (e: DragEvent) => {
 // 鼠标按下事件
 const startDrag = (e: MouseEvent) => {
 
-    console.log('e.clientX:', e.clientX);
-    console.log('e.clientY:', e.clientY);
 
     document.addEventListener('mousemove', onDrag)
     document.addEventListener('mouseup', stopDrag)
@@ -85,14 +73,10 @@ const startDrag = (e: MouseEvent) => {
 // 鼠标移动事件
 const onDrag = (e: MouseEvent) => {
     // if (!isDragging) return
-    console.log('e.clientX -- onDrag -->:', e.clientX);
-    console.log('e.clientY -- onDrag -->:', e.clientY);
 
 
     const canvasRect = canvasRef.value!.getBoundingClientRect()
 
-    console.log('canvasRect.x: ', canvasRect.x);
-    console.log('canvasRect.y: ', canvasRect.y);
 
     const targetElement = e.target as HTMLElement;
     const idValue = targetElement.id;
@@ -103,8 +87,6 @@ const onDrag = (e: MouseEvent) => {
     item.x = snapResult.x
     item.y = snapResult.y
 
-    console.log('snapResult:',snapResult);
-    
 
     guidelines.value = snapResult.guidelines
     if (snapResult.guidelines.length > 0) {

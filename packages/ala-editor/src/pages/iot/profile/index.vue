@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-09 22:57:05
+ * @LastEditTime: 2025-06-11 15:58:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -214,7 +214,6 @@ const showDetail = (item: { [key: string]: any }) => {
     // 组装 基本信息 
     previewParams.data = detailItem
     previewParams.params = { profileId: item.id }
-    console.log('previewParams:', previewParams);
 
 
     // 组装 审核表单预览页面参数
@@ -315,7 +314,6 @@ const pointAddFields = computed(() => {
 const beforeSaveFun = (data: any) => {
     data.unitDict = data.unitDict[0]
     data.profileId = detailItem.item.id
-    console.log('beforeSaveFun: ---> ', data);
     return data;
 }
 

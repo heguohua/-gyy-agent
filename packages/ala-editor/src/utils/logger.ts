@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:04:17
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-10-22 14:42:20
- * @FilePath: /low-coding/packages/ala-editor/src/utils/logger.ts
+ * @LastEditTime: 2025-06-11 16:00:04
+ * @FilePath: /1-low-coding/packages/ala-editor/src/utils/logger.ts
  * @Description: 日志工具类，提供info、warn、success和error 4种类型日志
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -204,7 +204,6 @@ export class Logger {
   }
 
   private outputNodeConsole(message: string, optionalParams: any[]) {
-    // console.log('process.env.mode:',process.env.mode);
 
     // 在 Node.js 控制台输出日志
     if (typeof process !== 'undefined' && typeof process.stdout !== 'undefined') {

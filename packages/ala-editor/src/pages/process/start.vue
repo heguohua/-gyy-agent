@@ -107,9 +107,6 @@ const classifyByProperty = (items: [], propertyName: string) => {
         classified[key].push(item);
     });
 
-    console.log('classified:', classified);
-
-
     const sortedKeys = getSortedPropertyKeys(classified)
     const sortedValues: any = []
     sortedKeys.forEach(key => {

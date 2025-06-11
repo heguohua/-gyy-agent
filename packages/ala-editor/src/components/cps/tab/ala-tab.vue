@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-17 20:42:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 08:55:27
+ * @LastEditTime: 2025-06-11 15:54:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tab/ala-tab.vue
  * @Description: 
  * 
@@ -70,7 +70,6 @@ function addTab(tab: TabType) {
 router.beforeEach((to) => {
 
     activeTab.value = to.path
-    // console.log('to.meta.moduleName:', t(to.meta.menuCode as string));
 
     if (to.meta.menuCode) {
         addTab({

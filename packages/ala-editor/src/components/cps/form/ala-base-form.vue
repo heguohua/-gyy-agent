@@ -251,9 +251,7 @@ const postData = async (item: any): Promise<any> => {
 const emit = defineEmits(["confirm", "refresh"])
 
 const formItemChangeCallback = (data: any) => {
-    console.log('data-callback:', data);
     u.merged(props.formData || {}, data)
-
 }
 
 watch(() => props.formData, (value: any) => {

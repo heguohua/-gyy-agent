@@ -142,8 +142,6 @@ const showDrawer = defineModel({
 
 const emit = defineEmits(["confirm", "formItemChangeCallback", "cancel"])
 const formItemChangeCallback = (data: any) => {
-    console.log('data:', data);
-
     emit("formItemChangeCallback", data)
 }
 

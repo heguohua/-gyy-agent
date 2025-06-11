@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 10:30:26
+ * @LastEditTime: 2025-06-11 15:58:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -124,7 +124,6 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                     // 组装基础查询字段
                     if (formData.showInSearch?.desktop) {
                         if (code === 'dateRange') {
-                            console.log('showInSearch - dateRange:', formData);
 
                         } else {
                             baseFields.push(alaBuildInput(formData.fieldName.desktop, formData.label.desktop))

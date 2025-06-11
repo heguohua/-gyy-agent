@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 10:37:02
+ * @LastEditTime: 2025-06-11 15:58:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/profileAdd.vue
  * @Description: 
  * 
@@ -154,7 +154,6 @@ const handleValidate = async () => {
     if (result) {
         const data = await alaBaseForm.value.getFormData()
         data['configuration'] = u.base64Encode(u.tojson(data['configuration']))
-        console.log('data:', data);
 
         // 添加 pid
         if (baseInfo?.folder?.id) {

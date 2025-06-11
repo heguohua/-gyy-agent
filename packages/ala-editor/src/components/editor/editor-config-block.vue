@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 14:49:08
+ * @LastEditTime: 2025-06-11 15:54:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-block.vue
  * @Description: 
  * 
@@ -76,23 +76,22 @@ watch(() => editorStore.currentSelect[bType], () => {
     const { formData, id } = currentBaseBlock
 
 
-    logger.info('当前block的 baseBlock 属性：', currentBaseBlock);
-    logger.info('当前block的 blockSchema 属性：');
-    console.log('blockSchema:', properties);
+    // logger.info('当前block的 baseBlock 属性：', currentBaseBlock);
+    // logger.info('当前block的 blockSchema 属性：');
+    // console.log('blockSchema:', properties);
 
     const listResult = Object.fromEntries(Object.entries(properties).map((oneProperty) => {
-        // console.log(key, value);
-        console.log('oneProperty', oneProperty);
+        // console.log('oneProperty', oneProperty);
         const [propertyName, propertyValue] = oneProperty
         const full_properties = [propertyName, { ...propertyValue, id, key: propertyName, formData: formData }]
-        console.log('oneProperty 添加 block属性 转换后', full_properties);
+        // console.log('oneProperty 添加 block属性 转换后', full_properties);
         return full_properties;
     }))
 
-    console.log('总properties转换后listResult:', listResult);
+    // console.log('总properties转换后listResult:', listResult);
 
     const form_items = [...Object.values(listResult)] as BaseBlock[]
-    console.log('总properties转换后 form_items :', form_items);
+    // console.log('总properties转换后 form_items :', form_items);
 
     configFormItemList.value = form_items
 
@@ -134,7 +133,7 @@ const callback = (params: { data: { cols: any }, id: string }) => {
 
     logger.info(`bType[ ${bType} ],editor-config-block组件 接收到 子组件callback,【 马上更新editorStore中的 blockConfig 】,nodeId[${id}],更新前editorStore.blockConfig`, editorStore.blockConfig[bType]);
     logger.info(`bType[ ${bType} ],editor-config-block组件 接收到 子组件callback,【 马上更新editorStore中的 blockConfig 】,nodeId[${id}],新的 blockConfig`, newBlockConfig);
-    console.log('新的 blockConfig ===>', newBlockConfig);
+    // console.log('新的 blockConfig ===>', newBlockConfig);
 
     editorStore.setBlockConfig(newBlockConfig, bType)
 

@@ -402,12 +402,10 @@ if (baseInfo.datasetGroup.id) {
 
     get(u.url(url), { id: baseInfo.datasetGroup.id }).then((response: any) => {
 
-        console.log('response:', response?.data);
 
         if (response?.data?.data) {
 
             const data = response.data.data
-            console.log('data:', data);
 
             const name = data.name
             const pid = data.pid
@@ -545,7 +543,6 @@ const handleSave = async (closeAddPage = false) => {
     const datasetUrl = id ? '/b/datasetGroup/updateDatasetGroup' : '/b/datasetGroup/create'
     alaPost(u.url(datasetUrl), dt, false, '').then((response: any) => {
         notify.success(t('pop.warm_title'), "保存成功");
-        console.log('closeAddPage:',closeAddPage);
         
         if (closeAddPage) {
             close()

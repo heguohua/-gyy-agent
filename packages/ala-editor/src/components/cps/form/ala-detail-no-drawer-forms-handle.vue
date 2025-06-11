@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 17:21:07
+ * @LastEditTime: 2025-06-11 15:54:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -346,7 +346,6 @@ const formRef = ref()
 const formData = ref<{ [key: string]: any }>({})
 
 const formItemChangeCallback = (data: any) => {
-    console.log('formItemChangeCallback -- > data:', data);
 }
 
 const formFields = reactive<Array<any>>([

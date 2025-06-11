@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 11:34:01
+ * @LastEditTime: 2025-06-11 15:59:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -152,7 +152,6 @@ export function configAxios(app: App<Element>) {
         error.message = '服务器连接失败';
         notify.error("温馨提示：", error.message)
       }
-      //console.log('网络错误信息：', error.message);
 
       return Promise.reject(error);
     },

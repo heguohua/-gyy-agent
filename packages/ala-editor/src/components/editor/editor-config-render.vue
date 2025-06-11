@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 10:38:16
+ * @LastEditTime: 2025-06-11 15:55:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
@@ -90,7 +90,6 @@ const getComponent = computed(() => {
         logger.info(`bType[ ${bType} ],editor-config-render中渲染动态 属性表单 组件, code: ${componentName}, title: ${title}`);
 
         if(code === 'select-api'){
-            console.log('item: -----> ',item);
             
         }
 
@@ -139,7 +138,6 @@ watch(() => props.list, (items: any) => {
 
         })
 
-        console.log('fItems:', fItems);
 
 
         formItems.value = fItems
@@ -152,8 +150,6 @@ watch(() => props.list, (items: any) => {
 const activeNames = ref('')
 
 const handleChange = (name: string) => {
-    console.log('name:', name);
-    console.log('activeNames:', activeNames.value);
 
 }
 

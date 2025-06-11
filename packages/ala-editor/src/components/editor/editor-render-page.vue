@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 20:13:37
+ * @LastEditTime: 2025-06-11 15:57:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -212,8 +212,6 @@ const copy = (id: string) => {
 
     const newBlockConfig = newBlockConfigs[newBlockConfigs.length - 1]!
 
-    console.log('newBlockConfig: ---> ', newBlockConfig);
-
 
     let x = newBlockConfig.formData!.x.desktop
     if (x.includes('%')) {
@@ -240,7 +238,6 @@ const copy = (id: string) => {
 
     u.merged(newBlockConfig.formData!, formData)
 
-    console.log('newBlockConfig: ---> ', newBlockConfig);
 
 
     editorStore.setCurrentSelect({}, bType)
@@ -258,19 +255,15 @@ const clear = (id: string) => {
 
 
 const handleStart = (e: MouseEvent) => {
-    console.log('Drag started', e);
 };
 
 const handleMove = (e: MouseEvent) => {
-    console.log('Dragging', e);
     // 获取鼠标位置
     const mouseX = e.clientX;
     const mouseY = e.clientY;
-    console.log(`Mouse X: ${mouseX}, Mouse Y: ${mouseY}`);
 };
 
 const handleEnd = (e: MouseEvent) => {
-    console.log('Drag ended', e);
 };
 
 
@@ -286,17 +279,6 @@ const canvasRef = ref<HTMLElement | null>(null)
 
 const droppedComponents = reactive<DroppedItem[]>([])
 
-// const onClick = (e: MouseEvent) => {
-//     const targetElement = e.target as HTMLElement;
-//     const idValue = targetElement.id;
-//     const item = droppedComponents.find((i) => i.id === idValue)!
-//     console.log('当前图形 x :', item.x);
-//     console.log('当前图形 y :', item.y);
-//     console.log('当前图形 宽度 :', item.width);
-//     console.log('当前图形 高度 :', item.height);
-
-// }
-
 
 const onDrop = (e: DragEvent) => {
 
@@ -306,13 +288,11 @@ const onDrop = (e: DragEvent) => {
     block.id = nanoid(8)
 
 
-    console.log('e.target:', block);
 
     const type = block.code
 
     setCurrentSelect(block)
 
-    console.log('type:', type);
 
     if (!type) return
 
@@ -332,8 +312,6 @@ const onDrop = (e: DragEvent) => {
 // 鼠标按下事件
 const startDrag = (e: MouseEvent) => {
 
-    console.log('e.clientX:', e.clientX);
-    console.log('e.clientY:', e.clientY);
 
     document.addEventListener('mousemove', onDrag)
     document.addEventListener('mouseup', stopDrag)
@@ -343,14 +321,10 @@ const startDrag = (e: MouseEvent) => {
 // 鼠标移动事件
 const onDrag = (e: MouseEvent) => {
     // if (!isDragging) return
-    console.log('e.clientX -- onDrag -->:', e.clientX);
-    console.log('e.clientY -- onDrag -->:', e.clientY);
 
 
     const canvasRect = canvasRef.value!.getBoundingClientRect()
 
-    console.log('canvasRect.x: ', canvasRect.x);
-    console.log('canvasRect.y: ', canvasRect.y);
 
     // const targetElement = e.target as HTMLElement;
     // e.currentTarget 是原始触发事件的 div
@@ -362,7 +336,6 @@ const onDrag = (e: MouseEvent) => {
     // item.x = snapResult.x
     // item.y = snapResult.y
 
-    // console.log('snapResult:', snapResult);
 
 
     // guidelines.value = snapResult.guidelines

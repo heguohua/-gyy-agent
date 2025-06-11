@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 18:36:37
+ * @LastEditTime: 2025-06-11 15:54:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -177,9 +177,6 @@ const refresh = (data: any) => {
 
 // 排序字段发生变化
 const sortChange = (a: any, b: any, c: any) => {
-    console.log('a:', a);
-    console.log('b:', b);
-    console.log('c:', c);
 
 }
 
@@ -209,15 +206,11 @@ const queryPageData = () => {
 
     let params = props.params
 
-    console.log('props.params:', props.params);
-
-
     if (typeof params === 'string') {
         params = u.parseJson(params)
     }
 
     u.merged(totalParams, params as Record<string, any>);
-
 
     if (isDynamicTable()) {
 

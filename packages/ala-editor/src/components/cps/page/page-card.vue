@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-07 09:48:54
+ * @LastEditTime: 2025-06-11 15:54:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-card.vue
  * @Description: 
  * 
@@ -117,7 +117,6 @@ const displayDeleteButton = () => {
     return props.showDeleteButton;
 }
 const displayAddButton = () => {
-    console.log('props.showAddButton:', props.showAddButton);
 
     return props.showAddButton;
 }

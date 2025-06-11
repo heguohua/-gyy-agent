@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-09 15:17:45
+ * @LastEditTime: 2025-06-11 15:58:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/im/chatGroup/chatGroupList.vue
  * @Description: 
  * 
@@ -72,8 +72,6 @@ const route = useRoute();
 
 const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
-    console.log('code:', code);
-
     return t(code)
 })
 // 2、定义当前编辑对象id
@@ -227,7 +225,6 @@ const advancedFields: any = []
 
 
 const handlePreview = (row: any) => {
-    console.log('row:', row);
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     u.merged(previewPageProps, { id: row.id })
     showPreviewPage.value = true

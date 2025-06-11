@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-02-02 18:51:41
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-02 18:52:54
+ * @LastEditTime: 2025-06-11 15:59:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/Snowflake.ts
  * @Description: 
  * 
@@ -89,4 +89,3 @@ export default class Snowflake {
 
 // 使用示例
 // const snowflake = new Snowflake(1); // 机器节点 ID 为 1
-// console.log(snowflake.nextId());

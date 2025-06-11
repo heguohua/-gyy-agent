@@ -285,9 +285,6 @@ queryTree()
 
 const baseInfo = inject('baseInfo') as { [key: string]: any };
 
-console.log('baseInfo:', baseInfo.moduleName);
-
-
 // 更新分页列表页面 baseInfo 中的folder属性
 watch(() => currentNode.value, (value: any) => {
     baseInfo.folder = value

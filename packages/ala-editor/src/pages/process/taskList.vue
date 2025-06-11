@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-18 18:06:47
+ * @LastEditTime: 2025-06-11 15:59:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/taskList.vue
  * @Description: 
  * 
@@ -136,8 +136,6 @@ const showDetail = (row: any) => {
 
     // 组装 基本信息 
     previewParams.data = detailItem
-    console.log('previewParams.data:', previewParams.data);
-
 
     // 组装 审核表单预览页面参数
     const variable = u.parseJson(row.variable)

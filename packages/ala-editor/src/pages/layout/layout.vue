@@ -121,8 +121,6 @@ onMounted(() => {
 const tipShow = ref(false)
 const showTip = (isShow: boolean) => {
     tipShow.value = isShow
-    // console.log('tipShow.value:', tipShow.value);
-
 }
 
 const toAiAssistPage = () => {

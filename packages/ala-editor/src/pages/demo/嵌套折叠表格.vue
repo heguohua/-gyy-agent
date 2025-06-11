@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-11 17:23:25
+ * @LastEditTime: 2025-06-11 16:00:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/demo/嵌套折叠表格.vue
  * @Description: 
  * 
@@ -97,7 +97,6 @@ const paginatedData = computed(() => {
 const handleExpandChange = (row: Row, expandedRows: any) => {
 
     const id = row.id + ''
-    console.log('row:', row);
 
     if (expandedRows && expandedRows.length > 0) {
         // 如果当前行被展开，添加到数组中

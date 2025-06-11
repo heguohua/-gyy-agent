@@ -148,7 +148,6 @@ const displayDeleteButton = () => {
     return props.showDeleteButton;
 }
 const displayAddButton = () => {
-    console.log('props.showAddButton:',props.showAddButton);
 
     return props.showAddButton;
 }

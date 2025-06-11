@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 22:47:46
+ * @LastEditTime: 2025-06-11 15:57:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -57,11 +57,9 @@ const isCollapse = defineModel({
 })
 
 const handleOpen = (key: any, keyPath: any) => {
-    // console.log(key, keyPath);
 };
 
 const handleClose = (key: any, keyPath: any) => {
-    // console.log(key, keyPath);
 };
 
 const toggleCollapse = () => {

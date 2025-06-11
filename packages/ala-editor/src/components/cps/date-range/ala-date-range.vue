@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 20:28:38
+ * @LastEditTime: 2025-06-11 15:52:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
  * @Description: 
  * 
@@ -128,7 +128,6 @@ const handleChange = (value: Date | null) => {
             }
             localModel.value = dates
             // 表单数据更新回调
-            console.log('表单数据更新回调:', dates);
 
             emit("formItemChangeCallback", {
                 [props.startFieldName]: startValue.value,

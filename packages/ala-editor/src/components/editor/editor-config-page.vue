@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 11:21:23
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 19:32:31
+ * @LastEditTime: 2025-06-11 16:01:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-page.vue
  * @Description: 
  * 
@@ -107,7 +107,6 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
     )
     // pageConfig 页面最新组件
     const allComponents = [...Object.values(listResult)]
-    console.log('pageConfig allComponents:', allComponents);
     configFormItemList.value = allComponents
 
 }, {

@@ -89,7 +89,6 @@ const handlePageChange = (newPage: number) => {
 };
 
 const handleRowClick = (row: Row, column: Column, event: Event) => {
-    console.log('Row clicked:', row);
 };
 
 const toggleExpand = (row: Row) => {

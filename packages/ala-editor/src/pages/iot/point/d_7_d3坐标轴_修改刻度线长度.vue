@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-27 09:51:45
+ * @LastEditTime: 2025-06-11 15:59:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/d_7_d3坐标轴_修改刻度线长度.vue
  * @Description: 
  * 
@@ -45,10 +45,6 @@ onMounted(() => {
 
     // 修改，修改，修改： 这里添加 最后一个 参数
     const ticks = ad3.aTick(xScale, 'bottom', undefined, 18, 10, 8, 30)
-
-    console.log('ticks:', ticks.tickSize());
-    console.log('ticks:', ticks.tickPadding());
-
 
 
     const xAxisAttrs = new Map<string, any>()

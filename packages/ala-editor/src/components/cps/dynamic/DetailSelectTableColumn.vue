@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:48:47
+ * @LastEditTime: 2025-06-11 15:52:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -157,7 +157,6 @@ const showDetail = async (item: string, index: number) => {
         }
     }
 
-    // console.log('formConfig:', formConfig);
 
     dAttr.value = formConfig?.detailAttr as any
     dFields.value = formConfig?.detailFields as any
@@ -179,11 +178,9 @@ const showDetail = async (item: string, index: number) => {
         mName.value = formConfig?.moduleName!
     }
     const queryParams = u.merged({ [valueName]: value }, params)
-    // console.log('queryParams:', queryParams);
 
     const response = await query(url, { body: queryParams, page: { orders: [], current: 1, size: 10 } })
 
-    // console.log('response ------> :', response);
 
     if (response.data?.list) {
         if (response.data.list.length === 0) {

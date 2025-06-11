@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-30 11:10:14
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/datasourceAdd.vue
+ * @LastEditTime: 2025-06-11 15:58:15
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/deviceArea/add.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -264,7 +264,6 @@ const handleValidate = async () => {
     if (result) {
         const data = await alaBaseForm.value.getFormData()
         data['configuration'] = u.base64Encode(u.tojson(data['configuration']))
-        console.log('data:', data);
 
         // 添加 pid
         if (baseInfo?.folder?.id) {

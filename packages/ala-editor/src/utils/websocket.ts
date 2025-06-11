@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-03-15 19:34:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-16 09:17:19
+ * @LastEditTime: 2025-06-11 15:59:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/websocket.ts
  * @Description: 
  * 
@@ -57,12 +57,10 @@ export class WebSocketClient {
             }
 
             this.timer = setInterval(() => {
-                // console.log("ws【 发送心跳 】")
                 // ping超过5次未响应则重连
                 // this.pingCount++
                 // if (this.pingCount >= 5) {
 
-                //     console.log("【 5次心跳均发送失败 】即将重新连接")
                 //     this.reconnect()
 
                 //     return
@@ -129,7 +127,6 @@ export class WebSocketClient {
     }
 
     public on(event: any, callback: (data: any) => void): void {
-        // console.log('event:',event);
 
         window.addEventListener(event, (e: CustomEvent) => {
             if (e.detail) {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-07 11:11:57
+ * @LastEditTime: 2025-06-11 15:53:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-card.vue
  * @Description: 
  * 
@@ -181,7 +181,6 @@ const showEdit = (item: { [key: string]: any }) => {
 // 查询条件
 const params = reactive({}) as { [key: string]: any }
 watch(() => props.previewParams.params, (value: object) => {    
-    console.log('props.previewParams.params: ------> ',props.previewParams.params);
     
     u.merged(params, props.previewParams.params)
 }, { immediate: true, deep: true })
@@ -248,7 +247,6 @@ const beforeSave = async (data: { [key: string]: any }) => {
 
 
 const handleAdd = (item: { id: number }) => {
-    console.log('handleAdd: ---> ', item);
 }
 const handleEnable = (item: any) => {
     updateStatus(item.id, { deleted: 1 })
@@ -270,7 +268,6 @@ const handleEdit = (item: any) => {
 }
 
 const handleDelete = (item: { id: number }) => {
-    console.log('handleDelete: ---> ', item);
 }
 
 

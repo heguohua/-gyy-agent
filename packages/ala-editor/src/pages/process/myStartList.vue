@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-11 20:43:38
+ * @LastEditTime: 2025-06-11 15:59:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -111,7 +111,6 @@ const showEdit = (item: { [key: string]: any }) => {
 
     u.clear(baseInfo.item)
     const bif = { item: {}, tableName: form.tableName, defineId: defineId }
-    console.log('bif:', bif);
     u.merged(baseInfo, bif)
     cn.value = form.tableName
 
@@ -271,8 +270,6 @@ const showEdit = (item: { [key: string]: any }) => {
         get(u.url(dynamicTableUrl || ''), dynamicTableParams).then((response: any) => {
             u.merged(baseInfo, { item: response.data.data })
 
-            console.log('baseInfo:',baseInfo);
-            
             showAddForm.value = true
 
         });

@@ -107,11 +107,9 @@ const menuList = ref<Array<Menu>>([
 // Methods
 
 const handleOpen = (key: any, keyPath: any) => {
-    // console.log(key, keyPath);
 };
 
 const handleClose = (key: any, keyPath: any) => {
-    // console.log(key, keyPath);
 };
 
 const toggleCollapse = () => {
@@ -119,7 +117,6 @@ const toggleCollapse = () => {
 };
 
 const handleSelect = (menu: Menu) => {
-    console.log('menu:', menu);
 }
 
 </script>
