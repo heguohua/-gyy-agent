@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 14:48:56
+ * @LastEditTime: 2025-06-11 15:02:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -10,13 +10,8 @@
 -->
 <template>
   <div class="ala-select-api-wrapper">
-    <!-- <span :class="clasz">{{ label }}</span>  -->
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
-      <!-- <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName">
-        <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
-          <el-option :key="item.value" :label="item.name" :value="item.value" />
-        </div>
-      </el-select> -->
+
       <template #label>
         <AlaFormLabel :label="label" :help="help" />
       </template>
@@ -169,8 +164,6 @@ watch(() => isFormDesign.value, (v) => {
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
 const handleChange = (val: string | number) => {
-
-  console.log('val --->:', val);
 
   currentModel.value = val
 
