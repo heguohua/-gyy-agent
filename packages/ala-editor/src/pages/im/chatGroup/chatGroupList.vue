@@ -175,10 +175,10 @@ const deleteUrl = "/im/chatGroup/delete"
 const columns = computed(() => {
     return [
         alaDetailInput('name', "群名称", 1, true),
-        alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName", undefined, undefined, { columnWidth: { desktop: '150' }, url: { desktop: formConfigs.systemUser.pageApi } }),
-        alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName", undefined, undefined, { columnWidth: { desktop: '600' }, url: { desktop: formConfigs.systemUser.pageApi } }),
+        alaDetailSelectTable('masters', "群主", "nickName", undefined, undefined, { columnWidth: { desktop: '150' }, url: { desktop: formConfigs.systemUser.pageApi } }),
+        alaDetailSelectTable('groupUsers', "群用户", "nickName", undefined, undefined, { columnWidth: { desktop: '600' }, url: { desktop: formConfigs.systemUser.pageApi } }),
         // alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
-        alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
+        alaDetailRadio('status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailInput('portrait', "群头像", undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
         alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
@@ -196,10 +196,10 @@ const columns = computed(() => {
  */
 const detailFields: any = ref([
     alaDetailInput('name', "群名称", 1, true),
-    alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName", undefined, undefined, { url: { desktop: formConfigs.systemUser.pageApi } }),
-    alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName", undefined, undefined, { url: { desktop: formConfigs.systemUser.pageApi } }),
+    alaDetailSelectTable('masters', "群主", "nickName", undefined, undefined, { url: { desktop: formConfigs.systemUser.pageApi } }),
+    alaDetailSelectTable('groupUsers', "群用户", "nickName", undefined, undefined, { url: { desktop: formConfigs.systemUser.pageApi } }),
     alaDetailInput('portrait', "群头像"),
-    alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }]),
+    alaDetailRadio('status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }]),
     alaDetailTextarea('notice', "群公告"),
     alaDetailInput('createdName', "创建人"),
     alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),

@@ -175,7 +175,7 @@ const columns = computed(() => {
         alaDetailInput('fromName', "发送人"),
 
         // 消息类型，text-文本、audio-音频、video-视频、image-图片、file-文件
-        alaDetailRadio(dType.radio, 'msgType', "消息类型", [{ '文本': "text" }, { '音频': "audio", 'color': colors.primaryLow }, { '视频': 'video', 'color': colors.primaryLow }, { '图片': 'image', 'color': colors.success }, { '文件': 'file', 'color': colors.dangerLow }]),
+        alaDetailRadio('msgType', "消息类型", [{ '文本': "text" }, { '音频': "audio", 'color': colors.primaryLow }, { '视频': 'video', 'color': colors.primaryLow }, { '图片': 'image', 'color': colors.success }, { '文件': 'file', 'color': colors.dangerLow }]),
         alaDetailBuild(dType.textarea, 'content', "消息内容"),
 
         alaDetailDate( 'createdTime', "发送时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -194,7 +194,7 @@ const columns = computed(() => {
 const detailFields: any = ref([
     alaDetailInput('groupName', "群名称", 1, true),
     alaDetailInput('fromName', "发送人"),
-    alaDetailRadio(dType.radio, 'msgType', "消息类型", [{ '文本': "text" }, { '音频': "audio", 'color': colors.primaryLow }, { '视频': 'video', 'color': colors.primaryLow }, { '图片': 'image', 'color': colors.success }, { '文件': 'file', 'color': colors.dangerLow }]),
+    alaDetailRadio('msgType', "消息类型", [{ '文本': "text" }, { '音频': "audio", 'color': colors.primaryLow }, { '视频': 'video', 'color': colors.primaryLow }, { '图片': 'image', 'color': colors.success }, { '文件': 'file', 'color': colors.dangerLow }]),
     alaDetailBuild(dType.textarea, 'content', "消息内容"),
 
     alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),

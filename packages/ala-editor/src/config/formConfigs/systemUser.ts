@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:04:28
+ * @LastEditTime: 2025-06-11 16:19:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -55,7 +55,7 @@ export const systemUser: FormConfig = {
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailInput('updatedName', "更新人"),
         alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
+        alaDetailSelectTree('organization', "所属部门", 'orgName')
 
     ],
     pageApi: '/u/user/page',
@@ -68,7 +68,7 @@ export const systemUser: FormConfig = {
         alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailSelectTree(dType.selectTree, 'organization', "所属部门", 'orgName')
+        alaDetailSelectTree('organization', "所属部门", 'orgName')
     ],
     moduleName: 'user'
 
