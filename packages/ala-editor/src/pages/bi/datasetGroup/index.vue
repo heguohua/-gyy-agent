@@ -147,11 +147,11 @@ const deleteUrl = "/b/datasetGroup/delete"
 const columns = computed(() => {
     return [
         alaDetailInput('name', "数据源名称", 1, true),
-        alaDetailCascader(dType.cascader, 'type', "类型"),
+        alaDetailCascader('type', "类型"),
         alaDetailInput('status', "状态"),
-        alaDetailTextarea(dType.textarea, 'description', '描述', 16),
+        alaDetailTextarea('description', '描述', 16),
         alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
+        // alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
 
     ]
 })
@@ -185,9 +185,9 @@ const formAttr = ref({
  */
 const detailFields: any = ref([
     alaDetailInput('name', "数据源名称", 1, true),
-    alaDetailCascader(dType.cascader, 'type', "类型"),
+    alaDetailCascader('type', "类型"),
     alaDetailInput('status', "状态"),
-    alaDetailTextarea(dType.textarea, 'description', '描述', 16),
+    alaDetailTextarea('description', '描述', 16),
     alaDetailInput('createdName', "创建人"),
     alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),

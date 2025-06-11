@@ -4,7 +4,7 @@ import { dType } from "@/components/cps/dynamic/detailType"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:09:02
+ * @LastEditTime: 2025-06-11 16:14:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -53,11 +53,11 @@ export function alaDetailDeepBuild(componentName: string, columnName: string, in
 }
 
 
-export function alaDetailSelectDict(componentName: string, columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailSelectDict(columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName } }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.selectDict, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName } }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 
@@ -94,11 +94,11 @@ export function alaDetailSelectTree(componentName: string, columnName: string, l
     }
 }
 
-export function alaDetailSwitch(componentName: string, columnName: string, label: string, activeText: string, activeValue: any, inActiveText: string, inActiveValue: any, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailSwitch(columnName: string, label: string, activeText: string, activeValue: any, inActiveText: string, inActiveValue: any, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, activeText: { desktop: activeText }, activeValue: { desktop: activeValue }, inActiveText: { desktop: inActiveText }, inActiveValue: { desktop: inActiveValue }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.switch, formData: { fieldName: { desktop: columnName }, detail, activeText: { desktop: activeText }, activeValue: { desktop: activeValue }, inActiveText: { desktop: inActiveText }, inActiveValue: { desktop: inActiveValue }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 
@@ -110,11 +110,11 @@ export function alaDetailSwitchImage(componentName: string, columnName: string, 
     }
 }
 
-export function alaDetailTextarea(componentName: string, columnName: string, label: string, pageMax = 10, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailTextarea(columnName: string, label: string, pageMax = 10, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, pageMax: { desktop: pageMax }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.textarea, formData: { fieldName: { desktop: columnName }, detail, pageMax: { desktop: pageMax }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 
@@ -127,10 +127,10 @@ export function alaDetailDate(columnName: string, label: string, format = "YYYY-
     }
 }
 
-export function alaDetailCascader(componentName: string, columnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailCascader(columnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.cascader, formData: { fieldName: { desktop: columnName }, detail, columnNum: { desktop: columnNum }, ...other } },
     }
 }

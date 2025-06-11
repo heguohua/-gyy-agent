@@ -321,8 +321,8 @@ const columns = computed(() => {
 })
 // alaDetailInput( 'displayName', "流程名称", 1, true),
 // alaDetailInput( 'name', "唯一编码"),
-// alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-// alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
+// alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
+// alaDetailSwitch('delFlag', "状态", "启用", 2, "禁用", 1),
 // alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 // alaDetailDate( 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
 

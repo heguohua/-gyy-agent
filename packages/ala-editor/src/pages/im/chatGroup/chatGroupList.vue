@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:58:08
+ * @LastEditTime: 2025-06-11 16:15:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/im/chatGroup/chatGroupList.vue
  * @Description: 
  * 
@@ -177,7 +177,7 @@ const columns = computed(() => {
         alaDetailInput('name', "群名称", 1, true),
         alaDetailSelectTable(dType.selectTable, 'masters', "群主", "nickName", undefined, undefined, { columnWidth: { desktop: '150' }, url: { desktop: formConfigs.systemUser.pageApi } }),
         alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName", undefined, undefined, { columnWidth: { desktop: '600' }, url: { desktop: formConfigs.systemUser.pageApi } }),
-        // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
+        // alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
         alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailInput('portrait', "群头像", undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
@@ -200,12 +200,12 @@ const detailFields: any = ref([
     alaDetailSelectTable(dType.selectTable, 'groupUsers', "群用户", "nickName", undefined, undefined, { url: { desktop: formConfigs.systemUser.pageApi } }),
     alaDetailInput('portrait', "群头像"),
     alaDetailRadio(dType.radio, 'status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }]),
-    alaDetailBuild(dType.textarea, 'notice', "群公告"),
+    alaDetailTextarea('notice', "群公告"),
     alaDetailInput('createdName', "创建人"),
     alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
     alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
+    alaDetailTextarea('remark', "备注说明"),
 
 ])
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 11:03:34
+ * @LastEditTime: 2025-06-11 16:13:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -158,8 +158,8 @@ const formAttr = ref({
 const detailFields: any = ref([
     alaDetailInput('displayName', "流程名称", 1, true),
     alaDetailInput('name', "唯一编码"),
-    alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-    alaDetailSwitch(dType.switch, 'state', "状态", "启用", 1, "禁用", 2),
+    alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
+    alaDetailSwitch('state', "状态", "启用", 1, "禁用", 2),
     alaDetailInput('version', "版本号"),
     alaDetailInput('createdName', "创建人"),
     alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -200,8 +200,8 @@ const columns = computed(() => {
         // alaDetailInput( 'state', "状态"),
         alaDetailInput('displayName', "流程名称", 1, true),
         alaDetailInput('name', "唯一编码"),
-        alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-        alaDetailSwitch(dType.switch, 'state', "状态", "启用", 1, "禁用", 2),
+        alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
+        alaDetailSwitch('state', "状态", "启用", 1, "禁用", 2),
         alaDetailInput('version', "版本号"),
         alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate( 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),

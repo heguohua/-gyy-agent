@@ -200,7 +200,7 @@ const detailFields: any = ref([
     alaDetailRadio(dType.radio, 'status', "日程状态", [{ '未开始': 1 }, { '已关闭': 2, 'color': colors.info }, { '已完成': 3, 'color': colors.success }, { '已延期': 4, 'color': colors.danger }, { '进行中': 5, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '150' } }),
     // 提醒类型，1-开始时、2-提前5分钟、3-提前10分钟、4-提前15分钟、5-提前30分钟、6-提前1小时、7-提前2小时、8-提前1天、9-提前2天、10-提前1周、11-提前2周
     alaDetailRadio(dType.radio, 'noticeType', "提醒类型", [{ '开始时': 1 }, { '提前5分钟': 2, 'color': colors.primary }, { '提前10分钟': 3, 'color': colors.success }, { '提前15分钟': 4, 'color': colors.primary }, { '提前30分钟': 5, 'color': colors.primary }, { '提前1小时': 6, 'color': colors.primary }, { '提前2小时': 7, 'color': colors.primary }, { '提前1天': 8, 'color': colors.danger }, { '提前2天': 9, 'color': colors.danger }, { '提前1周': 10, 'color': colors.danger }, { '提前2周': 11, 'color': colors.danger }], undefined, undefined, { columnWidth: { desktop: '150' } }),
-    alaDetailTextarea(dType.textarea, 'remark', '日程描述'),
+    alaDetailTextarea('remark', '日程描述'),
     alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
     alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
     alaDetailInput('updatedName', "更新人", undefined, undefined, { columnWidth: { desktop: '150' } }),

@@ -200,9 +200,9 @@ const columns = computed(() => {
     return [
         alaDetailInput('displayName', "流程名称", 1, true),
         alaDetailInput('name', "唯一编码"),
-        alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-        alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
-        alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
+        alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
+        alaDetailSwitch('isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
+        alaDetailTextarea('remark', "备注说明"),
         alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
@@ -220,13 +220,13 @@ const columns = computed(() => {
 const detailFields: any = ref([
     alaDetailInput('displayName', "流程名称", 1, true),
     alaDetailInput('name', "唯一编码"),
-    alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
-    alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
+    alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
+    alaDetailSwitch('isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
     alaDetailInput('createdName', "创建人"),
     alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
     alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
+    alaDetailTextarea('remark', "备注说明"),
 
 ])
 
