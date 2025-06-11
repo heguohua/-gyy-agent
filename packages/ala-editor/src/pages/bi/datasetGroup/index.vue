@@ -71,7 +71,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
-import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import DatasetAdd from './datasetAdd.vue';
 import notify from '@/utils/notify';
@@ -146,9 +146,9 @@ const deleteUrl = "/b/datasetGroup/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'name', "数据源名称", 1, true),
+        alaDetailInput('name', "数据源名称", 1, true),
         alaDetailCascader(dType.cascader, 'type', "类型"),
-        alaDetailBuild(dType.input, 'status', "状态"),
+        alaDetailInput('status', "状态"),
         alaDetailTextarea(dType.textarea, 'description', '描述', 16),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
@@ -184,13 +184,13 @@ const formAttr = ref({
  * 详情页面字段
  */
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'name', "数据源名称", 1, true),
+    alaDetailInput('name', "数据源名称", 1, true),
     alaDetailCascader(dType.cascader, 'type', "类型"),
-    alaDetailBuild(dType.input, 'status', "状态"),
+    alaDetailInput('status', "状态"),
     alaDetailTextarea(dType.textarea, 'description', '描述', 16),
-    alaDetailBuild(dType.input, 'createdName', "创建人"),
+    alaDetailInput('createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.input, 'updatedName', "更新人"),
+    alaDetailInput('updatedName', "更新人"),
     alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])

@@ -84,7 +84,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectDict, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import { alaPost } from '@/utils/req';
@@ -198,8 +198,8 @@ const deleteUrl = "/p/design/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
-        alaDetailBuild(dType.input, 'name', "唯一编码"),
+        alaDetailInput('displayName', "流程名称", 1, true),
+        alaDetailInput('name', "唯一编码"),
         alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
         alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
         alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
@@ -218,13 +218,13 @@ const columns = computed(() => {
  * 详情页面字段
  */
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
-    alaDetailBuild(dType.input, 'name', "唯一编码"),
+    alaDetailInput('displayName', "流程名称", 1, true),
+    alaDetailInput('name', "唯一编码"),
     alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
     alaDetailSwitch(dType.switch, 'isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
-    alaDetailBuild(dType.input, 'createdName', "创建人"),
+    alaDetailInput('createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.input, 'updatedName', "更新人"),   
+    alaDetailInput('updatedName', "更新人"),
     alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailTextarea(dType.textarea, 'remark', "备注说明"),
 

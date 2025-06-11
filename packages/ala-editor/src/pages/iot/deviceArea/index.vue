@@ -68,7 +68,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
-import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import Add from '@/pages/iot/deviceArea/add.vue';
 import notify from '@/utils/notify';
@@ -145,13 +145,13 @@ const deleteUrl = "/u/user/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
-        alaDetailBuild(dType.input, 'nickName', "用户昵称"),
-        alaDetailBuild(dType.input, 'mobile', "手机号"),
-        alaDetailBuild(dType.input, 'email', "邮箱"),
-        alaDetailBuild(dType.input, 'iconPath', "用户头像"),
+        alaDetailInput('scabbard', "登录账号", 1, true),
+        alaDetailInput('nickName', "用户昵称"),
+        alaDetailInput('mobile', "手机号"),
+        alaDetailInput('email', "邮箱"),
+        alaDetailInput('iconPath', "用户头像"),
         alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
-        alaDetailBuild(dType.input, 'createdName', "创建人"),
+        alaDetailInput('createdName', "创建人"),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'displayName', label: '名称' },
@@ -166,15 +166,15 @@ const columns = computed(() => {
  * 详情页面字段
  */
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'scabbard', "登录账号", 1, true),
-    alaDetailBuild(dType.input, 'nickName', "用户昵称"),
-    alaDetailBuild(dType.input, 'mobile', "手机号"),
-    alaDetailBuild(dType.input, 'email', "邮箱"),
+    alaDetailInput('scabbard', "登录账号", 1, true),
+    alaDetailInput('nickName', "用户昵称"),
+    alaDetailInput('mobile', "手机号"),
+    alaDetailInput('email', "邮箱"),
     alaDetailDate(dType.date, 'entryDate', "入职时间", 'YYYY-MM-DD'),
-    alaDetailBuild(dType.input, 'iconPath', "用户头像"),
-    alaDetailBuild(dType.input, 'createdName', "创建人"),
+    alaDetailInput('iconPath', "用户头像"),
+    alaDetailInput('createdName', "创建人"),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.input, 'updatedName', "更新人"),
+    alaDetailInput('updatedName', "更新人"),
     alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
@@ -207,7 +207,7 @@ const formAttr = ref({
  */
 
 const detailItem = reactive({
-    moduleName:'系统用户',
+    moduleName: '系统用户',
     item: {}
 })
 

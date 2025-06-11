@@ -68,7 +68,7 @@ import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
-import { alaDetailBuild, alaDetailDate, alaDetailSelect } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelect } from '@/config/alaDetailBuilder';
 import { formTypes } from '@/components/cps/dynamic/formTypes';
 import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
@@ -147,13 +147,13 @@ const deleteUrl = "/l/lowcodingConfig/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'name', t('module.lowcoding.name')),
+        alaDetailInput('name', t('module.lowcoding.name')),
         alaDetailSelect("formType", t('module.lowcoding.pageType'), formTypes),
-        alaDetailBuild(dType.input, 'className', t('module.lowcoding.className')),
-        // alaDetailBuild(dType.input, 'version', t('module.lowcoding.version')),
-        alaDetailBuild(dType.input, 'createdName', t('common.createdBy'), 1, false, { columnWidth: { desktop: '140' } }),
+        alaDetailInput('className', t('module.lowcoding.className')),
+        // alaDetailInput( 'version', t('module.lowcoding.version')),
+        alaDetailInput('createdName', t('common.createdBy'), 1, false, { columnWidth: { desktop: '140' } }),
         alaDetailDate(dType.date, 'createdTime', t('common.createdTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
-        alaDetailBuild(dType.input, 'updatedName', t('common.updatedBy')),
+        alaDetailInput('updatedName', t('common.updatedBy')),
         alaDetailDate(dType.date, 'updatedTime', t('common.updatedTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
     ]
 })

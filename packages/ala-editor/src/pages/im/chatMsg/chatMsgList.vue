@@ -55,7 +55,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailRadio, alaDetailSelectDict, alaDetailSelectTable, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailRadio, alaDetailSelectDict, alaDetailSelectTable, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import { alaPost } from '@/utils/req';
@@ -171,8 +171,8 @@ const deleteUrl = "/im/chatMsg/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'groupName', "群名称", 1, true),
-        alaDetailBuild(dType.input, 'fromName', "发送人"),
+        alaDetailInput('groupName', "群名称", 1, true),
+        alaDetailInput('fromName', "发送人"),
 
         // 消息类型，text-文本、audio-音频、video-视频、image-图片、file-文件
         alaDetailRadio(dType.radio, 'msgType', "消息类型", [{ '文本': "text" }, { '音频': "audio", 'color': colors.primaryLow }, { '视频': 'video', 'color': colors.primaryLow }, { '图片': 'image', 'color': colors.success }, { '文件': 'file', 'color': colors.dangerLow }]),
@@ -192,8 +192,8 @@ const columns = computed(() => {
  * 详情页面字段
  */
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'groupName', "群名称", 1, true),
-    alaDetailBuild(dType.input, 'fromName', "发送人"),
+    alaDetailInput('groupName', "群名称", 1, true),
+    alaDetailInput('fromName', "发送人"),
     alaDetailRadio(dType.radio, 'msgType', "消息类型", [{ '文本': "text" }, { '音频': "audio", 'color': colors.primaryLow }, { '视频': 'video', 'color': colors.primaryLow }, { '图片': 'image', 'color': colors.success }, { '文件': 'file', 'color': colors.dangerLow }]),
     alaDetailBuild(dType.textarea, 'content', "消息内容"),
 

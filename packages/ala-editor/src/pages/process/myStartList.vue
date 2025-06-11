@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:59:20
+ * @LastEditTime: 2025-06-11 16:06:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -67,7 +67,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailInput } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import notify from '@/utils/notify';
 import { alaPost, get } from '@/utils/req';
@@ -300,12 +300,12 @@ const deleteUrl = "/p/instance/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'defineDisplayName', "流程名称", 1, true),
-        alaDetailBuild(dType.input, 'operatorName', "发起人"),
+        alaDetailInput( 'defineDisplayName', "流程名称", 1, true),
+        alaDetailInput( 'operatorName', "发起人"),
         alaDetailDate(dType.date, 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate(dType.date, 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
 
-        // alaDetailBuild(dType.input, 'stateName', "审批状态"),
+        // alaDetailInput( 'stateName', "审批状态"),
         alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
 
         // { prop: 'displayName', label: '标题' },
@@ -319,8 +319,8 @@ const columns = computed(() => {
         // { prop: 'state', label: '状态' },
     ]
 })
-// alaDetailBuild(dType.input, 'displayName', "流程名称", 1, true),
-// alaDetailBuild(dType.input, 'name', "唯一编码"),
+// alaDetailInput( 'displayName', "流程名称", 1, true),
+// alaDetailInput( 'name', "唯一编码"),
 // alaDetailSelectDict(dType.selectDict, 'typeEntity', "流程分类", 'dictLabel'),
 // alaDetailSwitch(dType.switch, 'delFlag', "状态", "启用", 2, "禁用", 1),
 // alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -404,8 +404,8 @@ const detailItem = reactive({
 })
 
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'defineDisplayName', "流程名称", 1, true),
-    alaDetailBuild(dType.input, 'operatorName', "发起人"),
+    alaDetailInput( 'defineDisplayName', "流程名称", 1, true),
+    alaDetailInput( 'operatorName', "发起人"),
     alaDetailDate(dType.date, 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailDate(dType.date, 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 10:12:07
+ * @LastEditTime: 2025-06-11 16:06:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -59,7 +59,7 @@ import { alaBuildDateRange, alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailSelectDict } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectDict } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 
@@ -143,10 +143,10 @@ const deleteUrl = "/p/task/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '500' } }),
-        alaDetailBuild(dType.input, 'displayName', "流程节点"),
-        alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
-        alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
+        alaDetailInput('variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '500' } }),
+        alaDetailInput('displayName', "流程节点"),
+        alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
+        alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
         alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
         alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
     ]
@@ -187,7 +187,7 @@ const handleTask = (row: any) => {
 
     // 组装 流程图 预览页面参数
     previewParams.defineId = row.instanceVo.defineId
-    
+
     // 组装 审批记录 页面参数
     previewParams.instanceId = row.instanceId
 
@@ -196,10 +196,10 @@ const handleTask = (row: any) => {
 }
 
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
-    alaDetailBuild(dType.input, 'displayName', "流程节点"),
-    alaDetailBuild(dType.input, 'instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
-    alaDetailBuild(dType.input, 'instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
+    alaDetailInput('variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
+    alaDetailInput('displayName', "流程节点"),
+    alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
+    alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
     alaDetailDate(dType.date, 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
     alaDetailDate(dType.date, 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
 

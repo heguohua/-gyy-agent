@@ -57,7 +57,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailRadio, alaDetailSelectDict, alaDetailSelectTable, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailRadio, alaDetailSelectDict, alaDetailSelectTable, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import { alaPost } from '@/utils/req';
@@ -174,7 +174,7 @@ const deleteUrl = "/p/todo/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailBuild(dType.input, 'subject', "待办主题", 1, true),
+        alaDetailInput('subject', "待办主题", 1, true),
 
         alaDetailDate(dType.date, 'startTime', "开始时间", 'YYYY-MM-DD HH:mm', undefined, undefined, { columnWidth: { desktop: '200' } }),
         alaDetailDate(dType.date, 'endTime', "结束时间", 'YYYY-MM-DD HH:mm', undefined, undefined, { columnWidth: { desktop: '200' } }),
@@ -183,7 +183,7 @@ const columns = computed(() => {
         // 1-不重复，2-每天，3-每周，4-每半个月，5-每一个月，6-每2个月，7-每3个月，8-每半年，9-每一年，10-每个工作日，11-每2天，12-每3天，14-每4天，15-每5天，16-每10天
         alaDetailRadio(dType.radio, 'repeatType', "重复类型", [{ '不重复': 1 }, { '每天': 2, 'color': colors.primary }, { '每周': 3, 'color': colors.success }, { '每半个月': 4, 'color': colors.danger }, { '每一个月': 5 }, { '每2个月': 6 }, { '每3个月': 7 }, { '每半年': 8 }, { '每一年': 9 }, { '每个工作日': 10 }, { '每2天': 11 }, { '每3天': 12 }, { '每4天': 14 }, { '每5天': 15 }, { '每10天': 16 }], undefined, undefined, { columnWidth: { desktop: '150' } }),
         alaDetailRadio(dType.radio, 'noticeType', "提醒类型", [{ '开始时': 1 }, { '提前5分钟': 2, 'color': colors.primary }, { '提前10分钟': 3, 'color': colors.success }, { '提前15分钟': 4, 'color': colors.primary }, { '提前30分钟': 5, 'color': colors.primary }, { '提前1小时': 6, 'color': colors.primary }, { '提前2小时': 7, 'color': colors.primary }, { '提前1天': 8, 'color': colors.danger }, { '提前2天': 9, 'color': colors.danger }, { '提前1周': 10, 'color': colors.danger }, { '提前2周': 11, 'color': colors.danger }], undefined, undefined, { columnWidth: { desktop: '150' } }),
-        alaDetailBuild(dType.input, 'createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
+        alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
         alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
 
     ]
@@ -192,7 +192,7 @@ const columns = computed(() => {
  * 详情页面字段
  */
 const detailFields: any = ref([
-    alaDetailBuild(dType.input, 'subject', "待办主题", 1, true),
+    alaDetailInput('subject', "待办主题", 1, true),
     alaDetailDate(dType.date, 'startTime', "开始时间", 'YYYY-MM-DD HH:mm', undefined, undefined, { columnWidth: { desktop: '200' } }),
     alaDetailDate(dType.date, 'endTime', "结束时间", 'YYYY-MM-DD HH:mm', undefined, undefined, { columnWidth: { desktop: '200' } }),
     alaDetailRadio(dType.radio, 'repeatType', "重复类型", [{ '不重复': 1 }, { '每天': 2, 'color': colors.primary }, { '每周': 3, 'color': colors.success }, { '每半个月': 4, 'color': colors.danger }, { '每一个月': 5 }, { '每2个月': 6 }, { '每3个月': 7 }, { '每半年': 8 }, { '每一年': 9 }, { '每个工作日': 10 }, { '每2天': 11 }, { '每3天': 12 }, { '每4天': 14 }, { '每5天': 15 }, { '每10天': 16 }], undefined, undefined, { columnWidth: { desktop: '150' } }),
@@ -201,9 +201,9 @@ const detailFields: any = ref([
     // 提醒类型，1-开始时、2-提前5分钟、3-提前10分钟、4-提前15分钟、5-提前30分钟、6-提前1小时、7-提前2小时、8-提前1天、9-提前2天、10-提前1周、11-提前2周
     alaDetailRadio(dType.radio, 'noticeType', "提醒类型", [{ '开始时': 1 }, { '提前5分钟': 2, 'color': colors.primary }, { '提前10分钟': 3, 'color': colors.success }, { '提前15分钟': 4, 'color': colors.primary }, { '提前30分钟': 5, 'color': colors.primary }, { '提前1小时': 6, 'color': colors.primary }, { '提前2小时': 7, 'color': colors.primary }, { '提前1天': 8, 'color': colors.danger }, { '提前2天': 9, 'color': colors.danger }, { '提前1周': 10, 'color': colors.danger }, { '提前2周': 11, 'color': colors.danger }], undefined, undefined, { columnWidth: { desktop: '150' } }),
     alaDetailTextarea(dType.textarea, 'remark', '日程描述'),
-    alaDetailBuild(dType.input, 'createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
+    alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
     alaDetailDate(dType.date, 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
-    alaDetailBuild(dType.input, 'updatedName', "更新人", undefined, undefined, { columnWidth: { desktop: '150' } }),
+    alaDetailInput('updatedName', "更新人", undefined, undefined, { columnWidth: { desktop: '150' } }),
     alaDetailDate(dType.date, 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
 ])
 
