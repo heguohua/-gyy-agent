@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 14:55:50
+ * @LastEditTime: 2025-06-11 15:14:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTreeColumn.vue
  * @Description: 
  * 
@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+// 2025-06-11: 变更 ala-select-tree 组件前端-》后端传值为[{propertyName:valueName}]方式，也变更了后端->前端的方式，因此这里做了修改！！！
 
 // State
 const props = defineProps({
@@ -43,7 +44,6 @@ const props = defineProps({
     }
 })
 
-// 2025-06-11: 变更 ala-select-tree 组件前端-》后端传值为[{propertyName:valueName}]方式，也变更了后端->前端的方式，因此这里做了修改！！！
 const showValue = computed(() => {
     const value = toRaw(props.value)
     const propertyName = props.formItem.formData.itemProperty.desktop.propertyName

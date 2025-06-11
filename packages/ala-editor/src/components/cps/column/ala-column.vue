@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-11 09:06:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:05:56
+ * @LastEditTime: 2025-06-11 15:48:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/column/ala-column.vue
  * @Description: 
  * 
@@ -97,13 +97,10 @@ const classes = computed(() => [bem()])
 const { formData, viewport, children } = toRefs(props)
 
 // logger.info('element?.value', element?.value);
-// console.log('element?.value', element?.value);
 
 // logger.info('formData.value', formData.value);
-console.log('formData.value', formData);
 
 // logger.info('children.value', children.value);
-// console.log('children.value', children.value);
 
 // logger.info('viewport', viewport.value);
 

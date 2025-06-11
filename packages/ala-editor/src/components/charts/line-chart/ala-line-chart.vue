@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-07 17:10:16
+ * @LastEditTime: 2025-06-11 15:48:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -162,7 +162,6 @@ const drawChart = () => {
     // let yData: any[] = [];
     // const maxValue = d3.max(data.value, (d: any) => d[yName])
     // const minValue = d3.min(data.value, (d: any) => d[yName])
-    // console.log('maxValue:', maxValue);
 
     // yData.push(minValue)
     // yData.push(maxValue)
@@ -171,7 +170,6 @@ const drawChart = () => {
     // const num = 5
     // const levelNum = num - 2
     // const v = (maxValue - minValue) / levelNum
-    // console.log('v:', v.toFixed(decimalNum));
     // for (let i = 1; i <= levelNum; i++) {
     //     yData.push(minValue + v * i)
     // }
@@ -261,7 +259,6 @@ onMounted(() => {
     // 定时刷新数据
     const intervals = props.formData.data_time.desktop || 5000
 
-    console.log('intervals:', intervals);
 
     timerId = window.setInterval(() => {
         queryDataAndDrawChart()

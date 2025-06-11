@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 17:48:14
+ * @LastEditTime: 2025-06-11 15:42:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -31,7 +31,7 @@ export const systemUser: FormConfig = {
         alaBuildInput("email", '邮箱', [alaRequired(), alaEmail()]),
         alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
         alaBuildInput("iconPath", '用户头像', []),
-        alaBuildSelectTree("organizationId", "所属部门", "/u/organization/tree", {}, { propertyName: 'name', valueName: 'id', childrenName: 'children' }, undefined, "请选择用户所属部门", {
+        alaBuildSelectTree("organization", "所属部门", "/u/organization/tree", {}, { propertyName: 'name', valueName: 'id', childrenName: 'children' }, undefined, "请选择用户所属部门", {
             clearable: true,
             checkStrictly: true,
         }),

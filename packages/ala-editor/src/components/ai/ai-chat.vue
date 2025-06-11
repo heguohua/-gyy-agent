@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-03-14 17:55:06
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-16 16:36:42
+ * @LastEditTime: 2025-06-11 15:48:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/ai/ai-chat.vue
  * @Description: 
  * 
@@ -95,7 +95,6 @@ const chatMessagesWrapper = ref()
 let lastMessageId = ''
 
 watch(() => alaStore.get('ai_message'), (message: AiMessage) => {
-  // console.log('接收到 message ----- >:', message);
 
   if (message.finishReason) {
     // 说明当前回复终止了

@@ -2,12 +2,13 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:02:15
+ * @LastEditTime: 2025-06-11 15:48:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
+ 
 <template>
   <div class="ala-select-api-wrapper">
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
@@ -29,11 +30,14 @@
 </template>
 
 <script setup lang="ts">
+
+// 2025-06-11: 变更 ala-select-tree 组件前端-》后端传值为[{propertyName:valueName}]方式，也变更了后端->前端的方式，因此这里做了修改！！！
+
+
 import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
-import { number } from 'echarts';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -45,6 +49,10 @@ interface ItemProperty {
 
 // State
 const props = defineProps({
+  data: {
+    type: Object,
+    default: () => {}
+  },
   label: {
     type: String,
     default: ''
@@ -59,7 +67,7 @@ const props = defineProps({
   },
   params: {
     type: Object,
-    default: () => ({})
+    default: () => {}
   },
   width: {
     type: Number,
@@ -75,7 +83,7 @@ const props = defineProps({
   },
   itemProperty: {
     type: Object as () => ItemProperty,
-    default: () => ({})
+    default: () => {}
   },
   isFormDesign: {
     type: Boolean,
@@ -139,7 +147,7 @@ const query = () => {
     alaPost(u.url(url), pms, false, '').then((data: any) => {
       const response = data;
       if (response.data) {
-        items.value = response.data
+        items.value = response.data        
       } else {
         logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, pms);
       }

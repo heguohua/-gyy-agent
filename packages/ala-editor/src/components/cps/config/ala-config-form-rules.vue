@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-23 11:18:29
+ * @LastEditTime: 2025-06-11 15:48:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-form-rules.vue
  * @Description: 
  * 
@@ -56,7 +56,6 @@ const bType = props.bType
 
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
-console.log('data.value.properties[props.viewport]:', data.value.properties[props.viewport]);
 
 const { title, checkbox, required, rules } = data.value.properties[props.viewport]
 
