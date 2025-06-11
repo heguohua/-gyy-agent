@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 19:58:53
+ * @LastEditTime: 2025-06-11 10:30:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -14,7 +14,7 @@ import { alaBuildInput } from "@/config/alaBuilders";
 import { date } from "@/utils/date";
 import { alaPost } from "@/utils/req";
 import u from "@/utils/u";
-import { parseCascade, parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseFile, parseImage, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { parseCascade, parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseFile, parseImage, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSelectTree, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 import { logger } from "@/utils/logger";
@@ -172,6 +172,8 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                         formItem = parseFile(formData)
                     }else if (code === 'image') {
                         formItem = parseImage(formData)
+                    }else if (code === 'selectTree') {
+                        formItem = parseSelectTree(formData)
                     } else {
                         logger.error(`【 错误，错误，错误 】发现未知类型[ ${code} ]的【 form字段 】`)
                         console.log('formData:', formData);

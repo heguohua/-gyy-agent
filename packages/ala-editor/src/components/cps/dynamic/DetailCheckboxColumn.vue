@@ -45,6 +45,7 @@ const props = defineProps({
 
 // Methods
 const showValue = computed(() => {
+    if(!props.value) return
     const values = props.value.split(',')
     const items = props.formItem.formData.items.desktop
     const results: string[] = []

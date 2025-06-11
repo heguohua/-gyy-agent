@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-03 09:55:45
+ * @LastEditTime: 2025-06-11 14:48:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -25,8 +25,9 @@
           children: itemProperty.childrenName,
           label: itemProperty.propertyName, // 自定义label属性名
           value: itemProperty.valueName // 自定义value属性名
-        }" :clearable="clearable" :default-expand-all="defaultExpandAll" :default-expanded-keys="defaultExpandedKeys"
-        :placeholder="placeholder" :check-strictly="checkStrictly" node-key="id" :show-checkbox="showCheckbox"/>
+        }" :clearable="clearable" :default-expand-all="defaultExpandAll" :default-expanded-keys="eKeys"
+        :placeholder="placeholder" :check-strictly="checkStrictly" :node-key="itemProperty.valueName"
+        :show-checkbox="showCheckbox" />
 
     </el-form-item>
   </div>
@@ -37,6 +38,7 @@ import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
+import { number } from 'echarts';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -102,7 +104,7 @@ const props = defineProps({
   },
   defaultExpandedKeys: {
     type: Array<number>,
-    default: () => ([0])
+    default: () => []
   },
   help: {
     type: String,
@@ -117,10 +119,10 @@ interface Item {
 
 const items = ref<Array<Item>>([])
 
-const currentModel = ref()
+const currentModel = ref<string | number>()
 const model = defineModel({
-  type: [Number, String, Boolean] as PropType<number | string | boolean>,
-  default: ''
+  type: Array<any>,
+  default: () => { return [] }
 })
 
 
@@ -128,16 +130,23 @@ const query = () => {
 
   // Methods
   const url = props.url
-  logger.info(`加载 select-tree 下拉组件数据，url【 ${url} 】，查询参数：`, props.params);
+
+  let pms = props.params
+
+  if (pms && typeof pms === "string") {
+    pms = u.parseJson(pms)
+  }
+
+  logger.info(`加载 select-tree 下拉组件数据，url【 ${url} 】，查询参数：`, pms);
   if (!url) {
     notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
   } else {
-    alaPost(u.url(url), props.params, false, '').then((data: any) => {
+    alaPost(u.url(url), pms, false, '').then((data: any) => {
       const response = data;
       if (response.data) {
         items.value = response.data
       } else {
-        logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, props.params);
+        logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, pms);
       }
     });
   }
@@ -159,45 +168,47 @@ watch(() => isFormDesign.value, (v) => {
 
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
-const handleChange = () => {
-  model.value = currentModel.value
+const handleChange = (val: string | number) => {
+
+  console.log('val --->:', val);
+
+  currentModel.value = val
+
+  const pi = props.itemProperty
+  const valueName = pi.valueName
+  model.value = [{ [valueName]: val }]
+
 }
 
-// onMounted(() => {
-//   if (model.value) {
-//     currentModel.value = model.value
-//   }
-// })
-
-
-const findNodeById = (node: Item, targetId: any): Item | undefined => {
-  // 如果当前节点的 value 等于目标 id，则直接返回当前节点
-  if (node.value === targetId) {
-    return node;
-  }
-
-  // 如果当前节点有子节点，递归查找子节点
-  if (node.children) {
-    for (const child of node.children) {
-      const result = findNodeById(child, targetId); // 递归调用
-      if (result) return result; // 如果找到目标节点，返回结果
-    }
-  }
-
-  // 如果当前节点及其子节点中都没有找到目标节点，返回 undefined
-  return undefined;
-}
-
+const expandedKeys = ref<Array<number | string>>([])
+const eKeys = computed(() => {
+  return expandedKeys.value
+})
 
 watch(() => model.value, () => {
-  if (model && model.value) {
-    currentModel.value = model.value
+
+  if (model && model.value && model.value[0]) {
+
+    const pi = props.itemProperty
+    const valueName = pi.valueName
+
+    // 注意，注意，注意： 我们发现 el-tree-select 组件使用时，如果不展开某个层级级，而当前选择的选项恰好在当前层级，那么el-tree-select显示值会显示为value的值，因此这里做主动展开到当前节点的设置
+    const v = model.value[0][valueName]
+    expandedKeys.value = [v]
+
+    currentModel.value = v
+
   } else {
-    currentModel.value = ''
+    if (props.defaultExpandedKeys && props.defaultExpandedKeys.length > 0) {
+      expandedKeys.value = props.defaultExpandedKeys
+    }
+    currentModel.value = undefined
   }
 }, {
   immediate: true
 })
+
+
 
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 18:52:25
+ * @LastEditTime: 2025-06-11 11:34:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -90,11 +90,11 @@ export function configAxios(app: App<Element>) {
       }
     },
     function (error) {
-      logger.error("失败，失败，失败！！！！！！URL如下：", error.config.url);
+      logger.error("失败，失败，失败！！！！！！URL如下：", error.config?.url);
       console.log('error:', error);
 
       // 关闭滚动条
-      if (error.config.headers.sp) {
+      if (error.config?.headers?.sp) {
         app.config.globalProperties.$loadingBar.exposed.hide()
       }
 
@@ -193,6 +193,9 @@ export function post(url: string, params = {}) {
       url: url,
       method: 'post',
       data: params,
+      headers: {
+        'Content-Type': 'application/json',
+      }
     })
       .then((response) => {
         resolve(response);
@@ -258,6 +261,33 @@ export function alaDownload(url: string, params = {}) {
  *  params:参数
  * */
 export function alaPost(url: string, params = {}, showProgress = false, method?: string) {
+  return new Promise((resolve, reject) => {
+
+    axiosInstance({
+      url: url,
+      method: method ? method : 'post',
+      data: params,
+      headers: {
+        sp: showProgress,
+        'Content-Type': 'application/json',
+      }
+    })
+      .then((response) => {
+        const data = response.data
+        if (data.code != 200) {
+          logger.error("服务器返回错误信息", data);
+          notify.error("温馨提示：", data.msg)
+        } else {
+          resolve(response.data);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+export function alaUpload(url: string, params = {}, showProgress = false, method?: string) {
   return new Promise((resolve, reject) => {
 
     axiosInstance({
