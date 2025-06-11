@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:54:01
+ * @LastEditTime: 2025-06-11 22:21:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -220,7 +220,7 @@ const queryPageData = () => {
         Object.keys(fp).forEach((key: string) => {
             const value = fp[key]
             if (value) {
-                conditions.push({ column: 'a_' + key, operator: 'rLike', value })
+                conditions.push({ column: 'a_' + key, operator: 'like', value })
             }
         })
 
