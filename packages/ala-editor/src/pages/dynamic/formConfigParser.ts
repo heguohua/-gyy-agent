@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:58:31
+ * @LastEditTime: 2025-06-11 21:28:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -18,6 +18,7 @@ import { parseCascade, parseChapter, parseCheckbox, parseDate, parseDateRange, p
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 import { logger } from "@/utils/logger";
+import { alaDetailDate, alaDetailInput } from "@/config/alaDetailBuilder";
 
 interface Column { prop: string, label: string, formItem: any }
 
@@ -94,6 +95,7 @@ export const formConfigParse = async (url: string, params: any): Promise<{
 
             // 解析全部字段
             if (config.blockConfig?.form) {
+
                 config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 
                     const { code, formData } = { ...item }
@@ -169,9 +171,9 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                         formItem = parseCascade(formData)
                     } else if (code === 'file') {
                         formItem = parseFile(formData)
-                    }else if (code === 'image') {
+                    } else if (code === 'image') {
                         formItem = parseImage(formData)
-                    }else if (code === 'selectTree') {
+                    } else if (code === 'selectTree') {
                         formItem = parseSelectTree(formData)
                     } else {
                         logger.error(`【 错误，错误，错误 】发现未知类型[ ${code} ]的【 form字段 】`)
@@ -261,7 +263,40 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                 showEditButton = formData.showEditButton.desktop
                 // 是否显示按钮列
                 showButtonsColumn = formData.showButtonsColumn.desktop
+
+
+                // 分页列表添加创建人、创建时间、更新人、更新时间字段
+                const showCreatedBy = formData.showCreatedBy.desktop || false
+                const showCreatedTime = formData.showCreatedTime.desktop || false
+                const showUpdatedBy = formData.showUpdatedBy.desktop || false
+                const showUpdatedTime = formData.showUpdatedTime.desktop || false
+
+                const cb = alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } })
+                const ub = alaDetailInput('updatedName', "更新人", undefined, undefined, { columnWidth: { desktop: '150' } })
+                const ct = alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } })
+                const ut = alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } })
+
+                if (showCreatedBy) {
+                    columns.push(cb)
+                }
+                if (showCreatedTime) {
+                    columns.push(ct)
+                }
+                if (showUpdatedBy) {
+                    columns.push(ub)
+                }
+                if (showUpdatedTime) {
+                    columns.push(ut)
+                }
+
+                detailFields.push(cb)
+                detailFields.push(ct)
+                detailFields.push(ub)
+                detailFields.push(ut)
+
             }
+
+
 
 
         }
