@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 13:39:12
+ * @LastEditTime: 2025-06-11 22:35:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailNumberColumn.vue
  * @Description: 
  * 
@@ -10,8 +10,17 @@
 -->
 <template>
 
-    <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-    <p class="value"><v-icon v-if="icon && !isDetailColumn" class="image" :icon="icon" :width="width" :height="height" />{{ value }}</p>
+    <template v-if="isDetailColumn">
+        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="detail-link value" @click="showDetail">{{ value }}</p>
+    </template>
+    <template v-else>
+        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="value"><v-icon v-if="icon && !isDetailColumn" class="image" :icon="icon" :width="width"
+                :height="height" />{{
+                    value }}
+        </p>
+    </template>
 
 </template>
 
@@ -59,6 +68,21 @@ const isDetailColumn = computed(() => {
     return props.formItem.formData?.detail?.desktop
 })
 
+const emit = defineEmits(['showDetail'])
+const showDetail = () => {
+    emit('showDetail', props.data)
+}
+
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.detail-link {
+    color: var(--el-menu-active-color);
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.9;
+        font-weight: 500;
+    }
+}
+</style>

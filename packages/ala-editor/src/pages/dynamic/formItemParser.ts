@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 10:31:07
+ * @LastEditTime: 2025-06-12 10:14:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -22,8 +22,14 @@ export function parseInput(item: { fieldName: { desktop: string }, label: { desk
     return result
 }
 
-export function parseNumber(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string } }) {
-    const result = alaBuildNumber(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop)
+export function parseNumber(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string }, min: { desktop: number }, max: { desktop: number }, step: { desktop: number }, precision: { desktop: number }, right: { desktop: boolean } }) {
+    const result = alaBuildNumber(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop,{
+        min:item.min.desktop,
+        max:item.max.desktop,
+        step:item.step.desktop,
+        precision:item.precision.desktop,
+        right:item.right.desktop,
+    })
     logger.info(`解析【 number 】字段：`, result);
     return result
 }

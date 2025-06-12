@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-07 18:47:08
+ * @LastEditTime: 2025-06-12 09:35:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/formSchema.ts
  * @Description: 
  * 
@@ -10,6 +10,7 @@
  */
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
+import { configInt } from "@/config/configUtil";
 
 const label = Type.String({
     code: "config-input",
@@ -60,6 +61,24 @@ const columnNum = Type.Number({
     }
 })
 
+const step = Type.Number({
+    code: "config-number",
+    title: "数值步长",
+    placeholder: "请输入步长",
+    default: 0.01,
+})
+
+const precision = Type.Number({
+    code: "config-int",
+    title: "数值精度",
+    placeholder: "请输入精度",
+    default: 2,
+})
+const right = Type.String({
+    code: "config-boolean",
+    title: "按钮在右侧？",
+    default: false,
+})
 const columnWidth = Type.String({
     code: "config-int",
     title: "单列宽度",
@@ -135,7 +154,11 @@ const numberMax = Type.String({
         controlsPosition: 'right'
     }
 })
-
+const detail = Type.String({
+    code: "config-boolean",
+    title: "详情列？",
+    default: false,
+})
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -146,11 +169,15 @@ const schema = Type.Object({
     iconHeight: schemaAllViewport(iconHeight),
     columnNum: schemaAllViewport(columnNum),
     columnWidth: schemaAllViewport(columnWidth),
+    step: schemaAllViewport(step),
+    precision: schemaAllViewport(precision),
+    right: schemaAllViewport(right),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
-    numberMin: schemaAllViewport(numberMin),
-    numberMax: schemaAllViewport(numberMax),
+    detail: schemaAllViewport(detail),
+    min: schemaAllViewport(numberMin),
+    max: schemaAllViewport(configInt('最大值', Number.MAX_VALUE, 0)),
     // style: schemaAllViewport(style),
 })
 
