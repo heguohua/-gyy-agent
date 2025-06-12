@@ -24,11 +24,11 @@ export function parseInput(item: { fieldName: { desktop: string }, label: { desk
 
 export function parseNumber(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string }, min: { desktop: number }, max: { desktop: number }, step: { desktop: number }, precision: { desktop: number }, right: { desktop: boolean } }) {
     const result = alaBuildNumber(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop,{
-        min:item.min.desktop,
-        max:item.max.desktop,
-        step:item.step.desktop,
-        precision:item.precision.desktop,
-        right:item.right.desktop,
+        min:item.min?.desktop,
+        max:item.max?.desktop,
+        step:item.step?.desktop,
+        precision:item.precision?.desktop,
+        right:item.right?.desktop,
     })
     logger.info(`解析【 number 】字段：`, result);
     return result

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:14:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-25 21:10:19
+ * @LastEditTime: 2025-06-12 10:21:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/date.ts
  * @Description: 时间工具类
  *
@@ -29,21 +29,16 @@ export const AlaDateTypeRange = [
   { value: "yearrange", name: "年范围" },
 ]
 export const AlaDateFormat = [
+  { name: "HH:mm", value: "HH:mm" },
+  { name: "HH:mm:ss", value: "HH:mm:ss" },
+  { name: "YYYY", value: "YYYY" },
+  { name: "YYYY-MM", value: "YYYY-MM" },
   { name: "YYYY-MM-DD", value: "YYYY-MM-DD" },
   { name: "YYYY/MM/DD", value: "YYYY/MM/DD" },
   { name: "YYYYMMDD", value: "YYYYMMDD" },
-  { name: "MM/DD/YYYY", value: "MM/DD/YYYY" },
-  { name: "DD-MM-YYYY", value: "DD-MM-YYYY" },
-  { name: "DDMMYYYY", value: "DDMMYYYY" },
   { name: "YYYY-MM-DD HH:mm:ss", value: "YYYY-MM-DD HH:mm:ss" },
-  { name: "HH:mm:ss", value: "HH:mm:ss" },
-  { name: "HH:mm", value: "HH:mm" },
   { name: "YYYY/MM/DD HH:mm:ss", value: "YYYY/MM/DD HH:mm:ss" },
   { name: "YYYYMMDD HHmmss", value: "YYYYMMDD HHmmss" },
-
-  { name: "MM/DD/YYYY HH:mm:ss", value: "MM/DD/YYYY HH:mm:ss" },
-  { name: "DD-MM-YYYY HH:mm:ss", value: "DD-MM-YYYY HH:mm:ss" },
-  { name: "DDMMYYYY HHmmss", value: "DDMMYYYY HHmmss" },
 ]
 
 export class date {
