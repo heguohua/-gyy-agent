@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 18:40:32
+ * @LastEditTime: 2025-06-13 20:34:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -100,10 +100,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="one-row" v-for="(row, index) in formTableRows" :key="u.uuid()">
+                        <tr class="one-row" v-for="(row, rIndex) in formTableValues" :key="'r' + rIndex">
 
-                            <td v-for="(field, index) in formConfigItems" :key="u.uuid()">
-                                {{ field.name }}-{{ field.code }}
+                            <td class="one-column" v-for="(field, fIndex) in addFormFields"
+                                :key="'r' + rIndex + 'c' + fIndex">
+
+                                <component :is="field.componentName" :placeholder="field.placeholder"
+                                    v-bind="field.other" v-model="formTableValues[rIndex][field.fieldName]"
+                                    :fieldName="field.fieldName" :data="data" />
+
+
                             </td>
                         </tr>
 
@@ -129,7 +135,6 @@ import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { alaDetailInput } from '@/config/alaDetailBuilder';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
-import AlaFormItemsTable from '../form/ala-form-items-table.vue';
 import { data } from './d';
 
 interface ItemProperty {
@@ -355,8 +360,9 @@ interface Header {
 }
 
 const headers = ref<Array<Header>>([])
-const formTableRows = ref<Array<any>>([])
 const formConfigItems = ref<Array<any>>([])
+const addFormFields = ref<Array<any>>([])
+const formTableValues = ref<Array<any>>([])
 
 
 interface Column { prop: string, label: string, formItem: any }
@@ -380,11 +386,15 @@ watch(() => model.value, async (v) => {
     }
 
 
+    console.log('configs:', configs);
+
+
     const fci = configs.formConfigItems
 
     // 添加一列
     headers.value = []
     formConfigItems.value = []
+    addFormFields.value = []
     configs.addFormFields.forEach(field => {
         // 去除 ala-divider 此类没有属性name的组件
         if (fci[field.fieldName]) {
@@ -393,15 +403,30 @@ watch(() => model.value, async (v) => {
                 width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
             })
             formConfigItems.value.push(fci[field.fieldName])
+            addFormFields.value.push(field)
         }
     })
 
-    formTableRows.value = [{}]
+    console.log('headers.value:', headers.value);
+    console.log('formConfigItems.value:', formConfigItems.value);
+    console.log('addFormFields.value:', addFormFields.value);
+
+
+    formTableValues.value = [{}]
+    formTableValues.value.push({})
 
 }, {
     immediate: true
 })
 
+
+watch(() => formTableValues.value, (v) => {
+    console.log('formTableValues.value:', formTableValues.value);
+
+}, {
+    immediate: true,
+    deep: true
+})
 </script>
 
 <style scoped lang="scss">
@@ -446,6 +471,61 @@ watch(() => model.value, async (v) => {
 
             table {
                 width: 100%;
+
+                .one-row {
+
+                    .one-column {
+
+                        :deep(.el-form-item__label) {
+                            display: none !important;
+                        }
+
+                        :deep(.el-form-item__content) {
+                            margin-left: 0px !important;
+                        }
+
+                        :deep(.ala-radio-group) {
+                            flex-wrap: nowrap;
+                        }
+
+                        :deep(.ala-textarea-el-input) {
+                            min-width: 200px;
+                        }
+
+                        :deep(.ala-checkbox-group) {
+                            flex-wrap: nowrap;
+                        }
+
+                        :deep(.el-form-item--default) {
+                            margin-bottom: 0px;
+                        }
+
+                        :deep(.ala-checkbox-wrapper) {
+                            border: none !important;
+                        }
+
+                        :deep(.ala-radio-wrapper) {
+                            border: none !important;
+                        }
+
+                        // 表单宽度集中设置
+                        .ala-input-wrapper,
+                        .ala-date-picker-wrapper,
+                        .ala-select-api-wrapper {
+                            width: 200px;
+                        }
+
+                        .ala-textarea-wrapper {
+                            width: 250px;
+
+                            :deep(.el-textarea__inner) {
+                                min-height: 32px !important;
+                            }
+                        }
+
+                        padding: 0px 10px;
+                    }
+                }
             }
         }
     }

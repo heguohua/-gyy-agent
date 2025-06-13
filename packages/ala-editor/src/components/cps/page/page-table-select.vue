@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 15:33:35
+ * @LastEditTime: 2025-06-13 20:31:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -168,7 +168,6 @@ const selectCheckboxWidth = () => {
 const handleSelectedChange = (items: Array<{ id: string }>) => {
     if (props.singleValue) {
         // 如果选择了多条，则给出提示信息
-        console.log('items.length:', items.length);
         if (items.length > 1) {
             notify.warn(t('pop.warm_title'), '仅能选择单行数据')
 
