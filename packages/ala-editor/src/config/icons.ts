@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-09 20:58:15
+ * @LastEditTime: 2025-06-13 14:01:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -148,6 +148,7 @@ const icon = {
   f_city:"fluent:city-16-regular",
   f_wechat:"hugeicons:wechat",
   f_cascader:"typcn:flow-children",
+  f_table:"si:table-line",
 
   // 客户中心
   m_customer:"garden:customer-lists-fill-26",
