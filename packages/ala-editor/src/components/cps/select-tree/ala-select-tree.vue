@@ -2,13 +2,13 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:48:02
+ * @LastEditTime: 2025-06-13 22:43:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
- 
+
 <template>
   <div class="ala-select-api-wrapper">
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
@@ -38,6 +38,7 @@ import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
+import { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -51,7 +52,7 @@ interface ItemProperty {
 const props = defineProps({
   data: {
     type: Object,
-    default: () => {}
+    default: () => { }
   },
   label: {
     type: String,
@@ -66,10 +67,10 @@ const props = defineProps({
     default: ''
   },
   params: {
-    type: Object,
-    default: () => {}
+    type: [Object, String] as PropType<object | string>,
+    default: () => { }
   },
-  width: {
+  columnWidth: {
     type: Number,
     default: 100,
   },
@@ -83,7 +84,7 @@ const props = defineProps({
   },
   itemProperty: {
     type: Object as () => ItemProperty,
-    default: () => {}
+    default: () => { }
   },
   isFormDesign: {
     type: Boolean,
@@ -147,7 +148,7 @@ const query = () => {
     alaPost(u.url(url), pms, false, '').then((data: any) => {
       const response = data;
       if (response.data) {
-        items.value = response.data        
+        items.value = response.data
       } else {
         logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, pms);
       }
@@ -169,7 +170,7 @@ watch(() => isFormDesign.value, (v) => {
   }
 })
 
-const styles = computed(() => ({ minWidth: props.width + 'px' }))
+const styles = computed(() => ({ minWidth: props.columnWidth + 'px' }))
 
 const handleChange = (val: string | number) => {
 

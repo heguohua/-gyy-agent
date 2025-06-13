@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 18:01:16
+ * @LastEditTime: 2025-06-13 21:27:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/ala-file.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <div class="ala-select-wrapper">
+  <div class="ala-file-wrapper">
     <!-- <span :class="clasz">{{ label }}</span>  -->
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
       <template #label>
@@ -227,7 +227,15 @@ const handleDelete = (file: AFile) => {
 </script>
 
 <style scoped lang="scss">
-.ala-select-wrapper {
+
+.ala-file-wrapper {
+
+  min-width: 250px;
+
+  div {
+    width: 100%;
+  }
+
   .ala-files {
 
     width: 100%;

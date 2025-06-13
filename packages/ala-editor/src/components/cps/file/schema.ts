@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 16:47:05
+ * @LastEditTime: 2025-06-13 22:36:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/schema.ts
  * @Description: 
  * 
@@ -83,9 +83,9 @@ const columnNum = Type.Number({
 const columnWidth = Type.String({
     code: "config-int",
     title: "单列宽度",
-    default: 0,
+    default: 300,
     other: {
-        min: 0,
+        min: 300,
         max: 500,
         step: 10,
         controlsPosition: ''

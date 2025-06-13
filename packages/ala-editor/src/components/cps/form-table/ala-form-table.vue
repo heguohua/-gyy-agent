@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 20:34:30
+ * @LastEditTime: 2025-06-13 22:34:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -91,10 +91,11 @@
         <div class="ala-form-table">
             <div class="ala-form-table-form">
                 <table>
+
                     <thead>
                         <tr class="one-row">
-                            <th class="one-column" :style="{ minWidth: item.width }" v-for="(item, index) in headers"
-                                :key="u.uuid()">
+                            <th class="one-column" :style="{ width: item.width }" v-for="(item, index) in headers"
+                                :key="'th' + index">
                                 {{ item.label }}
                             </th>
                         </tr>
@@ -103,7 +104,7 @@
                         <tr class="one-row" v-for="(row, rIndex) in formTableValues" :key="'r' + rIndex">
 
                             <td class="one-column" v-for="(field, fIndex) in addFormFields"
-                                :key="'r' + rIndex + 'c' + fIndex">
+                                :key="'r' + rIndex + 'c' + fIndex" :style="{ width: headers[fIndex].width }">
 
                                 <component :is="field.componentName" :placeholder="field.placeholder"
                                     v-bind="field.other" v-model="formTableValues[rIndex][field.fieldName]"
@@ -135,7 +136,7 @@ import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { alaDetailInput } from '@/config/alaDetailBuilder';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
-import { data } from './d';
+// import { data } from './d';
 
 interface ItemProperty {
     propertyName: string,
@@ -144,6 +145,9 @@ interface ItemProperty {
 }
 // State
 const props = defineProps({
+    data: {
+        type: Object,
+    },
     label: {
         type: String,
         default: ''
@@ -176,6 +180,8 @@ const props = defineProps({
         type: String,
     }
 })
+
+const { data } = toRefs(props)
 
 
 const url = '/l/lowcodingConfig/page'
@@ -369,21 +375,24 @@ interface Column { prop: string, label: string, formItem: any }
 
 watch(() => model.value, async (v) => {
 
-    // const list_url = "/l/lowcodingConfig/list"
-    // const list_params = { id: v[0].id }
-    // const configs = await formConfigParse(list_url, list_params)
-    const configs = data as {
-        columns: Array<Column>
-        baseFields: Array<any>
-        formConfigItems: any
-        addFormFields: Array<any>
-        detailFields: Array<any>
-        showAddButton: boolean
-        showDeleteButton: boolean
-        showEditButton: boolean
-        showButtonsColumn: boolean
-        formAttr: any
+    if (!v[0]) {
+        return
     }
+    const list_url = "/l/lowcodingConfig/list"
+    const list_params = { id: v[0].id }
+    const configs = await formConfigParse(list_url, list_params)
+    // const configs = data as {
+    //     columns: Array<Column>
+    //     baseFields: Array<any>
+    //     formConfigItems: any
+    //     addFormFields: Array<any>
+    //     detailFields: Array<any>
+    //     showAddButton: boolean
+    //     showDeleteButton: boolean
+    //     showEditButton: boolean
+    //     showButtonsColumn: boolean
+    //     formAttr: any
+    // }
 
 
     console.log('configs:', configs);
@@ -470,11 +479,22 @@ watch(() => formTableValues.value, (v) => {
             padding: 10px 18px;
 
             table {
-                width: 100%;
+                min-width: 100%;
 
                 .one-row {
+                    // height: 40px;
+                    display: flex;
+                    border-bottom: 1px solid red;
+                    padding: 6px 0px;
 
                     .one-column {
+                        display: flex;
+                        margin-right: 10px;
+
+                        :deep(div) {
+                            display: flex;
+                            width: 100%;
+                        }
 
                         :deep(.el-form-item__label) {
                             display: none !important;
@@ -489,7 +509,7 @@ watch(() => formTableValues.value, (v) => {
                         }
 
                         :deep(.ala-textarea-el-input) {
-                            min-width: 200px;
+                            // min-width: 200px;
                         }
 
                         :deep(.ala-checkbox-group) {
@@ -509,21 +529,20 @@ watch(() => formTableValues.value, (v) => {
                         }
 
                         // 表单宽度集中设置
-                        .ala-input-wrapper,
-                        .ala-date-picker-wrapper,
-                        .ala-select-api-wrapper {
-                            width: 200px;
-                        }
+                        // .ala-input-wrapper,
+                        // .ala-date-picker-wrapper,
+                        // .ala-select-api-wrapper {
+                        //     width: 200px;
+                        // }
 
                         .ala-textarea-wrapper {
-                            width: 250px;
+                            // width: 250px;
 
                             :deep(.el-textarea__inner) {
                                 min-height: 32px !important;
                             }
                         }
 
-                        padding: 0px 10px;
                     }
                 }
             }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-07 18:47:27
+ * @LastEditTime: 2025-06-13 22:41:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/formSchema.ts
  * @Description: 
  * 
@@ -41,11 +41,6 @@ const fieldName = Type.String({
         { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
         { name: 'pattern', pattern: 'LOrl', message: '只能包含大写字母、小写字母' },
     ]
-})
-const width = Type.Number({
-    code: "config-input",
-    title: "宽度",
-    default: "",
 })
 
 
@@ -115,9 +110,9 @@ const columnNum = Type.Number({
 const columnWidth = Type.String({
     code: "config-int",
     title: "单列宽度",
-    default: 0,
+    default: 200,
     other: {
-        min: 0,
+        min: 100,
         max: 500,
         step: 10,
         controlsPosition: ''
@@ -146,7 +141,6 @@ const required = Type.String({
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
-    width: schemaAllViewport(width),
     url: schemaAllViewport(url),
     linkUrl: schemaAllViewport(linkUrl),
     fieldName: schemaAllViewport(fieldName),
