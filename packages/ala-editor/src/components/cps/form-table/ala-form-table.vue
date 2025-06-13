@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 15:37:39
+ * @LastEditTime: 2025-06-13 16:11:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -103,6 +103,7 @@ import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { alaDetailInput } from '@/config/alaDetailBuilder';
+import { formConfigParse } from '@/pages/dynamic/formConfigParser';
 
 interface ItemProperty {
     propertyName: string,
@@ -321,6 +322,18 @@ const isDynamicTable = () => {
     return false
 }
 
+const addFormFields = ref<Array<any>>([])
+
+watch(() => model.value, async (v) => {
+
+    const list_url = "/l/lowcodingConfig/list"
+    const list_params = { id: v[0].id }
+    const configs = await formConfigParse(list_url, list_params)
+
+    addFormFields.value = configs.addFormFields
+    console.log('addFormFields.value:', addFormFields.value);
+
+})
 
 </script>
 
