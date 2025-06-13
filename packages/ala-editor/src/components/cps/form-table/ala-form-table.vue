@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 17:26:40
+ * @LastEditTime: 2025-06-13 18:40:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -89,12 +89,11 @@
 
 
         <div class="ala-form-table">
-            {{ model }}
             <div class="ala-form-table-form">
                 <table>
                     <thead>
                         <tr class="one-row">
-                            <th class="one-column" :style="{ width: item.width }" v-for="(item, index) in headers"
+                            <th class="one-column" :style="{ minWidth: item.width }" v-for="(item, index) in headers"
                                 :key="u.uuid()">
                                 {{ item.label }}
                             </th>
@@ -131,6 +130,7 @@ import u from '@/utils/u';
 import { alaDetailInput } from '@/config/alaDetailBuilder';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
 import AlaFormItemsTable from '../form/ala-form-items-table.vue';
+import { data } from './d';
 
 interface ItemProperty {
     propertyName: string,
@@ -358,11 +358,27 @@ const headers = ref<Array<Header>>([])
 const formTableRows = ref<Array<any>>([])
 const formConfigItems = ref<Array<any>>([])
 
+
+interface Column { prop: string, label: string, formItem: any }
+
 watch(() => model.value, async (v) => {
 
-    const list_url = "/l/lowcodingConfig/list"
-    const list_params = { id: v[0].id }
-    const configs = await formConfigParse(list_url, list_params)
+    // const list_url = "/l/lowcodingConfig/list"
+    // const list_params = { id: v[0].id }
+    // const configs = await formConfigParse(list_url, list_params)
+    const configs = data as {
+        columns: Array<Column>
+        baseFields: Array<any>
+        formConfigItems: any
+        addFormFields: Array<any>
+        detailFields: Array<any>
+        showAddButton: boolean
+        showDeleteButton: boolean
+        showEditButton: boolean
+        showButtonsColumn: boolean
+        formAttr: any
+    }
+
 
     const fci = configs.formConfigItems
 
@@ -370,16 +386,20 @@ watch(() => model.value, async (v) => {
     headers.value = []
     formConfigItems.value = []
     configs.addFormFields.forEach(field => {
-        headers.value.push({
-            label: field.label,
-            width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
-        })
-        formConfigItems.value.push(fci[field.fieldName])
+        // 去除 ala-divider 此类没有属性name的组件
+        if (fci[field.fieldName]) {
+            headers.value.push({
+                label: field.label,
+                width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
+            })
+            formConfigItems.value.push(fci[field.fieldName])
+        }
     })
 
     formTableRows.value = [{}]
-    formTableRows.value.push({})
 
+}, {
+    immediate: true
 })
 
 </script>
@@ -388,7 +408,6 @@ watch(() => model.value, async (v) => {
 .ala-select-table-wrapper {
 
     .ala-select-customer {
-
         .placeholder {
             color: var(--el-text-color-placeholder);
         }
@@ -397,9 +416,6 @@ watch(() => model.value, async (v) => {
             display: flex;
             gap: 4px;
         }
-
-
-
     }
 
     .ala-select-customer-icon {
@@ -420,6 +436,19 @@ watch(() => model.value, async (v) => {
 
     }
 
+    .ala-form-table {
+        width: 100%;
+
+        .ala-form-table-form {
+            width: 100%;
+            overflow-x: auto;
+            padding: 10px 18px;
+
+            table {
+                width: 100%;
+            }
+        }
+    }
 
 }
 

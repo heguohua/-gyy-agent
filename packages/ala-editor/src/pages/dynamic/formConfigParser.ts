@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 17:20:11
+ * @LastEditTime: 2025-06-13 18:19:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -101,7 +101,10 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                     const { code, formData } = { ...item }
 
                     // 首先添加 formConfigItem 配置
-                    formConfigItems[formData.fieldName.desktop] = item
+                    if(formData.fieldName?.desktop){
+                        // 屏蔽 ala-divider 此类没有
+                        formConfigItems[formData.fieldName.desktop] = item
+                    }
 
                     // 组装列表字段
                     if (formData.showInTable?.desktop) {
