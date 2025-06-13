@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 16:11:41
+ * @LastEditTime: 2025-06-13 17:26:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -90,6 +90,32 @@
 
         <div class="ala-form-table">
             {{ model }}
+            <div class="ala-form-table-form">
+                <table>
+                    <thead>
+                        <tr class="one-row">
+                            <th class="one-column" :style="{ width: item.width }" v-for="(item, index) in headers"
+                                :key="u.uuid()">
+                                {{ item.label }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="one-row" v-for="(row, index) in formTableRows" :key="u.uuid()">
+
+                            <td v-for="(field, index) in formConfigItems" :key="u.uuid()">
+                                {{ field.name }}-{{ field.code }}
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+                <!-- <div class="one-row" v-for="(item, index) in rows" :key="u.uuid()">
+                    <AlaFormItemsTable />
+                </div> -->
+            </div>
         </div>
     </div>
 </template>
@@ -104,6 +130,7 @@ import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { alaDetailInput } from '@/config/alaDetailBuilder';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
+import AlaFormItemsTable from '../form/ala-form-items-table.vue';
 
 interface ItemProperty {
     propertyName: string,
@@ -322,7 +349,14 @@ const isDynamicTable = () => {
     return false
 }
 
-const addFormFields = ref<Array<any>>([])
+interface Header {
+    label: string
+    width: string
+}
+
+const headers = ref<Array<Header>>([])
+const formTableRows = ref<Array<any>>([])
+const formConfigItems = ref<Array<any>>([])
 
 watch(() => model.value, async (v) => {
 
@@ -330,8 +364,21 @@ watch(() => model.value, async (v) => {
     const list_params = { id: v[0].id }
     const configs = await formConfigParse(list_url, list_params)
 
-    addFormFields.value = configs.addFormFields
-    console.log('addFormFields.value:', addFormFields.value);
+    const fci = configs.formConfigItems
+
+    // 添加一列
+    headers.value = []
+    formConfigItems.value = []
+    configs.addFormFields.forEach(field => {
+        headers.value.push({
+            label: field.label,
+            width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
+        })
+        formConfigItems.value.push(fci[field.fieldName])
+    })
+
+    formTableRows.value = [{}]
+    formTableRows.value.push({})
 
 })
 

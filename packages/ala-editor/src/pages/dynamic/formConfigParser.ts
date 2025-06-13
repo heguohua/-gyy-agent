@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 15:13:00
+ * @LastEditTime: 2025-06-13 17:20:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -100,6 +100,9 @@ export const formConfigParse = async (url: string, params: any): Promise<{
 
                     const { code, formData } = { ...item }
 
+                    // 首先添加 formConfigItem 配置
+                    formConfigItems[formData.fieldName.desktop] = item
+
                     // 组装列表字段
                     if (formData.showInTable?.desktop) {
                         if (code === 'dateRange') {
@@ -109,9 +112,9 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                             const column = { prop: formData.fieldName.desktop, label: formData.label.desktop, formItem: item }
                             columns.push(column)
                             // 缓存每个字段的 formConfig 配置信息，供查询条件组装查询参数使用
-                            formConfigItems[column.prop] = item
                         }
                     }
+
 
                     // 组装详情页面字段
                     // 注意，注意，注意！这里需要保持和列表字段解析一致

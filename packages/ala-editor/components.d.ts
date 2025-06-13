@@ -61,6 +61,7 @@ declare module 'vue' {
     AlaEmpty: typeof import('./src/components/cps/empty/ala-empty.vue')['default']
     AlaFile: typeof import('./src/components/cps/file/ala-file.vue')['default']
     AlaFormItems: typeof import('./src/components/cps/form/ala-form-items.vue')['default']
+    AlaFormItemsTable: typeof import('./src/components/cps/form/ala-form-items-table.vue')['default']
     AlaFormLabel: typeof import('./src/components/cps/form-label/ala-form-label.vue')['default']
     AlaFormTable: typeof import('./src/components/cps/form-table/ala-form-table.vue')['default']
     AlaFullScreen: typeof import('./src/components/cps/full-screen/ala-full-screen.vue')['default']

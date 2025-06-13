@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 13:59:23
+ * @LastEditTime: 2025-06-13 16:15:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -64,6 +64,7 @@ import AlaFormLabel from '@/components/cps/form-label/ala-form-label.vue';
 import AlaCascader from '@/components/cps/cascader/ala-cascader.vue';
 import AlaCascaderDict from '@/components/cps/cascader-dict/ala-cascader-dict.vue';
 import AlaFormTable from '@/components/cps/form-table/ala-form-table.vue';
+import AlaFormItemsTable from '@/components/cps/form/ala-form-items-table.vue';
 
 // 列表、详情页字段渲染组件
 import DetailInputColumn from '@/components/cps/dynamic/DetailInputColumn.vue';
@@ -171,6 +172,7 @@ export default {
     AlaCascader,
     AlaCascaderDict,
     AlaFormTable,
+    AlaFormItemsTable,
 
     // ALA架构列表、详情组件
     DetailInputColumn,
