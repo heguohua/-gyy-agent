@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 22:21:07
+ * @LastEditTime: 2025-06-13 15:33:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -125,6 +125,10 @@ const props = defineProps({
     isFormDesign: {
         type: Boolean,
         default: false
+    },
+    singleValue: {
+        type: Boolean,
+        default: false
     }
 
 })
@@ -162,7 +166,24 @@ const selectCheckboxWidth = () => {
 
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {
-    emit('selectedChange', items)
+    if (props.singleValue) {
+        // 如果选择了多条，则给出提示信息
+        console.log('items.length:', items.length);
+        if (items.length > 1) {
+            notify.warn(t('pop.warm_title'), '仅能选择单行数据')
+
+            // 保证只选中最后一个
+            const latest = items[0]
+            table.value!.clearSelection()
+            table.value!.toggleRowSelection(latest, true)
+            return
+        } else {
+            emit('selectedChange', items)
+        }
+    } else {
+        emit('selectedChange', items)
+    }
+
 }
 
 const handleCurrentChange = (item: { id: string }) => {

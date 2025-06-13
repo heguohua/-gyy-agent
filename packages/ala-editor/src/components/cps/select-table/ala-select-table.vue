@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-09 20:48:24
+ * @LastEditTime: 2025-06-13 15:33:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -40,7 +40,7 @@
             <!-- 分页列表 -->
             <PageTableSelect ref="pageListRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
               :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label" v-model="model"
-              :itemProperty="itemProperty" :isFormDesign="isFormDesign" />
+              :itemProperty="itemProperty" :isFormDesign="isFormDesign" :singleValue="singleValue" />
 
           </div>
 
@@ -163,6 +163,10 @@ const props = defineProps({
   iconHeight: {
     type: Number,
     default: 30
+  },
+  singleValue: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -254,6 +258,11 @@ const modelItemToShowValue = (rows: any) => {
 
 const selectedData = ref([])
 const selectedChange = (currentSelected: [never]) => {
+
+  if (props.singleValue) {
+
+  }
+
   selectedData.value = currentSelected
 }
 

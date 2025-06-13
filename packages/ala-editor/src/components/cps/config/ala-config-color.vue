@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:48:31
+ * @LastEditTime: 2025-06-13 14:27:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-color.vue
  * @Description: 
  * 
@@ -146,22 +146,24 @@ watch(() => formData, (form_data) => {
 
 watch(color, (value) => {
     // if (!value) return;
-    value = u.trim(value)
-    let data = {}
-    const _value = value || ''
+    if (value) {
+        value = u.trim(value)
+        let data = {}
+        const _value = value || ''
 
-    if (Object.values(formData || {}).length < 2) {
-        data = { desktop: _value, mobile: _value, required: required ? required : false, title, rules }
-    } else {
-        data = { [props.viewport]: _value, required: required ? required : false, title, rules }
+        if (Object.values(formData || {}).length < 2) {
+            data = { desktop: _value, mobile: _value, required: required ? required : false, title, rules }
+        } else {
+            data = { [props.viewport]: _value, required: required ? required : false, title, rules }
+        }
+        logger.info(`config-color组件 input 发生变化,即将调用父组件callback, data`, data);
+        emit("callback", {
+            data: {
+                [key]: data
+            },
+            id
+        })
     }
-    logger.info(`config-color组件 input 发生变化,即将调用父组件callback, data`, data);
-    emit("callback", {
-        data: {
-            [key]: data
-        },
-        id
-    })
 }, {
     immediate: true
 })

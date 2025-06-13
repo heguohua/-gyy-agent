@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 20:42:11
+ * @LastEditTime: 2025-06-13 15:16:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -311,6 +311,10 @@ export function alaBuildCascader(fieldName: string, label: string, items: string
  */
 export function alaBuildSelectTree(fieldName: string, label: string, url: string, params: { [key: string]: any }, itemProperty: { [key: string]: string }, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaSelectTreeSchema {
     const obj = alaBuildWithOther("AlaSelectTree", fieldName, label, { url, params, itemProperty, ...other }, rules, placeholder)
+    return obj
+}
+export function alaBuildFormTable(fieldName: string, label: string): AlaSelectTreeSchema {
+    const obj = alaBuildWithOther("AlaFormTable", fieldName, label, {})
     return obj
 }
 

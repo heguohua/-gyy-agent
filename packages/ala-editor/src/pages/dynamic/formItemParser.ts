@@ -1,4 +1,4 @@
-import { alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import { alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
 
@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-12 10:14:46
+ * @LastEditTime: 2025-06-13 15:18:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -23,12 +23,12 @@ export function parseInput(item: { fieldName: { desktop: string }, label: { desk
 }
 
 export function parseNumber(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string }, min: { desktop: number }, max: { desktop: number }, step: { desktop: number }, precision: { desktop: number }, right: { desktop: boolean } }) {
-    const result = alaBuildNumber(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop,{
-        min:item.min?.desktop,
-        max:item.max?.desktop,
-        step:item.step?.desktop,
-        precision:item.precision?.desktop,
-        right:item.right?.desktop,
+    const result = alaBuildNumber(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop, {
+        min: item.min?.desktop,
+        max: item.max?.desktop,
+        step: item.step?.desktop,
+        precision: item.precision?.desktop,
+        right: item.right?.desktop,
     })
     logger.info(`解析【 number 】字段：`, result);
     return result
@@ -160,6 +160,12 @@ export function parseSelectTree(item: { fieldName: { desktop: string }, label: {
 
     const result = alaBuildSelectTree(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.params.desktop ? JSON.parse(item.params.desktop) : {}, item.itemProperty.desktop, item.rules?.desktop)
     logger.info(`解析【 selectTree 】字段：`, result);
+    return result
+}
+
+export function parseFormTable(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: string }, placeholder: { desktop: string } }) {
+    const result = alaBuildFormTable(item.fieldName.desktop, item.label.desktop)
+    logger.info(`解析【 formTable 】字段：`, result);
     return result
 }
 
