@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 22:34:28
+ * @LastEditTime: 2025-06-14 09:59:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -16,10 +16,10 @@
                 <AlaFormLabel :label="label" :help="help" />
             </template>
             <div class="ala-select-customer ala-form-item-border" :style="styles">
-                <p class="placeholder" v-if="!model || model.length === 0">{{
+                <p class="placeholder" v-if="!localValue || localValue.length === 0">{{
                     placeholder ? placeholder : ($t('form.p-select-1') + label) }}
                 </p>
-                <p class="show-values" v-if="model && model.length != 0" v-html="showValue"></p>
+                <p class="show-values" v-if="localValue && localValue.length != 0" v-html="showValue"></p>
             </div>
             <div class="ala-select-customer-icon">
                 <v-icon class="icon" :icon="icon" @click="openDialog" :width="iconWidth" :height="iconHeight" />
@@ -40,8 +40,8 @@
                         <!-- 分页列表 -->
                         <PageTableSelect ref="pageListRef" :url="url" :columns="cols" :params="params"
                             :showSelectCheckbox="true" :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange"
-                            :label="label" v-model="model" :itemProperty="itemProperty" :isFormDesign="isFormDesign"
-                            :singleValue="singleValue" />
+                            :label="label" v-model="localValue" :itemProperty="itemProperty"
+                            :isFormDesign="isFormDesign" :singleValue="singleValue" />
 
                     </div>
 
@@ -183,6 +183,13 @@ const props = defineProps({
 
 const { data } = toRefs(props)
 
+watch(() => data?.value, (v) => {
+    console.log('data --->:', data);
+
+}, {
+    immediate: true,
+    deep: true
+})
 
 const url = '/l/lowcodingConfig/page'
 const params = { 'formType': 'pageForm' }
@@ -196,8 +203,33 @@ const itemProperty = {
 }
 
 const model = defineModel({
-    type: Array<any>,
-    default: () => { return [] }
+    type: String,
+    default: () => '[]'
+})
+
+const localValue = ref<Array<any>>([])
+
+
+watch(() => model.value, (v) => {
+    console.log('观察到 model.value 发生变化 :',v);
+    
+    if (v) {
+        localValue.value = u.parseJson(v)
+    }
+}, {
+    immediate: true,
+    deep: true
+})
+
+watch(() => localValue.value, (v) => {
+    console.log('观察到 localValue.value 发生变化 :',v);
+
+    if (v) {
+        model.value = u.tojson(v)
+    }
+}, {
+    immediate: true,
+    deep: true
 })
 
 const styles = computed(() => {
@@ -228,7 +260,7 @@ const generateValue = (value: string) => {
 // const localValue = ref()
 
 const showValue = computed(() => {
-    return modelItemToShowValue(model.value)
+    return modelItemToShowValue(localValue.value)
 })
 
 function confirmClick() {
@@ -251,7 +283,7 @@ function confirmClick() {
             mv.push(selected)
         })
 
-        model.value = mv
+        localValue.value = mv
         // 给显示标签赋值
         // localValue.value = sv.join('')
         // localValue.value = modelItemToShowValue(mv)
@@ -324,7 +356,7 @@ const querySelectedData = (items: [{ id: number }]) => {
 
 watch(() => dialogShow.value, (value) => {
     if (value) {
-        querySelectedData(model.value as [{ id: number }])
+        querySelectedData(localValue.value as [{ id: number }])
     }
 })
 
@@ -373,7 +405,7 @@ const formTableValues = ref<Array<any>>([])
 
 interface Column { prop: string, label: string, formItem: any }
 
-watch(() => model.value, async (v) => {
+watch(() => localValue.value, async (v) => {
 
     if (!v[0]) {
         return
@@ -430,12 +462,18 @@ watch(() => model.value, async (v) => {
 
 
 watch(() => formTableValues.value, (v) => {
+
+    const fieldName = `${props.fieldName}FormTableValues`
+
+    console.log('fieldName:', fieldName);
     console.log('formTableValues.value:', formTableValues.value);
+    u.merged(data?.value!, { [fieldName]: v })
 
 }, {
     immediate: true,
     deep: true
 })
+
 </script>
 
 <style scoped lang="scss">
