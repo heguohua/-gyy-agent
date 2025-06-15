@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-14 09:59:25
+ * @LastEditTime: 2025-06-15 09:41:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -94,9 +94,14 @@
 
                     <thead>
                         <tr class="one-row">
-                            <th class="one-column" :style="{ width: item.width }" v-for="(item, index) in headers"
-                                :key="'th' + index">
+                            <th class="one-column header" :style="{ width: item.width }"
+                                v-for="(item, index) in headers" :key="'th' + index">
                                 {{ item.label }}
+                            </th>
+                            <th class="buttons">
+                                <div class="button-add" @click="handleAddChild">
+                                    <VIcon icon="add" />
+                                </div>
                             </th>
                         </tr>
                     </thead>
@@ -111,6 +116,11 @@
                                     :fieldName="field.fieldName" :data="data" />
 
 
+                            </td>
+                            <td class="buttons">
+                                <div class="button-minus" @click="handleDeleteChild(rIndex)">
+                                    <VIcon icon="minus" />
+                                </div>
                             </td>
                         </tr>
 
@@ -211,8 +221,8 @@ const localValue = ref<Array<any>>([])
 
 
 watch(() => model.value, (v) => {
-    console.log('观察到 model.value 发生变化 :',v);
-    
+    console.log('观察到 model.value 发生变化 :', v);
+
     if (v) {
         localValue.value = u.parseJson(v)
     }
@@ -222,7 +232,7 @@ watch(() => model.value, (v) => {
 })
 
 watch(() => localValue.value, (v) => {
-    console.log('观察到 localValue.value 发生变化 :',v);
+    console.log('观察到 localValue.value 发生变化 :', v);
 
     if (v) {
         model.value = u.tojson(v)
@@ -402,9 +412,6 @@ const formConfigItems = ref<Array<any>>([])
 const addFormFields = ref<Array<any>>([])
 const formTableValues = ref<Array<any>>([])
 
-
-interface Column { prop: string, label: string, formItem: any }
-
 watch(() => localValue.value, async (v) => {
 
     if (!v[0]) {
@@ -413,18 +420,6 @@ watch(() => localValue.value, async (v) => {
     const list_url = "/l/lowcodingConfig/list"
     const list_params = { id: v[0].id }
     const configs = await formConfigParse(list_url, list_params)
-    // const configs = data as {
-    //     columns: Array<Column>
-    //     baseFields: Array<any>
-    //     formConfigItems: any
-    //     addFormFields: Array<any>
-    //     detailFields: Array<any>
-    //     showAddButton: boolean
-    //     showDeleteButton: boolean
-    //     showEditButton: boolean
-    //     showButtonsColumn: boolean
-    //     formAttr: any
-    // }
 
 
     console.log('configs:', configs);
@@ -454,7 +449,6 @@ watch(() => localValue.value, async (v) => {
 
 
     formTableValues.value = [{}]
-    formTableValues.value.push({})
 
 }, {
     immediate: true
@@ -473,6 +467,16 @@ watch(() => formTableValues.value, (v) => {
     immediate: true,
     deep: true
 })
+
+
+const handleAddChild = () => {
+    formTableValues.value.push({})
+}
+
+const handleDeleteChild = (index: number) => {
+    formTableValues.value.splice(index, 1);
+}
+
 
 </script>
 
@@ -519,11 +523,66 @@ watch(() => formTableValues.value, (v) => {
             table {
                 min-width: 100%;
 
+
+
+                thead {
+                    background-color: #F9F9FA;
+
+                    .header {
+                        color: var(--el-table-header-text-color);
+                    }
+
+                    .buttons {
+                        width: 60px;
+
+                        .button-add {
+                            background: #ecf5ff;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            width: 32px;
+                            height: 32px;
+
+                            &:hover {
+                                background: var(--el-fill-color);
+                            }
+                        }
+                    }
+
+                }
+
+                tbody {
+                    .buttons {
+                        width: 60px;
+
+                        .button-minus {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            width: 32px;
+                            height: 32px;
+
+                            &:hover {
+                                stroke: #f56c6c;
+
+                                :deep(path) {
+                                    fill: #f56c6c;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 .one-row {
                     // height: 40px;
                     display: flex;
-                    border-bottom: 1px solid red;
+                    // border-bottom: 1px solid red;
                     padding: 6px 0px;
+
 
                     .one-column {
                         display: flex;
@@ -546,9 +605,7 @@ watch(() => formTableValues.value, (v) => {
                             flex-wrap: nowrap;
                         }
 
-                        :deep(.ala-textarea-el-input) {
-                            // min-width: 200px;
-                        }
+
 
                         :deep(.ala-checkbox-group) {
                             flex-wrap: nowrap;
@@ -565,13 +622,6 @@ watch(() => formTableValues.value, (v) => {
                         :deep(.ala-radio-wrapper) {
                             border: none !important;
                         }
-
-                        // 表单宽度集中设置
-                        // .ala-input-wrapper,
-                        // .ala-date-picker-wrapper,
-                        // .ala-select-api-wrapper {
-                        //     width: 200px;
-                        // }
 
                         .ala-textarea-wrapper {
                             // width: 250px;

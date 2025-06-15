@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 14:01:27
+ * @LastEditTime: 2025-06-15 08:58:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -46,6 +46,7 @@ const icon = {
   seal: 'tdesign:seal',
   copy: 'fluent:save-copy-24-regular',
   delete: 'fluent:delete-24-regular',
+  minus: 'zondicons:minus-outline',
   drag: 'fluent:grid-dots-20-regular',
   dragBlank: 'fluent:breakout-room-20-regular',
   add: 'fluent:add-16-regular',
