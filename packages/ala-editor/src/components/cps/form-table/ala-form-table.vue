@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-15 11:56:49
+ * @LastEditTime: 2025-06-15 14:11:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -480,17 +480,16 @@ const handleDeleteChild = (index: number) => {
 }
 
 const saveOrPause = (): Boolean => {
-    let result = true
 
     // 校验动态表单数据合法性
+    let checkResult = true
 
     const rowValues = Object.values(formTableValues.value)
     for (let rowValueIndex in rowValues) {
         const rowValue = rowValues[rowValueIndex]
-        console.log('rowValueIndex:', rowValueIndex);
-        console.log('rowValue:', rowValue);
+        // console.log('rowValueIndex:', rowValueIndex);
+        // console.log('rowValue:', rowValue);
 
-        let checkResult = true
         const columns = Object.values(addFormFields.value)
 
         for (let columnIndex in columns) {
@@ -499,19 +498,16 @@ const saveOrPause = (): Boolean => {
             const fieldValue = rowValue[fieldName]
             const rules = addFormFieldRules.value[fieldName]
 
-            console.log('fieldName:', fieldName);
-            console.log('fieldValue:', fieldValue);
-            console.log('rules:', rules);
-
             // 根据key查找表单校验规则，并进行匹配
             if (rules) {
                 for (let ruleIndex in Object.values(rules)) {
                     console.log('ruleIndex:', ruleIndex);
                     console.log('rule:', rules[ruleIndex]);
-                    const { required, strMin, strMax, message } = rules[ruleIndex]
+                    const { required, min, max, message } = rules[ruleIndex]
+
+                    // 不能为空
                     if (required) {
-                        // 不能为空
-                        if (!fieldValue) {
+                        if (fieldValue === undefined) {
                             checkResult = false
                             const m = `${props.label}第【 ${+(rowValueIndex) + 1} 】行，【 ${label} 】${message}`
                             notify.warn(t('pop.warm_title'), m)
@@ -520,39 +516,66 @@ const saveOrPause = (): Boolean => {
                         }
                     }
 
+                    // 检验最小、最大长度
+                    if (fieldValue != undefined) {
+                        if (typeof fieldValue === 'string') {
+                            const f = fieldValue.trim()
+                            if (min) {
+                                if (f.length < min) {
+                                    checkResult = false
+                                    const m = `${props.label}第【 ${+(rowValueIndex) + 1} 】行，【 ${label} 】${message}`
+                                    notify.warn(t('pop.warm_title'), m)
+                                    break
+                                }
+                            }
+                            if (max) {
+                                if (f.length > max) {
+                                    checkResult = false
+                                    const m = `${props.label}第【 ${+(rowValueIndex) + 1} 】行，【 ${label} 】${message}`
+                                    notify.warn(t('pop.warm_title'), m)
+                                    break
+                                }
+                            }
+
+                        }
+                    }
+
+                    if (fieldValue != undefined) {
+                        if (typeof fieldValue === 'number') {
+                            const f = fieldValue
+                            if (min) {
+                                if (f < min) {
+                                    checkResult = false
+                                    const m = `${props.label}第【 ${+(rowValueIndex) + 1} 】行，【 ${label} 】${message}`
+                                    notify.warn(t('pop.warm_title'), m)
+                                    break
+                                }
+                            }
+                            if (max) {
+                                if (f > max) {
+                                    checkResult = false
+                                    const m = `${props.label}第【 ${+(rowValueIndex) + 1} 】行，【 ${label} 】${message}`
+                                    notify.warn(t('pop.warm_title'), m)
+                                    break
+                                }
+                            }
+                        }
+                    }
                 }
             }
-
             if (!checkResult) {
                 break
             }
-
         }
         if (!checkResult) {
             break
         }
-
-
-        // for (let keyIndex in columnKeys) {
-        //     const key = columnKeys[keyIndex]
-        //     const value = rowValue[key]
-        //     console.log('key:', key);
-        //     console.log('value :', rowValue[key]);
-        //     // 根据key查找表单校验规则，并进行匹配
-        //     const rules = addFormFieldRules.value[key]
-        //     console.log('rules:', rules);
-
-
-        // }
-
     }
 
     console.log('addFormFieldRules:', addFormFieldRules.value);
     console.log('addFormFields.value:', addFormFields.value);
 
-
-
-    return false
+    return checkResult
 }
 defineExpose({
     saveOrPause: saveOrPause

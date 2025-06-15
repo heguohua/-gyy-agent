@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 22:43:32
+ * @LastEditTime: 2025-06-15 14:21:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -178,16 +178,20 @@ const handleChange = (val: string | number) => {
 
   const pi = props.itemProperty
   const valueName = pi.valueName
+  const propertyName = pi.propertyName
   model.value = [{ [valueName]: val }]
 
 }
 
 const expandedKeys = ref<Array<number | string>>([])
 const eKeys = computed(() => {
+  console.log('expandedKeys.value:', expandedKeys.value);
+
   return expandedKeys.value
 })
 
 watch(() => model.value, () => {
+  console.log('model.value[0]:', model.value[0]);
 
   if (model && model.value && model.value[0]) {
 
