@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 20:36:54
+ * @LastEditTime: 2025-06-15 16:22:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -77,8 +77,10 @@ const moduleName = computed(() => {
     return t(code)
 })
 
+
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
+    module:className,
     moduleName,
     id: null,
     selectedList: Array<{ id: string }>,

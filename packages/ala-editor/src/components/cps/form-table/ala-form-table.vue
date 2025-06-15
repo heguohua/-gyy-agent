@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-15 14:11:32
+ * @LastEditTime: 2025-06-15 18:54:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -88,7 +88,7 @@
         </div>
 
 
-        <div class="ala-form-table">
+        <div class="ala-form-table" v-if="headers && headers.length > 0">
             <div class="ala-form-table-form">
                 <table>
 
@@ -192,9 +192,46 @@ const props = defineProps({
 })
 
 const { data } = toRefs(props)
+const formTableValues = ref<Array<any>>([])
+const headers = ref<Array<Header>>([])
 
-watch(() => data?.value, (v) => {
-    console.log('data --->:', data);
+watch(() => data?.value, (v: any) => {
+    const keys = Object.keys(v)
+    console.log('data --->:', v);
+    if (keys.length === 0) {
+        // 说明表单数据为空
+        formTableValues.value = []
+        headers.value = []
+        return
+    }
+    // if (!v?.id) {
+    //     formTableValues.value = []
+    //     return
+    // }
+
+    // if (formTableValues.value.length === 0) {
+
+    //     console.log('data --->:', data);
+    //     console.log('baseInfo --->:', baseInfo);
+
+
+    //     // 查询关联数据
+    //     const listUrl = '/l/dynamic/queryForFormTable'
+    //     const params = {
+    //         mainTableName: baseInfo.module,
+    //         childTableLowcodingConfig: model.value,
+    //         mainTableId: v!.id,
+    //     }
+
+
+    //     alaPost(u.url(listUrl || ''), params, false).then((data: any) => {
+    //         const response = data;
+    //         if (response.data && response.data.length > 0) {
+    //             console.log('response.data:', response.data);
+    //             formTableValues.value = response.data
+    //         }
+    //     });
+    // }
 
 }, {
     immediate: true,
@@ -402,16 +439,23 @@ const isDynamicTable = () => {
     return false
 }
 
+// 获取数据缓存对象
+const baseInfo = inject('baseInfo', {
+    module: '',
+    moduleName: '',
+    id: 0,
+    item: Object,
+    selectedList: Array<{ id: string }>
+});
+
 interface Header {
     label: string
     width: string
 }
 
-const headers = ref<Array<Header>>([])
 const formConfigItems = ref<Array<any>>([])
 const addFormFields = ref<Array<any>>([])
 const addFormFieldRules = ref<{ [key: string]: Array<any> }>({})
-const formTableValues = ref<Array<any>>([])
 
 watch(() => localValue.value, async (v) => {
 
@@ -422,9 +466,7 @@ watch(() => localValue.value, async (v) => {
     const list_params = { id: v[0].id }
     const configs = await formConfigParse(list_url, list_params)
 
-
-    console.log('configs ----> :', configs);
-
+    const currentModule = baseInfo.module
 
     const fci = configs.formConfigItems
 
@@ -433,15 +475,23 @@ watch(() => localValue.value, async (v) => {
     formConfigItems.value = []
     addFormFields.value = []
     configs.addFormFields.forEach(field => {
+
         // 去除 ala-divider 此类没有属性name的组件
         if (fci[field.fieldName]) {
-            headers.value.push({
-                label: field.label,
-                width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
-            })
-            formConfigItems.value.push(fci[field.fieldName])
-            addFormFields.value.push(field)
-            addFormFieldRules.value[field.fieldName] = field.rules
+
+            // 剔除当前模块对应的字段
+            if (field.fieldName != currentModule) {
+
+                headers.value.push({
+                    label: field.label,
+                    width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
+                })
+                formConfigItems.value.push(fci[field.fieldName])
+                addFormFields.value.push(field)
+                addFormFieldRules.value[field.fieldName] = field.rules
+
+            }
+
         }
     })
 
@@ -472,7 +522,9 @@ watch(() => formTableValues.value, (v) => {
 
 
 const handleAddChild = () => {
-    formTableValues.value.push({})
+    if (headers.value && headers.value.length > 0) {
+        formTableValues.value.push({})
+    }
 }
 
 const handleDeleteChild = (index: number) => {
