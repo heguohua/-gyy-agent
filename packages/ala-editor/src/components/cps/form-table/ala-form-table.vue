@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-15 18:54:15
+ * @LastEditTime: 2025-06-15 18:57:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -261,7 +261,30 @@ watch(() => model.value, (v) => {
     console.log('观察到 model.value 发生变化 :', v);
 
     if (v) {
+
         localValue.value = u.parseJson(v)
+
+        if (data?.value?.id) {
+            //  查询关联数据
+            const listUrl = '/l/dynamic/queryForFormTable'
+            const params = {
+                mainTableName: baseInfo.module,
+                childTableLowcodingConfig: model.value,
+                mainTableId: data?.value?.id,
+            }
+
+            alaPost(u.url(listUrl || ''), params, false).then((data: any) => {
+                const response = data;
+                if (response.data && response.data.length > 0) {
+                    console.log('response.data ---> :', response.data);
+                    formTableValues.value = response.data
+                }
+            });
+        }
+
+
+
+
     }
 }, {
     immediate: true,
