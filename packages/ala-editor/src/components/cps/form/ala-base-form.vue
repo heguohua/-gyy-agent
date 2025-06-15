@@ -1,8 +1,9 @@
 <template>
     <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
-        <AlaFormItems v-model="showDrawer" @confirm="confirm" @cancel="cancel" v-bind="props" :fields="fields" :data="formData"
-            :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName.replaceAll('管理', '')"
-            :operationType="operationType" :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback">
+        <AlaFormItems ref="formItemsRef" v-model="showDrawer" @confirm="confirm" @cancel="cancel" v-bind="props"
+            :fields="fields" :data="formData" :closeContent="closeContent" :formAttr="formAttr"
+            :moduleName="moduleName.replaceAll('管理', '')" :operationType="operationType" :tipTitle="tipTitle"
+            @formItemChangeCallback="formItemChangeCallback">
             <template #buttons>
                 <slot name="buttons"></slot>
             </template>
@@ -73,6 +74,7 @@ const showDrawer = defineModel({
 })
 
 const formRef = ref()
+const formItemsRef = ref()
 const confirm = (data: any) => {
 
     logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
@@ -90,11 +92,15 @@ const confirm = (data: any) => {
                     type: 'warning',
                 })
                 .then(async () => {
-                    logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
+                    console.log("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，当前表单数据为：", props.formData);
 
 
                     // 表单验证成功，可以进行表单提交操作
-                    logger.info(`表单验证通过`);
+                    console.log(`表单自动校验验证通过，调用 saveOrPause 方法执行自定义验证`);
+                    if (!formItemsRef.value.saveOrPause()) {
+                        console.log(`【 调用saveOrPause 】方法返回false，终止保存`)
+                        return
+                    }
 
                     let data = props.formData
                     if (props.beforeSave) {
@@ -137,10 +143,10 @@ const confirm = (data: any) => {
     });
 }
 
-const cancel =()=>{
+const cancel = () => {
     u.clear(props.formData)
     showDrawer.value = false
-} 
+}
 
 /**
  * 校验表单参数的方法

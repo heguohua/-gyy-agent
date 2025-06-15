@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 22:20:59
+ * @LastEditTime: 2025-06-15 10:52:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -23,7 +23,7 @@
                         :position="item.other?.position ? item.other.position : labelPosition"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
                         :fieldName="item.fieldName" :data="data" @formItemChangeCallback="formItemChangeCallback"
-                        @update:modelValue="handleModelValueChange(item.fieldName, $event)" />
+                        @update:modelValue="handleModelValueChange(item.fieldName, $event)" :ref="setItemRef(index)" />
                 </div>
 
             </template>
@@ -101,6 +101,7 @@ const props = defineProps({
         type: Boolean,
         default: false
     }
+
 })
 
 watch(() => props.formAttr, (v: any) => {
@@ -243,6 +244,32 @@ const handleModelValueChange = (fieldName: string, value: any) => {
 
 }
 
+const childRefs = ref<{ [key: number]: any }>({})
+// 返回一个函数作为 ref 名称设置器
+const setItemRef = (index: number) => (el: any) => {
+    if (el) childRefs.value[index] = el
+}
+
+const saveOrPause = (): Boolean => {
+    let result = true
+    const refs = Object.values(childRefs.value)
+    for (const comp of refs) {
+        if (comp?.saveOrPause) {
+            const re = comp.saveOrPause()
+            if (!re) {
+
+                const props = comp.$props
+                console.info(`字段【 ${props.label} 】的 saveOrPause 返回false`)
+                result = re
+                break
+            }
+        }
+    }
+    return result
+}
+defineExpose({
+    saveOrPause: saveOrPause
+})
 </script>
 <style scoped lang="scss">
 .ala-add-form {
