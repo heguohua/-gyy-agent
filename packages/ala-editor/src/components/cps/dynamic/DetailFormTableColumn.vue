@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 12:04:37
+ * @LastEditTime: 2025-06-16 13:47:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 
 
     <div class="ala-form-table-detail">
-        <p class="label" :style="{ width: '100%' }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="label" :style="{ width: '100%' }">{{ label }} <template v-if="isDetailPage"> </template></p>
 
         <p class="value-table">
             <!-- 分页列表 -->
@@ -199,7 +199,9 @@ const getComponent = ((code: string) => {
     }
 
     :deep(th.el-table__cell) {
-        background: #f3f7fa;
+        background: #f3f7fa !important;
+        font-weight: normal;
+        font-size: 0.9rem;
     }
 
     :deep(.el-table__cell) {
@@ -219,11 +221,12 @@ const getComponent = ((code: string) => {
 
     .label {
         background: #f3f7fa;
+        padding: 6px 8px 6px 8px;
+        margin-bottom: 1px;
+        font-size: 0.9rem;
     }
 
     .value-table {
-        // min-width: 1920px;
-        // overflow-x: auto;
         width: 100%;
     }
 }
