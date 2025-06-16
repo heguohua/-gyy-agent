@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 09:32:08
+ * @LastEditTime: 2025-06-16 18:53:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -204,7 +204,7 @@ watch(() => data?.value, (v: any) => {
         headers.value = []
         return
     }
-    
+
 
 }, {
     immediate: true,
@@ -472,6 +472,8 @@ watch(() => localValue.value, async (v) => {
     addFormFields.value = []
     configs.addFormFields.forEach(field => {
 
+        console.log('field.fieldName:', field.fieldName);
+
         // 去除 ala-divider 此类没有属性name的组件
         if (fci[field.fieldName]) {
 
@@ -632,6 +634,9 @@ defineExpose({
 
 <style scoped lang="scss">
 .ala-select-table-wrapper {
+    :deep(.el-scrollbar__wrap--hidden-default) {
+        margin-bottom: 30px;
+    }
 
     .ala-select-customer {
         .placeholder {

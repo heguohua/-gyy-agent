@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 21:27:10
+ * @LastEditTime: 2025-06-16 17:12:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/ala-file.vue
  * @Description: 
  * 
@@ -227,13 +227,16 @@ const handleDelete = (file: AFile) => {
 </script>
 
 <style scoped lang="scss">
-
 .ala-file-wrapper {
 
   min-width: 250px;
 
   div {
     width: 100%;
+  }
+
+  :deep(.ala-form-label) {
+    justify-content: right;
   }
 
   .ala-files {

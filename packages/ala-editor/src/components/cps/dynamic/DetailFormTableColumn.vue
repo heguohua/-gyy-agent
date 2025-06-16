@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 15:26:04
+ * @LastEditTime: 2025-06-16 19:11:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -191,7 +191,11 @@ const getComponent = ((code: string) => {
     border-radius: 6px;
     padding: 0px 0px 16px 0px;
     margin: 10px 0px;
+
     // background:#f3f7fa;
+    :deep(.el-scrollbar__wrap--hidden-default) {
+        margin-bottom: 30px;
+    }
 
     :deep(.ala-page-table) {
         height: auto;
@@ -238,7 +242,7 @@ const getComponent = ((code: string) => {
             background: var(--el-color-primary);
             height: 20px;
             margin: 0px 8px 0px 0px;
-            align-items:center;
+            align-items: center;
             padding: 0px;
         }
     }
