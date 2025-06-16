@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 15:23:19
+ * @LastEditTime: 2025-06-16 15:26:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -116,24 +116,12 @@ watch([() => props.value, () => baseInfo.id], async () => {
     showTable.value = false
 
     if (props.value) {
-        console.log('props.value:', props.value);
-        console.log('props.formItem:', props.formItem);
-        console.log('baseInfo:', baseInfo);
-        console.log('data:', props.data);
 
         const childTableLowcodingConfig = u.parseJson(props.value)
 
         const list_url = "/l/lowcodingConfig/list"
         const list_params = { id: childTableLowcodingConfig[0].id }
         const configs = await formConfigParse(list_url, list_params)
-
-        console.log('configs:', configs);
-        console.log('configs.className:', configs.className);
-        console.log('主表名:', configs.className);
-        console.log('联表名:', `a_${configs.className}_${baseInfo.module}`);
-        console.log('联表关联字段名:', `a_${configs.className}_id`);
-        console.log('联表关联字段值:', baseInfo.id);
-
 
         let leftTableName = configs.className
 
