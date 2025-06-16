@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 08:59:46
+ * @LastEditTime: 2025-06-16 14:47:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -20,14 +20,14 @@
                         <component :is="getComponent(item.formItem.code)"
                             :value="{ start: data.item[item.formItem.formData.startFieldName.desktop], end: data.item[item.formItem.formData.endFieldName.desktop] }"
                             :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()"
-                            :isDetailPage="true" />
+                            :isDetailPage="true" :data="data" />
                     </template>
 
                     <template v-else>
                         <component :is="getComponent(item.formItem.code)"
                             :value="item.formItem.formData.fieldName?.desktop ? data.item[item.formItem.formData.fieldName.desktop] : ''"
                             :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()"
-                            :isDetailPage="true" />
+                            :isDetailPage="true" :data="data" />
                     </template>
 
                 </div>

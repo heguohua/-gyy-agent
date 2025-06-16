@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:52:57
+ * @LastEditTime: 2025-06-16 15:03:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -192,6 +192,7 @@ const showDetail = async (item: string, index: number) => {
 
             u.clear(detailItem.item)
             u.merged(detailItem.item, response.data.list[0])
+            u.merged(detailItem.item, {className:params.className})
             logger.info(`当前模块【 DetailSelectTableColumn --- detailItem 】对象参数为`, detailItem);
             showDetailPage.value = true
 

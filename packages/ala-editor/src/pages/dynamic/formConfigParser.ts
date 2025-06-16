@@ -94,10 +94,7 @@ export const formConfigParse = async (url: string, params: any): Promise<{
         if (response.code === 200) {
 
             const cf = response.data[0]
-            className = cf.className
-
-            console.log('cf:',cf);
-            
+            className = cf.className            
 
             const config = u.parseJson(cf.config)
 

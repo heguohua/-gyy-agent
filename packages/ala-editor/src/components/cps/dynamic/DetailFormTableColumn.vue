@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 13:47:09
+ * @LastEditTime: 2025-06-16 15:23:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -12,7 +12,9 @@
 
 
     <div class="ala-form-table-detail">
-        <p class="label" :style="{ width: '100%' }">{{ label }} <template v-if="isDetailPage"> </template></p>
+        <p class="label" :style="{ width: '100%' }">
+            <p class="ala-chapter-icon" />{{ label }}
+        </p>
 
         <p class="value-table">
             <!-- 分页列表 -->
@@ -47,7 +49,6 @@
 
 <script setup lang="ts">
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
-import PageTable from '@/components/cps/page/page-table.vue';
 import u from '@/utils/u';
 
 
@@ -83,9 +84,6 @@ const props = defineProps({
     }
 })
 
-const isDetailColumn = computed(() => {
-    return props.formItem.formData?.detail?.desktop
-})
 
 // 获取数据缓存对象
 const baseInfo = inject('baseInfo', {
@@ -107,24 +105,21 @@ const beforeQuery = (params: any) => {
     return params
 }
 
-const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
-const refresh = () => {
-    console.log('pageRef.value --->:');
-
-    if (pageRef.value) {
-        console.log('pageRef.value:', pageRef.value);
-
-        pageRef.value.refresh(params)
-    }
-}
 
 const showTable = ref(false)
-watch(() => baseInfo.id, async () => {
-    showTable.value = false
-    if (props.value) {
-        console.log('baseInfo:', baseInfo);
-        console.log('props.value:', props.value);
 
+
+
+// watch(() => baseInfo.id, async () => {
+watch([() => props.value, () => baseInfo.id], async () => {
+
+    showTable.value = false
+
+    if (props.value) {
+        console.log('props.value:', props.value);
+        console.log('props.formItem:', props.formItem);
+        console.log('baseInfo:', baseInfo);
+        console.log('data:', props.data);
 
         const childTableLowcodingConfig = u.parseJson(props.value)
 
@@ -132,34 +127,55 @@ watch(() => baseInfo.id, async () => {
         const list_params = { id: childTableLowcodingConfig[0].id }
         const configs = await formConfigParse(list_url, list_params)
 
+        console.log('configs:', configs);
+        console.log('configs.className:', configs.className);
+        console.log('主表名:', configs.className);
+        console.log('联表名:', `a_${configs.className}_${baseInfo.module}`);
+        console.log('联表关联字段名:', `a_${configs.className}_id`);
+        console.log('联表关联字段值:', baseInfo.id);
+
+
+        let leftTableName = configs.className
+
+        let rightTableName = `a_${configs.className}_${baseInfo.module}`
+        let joinLeftColumn = `a_${configs.className}_id`
+        let rightColumnName = "a_dynamic_list"
+        let rightColumnValue = baseInfo.id
+
+        if (leftTableName === baseInfo.module) {
+            // 两者值相等，说明当前打开详情页面的模块就是 子表单 模块，不相等代表是总表单模块
+            // 相等时需要转变查询条件
+            const currentModuleClassName = props.data.item.className
+            rightTableName = `a_${configs.className}_${currentModuleClassName}`
+            rightColumnValue = props.data.item.id
+        }
+
+
+
         columns.value = configs.columns
         className.value = configs.className
         params.value = {
-            tableName: configs.className,
+            tableName: leftTableName,
             columns: ['*'],
             joinRightColumn: 'id',
             tableInfos: [
                 {
-                    tableName: `a_${configs.className}_${baseInfo.module}`,
+                    tableName: rightTableName,
                     columns: ["a_dynamic_list"],
                     joinType: 'innerJoin',
-                    joinLeftColumn: `a_${configs.className}_id`,
+                    joinLeftColumn: joinLeftColumn,
                     conditions: [
                         {
-                            column: "a_dynamic_list",
+                            column: rightColumnName,
                             operator: "=",
-                            value: baseInfo.id,
+                            value: rightColumnValue,
                         }
                     ]
                 }
             ],
         }
 
-        console.log('configs:', configs);
-        console.log('className.value:', className.value);
-        console.log('params.value: ___>', params.value);
         showTable.value = true
-
 
     }
 
@@ -222,12 +238,26 @@ const getComponent = ((code: string) => {
     .label {
         background: #f3f7fa;
         padding: 6px 8px 6px 8px;
-        margin-bottom: 1px;
+        margin: 0px 0px 1px 0px;
         font-size: 0.9rem;
+        display: flex;
+
+
+        .ala-chapter-icon {
+            display: inline-block;
+            width: 6px;
+            border-radius: 1px;
+            background: var(--el-color-primary);
+            height: 20px;
+            margin: 0px 8px 0px 0px;
+            align-items:center;
+            padding: 0px;
+        }
     }
 
     .value-table {
         width: 100%;
+        margin: 0px;
     }
 }
 </style>
