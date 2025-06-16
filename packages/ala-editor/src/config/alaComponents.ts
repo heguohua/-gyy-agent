@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 18:45:11
+ * @LastEditTime: 2025-06-16 08:46:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -97,6 +97,7 @@ import DetailImageColumn from '@/components/cps/dynamic/DetailImageColumn.vue';
 import DetailTextColorColumn from '@/components/cps/dynamic/DetailTextColorColumn.vue';
 import DetailCascaderColumn from '@/components/cps/dynamic/DetailCascaderColumn.vue';
 import DetailFileColumn from '@/components/cps/dynamic/DetailFileColumn.vue';
+import DetailFormTableColumn from '@/components/cps/dynamic/DetailFormTableColumn.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -204,6 +205,7 @@ export default {
     DetailTextColorColumn,
     DetailCascaderColumn,
     DetailFileColumn,
+    DetailFormTableColumn,
 
     // 流程引擎相关组件
     ProcessDesign,

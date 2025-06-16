@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-15 16:22:24
+ * @LastEditTime: 2025-06-16 08:56:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -53,14 +53,8 @@ import Add from '@/pages/dynamic/add.vue';
 import { useRoute } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { logger } from '@/utils/logger';
-import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
-import { alaPost } from '@/utils/req';
-import { parseCascade, parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
-import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
-import baseRule from '@/config/rules/baseRule';
-import { date } from '@/utils/date';
 import { formConfigParse } from './formConfigParser';
 
 const { t } = useI18n();
@@ -125,6 +119,8 @@ const showDetailPage = ref(false)
 const showDetail = (item: { [key: string]: any }) => {
     u.clear(detailItem.item)
     u.merged(detailItem, { item })
+    const entity = toRaw(item)
+    u.merged(baseInfo, { id:entity.id })
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     showDetailPage.value = true
 }

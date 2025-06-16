@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 18:19:32
+ * @LastEditTime: 2025-06-16 10:11:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -61,6 +61,7 @@ export const formConfigParse = async (url: string, params: any): Promise<{
     showEditButton: boolean
     showButtonsColumn: boolean
     formAttr: any
+    className: string
 }> => {
 
     const columns: Array<Column> = []
@@ -78,6 +79,7 @@ export const formConfigParse = async (url: string, params: any): Promise<{
     let showDeleteButton = false
     let showEditButton = false
     let showButtonsColumn = false
+    let className = ''
 
     const formAttr = {
         formWidth: 400,
@@ -91,7 +93,13 @@ export const formConfigParse = async (url: string, params: any): Promise<{
 
         if (response.code === 200) {
 
-            const config = u.parseJson(response.data[0].config)
+            const cf = response.data[0]
+            className = cf.className
+
+            console.log('cf:',cf);
+            
+
+            const config = u.parseJson(cf.config)
 
             // 解析全部字段
             if (config.blockConfig?.form) {
@@ -101,7 +109,7 @@ export const formConfigParse = async (url: string, params: any): Promise<{
                     const { code, formData } = { ...item }
 
                     // 首先添加 formConfigItem 配置
-                    if(formData.fieldName?.desktop){
+                    if (formData.fieldName?.desktop) {
                         // 屏蔽 ala-divider 此类没有
                         formConfigItems[formData.fieldName.desktop] = item
                     }
@@ -320,6 +328,7 @@ export const formConfigParse = async (url: string, params: any): Promise<{
         showDeleteButton,
         showEditButton,
         showButtonsColumn,
-        formAttr
+        formAttr,
+        className,
     }
 }
