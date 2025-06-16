@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-15 18:57:57
+ * @LastEditTime: 2025-06-16 08:21:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -255,14 +255,22 @@ const model = defineModel({
 })
 
 const localValue = ref<Array<any>>([])
+// 获取数据缓存对象
+const baseInfo = inject('baseInfo', {
+    module: '',
+    moduleName: '',
+    id: 0,
+    item: Object,
+    selectedList: Array<{ id: string }>
+});
 
 
-watch(() => model.value, (v) => {
-    console.log('观察到 model.value 发生变化 :', v);
+watch(() => baseInfo, (v) => {
+    console.log('观察到 model.value 发生变化 :', model.value);
 
-    if (v) {
+    if (model.value) {
 
-        localValue.value = u.parseJson(v)
+        localValue.value = u.parseJson(model.value)
 
         if (data?.value?.id) {
             //  查询关联数据
@@ -462,14 +470,6 @@ const isDynamicTable = () => {
     return false
 }
 
-// 获取数据缓存对象
-const baseInfo = inject('baseInfo', {
-    module: '',
-    moduleName: '',
-    id: 0,
-    item: Object,
-    selectedList: Array<{ id: string }>
-});
 
 interface Header {
     label: string
