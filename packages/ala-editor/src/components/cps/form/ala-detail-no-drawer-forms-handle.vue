@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:54:52
+ * @LastEditTime: 2025-06-17 14:36:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -188,53 +188,6 @@ interface FormData {
 }
 
 const fds = reactive<Array<FormData>>([])
-
-// if (props.forms && props.forms.length > 0) {
-
-//     props.forms.forEach(async (form: Form) => {
-
-//         const fd: FormData = { data: {}, fields: [] }
-
-//         // 查询表单配置信息
-
-//         const lowcodingConfigUrl = '/l/lowcodingConfig/list'
-//         const lowcodingConfigParams = { className: form.tableName }
-
-//         await alaPost(u.url(lowcodingConfigUrl || ''), lowcodingConfigParams, false, '').then((data: any) => {
-//             const response = data;
-
-//             const config = u.parseJson(response.data[0].config)
-//             config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
-
-//                 const code = item.code
-//                 const formData = item.formData
-//                 // 组装详情页面字段
-//                 // 注意，注意，注意！这里需要保持和列表字段解析一致
-//                 if (code === 'dateRange') {
-//                     const column = { prop: 'dateRange' + date.formatDateTime(new Date().getTime(), 'YYYYMMDDHHmmss'), label: formData.label.desktop, formItem: item }
-//                     fd.fields.push(column)
-//                 } else {
-//                     const column = { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
-//                     fd.fields.push(column)
-//                 }
-
-//             })
-
-//         });
-
-//         // 查询数据
-//         const dynamicTableUrl = '/l/dynamic/get'
-//         const dynamicTableParams = { tableName: form.tableName, id: form.id }
-
-//         await get(u.url(dynamicTableUrl || ''), dynamicTableParams).then((response: any) => {
-//             fd.data = response.data.data || {}
-//         });
-
-//         // 添加 formData 到 forms
-//         fds.push(fd)
-
-//     })
-// }
 
 watch(() => props.previewParams.forms, (forms) => {
 
