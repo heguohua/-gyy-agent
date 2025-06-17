@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 10:11:04
+ * @LastEditTime: 2025-06-17 10:52:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -14,7 +14,7 @@ import { alaBuildInput } from "@/config/alaBuilders";
 import { date } from "@/utils/date";
 import { alaPost } from "@/utils/req";
 import u from "@/utils/u";
-import { parseCascade, parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseFile, parseFormTable, parseImage, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSelectTree, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { parseCascade, parseChapter, parseCheckbox, parseChildTableCount, parseDate, parseDateRange, parseDivider, parseFile, parseFormTable, parseImage, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSelectTree, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 import { logger } from "@/utils/logger";
@@ -94,7 +94,7 @@ export const formConfigParse = async (url: string, params: any): Promise<{
         if (response.code === 200) {
 
             const cf = response.data[0]
-            className = cf.className            
+            className = cf.className
 
             const config = u.parseJson(cf.config)
 
@@ -145,55 +145,64 @@ export const formConfigParse = async (url: string, params: any): Promise<{
 
                     // 组装 form 表单字段
                     let formItem: any = {}
-                    if (code === 'input') {
-                        formItem = parseInput(formData)
-                    } else if (code === 'textarea') {
-                        formItem = parseTextarea(formData)
-                    } else if (code === 'radio') {
-                        formItem = parseRadio(formData)
-                    } else if (code === 'checkbox') {
-                        formItem = parseCheckbox(formData)
-                    } else if (code === 'date') {
-                        formItem = parseDate(formData)
-                    } else if (code === 'number') {
-                        formItem = parseNumber(formData)
-                    } else if (code === 'select') {
-                        formItem = parseSelect(formData)
-                    } else if (code === 'slider') {
-                        formItem = parseSlider(formData)
-                    } else if (code === 'rating') {
-                        formItem = parseRating(formData)
-                    } else if (code === 'switch') {
-                        formItem = parseSwitch(formData)
-                    } else if (code === 'divider') {
-                        formItem = parseDivider(formData)
-                    } else if (code === 'chapter') {
-                        formItem = parseChapter(formData)
-                    } else if (code === 'selectTable') {
-                        formItem = parseSelectTable(formData)
-                    } else if (code === 'selectDict') {
-                        formItem = parseSelectDict(formData)
-                    } else if (code === 'dateRange') {
-                        // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
-                        formItem = parseDateRange(formData)
-                        formItem.other.startFieldName = formData.startFieldName.desktop
-                        formItem.other.endFieldName = formData.endFieldName.desktop
-                    } else if (code === 'cascader') {
-                        formItem = parseCascade(formData)
-                    } else if (code === 'file') {
-                        formItem = parseFile(formData)
-                    } else if (code === 'image') {
-                        formItem = parseImage(formData)
-                    } else if (code === 'selectTree') {
-                        formItem = parseSelectTree(formData)
-                    } else if (code === 'formTable') {
-                        formItem = parseFormTable(formData)
-                    } else {
-                        logger.error(`【 错误，错误，错误 】发现未知类型[ ${code} ]的【 form字段 】`)
-                        console.log('formData:', formData);
-                    }
 
-                    addFormFields.push(formItem)
+                    // 排除不需要添加单新增页面的字段
+                    if (code === 'childTableCount') {
+
+                        formItem = parseChildTableCount(formData)
+
+                    } else {
+
+                        if (code === 'input') {
+                            formItem = parseInput(formData)
+                        } else if (code === 'textarea') {
+                            formItem = parseTextarea(formData)
+                        } else if (code === 'radio') {
+                            formItem = parseRadio(formData)
+                        } else if (code === 'checkbox') {
+                            formItem = parseCheckbox(formData)
+                        } else if (code === 'date') {
+                            formItem = parseDate(formData)
+                        } else if (code === 'number') {
+                            formItem = parseNumber(formData)
+                        } else if (code === 'select') {
+                            formItem = parseSelect(formData)
+                        } else if (code === 'slider') {
+                            formItem = parseSlider(formData)
+                        } else if (code === 'rating') {
+                            formItem = parseRating(formData)
+                        } else if (code === 'switch') {
+                            formItem = parseSwitch(formData)
+                        } else if (code === 'divider') {
+                            formItem = parseDivider(formData)
+                        } else if (code === 'chapter') {
+                            formItem = parseChapter(formData)
+                        } else if (code === 'selectTable') {
+                            formItem = parseSelectTable(formData)
+                        } else if (code === 'selectDict') {
+                            formItem = parseSelectDict(formData)
+                        } else if (code === 'dateRange') {
+                            // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
+                            formItem = parseDateRange(formData)
+                            formItem.other.startFieldName = formData.startFieldName.desktop
+                            formItem.other.endFieldName = formData.endFieldName.desktop
+                        } else if (code === 'cascader') {
+                            formItem = parseCascade(formData)
+                        } else if (code === 'file') {
+                            formItem = parseFile(formData)
+                        } else if (code === 'image') {
+                            formItem = parseImage(formData)
+                        } else if (code === 'selectTree') {
+                            formItem = parseSelectTree(formData)
+                        } else if (code === 'formTable') {
+                            formItem = parseFormTable(formData)
+                        } else {
+                            logger.error(`【 错误，错误，错误 】发现未知类型[ ${code} ]的【 form字段 】`)
+                            console.log('formData:', formData);
+                        }
+
+                        addFormFields.push(formItem)
+                    }
 
                     const other = formItem.other || {}
 

@@ -1,4 +1,4 @@
-import { alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import { alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildChildTableCount, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
 
@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 15:18:08
+ * @LastEditTime: 2025-06-17 10:56:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -49,6 +49,13 @@ export function parseRadio(item: { fieldName: { desktop: string }, label: { desk
     }))
     const result = alaBuildRadio(item.fieldName.desktop, item.label.desktop, item_s)
     logger.info(`解析【 radio 】字段：`, result);
+    return result
+}
+
+export function parseChildTableCount(item: { fieldName: { desktop: string }, label: { desktop: string }, colors: { desktop: [] }, backgroundNum: { desktop: string }, moduleName: { desktop: string } }) {
+
+    const result = alaBuildChildTableCount(item.fieldName.desktop, item.label.desktop, item.colors.desktop, item.backgroundNum.desktop, item.moduleName.desktop)
+    logger.info(`解析【 childTableCount 】字段：`, result);
     return result
 }
 

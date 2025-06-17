@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 08:56:13
+ * @LastEditTime: 2025-06-17 11:15:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -260,6 +260,8 @@ onMounted(async () => {
 
     const configs = await formConfigParse(list_url, list_params)
 
+    console.log('configs:',configs);
+    
     columns.value = configs.columns
     baseFields.value = configs.baseFields
     formConfigItems.value = configs.formConfigItems

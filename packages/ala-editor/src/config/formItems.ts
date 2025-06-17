@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 14:04:50
+ * @LastEditTime: 2025-06-17 09:34:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -181,6 +181,13 @@ export const seniorFields: BaseBlock[] = [
         name: "子表单",
         code: "formTable",
         icon: "f_table",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "子表计数器",
+        code: "childTableCount",
+        icon: "f_counter",
         formData: {},
     }
 ]

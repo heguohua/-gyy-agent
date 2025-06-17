@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 21:52:49
+ * @LastEditTime: 2025-06-17 13:47:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -546,4 +546,24 @@ export default class u {
         return filename.slice(lastDotIndex + 1).toLowerCase();
     }
 
+    /**
+     * 查找一个数值num位于形如 "1,3,6,88,908"字符串的哪个区间
+     * @param inputStr 
+     * @param num 
+     * @returns 
+     */
+    public static findIntervalIndex(inputStr: string, num: number): number {
+        const numbers = inputStr.split(',').map(Number);
+
+        for (let i = 0; i < numbers.length - 1; i++) {
+            const left = numbers[i];
+            const right = numbers[i + 1];
+
+            if (num >= left && num < right) {
+                return i;
+            }
+        }
+
+        return -1; // 不属于任何区间
+    }
 }

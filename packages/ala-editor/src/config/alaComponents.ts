@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 08:46:07
+ * @LastEditTime: 2025-06-17 12:24:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -64,6 +64,7 @@ import AlaFormLabel from '@/components/cps/form-label/ala-form-label.vue';
 import AlaCascader from '@/components/cps/cascader/ala-cascader.vue';
 import AlaCascaderDict from '@/components/cps/cascader-dict/ala-cascader-dict.vue';
 import AlaFormTable from '@/components/cps/form-table/ala-form-table.vue';
+import AlaChildTableCount from '@/components/cps/childTableCount/ala-child-table-count.vue';
 
 // 列表、详情页字段渲染组件
 import DetailInputColumn from '@/components/cps/dynamic/DetailInputColumn.vue';
@@ -98,6 +99,7 @@ import DetailTextColorColumn from '@/components/cps/dynamic/DetailTextColorColum
 import DetailCascaderColumn from '@/components/cps/dynamic/DetailCascaderColumn.vue';
 import DetailFileColumn from '@/components/cps/dynamic/DetailFileColumn.vue';
 import DetailFormTableColumn from '@/components/cps/dynamic/DetailFormTableColumn.vue';
+import DetailChildTableCountColumn from '@/components/cps/dynamic/DetailChildTableCountColumn.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -172,6 +174,7 @@ export default {
     AlaCascader,
     AlaCascaderDict,
     AlaFormTable,
+    AlaChildTableCount,
 
     // ALA架构列表、详情组件
     DetailInputColumn,
@@ -206,6 +209,7 @@ export default {
     DetailCascaderColumn,
     DetailFileColumn,
     DetailFormTableColumn,
+    DetailChildTableCountColumn,
 
     // 流程引擎相关组件
     ProcessDesign,

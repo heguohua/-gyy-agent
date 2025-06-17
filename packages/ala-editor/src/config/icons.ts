@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-15 08:58:20
+ * @LastEditTime: 2025-06-17 10:42:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -80,6 +80,7 @@ const icon = {
   suggestion: 'iconoir:suggestion',
   // 无代码中心
   code: 'mingcute:code-fill',
+  example: 'fa6-solid:democrat',
   // 配置列表
   code_config: 'line-md:document-code',
   code_page: 'icon-park-outline:page',// 页面设计
@@ -150,6 +151,7 @@ const icon = {
   f_wechat:"hugeicons:wechat",
   f_cascader:"typcn:flow-children",
   f_table:"si:table-line",
+  f_counter:"mdi:counter",
 
   // 客户中心
   m_customer:"garden:customer-lists-fill-26",
