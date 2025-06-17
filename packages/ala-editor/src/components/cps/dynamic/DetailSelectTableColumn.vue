@@ -129,8 +129,8 @@ const showDetail = async (item: string, index: number) => {
 
             if (!formConfig) {
 
+
                 const configs = await getLowcodingConfigByClassName(className)
-                
                 formConfig = {
                     formAttr: configs.formAttr,
                     detailAttr: configs.formAttr,

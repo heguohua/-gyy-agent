@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 14:16:09
+ * @LastEditTime: 2025-06-17 16:10:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailChildTableCountColumn.vue
  * @Description: 
  * 
@@ -13,6 +13,12 @@
     <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
     <p class="value" @click="handleClick"><i :style="style">
             {{ showValue }}</i>{{ unit }}
+
+        <teleport to="body" v-if="showDetailPage">
+            <AlaDetailPageTable :data="detailItem" v-model="showDetailPage" :fields="detailFields"
+                :formAttr="formAttr" />
+        </teleport>
+        
     </p>
 
 </template>
@@ -79,10 +85,23 @@ const unit = computed(() => {
     return unit
 })
 
-const handleClick =()=>{
-    console.log('props:',props);
-    
-} 
+
+
+const detailItem = ref({})
+const detailFields = ref<Array<any>>([])
+const formAttr = reactive({
+    formWidth: 800,
+    columnNum: 1,
+    labelWidth: 150,
+    labelPosition: 'left',
+    useFormTitle: false
+})
+
+const showDetailPage = ref(false)
+
+const handleClick = () => {
+    showDetailPage.value = true
+}
 
 </script>
 
