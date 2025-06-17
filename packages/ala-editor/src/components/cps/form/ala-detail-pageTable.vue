@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 16:13:59
+ * @LastEditTime: 2025-06-17 16:48:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-pageTable.vue
  * @Description: 
  * 
@@ -10,12 +10,12 @@
 -->
 <template>
 
-    <div class="ala-detail-form">
+    <div class="ala-detail-pageTable">
 
         <AlaDrawer v-model="showDrawer" :title="'【 详情 】' + getModuleName()" :width="drawerWidth()"
             :direction="direction" @beforeClose="handleClose">
             <template #content>
-                
+                <slot name="content"></slot>
             </template>
             <template #footer>
                 <div style="flex: auto">
@@ -152,8 +152,8 @@ const columnWidth = (item: any) => {
 
 const getComponent = ((code: string) => {
     const component = 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column'
-    console.log('component:',component);
-    
+    console.log('component:', component);
+
     return component
 })
 const labelWidth = () => {
@@ -166,10 +166,17 @@ const getModuleName = () => {
 
 </script>
 <style scoped lang="scss">
-.ala-detail-form {
-    .ala-drawer {
-        width: 500px !important;
 
+.ala-drawer-wrapper {
+    .ala-drawer {
+        .el-drawer__body{
+            padding: 0px!important;
+        }
+    }
+}
+
+.ala-detail-pageTable {
+    .ala-drawer {
 
         .ala-detail-item {
             display: flex;
@@ -248,6 +255,15 @@ const getModuleName = () => {
         .el-date-editor.el-input__wrapper {
             width: 100% !important;
         }
+    }
+}
+</style>
+
+<style lang="scss">
+.ala-detail-pageTable {
+
+    :deep(.el-drawer__body) {
+        padding: 0px !important;
     }
 }
 </style>
