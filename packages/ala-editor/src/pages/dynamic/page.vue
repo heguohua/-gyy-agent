@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-06 20:33:00
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-07 15:54:33
+ * @LastEditTime: 2025-06-17 15:23:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/page.vue
  * @Description: 
  * 
@@ -23,6 +23,7 @@ import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
 import PageRender from '@/pages/dynamic/page-render.vue';
+import { getRawLowcodingConfigByClassName } from '@/config/formConfigs';
 
 const { t } = useI18n();
 
@@ -58,8 +59,6 @@ const bType = ref('screen')
 // ############## 初始化基本数据，该部分代码不用修改 end ######################################
 
 // 加载模型定义文件
-const list_url = "/l/lowcodingConfig/list"
-const list_params = { className }
 const params = reactive({ tableName: className })
 
 logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`, params);
@@ -69,22 +68,17 @@ const pageStyles = computed(() => {
     return styles.value
 })
 
-const pageConfig = ref<Object>({})
-const blockList = ref<Array<any>>([])
+onMounted(async () => {
+    const config = await getRawLowcodingConfigByClassName(className)
 
-alaPost(u.url(list_url || ''), list_params, false, '').then((response: any) => {
-    if (response.code === 200) {
-        if (response.data.length === 0) {
-            notify.error(t('pop.warm_title'), `没有找到模块【 ${className} 】`)
-            return
-        }
-        const config = u.parseJson(response.data[0].config)
-        const pageFormData = config.pageConfig
-        const blocks = config.blockConfig
-        pageConfig.value = pageFormData
-        blockList.value = blocks[bType.value]
-    }
-});
+    const pageConfig = ref<Object>({})
+    const blockList = ref<Array<any>>([])
+
+    const pageFormData = config.pageConfig
+    const blocks = config.blockConfig
+    pageConfig.value = pageFormData
+    blockList.value = blocks[bType.value]
+})
 
 
 

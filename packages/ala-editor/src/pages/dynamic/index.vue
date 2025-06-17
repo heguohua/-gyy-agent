@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 11:15:48
+ * @LastEditTime: 2025-06-17 15:21:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -56,6 +56,7 @@ import { logger } from '@/utils/logger';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { formConfigParse } from './formConfigParser';
+import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 
 const { t } = useI18n();
 
@@ -254,13 +255,9 @@ const showButtonsColumn = ref(false)
 onMounted(async () => {
 
     // 加载模型定义文件
-    const list_url = "/l/lowcodingConfig/list"
-    const list_params = { className }
     logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`, params)
 
-    const configs = await formConfigParse(list_url, list_params)
-
-    console.log('configs:',configs);
+    const configs = await getLowcodingConfigByClassName(className)
     
     columns.value = configs.columns
     baseFields.value = configs.baseFields

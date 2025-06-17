@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:06:23
+ * @LastEditTime: 2025-06-17 15:28:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/instanceList.vue
  * @Description: 
  * 
@@ -52,8 +52,8 @@
         :previewParams="previewParams" />
 
     <!-- 新增、编辑 -->
-    <StartFormEdit v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields" :formAttr="formAttr"
-        :className="className" />
+    <StartFormEdit v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields"
+        :formAttr="formAttr" :className="className" />
 
 
 </template>
@@ -75,6 +75,7 @@ import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, p
 import baseRule from '@/config/rules/baseRule';
 import { alaCard, alaCn, alaCnTw, alaEmail, alaEnumRule, alaLetter, alaLl8, alaLl8_, alaLOrlOr8, alaLOrlOr8Or_, alaNumber, alaNumberMax, alaNumberMin, alaNumberRange, alaPassword, alaPattern, alaPhone, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaTw, alaUrl } from '@/config/alaRules';
 import StartFormEdit from './startFormEdit.vue';
+import { getRawLowcodingConfigByClassName } from '@/config/formConfigs';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -104,7 +105,7 @@ const className = computed(() => {
 })
 
 
-const showEdit = (item: { [key: string]: any }) => {
+const showEdit = async (item: { [key: string]: any }) => {
 
     const form = u.parseJson(u.parseJson(item.variable)['forms'])[0]
     const defineId = item.defineId
@@ -117,166 +118,158 @@ const showEdit = (item: { [key: string]: any }) => {
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
 
     // 组装列表字段
-    const url = "/l/lowcodingConfig/list"
-    const params = { className: form.tableName }
     const bType = 'form'
-    logger.info(`从后台加载【 ${bType} 】配置数据，url【 ${url} 】，数据对象：`, params);
 
-    alaPost(u.url(url || ''), params, false, '').then((response: any) => {
-        const { config, id } = response.data[0];
-        const conf = u.parseJson(config)
-        const blockConfig = conf["blockConfig"][bType]
-        const pageConfig = conf["pageConfig"][bType]
+    const conf = await getRawLowcodingConfigByClassName(form.tableName!)
 
-        u.checkNull(pageConfig?.formData, '当前流程第一级任务节点表单【 页面配置 】不存在', t)
-        u.checkNull(blockConfig, '当前流程第一级任务节点表单【 字段配置 】不存在', t)
+    const blockConfig = conf["blockConfig"][bType]
+    const pageConfig = conf["pageConfig"][bType]
 
-        // 初始化表单页面配置项
-        const pFormData = pageConfig?.formData
-        const formAttrs = {
-            formWidth: pFormData.width?.desktop ? pFormData.width.desktop : formAttr.value.formWidth,
-            labelWidth: pFormData.labelWidth?.desktop ? pFormData.labelWidth.desktop : formAttr.value.labelWidth,
-            columnNum: pFormData.columnNum?.desktop ? pFormData.columnNum.desktop : formAttr.value.columnNum,
-            useFormTitle: pFormData.useFormTitle?.desktop ? pFormData.useFormTitle.desktop : formAttr.value.useFormTitle,
-            labelPosition: pFormData.labelPosition?.desktop ? pFormData.labelPosition.desktop : formAttr.value.labelPosition,
+    u.checkNull(pageConfig?.formData, '当前流程第一级任务节点表单【 页面配置 】不存在', t)
+    u.checkNull(blockConfig, '当前流程第一级任务节点表单【 字段配置 】不存在', t)
+
+    // 初始化表单页面配置项
+    const pFormData = pageConfig?.formData
+    const formAttrs = {
+        formWidth: pFormData.width?.desktop ? pFormData.width.desktop : formAttr.value.formWidth,
+        labelWidth: pFormData.labelWidth?.desktop ? pFormData.labelWidth.desktop : formAttr.value.labelWidth,
+        columnNum: pFormData.columnNum?.desktop ? pFormData.columnNum.desktop : formAttr.value.columnNum,
+        useFormTitle: pFormData.useFormTitle?.desktop ? pFormData.useFormTitle.desktop : formAttr.value.useFormTitle,
+        labelPosition: pFormData.labelPosition?.desktop ? pFormData.labelPosition.desktop : formAttr.value.labelPosition,
+    }
+
+    logger.info(`【 流程表单 - pageConfig】配置信息：`, formAttrs);
+
+    u.merged(formAttr, formAttrs)
+
+    addFormFields.value = []
+    // 初始化表单字段配置项
+    blockConfig.forEach((item: { code: string, formData: any }) => {
+        const { code, formData } = { ...item }
+
+        // 组装 form 表单字段
+        let formItem: any = {}
+        if (code === 'input') {
+            formItem = parseInput(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'textarea') {
+            formItem = parseTextarea(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'radio') {
+            formItem = parseRadio(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'checkbox') {
+            formItem = parseCheckbox(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'date') {
+            formItem = parseDate(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'number') {
+            formItem = parseNumber(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'select') {
+            formItem = parseSelect(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'slider') {
+            formItem = parseSlider(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'rating') {
+            formItem = parseRating(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'switch') {
+            formItem = parseSwitch(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'divider') {
+            formItem = parseDivider(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'chapter') {
+            formItem = parseChapter(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'selectTable') {
+            formItem = parseSelectTable(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'selectDict') {
+            formItem = parseSelectDict(formData)
+            addFormFields.value.push(formItem)
+        } else if (code === 'dateRange') {
+            // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
+            formItem = parseDateRange(formData)
+            formItem.other.startFieldName = formData.startFieldName.desktop
+            formItem.other.endFieldName = formData.endFieldName.desktop
+            addFormFields.value.push(formItem)
         }
-        logger.info(`【 流程表单 - pageConfig】配置信息：`, formAttrs);
 
-        u.merged(formAttr, formAttrs)
+        const other = formItem.other || {}
 
-        addFormFields.value = []
-        // 初始化表单字段配置项
-        blockConfig.forEach((item: { code: string, formData: any }) => {
-            const { code, formData } = { ...item }
+        if (item.formData.columnNum) {
+            formItem.columnNum = item.formData.columnNum.desktop
+        }
 
-            // 组装 form 表单字段
-            let formItem: any = {}
-            if (code === 'input') {
-                formItem = parseInput(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'textarea') {
-                formItem = parseTextarea(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'radio') {
-                formItem = parseRadio(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'checkbox') {
-                formItem = parseCheckbox(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'date') {
-                formItem = parseDate(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'number') {
-                formItem = parseNumber(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'select') {
-                formItem = parseSelect(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'slider') {
-                formItem = parseSlider(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'rating') {
-                formItem = parseRating(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'switch') {
-                formItem = parseSwitch(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'divider') {
-                formItem = parseDivider(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'chapter') {
-                formItem = parseChapter(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'selectTable') {
-                formItem = parseSelectTable(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'selectDict') {
-                formItem = parseSelectDict(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'dateRange') {
-                // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
-                formItem = parseDateRange(formData)
-                formItem.other.startFieldName = formData.startFieldName.desktop
-                formItem.other.endFieldName = formData.endFieldName.desktop
-                addFormFields.value.push(formItem)
+        // 处理 组件 other 中的属性信息
+        if (item.formData.help && item.formData.help.desktop) {
+            other.help = item.formData.help.desktop
+        }
+        if (item.formData.icon && item.formData.icon.desktop) {
+            other.icon = item.formData.icon.desktop
+            other.iconWidth = item.formData.iconWidth.desktop
+            other.iconHeight = item.formData.iconHeight.desktop
+        }
+
+        formItem.other = other
+
+        // 解析表单验证规则
+
+
+        const rules: Array<baseRule> = []
+
+        // 非空验证条件
+        if (formData.required && formData.required.desktop) {
+            rules.push(alaRequired())
+        }
+
+        // 添加字符数最少、最多和范围验证
+        if (formData.strMin && formData.strMax && formData.strMin.desktop && formData.strMax.desktop) {
+            rules.push(alaStrLengthRange(formData.strMin.desktop, formData.strMax.desktop))
+        } else if (formData.strMin && formData.strMin.desktop) {
+            rules.push(alaStrMin(formData.strMin.desktop))
+        } else if (formData.strMax && formData.strMax.desktop) {
+            rules.push(alaStrMax(formData.strMax.desktop))
+        }
+
+        // 添加 数值最小、最大和范围验证
+        if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
+            rules.push(alaNumberRange(formData.numberMin.desktop, formData.numberMax.desktop))
+        } else if (formData.numberMin && formData.numberMin.desktop) {
+            rules.push(alaNumberMin(formData.numberMin.desktop))
+        } else if (formData.numberMax && formData.numberMax.desktop) {
+            rules.push(alaNumberMax(formData.numberMax.desktop))
+        }
+
+        if (formData.rules && formData.rules.desktop) {
+            const functionName = ruleFunctions[formData.rules.desktop]
+            if (!functionName) {
+                logger.error(`【 错误，错误，错误 】${formData.rules.desktop} 函数不存在`);
+            } else {
+                rules.push(ruleFunctions[formData.rules.desktop]())
             }
+        }
 
-            const other = formItem.other || {}
+        formItem.rules = rules
 
-            if (item.formData.columnNum) {
-                formItem.columnNum = item.formData.columnNum.desktop
-            }
+    })
 
-            // 处理 组件 other 中的属性信息
-            if (item.formData.help && item.formData.help.desktop) {
-                other.help = item.formData.help.desktop
-            }
-            if (item.formData.icon && item.formData.icon.desktop) {
-                other.icon = item.formData.icon.desktop
-                other.iconWidth = item.formData.iconWidth.desktop
-                other.iconHeight = item.formData.iconHeight.desktop
-            }
+    logger.info(`【 流程表单 - blockConfig】配置信息：`, addFormFields.value);
 
-            formItem.other = other
+    // 查询表单数据
+    // 查询数据
+    const dynamicTableUrl = '/l/dynamic/get'
+    const dynamicTableParams = { tableName: form.tableName, id: form.id }
 
-            // 解析表单验证规则
-
-
-            const rules: Array<baseRule> = []
-
-            // 非空验证条件
-            if (formData.required && formData.required.desktop) {
-                rules.push(alaRequired())
-            }
-
-            // 添加字符数最少、最多和范围验证
-            if (formData.strMin && formData.strMax && formData.strMin.desktop && formData.strMax.desktop) {
-                rules.push(alaStrLengthRange(formData.strMin.desktop, formData.strMax.desktop))
-            } else if (formData.strMin && formData.strMin.desktop) {
-                rules.push(alaStrMin(formData.strMin.desktop))
-            } else if (formData.strMax && formData.strMax.desktop) {
-                rules.push(alaStrMax(formData.strMax.desktop))
-            }
-
-            // 添加 数值最小、最大和范围验证
-            if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
-                rules.push(alaNumberRange(formData.numberMin.desktop, formData.numberMax.desktop))
-            } else if (formData.numberMin && formData.numberMin.desktop) {
-                rules.push(alaNumberMin(formData.numberMin.desktop))
-            } else if (formData.numberMax && formData.numberMax.desktop) {
-                rules.push(alaNumberMax(formData.numberMax.desktop))
-            }
-
-            if (formData.rules && formData.rules.desktop) {
-                const functionName = ruleFunctions[formData.rules.desktop]
-                if (!functionName) {
-                    logger.error(`【 错误，错误，错误 】${formData.rules.desktop} 函数不存在`);
-                } else {
-                    rules.push(ruleFunctions[formData.rules.desktop]())
-                }
-            }
-
-            formItem.rules = rules
-
-        })
-
-        logger.info(`【 流程表单 - blockConfig】配置信息：`, addFormFields.value);
-
-        // 查询表单数据
-        // 查询数据
-        const dynamicTableUrl = '/l/dynamic/get'
-        const dynamicTableParams = { tableName: form.tableName, id: form.id }
-
-        get(u.url(dynamicTableUrl || ''), dynamicTableParams).then((response: any) => {
-            u.merged(baseInfo, { item: response.data.data })
-
-            showAddForm.value = true
-
-        });
-
-
-
+    get(u.url(dynamicTableUrl || ''), dynamicTableParams).then((response: any) => {
+        u.merged(baseInfo, { item: response.data.data })
+        showAddForm.value = true
     });
+
 }
 
 // 查询条件
@@ -300,10 +293,10 @@ const deleteUrl = "/p/instance/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailInput( 'defineDisplayName', "流程名称", 1, true),
-        alaDetailInput( 'operatorName', "发起人"),
-        alaDetailDate( 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailDate( 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailInput('defineDisplayName', "流程名称", 1, true),
+        alaDetailInput('operatorName', "发起人"),
+        alaDetailDate('createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // alaDetailInput( 'stateName', "审批状态"),
         alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
@@ -361,7 +354,7 @@ const handleWithdraw = (row: any) => {
 }
 
 const restartUrl = '/p/instance/restart'
-const handleRestart = (row: any) => {    
+const handleRestart = (row: any) => {
     const id = row.id
     logger.info(`【 重新发起流程 】，url${url}，数据对象：`, row);
     alaPost(u.url(restartUrl || ''), { id }, false, '').then((data: any) => {
@@ -404,10 +397,10 @@ const detailItem = reactive({
 })
 
 const detailFields: any = ref([
-    alaDetailInput( 'defineDisplayName', "流程名称", 1, true),
-    alaDetailInput( 'operatorName', "发起人"),
-    alaDetailDate( 'createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailDate( 'expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailInput('defineDisplayName', "流程名称", 1, true),
+    alaDetailInput('operatorName', "发起人"),
+    alaDetailDate('createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
 ])
 

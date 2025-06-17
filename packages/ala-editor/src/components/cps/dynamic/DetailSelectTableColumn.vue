@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 15:03:49
+ * @LastEditTime: 2025-06-17 14:57:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -25,8 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { getDetailConfig, setDetailConfig } from '@/config/formConfigs';
-import FormConfig from '@/config/formConfigs/formConfig';
+import { getFormConfigFromCache, getLowcodingConfigByClassName, setFormConfigToCache } from '@/config/formConfigs';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
 import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
@@ -117,7 +116,7 @@ const showDetail = async (item: string, index: number) => {
     const valueName = formData.itemProperty.desktop.valueName
 
     // 先从 缓存中加载
-    let formConfig = getDetailConfig(url)
+    let formConfig = getFormConfigFromCache(url)
 
     if (!formConfig) {
         // 说明缓存中没加载到表单配置
@@ -126,17 +125,12 @@ const showDetail = async (item: string, index: number) => {
             const { tableName: className } = u.parseJson(params)
 
 
-            formConfig = getDetailConfig(className)
+            formConfig = getFormConfigFromCache(className)
 
             if (!formConfig) {
-                // 调用接口加载
 
-                // 加载模型定义文件
-                const list_url = "/l/lowcodingConfig/list"
-                const list_params = { className }
-                logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`, params)
-
-                const configs = await formConfigParse(list_url, list_params)
+                const configs = await getLowcodingConfigByClassName(className)
+                
                 formConfig = {
                     formAttr: configs.formAttr,
                     detailAttr: configs.formAttr,
@@ -146,8 +140,7 @@ const showDetail = async (item: string, index: number) => {
                 }
 
                 // 将 formConfig 放置到缓存中
-
-                setDetailConfig(className, formConfig)
+                setFormConfigToCache(className, formConfig)
 
             }
 
@@ -192,7 +185,7 @@ const showDetail = async (item: string, index: number) => {
 
             u.clear(detailItem.item)
             u.merged(detailItem.item, response.data.list[0])
-            u.merged(detailItem.item, {className:params.className})
+            u.merged(detailItem.item, { className: params.className })
             logger.info(`当前模块【 DetailSelectTableColumn --- detailItem 】对象参数为`, detailItem);
             showDetailPage.value = true
 

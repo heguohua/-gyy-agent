@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 10:52:41
+ * @LastEditTime: 2025-06-17 14:54:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -49,8 +49,7 @@ const ruleFunctions: { [key: string]: Function } = {
     alaCn: alaCn,
     alaTw: alaTw,
 };
-
-export const formConfigParse = async (url: string, params: any): Promise<{
+export interface LowcodingConfig {
     columns: Array<Column>
     baseFields: Array<any>
     formConfigItems: any
@@ -62,7 +61,8 @@ export const formConfigParse = async (url: string, params: any): Promise<{
     showButtonsColumn: boolean
     formAttr: any
     className: string
-}> => {
+}
+export const formConfigParse = async (url: string, params: any): Promise<LowcodingConfig> => {
 
     const columns: Array<Column> = []
 

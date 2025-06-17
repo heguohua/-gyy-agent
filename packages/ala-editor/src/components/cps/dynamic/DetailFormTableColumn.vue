@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 19:11:42
+ * @LastEditTime: 2025-06-17 15:02:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -48,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+import { getLowcodingConfigById } from '@/config/formConfigs';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
 import u from '@/utils/u';
 
@@ -119,9 +120,7 @@ watch([() => props.value, () => baseInfo.id], async () => {
 
         const childTableLowcodingConfig = u.parseJson(props.value)
 
-        const list_url = "/l/lowcodingConfig/list"
-        const list_params = { id: childTableLowcodingConfig[0].id }
-        const configs = await formConfigParse(list_url, list_params)
+        const configs = await getLowcodingConfigById(childTableLowcodingConfig[0].id)
 
         let leftTableName = configs.className
 

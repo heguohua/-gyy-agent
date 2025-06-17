@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 18:53:48
+ * @LastEditTime: 2025-06-17 15:20:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -146,6 +146,7 @@ import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { alaDetailInput } from '@/config/alaDetailBuilder';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
+import { getLowcodingConfigById } from '@/config/formConfigs';
 // import { data } from './d';
 
 interface ItemProperty {
@@ -458,12 +459,10 @@ watch(() => localValue.value, async (v) => {
     if (!v[0]) {
         return
     }
-    const list_url = "/l/lowcodingConfig/list"
-    const list_params = { id: v[0].id }
-    const configs = await formConfigParse(list_url, list_params)
+    
+    const configs = await getLowcodingConfigById(v[0].id)
 
     const currentModule = baseInfo.module
-
     const fci = configs.formConfigItems
 
     // 添加一列

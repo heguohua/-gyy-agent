@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 14:36:21
+ * @LastEditTime: 2025-06-17 15:18:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -83,6 +83,7 @@ import u from '@/utils/u';
 import { PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n';
 import AlaChapter from '../chapter/ala-chapter.vue';
+import { getRawLowcodingConfigByClassName } from '@/config/formConfigs';
 const { t } = useI18n();
 
 // State
@@ -189,6 +190,8 @@ interface FormData {
 
 const fds = reactive<Array<FormData>>([])
 
+
+
 watch(() => props.previewParams.forms, (forms) => {
 
     if (forms && forms.length > 0) {
@@ -198,32 +201,23 @@ watch(() => props.previewParams.forms, (forms) => {
             const fd: FormData = { data: {}, fields: [] }
 
             // 查询表单配置信息
+            const config = await getRawLowcodingConfigByClassName(form.tableName!)
 
-            const lowcodingConfigUrl = '/l/lowcodingConfig/list'
-            const lowcodingConfigParams = { className: form.tableName }
+            config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 
-            await alaPost(u.url(lowcodingConfigUrl || ''), lowcodingConfigParams, false, '').then((data: any) => {
-                const response = data;
+                const code = item.code
+                const formData = item.formData
+                // 组装详情页面字段
+                // 注意，注意，注意！这里需要保持和列表字段解析一致
+                if (code === 'dateRange') {
+                    const column = { prop: 'dateRange' + date.formatDateTime(new Date().getTime(), 'YYYYMMDDHHmmss'), label: formData.label.desktop, formItem: item }
+                    fd.fields.push(column)
+                } else {
+                    const column = { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
+                    fd.fields.push(column)
+                }
 
-                const config = u.parseJson(response.data[0].config)
-
-                config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
-
-                    const code = item.code
-                    const formData = item.formData
-                    // 组装详情页面字段
-                    // 注意，注意，注意！这里需要保持和列表字段解析一致
-                    if (code === 'dateRange') {
-                        const column = { prop: 'dateRange' + date.formatDateTime(new Date().getTime(), 'YYYYMMDDHHmmss'), label: formData.label.desktop, formItem: item }
-                        fd.fields.push(column)
-                    } else {
-                        const column = { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
-                        fd.fields.push(column)
-                    }
-
-                })
-
-            });
+            })
 
             // 查询数据
             const dynamicTableUrl = '/l/dynamic/get'
@@ -325,121 +319,114 @@ formConfigs.forEach(async (form: Form) => {
 
     // 查询表单配置信息
 
-    const lowcodingConfigUrl = '/l/lowcodingConfig/list'
-    const lowcodingConfigParams = { className: form.className }
+    const config = await getRawLowcodingConfigByClassName(form.className!)
 
-    await alaPost(u.url(lowcodingConfigUrl || ''), lowcodingConfigParams, false, '').then((data: any) => {
-        const response = data;
+    u.checkNull(config, "当前审批节点Form表单配置信息", t)
 
-        const config = u.parseJson(response.data[0].config)
-        u.checkNull(config, "当前审批节点Form表单配置信息", t)
+    config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 
-        config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
+        const code = item.code
+        const formData = item.formData
+        // 组装 form 表单字段
+        let formItem: any = {}
+        if (code === 'input') {
+            formItem = parseInput(formData)
+        } else if (code === 'textarea') {
+            formItem = parseTextarea(formData)
+        } else if (code === 'radio') {
+            formItem = parseRadio(formData)
+        } else if (code === 'checkbox') {
+            formItem = parseCheckbox(formData)
+        } else if (code === 'date') {
+            formItem = parseDate(formData)
+        } else if (code === 'number') {
+            formItem = parseNumber(formData)
+        } else if (code === 'select') {
+            formItem = parseSelect(formData)
+        } else if (code === 'slider') {
+            formItem = parseSlider(formData)
+        } else if (code === 'rating') {
+            formItem = parseRating(formData)
+        } else if (code === 'switch') {
+            formItem = parseSwitch(formData)
+        } else if (code === 'divider') {
+            formItem = parseDivider(formData)
+        } else if (code === 'chapter') {
+            formItem = parseChapter(formData)
+        } else if (code === 'selectTable') {
+            formItem = parseSelectTable(formData)
+        } else if (code === 'selectDict') {
+            formItem = parseSelectDict(formData)
+        } else if (code === 'dateRange') {
+            // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
+            formItem = parseDateRange(formData)
+            formItem.other.startFieldName = formData.startFieldName.desktop
+            formItem.other.endFieldName = formData.endFieldName.desktop
+        }
 
-            const code = item.code
-            const formData = item.formData
-            // 组装 form 表单字段
-            let formItem: any = {}
-            if (code === 'input') {
-                formItem = parseInput(formData)
-            } else if (code === 'textarea') {
-                formItem = parseTextarea(formData)
-            } else if (code === 'radio') {
-                formItem = parseRadio(formData)
-            } else if (code === 'checkbox') {
-                formItem = parseCheckbox(formData)
-            } else if (code === 'date') {
-                formItem = parseDate(formData)
-            } else if (code === 'number') {
-                formItem = parseNumber(formData)
-            } else if (code === 'select') {
-                formItem = parseSelect(formData)
-            } else if (code === 'slider') {
-                formItem = parseSlider(formData)
-            } else if (code === 'rating') {
-                formItem = parseRating(formData)
-            } else if (code === 'switch') {
-                formItem = parseSwitch(formData)
-            } else if (code === 'divider') {
-                formItem = parseDivider(formData)
-            } else if (code === 'chapter') {
-                formItem = parseChapter(formData)
-            } else if (code === 'selectTable') {
-                formItem = parseSelectTable(formData)
-            } else if (code === 'selectDict') {
-                formItem = parseSelectDict(formData)
-            } else if (code === 'dateRange') {
-                // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
-                formItem = parseDateRange(formData)
-                formItem.other.startFieldName = formData.startFieldName.desktop
-                formItem.other.endFieldName = formData.endFieldName.desktop
+        const fieldName = formData.fieldName.desktop
+        if (fieldName != 'taskId' && fieldName != 'args' && fieldName != 'taskName') {
+            formFields.push(formItem)
+        }
+
+        const other = formItem.other || {}
+
+        if (item.formData.columnNum) {
+            formItem.columnNum = item.formData.columnNum.desktop
+        }
+
+        // 处理 组件 other 中的属性信息
+        if (item.formData.help && item.formData.help.desktop) {
+            other.help = item.formData.help.desktop
+        }
+        if (item.formData.icon && item.formData.icon.desktop) {
+            other.icon = item.formData.icon.desktop
+            other.iconWidth = item.formData.iconWidth.desktop
+            other.iconHeight = item.formData.iconHeight.desktop
+        }
+
+        formItem.other = other
+
+        // 解析表单验证规则
+
+
+        const rules: Array<baseRule> = []
+
+        // 非空验证条件
+        if (formData.required && formData.required.desktop) {
+            rules.push(alaRequired())
+        }
+
+        // 添加字符数最少、最多和范围验证
+        if (formData.strMin && formData.strMax && formData.strMin.desktop && formData.strMax.desktop) {
+            rules.push(alaStrLengthRange(formData.strMin.desktop, formData.strMax.desktop))
+        } else if (formData.strMin && formData.strMin.desktop) {
+            rules.push(alaStrMin(formData.strMin.desktop))
+        } else if (formData.strMax && formData.strMax.desktop) {
+            rules.push(alaStrMax(formData.strMax.desktop))
+        }
+
+        // 添加 数值最小、最大和范围验证
+        if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
+            rules.push(alaNumberRange(formData.numberMin.desktop, formData.numberMax.desktop))
+        } else if (formData.numberMin && formData.numberMin.desktop) {
+            rules.push(alaNumberMin(formData.numberMin.desktop))
+        } else if (formData.numberMax && formData.numberMax.desktop) {
+            rules.push(alaNumberMax(formData.numberMax.desktop))
+        }
+
+        if (formData.rules && formData.rules.desktop) {
+            const functionName = ruleFunctions[formData.rules.desktop]
+            if (!functionName) {
+                logger.error(`【 错误，错误，错误 】${formData.rules.desktop} 函数不存在`);
+            } else {
+                rules.push(ruleFunctions[formData.rules.desktop]())
             }
+        }
 
-            const fieldName = formData.fieldName.desktop
-            if (fieldName != 'taskId' && fieldName != 'args' && fieldName != 'taskName') {
-                formFields.push(formItem)
-            }
+        formItem.rules = rules
 
-            const other = formItem.other || {}
-
-            if (item.formData.columnNum) {
-                formItem.columnNum = item.formData.columnNum.desktop
-            }
-
-            // 处理 组件 other 中的属性信息
-            if (item.formData.help && item.formData.help.desktop) {
-                other.help = item.formData.help.desktop
-            }
-            if (item.formData.icon && item.formData.icon.desktop) {
-                other.icon = item.formData.icon.desktop
-                other.iconWidth = item.formData.iconWidth.desktop
-                other.iconHeight = item.formData.iconHeight.desktop
-            }
-
-            formItem.other = other
-
-            // 解析表单验证规则
-
-
-            const rules: Array<baseRule> = []
-
-            // 非空验证条件
-            if (formData.required && formData.required.desktop) {
-                rules.push(alaRequired())
-            }
-
-            // 添加字符数最少、最多和范围验证
-            if (formData.strMin && formData.strMax && formData.strMin.desktop && formData.strMax.desktop) {
-                rules.push(alaStrLengthRange(formData.strMin.desktop, formData.strMax.desktop))
-            } else if (formData.strMin && formData.strMin.desktop) {
-                rules.push(alaStrMin(formData.strMin.desktop))
-            } else if (formData.strMax && formData.strMax.desktop) {
-                rules.push(alaStrMax(formData.strMax.desktop))
-            }
-
-            // 添加 数值最小、最大和范围验证
-            if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
-                rules.push(alaNumberRange(formData.numberMin.desktop, formData.numberMax.desktop))
-            } else if (formData.numberMin && formData.numberMin.desktop) {
-                rules.push(alaNumberMin(formData.numberMin.desktop))
-            } else if (formData.numberMax && formData.numberMax.desktop) {
-                rules.push(alaNumberMax(formData.numberMax.desktop))
-            }
-
-            if (formData.rules && formData.rules.desktop) {
-                const functionName = ruleFunctions[formData.rules.desktop]
-                if (!functionName) {
-                    logger.error(`【 错误，错误，错误 】${formData.rules.desktop} 函数不存在`);
-                } else {
-                    rules.push(ruleFunctions[formData.rules.desktop]())
-                }
-            }
-
-            formItem.rules = rules
-
-        })
-
-    });
+    })
 
     // 查询数据
 
