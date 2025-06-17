@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 09:58:52
+ * @LastEditTime: 2025-06-17 15:46:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/childTableCount/ala-child-table-count.vue
  * @Description: 
  * 
@@ -25,13 +25,6 @@
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
 import { PropType } from 'vue';
-
-
-interface Item {
-    name: string,
-    value: any
-
-}
 
 // State
 const props = defineProps({
@@ -68,11 +61,9 @@ const model = defineModel({
 
 logger.info(`bType[ $bType ],ala-child-table-count组件被渲染, props :`, props);
 
-console.log('props: --->', props)
-
 
 const styles = computed(() => {
-    const styles: { [key: string]: any } = {}
+    const styles: { [key: string]: any } = { fontWeight: 'bold' }
     styles['color'] = props.colors?.[0]
     return styles
 })
