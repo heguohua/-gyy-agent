@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 15:22:12
+ * @LastEditTime: 2025-06-18 15:28:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailChildTableCountColumn.vue
  * @Description: 
  * 
@@ -121,7 +121,7 @@ const unit = computed(() => {
 const detailItem = ref({})
 const detailFields = ref<Array<any>>([])
 const formAttr = reactive({
-    formWidth: 800,
+    formWidth: 1500,
     columnNum: 1,
     labelWidth: 150,
     labelPosition: 'left',
@@ -158,8 +158,13 @@ const baseInfo = inject('baseInfo', {
 
 const handleClick = async () => {
 
-    let leftTableName = props.formItem.formData.moduleName.desktop
+    // 设置页面相关参数
+    let label = props.formItem.formData.label.desktop
+    u.merged(detailItem.value, { moduleName: label + '明细' })
 
+
+    // 组装查询参数
+    let leftTableName = props.formItem.formData.moduleName.desktop
 
     let rightTableName = `a_${leftTableName}_${baseInfo.module}`
     let joinLeftColumn = `a_${leftTableName}_id`
@@ -220,7 +225,7 @@ const handleClick = async () => {
     params.value = pms
 
     showDetailPage.value = true
-    
+
 }
 
 
