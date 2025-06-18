@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 15:02:22
+ * @LastEditTime: 2025-06-18 14:58:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -209,12 +209,6 @@ const getComponent = ((code: string) => {
         background: #f3f7fa !important;
         font-weight: normal;
         font-size: 0.9rem;
-    }
-
-    :deep(.el-table__cell) {
-        .cell {
-            // white-space: nowrap; // 不换行
-        }
     }
 
     :deep(.value) {
