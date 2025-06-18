@@ -68,7 +68,7 @@ const columnWidth = Type.String({
     title: "单列宽度",
     default: 200,
     other: {
-        min: 100,
+        min: 10,
         max: 500,
         step: 10,
         controlsPosition: ''

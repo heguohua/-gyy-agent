@@ -258,11 +258,6 @@ const modelItemToShowValue = (rows: any) => {
 
 const selectedData = ref([])
 const selectedChange = (currentSelected: [never]) => {
-
-  if (props.singleValue) {
-
-  }
-
   selectedData.value = currentSelected
 }
 

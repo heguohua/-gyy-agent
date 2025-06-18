@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 14:57:30
+ * @LastEditTime: 2025-06-18 14:43:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -220,8 +220,9 @@ const detailFields = computed(() => {
     gap: 4px;
 
     .ala-select-table-value {
-        background-color: rgb(239, 77, 75, 12%);
-        padding: 0px 4px;
+        background-color: rgb(239, 77, 75, 8%);
+        // background-color: rgb(29, 120, 255, 8%);
+        padding: 3px 8px;
         border-radius: 3px;
         display: inline-block;
     }

@@ -213,7 +213,7 @@ const getComponent = ((code: string) => {
 
     :deep(.el-table__cell) {
         .cell {
-            white-space: nowrap; // 不换行
+            // white-space: nowrap; // 不换行
         }
     }
 

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-27 18:00:58
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/formSchema.ts
+ * @LastEditTime: 2025-06-18 14:31:19
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader-dict/formSchema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -110,9 +110,9 @@ const columnNum = Type.Number({
 const columnWidth = Type.String({
     code: "config-int",
     title: "单列宽度",
-    default: 0,
+    default: 100,
     other: {
-        min: 0,
+        min: 10,
         max: 500,
         step: 10,
         controlsPosition: ''

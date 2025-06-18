@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 13:49:59
+ * @LastEditTime: 2025-06-18 11:29:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/childTableCount/formSchema.ts
  * @Description: 
  * 
@@ -67,9 +67,9 @@ const columnNum = Type.Number({
 const columnWidth = Type.String({
     code: "config-int",
     title: "单列宽度",
-    default: 0,
+    default: 100,
     other: {
-        min: 0,
+        min: 10,
         max: 500,
         step: 10,
         controlsPosition: ''
@@ -102,12 +102,17 @@ const moduleName = Type.String({
     ]
 })
 
-
+const params = Type.String({
+    code: "config-textarea",
+    title: "请求参数",
+    default: "",
+})
 const schema = Type.Object({
     label: schemaAllViewport(label),
     fieldName: schemaAllViewport(fieldName),
     unit: schemaAllViewport(unit),
     moduleName: schemaAllViewport(moduleName),
+    params: schemaAllViewport(params),
     colors: schemaAllViewport(configColors("背景色", colors.chartColors)),
     backgroundNum: schemaAllViewport(backgroundNum),
     help: schemaAllViewport(help),

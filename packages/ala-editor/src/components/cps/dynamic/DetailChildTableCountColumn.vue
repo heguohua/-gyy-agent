@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 16:40:22
+ * @LastEditTime: 2025-06-18 10:59:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailChildTableCountColumn.vue
  * @Description: 
  * 
@@ -189,12 +189,6 @@ const handleClick = async () => {
             }
         ],
     }
-
-    console.log('leftTableName:', leftTableName);
-    console.log('rightTableName:', rightTableName);
-    console.log('joinLeftColumn:', joinLeftColumn);
-    console.log('rightColumnValue:', rightColumnValue);
-    console.log('params.value:', params.value);
 
 
 
