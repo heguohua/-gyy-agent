@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 10:56:40
+ * @LastEditTime: 2025-06-18 15:07:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -52,9 +52,10 @@ export function parseRadio(item: { fieldName: { desktop: string }, label: { desk
     return result
 }
 
-export function parseChildTableCount(item: { fieldName: { desktop: string }, label: { desktop: string }, colors: { desktop: [] }, backgroundNum: { desktop: string }, moduleName: { desktop: string } }) {
+export function parseChildTableCount(item: { fieldName: { desktop: string }, label: { desktop: string }, colors: { desktop: [] }, backgroundNum: { desktop: string }, moduleName: { desktop: string }, params: { desktop: string } }) {
 
-    const result = alaBuildChildTableCount(item.fieldName.desktop, item.label.desktop, item.colors.desktop, item.backgroundNum.desktop, item.moduleName.desktop)
+    const result = alaBuildChildTableCount(item.fieldName.desktop, item.label.desktop, item.colors.desktop, item.backgroundNum.desktop, item.moduleName.desktop, item.params.desktop)
+    logger.info(`解析【 item 】字段：`, item);
     logger.info(`解析【 childTableCount 】字段：`, result);
     return result
 }

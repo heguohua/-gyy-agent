@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 10:59:40
+ * @LastEditTime: 2025-06-18 15:22:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailChildTableCountColumn.vue
  * @Description: 
  * 
@@ -160,6 +160,7 @@ const handleClick = async () => {
 
     let leftTableName = props.formItem.formData.moduleName.desktop
 
+
     let rightTableName = `a_${leftTableName}_${baseInfo.module}`
     let joinLeftColumn = `a_${leftTableName}_id`
     let rightColumnName = "a_dynamic_list"
@@ -169,7 +170,10 @@ const handleClick = async () => {
 
     columns.value = configs.columns
     className.value = configs.className
-    params.value = {
+
+    // 组装查询参数
+
+    const pms = {
         tableName: leftTableName,
         columns: ['*'],
         joinRightColumn: 'id',
@@ -190,9 +194,33 @@ const handleClick = async () => {
         ],
     }
 
+    const formDataParams = props.formItem.formData.params?.desktop
+    let fParams: { [key: string]: any } = {}
+    if (formDataParams) {
+        fParams = u.parseJson(formDataParams)
 
+        const p: any = {
+            conditions: []
+        }
+
+        Object.keys(fParams).forEach(key => {
+            if (fParams[key]) {
+                p.conditions.push({
+                    column: `a_${key}`,
+                    operator: "=",
+                    value: fParams[key],
+                })
+            }
+        })
+
+        u.merged(pms, p)
+
+    }
+
+    params.value = pms
 
     showDetailPage.value = true
+    
 }
 
 
