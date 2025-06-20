@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 14:47:04
+ * @LastEditTime: 2025-06-19 13:59:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -189,7 +189,7 @@ const getModuleName = () => {
         .ala-detail-item {
             display: flex;
             margin-bottom: 12px;
-            margin-right: 7px;
+            // margin-right: 7px;
 
             :deep(.title) {
                 text-align: right;

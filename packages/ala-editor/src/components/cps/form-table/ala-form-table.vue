@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 15:20:48
+ * @LastEditTime: 2025-06-19 14:19:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -198,7 +198,7 @@ const headers = ref<Array<Header>>([])
 
 watch(() => data?.value, (v: any) => {
     const keys = Object.keys(v)
-    console.log('data --->:', v);
+    // console.log('data --->:', v);
     if (keys.length === 0) {
         // 说明表单数据为空
         formTableValues.value = []
@@ -240,7 +240,7 @@ const baseInfo = inject('baseInfo', {
 
 
 watch(() => baseInfo, (v) => {
-    console.log('观察到 model.value 发生变化 :', model.value);
+    // console.log('观察到 model.value 发生变化 :', model.value);
 
     if (model.value) {
 
@@ -258,7 +258,7 @@ watch(() => baseInfo, (v) => {
             alaPost(u.url(listUrl || ''), params, false).then((data: any) => {
                 const response = data;
                 if (response.data && response.data.length > 0) {
-                    console.log('response.data ---> :', response.data);
+                    // console.log('response.data ---> :', response.data);
                     formTableValues.value = response.data
                 }
             });
@@ -274,7 +274,7 @@ watch(() => baseInfo, (v) => {
 })
 
 watch(() => localValue.value, (v) => {
-    console.log('观察到 localValue.value 发生变化 :', v);
+    // console.log('观察到 localValue.value 发生变化 :', v);
 
     if (v) {
         model.value = u.tojson(v)
@@ -459,7 +459,7 @@ watch(() => localValue.value, async (v) => {
     if (!v[0]) {
         return
     }
-    
+
     const configs = await getLowcodingConfigById(v[0].id)
 
     const currentModule = baseInfo.module
@@ -471,7 +471,7 @@ watch(() => localValue.value, async (v) => {
     addFormFields.value = []
     configs.addFormFields.forEach(field => {
 
-        console.log('field.fieldName:', field.fieldName);
+        // console.log('field.fieldName:', field.fieldName);
 
         // 去除 ala-divider 此类没有属性name的组件
         if (fci[field.fieldName]) {
@@ -492,9 +492,9 @@ watch(() => localValue.value, async (v) => {
         }
     })
 
-    console.log('headers.value:', headers.value);
-    console.log('formConfigItems.value:', formConfigItems.value);
-    console.log('addFormFields.value:', addFormFields.value);
+    // console.log('headers.value:', headers.value);
+    // console.log('formConfigItems.value:', formConfigItems.value);
+    // console.log('addFormFields.value:', addFormFields.value);
 
 
     formTableValues.value = [{}]
@@ -508,8 +508,8 @@ watch(() => formTableValues.value, (v) => {
 
     const fieldName = `${props.fieldName}FormTableValues`
 
-    console.log('fieldName:', fieldName);
-    console.log('formTableValues.value:', formTableValues.value);
+    // console.log('fieldName:', fieldName);
+    // console.log('formTableValues.value:', formTableValues.value);
     u.merged(data?.value!, { [fieldName]: v })
 
 }, {
@@ -550,8 +550,8 @@ const saveOrPause = (): Boolean => {
             // 根据key查找表单校验规则，并进行匹配
             if (rules) {
                 for (let ruleIndex in Object.values(rules)) {
-                    console.log('ruleIndex:', ruleIndex);
-                    console.log('rule:', rules[ruleIndex]);
+                    // console.log('ruleIndex:', ruleIndex);
+                    // console.log('rule:', rules[ruleIndex]);
                     const { required, min, max, message } = rules[ruleIndex]
 
                     // 不能为空
@@ -621,8 +621,8 @@ const saveOrPause = (): Boolean => {
         }
     }
 
-    console.log('addFormFieldRules:', addFormFieldRules.value);
-    console.log('addFormFields.value:', addFormFields.value);
+    // console.log('addFormFieldRules:', addFormFieldRules.value);
+    // console.log('addFormFields.value:', addFormFields.value);
 
     return checkResult
 }
@@ -689,6 +689,7 @@ defineExpose({
                     .buttons {
                         width: 60px;
 
+
                         .button-add {
                             background: #ecf5ff;
                             display: flex;
@@ -710,6 +711,8 @@ defineExpose({
                 tbody {
                     .buttons {
                         width: 60px;
+                        display: flex;
+                        align-items: center;
 
                         .button-minus {
                             display: flex;
@@ -756,13 +759,21 @@ defineExpose({
                         }
 
                         :deep(.ala-radio-group) {
-                            flex-wrap: nowrap;
+                            row-gap: 0px;
+
+                            // flex-wrap: nowrap;
+                            .ala-radio-item {
+                                width: auto;
+                            }
+
                         }
 
-
-
                         :deep(.ala-checkbox-group) {
-                            flex-wrap: nowrap;
+
+                            // flex-wrap: nowrap;
+                            .ala-checkbox--item {
+                                width: auto;
+                            }
                         }
 
                         :deep(.el-form-item--default) {
