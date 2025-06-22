@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 09:58:20
+ * @LastEditTime: 2025-06-22 22:33:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -39,7 +39,13 @@
             </div>
 
             <div v-if="tipShow" class="tip">
-                嗨，我是小智
+                <div class="ai-tip">
+                    嗨，我是小智
+                </div>
+                <div class="ai-directive">
+                    <textarea class="ai-directive-textarea" type="text" v-model="aiDirective" />
+                    <div class="ai-directive-submit" @click="handleSubmit">发送</div>
+                </div>
                 <div class="button" @click="toAiAssistPage">
                     点我获取帮助
                 </div>
@@ -120,7 +126,8 @@ onMounted(() => {
 // Methods
 const tipShow = ref(false)
 const showTip = (isShow: boolean) => {
-    tipShow.value = isShow
+    // tipShow.value = isShow
+    tipShow.value = true
 }
 
 const toAiAssistPage = () => {
@@ -131,10 +138,32 @@ const path = (route: any, component: any) => {
     return route.path
 }
 
+const aiDirective = ref('')
+const handleSubmit = () => {
+    alaPost(u.url("/ai/audio/page"), { message: aiDirective.value }, true).then((data: any) => {
+        const url = data.data.label
+        if (url.indexOf('__add') > 0) {
+            // 说明是跳转新增页面
+            console.log('url:', url);
+
+        } else {
+            const path = { path: data.data.label }
+            router.push(path)
+        }
+
+    });
+}
+
 </script>
 
 <style scoped lang="scss">
 .layout {
+
+
+
+    // background: #dceafb;
+    background: var(--ala-color-bg);
+    height: inherit;
 
     // 重写 element-plus样式
     // 左侧菜单宽度
@@ -160,12 +189,6 @@ const path = (route: any, component: any) => {
         padding: 8px 0px;
     }
 
-
-
-    // background: #dceafb;
-    background: var(--ala-color-bg);
-    height: inherit;
-
     .content-wraper {
         display: flex;
         height: inherit;
@@ -183,6 +206,63 @@ const path = (route: any, component: any) => {
 
 }
 
+.drag-wrapper {
+    .ala_container {
+        .ala_container_inner {
+            .ai-button-icon {}
+        }
+
+        .tip {
+            .ai-tip {
+                margin: 10px 0px 6px 0px;
+                font-size: 1.4rem;
+                font-weight: bold;
+            }
+
+            .ai-directive {
+                display: flex;
+                position: relative;
+                width: 100%;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+
+                .ai-directive-textarea {
+                    width: 96%;
+                    display: flex;
+                    min-height: 60px;
+                    padding: 4px 8px;
+                    border: none;
+                    font-size: 1rem;
+                    line-height: 1.4rem;
+                }
+
+                .ai-directive-submit {
+                    width: 96%;
+                    border-radius: 4px;
+                    margin: 6px 0px 14px 0px;
+                    padding: 6px 0px;
+                    background: #fff;
+                    color: var(--el-menu-text-color);
+                    font-size: 1rem;
+
+                    &:hover {
+                        color: #F85047;
+                        cursor: pointer;
+                        font-weight: bold;
+                        opacity: 0.99;
+                    }
+
+                }
+
+
+            }
+
+
+        }
+    }
+}
+
 .ala_container {
 
 
@@ -192,7 +272,7 @@ const path = (route: any, component: any) => {
     user-select: none;
     z-index: 9999;
     bottom: 140px;
-    right: 80px;
+    right: 120px;
 
     display: flex;
     flex-direction: column;
@@ -205,7 +285,7 @@ const path = (route: any, component: any) => {
         // position: absolute;
         top: -200%;
         position: static;
-        width: 150px;
+        width: 250px;
 
         transform: rotate(180deg);
         background: #F85047;
@@ -218,14 +298,17 @@ const path = (route: any, component: any) => {
         align-items: center;
         justify-content: center;
 
+
         .button {
-            font-size: 14px;
-            padding: 4px;
+            // font-size: 14px;
+            padding: 6px 0px;
             background: #fff;
             color: #F85047;
-            width: 120px;
+            width: 96%;
             border-radius: 4px;
-            margin-top: 8px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+
 
             &:hover {
                 font-weight: bold;
@@ -250,11 +333,11 @@ const path = (route: any, component: any) => {
 
 
     // &:hover{
+    //
     //     background:red;
     //     &::before{
     //         content:'hello'
 
-    //     }
-    // }
+    //     } }
 }
 </style>
