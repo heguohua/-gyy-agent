@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 22:32:55
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-14 17:30:44
+ * @LastEditTime: 2025-06-23 15:29:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/welcome.vue
  * @Description: 
  * 
@@ -126,7 +126,7 @@ const data = [
 
 const url = '/p/instance/statistic'
 get(u.url(url || ''), '').then((response: any) => {
-  console.log('response.data.data:', response.data);
+  // console.log('response.data.data:', response.data);
 
 });
 </script>

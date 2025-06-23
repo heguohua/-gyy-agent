@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-16 10:01:16
+ * @LastEditTime: 2025-06-23 16:37:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/App.vue
  * @Description: APP.vue 主文件
  * 
@@ -27,6 +27,8 @@ import lstore from '@/utils/lstore';
 import u from '@/utils/u';
 import { WebSocketClient } from '@/utils/websocket';
 import { useAlaStore } from '@/store/ala-store';
+import { EventSourcePolyfill } from 'event-source-polyfill'
+import router from '@/router';
 const alaStore = useAlaStore()
 
 const checkLogin = computed(() => {
@@ -53,21 +55,54 @@ onMounted(() => {
         if (message.messageType && message.messageType === 'ai_full') {
             // 当前是ai智能体回复的完整消息体
             alaStore.set('ai_message', message)
-        } else if (message.content === 'pong') {
+        } else if (message.messageType && message.messageType === 'toPage') {
+            // 当前语音助手发送的菜单操作指令数据
+            console.log('message ---> :', message);
+
+
+            const url = message.label
+            if (url.indexOf('__add') > 0) {
+                // 说明是跳转新增页面
+                const label = message.label.replaceAll('__add', '')
+                const path = { path: label }
+                router.push(path)
+
+            } else {
+                const path = { path: message.label }
+                router.push(path)
+            }
+
+
+        } if (message.content === 'pong') {
             console.log('接收到 ws 服务端【 心跳回复 】');
         }
 
 
 
     });
+
+    // const eventSource = new EventSource(u.url('/ai/sse/subscribe'));
+
+    // eventSource.onopen = (event) => {
+    //     console.log("SSE连接已打开");
+    // };
+
+    // eventSource.onmessage = (event) => {
+    //     console.log("接收到SSE消息：", event.data);
+    // };
+
+    // eventSource.onerror = (err) => {
+    //     console.error("SSE连接错误", err);
+    //     eventSource.close();
+    // };
+
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
     if (ws) {
         ws.close();
     }
 });
-
 
 </script>
 <style lang="scss" scoped></style>
