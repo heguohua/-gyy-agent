@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 15:21:50
+ * @LastEditTime: 2025-06-23 17:23:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -57,7 +57,8 @@ import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { formConfigParse } from './formConfigParser';
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
-
+import { useAlaStore } from '@/store/ala-store';
+const alaStore = useAlaStore()
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -75,7 +76,7 @@ const moduleName = computed(() => {
 
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
-    module:className,
+    module: className,
     moduleName,
     id: null,
     selectedList: Array<{ id: string }>,
@@ -101,6 +102,25 @@ const showAdd = (item: { [key: string]: any }) => {
     showAddForm.value = true
 }
 
+
+
+watch(() => alaStore.get('ai_toPage'), (url: string) => {
+
+
+    const mName = url.slice(route.path.lastIndexOf('/') + 1)
+    if (mName === className) {
+        nextTick(() => {
+            // 在 DOM 更新后打开新增页面
+            showAdd({ id: null })
+        })
+    }
+
+
+}, {
+    immediate: true
+})
+
+
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
     // 解除 响应式引用，防止新增页面数据影响列表数据
@@ -121,7 +141,7 @@ const showDetail = (item: { [key: string]: any }) => {
     u.clear(detailItem.item)
     u.merged(detailItem, { item })
     const entity = toRaw(item)
-    u.merged(baseInfo, { id:entity.id })
+    u.merged(baseInfo, { id: entity.id })
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     showDetailPage.value = true
 }
@@ -258,7 +278,7 @@ onMounted(async () => {
     logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`, params)
 
     const configs = await getLowcodingConfigByClassName(className)
-    
+
     columns.value = configs.columns
     baseFields.value = configs.baseFields
     formConfigItems.value = configs.formConfigItems

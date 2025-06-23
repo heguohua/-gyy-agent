@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-23 16:37:56
+ * @LastEditTime: 2025-06-23 17:58:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/App.vue
  * @Description: APP.vue 主文件
  * 
@@ -57,8 +57,6 @@ onMounted(() => {
             alaStore.set('ai_message', message)
         } else if (message.messageType && message.messageType === 'toPage') {
             // 当前语音助手发送的菜单操作指令数据
-            console.log('message ---> :', message);
-
 
             const url = message.label
             if (url.indexOf('__add') > 0) {
@@ -66,6 +64,10 @@ onMounted(() => {
                 const label = message.label.replaceAll('__add', '')
                 const path = { path: label }
                 router.push(path)
+
+                nextTick(() => {
+                    alaStore.set('ai_toPage', label)
+                })
 
             } else {
                 const path = { path: message.label }
@@ -80,21 +82,6 @@ onMounted(() => {
 
 
     });
-
-    // const eventSource = new EventSource(u.url('/ai/sse/subscribe'));
-
-    // eventSource.onopen = (event) => {
-    //     console.log("SSE连接已打开");
-    // };
-
-    // eventSource.onmessage = (event) => {
-    //     console.log("接收到SSE消息：", event.data);
-    // };
-
-    // eventSource.onerror = (err) => {
-    //     console.error("SSE连接错误", err);
-    //     eventSource.close();
-    // };
 
 });
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-22 22:33:28
+ * @LastEditTime: 2025-06-23 18:24:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -32,15 +32,20 @@
 
     </div>
     <div class="drag-wrapper" v-dragSwitch="true">
-        <div class="ala_container" @mouseenter="showTip(true)" @mouseleave="showTip(false)">
+        <div class="ala_container" @mouseenter="showTip(true)">
 
             <div class="ala_container_inner">
                 <img class="ai-button-icon" src="/ai/ai-button.svg" />
             </div>
 
             <div v-if="tipShow" class="tip">
+
+                <div class="tip-close">
+                    <VIcon icon="close_circle" width="20" height="20" @click="handleClose()" />
+                </div>
+
                 <div class="ai-tip">
-                    嗨，我是小智
+                    嗨，我是白露
                 </div>
                 <div class="ai-directive">
                     <textarea class="ai-directive-textarea" type="text" v-model="aiDirective" />
@@ -66,6 +71,8 @@ import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 import { alaConsts } from '@/config/alaConsts';
 import router from '@/router';
+import { useAlaStore } from '@/store/ala-store';
+const alaStore = useAlaStore()
 
 // 引入useLocale
 import { changLanguage, useLocale } from '@/hooks/useLocale'
@@ -126,8 +133,12 @@ onMounted(() => {
 // Methods
 const tipShow = ref(false)
 const showTip = (isShow: boolean) => {
-    // tipShow.value = isShow
-    tipShow.value = true
+    tipShow.value = isShow
+    // tipShow.value = true
+}
+const handleClose = () => {
+    tipShow.value = false
+    // tipShow.value = true
 }
 
 const toAiAssistPage = () => {
@@ -144,12 +155,19 @@ const handleSubmit = () => {
         const url = data.data.label
         if (url.indexOf('__add') > 0) {
             // 说明是跳转新增页面
-            console.log('url:', url);
+            const label = url.replaceAll('__add', '')
+            const path = { path: label }
+            router.push(path)
+
+            nextTick(() => {
+                alaStore.set('ai_toPage', label)
+            })
 
         } else {
             const path = { path: data.data.label }
             router.push(path)
         }
+        aiDirective.value = ''
 
     });
 }
@@ -213,11 +231,25 @@ const handleSubmit = () => {
         }
 
         .tip {
+
+            .tip-close {
+                position: absolute;
+                top: 6px;
+                right: 10px;
+                opacity: 0.9;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 1;
+                }
+            }
+
             .ai-tip {
                 margin: 10px 0px 6px 0px;
                 font-size: 1.4rem;
                 font-weight: bold;
             }
+
 
             .ai-directive {
                 display: flex;
@@ -297,6 +329,7 @@ const handleSubmit = () => {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
 
 
         .button {

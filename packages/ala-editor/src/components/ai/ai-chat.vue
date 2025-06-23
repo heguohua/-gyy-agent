@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="chat-input">
-      <textarea type="text" placeholder="给 小智 发送消息吧（ 按 Alt + Enter 发送消息 ）" v-model="inputText" @keydown="sendMessage" />
+      <textarea type="text" placeholder="给 白露 发送消息吧（ 按 Alt + Enter 发送消息 ）" v-model="inputText" @keydown="sendMessage" />
     </div>
   </div>
 </template>
@@ -47,7 +47,7 @@ type Message = {
 }
 
 const messages = ref<Array<Message>>([
-  { id: '1', text: 'Hi，我是小智~\n很高兴遇见你！我是你的私人助手，您可以随时问我问题。', userId: 0 },
+  { id: '1', text: 'Hi，我是白露~\n很高兴遇见你！我是你的私人助手，您可以随时问我问题。', userId: 0 },
 ]);
 
 const inputText = ref('');
