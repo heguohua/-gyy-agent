@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-23 18:20:13
+ * @LastEditTime: 2025-06-25 10:22:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -153,6 +153,10 @@ const icon = {
   f_cascader:"typcn:flow-children",
   f_table:"si:table-line",
   f_counter:"mdi:counter",
+  f_ai:"hugeicons:ai-network",
+  f_earth:"lsicon:earth-outline",
+  f_attachment:"majesticons:attachment",
+  f_arrow_up:"tabler:arrow-up",
 
   // 客户中心
   m_customer:"garden:customer-lists-fill-26",

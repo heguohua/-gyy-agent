@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     A: typeof import('./src/components/base/a.vue')['default']
     AiChat: typeof import('./src/components/ai/ai-chat.vue')['default']
+    AlaAi: typeof import('./src/components/cps/ai/ala-ai.vue')['default']
     AlaBaseForm: typeof import('./src/components/cps/form/ala-base-form.vue')['default']
     AlaBaseFormProcess: typeof import('./src/components/cps/form/ala-base-form-process.vue')['default']
     AlaBlankImage: typeof import('./src/components/cps/blank/ala-blank-image.vue')['default']

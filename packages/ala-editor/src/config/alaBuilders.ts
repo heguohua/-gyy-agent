@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 15:06:52
+ * @LastEditTime: 2025-06-25 10:13:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -216,6 +216,12 @@ export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [
 
 export function alaBuildChildTableCount(fieldName: string, label: string, colors: Array<{ [key: string]: any }>, backgroundNum: string, moduleName: string, params: string): AlaRadioSchema {
     const obj = alaBuildWithOther("AlaChildTableCount", fieldName, label, { colors, backgroundNum, moduleName, params })
+    return obj
+}
+
+
+export function alaBuildAi(fieldName: string, label: string, showImageIcon: boolean, showFileIcon: boolean, showListenIcon: boolean): AlaRadioSchema {
+    const obj = alaBuildWithOther("AlaAi", fieldName, label, { showImageIcon, showFileIcon, showListenIcon })
     return obj
 }
 
