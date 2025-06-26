@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:59:43
+ * @LastEditTime: 2025-06-26 15:21:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -185,12 +185,13 @@ export function get(url: string, params = {}) {
  *  url:请求地址
  *  params:参数
  * */
-export function post(url: string, params = {}) {
+export function post(url: string, params = {}, timeout = 20000) {
   return new Promise((resolve, reject) => {
 
     axiosInstance({
       url: url,
       method: 'post',
+      timeout,
       data: params,
       headers: {
         'Content-Type': 'application/json',
@@ -259,12 +260,13 @@ export function alaDownload(url: string, params = {}) {
  *  url:请求地址
  *  params:参数
  * */
-export function alaPost(url: string, params = {}, showProgress = false, method?: string) {
+export function alaPost(url: string, params = {}, showProgress = false, method?: string, timeout = 20000) {
   return new Promise((resolve, reject) => {
 
     axiosInstance({
       url: url,
       method: method ? method : 'post',
+      timeout,
       data: params,
       headers: {
         sp: showProgress,
