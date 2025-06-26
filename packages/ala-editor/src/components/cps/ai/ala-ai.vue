@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-26 15:25:45
+ * @LastEditTime: 2025-06-26 15:31:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/ai/ala-ai.vue
  * @Description: 
  * 
@@ -150,34 +150,20 @@ const handleClick = () => {
 const fileInput = ref();
 const value = ref('');
 const identifyImage = () => {
-
     fileInput.value.click()
-
-    // alaPost(u.url('/ai/form/parse'), params, false, '').then((data: any) => {
-    //     const response = data;
-    //     if (response.data?.content) {
-    //         u.merged(props.data, response.data.content)
-    //     }
-    // });
 }
 const handleFileChange = async (event: any) => {
 
     const target = event.target as HTMLInputElement
-
-
     if (!target.files || target.files.length === 0) return;
-
     // 支持多选：将 FileList 转成数组便于遍历与过滤
     const files = Array.from(target.files);
-
     // 1️⃣ 过滤非法类型
     const validFiles = files.filter((f: any) => ALLOWED_TYPES.includes(f.type));
-
     if (validFiles.length === 0) {
         console.warn("未选择允许的图片类型！");
         return;
     }
-
 
     try {
         // 2️⃣ 并行读取：Promise.all 可同时读取多张图片
@@ -186,12 +172,11 @@ const handleFileChange = async (event: any) => {
         );
 
         // 3️⃣ 这里将获取到的 base64 列表交给后续逻辑（例如上传 / 预览）
-        console.log("转换完成的 Base64 数组：", base64List);
-
 
         if (!base64List || base64List.length === 0) {
             return
         }
+
         const params = {
             className: baseInfo.module,
             imageBase64: base64List,
@@ -199,24 +184,18 @@ const handleFileChange = async (event: any) => {
 
         alaPost(u.url('/ai/form/images'), params, false, '', 30 * 1000).then((data: any) => {
             const response = data;
-            console.log('response.data:', response.data);
-
             target.value = ""
-
             if (response.data?.content) {
                 model.value = response.data.identifiedText
                 u.merged(props.data, response.data.content)
             }
         });
 
-
-        // 例如 emit / setState / pinia.save 等：
-        // emit('change', base64List)
     } catch (err) {
         console.error("图片读取失败：", err);
     } finally {
         // 可选：清空 input，以便再次选择同一文件触发 change
-        // input.value = "";
+        target.value = ""
     }
 
 }
