@@ -2,17 +2,17 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-26 15:31:42
+ * @LastEditTime: 2025-06-26 21:35:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/ai/ala-ai.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-ai-wrapper">
+    <div class="ala-ai-wrapper" :style="oStyle">
 
         <el-input type="textarea" autosize :model-value="model" @input="handleChange" :placeholder="placeholder"
-            :id="fieldName" class="ala-ai-textarea">
+            :id="fieldName" class="ala-ai-textarea" :style="opacityStyle">
 
             <template #prefix v-if="icon">
                 <v-icon class="icon" :icon="icon" :width="iconWidth" :height="iconHeight" />
@@ -20,7 +20,7 @@
 
         </el-input>
 
-        <div class="icons">
+        <div class="icons" :style="opacityStyle">
             <div class="icon-btn">
                 <v-icon icon="f_earth" width="23" height="23" />
             </div>
@@ -40,6 +40,8 @@
                 <v-icon icon="f_arrow_up" width="26" height="26" />
             </div>
         </div>
+
+        <AlaProcessing title="正在努力识别中。。。" v-if="showLoading" />
 
     </div>
 </template>
@@ -139,12 +141,23 @@ const handleClick = () => {
         content: model.value,
     }
 
-    alaPost(u.url('/ai/form/parse'), params, false, '').then((data: any) => {
-        const response = data;
-        if (response.data?.content) {
-            u.merged(props.data, response.data.content)
-        }
-    });
+    showLoading.value = true
+
+    try {
+        alaPost(u.url('/ai/form/parse'), params, false, '').then((data: any) => {
+            const response = data;
+            if (response.data?.content) {
+                u.merged(props.data, response.data.content)
+            }
+        }).finally(() => {
+            showLoading.value = false
+        });
+
+    } catch (err) {
+        console.error("图片读取失败：", err);
+    } finally {
+        // 可选：清空 input，以便再次选择同一文件触发 change
+    }
 }
 
 const fileInput = ref();
@@ -182,6 +195,8 @@ const handleFileChange = async (event: any) => {
             imageBase64: base64List,
         }
 
+        showLoading.value = true
+
         alaPost(u.url('/ai/form/images'), params, false, '', 30 * 1000).then((data: any) => {
             const response = data;
             target.value = ""
@@ -189,6 +204,8 @@ const handleFileChange = async (event: any) => {
                 model.value = response.data.identifiedText
                 u.merged(props.data, response.data.content)
             }
+        }).finally(() => {
+            showLoading.value = false
         });
 
     } catch (err) {
@@ -207,6 +224,25 @@ const acceptFileTypes = computed(() => {
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/bmp"] as const;
 
+
+const showLoading = ref(false)
+
+const opacityStyle = computed(() => {
+    const style: { [key: string]: any } = { opacity: 1 }
+    if (showLoading.value) {
+        style.opacity = 0.1
+    }
+    return style
+})
+const oStyle = computed(() => {
+    const style: { [key: string]: any } = { borderWidth: '1px', borderStyle: 'solid', borderColor: 'rgb(239,77,75,0.8)' }
+    if (showLoading.value) {
+        style.borderColor = 'rgb(239,77,75,0.1)'
+    }
+    return style
+})
+
+
 </script>
 
 <style scoped lang="scss">
@@ -214,9 +250,9 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/bmp"] as const;
 
     position: relative;
     margin-top: 40px;
-    border: 1px solid #ef4d4b;
     border-radius: 12px;
     padding-top: 6px;
+    min-height: 140px;
 
     .icons {
         position: absolute;
