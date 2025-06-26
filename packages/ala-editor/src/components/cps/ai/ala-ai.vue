@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-25 11:30:01
+ * @LastEditTime: 2025-06-26 11:11:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/ai/ala-ai.vue
  * @Description: 
  * 
@@ -24,11 +24,17 @@
             <div class="icon-btn online">
                 <v-icon icon="f_earth" width="23" height="23" />
             </div>
-            <div class="icon-btn attachment">
+            <div class="icon-btn online" v-if="showImageIcon">
+                <v-icon icon="f_image" width="22" height="22" />
+            </div>
+            <div class="icon-btn attachment" v-if="showFileIcon">
                 <v-icon icon="f_attachment" width="24" height="24" />
             </div>
+            <div class="icon-btn attachment" v-if="showListenIcon">
+                <v-icon icon="f_audio" width="24" height="24" />
+            </div>
             <div class="vertical-line"></div>
-            <div class="icon-send" :style="styles" @click="">
+            <div class="icon-send" :style="styles" @click="handleClick">
                 <v-icon icon="f_arrow_up" width="26" height="26" />
             </div>
         </div>
@@ -37,6 +43,9 @@
 </template>
 
 <script setup lang="ts">
+import { alaPost } from '@/utils/req'
+import u from '@/utils/u'
+
 
 
 // State
@@ -44,6 +53,10 @@ const props = defineProps({
     label: {
         type: String,
         default: ''
+    },
+    data: {
+        type: Object,
+        default: () => { }
     },
     position: {
         type: String as () => '' | 'top' | 'left' | 'right',
@@ -108,7 +121,29 @@ const styles = computed(() => {
 })
 
 // Methods
+// 获取数据缓存对象
+const baseInfo = inject('baseInfo', {
+    module: '',
+    moduleName: '',
+});
 
+const handleClick = () => {
+
+    if (!model.value) {
+        return
+    }
+    const params = {
+        className: baseInfo.module,
+        content: model.value,
+    }
+
+    alaPost(u.url('/ai/form/parse'), params, false, '').then((data: any) => {
+        const response = data;
+        if (response.data?.content) {
+            u.merged(props.data, response.data.content)
+        }
+    });
+}
 
 
 </script>
@@ -148,16 +183,14 @@ const styles = computed(() => {
             }
         }
 
-        .online {
-            :deep(path) {
-                stroke: #737373;
-            }
+        :deep(path) {
+            stroke: #737373;
+            color: #737373;
         }
 
-        .attachment {
-            :deep(path) {
-                stroke: #737373;
-            }
+        :deep(circle) {
+            stroke: #737373;
+            color: #737373;
         }
 
         .vertical-line {

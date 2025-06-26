@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-25 10:22:06
+ * @LastEditTime: 2025-06-26 11:08:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -157,6 +157,8 @@ const icon = {
   f_earth:"lsicon:earth-outline",
   f_attachment:"majesticons:attachment",
   f_arrow_up:"tabler:arrow-up",
+  f_image:"akar-icons:image",
+  f_audio:"ant-design:audio-outlined",
 
   // 客户中心
   m_customer:"garden:customer-lists-fill-26",
