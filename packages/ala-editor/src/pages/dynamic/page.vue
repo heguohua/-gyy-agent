@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-06 20:33:00
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 15:23:56
+ * @LastEditTime: 2025-06-27 14:05:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/page.vue
  * @Description: 
  * 
@@ -68,16 +68,18 @@ const pageStyles = computed(() => {
     return styles.value
 })
 
-onMounted(async () => {
-    const config = await getRawLowcodingConfigByClassName(className)
+const pageConfig = ref<Object>({})
+const blockList = ref<Array<any>>([])
 
-    const pageConfig = ref<Object>({})
-    const blockList = ref<Array<any>>([])
+onMounted(async () => {
+    
+    const config = await getRawLowcodingConfigByClassName(className)
 
     const pageFormData = config.pageConfig
     const blocks = config.blockConfig
     pageConfig.value = pageFormData
     blockList.value = blocks[bType.value]
+
 })
 
 

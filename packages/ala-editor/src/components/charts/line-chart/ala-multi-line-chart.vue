@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 09:09:39
+ * @LastEditTime: 2025-06-27 12:15:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -233,7 +233,7 @@ const query = () => {
 
 // 开启数据请求
 let timerId: number
-onActivated(() => {
+onMounted(() => {
 
     // 第一次加载数据
     queryDataAndDrawChart()
@@ -246,7 +246,8 @@ onActivated(() => {
     }, intervals);
 
 })
-onDeactivated(() => {
+
+onUnmounted(() => {
     if (timerId) {
         logger.info(`即将清除id为【 ${timerId} 】的定时器`)
         clearInterval(timerId);
@@ -259,7 +260,7 @@ const queryDataAndDrawChart = () => {
     if (data_request_enabled) {
         // 调用 api 接口加载数据
         data.value = []
-
+        query()
 
 
     } else {
@@ -270,8 +271,10 @@ const queryDataAndDrawChart = () => {
         data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '美妆护肤‌' }))
         data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '‌电子产品' }))
         data.value.push(u.mergeIntoEach(u.randomizeProperty(data.value[0], 'value'), { category: '食品生鲜' }))
+        drawChart()
+
     }
-    drawChart()
+
 
 }
 

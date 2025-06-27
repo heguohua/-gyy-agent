@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:48:20
+ * @LastEditTime: 2025-06-27 12:14:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -259,12 +259,12 @@ onMounted(() => {
     // 定时刷新数据
     const intervals = props.formData.data_time.desktop || 5000
 
-
     timerId = window.setInterval(() => {
         queryDataAndDrawChart()
     }, intervals);
 
 })
+
 onUnmounted(() => {
     if (timerId) {
         logger.info(`即将清除id为【 ${timerId} 】的定时器`)
@@ -273,7 +273,6 @@ onUnmounted(() => {
 })
 
 const queryDataAndDrawChart = () => {
-
 
     const data_request_enabled = props.formData.data_request_enabled.desktop || false
 
@@ -293,10 +292,8 @@ const queryDataAndDrawChart = () => {
         if (yName != 'value') {
             newData = u.renameKeyInArray(newData, 'value', yName)
         }
-
         data.value = newData
         drawChart()
-
     }
 
 }
