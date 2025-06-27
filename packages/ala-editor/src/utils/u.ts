@@ -2,13 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 15:45:05
+ * @LastEditTime: 2025-06-27 21:18:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 import notify from "@/utils/notify"
+import pako from 'pako'
 import WarnException from "@/utils/WarnException"
 import { cloneDeep, merge } from "lodash";
 import { logger } from "./logger";
@@ -578,6 +579,74 @@ export default class u {
             reader.onload = () => resolve(reader.result as string);
             reader.onerror = reject;
             reader.readAsDataURL(file);
-        });
+        })
+
+    /**
+     * 压缩 base64 字符串
+     * @param base64Str 
+     * @returns 
+     */
+    public static compressBase64(base64Str: string): string {
+        const binary = atob(base64Str)
+        const bytes = new Uint8Array(binary.length)
+        for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i)
+        }
+
+        const compressed = pako.gzip(bytes)
+        return btoa(String.fromCharCode(...compressed))
+    }
+
+    /**
+     * 解压 被压缩的base64 字符串
+     * @param compressedBase64 
+     * @returns 
+     */
+    public static decompressBase64(compressedBase64: string): string {
+        const binary = atob(compressedBase64)
+        const bytes = new Uint8Array([...binary].map(c => c.charCodeAt(0)))
+        const decompressed = pako.ungzip(bytes)
+        return btoa(String.fromCharCode(...decompressed))
+    }
+
+    /**
+     * 数字计数 特效
+     * @param param0 
+     */
+    public static animateNumber(
+        {
+            from = 0,
+            to = 99.9,
+            decimalNum = 0,
+            duration = 2000,
+            onUpdate,
+            onFinish,
+        }: {
+            from?: number
+            to?: number
+            decimalNum?: number
+            duration?: number
+            onUpdate: (val: string) => void
+            onFinish?: () => void
+        },
+    ) {
+        const start = performance.now()
+
+        const tick = (now: number) => {
+            const elapsed = now - start
+            const progress = Math.min(elapsed / duration, 1) // 0 → 1
+            const value = from + (to - from) * progress
+            onUpdate(value.toFixed(decimalNum))                       // 1 位小数
+
+            if (progress < 1) {
+                requestAnimationFrame(tick)
+            } else {
+                onFinish?.()
+            }
+        }
+
+        requestAnimationFrame(tick)
+    }
 
 }
+

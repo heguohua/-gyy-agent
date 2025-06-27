@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 19:07:13
+ * @LastEditTime: 2025-06-27 21:50:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/cards/ala-card-1.vue
  * @Description: 
  * 
@@ -11,11 +11,21 @@
 <template>
     <div class="ala-card-chart-wrapper" :style="divStyles" ref="chartWrapper">
 
-        <VIcon v-if="formData.freeTitleIcon?.desktop" :image="'/bi/' + formData.freeTitleIcon?.desktop"
-            :width="formData.text_fontSize?.desktop + 'px'" :height="formData.text_fontSize?.desktop + 'px'" />
+        <div class="icon" :style="iconStyles">
+            <VIcon v-if="formData.icon?.desktop" :image="'/bi/' + formData.icon?.desktop"
+                :width="formData.icon_width?.desktop + 'px'" :height="formData.icon_height?.desktop + 'px'" />
+        </div>
 
-        <div class="title" :style="titleStyles">
-            {{ formData.mainTitleText?.desktop }}
+        <div class="quota">
+
+            <div class="title" :style="titleStyles">
+                {{ formData.mainTitleText?.desktop }}（{{ props.formData.unit?.desktop }}）
+            </div>
+
+            <div class="value" :style="valueStyles">
+                {{ value }}
+            </div>
+
         </div>
 
     </div>
@@ -27,6 +37,7 @@ import * as d3 from 'd3';
 import DataPoint, * as ad3 from '@/components/charts/utils/dChart';
 import u from '@/utils/u';
 import { alaPost } from '@/utils/req';
+import colors from '@/utils/colors';
 
 // State
 const props = defineProps({
@@ -46,6 +57,7 @@ logger.info(`bType[ ${props.bType} ]，动态渲染 ala-card-chart 组件，prop
 
 // 示例数据
 const data = ref<DataPoint[]>([]);
+const value = ref(0)
 const demoData = [{ name: '一月', value: 300 }, { name: '三月', value: 210 }, { name: '五月', value: 569 }, { name: '七月', value: 183 }, { name: '九月', value: 235 }, { name: '十一月', value: 478 }]
 
 // 图标外层对象div实例
@@ -65,9 +77,24 @@ watch(() => props.formData, (v) => {
 
 // 1、动态设置svg图形 外部div 样式
 const divStyles = computed(() => {
-    console.log('props.formData:', props.formData);
     const background = props.formData.backgroundColor?.desktop || '#fff'
     const style: { [key: string]: any } = { width: '100%', height: '100%', borderRadius: props.formData.radius?.desktop, background }
+    const position = props.formData.icon_position?.desktop || 'left'
+    if (position === 'right') {
+        style.flexDirection = 'row-reverse';
+    } else if (position === 'top') {
+        style.flexDirection = 'column'
+    }
+
+    return style
+})
+
+const iconStyles = computed(() => {
+    const background = props.formData.icon_background?.desktop || '#fff'
+    const background_radius = props.formData.icon_background_radius?.desktop || 0
+
+    const style: { [key: string]: any } = { borderRadius: background_radius + '%', background, boxShadow: background + ' 0px 0px 10px 5px' }
+
     return style
 })
 
@@ -76,12 +103,41 @@ const divStyles = computed(() => {
 const titleStyles = computed(() => {
 
     const formData = props.formData
-    const mainTitleText = formData.mainTitleText?.desktop
-    const freeTitle = formData.freeTitle?.desktop
-    let style: { [key: string]: any } = {}
-    if (mainTitleText && freeTitle) {
-        style = ad3.mainTitleCssStyle(formData)
+
+    let color = formData.text_color?.desktop || colors.alaRed
+    let fontSize = (formData.text_fontSize?.desktop || 32) + 'px'
+    let fontWeight = formData.text_fontWeight?.desktop || 400
+    let marginTop = formData.text_top?.desktop || '0px'
+
+    let style: { [key: string]: any } = {
+        color,
+        fontSize: fontSize,
+        fontWeight,
+        marginTop,
+        lineHeight: fontSize
     }
+    return style
+})
+const valueStyles = computed(() => {
+
+    const formData = props.formData
+
+    let color = formData.value_color?.desktop || colors.alaRed
+    let fontSize = (formData.value_fontSize?.desktop || 32) + 'px'
+    let fontWeight = formData.value_fontWeight?.desktop || 400
+    let marginTop = formData.value_top?.desktop || '0px'
+    let marginLeft = formData.value_left?.desktop || '0px'
+
+    let style: { [key: string]: any } = {
+        color,
+        fontSize: fontSize,
+        marginTop,
+        marginLeft,
+        fontWeight,
+        lineHeight: fontSize
+    }
+
+
     return style
 })
 
@@ -126,7 +182,14 @@ const query = () => {
             const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
             const dd = u.convertPropertyToNumber(d, yName, yDecimalNum)
             data.value = dd as any
-            drawChart()
+            u.animateNumber({
+                from: 0,
+                to: dd[0][yName],
+                onUpdate: val => {
+                    // 把 val 直接写到页面
+                    value.value = Number(val)
+                }
+            })
         }
 
 
@@ -189,9 +252,37 @@ const queryDataAndDrawChart = () => {
 <style scoped lang="scss">
 .ala-card-chart-wrapper {
 
-    display: inline-flex;
-    height: auto;
-    flex-wrap: wrap;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 25%;
+        order: 1;
+    }
+
+    .quota {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 60%;
+        padding-left: 10px;
+        order: 2;
+
+        .title,
+        .value {
+            width: 100%;
+            text-align: left;
+            ;
+        }
+
+
+    }
 
 
 }

@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 18:41:23
+ * @LastEditTime: 2025-06-27 20:14:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -450,6 +450,19 @@ export const configMainTitle = () => {
         // text_padding: schemaAllViewport(configInt("内边距")),
         // text_textAlign: schemaAllViewport(configTextAlign("水平对齐")),
         // text_textVerticalAlign: schemaAllViewport(configTextVerticalAlign("垂直对齐")),
+    }
+    return config
+}
+
+export const configValue = () => {
+    const config = {
+        value_color: schemaAllViewport(configColor("字体颜色", '#3D446E')),
+        value_fontSize: schemaAllViewport(configInt("字体大小", 14)),
+        value_fontWeight: schemaAllViewport(configFontWeight("字体粗细")),
+        value_left: schemaAllViewport(configText("左偏移", '20px')),
+        value_top: schemaAllViewport(configText("上偏移", '10px')),
+        text_bottom: schemaAllViewport(configText("下偏移", '10px')),
+   
     }
     return config
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 18:14:26
+ * @LastEditTime: 2025-06-27 20:36:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-screen.ts
  * @Description: 
  * 
@@ -16,7 +16,8 @@ import { formTypes } from "@/components/cps/dynamic/formTypes";
 const background = Type.Boolean({
     code: "config-color",
     title: "背景色",
-    default: 'rgb(255, 255, 255,0.01)',
+    // default: 'rgb(255, 255, 255,0.01)',
+    default: '#F4F7FA',
 })
 // { name: 'required', message: '不能为空' },
 // { name: 'pattern', pattern: 'phone', message: '只能填写手机号' },

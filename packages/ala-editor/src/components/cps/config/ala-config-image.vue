@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 14:50:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 19:09:41
+ * @LastEditTime: 2025-06-27 19:52:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-image.vue
  * @Description: 
  * 
@@ -11,13 +11,7 @@
 <template>
     <div class="config-select">
         <el-form-item :label="title" :class="isRequired()">
-            <el-input v-model="input" :placeholder="placeholder" class="input" readonly type="textarea" autosize />
-
-            <div class="select-file" @click="selectFile">
-                <input type="file" ref="fileInput" @change="handleFileChange" :accept="acceptFileTypes"
-                    class="hidden-input" :multiple="false" :value="value" />
-                <v-icon class="icon" icon="upload" /><i class="button">选择图片</i>
-            </div>
+            
         </el-form-item>
     </div>
 </template>
@@ -128,73 +122,20 @@ watch(() => editorStore.globalParams[bType], () => {
 }, { deep: true })
 
 
-const fileInput = ref()
-const value = ref('');
-const selectFile = () => {
-    fileInput.value.click()
-}
-const handleFileChange = async (event: any) => {
 
-    const target = event.target as HTMLInputElement
-    if (!target.files || target.files.length === 0) return;
-    // 支持多选：将 FileList 转成数组便于遍历与过滤
-    const files = Array.from(target.files);
-    // 1️⃣ 过滤非法类型
-    const validFiles = files.filter((f: any) => ALLOWED_TYPES.includes(f.type));
-    if (validFiles.length === 0) {
-        console.warn("未选择允许的图片类型！");
-        return;
-    }
-
-    try {
-        // 2️⃣ 并行读取：Promise.all 可同时读取多张图片
-        const base64List = await Promise.all(
-            validFiles.map(u.readFileAsBase64)
-        );
-
-        // 3️⃣ 这里将获取到的 base64 列表交给后续逻辑（例如上传 / 预览）
-
-        if (!base64List || base64List.length === 0) {
-            return
-        }
-
-        console.log('base64List:', base64List);
-
-
-
-    } catch (err) {
-        console.error("图片读取失败：", err);
-    } finally {
-        // 可选：清空 input，以便再次选择同一文件触发 change
-        target.value = ""
-    }
-
-}
-
-
-const acceptFileTypes = computed(() => {
-    return '.jpg, .jpeg, .png, .bmp'
-})
-
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/bmp"] as const;
-
-
+// 注意，注意，注意： 该组件未完成！！！
 
 
 </script>
 
 <style scoped lang="scss">
 .config-select {
-    .input {}
 
     .select-file {
         .hidden-input {
             display: none;
         }
 
-        .icon {}
-
-        .button {}
     }
 
     :deep(.el-input__wrapper) {
