@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 14:10:29
+ * @LastEditTime: 2025-06-27 14:22:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/bar-chart/ala-bar-chart.vue
  * @Description: 
  * 
@@ -25,6 +25,7 @@ import * as d3 from 'd3';
 import DataPoint, * as ad3 from '@/components/charts/utils/dChart';
 import u from '@/utils/u';
 import { alaPost } from '@/utils/req';
+import colors from '@/utils/colors';
 
 // State
 const props = defineProps({
@@ -185,31 +186,63 @@ const drawChart = () => {
 
     }
 
-    // 9、创建 折线 生成器
-    const line = d3.line<DataPoint>()
-        .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
-        .y((d: any) => yScale(d[yName]));
-    const line_curve_style = formData.line_curve_style?.desktop || 'curveLinear'
-    // 设定曲线样式
-    ad3.curveStyle(line, line_curve_style)
+    const tooltip = d3.select(chartWrapper.value)
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0)
 
-    // 10、绘制折线
-    const line_color = formData.line_color?.desktop || 'red';
-    ad3.drawLine(formData, group, data.value, line, line_color);
+    // 绘制柱子
+    group.selectAll('.bar')
+        .data(data.value)
+        .enter()
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('x', d => (xScale!(d.name) || 0))
+        .attr('width', xScale!.bandwidth())
+        .attr('y', height) // 初始高度为底部，用于动画
+        .attr('height', 0)
+        .attr('fill', colors.chartColors[5])
+        .on('mouseover', (event, d) => {
+            tooltip.transition().duration(200).style('opacity', 0.9)
+            tooltip.html(`${d.name}<br/>值: ${d.value}`)
+                .style('left', `${event.offsetX + 10}px`)
+                .style('top', `${event.offsetY - 28}px`)
+        })
+        .on('mouseout', () => {
+            tooltip.transition().duration(300).style('opacity', 0)
+        })
+        .transition()
+        .duration(800)
+        .attr('y', d => yScale(d.value))
+        .attr('height', d => height - yScale(d.value))
 
-    // 11、添加区域图生成器
-    const addArea = formData.addArea?.desktop || false
-    const areaColor = formData.areaColor?.desktop || 'red'
-    if (addArea) {
-        const area = d3.area<DataPoint>()
-            .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
-            .y0(height)
-            .y1((d: any) => yScale(d[yName]))
-        // 设定曲线样式 
-        ad3.curveStyle(area, line_curve_style)
-        // 绘制面积
-        ad3.drawArea(group, data.value, areaColor, area);
-    }
+
+
+    // // 9、创建 折线 生成器
+    // const line = d3.line<DataPoint>()
+    //     .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
+    //     .y((d: any) => yScale(d[yName]));
+    // const line_curve_style = formData.line_curve_style?.desktop || 'curveLinear'
+    // // 设定曲线样式
+    // ad3.curveStyle(line, line_curve_style)
+
+    // // 10、绘制折线
+    // const line_color = formData.line_color?.desktop || 'red';
+    // ad3.drawLine(formData, group, data.value, line, line_color);
+
+    // // 11、添加区域图生成器
+    // const addArea = formData.addArea?.desktop || false
+    // const areaColor = formData.areaColor?.desktop || 'red'
+    // if (addArea) {
+    //     const area = d3.area<DataPoint>()
+    //         .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
+    //         .y0(height)
+    //         .y1((d: any) => yScale(d[yName]))
+    //     // 设定曲线样式 
+    //     ad3.curveStyle(area, line_curve_style)
+    //     // 绘制面积
+    //     ad3.drawArea(group, data.value, areaColor, area);
+    // }
 
     // 12、设置端点样式，Circle 点和 tooltip
     ad3.drawLineCircle(formData, group, data.value, xScale!, yScale, chartWrapper.value);
@@ -293,6 +326,9 @@ const queryDataAndDrawChart = () => {
             newData = u.renameKeyInArray(newData, 'value', yName)
         }
         data.value = newData
+
+        console.log('data.value:', data.value);
+
         drawChart()
     }
 
