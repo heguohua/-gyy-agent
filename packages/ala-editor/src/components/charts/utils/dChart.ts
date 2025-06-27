@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 18:00:06
+ * @LastEditTime: 2025-06-27 18:05:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -325,7 +325,7 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
         .append('rect')
         .attr('class', 'bar')
         .attr('x', d => (xScale!(d.name) || 0) + xGap)
-        .attr('width', xScale!.bandwidth() * bar_width / 100)
+        .attr('width', bWidth)
         .attr('y', height) // 初始高度为底部，用于动画
         .attr('height', 0)
         .attr('rx', xRadius) // 横向圆角半径
