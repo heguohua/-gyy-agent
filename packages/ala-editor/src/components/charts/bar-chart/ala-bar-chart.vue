@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 15:47:27
+ * @LastEditTime: 2025-06-27 15:52:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/bar-chart/ala-bar-chart.vue
  * @Description: 
  * 

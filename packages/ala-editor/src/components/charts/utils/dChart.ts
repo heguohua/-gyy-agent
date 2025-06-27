@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 15:39:15
+ * @LastEditTime: 2025-06-27 16:24:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -276,6 +276,8 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
 
     const bar_width = formData.bar_width?.desktop || 60;
     const barAnimationTime = formData.barAnimationTime?.desktop || 1000;
+    const bar_radius_x_width = formData.bar_radius_x_width?.desktop || 0;
+    const bar_radius_y_width = formData.bar_radius_y_width?.desktop || 0;
 
     const tooltip = d3.select(chartWrapper.value)
         .append('div')
@@ -284,6 +286,9 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
 
     const bWidth = xScale!.bandwidth() * bar_width / 100
     const xGap = (xScale!.bandwidth() * (100 - bar_width) / 100) / 2
+
+    const xRadius = xScale!.bandwidth() * bar_radius_x_width / 100
+    const yRadius = xScale!.bandwidth() * bar_radius_y_width / 100
 
     // 绘制柱子
     group.selectAll('.bar')
@@ -295,6 +300,8 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
         .attr('width', xScale!.bandwidth() * bar_width / 100)
         .attr('y', height) // 初始高度为底部，用于动画
         .attr('height', 0)
+        .attr('rx', xRadius) // 横向圆角半径
+        .attr('ry', yRadius) // 纵向圆角半径
         .attr('fill', fillColor)
         .on('mouseover', (event, d) => {
             tooltip.transition().duration(200).style('opacity', 0.9)

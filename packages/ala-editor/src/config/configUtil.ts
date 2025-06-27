@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 14:56:52
+ * @LastEditTime: 2025-06-27 16:18:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -303,7 +303,7 @@ export const configInt = (title: string, defaultValue = 10, min = 0) => {
 
 
 
-export const configFloat = (title: string, defaultValue = 0, min = 0, step = 1) => {
+export const configFloat = (title: string, defaultValue = 0, min = 0, step = 1, max = Number.MAX_VALUE) => {
     const config = Type.Number({
         code: "config-number",
         title,
@@ -311,6 +311,7 @@ export const configFloat = (title: string, defaultValue = 0, min = 0, step = 1) 
         // 绑定 element-plus 原始组件的其他属性
         other: {
             min,
+            max,
             step,
             controlsPosition: ''
         }
@@ -668,9 +669,11 @@ export const configBar = () => {
     const config = {
 
         // 刻度线
-        bar_width: schemaAllViewport(configFloat("柱形宽度(%)", 60, 1, 5)),
+        bar_width: schemaAllViewport(configFloat("柱形宽度(%)", 60, 1, 5, 100)),
         bar_color: schemaAllViewport(configColor("柱形颜色", colors.chartColors[0])),
         barAnimationTime: schemaAllViewport(configInt('柱形动画时间', 1000, 1)),
+        bar_radius_x_width: schemaAllViewport(configFloat("圆角X宽度(%)", 0, 0, 5, 100)),
+        bar_radius_y_width: schemaAllViewport(configFloat("圆角Y宽度(%)", 0, 0, 5, 100)),
 
     }
     return config
