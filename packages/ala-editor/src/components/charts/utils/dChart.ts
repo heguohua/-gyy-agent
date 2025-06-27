@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 16:24:44
+ * @LastEditTime: 2025-06-27 16:42:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -278,6 +278,8 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
     const barAnimationTime = formData.barAnimationTime?.desktop || 1000;
     const bar_radius_x_width = formData.bar_radius_x_width?.desktop || 0;
     const bar_radius_y_width = formData.bar_radius_y_width?.desktop || 0;
+
+    d3.select(chartWrapper.value).selectAll('.ala-chart-tooltip').remove()
 
     const tooltip = d3.select(chartWrapper.value)
         .append('div')
