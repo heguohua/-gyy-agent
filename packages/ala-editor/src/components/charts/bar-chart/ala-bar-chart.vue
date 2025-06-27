@@ -189,7 +189,7 @@ const drawChart = () => {
 
 
     const fillColor = formData.bar_color?.desktop || 'red';
-    ad3.drawBar(formData, group, height, data.value, fillColor, xScale!, yScale, chartWrapper);
+    ad3.drawBar(formData, group, height, data.value, fillColor, xScale!, yScale, chartWrapper, chart.value);
 
 
 

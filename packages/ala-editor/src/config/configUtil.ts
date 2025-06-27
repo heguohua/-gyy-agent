@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 16:18:44
+ * @LastEditTime: 2025-06-27 17:37:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -672,8 +672,11 @@ export const configBar = () => {
         bar_width: schemaAllViewport(configFloat("柱形宽度(%)", 60, 1, 5, 100)),
         bar_color: schemaAllViewport(configColor("柱形颜色", colors.chartColors[0])),
         barAnimationTime: schemaAllViewport(configInt('柱形动画时间', 1000, 1)),
+        circleAnimation: schemaAllViewport(configInt('标签动画时间', 1000, 1)),
         bar_radius_x_width: schemaAllViewport(configFloat("圆角X宽度(%)", 0, 0, 5, 100)),
         bar_radius_y_width: schemaAllViewport(configFloat("圆角Y宽度(%)", 0, 0, 5, 100)),
+        bar_top_opacity: schemaAllViewport(configFloat("顶部透明度(%)", 100, 0, 5, 100)),
+        bar_bottom_opacity: schemaAllViewport(configFloat("底部透明度(%)", 100, 0, 5, 100)),
 
     }
     return config

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 16:42:16
+ * @LastEditTime: 2025-06-27 17:51:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -272,12 +272,14 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
  * @param line 
  * @returns 
  */
-export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, height: number, data: DataPoint[], fillColor: string, xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any) => {
+export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, height: number, data: DataPoint[], fillColor: string, xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any, chart: any) => {
 
     const bar_width = formData.bar_width?.desktop || 60;
     const barAnimationTime = formData.barAnimationTime?.desktop || 1000;
     const bar_radius_x_width = formData.bar_radius_x_width?.desktop || 0;
     const bar_radius_y_width = formData.bar_radius_y_width?.desktop || 0;
+    const bar_top_opacity = formData.bar_top_opacity?.desktop || 100;
+    const bar_bottom_opacity = formData.bar_bottom_opacity?.desktop || 100;
 
     d3.select(chartWrapper.value).selectAll('.ala-chart-tooltip').remove()
 
@@ -292,6 +294,30 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
     const xRadius = xScale!.bandwidth() * bar_radius_x_width / 100
     const yRadius = xScale!.bandwidth() * bar_radius_y_width / 100
 
+    const id = u.uuid()
+
+    const svg = d3.select(chart);
+    const defs = svg.append('defs')
+    const gradient = defs.append('linearGradient')
+        .attr('id', id)
+        .attr('x1', '0%')
+        .attr('y1', '100%')  // 从底部开始
+        .attr('x2', '0%')
+        .attr('y2', '0%')
+        .attr('gradientUnits', 'userSpaceOnUse')  // 关键：使用坐标单位
+
+    gradient.append('stop')
+        .attr('offset', '0%')       // 底部
+        .attr('stop-color', fillColor)  // 或其他颜色
+        .attr('stop-opacity', bar_bottom_opacity / 100)  // 透明度 20%
+
+    gradient.append('stop')
+        .attr('offset', '100%')     // 顶部
+        .attr('stop-color', fillColor)
+        .attr('stop-opacity', bar_top_opacity / 100)    // 透明度 100%
+
+
+
     // 绘制柱子
     group.selectAll('.bar')
         .data(data)
@@ -304,7 +330,7 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
         .attr('height', 0)
         .attr('rx', xRadius) // 横向圆角半径
         .attr('ry', yRadius) // 纵向圆角半径
-        .attr('fill', fillColor)
+        .attr('fill', `url(#${id})`)
         .on('mouseover', (event, d) => {
             tooltip.transition().duration(200).style('opacity', 0.9)
             tooltip.html(`${d.name}<br/>值: ${d.value}`)
