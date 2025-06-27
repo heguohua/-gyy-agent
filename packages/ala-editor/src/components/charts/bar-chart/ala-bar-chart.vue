@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 14:22:49
+ * @LastEditTime: 2025-06-27 15:47:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/bar-chart/ala-bar-chart.vue
  * @Description: 
  * 
@@ -159,6 +159,7 @@ const drawChart = () => {
     const scaleYType = formData.scaleYType?.desktop || 'scaleLinear'
 
     // 组装多组 y 轴数据
+    // const yDecimalNum = formData.yDecimalNum?.desktop;
     let yData: any[] = Array.from(new Set(data.value.map((d: any) => d[yName])));
     // let yData: any[] = [];
     // const maxValue = d3.max(data.value, (d: any) => d[yName])
@@ -166,7 +167,7 @@ const drawChart = () => {
 
     // yData.push(minValue)
     // yData.push(maxValue)
-    // const decimalNum = formData.decimalNum?.desktop;
+    // const yDecimalNum = formData.yDecimalNum?.desktop;
 
     // const num = 5
     // const levelNum = num - 2
@@ -186,35 +187,9 @@ const drawChart = () => {
 
     }
 
-    const tooltip = d3.select(chartWrapper.value)
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0)
 
-    // 绘制柱子
-    group.selectAll('.bar')
-        .data(data.value)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .attr('x', d => (xScale!(d.name) || 0))
-        .attr('width', xScale!.bandwidth())
-        .attr('y', height) // 初始高度为底部，用于动画
-        .attr('height', 0)
-        .attr('fill', colors.chartColors[5])
-        .on('mouseover', (event, d) => {
-            tooltip.transition().duration(200).style('opacity', 0.9)
-            tooltip.html(`${d.name}<br/>值: ${d.value}`)
-                .style('left', `${event.offsetX + 10}px`)
-                .style('top', `${event.offsetY - 28}px`)
-        })
-        .on('mouseout', () => {
-            tooltip.transition().duration(300).style('opacity', 0)
-        })
-        .transition()
-        .duration(800)
-        .attr('y', d => yScale(d.value))
-        .attr('height', d => height - yScale(d.value))
+    const fillColor = formData.bar_color?.desktop || 'red';
+    ad3.drawBar(formData, group, height, data.value, fillColor, xScale!, yScale, chartWrapper);
 
 
 
@@ -227,7 +202,6 @@ const drawChart = () => {
     // ad3.curveStyle(line, line_curve_style)
 
     // // 10、绘制折线
-    // const line_color = formData.line_color?.desktop || 'red';
     // ad3.drawLine(formData, group, data.value, line, line_color);
 
     // // 11、添加区域图生成器
@@ -245,11 +219,12 @@ const drawChart = () => {
     // }
 
     // 12、设置端点样式，Circle 点和 tooltip
-    ad3.drawLineCircle(formData, group, data.value, xScale!, yScale, chartWrapper.value);
+    // ad3.drawLineCircle(formData, group, data.value, xScale!, yScale, chartWrapper.value);
 
     // 绘制数据标签文本
     const addLineLabel = formData.addLineLabel?.desktop || false;
     if (addLineLabel) {
+        // ad3.drawLineCircle(formData, group, data.value, xScale!, yScale, chartWrapper.value);
         ad3.drawLineLabel(formData, group, data.value, xScale!, yScale, chartWrapper.value);
     }
 
@@ -272,7 +247,8 @@ const query = () => {
         const yName = props.formData.yName.desktop
 
         if (d) {
-            const dd = u.convertPropertyToNumber(d, yName)
+            const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
+            const dd = u.convertPropertyToNumber(d, yName, yDecimalNum)
             data.value = dd as any
             drawChart()
 
@@ -316,7 +292,8 @@ const queryDataAndDrawChart = () => {
 
     } else {
         // 使用模拟数据
-        let newData: Array<any> = u.randomizeProperty(demoData, 'value')
+        const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
+        let newData: Array<any> = u.randomizeProperty(demoData, 'value', yDecimalNum)
         const xName = props.formData.xName.desktop
         const yName = props.formData.yName.desktop
         if (xName != 'name') {

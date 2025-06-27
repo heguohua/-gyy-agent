@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-07 17:05:21
+ * @LastEditTime: 2025-06-27 15:39:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -263,6 +263,56 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
 }
 
 
+
+/**
+ * 绘制柱状图
+ * @param formData 
+ * @param group 
+ * @param data 
+ * @param line 
+ * @returns 
+ */
+export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, height: number, data: DataPoint[], fillColor: string, xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any) => {
+
+    const bar_width = formData.bar_width?.desktop || 60;
+    const barAnimationTime = formData.barAnimationTime?.desktop || 1000;
+
+    const tooltip = d3.select(chartWrapper.value)
+        .append('div')
+        .attr('class', 'ala-chart-tooltip')
+        .style('opacity', 0)
+
+    const bWidth = xScale!.bandwidth() * bar_width / 100
+    const xGap = (xScale!.bandwidth() * (100 - bar_width) / 100) / 2
+
+    // 绘制柱子
+    group.selectAll('.bar')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('x', d => (xScale!(d.name) || 0) + xGap)
+        .attr('width', xScale!.bandwidth() * bar_width / 100)
+        .attr('y', height) // 初始高度为底部，用于动画
+        .attr('height', 0)
+        .attr('fill', fillColor)
+        .on('mouseover', (event, d) => {
+            tooltip.transition().duration(200).style('opacity', 0.9)
+            tooltip.html(`${d.name}<br/>值: ${d.value}`)
+                .style('left', `${event.offsetX + 10}px`)
+                .style('top', `${event.offsetY - 28}px`)
+        })
+        .on('mouseout', () => {
+            tooltip.transition().duration(300).style('opacity', 0)
+        })
+        .transition()
+        .duration(barAnimationTime)
+        .attr('y', d => yScale(d.value))
+        .attr('height', d => height - yScale(d.value))
+
+}
+
+
 /**
  * 绘制 线性 坐标轴
  * @param formData 
@@ -295,7 +345,7 @@ export const drawScaleLinear = (formData: Record<string, any>, yData: any[], hei
     const yTicks = aTick(yScale, 'left', undefined, 2, 6, -width, 0);
 
     // 计算纵坐标档位数
-    // const decimalNum = formData.decimalNum?.desktop
+    // const yDecimalNum = formData.yDecimalNum?.desktop
     let levelNum = formData.levelNum?.desktop
     if (levelNum) {
         yTicks.ticks(levelNum)
@@ -613,6 +663,7 @@ export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection
 
     const xName = formData.xName?.desktop
     const yName = formData.yName?.desktop
+    const yDecimalNum = formData.yDecimalNum?.desktop
 
 
     const circleAnimation = formData.circleAnimation?.desktop || false
@@ -648,7 +699,7 @@ export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection
         .attr("font-weight", line_label_fontWeight)
         .attr("fill", line_label_color)
         .text((d: any) => d[yName] + y_label_unit);
-
+    // yDecimalNum == 0 ? d[yName] : (d[yName] || 0).toFixed(yDecimalNum)
     if (circleAnimation) {
         labels.transition()
             .duration(circleAnimationTime)
@@ -672,7 +723,7 @@ export const drawLineCircles = (formData: Record<string, any>, group: d3.Selecti
     const circleAnimation = formData.circleAnimation?.desktop || false
     const circleAnimationTime = formData.circleAnimationTime?.desktop || 2000
     const x_scaleMarks_color = formData.x_scaleMarks_color?.desktop || 'red'
-    const decimalNum = formData.decimalNum?.desktop || 0
+    const yDecimalNum = formData.yDecimalNum?.desktop || 0
 
     data.forEach((one, index) => {
 
@@ -759,7 +810,7 @@ export const drawLineCircles = (formData: Record<string, any>, group: d3.Selecti
                         <i class='tooltip-label' style='background:${line_colors[one.originalIndex]}'>&nbsp;</i>
                         <p class='category'>${one.category}：</p>
                         <p class='value-wrapper'>
-                            <i class='value'>${one.value.toFixed(decimalNum)}</i>
+                            <i class='value'>${one.value.toFixed(yDecimalNum)}</i>
                             <i class='unit'>${y_label_unit}</i>
                         </p>
                     </div>

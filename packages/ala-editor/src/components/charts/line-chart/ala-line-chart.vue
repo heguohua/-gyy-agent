@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 12:14:46
+ * @LastEditTime: 2025-06-27 15:46:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-line-chart.vue
  * @Description: 
  * 
@@ -165,7 +165,7 @@ const drawChart = () => {
 
     // yData.push(minValue)
     // yData.push(maxValue)
-    // const decimalNum = formData.decimalNum?.desktop;
+    // const yDecimalNum = formData.yDecimalNum?.desktop;
 
     // const num = 5
     // const levelNum = num - 2
@@ -239,7 +239,8 @@ const query = () => {
         const yName = props.formData.yName.desktop
 
         if (d) {
-            const dd = u.convertPropertyToNumber(d, yName)
+            const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
+            const dd = u.convertPropertyToNumber(d, yName, yDecimalNum)
             data.value = dd as any
             drawChart()
 

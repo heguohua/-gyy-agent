@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-26 11:29:31
+ * @LastEditTime: 2025-06-27 15:45:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -436,7 +436,7 @@ export default class u {
 
 
 
-    public static randomizeProperty<T extends Record<string, any>>(data: T[], key: keyof T): T[] {
+    public static randomizeProperty<T extends Record<string, any>>(data: T[], key: keyof T, decimalNum = 0): T[] {
         return data.map(item => {
             const value = item[key];
 
@@ -448,7 +448,7 @@ export default class u {
             const multiplier = Math.random() * 2; // 0 到 2 之间的随机数
             return {
                 ...item,
-                [key]: value * multiplier
+                [key]: Number((value * multiplier).toFixed(decimalNum))
             };
         });
     }
@@ -521,11 +521,12 @@ export default class u {
 
     public static convertPropertyToNumber<T extends Record<string, any>>(
         array: T[],
-        key: string
+        key: string,
+        decimalNum = 0,
     ): Array<Omit<T, typeof key> & Record<typeof key, number>> {
         return array.map(item => {
             const value = item[key];
-            const numberValue = value === '' ? 0 : Number(value);
+            const numberValue = value === '' ? 0 : Number(Number(value).toFixed(decimalNum));
             return {
                 ...item,
                 [key]: isNaN(numberValue) ? 0 : numberValue,

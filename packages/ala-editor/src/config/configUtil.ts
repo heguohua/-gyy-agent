@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-07 17:09:18
+ * @LastEditTime: 2025-06-27 14:56:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -611,7 +611,7 @@ export const configScaleLinearScale = () => {
 
         addZero: schemaAllViewport(configBoolean('填补零值？')),
         addMinPercentage: schemaAllViewport(configFloat("填补最小值%", 0, 1, 0.1)),
-        decimalNum: schemaAllViewport(configInt("小数位数", 0, 0)),
+        yDecimalNum: schemaAllViewport(configInt("小数位数", 0, 0)),
         levelNum: schemaAllViewport(configInt("分段数", 5, 0)),
 
         // 轴线
@@ -659,6 +659,18 @@ export const configLine = () => {
         addArea: schemaAllViewport(configBoolean('添加区域图')),
         areaColor: schemaAllViewport(configColor('区域图颜色')),
 
+
+    }
+    return config
+}
+
+export const configBar = () => {
+    const config = {
+
+        // 刻度线
+        bar_width: schemaAllViewport(configFloat("柱形宽度(%)", 60, 1, 5)),
+        bar_color: schemaAllViewport(configColor("柱形颜色", colors.chartColors[0])),
+        barAnimationTime: schemaAllViewport(configInt('柱形动画时间', 1000, 1)),
 
     }
     return config
