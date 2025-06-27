@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:57:00
+ * @LastEditTime: 2025-06-27 09:54:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -164,14 +164,22 @@ const setCurrentSelect = (block: BaseBlock) => {
     const id = block.id;
 
     if (id) {
+
         if (editorStore.currentSelect[bType]?.id != id) {
+
+            console.log('editorStore.blockConfig - 1:', u.tojson(editorStore.blockConfig[bType]));
+
+
             logger.info(`bType[ ${bType} ],当前 被点击block 和 editorStore.currentSelect【 不相同 】，即将更新editorStore.currentSelect，code【 ${block.code} 】,block：`, block);
             editorStore.setCurrentSelect(block, bType)
+            console.log('editorStore.blockConfig - 2:', u.tojson(editorStore.blockConfig[bType]));
+
 
             // 向 editorStore 的 blockConfig 中追加 block
             // tod 这里是不是都改成 拖拽后自动初始化，如果做到了自动初始化，那么这里就不用再添加到 blockConfig 中了
             logger.info(`bType[ ${bType} ],当前 被点击block 和 editorStore.currentSelect【 不相同 】，即将添加当前block到blockConfig，code【 ${block.code} 】，block：`, block);
             editorStore.addToBlockConfigIfNotExist(block, bType)
+            console.log('editorStore.blockConfig - 3:', u.tojson(editorStore.blockConfig[bType]));
 
         } else {
             logger.info(`bType[ ${bType} ],当前 被点击block 和 editorStore.currentSelect【 相同 】，不执行更新操作，code【 ${block.code} 】`, block);
@@ -297,7 +305,7 @@ const onDrop = (e: DragEvent) => {
     if (!type) return
 
 
-    props.blockList.push(block)
+    // props.blockList.push(block)
 
     // droppedComponents.push({
     //     id: Date.now().toString(),
