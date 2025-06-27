@@ -36,6 +36,7 @@ declare module 'vue' {
     AlaConfigColumn: typeof import('./src/components/cps/config/ala-config-column.vue')['default']
     AlaConfigFiles: typeof import('./src/components/cps/config/ala-config-files.vue')['default']
     AlaConfigFormRules: typeof import('./src/components/cps/config/ala-config-form-rules.vue')['default']
+    AlaConfigImage: typeof import('./src/components/cps/config/ala-config-image.vue')['default']
     AlaConfigInput: typeof import('./src/components/cps/config/ala-config-input.vue')['default']
     AlaConfigInt: typeof import('./src/components/cps/config/ala-config-int.vue')['default']
     AlaConfigItemProperty: typeof import('./src/components/cps/config/ala-config-itemProperty.vue')['default']

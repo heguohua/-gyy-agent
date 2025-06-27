@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 18:14:32
+ * @LastEditTime: 2025-06-27 18:56:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -38,6 +38,7 @@ import AlaConfigColor from '@/components/cps/config/ala-config-color.vue';
 import AlaConfigColors from '@/components/cps/config/ala-config-colors.vue';
 import AlaConfigTextareaJson from '@/components/cps/config/ala-config-textarea-json.vue';
 import AlaConfigCollapseItem from '@/components/cps/config/ala-config-collapse-item.vue';
+import AlaConfigImage from '@/components/cps/config/ala-config-image.vue';
 
 // form 表单组件
 import AlaInput from '@/components/cps/input/ala-input.vue';
@@ -151,6 +152,7 @@ export default {
     AlaConfigColors,
     AlaConfigTextareaJson,
     AlaConfigCollapseItem,
+    AlaConfigImage,
 
 
     // ALA架构表单组件

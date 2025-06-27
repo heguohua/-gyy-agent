@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 17:37:09
+ * @LastEditTime: 2025-06-27 18:41:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -490,12 +490,10 @@ export const configItemStyle = () => {
 }
 
 
-export const configStyle = () => {
+export const configStyle = (width = '500px', height = '300px') => {
     const config = {
-        width: schemaAllViewport(configText("宽度", '500px')),
-        height: schemaAllViewport(configText("高度", '300px')),
-        // width: schemaAllViewport(configText("宽度", '100%')),
-        // height: schemaAllViewport(configText("高度", '600px')),
+        width: schemaAllViewport(configText("宽度", width)),
+        height: schemaAllViewport(configText("高度", height)),
         x: schemaAllViewport(configText("X坐标", '200px')),
         y: schemaAllViewport(configText("Y坐标", '10px')),
         backgroundColor: schemaAllViewport(configColor("背景色", '#fff')),
