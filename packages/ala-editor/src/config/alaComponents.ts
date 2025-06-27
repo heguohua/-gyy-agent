@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 14:11:08
+ * @LastEditTime: 2025-06-27 18:14:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -115,6 +115,7 @@ import PointCard from '@/components/iot/pointCard.vue';
 import AlaLineChart from '@/components/charts/line-chart/ala-line-chart.vue';
 import AlaMultiLineChart from '@/components/charts/line-chart/ala-multi-line-chart.vue';
 import AlaBarChart from '@/components/charts/bar-chart/ala-bar-chart.vue';
+import AlaCard1 from '@/components/charts/cards/ala-card-1.vue';
 
 
 export default {
@@ -222,6 +223,7 @@ export default {
     AlaLineChart,
     AlaMultiLineChart,
     AlaBarChart,
+    AlaCard1,
 
     // IoT平台相关
     PointCard,

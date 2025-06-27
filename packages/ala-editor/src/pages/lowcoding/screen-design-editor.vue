@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-30 19:27:01
+ * @LastEditTime: 2025-06-27 18:20:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/screen-design-editor.vue
  * @Description: 
  * 
@@ -49,7 +49,8 @@ import {
     dashboard,
     pictorialBarChart,
     themeRiverChart,
-    calendarCoordinateSystem
+    calendarCoordinateSystem,
+    cardChart
 } from "@/config/pageItems"
 
 import { useI18n } from 'vue-i18n';
@@ -122,6 +123,7 @@ onMounted(() => {
 
 
 const blocks = ref<any>([
+    { name: 'module.page_designer.card_chart', blocks: cardChart },
     { name: 'module.page_designer.line_chart', blocks: lineChart },
     { name: 'module.page_designer.bar_chart', blocks: barChart },
     { name: 'module.page_designer.pie_chart', blocks: pieChart },

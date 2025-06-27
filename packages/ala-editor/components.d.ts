@@ -18,6 +18,7 @@ declare module 'vue' {
     AlaButtonGroup: typeof import('./src/components/cps/button/ala-button-group.vue')['default']
     AlaCalendar: typeof import('./src/components/cps/calendar/ala-calendar.vue')['default']
     AlaCalendarApi: typeof import('./src/components/cps/calendar/ala-calendar-api.vue')['default']
+    AlaCard1: typeof import('./src/components/charts/cards/ala-card-1.vue')['default']
     AlaCascader: typeof import('./src/components/cps/cascader/ala-cascader.vue')['default']
     AlaCascaderDict: typeof import('./src/components/cps/cascader-dict/ala-cascader-dict.vue')['default']
     AlaChapter: typeof import('./src/components/cps/chapter/ala-chapter.vue')['default']
