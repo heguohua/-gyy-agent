@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 15:15:06
+ * @LastEditTime: 2025-06-28 22:34:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
@@ -10,6 +10,8 @@
  */
 
 import { systemUser } from "@/config/formConfigs/systemUser"
+import { device } from "@/config/formConfigs/device"
+import { profile } from "@/config/formConfigs/profile"
 import FormConfig from "@/config/formConfigs/formConfig"
 import { logger } from "@/utils/logger"
 import { formConfigParse, LowcodingConfig } from "@/pages/dynamic/formConfigParser"
@@ -18,7 +20,9 @@ import u from "@/utils/u"
 
 
 const formConfigs = {
-    systemUser
+    systemUser,
+    device,
+    profile,
 }
 
 

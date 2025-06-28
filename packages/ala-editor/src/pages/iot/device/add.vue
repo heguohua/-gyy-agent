@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 19:18:46
+ * @LastEditTime: 2025-06-28 22:25:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/device/add.vue
  * @Description: 
  * 
@@ -27,6 +27,7 @@ import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
+import { device } from '@/config/formConfigs/device';
 const { t } = useI18n();
 
 const props = defineProps({
@@ -66,13 +67,7 @@ watch(() => props.baseInfo.item, (item) => {
 
 // 基础表单字段
 const basicFields = computed(() => {
-    return [
-        alaBuildHidden('id'),// 固定格式
-        alaBuildInput("deviceName", '设备名称', [alaRequired()]),
-        alaBuildInput("deviceCode", '资产编号', [alaRequired()]),
-        alaBuildSelectTable("profiles", "物模型", "/iot/profile/page", [{ prop: 'profileName', label: '模型名称', isQuery: true }, { prop: 'profileCode', label: '模型编号' }], { propertyName: 'profileName', valueName: 'id' }, undefined, {}, "请选择", 'model'),
-        // alaBuildInput("profileCode", '模型编号', [alaRequired()]),
-    ]
+    return device.formFields
 })
 
 

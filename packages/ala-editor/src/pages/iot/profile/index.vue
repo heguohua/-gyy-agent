@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:58:44
+ * @LastEditTime: 2025-06-28 22:35:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -79,6 +79,7 @@ import Add from '@/pages/iot/profile/add.vue';
 import profileAdd from '@/pages/iot/profile/profileAdd.vue';
 import notify from '@/utils/notify';
 import { alaRequired } from '@/config/alaRules';
+import { profile } from '@/config/formConfigs/profile';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -141,38 +142,17 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/iot/profile/page"
+const url = profile.pageApi
 const deleteUrl = "/iot/profile/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
-    return [
-        alaDetailInput('profileName', "模型名称", 1, true),
-        alaDetailInput('profileCode', "模型编号"),
-        alaDetailInput('profileGroup', "模型分类", 1, false, { deepColumnName: { desktop: 'name' } }),
-        alaDetailInput('createdName', "创建人"),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-
-        // { prop: 'displayName', label: '名称' },
-        // { prop: 'name', label: '唯一编码' },
-        // { prop: 'type', label: '流程分类' },
-        // { prop: 'isDeployed', label: '是否已部署' },
-        // { prop: 'remark', label: '备注' },
-        // { prop: 'updatedTime', label: '更新时间' },
-    ]
+    return profile.pageFields
 })
 /**
  * 详情页面字段
  */
-const detailFields: any = ref([
-    alaDetailInput('profileName', "模型名称", 1, true),
-    alaDetailInput('profileGroup', "模型分类", 1, false, { deepColumnName: { desktop: 'name' } }),
-    alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
-
-])
+const detailFields: any = ref(profile.detailFields)
 
 // 基础查询条件
 const baseFields = computed(() => {
@@ -189,12 +169,7 @@ const getComponent = ((code: string) => {
 })
 
 
-const formAttr = ref({
-    columnNum: 1,
-    labelWidth: 150,
-    labelPosition: 'left',
-    useFormTitle: false,
-})
+const formAttr = ref(profile.formAttr)
 
 /**
  * 详情页面字段
@@ -254,7 +229,7 @@ const devicePageColumns = [
     alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
     alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
     alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
 ]
 
 const deviceFormWidth = reactive({
@@ -272,9 +247,9 @@ const deviceDetailFields = ref([
     alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
     alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 ])
 
 // 基础查询条件

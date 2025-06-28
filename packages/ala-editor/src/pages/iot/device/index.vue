@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:20:40
+ * @LastEditTime: 2025-06-28 22:22:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/device/index.vue
  * @Description: 
  * 
@@ -72,6 +72,7 @@ import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDe
 import { dType } from '@/components/cps/dynamic/detailType';
 import Add from '@/pages/iot/device/add.vue';
 import notify from '@/utils/notify';
+import { device } from '@/config/formConfigs/device';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -137,35 +138,17 @@ setInterval(() => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/iot/device/page"
+const url = device.pageApi
 const deleteUrl = "/iot/device/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
-    return [
-        alaDetailInput('deviceName', "设备名称", 1, true),
-        alaDetailInput('deviceCode', "资产编号"),
-        alaDetailSelectTable('profiles', "物模型", "profileName", 1, false, { columnWidth: { desktop: '150' } }),
-        alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
-        alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
-        alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
-    ]
+    return device.pageFields
 })
 /**
  * 详情页面字段
  */
-const detailFields: any = ref([
-    alaDetailInput('deviceName', "设备名称", 1, true),
-    alaDetailInput('deviceCode', "资产编号"),
-    alaDetailSelectTable('profiles', "物模型", "profileName"),
-    alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
-    alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
-    alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
-])
+const detailFields: any = ref(device.detailFields)
 
 // 基础查询条件
 const baseFields = computed(() => {
@@ -182,13 +165,7 @@ const getComponent = ((code: string) => {
 })
 
 
-const formAttr = ref({
-    formWidth: 800,
-    columnNum: 1,
-    labelWidth: 150,
-    labelPosition: 'left',
-    useFormTitle: false,
-})
+const formAttr = ref(device.formAttr)
 
 /**
  * 详情页面字段

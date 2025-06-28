@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:58:40
+ * @LastEditTime: 2025-06-28 22:39:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/profileAdd.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
         labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
         :formAttr="formAttr" :beforeSave="beforeSave" ref="alaBaseForm">
-        
+
     </AlaBaseForm>
 
 </template>
@@ -27,6 +27,7 @@ import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
+import { profile } from '@/config/formConfigs/profile';
 const { t } = useI18n();
 
 const props = defineProps({
@@ -69,11 +70,7 @@ watch(() => props.baseInfo.item, (item) => {
 // 基础表单字段
 // 基础表单字段
 const basicFields = computed(() => {
-    return [
-        alaBuildHidden('id'),// 固定格式
-        alaBuildInput("profileName", '模型名称', [alaRequired()]),
-        // alaBuildInput("profileCode", '模型编号', [alaRequired()]),
-    ]
+    return profile.formFields
 })
 
 // // 基础表单字段

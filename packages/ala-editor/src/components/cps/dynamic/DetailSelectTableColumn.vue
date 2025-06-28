@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:43:43
+ * @LastEditTime: 2025-06-28 22:45:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -28,8 +28,10 @@
 import { getFormConfigFromCache, getLowcodingConfigByClassName, setFormConfigToCache } from '@/config/formConfigs';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
+import WarnException from '@/utils/WarnException';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -111,8 +113,9 @@ const showDetailPage = ref(false)
 
 const showDetail = async (item: string, index: number) => {
     const { formData } = formItem.value
-    const url = formData.url.desktop
-    let params = formData.params.desktop
+    const url = formData.url?.desktop
+    if (!url) return
+    let params = formData.params?.desktop
     const valueName = formData.itemProperty.desktop.valueName
 
     // 先从 缓存中加载
@@ -150,6 +153,10 @@ const showDetail = async (item: string, index: number) => {
         }
     }
 
+    if (formConfig?.detailAttr.length === 0) {
+        // notify.warn(t('pop.warm_title'), "当前模块不支持查看详情")
+        throw new WarnException({ title: t('pop.warm_title'), remark: "当前模块不支持查看详情" })
+    }
 
     dAttr.value = formConfig?.detailAttr as any
     dFields.value = formConfig?.detailFields as any
@@ -203,7 +210,12 @@ const showDetail = async (item: string, index: number) => {
 
 const dAttr = ref<Array<any>>([])
 const detailAttr = computed(() => {
-    return dAttr.value
+    const v = dAttr.value
+    if (isProxy(v)) {
+        return v
+    } else {
+        return dAttr
+    }
 })
 
 const dFields = ref<Array<any>>([])
