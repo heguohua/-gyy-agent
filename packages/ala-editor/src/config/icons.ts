@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-26 11:08:52
+ * @LastEditTime: 2025-06-28 10:26:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -219,6 +219,12 @@ const icon = {
   flag_point:"solar:map-point-rotate-outline",
   info:"material-symbols:page-info-outline",
   iot_point:"icon-park-outline:setting-config",
+  alarm:"ri:alarm-warning-line",
+  rule:"carbon:rule-locked",
+  controller:"ph:game-controller",
+  template:"heroicons-outline:template",
+  send:"streamline-plump:mail-send-email-message-remix",
+  // log:"ph:stack-overflow-logo-bold",
 
   // 物流配送中心
   truck:"hugeicons:delivery-truck-01",

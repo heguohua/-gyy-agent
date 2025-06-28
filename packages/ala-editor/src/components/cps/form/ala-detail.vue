@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-19 13:59:45
+ * @LastEditTime: 2025-06-28 11:44:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -121,6 +121,7 @@ const { formWidth, labelPosition, labelWidth: lp, columnNum } = toRefs(props.for
 
 const fw = ref<number>(0)
 watch(() => formWidth.value, (v) => {
+    if(!v) return
     fw.value = formWidth.value * (1 + Math.random() * 0.16)
 }, {
     immediate: true,
