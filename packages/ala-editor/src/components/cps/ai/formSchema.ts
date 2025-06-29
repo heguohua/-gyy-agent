@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-25 08:48:41
+ * @LastEditTime: 2025-06-29 20:36:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/ai/formSchema.ts
  * @Description: 
  * 
@@ -82,6 +82,12 @@ const strMax = Type.String({
     }
 })
 
+const onlineSearch = Type.String({
+    code: "config-boolean",
+    title: "联网查询？",
+    default: false,
+})
+
 const showImageIcon = Type.String({
     code: "config-boolean",
     title: "上传图片？",
@@ -91,6 +97,12 @@ const showImageIcon = Type.String({
 const showFileIcon = Type.String({
     code: "config-boolean",
     title: "上传文件？",
+    default: false,
+})
+
+const deepThink = Type.String({
+    code: "config-boolean",
+    title: "深度思考？",
     default: false,
 })
 
@@ -105,6 +117,8 @@ const schema = Type.Object({
     placeholder: schemaAllViewport(placeholder),
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
+    deepThink: schemaAllViewport(deepThink),
+    onlineSearch: schemaAllViewport(onlineSearch),
     showImageIcon: schemaAllViewport(showImageIcon),
     showFileIcon: schemaAllViewport(showFileIcon),
     showListenIcon: schemaAllViewport(showListenIcon),

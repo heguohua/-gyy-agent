@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-25 10:14:47
+ * @LastEditTime: 2025-06-29 20:27:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -59,10 +59,9 @@ export function parseChildTableCount(item: { fieldName: { desktop: string }, lab
     return result
 }
 
-export function parseAi(item: { fieldName: { desktop: string }, label: { desktop: string }, showImageIcon: { desktop: boolean }, showFileIcon: { desktop: boolean }, showListenIcon: { desktop: boolean } }) {
+export function parseAi(item: { fieldName: { desktop: string }, label: { desktop: string }, showImageIcon: { desktop: boolean }, showFileIcon: { desktop: boolean }, showListenIcon: { desktop: boolean }, onlineSearch: { desktop: boolean }, deepThink: { desktop: boolean }, placeholder: { desktop: string } }) {
 
-    const result = alaBuildAi(item.fieldName.desktop, item.label.desktop, item.showImageIcon.desktop, item.showFileIcon.desktop, item.showListenIcon.desktop)
-    logger.info(`解析【 item 】字段：`, item);
+    const result = alaBuildAi(item.fieldName.desktop, item.label.desktop, item.showImageIcon.desktop, item.showFileIcon.desktop, item.showListenIcon.desktop, item.onlineSearch.desktop, item.deepThink.desktop, item.placeholder.desktop)
     logger.info(`解析【 ai 】字段：`, result);
     return result
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-26 21:35:09
+ * @LastEditTime: 2025-06-29 20:50:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/ai/ala-ai.vue
  * @Description: 
  * 
@@ -21,7 +21,12 @@
         </el-input>
 
         <div class="icons" :style="opacityStyle">
-            <div class="icon-btn">
+            <div class="icon-btn-deepThink" v-if="deepThink">
+                <p class="deepThink deep" v-if="dThink" @click="handleDeepThink(false)">深度</p>
+                <p class="deepThink fast" v-else @click="handleDeepThink(true)">快速</p>
+
+            </div>
+            <div class="icon-btn" v-if="onlineSearch">
                 <v-icon icon="f_earth" width="23" height="23" />
             </div>
             <div class="icon-btn" v-if="showImageIcon" @click="identifyImage">
@@ -101,6 +106,14 @@ const props = defineProps({
         default: false
     },
     showListenIcon: {
+        type: Boolean,
+        default: false
+    },
+    onlineSearch: {
+        type: Boolean,
+        default: false
+    },
+    deepThink: {
         type: Boolean,
         default: false
     }
@@ -243,6 +256,10 @@ const oStyle = computed(() => {
 })
 
 
+const dThink = ref(false)
+const handleDeepThink = (v: boolean) => {
+    dThink.value = v
+} 
 </script>
 
 <style scoped lang="scss">
@@ -263,6 +280,49 @@ const oStyle = computed(() => {
         width: 100%;
         padding-right: 12px;
         margin-bottom: 8px;
+
+        .icon-btn-deepThink {
+            display: flex;
+            flex-wrap: nowrap;
+            height: 26px;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            border-radius: 16px;
+            margin-right: 6px;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            .deep {
+                background: #ff000033;
+                display: flex;
+                height: 26px;
+                line-height: 26px;
+                width: 100%;
+                padding: 0px 12px;
+                border-radius: 16px;
+            }
+
+            .fast {
+                display: flex;
+                height: 26px;
+                line-height: 26px;
+                width: 100%;
+                padding: 0px 12px;
+                border-radius: 16px;
+                background: var(--al-title-color);
+
+                &:hover {
+                    background: rgb(204, 204, 204, 0.3);
+                    cursor: pointer;
+                }
+
+            }
+
+        }
+
 
         .icon-btn {
             display: inline-flex;
