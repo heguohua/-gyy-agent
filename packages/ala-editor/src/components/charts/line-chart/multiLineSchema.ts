@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:30:31
+ * @LastEditTime: 2025-07-01 22:05:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/multiLineSchema.ts
  * @Description: 
  * 
@@ -18,7 +18,7 @@ const mainTitleText = Type.String({
     code: "config-input",
     title: "标题",
     rules: [
-        { name: 'max', length: 20, message: '最多20个字符' },
+        { name: 'max', length: 50, message: '最多20个字符' },
     ]
 })
 
@@ -28,6 +28,19 @@ const mainTitleLink = Type.String({
 })
 
 
+
+const attrs = Type.Array(
+    Type.Object({
+        name: Type.String(),
+        value: Type.String(),
+    }),
+    {
+        code: "config-key-value",
+        title: "属性配置",
+        default: [],
+        required: true,
+    }
+);
 
 
 
@@ -65,6 +78,7 @@ const schema = Type.Object({
 
     // 折线样式
     line: schemaAllViewport(configCollapseItem("折线")),
+    attrs: schemaAllViewport(attrs),
     ...lines,
 
     // 数据请求API相关

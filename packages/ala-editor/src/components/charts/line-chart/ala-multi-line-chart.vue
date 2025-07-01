@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 12:15:27
+ * @LastEditTime: 2025-07-01 21:50:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -212,21 +212,39 @@ const drawChart = () => {
 
 const query = () => {
     // Methods
-    const url = '/a/dict/list'
+    const url = '/b/datasetTable/query'
 
-    let params = props.formData.params?.desktop || {}
+    let dataSetId = props.formData.dataSetId?.desktop || {}
+    let params = { id: dataSetId }
 
-    if (typeof params === 'string') {
-        params = u.parseJson(params)
-    }
 
     logger.info(`从 api 图标数据，url【 ${url} 】，查询参数：`, params);
 
-    alaPost(u.url(url), params, false, '').then((data: any) => {
-        const response = data;
-        if (response.data) {
+    alaPost(u.url(url), params, false, '').then((response: any) => {
+
+        const d = response.data?.data
+        const xName = props.formData.xName.desktop
+        const attrs = props.formData.attrs.desktop
+
+        if (d) {
+            const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
+            const dd: Array<any> = []
+            attrs.forEach((attr: any) => {
+                const oneSeries: Array<any> = []
+                d.forEach((one: any) => {
+                    oneSeries.push({ [xName]: one[xName], value: u.convertStringToNumber(one[attr.value]), category: attr.name })
+                })
+                dd.push(oneSeries)
+            })
+            data.value = dd
+            console.log('data.value: --> ', data.value);
+
+            //     const dd = u.convertPropertyToNumber(d, yName, yDecimalNum)
+            //     data.value = dd as any
+            drawChart()
 
         }
+
 
     });
 }

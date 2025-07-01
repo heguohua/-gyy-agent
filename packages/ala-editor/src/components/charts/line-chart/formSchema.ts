@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:16:14
+ * @LastEditTime: 2025-07-01 22:05:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/formSchema.ts
  * @Description: 
  * 
@@ -18,7 +18,7 @@ const mainTitleText = Type.String({
     code: "config-input",
     title: "标题",
     rules: [
-        { name: 'max', length: 20, message: '最多20个字符' },
+        { name: 'max', length: 50, message: '最多20个字符' },
     ]
 })
 

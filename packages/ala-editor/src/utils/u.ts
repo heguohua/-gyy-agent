@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 15:30:46
+ * @LastEditTime: 2025-07-01 21:32:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -534,6 +534,12 @@ export default class u {
             };
         });
     }
+
+    public static convertStringToNumber(value: string, decimalNum = 0): number {
+        const numberValue = value === '' ? 0 : Number(Number(value).toFixed(decimalNum));
+        return isNaN(numberValue) ? 0 : numberValue
+    }
+
     /**
      * 从文件名中提取文件后缀
      * @param filename 文件名，如 "example.pdf" 或 "archive.tar.gz"
