@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:15:01
+ * @LastEditTime: 2025-06-30 15:49:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -114,7 +114,7 @@ const showAdd = (item: { [key: string]: any }) => {
 const showEdit = (item: { [key: string]: any }) => {
     // 解密 configuration 字段
     let it = u.cloned(item) as { [key: string]: any }
-    it['configuration'] = u.parseJson(u.base64Decode(it['configuration']))
+    it['configuration'] = u.parseJson(it['configuration'])
 
     // item['type'] = u.parseJson(item['type'])
     it = u.flattenObject(it)

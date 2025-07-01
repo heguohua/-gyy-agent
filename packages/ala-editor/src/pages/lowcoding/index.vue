@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-07 10:23:29
+ * @LastEditTime: 2025-07-01 10:08:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -37,9 +37,10 @@
         </template>
 
         <template #btns="{ row }">
-            <AlaButton :showButton="true" name="publish" @publish="handlePublish(row)" buttonType="primary" />
+            <AlaButton :showButton="true" name="publish" @publish="handlePublish(row)" buttonType="primary"
+                v-if="row.formType != 'screen'" />
             <AlaButton :showButton="true" name="force_publish" @force_publish="handleForcePublish(row)"
-                buttonType="danger" />
+                buttonType="danger" v-if="row.formType != 'screen'" />
         </template>
         <!-- <template #cols="{ row, columnName }">
             {{ row[columnName] }}
@@ -152,9 +153,9 @@ const columns = computed(() => {
         alaDetailInput('className', t('module.lowcoding.className')),
         // alaDetailInput( 'version', t('module.lowcoding.version')),
         alaDetailInput('createdName', t('common.createdBy'), 1, false, { columnWidth: { desktop: '140' } }),
-        alaDetailDate( 'createdTime', t('common.createdTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+        alaDetailDate('createdTime', t('common.createdTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
         alaDetailInput('updatedName', t('common.updatedBy')),
-        alaDetailDate( 'updatedTime', t('common.updatedTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+        alaDetailDate('updatedTime', t('common.updatedTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
     ]
 })
 

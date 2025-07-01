@@ -6,7 +6,7 @@ import { Type } from "@sinclair/typebox"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 20:14:16
+ * @LastEditTime: 2025-07-01 11:00:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -462,7 +462,7 @@ export const configValue = () => {
         value_left: schemaAllViewport(configText("左偏移", '20px')),
         value_top: schemaAllViewport(configText("上偏移", '10px')),
         text_bottom: schemaAllViewport(configText("下偏移", '10px')),
-   
+
     }
     return config
 }
@@ -590,6 +590,7 @@ export const configScaleOrdinalScale = () => {
         x_label_color: schemaAllViewport(configColor("标签字体颜色")),
         x_label_fontSize: schemaAllViewport(configInt("标签字体大小", 14)),
         x_label_weight: schemaAllViewport(configFontWeight("标签字体粗细")),
+        x_label_letter_spacing: schemaAllViewport(configInt("标签字体间距", 1, 1)),
         x_label_textAnchor: schemaAllViewport(configTextAnchor("标签对齐方式")),
         x_label_dy: schemaAllViewport(configInt("标签轴线间距", 16)),
         x_label_rotate: schemaAllViewport(configInt("标签旋转角度", 0, -359)),

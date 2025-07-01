@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 18:05:03
+ * @LastEditTime: 2025-07-01 11:02:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -274,12 +274,16 @@ export const drawLine = (formData: Record<string, any>, group: d3.Selection<SVGG
  */
 export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, height: number, data: DataPoint[], fillColor: string, xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any, chart: any) => {
 
+    const xName = formData.xName?.desktop
+    const yName = formData.yName?.desktop
+
     const bar_width = formData.bar_width?.desktop || 60;
     const barAnimationTime = formData.barAnimationTime?.desktop || 1000;
     const bar_radius_x_width = formData.bar_radius_x_width?.desktop || 0;
     const bar_radius_y_width = formData.bar_radius_y_width?.desktop || 0;
     const bar_top_opacity = formData.bar_top_opacity?.desktop || 100;
     const bar_bottom_opacity = formData.bar_bottom_opacity?.desktop || 100;
+    const y_label_unit = formData.y_label_unit?.desktop || ''
 
     d3.select(chartWrapper.value).selectAll('.ala-chart-tooltip').remove()
 
@@ -324,16 +328,16 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
         .enter()
         .append('rect')
         .attr('class', 'bar')
-        .attr('x', d => (xScale!(d.name) || 0) + xGap)
+        .attr('x', (d: any) => (xScale!(d[xName]) || 0) + xGap)
         .attr('width', bWidth)
         .attr('y', height) // 初始高度为底部，用于动画
         .attr('height', 0)
         .attr('rx', xRadius) // 横向圆角半径
         .attr('ry', yRadius) // 纵向圆角半径
         .attr('fill', `url(#${id})`)
-        .on('mouseover', (event, d) => {
+        .on('mouseover', (event, d: any) => {
             tooltip.transition().duration(200).style('opacity', 0.9)
-            tooltip.html(`${d.name}<br/>值: ${d.value}`)
+            tooltip.html(`${d[xName]}<br/>值: ${d[yName]} ${y_label_unit}`)
                 .style('left', `${event.offsetX + 10}px`)
                 .style('top', `${event.offsetY - 28}px`)
         })
@@ -342,8 +346,8 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
         })
         .transition()
         .duration(barAnimationTime)
-        .attr('y', d => yScale(d.value))
-        .attr('height', d => height - yScale(d.value))
+        .attr('y', (d: any) => yScale(d[yName]))
+        .attr('height', (d: any) => height - yScale(d[yName]))
 
 }
 
@@ -706,11 +710,14 @@ export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection
 
     const line_label_color = formData.line_label_color?.desktop || 'red'
     const line_label_fontSize = formData.line_label_fontSize?.desktop || 12
+    const x_label_letter_spacing = formData.x_label_letter_spacing?.desktop || 0
     const line_label_fontWeight = formData.line_label_fontWeight?.desktop || 400
     const line_label_left = formData.line_label_left?.desktop || 0
     const line_label_bottom = formData.line_label_bottom?.desktop || 0
     const y_label_unit = formData.y_label_unit?.desktop || ''
 
+    console.log(' x_label_letter_spacing:', x_label_letter_spacing);
+    
 
     // const labels = group.selectAll('text')
     //     .data(data)
@@ -731,9 +738,10 @@ export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection
         .attr("y", (d: any) => yScale(d[yName]) - line_label_bottom) // 提前 10 像素，避免重叠圆点
         .attr("text-anchor", "middle")
         .attr("font-size", line_label_fontSize + "px")
+        .attr("letter-spacing", x_label_letter_spacing + "px")
         .attr("font-weight", line_label_fontWeight)
         .attr("fill", line_label_color)
-        .text((d: any) => d[yName] + y_label_unit);
+        .text((d: any) => d[yName] + ' ' + y_label_unit);
     // yDecimalNum == 0 ? d[yName] : (d[yName] || 0).toFixed(yDecimalNum)
     if (circleAnimation) {
         labels.transition()
