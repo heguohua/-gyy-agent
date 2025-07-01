@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-06 20:33:00
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 14:05:34
+ * @LastEditTime: 2025-07-01 15:43:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/page.vue
  * @Description: 
  * 
@@ -72,7 +72,7 @@ const pageConfig = ref<Object>({})
 const blockList = ref<Array<any>>([])
 
 onMounted(async () => {
-    
+
     const config = await getRawLowcodingConfigByClassName(className)
 
     const pageFormData = config.pageConfig
@@ -88,4 +88,11 @@ onMounted(async () => {
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ala-dynamic-page {
+    height: 100%;
+    overflow-y: auto;
+
+    .render {}
+}
+</style>

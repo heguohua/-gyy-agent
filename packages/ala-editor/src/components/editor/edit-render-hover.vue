@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-20 19:10:48
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-01 09:41:00
+ * @LastEditTime: 2025-07-01 15:59:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/edit-render-hover.vue
  * @Description: 
  * 
@@ -11,6 +11,8 @@
 <template>
     <div class="edit-render-hover">
         <v-icon-tooltip v-if="showDrag" icon="drag" :content="'按住拖动' + name" class="item drag" @click.stop="" />
+        <v-icon-tooltip v-if="showTop" icon="toTop" :content="'点击上移' + name" class="item" @click.stop=""
+            @click="top" />
         <v-icon-tooltip v-if="showCopy" icon="copy" content="复制" class="item" @click.stop="copy" />
         <v-icon-tooltip v-if="showDelete" icon="delete" content="删除" class="item" @click.stop="clear" />
     </div>
@@ -42,11 +44,15 @@ const props = defineProps({
         type: Boolean,
         default: () => true
     },
+    showTop: {
+        type: Boolean,
+        default: () => true
+    },
 })
 
 const bType = props.bType
 
-const emit = defineEmits(['copy', 'clear'])
+const emit = defineEmits(['copy', 'clear', 'top'])
 
 const copy = () => {
     emit('copy', props.id)
@@ -55,6 +61,11 @@ const copy = () => {
 const clear = () => {
     emit('clear', props.id)
 }
+const top = () => {
+    emit('top', props.id)
+}
+
+
 </script>
 
 <style lang="scss" scoped>

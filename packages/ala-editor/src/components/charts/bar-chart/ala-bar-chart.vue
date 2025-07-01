@@ -236,6 +236,7 @@ const query = () => {
     const url = '/b/datasetTable/query'
 
     let dataSetId = props.formData.dataSetId?.desktop || {}
+    let data_reversed = props.formData.data_reversed?.desktop || false
     let params = { id: dataSetId }
 
 
@@ -243,10 +244,13 @@ const query = () => {
 
     alaPost(u.url(url), params, false, '').then((response: any) => {
 
-        const d = response.data?.data
+        let d = response.data?.data
         const yName = props.formData.yName.desktop
 
         if (d) {
+            if (data_reversed) {
+                d = u.reverseInPlace(d)
+            }
             const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
             const dd = u.convertPropertyToNumber(d, yName, yDecimalNum)
             data.value = dd as any

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 21:45:19
+ * @LastEditTime: 2025-07-01 16:37:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/cards/formSchema.ts
  * @Description: 
  * 
@@ -58,7 +58,7 @@ export const configPosition = (title: string) => {
 }
 
 const cs = configStyle('200px', '100px')
-const {text_color,text_fontSize,text_fontWeight,text_top} = configMainTitle()
+const {text_color,text_fontSize,text_fontWeight,text_top,text_left} = configMainTitle()
 const cvn = configValueNumber()
 const apis = configApis()
 const schema = Type.Object({
@@ -86,6 +86,7 @@ const schema = Type.Object({
     text_fontSize,
     text_fontWeight,
     text_top,
+    text_left,
     mainTitleLink: schemaAllViewport(mainTitleLink),
     // 卡片值
     configValueTitle: schemaAllViewport(configCollapseItem("卡片值")),

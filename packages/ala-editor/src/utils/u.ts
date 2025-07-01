@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 21:18:22
+ * @LastEditTime: 2025-07-01 15:30:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -646,6 +646,14 @@ export default class u {
         }
 
         requestAnimationFrame(tick)
+    }
+
+
+    /**
+     * 原地将数组顺序反转（会修改原数组），并返回该数组
+     */
+    public static reverseInPlace<T>(arr: T[]): T[] {
+        return arr.reverse();        // Array.prototype.reverse() 就地操作
     }
 
 }

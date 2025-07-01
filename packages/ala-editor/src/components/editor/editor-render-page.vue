@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 09:54:49
+ * @LastEditTime: 2025-07-01 16:13:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -23,7 +23,7 @@
 
                 <Transition name="fade">
                     <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name" @copy="copy"
-                        @clear="clear" :bType="bType" :showDrag="false">
+                        @clear="clear" :bType="bType" :showDrag="false" :showTop="true" @top="top">
                     </EditRenderHover>
                 </Transition>
 
@@ -70,7 +70,7 @@
 
 <script setup lang="ts">
 
-import { move, clone, nestedClass, findNodeById, replaceNodeId } from "@/components/editor/nested"
+import { findNodeById, replaceNodeId } from "@/components/editor/nested"
 import { alaConsts } from "@/config/alaConsts";
 
 import { useEditorStore } from "@/store/useEditorStore"
@@ -199,11 +199,17 @@ const init = (data: { pid: string, block: BaseBlock }) => {
 }
 
 
-const handleNodeById = (arr: BaseBlock[], nodeId: string, type: 'copy' | 'clear') => {
+const handleNodeById = (arr: BaseBlock[], nodeId: string, type: 'copy' | 'clear' | 'top') => {
     return findNodeById(arr, nodeId, (params) => {
         const { array, node, index } = params
         if (type === 'copy') array.splice(index, 0, replaceNodeId(node))
         if (type === 'clear') array.splice(index, 1)
+        if (type === 'top') {
+            if (index <= 0) return false;           // 没找到或已经在 0 位——不动
+
+            // 交换 index 与 index-1 位置的元素
+            [array[index - 1], array[index]] = [array[index], array[index - 1]];
+        }
     })
 }
 
@@ -249,6 +255,12 @@ const copy = (id: string) => {
 
 
     editorStore.setCurrentSelect({}, bType)
+    editorStore.setBlockConfig(newBlockConfigs, bType)
+}
+
+const top = (id: string) => {
+    if (!editorStore.blockConfig[bType]?.length) return
+    const newBlockConfigs = handleNodeById(editorStore.blockConfig[bType], id, 'top')
     editorStore.setBlockConfig(newBlockConfigs, bType)
 }
 

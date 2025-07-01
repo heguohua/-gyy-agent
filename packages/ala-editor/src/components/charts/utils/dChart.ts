@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 11:02:29
+ * @LastEditTime: 2025-07-01 11:09:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -502,10 +502,13 @@ export const drawScaleOrdinal = (formData: Record<string, any>, data: DataPoint[
     const x_label_textAnchor = formData.x_label_textAnchor?.desktop || 'middle';
     const x_label_dy = formData.x_label_dy?.desktop || 6;
     const x_label_rotate = formData.x_label_rotate?.desktop || 0;
+    const x_label_letter_spacing = formData.x_label_letter_spacing?.desktop || 0
 
     xAxis.style("stroke", x_label_color);
     xAxis.style("font-size", x_label_fontSize + "px");
     xAxis.style("font-weight", x_label_weight);
+    xAxis.style("letter-spacing", x_label_letter_spacing + "px");
+
     // 对齐方式
     xAxis.style("text-anchor", x_label_textAnchor);
     // xAxis.tickPadding(10)
@@ -560,7 +563,9 @@ export const drawMainTitle = (formData: Record<string, any>, width: number, heig
 
     // 文字大小
     const text_fontSize = formData.text_fontSize?.desktop;
+    const text_fontWeight = formData.text_fontWeight?.desktop;
     title.style("font-size", text_fontSize);
+    title.style("font-weight", text_fontWeight);
 }
 
 /**
@@ -710,13 +715,12 @@ export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection
 
     const line_label_color = formData.line_label_color?.desktop || 'red'
     const line_label_fontSize = formData.line_label_fontSize?.desktop || 12
-    const x_label_letter_spacing = formData.x_label_letter_spacing?.desktop || 0
+
     const line_label_fontWeight = formData.line_label_fontWeight?.desktop || 400
     const line_label_left = formData.line_label_left?.desktop || 0
     const line_label_bottom = formData.line_label_bottom?.desktop || 0
     const y_label_unit = formData.y_label_unit?.desktop || ''
 
-    console.log(' x_label_letter_spacing:', x_label_letter_spacing);
     
 
     // const labels = group.selectAll('text')
@@ -738,7 +742,6 @@ export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection
         .attr("y", (d: any) => yScale(d[yName]) - line_label_bottom) // 提前 10 像素，避免重叠圆点
         .attr("text-anchor", "middle")
         .attr("font-size", line_label_fontSize + "px")
-        .attr("letter-spacing", x_label_letter_spacing + "px")
         .attr("font-weight", line_label_fontWeight)
         .attr("fill", line_label_color)
         .text((d: any) => d[yName] + ' ' + y_label_unit);

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 21:50:48
+ * @LastEditTime: 2025-07-01 16:37:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/cards/ala-card-1.vue
  * @Description: 
  * 
@@ -108,12 +108,14 @@ const titleStyles = computed(() => {
     let fontSize = (formData.text_fontSize?.desktop || 32) + 'px'
     let fontWeight = formData.text_fontWeight?.desktop || 400
     let marginTop = formData.text_top?.desktop || '0px'
+    let marginLeft = formData.text_left?.desktop || '0px'
 
     let style: { [key: string]: any } = {
         color,
         fontSize: fontSize,
         fontWeight,
         marginTop,
+        marginLeft,
         lineHeight: fontSize
     }
     return style
@@ -188,7 +190,8 @@ const query = () => {
                 onUpdate: val => {
                     // 把 val 直接写到页面
                     value.value = Number(val)
-                }
+                },
+                duration: 1000
             })
         }
 
