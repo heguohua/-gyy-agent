@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-06 20:33:00
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 15:43:08
+ * @LastEditTime: 2025-07-01 17:15:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/page.vue
  * @Description: 
  * 
@@ -92,7 +92,5 @@ onMounted(async () => {
 .ala-dynamic-page {
     height: 100%;
     overflow-y: auto;
-
-    .render {}
 }
 </style>
