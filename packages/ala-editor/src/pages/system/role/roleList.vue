@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 10:15:17
+ * @LastEditTime: 2025-07-06 16:00:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleList.vue
  * @Description: 
  * 
@@ -36,6 +36,10 @@
 
         </template>
 
+        <template #btns="{ row }">
+            <AlaButton :showButton="true" name="authorize" @authorize="handleAuthorize(row)" buttonType="primary"
+                v-if="row.formType != 'screen'" />
+        </template>
 
     </PageTable>
 
@@ -167,6 +171,12 @@ const advancedFields: any = []
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
+
+
+const handleAuthorize = (row: any) => {
+    console.log('row:', row);
+
+}
 
 </script>
 
