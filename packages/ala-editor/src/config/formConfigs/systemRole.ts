@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 10:21:05
+ * @LastEditTime: 2025-07-06 15:39:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemRole.ts
  * @Description: 
  * 
@@ -43,6 +43,10 @@ export const systemRole: FormConfig = {
         alaDetailInput('name', "角色名"),
         alaDetailRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1, 'color': colors.danger }, { '本部门及下级部门': 2, 'color': colors.warning }, { '本部门': 3, 'color': colors.primary }, { '仅本人': 4, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailTextarea('remark', '备注', 200),
+        alaDetailInput('createdName', "创建人"),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailInput('updatedName', "更新人"),
+        alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
     ],
     pageApi: '/u/role/page',
