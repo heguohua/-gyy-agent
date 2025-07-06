@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:13:39
+ * @LastEditTime: 2025-07-02 09:30:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -162,9 +162,9 @@ const detailFields: any = ref([
     alaDetailSwitch('state', "状态", "启用", 1, "禁用", 2),
     alaDetailInput('version', "版本号"),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "重新部署人"),
-    alaDetailDate( 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 const detailItem = reactive({
@@ -203,8 +203,8 @@ const columns = computed(() => {
         alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
         alaDetailSwitch('state', "状态", "启用", 1, "禁用", 2),
         alaDetailInput('version', "版本号"),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailDate( 'updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('updatedTime', "重新部署时间", 'YYYY-MM-DD HH:mm:ss'),
 
 
         // { prop: 'displayName', label: '名称' },
@@ -233,9 +233,12 @@ const showPreviewPage = ref(false)
 const previewPageProps = reactive({})
 
 const tabs = computed(() => {
-    return reactive([
+
+    const tbs =  reactive([
         { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
     ])
+    
+    return tbs
 })
 
 

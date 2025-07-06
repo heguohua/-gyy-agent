@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-20 10:07:17
+ * @LastEditTime: 2025-07-06 09:16:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -40,7 +40,7 @@ export const allMenuComponents: MenuComponent = {
     },
     "/role/page": {
         name: "RolePage",
-        component: "../pages/role/index.vue",
+        component: "../pages/system/role/roleList.vue",
         requiresAuth: true
     },
     "/sysMenu/page": {

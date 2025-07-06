@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-29 20:26:44
+ * @LastEditTime: 2025-07-06 10:46:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -29,7 +29,7 @@ import AlaSelectTreeSchema from "@/components/cps/select-tree/alaSelectTredSchem
  * 将 {"男":'man'} 格式对象转换成 { name: "男", value: "man" } 格式
  */
 type Item = { name: string; value: string };
-function convertToItem(config: { [key: string]: string }): Item {
+export function convertToItem(config: { [key: string]: string }): Item {
 
     const item: Item = {
         name: '',

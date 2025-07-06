@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:53:54
+ * @LastEditTime: 2025-07-02 09:30:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-tab-page.vue
  * @Description: 
  * 
@@ -63,7 +63,6 @@ const props = defineProps({
         type: Object as any
     }
 })
-
 
 const showDrawer = defineModel({
     type: Boolean,

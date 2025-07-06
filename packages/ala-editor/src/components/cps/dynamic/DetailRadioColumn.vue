@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-09 19:09:47
+ * @LastEditTime: 2025-07-06 10:52:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailRadioColumn.vue
  * @Description: 
  * 
@@ -66,15 +66,15 @@ const showValue = computed(() => {
     const value = props.value
     const items = props.formItem.formData.items.desktop
 
-
     let v = undefined
     
     if (items) {
         items.forEach((item: any) => {
 
             Object.keys(item).forEach((key: string) => {
+
                 if (item[key] === value) {
-                    v = item.name
+                    v = key
                     if(item.color){
                         color.value = item.color
                     }else{
@@ -85,6 +85,7 @@ const showValue = computed(() => {
 
         })
     }
+    
     return v
 })
 

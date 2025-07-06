@@ -4,7 +4,7 @@ import { dType } from "@/components/cps/dynamic/detailType"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:22:25
+ * @LastEditTime: 2025-07-06 10:51:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -63,6 +63,7 @@ export function alaDetailSelectDict(columnName: string, label: string, propertyN
 
 
 export function alaDetailRadio(columnName: string, label: string, items: Array<{ [key: string]: any }>, columnNum = 1, detail = false, other?: Object) {
+
     return {
         prop: columnName,
         label: label,

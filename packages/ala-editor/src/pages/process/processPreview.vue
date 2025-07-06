@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:57:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 16:23:33
+ * @LastEditTime: 2025-07-02 09:28:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/processPreview.vue
  * @Description: 
  * 
@@ -36,7 +36,8 @@ const props = defineProps({
     previewParams: {
         type: Object as any,
         default: () => ({})
-    }
+    },
+    id: Number
 })
 
 
@@ -62,7 +63,8 @@ const handleSave = (flowData: { json: any }) => {
 // Methods
 // 加载编辑时的初始化数据
 
-watch(() => props.previewParams.defineId, (id) => {
+watch(() => props.id, (id) => {
+
 
     if (id) {
 
