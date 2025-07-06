@@ -47,7 +47,7 @@ export const systemRole: FormConfig = {
     ],
     pageApi: '/u/role/page',
     pageFields: [
-        alaDetailInput('name', "角色名"),
+        alaDetailInput('name', "角色名", 1, true),
         alaDetailRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1, 'color': colors.danger }, { '本部门及下级部门': 2, 'color': colors.warning }, { '本部门': 3, 'color': colors.primary }, { '仅本人': 4, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '200' } }),
         alaDetailTextarea('remark', '备注', 200),
         alaDetailInput('createdName', "创建人"),
