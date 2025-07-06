@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 16:00:50
+ * @LastEditTime: 2025-07-06 16:50:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleList.vue
  * @Description: 
  * 
@@ -45,6 +45,7 @@
 
     <!-- 新增、编辑 -->
     <roleAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <roleAuthorization v-model="showAuthorizationForm" :baseInfo="baseInfo" />
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="formConfigs.systemRole.detailFields"
         :formAttr="formConfigs.systemRole.detailAttr" />
@@ -57,6 +58,7 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import PageTable from '@/components/cps/page/page-table.vue';
 import roleAdd from '@/pages/system/role/roleAdd.vue';
+import roleAuthorization from '@/pages/system/role/roleAuthorization.vue';
 import { logger } from '@/utils/logger';
 import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
@@ -92,8 +94,6 @@ const showAdd = (item: { [key: string]: any }) => {
     logger.info(`【新增】方法接收到参数【 item 】`, item);
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
-    // /process/design
-    // router.push("/process/designAdd")
 }
 
 const showEdit = (item: { [key: string]: any }) => {
@@ -122,11 +122,11 @@ const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
 
-
 const detailItem = reactive({
     moduleName,
     item: {}
 })
+
 const showDetailPage = ref(false)
 const showDetail = (item: { [key: string]: any }) => {
     u.clear(detailItem.item)
@@ -134,28 +134,13 @@ const showDetail = (item: { [key: string]: any }) => {
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
     showDetailPage.value = true
 }
-
-
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
 const url = formConfigs.systemRole.pageApi
-const deleteUrl = "/u/user/delete"
-// const cls = alaBuildSelectTable("forms", "表单", "/l/lowcodingConfig/page", [{ prop: 'name', label: '表单名称', isQuery: true }], { propertyName: 'name', valueName: 'id', otherProperty: ['className'] }, undefined, { formType: 'flow' }, "请选择")
-
-// alaBuildInput("scabbard", '登录账号', [alaRequired()]),
-// alaBuildPassword("sword", '登录密码', [alaRequired()]),
-// alaBuildInput("nickName", '用户昵称', [alaRequired()]),
-// alaBuildInput("mobile", '手机号', [alaRequired(),alaPhone()]),
-// alaBuildInput("email", '邮箱', [alaRequired(),alaEmail()]),
-// alaBuildInput("iconPath", '用户头像', []),
-// alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
-
-
-// 分页列表中列属性配置
-
+const deleteUrl = "/u/role/delete"
 
 // 基础查询条件
 const baseFields = computed(() => {
@@ -164,18 +149,19 @@ const baseFields = computed(() => {
     ]
 })
 
-
 // 高级查询条件
 const advancedFields: any = []
 
-
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
-
-
-const handleAuthorize = (row: any) => {
-    console.log('row:', row);
-
+const showAuthorizationForm = ref(false)
+const handleAuthorize = (item: any) => {
+    console.log('item:', item);
+    u.clear(baseInfo.item)
+    u.merged(baseInfo, { item: { ...item } })
+    logger.info(`【角色授权】方法接收到参数【 item 】`, item);
+    logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    showAuthorizationForm.value = true
 }
 
 </script>
