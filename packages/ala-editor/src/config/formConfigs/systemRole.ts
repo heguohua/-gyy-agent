@@ -29,7 +29,7 @@ export const systemRole: FormConfig = {
     formFields: [
         alaBuildHidden('id'),// 固定格式
         alaBuildInput("name", '角色名', [alaRequired()]),
-        alaBuildRadio('dataAuthority', "数据权限范围", [{ '所有数据': '1' }, { '本部门及下级部门': '2' }, { '本部门': '3' }, { '仅本人': '4' }], [alaRequired()]),
+        alaBuildRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1 }, { '本部门及下级部门': 2 }, { '本部门': 3 }, { '仅本人': 4 }], [alaRequired()]),
         alaBuildTextarea("remark", "备注", [], "请输入角色备注"),
     ],
     detailAttr: {

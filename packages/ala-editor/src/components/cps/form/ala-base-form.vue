@@ -260,8 +260,8 @@ const formItemChangeCallback = (data: any) => {
     u.merged(props.formData || {}, data)
 }
 
-watch(() => props.formData, (value: any) => {
-}, { immediate: true, deep: true })
+// watch(() => props.formData, (value: any) => {
+// }, { immediate: true, deep: true })
 // ##########################  以下是冗余示例代码  #########################################
 
 // 基础查询条件
