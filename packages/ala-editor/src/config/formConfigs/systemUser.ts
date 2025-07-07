@@ -2,13 +2,13 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:19:56
+ * @LastEditTime: 2025-07-07 17:45:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
-import { alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildPassword, alaBuildSelectTree } from "@/config/alaBuilders"
+import { alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree } from "@/config/alaBuilders"
 import { alaEmail, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
 import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectTree } from "../alaDetailBuilder"
@@ -35,6 +35,7 @@ export const systemUser: FormConfig = {
             clearable: true,
             checkStrictly: true,
         }),
+        alaBuildSelectTable("roles", "角色", "/u/role/page", [{ prop: 'name', label: '角色名', isQuery: true }, { prop: 'remark', label: '备注' }], { propertyName: 'name', valueName: 'id' }, undefined, {}, "请选择授权角色")
 
     ],
     detailAttr: {
