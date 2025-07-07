@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 16:50:27
+ * @LastEditTime: 2025-07-07 08:51:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleList.vue
  * @Description: 
  * 
@@ -156,7 +156,6 @@ const advancedFields: any = []
 
 const showAuthorizationForm = ref(false)
 const handleAuthorize = (item: any) => {
-    console.log('item:', item);
     u.clear(baseInfo.item)
     u.merged(baseInfo, { item: { ...item } })
     logger.info(`【角色授权】方法接收到参数【 item 】`, item);

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 22:22:53
+ * @LastEditTime: 2025-07-07 08:59:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleAuthorization.vue
  * @Description: 
  * 
@@ -66,6 +66,7 @@ const permissionNodes = ref<Array<PermissionNode>>([])
 watch(() => props.baseInfo.item, (item) => {
     logger.info(`观察到 baseInfo 中的 item 发生了变化`, item);
 
+    if (!item.id) return
     // Methods
     const url = '/u/menu/findForAuthorization'
 
@@ -115,6 +116,7 @@ const beforeSave = (item: any) => {
 
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
+import notify from '@/utils/notify';
 const { t } = useI18n();
 
 const handleClose = (done: () => void) => {
@@ -147,16 +149,16 @@ function cancelClick() {
 
 /** 资源对象 */
 interface Resource {
-  id: number | string
-  authorized: number
-  [k: string]: any
+    id: number | string
+    authorized: number
+    [k: string]: any
 }
 
 /** 树节点 */
 interface TreeNode {
-  resources?: Resource[]
-  children?: TreeNode[]
-  [k: string]: any
+    resources?: Resource[]
+    children?: TreeNode[]
+    [k: string]: any
 }
 
 /**
@@ -165,29 +167,47 @@ interface TreeNode {
  * @returns     id 数组
  */
 function collectAuthorizedIds(root: TreeNode | TreeNode[]): Array<number | string> {
-  const ids: Array<number | string> = []
+    const ids: Array<number | string> = []
 
-  const dfs = (node: TreeNode) => {
-    // 处理当前节点 resources
-    node.resources?.forEach(res => {
-      if (res.authorized === 1) ids.push(res.id)
-    })
-    // 递归遍历子节点
-    node.children?.forEach(dfs)
-  }
+    const dfs = (node: TreeNode) => {
+        // 处理当前节点 resources
+        node.resources?.forEach(res => {
+            if (res.authorized === 1) ids.push(res.id)
+        })
+        // 递归遍历子节点
+        node.children?.forEach(dfs)
+    }
 
-  Array.isArray(root) ? root.forEach(dfs) : dfs(root)
-  return ids
+    Array.isArray(root) ? root.forEach(dfs) : dfs(root)
+    return ids
 }
 
 /**
  * 点击确认按钮，弹窗消息提示框
  */
 function confirmClick() {
-    console.log('confirmClick')
 
-    console.log('collectAuthorizedIds:',collectAuthorizedIds(permissionNodes.value));
-    
+    // Methods
+    const url = '/u/role/saveRoleResourceRelations'
+
+    const roleId = props.baseInfo.item.id
+    const resourceIds = collectAuthorizedIds(permissionNodes.value)
+
+    let params = { roleId, resourceIds }
+
+
+    logger.info(`【 保存 角色-资源关联关系 】，url【 ${url} 】，参数：`, params);
+
+    alaPost(u.url(url), params, false, '').then((response: any) => {
+        const data = response.data
+        logger.info(`【 保存 角色-资源关联关系 】，返参data：`, data);
+        if (data) {
+            notify.success(t('pop.warm_title'), "数据保存成功。")
+            showDrawer.value = false
+        } else {
+            notify.error(t('pop.warm_title'), "数据保存失败，请联系管理员！")
+        }
+    });
 
     // emit("confirm", {
     //     abc: 123
@@ -204,6 +224,18 @@ const drawerWidth = computed((): string => {
 
 const handleSelect = (node: PermissionNode) => {
 }
+
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.authorization {
+
+    :deep(.el-drawer__header) {
+        color: #3d446e !important;
+        font-size: 1.1rem !important;
+        background: #F9F9FA !important;
+        padding: 4px 0px !important;
+        margin-bottom: 0px !important;
+    }
+}
+</style>

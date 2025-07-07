@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-07-06 21:06:22
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 22:25:04
+ * @LastEditTime: 2025-07-07 08:38:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/permission/ala-permission.vue
  * @Description: 
  * 
@@ -19,7 +19,7 @@
                     <div class="permission" v-for="(item, index) in node.resources" :key="item.id" @click="">
                         <input type="checkbox" @click="check($event, item)"
                             :checked="item.authorized === 1 ? true : false" />{{
-                                item.description }}
+                                permissionName(node.name, item.description) }}
                     </div>
                 </div>
             </div>
@@ -73,6 +73,14 @@ const check = (event: Event, item: any) => {
     }
 }
 
+const permissionName = (nodeName: string, permissionDescription: string) => {
+    if (permissionDescription.startsWith(nodeName + '-')) {
+        return permissionDescription.substring(permissionDescription.indexOf('-') + 1)
+    } else {
+        return permissionDescription
+    }
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -122,6 +130,7 @@ const check = (event: Event, item: any) => {
                         &:checked {
                             background: var(--el-color-primary);
                             position: relative;
+                            border: 1px solid var(--el-color-primary);
 
                             &::after {
                                 content: "✔";
