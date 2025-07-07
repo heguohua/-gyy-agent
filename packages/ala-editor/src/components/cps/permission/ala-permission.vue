@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-07-06 21:06:22
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-07 08:38:15
+ * @LastEditTime: 2025-07-07 09:37:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/permission/ala-permission.vue
  * @Description: 
  * 
@@ -13,9 +13,12 @@
         <li v-for="node in nodes" :key="node.id" class="permission-item" :style="{ marginLeft: level * indent + 'px' }">
             <div class="permission-one-menu" @click="emit('select', node)">
                 <div class="menu-name">
-                    {{ node.name }}
+                    <input type="checkbox" :checked="false" />{{ node.name }}
+                    <input type="checkbox" @click="check($event, node)" :checked="node.authorized === 1 ? true : false"
+                        class="menu-checkbox" />菜单
                 </div>
                 <div class="permissions" v-if="node.resources && node.resources.length">
+
                     <div class="permission" v-for="(item, index) in node.resources" :key="item.id" @click="">
                         <input type="checkbox" @click="check($event, item)"
                             :checked="item.authorized === 1 ? true : false" />{{
@@ -39,6 +42,7 @@ export interface PermissionNode {
     name: string
     children?: PermissionNode[]
     resources?: Array<any>
+    authorized: number
 
 }
 
@@ -71,6 +75,7 @@ const check = (event: Event, item: any) => {
     } else {
         item.authorized = 2
     }
+
 }
 
 const permissionName = (nodeName: string, permissionDescription: string) => {
@@ -98,10 +103,17 @@ const permissionName = (nodeName: string, permissionDescription: string) => {
             flex-wrap: nowrap;
 
             .menu-name {
-                width: 100px;
                 display: flex;
                 flex-wrap: nowrap;
                 white-space: nowrap;
+                margin-right: 16px;
+                align-items: center;
+                justify-content: center;
+                height: 3rem;
+
+                .menu-checkbox {
+                    margin-left: 18px;
+                }
             }
 
             .permissions {
@@ -114,41 +126,7 @@ const permissionName = (nodeName: string, permissionDescription: string) => {
                     align-items: center;
                     justify-content: center;
 
-                    input[type="checkbox"] {
-                        // accent-color: var(--el-color-primary-light-5);
-                        appearance: none;
-                        width: 1.1rem;
-                        height: 1.1rem;
-                        margin-right: 3px;
-                        border: 1px solid var(--el-border-color);
-                        border-radius: 3px;
 
-                        &:hover {
-                            cursor: pointer;
-                        }
-
-                        &:checked {
-                            background: var(--el-color-primary);
-                            position: relative;
-                            border: 1px solid var(--el-color-primary);
-
-                            &::after {
-                                content: "✔";
-                                /* 把对号作为文字插进去 */
-                                font-size: 14px;
-                                /* ← 对号大小 */
-                                color: #fff;
-                                /* 对号颜色 */
-                                position: absolute;
-                                left: 50%;
-                                top: 50%;
-                                transform: translate(-50%, -50%);
-
-                            }
-                        }
-
-
-                    }
                 }
             }
 
@@ -161,6 +139,43 @@ const permissionName = (nodeName: string, permissionDescription: string) => {
 
             &:hover {
                 background-color: var(--el-fill-color-light);
+            }
+
+
+            input[type="checkbox"] {
+                // accent-color: var(--el-color-primary-light-5);
+                appearance: none;
+                width: 1.1rem;
+                height: 1.1rem;
+                margin-right: 3px;
+                border: 1px solid var(--el-border-color);
+                border-radius: 3px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                &:checked {
+                    background: var(--el-color-primary);
+                    position: relative;
+                    border: 1px solid var(--el-color-primary);
+
+                    &::after {
+                        content: "✔";
+                        /* 把对号作为文字插进去 */
+                        font-size: 14px;
+                        /* ← 对号大小 */
+                        color: #fff;
+                        /* 对号颜色 */
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+
+                    }
+                }
+
+
             }
         }
     }

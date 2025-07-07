@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-07 08:59:00
+ * @LastEditTime: 2025-07-07 09:45:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleAuthorization.vue
  * @Description: 
  * 
@@ -166,14 +166,31 @@ interface TreeNode {
  * @param root  根节点或节点数组
  * @returns     id 数组
  */
-function collectAuthorizedIds(root: TreeNode | TreeNode[]): Array<number | string> {
+function collectResourceAuthorizedIds(root: TreeNode | TreeNode[]): Array<number | string> {
     const ids: Array<number | string> = []
 
     const dfs = (node: TreeNode) => {
+
         // 处理当前节点 resources
         node.resources?.forEach(res => {
             if (res.authorized === 1) ids.push(res.id)
         })
+        // 递归遍历子节点
+        node.children?.forEach(dfs)
+    }
+
+    Array.isArray(root) ? root.forEach(dfs) : dfs(root)
+    return ids
+}
+
+function collectMenuAuthorizedIds(root: TreeNode | TreeNode[]): Array<number | string> {
+    const ids: Array<number | string> = []
+
+    const dfs = (node: TreeNode) => {
+
+        // 处理当前节点菜单权限
+        if (node.authorized === 1) ids.push(node.id)
+
         // 递归遍历子节点
         node.children?.forEach(dfs)
     }
@@ -191,9 +208,10 @@ function confirmClick() {
     const url = '/u/role/saveRoleResourceRelations'
 
     const roleId = props.baseInfo.item.id
-    const resourceIds = collectAuthorizedIds(permissionNodes.value)
+    const resourceIds = collectResourceAuthorizedIds(permissionNodes.value)
+    const menuIds = collectMenuAuthorizedIds(permissionNodes.value)
 
-    let params = { roleId, resourceIds }
+    let params = { roleId, resourceIds, menuIds }
 
 
     logger.info(`【 保存 角色-资源关联关系 】，url【 ${url} 】，参数：`, params);
@@ -201,7 +219,7 @@ function confirmClick() {
     alaPost(u.url(url), params, false, '').then((response: any) => {
         const data = response.data
         logger.info(`【 保存 角色-资源关联关系 】，返参data：`, data);
-        if (data) {
+        if (response.code === 200) {
             notify.success(t('pop.warm_title'), "数据保存成功。")
             showDrawer.value = false
         } else {
