@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-07 17:45:25
+ * @LastEditTime: 2025-07-14 08:09:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 import { alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree } from "@/config/alaBuilders"
 import { alaEmail, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
-import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectTree } from "../alaDetailBuilder"
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectTable, alaDetailSelectTree } from "../alaDetailBuilder"
 import { dType } from "@/components/cps/dynamic/detailType"
 
 export const systemUser: FormConfig = {
@@ -48,6 +48,7 @@ export const systemUser: FormConfig = {
     detailFields: [
         alaDetailInput('scabbard', "登录账号", 1, true),
         alaDetailInput('nickName', "用户昵称"),
+        alaDetailSelectTable('roles', "用户角色", "name", 1, false, { columnWidth: { desktop: '200' } }),
         alaDetailInput('mobile', "手机号"),
         alaDetailInput('email', "邮箱"),
         alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD'),
@@ -63,13 +64,14 @@ export const systemUser: FormConfig = {
     pageFields: [
         alaDetailInput('scabbard', "登录账号", 1, true, { columnWidth: { desktop: '120' } }),
         alaDetailInput('nickName', "用户昵称", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailSelectTable('roles', "用户角色", "name", 1, false, { columnWidth: { desktop: '200' } }),
         alaDetailInput('mobile', "手机号", 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('email', "邮箱"),
         alaDetailInput('iconPath', "用户头像", 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailSelectTree('organization', "所属部门", 'orgName')
+        alaDetailSelectTree('organization', "所属部门", 'orgName'),
     ],
     moduleName: 'user'
 
