@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-04-05 16:22:48
+ * @LastEditTime: 2025-07-14 21:02:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -42,8 +42,8 @@
     </div>
 
     <!-- 新增、编辑 -->
-    <StartForm v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="formFields"
-        :formAttr="formAttr" :className="className" />
+    <StartForm v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="addFormFields" :formAttr="formAttr"
+        :className="className" />
 
 </template>
 
@@ -57,6 +57,7 @@ import StartForm from '@/pages/process/startForm.vue';
 import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from '../dynamic/formItemParser';
 import baseRule from '@/config/rules/baseRule';
 import { alaCard, alaCn, alaCnTw, alaEmail, alaEnumRule, alaLetter, alaLl8, alaLl8_, alaLOrlOr8, alaLOrlOr8Or_, alaNumber, alaNumberMax, alaNumberMin, alaNumberRange, alaPassword, alaPattern, alaPhone, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaTw, alaUrl } from '@/config/alaRules';
+import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 const { t } = useI18n();
 
 
@@ -189,12 +190,24 @@ const baseInfo = reactive({
     defineId: null,
     item: {}
 })
+
 const showAddForm = ref(false)
 const cn = ref('')
 const className = computed(() => {
     return cn.value
 })
-const showAdd = (form: any, define: any) => {
+
+const formAttr = ref({
+    formWidth: 500,
+    columnNum: 1,
+    labelWidth: 150,
+    labelPosition: 'right',
+    useFormTitle: false,
+})
+// 表单字段
+const addFormFields = ref<Array<any>>([
+])
+const showAdd = async (form: any, define: any) => {
     u.clear(baseInfo.item)
     u.merged(baseInfo, { item: {}, tableName: form.name, defineId: define.id })
     cn.value = form.className
@@ -204,171 +217,29 @@ const showAdd = (form: any, define: any) => {
 
     // 组装列表字段
 
-    const url = "/l/lowcodingConfig/get"
-    const params = { id: form.id }
-    const bType = 'form'
-    logger.info(`从后台加载【 ${bType} 】配置数据，url【 ${url} 】，数据对象：`, params);
+    const configs = await getLowcodingConfigByClassName(form.className)
+    formAttr.value = configs.formAttr
+    addFormFields.value = configs.addFormFields
 
-    get(u.url(url || ''), params).then((response: any) => {
-        const { data: { config, id } } = response.data;
-        const conf = u.parseJson(config)
-        const blockConfig = conf["blockConfig"][bType]
-        const pageConfig = conf["pageConfig"][bType]
-
-        u.checkNull(pageConfig?.formData, '当前流程第一级任务节点表单【 页面配置 】不存在', t)
-        u.checkNull(blockConfig, '当前流程第一级任务节点表单【 字段配置 】不存在', t)
-
-        // 初始化表单页面配置项
-        const pFormData = pageConfig?.formData
-        const formAttrs = {
-            formWidth: pFormData.width?.desktop ? pFormData.width.desktop : formAttr.value.formWidth,
-            labelWidth: pFormData.labelWidth?.desktop ? pFormData.labelWidth.desktop : formAttr.value.labelWidth,
-            columnNum: pFormData.columnNum?.desktop ? pFormData.columnNum.desktop : formAttr.value.columnNum,
-            useFormTitle: pFormData.useFormTitle?.desktop ? pFormData.useFormTitle.desktop : formAttr.value.useFormTitle,
-            labelPosition: pFormData.labelPosition?.desktop ? pFormData.labelPosition.desktop : formAttr.value.labelPosition,
-        }
-        logger.info(`【 流程表单 - pageConfig】配置信息：`, formAttrs);
-
-        u.merged(formAttr, formAttrs)
-
-        addFormFields.value = []
-        // 初始化表单字段配置项
-        blockConfig.forEach((item: { code: string, formData: any }) => {
-            const { code, formData } = { ...item }
-
-            // 组装 form 表单字段
-            let formItem: any = {}
-            if (code === 'input') {
-                formItem = parseInput(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'textarea') {
-                formItem = parseTextarea(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'radio') {
-                formItem = parseRadio(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'checkbox') {
-                formItem = parseCheckbox(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'date') {
-                formItem = parseDate(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'number') {
-                formItem = parseNumber(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'select') {
-                formItem = parseSelect(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'slider') {
-                formItem = parseSlider(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'rating') {
-                formItem = parseRating(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'switch') {
-                formItem = parseSwitch(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'divider') {
-                formItem = parseDivider(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'chapter') {
-                formItem = parseChapter(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'selectTable') {
-                formItem = parseSelectTable(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'selectDict') {
-                formItem = parseSelectDict(formData)
-                addFormFields.value.push(formItem)
-            } else if (code === 'dateRange') {
-                // 类似于时间范围这种表单，需要 使用组件数据回调机制 动态更新具体form中的属性值，因此需要把属性字段名传递到具体组件中
-                formItem = parseDateRange(formData)
-                formItem.other.startFieldName = formData.startFieldName.desktop
-                formItem.other.endFieldName = formData.endFieldName.desktop
-                addFormFields.value.push(formItem)
-            }
-
-            const other = formItem.other || {}
-
-            if (item.formData.columnNum) {
-                formItem.columnNum = item.formData.columnNum.desktop
-            }
-
-            // 处理 组件 other 中的属性信息
-            if (item.formData.help && item.formData.help.desktop) {
-                other.help = item.formData.help.desktop
-            }
-            if (item.formData.icon && item.formData.icon.desktop) {
-                other.icon = item.formData.icon.desktop
-                other.iconWidth = item.formData.iconWidth.desktop
-                other.iconHeight = item.formData.iconHeight.desktop
-            }
-
-            formItem.other = other
-
-            // 解析表单验证规则
+    // columns.value = configs.columns
+    // baseFields.value = configs.baseFields
+    // formConfigItems.value = configs.formConfigItems
+    // detailFields.value = configs.detailFields
+    // showAddButton.value = configs.showAddButton
+    // showDeleteButton.value = configs.showDeleteButton
+    // showEditButton.value = configs.showEditButton
+    // showButtonsColumn.value = configs.showButtonsColumn
+    // u.merged(formAttr.value, configs.formAttr)
 
 
-            const rules: Array<baseRule> = []
+    showAddForm.value = true
 
-            // 非空验证条件
-            if (formData.required && formData.required.desktop) {
-                rules.push(alaRequired())
-            }
-
-            // 添加字符数最少、最多和范围验证
-            if (formData.strMin && formData.strMax && formData.strMin.desktop && formData.strMax.desktop) {
-                rules.push(alaStrLengthRange(formData.strMin.desktop, formData.strMax.desktop))
-            } else if (formData.strMin && formData.strMin.desktop) {
-                rules.push(alaStrMin(formData.strMin.desktop))
-            } else if (formData.strMax && formData.strMax.desktop) {
-                rules.push(alaStrMax(formData.strMax.desktop))
-            }
-
-            // 添加 数值最小、最大和范围验证
-            if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
-                rules.push(alaNumberRange(formData.numberMin.desktop, formData.numberMax.desktop))
-            } else if (formData.numberMin && formData.numberMin.desktop) {
-                rules.push(alaNumberMin(formData.numberMin.desktop))
-            } else if (formData.numberMax && formData.numberMax.desktop) {
-                rules.push(alaNumberMax(formData.numberMax.desktop))
-            }
-
-            if (formData.rules && formData.rules.desktop) {
-                const functionName = ruleFunctions[formData.rules.desktop]
-                if (!functionName) {
-                    logger.error(`【 错误，错误，错误 】${formData.rules.desktop} 函数不存在`);
-                } else {
-                    rules.push(ruleFunctions[formData.rules.desktop]())
-                }
-            }
-
-            formItem.rules = rules
-
-        })
-
-        logger.info(`【 流程表单 - blockConfig】配置信息：`, addFormFields.value);
-
-        showAddForm.value = true
-
-    });
 
 }
 
-const formAttr = ref({
-    formWidth: 500,
-    columnNum: 1,
-    labelWidth: 150,
-    labelPosition: 'right',
-    useFormTitle: false,
-})
 
-// 表单字段
-const formFields = computed(() => {
-    return addFormFields.value
-})
-const addFormFields = ref<Array<any>>([
-])
+
+
 
 // 创建一个映射，将函数名字符串映射到函数引用
 const ruleFunctions: { [key: string]: Function } = {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-25 09:06:56
+ * @LastEditTime: 2025-07-14 20:56:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -55,7 +55,6 @@ import PageTable from '@/components/cps/page/page-table.vue';
 import { logger } from '@/utils/logger';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
-import { formConfigParse } from './formConfigParser';
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 import { useAlaStore } from '@/store/ala-store';
 const alaStore = useAlaStore()

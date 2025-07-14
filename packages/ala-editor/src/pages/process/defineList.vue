@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-02 09:30:15
+ * @LastEditTime: 2025-07-14 21:13:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/defineList.vue
  * @Description: 
  * 
@@ -56,7 +56,7 @@
     </PageTable>
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
-    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" />
+    <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程图" width="1800" :tabs="tabs" :previewParams="previewParams"/>
 
 </template>
 
@@ -230,21 +230,20 @@ const advancedFields: any[] = []
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 const showPreviewPage = ref(false)
-const previewPageProps = reactive({})
+const previewParams = reactive({})
 
 const tabs = computed(() => {
 
-    const tbs =  reactive([
-        { title: '流程图', code: 'ProcessPreview', props: { ...previewPageProps, viewer: true } },
-    ])
-    
+    const tbs = reactive([
+        { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
+    ])    
+
     return tbs
 })
 
-
 const handlePreview = (row: any) => {
     logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
-    u.merged(previewPageProps, { id: row.id })
+    u.merged(previewParams, {  defineId: row.id  })
     showPreviewPage.value = true
 }
 
