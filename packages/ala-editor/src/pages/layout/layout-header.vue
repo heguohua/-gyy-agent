@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 11:29:46
+ * @LastEditTime: 2025-07-14 16:40:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -28,11 +28,13 @@
         <v-icon icon="publish" />
         {{ $t('buttons.publish') }}
       </el-button> -->
-      <el-select v-model="currentLanguage" :placeholder="$t('common.select_placeholder')" @change="chang"
-        class="languages">
-        <el-option v-for="(value, key) in languages" :key="key" :label="value" :value="key">
-        </el-option>
-      </el-select>
+      <div class="languages">
+        <el-select v-model="currentLanguage" :placeholder="$t('common.select_placeholder')" @change="chang">
+          <el-option v-for="(value, key) in languages" :key="key" :label="value" :value="key">
+          </el-option>
+        </el-select>
+      </div>
+
       <div class="icon-operation">
         <el-dropdown trigger="hover" @command="handleCommand">
           <div class="ala-icon">
@@ -41,13 +43,22 @@
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="logout">{{ t('buttons.logout') }}</el-dropdown-item>
+              <el-dropdown-item command="updatePassword">
+                <VIcon icon="password" width="18" height="18" />&nbsp;&nbsp;{{ t('buttons.updatePassword') }}
+              </el-dropdown-item>
+              <el-dropdown-item command="logout">
+                <VIcon icon="logout" width="18" height="18" />&nbsp;&nbsp;{{ t('buttons.logout') }}
+              </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
       </div>
     </div>
+
   </div>
+  
+  <ala-change-password ref="changePasswordRef" />
+
 </template>
 
 <script setup lang="ts">
@@ -68,7 +79,7 @@ import { changLanguage, useLocale } from '@/hooks/useLocale'
 // 使用useLocale
 const { changeLocale } = useLocale()
 import u from '@/utils/u';
-import { alaDownload } from '@/utils/req';
+import { alaDownload, alaPost, get } from '@/utils/req';
 const { getLocaleMessage } = useI18n();
 const chang = (locale: any) => {
   changLanguage(locale, getLocaleMessage, changeLocale)
@@ -76,7 +87,7 @@ const chang = (locale: any) => {
 
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
 
-
+const changePasswordRef = ref()
 
 
 const viewport = ref<Viewport>('desktop')
@@ -84,8 +95,6 @@ const editorStore = useEditorStore()
 
 watch(viewport, (value) => {
   logger.info("editor-header中切换 viewport,更新 editorStore 中的 viewport 和 configPanelShow");
-  // editorStore.setViewport(value)
-  // editorStore.setConfigPanelShow('mobile' === value,bType)
 })
 
 let app_types = computed(() => {
@@ -94,11 +103,22 @@ let app_types = computed(() => {
   ]
 })
 
+const logout = () => {
+  alaPost(u.url('/out'), '', false, "get").then((response: any) => {
+    console.log('response:', response);
+    if (response.code === 200) {
+      // 删除本地 localStorage中的token
+      lstore.removeItem(alaConsts.is_logined_key)
+      window.location.href = '/login'
+    }
+  })
+}
 const handleCommand = (command: string) => {
-  if (command === 'edit') {
-    console.log('点击了编辑')
-  } else if (command === 'delete') {
-    console.log('点击了删除')
+  if (command === 'updatePassword') {
+    // 显示密码修改框
+    changePasswordRef.value.open()
+  } else if (command === 'logout') {
+    logout()
   }
 }
 
@@ -108,27 +128,19 @@ onMounted(() => {
 })
 
 const imageValue = ref<any>()
-
 watch(() => user.value, async (v) => {
 
   if (v) {
-
     const fid = user.value.icon
-
     const result = await alaDownload(u.url('/f/ossfile/download'), { fid: fid }).then((data: any) => {
       const response = data;
       return response
     })
-
     const blob = new Blob([result.data])
     const reader = new FileReader()
-
     reader.onloadend = () => {
       const base64 = reader.result
       if (typeof base64 === 'string') {
-        // localValue.value.push(base64.replace('data:application/octet-stream', `data:image/${u.fileExtension(image.fileName)}`))
-        console.log('base64:', base64);
-
         imageValue.value = base64
       }
     }
@@ -138,9 +150,7 @@ watch(() => user.value, async (v) => {
     }
 
     reader.readAsDataURL(blob) // 转成 base64
-
   }
-
 }, {
   immediate: true,
   deep: true
@@ -229,14 +239,18 @@ watch(() => user.value, async (v) => {
     }
 
     .icon-operation {
+
       margin-left: 16px;
       cursor: pointer;
+      width: 130px;
+
       .ala-icon {
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
         justify-content: center;
         white-space: nowrap;
+
         .photo {
           height: 2rem;
           border-radius: 1rem;
@@ -249,9 +263,22 @@ watch(() => user.value, async (v) => {
         }
       }
 
-      .dropdown-trigger-text {}
+
     }
   }
 
+}
+
+/* 设置下拉菜单的宽度 */
+.el-dropdown-menu {
+  min-width: 140px;
+  padding: 8px 0px;
+
+  /* 如果需要设置每个菜单项的宽度，可以这样设置 */
+  :deep(.el-dropdown-menu__item) {
+    // width: 100%;
+    line-height: 32px !important;
+
+  }
 }
 </style>

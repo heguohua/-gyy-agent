@@ -21,6 +21,7 @@ declare module 'vue' {
     AlaCard1: typeof import('./src/components/charts/cards/ala-card-1.vue')['default']
     AlaCascader: typeof import('./src/components/cps/cascader/ala-cascader.vue')['default']
     AlaCascaderDict: typeof import('./src/components/cps/cascader-dict/ala-cascader-dict.vue')['default']
+    AlaChangePassword: typeof import('./src/components/cps/change-password/ala-change-password.vue')['default']
     AlaChapter: typeof import('./src/components/cps/chapter/ala-chapter.vue')['default']
     AlaCheckbox: typeof import('./src/components/cps/checkbox/ala-checkbox.vue')['default']
     AlaChildTableCount: typeof import('./src/components/cps/childTableCount/ala-child-table-count.vue')['default']
