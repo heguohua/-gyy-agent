@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 10:38:16
+ * @LastEditTime: 2025-07-14 16:52:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -157,6 +157,7 @@ import lstore from "@/utils/lstore";
 import { alaConsts } from "@/config/alaConsts";
 import { logger } from "@/utils/logger";
 import notify from "@/utils/notify";
+import router from '@/router'
 
 onMounted(() => {
     logger.warn("已跳转到Login页面，执行onMounted逻辑");
@@ -201,6 +202,7 @@ const submit = async () => {
             // 跳转主工作台路由
             // router.push("/console")
             window.location.href = "/"
+            // router.push("/welcome")
             // }
 
             // 页面加载时，从 localStorage 获取激活的菜单路径
