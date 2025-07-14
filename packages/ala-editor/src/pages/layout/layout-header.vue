@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 13:37:14
+ * @LastEditTime: 2025-07-14 11:26:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -33,6 +33,19 @@
         <el-option v-for="(value, key) in languages" :key="key" :label="value" :value="key">
         </el-option>
       </el-select>
+      <div class="icon-operation">
+        <el-dropdown trigger="hover" @command="handleCommand">
+          <div class="ala-icon">
+            <img :src="imageValue" class="photo" />
+            <p class="userName">{{ user.realName }}</p>
+          </div>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="logout">{{ t('buttons.logout') }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
@@ -47,13 +60,15 @@ import { languages } from '@/store/locale';
 import { logger } from '@/utils/logger';
 import lstore from '@/utils/lstore';
 import logo from '@/assets/images/logo.svg'
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 // 切换语言
 // 引入useLocale
 import { changLanguage, useLocale } from '@/hooks/useLocale'
 // 使用useLocale
 const { changeLocale } = useLocale()
-import { useI18n } from 'vue-i18n';
+import u from '@/utils/u';
+import { alaDownload } from '@/utils/req';
 const { getLocaleMessage } = useI18n();
 const chang = (locale: any) => {
   changLanguage(locale, getLocaleMessage, changeLocale)
@@ -75,17 +90,61 @@ watch(viewport, (value) => {
 
 let app_types = computed(() => {
   return [
-    // {
-    //   value: 'desktop',
-    //   label: t('common.app_type.desktop'),
-    // },
-    // {
-    //   value: 'mobile',
-    //   label: t('common.app_type.mobile'),
-    // },
+
   ]
 })
 
+const handleCommand = (command: string) => {
+  if (command === 'edit') {
+    console.log('点击了编辑')
+  } else if (command === 'delete') {
+    console.log('点击了删除')
+  }
+}
+
+const user = ref<any>()
+onMounted(() => {
+  user.value = lstore.getItem(alaConsts.user_name)
+})
+
+const imageValue = ref<any>()
+
+watch(() => user.value, async (v) => {
+
+  if (v) {
+
+    const fid = user.value.icon
+
+    const result = await alaDownload(u.url('/f/ossfile/download'), { fid: fid }).then((data: any) => {
+      const response = data;
+      return response
+    })
+
+    const blob = new Blob([result.data])
+    const reader = new FileReader()
+
+    reader.onloadend = () => {
+      const base64 = reader.result
+      if (typeof base64 === 'string') {
+        // localValue.value.push(base64.replace('data:application/octet-stream', `data:image/${u.fileExtension(image.fileName)}`))
+        console.log('base64:', base64);
+
+        imageValue.value = base64
+      }
+    }
+
+    reader.onerror = (e) => {
+      console.log('e:', e)
+    }
+
+    reader.readAsDataURL(blob) // 转成 base64
+
+  }
+
+}, {
+  immediate: true,
+  deep: true
+})
 
 </script>
 
@@ -167,6 +226,30 @@ let app_types = computed(() => {
     .languages {
       min-width: 150px;
       margin-left: 12px;
+    }
+
+    .icon-operation {
+      margin-left: 16px;
+      cursor: pointer;
+      .ala-icon {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        .photo {
+          height: 2rem;
+          border-radius: 1rem;
+        }
+
+        .userName {
+          display: flex;
+          flex-wrap: nowrap;
+          margin-left: 4px;
+        }
+      }
+
+      .dropdown-trigger-text {}
     }
   }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 08:36:19
+ * @LastEditTime: 2025-07-14 09:31:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -57,7 +57,9 @@ export const systemUser: FormConfig = {
         alaDetailInput('mobile', "手机号"),
         alaDetailInput('email', "邮箱"),
         alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD'),
-        alaDetailInput('iconPath', "用户头像"),
+        alaDetailImage('iconPath', "用户头像", 1, false, {
+            columnWidth: { desktop: '140' },
+        }),
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailInput('updatedName', "更新人"),

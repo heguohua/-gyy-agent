@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-07 10:17:15
+ * @LastEditTime: 2025-07-14 10:38:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -138,7 +138,6 @@ import AlaTypewriterOneLine from '@/components/cps/typewriter/AlaTypewriterOneLi
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-
 // State  
 
 
@@ -157,48 +156,59 @@ import { alaPost } from '@/utils/req';
 import lstore from "@/utils/lstore";
 import { alaConsts } from "@/config/alaConsts";
 import { logger } from "@/utils/logger";
+import notify from "@/utils/notify";
 
 onMounted(() => {
     logger.warn("已跳转到Login页面，执行onMounted逻辑");
 })
-
+const title = '温馨提示'
 const submit = async () => {
 
     const lf = loginForm.value
-    u.checkNull(lf.scabbard, "请输入您的【 用户名 】", t)
-    u.checkNull(lf.sword, "请输入您的【 密码 】", t)
-    u.checkTrue(!lf.agree, "请阅读协议并【 勾选 】同意", t)
+    u.checkTrue(!lf.scabbard, "请输入您的【 用户名 】", t, title)
+    u.checkTrue(!lf.sword, "请输入您的【 密码 】", t, title)
+    u.checkTrue(!lf.agree, "请阅读协议并【 勾选 】同意", t, title)
 
     alaPost(u.url("/login"), lf).then((data: any) => {
         // 登录成功
 
-        // 1、将 token 存储到 localStorage
-        lstore.setItem(alaConsts.token_name, data.data)
+        if (data.data?.token) {
+            // 登录成功
+            // 1、将 token 存储到 localStorage
+            lstore.setItem(alaConsts.token_name, data.data?.token)
 
-        // 2、设置登录状态到 pina 中
-        // alaStore.set("isLogined", true)
-        lstore.setItem(alaConsts.is_logined_key, true)
+            // 2、设置登录状态到 pina 中
+            // alaStore.set("isLogined", true)
+            lstore.setItem(alaConsts.is_logined_key, true)
 
-        // 3、跳转 layout 页面
-        // 注册路由
-        // router.addRoute({
-        //     path: '/layout',
-        //     name: 'layout',
-        //     component: () => import('./layout/layout.vue'),
-        //     meta: { requiresAuth: true }
-        // });
+            // 3、用户基本信息存储到 localStorage
+            lstore.setItem(alaConsts.user_name, data.data)
 
-        // const oldRouter = alaStore.get(alaConsts.redirect_router_name_key)
-        // if (oldRouter) {
-        //     // 检测用户是否是在登录前打开了某个页面，如果是，则自动打开这个页面
-        //     router.push(oldRouter)
-        // } else {
-        // 跳转主工作台路由
-        // router.push("/console")
-        window.location.href = "/"
-        // }
+            // 3、跳转 layout 页面
+            // 注册路由
+            // router.addRoute({
+            //     path: '/layout',
+            //     name: 'layout',
+            //     component: () => import('./layout/layout.vue'),
+            //     meta: { requiresAuth: true }
+            // });
 
-        // 页面加载时，从 localStorage 获取激活的菜单路径
+            // const oldRouter = alaStore.get(alaConsts.redirect_router_name_key)
+            // if (oldRouter) {
+            //     // 检测用户是否是在登录前打开了某个页面，如果是，则自动打开这个页面
+            //     router.push(oldRouter)
+            // } else {
+            // 跳转主工作台路由
+            // router.push("/console")
+            window.location.href = "/"
+            // }
+
+            // 页面加载时，从 localStorage 获取激活的菜单路径
+
+        } else {
+            notify.warn(title, "登录失败，请联系管理员")
+        }
+
 
 
     })

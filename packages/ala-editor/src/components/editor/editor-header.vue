@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:03:17
+ * @LastEditTime: 2025-07-14 10:45:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-header.vue
  * @Description: 
  * 

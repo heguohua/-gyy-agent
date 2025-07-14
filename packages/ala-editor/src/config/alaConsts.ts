@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 16:28:41
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-10 21:44:59
+ * @LastEditTime: 2025-07-14 10:37:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaConsts.ts
  * @Description: 全局唯一的 常量类
  *
@@ -29,5 +29,8 @@ export class alaConsts {
 
   // 当前正在访问的router name存储在localstorage中的key
   public static readonly current_router_name = alaConsts.PREFIX + 'current_router_name';
+
+  // localStorage中存储的当前用户相关信息
+  public static readonly user_name = 'userInfo';
 
 }
