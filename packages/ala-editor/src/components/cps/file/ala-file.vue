@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-16 17:12:32
+ * @LastEditTime: 2025-07-14 08:24:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/ala-file.vue
  * @Description: 
  * 
@@ -137,7 +137,10 @@ const handleFileChange = async (event: any) => {
       const f: File = target.files[i]
       const result = await upload(f, secondLevel, oneLevel)
       if (result.code === 200 && result.data?.id) {
-        const m = u.parseJson(model.value)
+        let m = u.parseJson(model.value)
+        if (!Array.isArray(m)) {
+          m = []
+        }
         m.push(result.data)
         model.value = u.tojson(m)
         target.value = ""

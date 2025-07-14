@@ -2,16 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 08:09:59
+ * @LastEditTime: 2025-07-14 08:36:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
-import { alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree } from "@/config/alaBuilders"
+import { alaBuildDate, alaBuildHidden, alaBuildImage, alaBuildInput, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree } from "@/config/alaBuilders"
 import { alaEmail, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
-import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectTable, alaDetailSelectTree } from "../alaDetailBuilder"
+import { alaDetailBuild, alaDetailDate, alaDetailImage, alaDetailInput, alaDetailSelectTable, alaDetailSelectTree } from "../alaDetailBuilder"
 import { dType } from "@/components/cps/dynamic/detailType"
 
 export const systemUser: FormConfig = {
@@ -30,7 +30,12 @@ export const systemUser: FormConfig = {
         alaBuildInput("mobile", '手机号', [alaRequired(), alaPhone()]),
         alaBuildInput("email", '邮箱', [alaRequired(), alaEmail()]),
         alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
-        alaBuildInput("iconPath", '用户头像', []),
+        alaBuildImage("iconPath", '用户头像', [alaRequired()], "请选择用户头像", {
+            oneLevel: 'system',
+            secondLevel: 'user',
+            columnWidth: '100',
+            imageWidth: '100%',
+        }),
         alaBuildSelectTree("organization", "所属部门", "/u/organization/tree", {}, { propertyName: 'name', valueName: 'id', childrenName: 'children' }, undefined, "请选择用户所属部门", {
             clearable: true,
             checkStrictly: true,
@@ -67,7 +72,9 @@ export const systemUser: FormConfig = {
         alaDetailSelectTable('roles', "用户角色", "name", 1, false, { columnWidth: { desktop: '200' } }),
         alaDetailInput('mobile', "手机号", 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('email', "邮箱"),
-        alaDetailInput('iconPath', "用户头像", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailImage('iconPath', "用户头像", 1, false, {
+            columnWidth: { desktop: '140' },
+        }),
         alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),

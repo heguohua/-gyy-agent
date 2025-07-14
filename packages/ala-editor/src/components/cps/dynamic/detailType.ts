@@ -22,6 +22,8 @@ export class dType {
     public static readonly deep = 'deep'
     public static readonly cascader = 'cascader'
     public static readonly formTable = 'formTable'
+    public static readonly image = 'image'
+    public static readonly file = 'file'
 
     public static readonly textColor = 'textColor'
     public static readonly radio = 'radio'

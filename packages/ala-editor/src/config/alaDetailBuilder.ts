@@ -4,7 +4,7 @@ import { dType } from "@/components/cps/dynamic/detailType"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 10:51:52
+ * @LastEditTime: 2025-07-14 08:28:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -26,20 +26,20 @@ export function alaDetailInput(columnName: string, label: string, columnNum = 1,
     }
 }
 
-export function alaDetailFile(componentName: string, columnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailFile(columnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.file, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 
 
-export function alaDetailImage(componentName: string, columnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailImage(columnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: componentName, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.image, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 
