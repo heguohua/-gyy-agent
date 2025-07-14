@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 11:26:37
+ * @LastEditTime: 2025-07-14 11:29:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -37,7 +37,7 @@
         <el-dropdown trigger="hover" @command="handleCommand">
           <div class="ala-icon">
             <img :src="imageValue" class="photo" />
-            <p class="userName">{{ user.realName }}</p>
+            <p class="userName">{{ user?.realName }}</p>
           </div>
           <template #dropdown>
             <el-dropdown-menu>
