@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 14:47:39
+ * @LastEditTime: 2025-07-15 15:07:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -158,11 +158,11 @@ const props = defineProps({
   },
   iconWidth: {
     type: Number,
-    default: 30
+    default: 26
   },
   iconHeight: {
     type: Number,
-    default: 30
+    default: 26
   },
   singleValue: {
     type: Boolean,
@@ -367,7 +367,7 @@ const isDynamicTable = () => {
 
     color: #a8abb2;
     width: 30px;
-    right: 0px;
+    right: 6px;
     position: absolute;
     display: flex;
     height: 100%;
