@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:32:13
+ * @LastEditTime: 2025-07-15 14:43:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/formSchema.ts
  * @Description: 
  * 
@@ -145,6 +145,12 @@ const showInSearch = Type.String({
     default: false,
 })
 
+const canEmpty = Type.String({
+    code: "config-boolean",
+    title: "允许清空？",
+    default: false,
+})
+
 const showInTable = Type.String({
     code: "config-boolean",
     title: "列表显示？",
@@ -207,6 +213,7 @@ const schema = Type.Object({
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
+    canEmpty: schemaAllViewport(canEmpty),
 })
 
 

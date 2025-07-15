@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 15:33:20
+ * @LastEditTime: 2025-07-15 14:47:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -167,6 +167,10 @@ const props = defineProps({
   singleValue: {
     type: Boolean,
     default: false
+  },
+  canEmpty: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -209,8 +213,10 @@ const showValue = computed(() => {
 function confirmClick() {
 
   const length = selectedData.value.length
+  console.log('props:', props);
 
-  if (!selectedData.value || length <= 0) {
+
+  if (!props.canEmpty && (!selectedData.value || length <= 0)) {
 
     notify.warn(t('pop.warm_title'), t('form.p-select-1') + '【 ' + props.label + ' 】')
 

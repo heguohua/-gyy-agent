@@ -324,7 +324,7 @@ fields.value.push(alaBuildInput("displayName", "显示名称", [alaRequired()], 
 const cls = alaBuildSelectTable("forms", "表单", "/l/lowcodingConfig/page", [{ prop: 'name', label: '表单名称', isQuery: true }], { propertyName: 'name', valueName: 'id', otherProperty: ['className'] }, undefined, { formType: 'flow' }, "请选择")
 fields.value.push(cls)
 
-const assignee = alaBuildSelectTable("assignee", "参与者", "/u/user/page", [{ prop: 'nickName', label: '用户姓名', isQuery: true }], { propertyName: 'nickName', valueName: 'id' }, undefined, {}, "请选择")
+const assignee = alaBuildSelectTable("assignee", "参与者", "/u/user/page", [{ prop: 'nickName', label: '用户姓名', isQuery: true }], { propertyName: 'nickName', valueName: 'id' }, undefined, {}, "请选择参与者", undefined, true)
 fields.value.push(assignee)
 
 fields.value.push(alaBuildSelectDict("assignmentHandler", "参与者处理类", { "dictValue": "assignmentHandler" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择参与者处理类", { clearable: true }))
