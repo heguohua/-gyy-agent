@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:15:55
+ * @LastEditTime: 2025-07-15 18:37:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/formSchema.ts
  * @Description: 
  * 
@@ -72,7 +72,7 @@ const precision = Type.Number({
     code: "config-int",
     title: "数值精度",
     placeholder: "请输入精度",
-    default: 2,
+    default: 0,
 })
 const right = Type.String({
     code: "config-boolean",

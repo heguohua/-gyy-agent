@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 15:02:16
+ * @LastEditTime: 2025-07-15 18:58:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -80,9 +80,9 @@ export function parseCheckbox(item: { fieldName: { desktop: string }, label: { d
 
 type dataTypee = "date" | "year" | "years" | "month" | "months" | "dates" | "week" | "datetime" | "datetimerange" | "daterange" | "monthrange" | "yearrange";
 
-export function parseDate(item: { fieldName: { desktop: string }, label: { desktop: string }, dateType: { desktop: dataTypee }, format: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string }, start: { desktop: string }, end: { desktop: string } }) {
+export function parseDate(item: { fieldName: { desktop: string }, label: { desktop: string }, dateType: { desktop: dataTypee }, format: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string }, start: { desktop: string }, end: { desktop: string }, daysBefore: { desktop: number }, daysAfter: { desktop: number } }) {
     // alaBuildDate('bornDate', "出生日期", 'date', "YYYY-MM-DD", [alaRequired()], "", date.YYYY_MM_DD(new Date())),
-    const result = alaBuildDate(item.fieldName.desktop, item.label.desktop, item.dateType.desktop, item.format.desktop, item.rules?.desktop, item.start?.desktop, item.end?.desktop, item.placeholder?.desktop)
+    const result = alaBuildDate(item.fieldName.desktop, item.label.desktop, item.dateType.desktop, item.format.desktop, item.rules?.desktop, item.start?.desktop, item.end?.desktop, item.placeholder?.desktop, item.daysBefore?.desktop, item.daysAfter?.desktop)
     logger.info(`解析【 date 】字段：`, result);
     return result
 }
@@ -145,7 +145,7 @@ export function parseSwitch(item: { fieldName: { desktop: string }, label: { des
 export function parseSelectTable(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: any }, placeholder: { desktop: string }, icon: { desktop: string }, iconWidth: { desktop: number }, iconHeight: { desktop: number }, canEmpty: { desktop: boolean } }) {
     //  alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
     // const result={}
-    const result = alaBuildSelectTable(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.columns.desktop, item.itemProperty.desktop, undefined, item.params?.desktop, item.placeholder?.desktop, item.icon?.desktop, item.iconWidth?.desktop, item.iconHeight?.desktop, item.canEmpty?.desktop)
+    const result = alaBuildSelectTable(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.columns.desktop, item.itemProperty.desktop, undefined, item.params?.desktop, item.placeholder?.desktop, item.icon?.desktop ? item.icon.desktop : undefined, item.iconWidth?.desktop, item.iconHeight?.desktop, item.canEmpty?.desktop)
     logger.info(`解析【 selectTable 】字段：`, result);
     return result
 }

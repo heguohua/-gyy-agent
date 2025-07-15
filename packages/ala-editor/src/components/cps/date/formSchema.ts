@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:17:27
+ * @LastEditTime: 2025-07-15 19:01:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/formSchema.ts
  * @Description: 
  * 
@@ -122,12 +122,35 @@ const required = Type.String({
     default: false,
 })
 
+const daysBefore = Type.String({
+    code: "config-int",
+    title: "不早于前X天",
+    other: {
+        min: -1,
+        step: 1,
+        controlsPosition: ''
+    }
+})
+
+const daysAfter = Type.String({
+    code: "config-int",
+    title: "不晚于后X天",
+    other: {
+        min: -1,
+        step: 1,
+        controlsPosition: ''
+    }
+})
+
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
     fieldName: schemaAllViewport(fieldName),
     dateType: schemaAllViewport(dateType),
     format: schemaAllViewport(format),
+    daysBefore: schemaAllViewport(daysBefore),
+    daysAfter: schemaAllViewport(daysAfter),
     help: schemaAllViewport(help),
     columnNum: schemaAllViewport(columnNum),
     columnWidth: schemaAllViewport(columnWidth),

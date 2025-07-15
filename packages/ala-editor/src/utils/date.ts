@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:14:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-12 10:21:47
+ * @LastEditTime: 2025-07-15 18:01:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/date.ts
  * @Description: 时间工具类
  *
@@ -21,6 +21,7 @@ export const AlaDateType = [
   { value: "months", name: "多个月份" },
   { value: "dates", name: "多个日期" },
   { value: "week", name: "周" },
+  { value: "datetime", name: "日期时间" },
 ]
 export const AlaDateTypeRange = [
   { value: "datetimerange", name: "日期或时间范围" },
@@ -36,6 +37,7 @@ export const AlaDateFormat = [
   { name: "YYYY-MM-DD", value: "YYYY-MM-DD" },
   { name: "YYYY/MM/DD", value: "YYYY/MM/DD" },
   { name: "YYYYMMDD", value: "YYYYMMDD" },
+  { name: "YYYY-MM-DD HH:mm", value: "YYYY-MM-DD HH:mm" },
   { name: "YYYY-MM-DD HH:mm:ss", value: "YYYY-MM-DD HH:mm:ss" },
   { name: "YYYY/MM/DD HH:mm:ss", value: "YYYY/MM/DD HH:mm:ss" },
   { name: "YYYYMMDD HHmmss", value: "YYYYMMDD HHmmss" },

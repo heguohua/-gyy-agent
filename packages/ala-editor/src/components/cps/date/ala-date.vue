@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 21:07:15
+ * @LastEditTime: 2025-07-15 18:34:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -76,6 +76,14 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    daysBefore: {
+        type: Number,
+        default: () => 0
+    },
+    daysAfter: {
+        type: Number,
+        default: () => 0
     }
 })
 
@@ -85,6 +93,9 @@ const model = defineModel({
 })
 
 const handleChange = (value: Date | null) => {
+
+    console.log('props : ---> ', props);
+
 
     if (value) {
 
@@ -100,6 +111,8 @@ const handleChange = (value: Date | null) => {
 
 const disabledDate = (time: Date) => {
 
+
+    // 1、根据传递的 start 和 end 设置
     if (props.start && props.end) {
         return time.getTime() < new Date(props.start).getTime() || time.getTime() > new Date(props.end).getTime();
     }
@@ -111,6 +124,28 @@ const disabledDate = (time: Date) => {
     if (props.start && !props.end) {
         return time.getTime() < new Date(props.start).getTime();
     }
+
+
+    // 2、根据 不早于X天、不晚于多少天判断
+    const oneDay = 24 * 60 * 60 * 1000
+    const currentTime = new Date().getTime()
+    if (props.daysBefore > -1 && props.daysAfter > -1) {
+        const before = oneDay * (props.daysBefore + 1)
+        const after = oneDay * props.daysAfter
+        return time.getTime() < (currentTime - before) || time.getTime() > (currentTime + after)
+    }
+
+    if (props.daysBefore === -1 && props.daysAfter > -1) {
+        const after = oneDay * props.daysAfter 
+        return time.getTime() > (currentTime + after)
+    }
+
+    if (props.daysBefore > -1 && props.daysAfter === -1) {
+        const before = oneDay * (props.daysBefore + 1)
+        return time.getTime() < (currentTime - before)
+    }
+
+
     return false;
 
 }

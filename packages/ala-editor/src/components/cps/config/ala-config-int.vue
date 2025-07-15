@@ -95,6 +95,8 @@ const isRequired = () => {
 
 
 watch(() => formData, (form_data) => {
+    console.log('form_data[key]?.[props.viewport]:',form_data[key]?.[props.viewport]);
+    
     if (form_data[key]?.[props.viewport]) {
         logger.info(`bType[ ${bType} ],config-int组件 【 监听到 】 form_data 发生变化，key[ ${key} ]，即将更新 input 的属性值,defaultValue[${defaultValue}],input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
         input.value = form_data[key][props.viewport] || defaultValue

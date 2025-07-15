@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-25 09:05:55
+ * @LastEditTime: 2025-07-15 17:13:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -175,7 +175,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                             formItem = parseDivider(formData)
                         } else if (code === 'chapter') {
                             formItem = parseChapter(formData)
-                        } else if (code === 'selectTable') {
+                        } else if (code === 'selectTable') {                            
                             formItem = parseSelectTable(formData)
                         } else if (code === 'selectDict') {
                             formItem = parseSelectDict(formData)

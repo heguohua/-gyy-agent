@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 15:00:59
+ * @LastEditTime: 2025-07-15 18:59:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -411,10 +411,11 @@ type dataTypee = "date" | "year" | "years" | "month" | "months" | "dates" | "wee
  * @param end 日期选择限定范围结束时间
  * @returns 
  */
-export function alaBuildDate(fieldName: string, label: string, dateType: dataTypee, format: string, rules?: Array<baseRule>, start?: string, end?: string, placeholder?: string): AlaDateSchema {
-    const obj = alaBuildWithOther("AlaDate", fieldName, label, { dateType, format, start, end }, rules, placeholder)
+export function alaBuildDate(fieldName: string, label: string, dateType: dataTypee, format: string, rules?: Array<baseRule>, start?: string, end?: string, placeholder?: string, daysBefore?: number, daysAfter?: number): AlaDateSchema {
+    const obj = alaBuildWithOther("AlaDate", fieldName, label, { dateType, format, start, end, daysBefore, daysAfter }, rules, placeholder)
     return obj
 }
+
 export function alaBuildDateRange(fieldName: string, label: string, dateType: dataTypee, format: string, rules?: Array<baseRule>, start?: string, end?: string, placeholder?: string): AlaDateSchema {
     const obj = alaBuildWithOther("AlaDateRange", fieldName, label, { dateType, format, start, end }, rules, placeholder)
     return obj

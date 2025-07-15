@@ -479,13 +479,18 @@ watch(() => localValue.value, async (v) => {
             // 剔除当前模块对应的字段
             if (field.fieldName != currentModule) {
 
-                headers.value.push({
-                    label: field.label,
-                    width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
-                })
-                formConfigItems.value.push(fci[field.fieldName])
-                addFormFields.value.push(field)
-                addFormFieldRules.value[field.fieldName] = field.rules
+                if (fci[field.fieldName].code != 'ai') {
+                    headers.value.push({
+                        label: field.label,
+                        width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
+                    })
+                    console.log('fci[field.fieldName]:', fci[field.fieldName]);
+
+                    formConfigItems.value.push(fci[field.fieldName])
+                    addFormFields.value.push(field)
+                    addFormFieldRules.value[field.fieldName] = field.rules
+
+                }
 
             }
 
