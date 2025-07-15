@@ -239,7 +239,7 @@ const beforeQuery = (params: any) => {
     Object.keys(params).forEach((key: string) => {
         if (key != 'tableName' && params[key]) {
             // 转换字段查询条件为动态分页列表形式
-            const formConfigItem = formConfigItems[key]
+            const formConfigItem = formConfigItems.value[key]
             const code = formConfigItem.code
             if (code === 'input') {
                 conditions.push({ column: 'a_' + key, operator: 'like', value: params[key] })

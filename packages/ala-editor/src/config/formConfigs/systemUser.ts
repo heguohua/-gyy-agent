@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 09:31:14
+ * @LastEditTime: 2025-07-15 10:50:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -40,7 +40,8 @@ export const systemUser: FormConfig = {
             clearable: true,
             checkStrictly: true,
         }),
-        alaBuildSelectTable("roles", "角色", "/u/role/page", [{ prop: 'name', label: '角色名', isQuery: true }, { prop: 'remark', label: '备注' }], { propertyName: 'name', valueName: 'id' }, undefined, {}, "请选择授权角色")
+        alaBuildSelectTable("roles", "角色", "/u/role/page", [{ prop: 'name', label: '角色名', isQuery: true }, { prop: 'remark', label: '备注' }], { propertyName: 'name', valueName: 'id' }, undefined, {}, "请选择授权角色"),
+        alaBuildSelectTable("funRoles", "主职能角色", "/l/dynamic/page", [{ "prop": "name", "label": "职能名称", "isQuery": "true" }, { "prop": "remark", "label": "职能描述" }], { propertyName: 'name', valueName: 'id' }, [], { tableName: "functionalRolePage" }, "请选择主职能角色")
 
     ],
     detailAttr: {
@@ -54,6 +55,7 @@ export const systemUser: FormConfig = {
         alaDetailInput('scabbard', "登录账号", 1, true),
         alaDetailInput('nickName', "用户昵称"),
         alaDetailSelectTable('roles', "用户角色", "name", 1, false, { columnWidth: { desktop: '200' } }),
+        alaDetailSelectTable('funRoles', "主职能角色", "name", 1, false, { columnWidth: { desktop: '200' } }),
         alaDetailInput('mobile', "手机号"),
         alaDetailInput('email', "邮箱"),
         alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD'),
@@ -69,16 +71,17 @@ export const systemUser: FormConfig = {
     ],
     pageApi: '/u/user/page',
     pageFields: [
-        alaDetailInput('scabbard', "登录账号", 1, true, { columnWidth: { desktop: '120' } }),
-        alaDetailInput('nickName', "用户昵称", 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailInput('scabbard', "登录账号", 1, true, { columnWidth: { desktop: '150' } }),
+        alaDetailInput('nickName', "用户昵称", 1, false, { columnWidth: { desktop: '200' } }),
         alaDetailSelectTable('roles', "用户角色", "name", 1, false, { columnWidth: { desktop: '200' } }),
+        alaDetailSelectTable('funRoles', "主职能角色", "name", 1, false, { columnWidth: { desktop: '130' } }),
         alaDetailInput('mobile', "手机号", 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailInput('email', "邮箱"),
+        alaDetailInput('email', "邮箱", 1, false, { columnWidth: { desktop: '150' } }),
         alaDetailImage('iconPath', "用户头像", 1, false, {
-            columnWidth: { desktop: '140' },
+            columnWidth: { desktop: '120' },
         }),
         alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD', 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailInput('createdName', "创建人"),
+        alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailSelectTree('organization', "所属部门", 'orgName'),
     ],
