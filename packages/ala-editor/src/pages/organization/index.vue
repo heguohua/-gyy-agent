@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-02 16:45:22
+ * @LastEditTime: 2025-07-16 19:35:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/organization/index.vue
  * @Description: 
  * 
@@ -68,7 +68,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
-import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailImage, alaDetailInput, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import DeptAdd from './deptAdd.vue';
 import notify from '@/utils/notify';
@@ -149,10 +149,12 @@ const columns = computed(() => {
         alaDetailInput('nickName', "用户昵称"),
         alaDetailInput('mobile', "手机号"),
         alaDetailInput('email', "邮箱"),
-        alaDetailInput('iconPath', "用户头像"),
-        alaDetailDate( 'entryDate', "入职时间", 'YYYY-MM-DD'),
+        alaDetailImage('iconPath', "用户头像", 1, false, {
+            columnWidth: { desktop: '140' },
+        }),
+        alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD'),
         alaDetailInput('createdName', "创建人"),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -170,12 +172,14 @@ const detailFields: any = ref([
     alaDetailInput('nickName', "用户昵称"),
     alaDetailInput('mobile', "手机号"),
     alaDetailInput('email', "邮箱"),
-    alaDetailDate( 'entryDate', "入职时间", 'YYYY-MM-DD'),
-    alaDetailInput('iconPath', "用户头像"),
+    alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD'),
+    alaDetailImage('iconPath', "用户头像", 1, false, {
+        columnWidth: { desktop: '140' },
+    }),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 

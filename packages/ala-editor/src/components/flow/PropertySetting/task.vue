@@ -327,7 +327,7 @@ fields.value.push(cls)
 const assignee = alaBuildSelectTable("assignee", "参与者", "/u/user/page", [{ prop: 'nickName', label: '用户姓名', isQuery: true }], { propertyName: 'nickName', valueName: 'id' }, undefined, {}, "请选择参与者", 'f_user', 26, 26, true)
 fields.value.push(assignee)
 
-fields.value.push(alaBuildSelectDict("assignmentHandler", "参与者处理类", { "dictValue": "assignmentHandler" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择参与者处理类", { clearable: true }))
+fields.value.push(alaBuildSelectDict("assignmentHandler", "参与者处理类", { "parentDictValue": "assignmentHandlers" }, { "propertyName": 'dictLabel', "valueName": 'dictValue' }, [], "请选择参与者处理类", { clearable: true }))
 fields.value.push(alaBuildSelect("taskType", "任务类型", [{ '主办任务': 'Major' }, { '协办任务': 'Aidant' }], [], "请选择任务参与者", { clearable: true }))
 fields.value.push(alaBuildSelect("performType", "参与类型", [{ '普通参与': 'ANY' }, { '会签参与': 'ALL' }], [], "请选择参与类型", { clearable: true }))
 fields.value.push(alaBuildSelectDict("preInterceptors", "节点前置拦截器", { "dictValue": "preInterceptor" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [], "请选择节点前置拦截器", { clearable: true }))
