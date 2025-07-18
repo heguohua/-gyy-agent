@@ -42,8 +42,8 @@
     </div>
 
     <!-- 新增、编辑 -->
-    <StartForm v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="addFormFields" :formAttr="formAttr"
-        :className="className" />
+    <StartForm v-if="showAddForm" v-model="showAddForm" :baseInfo="baseInfo" :fields="addFormFields"
+        :formAttr="formAttr" :className="className" />
 
 </template>
 
@@ -303,7 +303,7 @@ const ruleFunctions: { [key: string]: Function } = {
 
                 display: flex;
                 padding: 16px 20px;
-                width: 300px;
+                min-width: 300px;
                 background: #f3f7fa;
                 border-radius: 8px;
                 transition: box-shadow 0.3s ease-in-out;
@@ -330,12 +330,13 @@ const ruleFunctions: { [key: string]: Function } = {
                 }
 
                 .ala-card-content {
-                    width: 200px;
+                    min-width: 200px;
                     text-align: left;
 
                     .title {
                         font-size: 1.1rem;
                         font-weight: bold;
+                        white-space: nowrap;
                     }
 
                     .remark {

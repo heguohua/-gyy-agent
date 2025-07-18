@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 09:39:37
+ * @LastEditTime: 2025-07-18 20:35:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -171,13 +171,16 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                         properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState))
                     })
                 } else {
-                    timelines.value.push({
-                        title: task.displayName,
-                        content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${getSubmitType(task.submitType)}  于 `,
-                        timestamp: task.updatedTime,
-                        properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState)),
+                    if (task.formKeyEntity) {
+                        timelines.value.push({
+                            title: task.displayName,
+                            content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${getSubmitType(task.submitType)}  于 `,
+                            timestamp: task.updatedTime,
+                            properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState)),
 
-                    })
+                        })
+                    }
+
                 }
 
                 const time = u.timeDiff(task.finishTime, task.createdTime)
@@ -186,15 +189,18 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                 t += time.hours ? (time.hours + 'h ') : ''
                 t += time.minutes ? (time.minutes + 'm ') : '0m'
                 // 2、准备列表数据
-                tks.push({
-                    displayName: task.displayName,
-                    submitType: getSubmitType(task.submitType),
-                    nickName: task.operatorEntity?.nickName,
-                    remark: task.formKeyEntity?.remark,
-                    createdTime: date.YYYY_MM_DD__HH_mm_ss(task.createdTime),
-                    finishTime: date.YYYY_MM_DD__HH_mm_ss(task.finishTime),
-                    time: t,
-                })
+                if (task.formKeyEntity) {
+                    tks.push({
+                        displayName: task.displayName,
+                        submitType: getSubmitType(task.submitType),
+                        nickName: task.operatorEntity?.nickName,
+                        remark: task.formKeyEntity.remark,
+                        createdTime: date.YYYY_MM_DD__HH_mm_ss(task.createdTime),
+                        finishTime: date.YYYY_MM_DD__HH_mm_ss(task.finishTime),
+                        time: t,
+                    })
+                }
+
             })
             tasks.value = tks
         }

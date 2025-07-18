@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:59:12
+ * @LastEditTime: 2025-07-18 20:26:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/designList.vue
  * @Description: 
  * 
@@ -280,7 +280,7 @@ const handleClone = (row: any) => {
     alaPost(u.url(deployUrl), { id: row.id }, false, '').then((data: any) => {
         const response = data;
         if (response.data) {
-            notify.success(t('pop.warm_title'), t('buttons.flow_redeploy') + '成功')
+            notify.success(t('pop.warm_title'), t('buttons.clone') + '成功')
             refresh()
         }
     });
