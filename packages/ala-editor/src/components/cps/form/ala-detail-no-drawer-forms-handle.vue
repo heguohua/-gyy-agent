@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-19 10:04:46
+ * @LastEditTime: 2025-07-19 17:16:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -470,7 +470,7 @@ const handleReturnToInitiator = () => {
     post(6)
 }
 
-const post = (submitType: number) => {
+const post = (approveType: number) => {
     formRef.value.validate(async (valid: boolean) => {
         if (valid) {
             // 表单验证成功，可以进行表单提交操作
@@ -482,7 +482,7 @@ const post = (submitType: number) => {
             const task = props.data.item
             const performType = task.performType
 
-            u.merged(data, { submitType, performType, taskId: task.id, formData: u.tojson(beforeSave(formData.value)) })
+            u.merged(data, { approveType, performType, taskId: task.id, formData: u.tojson(beforeSave(formData.value)) })
 
 
             // let data = props.formData

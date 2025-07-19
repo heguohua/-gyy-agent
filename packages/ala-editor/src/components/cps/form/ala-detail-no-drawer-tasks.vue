@@ -26,9 +26,9 @@
         <el-table :data="tasks" style="width: 100%">
 
             <el-table-column prop="displayName" label="任务名称"></el-table-column>
-            <el-table-column prop="submitType" label="审批结果">
+            <el-table-column prop="approveType" label="审批结果">
                 <template #default="scope">
-                    <i v-html="scope.row.submitType" />
+                    <i v-html="scope.row.approveType" />
                 </template>
             </el-table-column>
             <el-table-column prop="nickName" label="审批人"></el-table-column>
@@ -166,7 +166,7 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                     // 说明是处理中的任务，则显示为空心、颜色为danger、居中
                     timelines.value.push({
                         title: task.displayName,
-                        content: getSubmitType(-1),
+                        content: getApproveType(-1),
                         timestamp: 0,
                         properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState))
                     })
@@ -174,7 +174,7 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                     if (task.formKeyEntity) {
                         timelines.value.push({
                             title: task.displayName,
-                            content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${getSubmitType(task.submitType)}  于 `,
+                            content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${getApproveType(task.approveType)}  于 `,
                             timestamp: task.updatedTime,
                             properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState)),
 
@@ -192,7 +192,7 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                 if (task.formKeyEntity) {
                     tks.push({
                         displayName: task.displayName,
-                        submitType: getSubmitType(task.submitType),
+                        approveType: getApproveType(task.approveType),
                         nickName: task.operatorEntity?.nickName,
                         remark: task.formKeyEntity.remark,
                         createdTime: date.YYYY_MM_DD__HH_mm_ss(task.createdTime),
@@ -233,61 +233,61 @@ const getCardProperties = (taskState: number) => {
 // AUTO_EXECUTE(7, "自动执行"), //  自动执行
 // COUNTERSIGN_DISAGREE(20, "会签拒绝申请");//  拒绝申请
 
-const getSubmitType = (submitType: number) => {
+const getApproveType = (approveType: number) => {
 
     let stName = ''
-    if (submitType === -1 || submitType === undefined) {
-        submitType = -1
+    if (approveType === -1 || approveType === undefined) {
+        approveType = -1
         stName = '处理中...'
     }
 
-    if (submitType === 0) {
+    if (approveType === 0) {
         stName = '发起申请'
-    } else if (submitType === 1) {
+    } else if (approveType === 1) {
         stName = '同意申请'
-    } else if (submitType === 2) {
+    } else if (approveType === 2) {
         stName = '拒绝申请'
-    } else if (submitType === 3) {
+    } else if (approveType === 3) {
         stName = '退回上一步'
-    } else if (submitType === 4) {
+    } else if (approveType === 4) {
         stName = '跳转申请'
-    } else if (submitType === 5) {
+    } else if (approveType === 5) {
         stName = '重新提交'
-    } else if (submitType === 6) {
+    } else if (approveType === 6) {
         stName = '退回发起人'
-    } else if (submitType === 7) {
+    } else if (approveType === 7) {
         stName = '自动执行'
-    } else if (submitType === 20) {
+    } else if (approveType === 20) {
         stName = '会签拒绝申请'
     }
 
-    const className = getSubmitTypeClass(submitType)
+    const className = getApproveTypeClass(approveType)
 
     return `<i class="${className}">${stName}</i>`
 
 }
 
-const getSubmitTypeClass = (submitType: number) => {
+const getApproveTypeClass = (approveType: number) => {
     let className = ''
-    if (submitType === 0) {
+    if (approveType === 0) {
         className = ""
-    } else if (submitType === 1) {
+    } else if (approveType === 1) {
         className = "success"
-    } else if (submitType === 2) {
+    } else if (approveType === 2) {
         className = "danger"
-    } else if (submitType === 3) {
+    } else if (approveType === 3) {
         className = "warning"
-    } else if (submitType === 4) {
+    } else if (approveType === 4) {
         className = "info"
-    } else if (submitType === 5) {
+    } else if (approveType === 5) {
         className = "primary"
-    } else if (submitType === 6) {
+    } else if (approveType === 6) {
         className = "warning"
-    } else if (submitType === 7) {
+    } else if (approveType === 7) {
         className = ""
-    } else if (submitType === 20) {
+    } else if (approveType === 20) {
         className = ""
-    } else if (submitType === -1) {
+    } else if (approveType === -1) {
         className = "warning"
     }
 
