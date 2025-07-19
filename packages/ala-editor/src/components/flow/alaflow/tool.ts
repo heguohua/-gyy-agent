@@ -120,14 +120,14 @@ export const xml2LogicFlowJson = (xml: string): any => {
   })
   let nodeEles: any = null
   let node: any = null
-  let lfNode: any = {}
+  let logicFlowNode: any = {}
   // 解析节点
   NODE_NAMES.forEach(key => {
     nodeEles = processDom[0].getElementsByTagName(key)
     if (nodeEles.length) {
       for (let i = 0, len = nodeEles.length; i < len; i++) {
         node = nodeEles[i]
-        lfNode = {
+        logicFlowNode = {
           type: 'snaker:' + (key === 'subProcess' ? 'wfSubProcess' : key),
           properties: {}
         }
@@ -136,19 +136,19 @@ export const xml2LogicFlowJson = (xml: string): any => {
           value = node?.getAttribute(attrKey)
           if (value) {
             if (attrKey === 'name') {
-              lfNode.id = value
+              logicFlowNode.id = value
             } else if (attrKey === 'layout') {
               const attr = value.split(',')
               if (attr.length === 4) {
-                lfNode.x = attr[0]
-                lfNode.y = attr[1]
-                lfNode.properties.width = attr[2] <= 0 ? 100 : attr[2]
-                lfNode.properties.height = attr[3] <= 0 ? 50 : attr[3]
+                logicFlowNode.x = attr[0]
+                logicFlowNode.y = attr[1]
+                logicFlowNode.properties.width = attr[2] <= 0 ? 100 : attr[2]
+                logicFlowNode.properties.height = attr[3] <= 0 ? 50 : attr[3]
               }
             } else if (attrKey === 'displayName') {
-              lfNode.text = value
+              logicFlowNode.text = value
             } else {
-              lfNode.properties[attrKey] = value
+              logicFlowNode.properties[attrKey] = value
             }
           }
         })
@@ -163,10 +163,10 @@ export const xml2LogicFlowJson = (xml: string): any => {
             for (let iii = 0; iii < attr.length; iii++) {
               field[attr[iii].getAttribute('name')] = attr[iii].getAttribute('value')
             }
-            lfNode.properties.field = field
+            logicFlowNode.properties.field = field
           }
         }
-        graphData.nodes.push(lfNode)
+        graphData.nodes.push(logicFlowNode)
         // 处理边
         let transitionEles = null
         let transitionEle = null
@@ -178,7 +178,7 @@ export const xml2LogicFlowJson = (xml: string): any => {
             edge = {}
             edge.id = transitionEle.getAttribute('name')
             edge.type = 'snaker:transition'
-            edge.sourceNodeId = lfNode.id
+            edge.sourceNodeId = logicFlowNode.id
             edge.targetNodeId = transitionEle.getAttribute('to')
             edge.text = {
               value: transitionEle.getAttribute('displayName') ? transitionEle.getAttribute('displayName') : ''

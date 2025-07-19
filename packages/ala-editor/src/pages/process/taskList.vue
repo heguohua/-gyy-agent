@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:06:45
+ * @LastEditTime: 2025-07-19 18:32:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/taskList.vue
  * @Description: 
  * 
@@ -59,8 +59,9 @@ import { alaBuildDateRange, alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectDict } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailRadio, alaDetailSelectDict } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
+import colors from '@/utils/colors';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -168,6 +169,8 @@ const columns = computed(() => {
         alaDetailInput('variable', "任务名称", 1, true, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '400' } }),
         alaDetailInput('displayName', "流程节点", 1, false),
         alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
+
+
         alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
         alaDetailDate( 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
         alaDetailDate( 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),

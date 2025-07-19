@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-18 20:35:02
+ * @LastEditTime: 2025-07-19 18:25:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -229,7 +229,7 @@ const getCardProperties = (taskState: number) => {
 // ROLLBACK(3, "退回上一步"), //    退回上一步
 // JUMP(4, "跳转"), //    跳转
 // RE_APPLY(5, "重新提交"), //  重新提交
-// ROLLBACK_TO_OPERATOR(6, "退回发起人"), //  退回发起人
+// ROLLBACK_TO_APPLICANT(6, "退回发起人"), //  退回发起人
 // AUTO_EXECUTE(7, "自动执行"), //  自动执行
 // COUNTERSIGN_DISAGREE(20, "会签拒绝申请");//  拒绝申请
 
