@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-19 18:37:15
+ * @LastEditTime: 2025-07-19 18:44:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -201,6 +201,7 @@ const detailFields: any = ref([
     alaDetailInput('variable', "任务名称", 1, false, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '300' } }),
     alaDetailInput('displayName', "流程节点"),
     alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
+    alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
     alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
     alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
     alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
