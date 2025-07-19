@@ -5,15 +5,15 @@
     :extendPropertyKeys="extendPropertyKeys" @change="handlePropertyChange">
 
     <template #[key]="data" v-for="(item, key) in $slots">
-
       <slot :name="key" v-bind="data || {}"></slot>
-
     </template>
 
   </PropertySetting>
 
   <DataDetail ref="dataDetailRef" />
+
   <ImportData ref="importDataRef" @on-submit="handleImportSubmit" />
+  
   <HighLightData ref="highLightDataRef" @on-submit="handleHighLightSubmit" />
 
 </template>
@@ -78,15 +78,13 @@ const props = defineProps({
   highLight: { // 高亮数据
     type: Object,
     default() {
-      return {
-      }
+      return {}
     }
   },
   assigneeText: { // 参与人回显文本
     type: [Object, Array],
     default() {
-      return {
-      }
+      return {}
     }
   },
   viewer: { // 预览模式
@@ -125,29 +123,22 @@ watch(() => props.modelValue.content, () => {
   if (props.modelValue.content) {
     reRender(props.modelValue.content)
   }
-}, {
-  deep: true
-})
+}, { deep: true })
 
 // 监听高亮数据
 watch(() => props.highLight, () => {
   setHighLight(props.highLight)
-}, {
-  deep: true
-})
+}, { deep: true })
 
 // 监听参与人回显数据
 watch(() => props.assigneeText, () => {
   setAssigneeText(props.assigneeText)
-}, {
-  deep: true
-})
+}, { deep: true })
 
 const initDoc = () => {
   const lf = unref(lfInstance)
 
   if (!lf) return
-
 
   if (props.showDoc) {
     // 控制面板-码云

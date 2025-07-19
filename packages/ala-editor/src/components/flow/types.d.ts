@@ -51,6 +51,7 @@ export interface FlowFormModel extends ProcessModel {
   assignmentHandler: string,
   taskType: string,
   performType: string,
+  countersignCompletionCondition: string,
   reminderTime: string,
   reminderRepeat: string,
   autoExecute: string,

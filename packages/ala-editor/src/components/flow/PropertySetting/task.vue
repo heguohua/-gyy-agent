@@ -201,7 +201,8 @@ const attrList = computed(() => {
       disabled: true
     })
   }
-  return [
+
+  const formItems = [
     ...performTypeAttrs,
     ...Object.keys(modelForm.field).filter((key: string) => !performTypeAttrs.map(item => item.key).includes(key)).map(key => {
       return {
@@ -210,6 +211,11 @@ const attrList = computed(() => {
       }
     })
   ]
+
+  console.log('formItems: --->', formItems);
+
+
+  return formItems
 })
 
 const emits = defineEmits(['update:modelValue'])
@@ -267,6 +273,9 @@ const getRender = (name: string) => {
 }
 
 watch(() => modelForm.performType, () => {
+  console.log('modelForm.performType:', modelForm.performType);
+  console.log('modelForm.field.countersignType:', modelForm.field.countersignType);
+
   // 设置countersignType默认值
   if (modelForm.performType === 'ALL' && !modelForm.field.countersignType) {
     modelForm.field.countersignType = 'PARALLEL'

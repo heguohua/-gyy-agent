@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 15:18:06
+ * @LastEditTime: 2025-07-19 10:04:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -480,7 +480,9 @@ const post = (submitType: number) => {
 
             // 设置任务 id、提交类型、表单数据
             const task = props.data.item
-            u.merged(data, { submitType, taskId: task.id, formData: u.tojson(beforeSave(formData.value)) })
+            const performType = task.performType
+
+            u.merged(data, { submitType, performType, taskId: task.id, formData: u.tojson(beforeSave(formData.value)) })
 
 
             // let data = props.formData

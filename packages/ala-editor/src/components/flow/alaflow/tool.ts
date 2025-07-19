@@ -87,7 +87,7 @@ const NODE_NAMES = ['start', 'task', 'decision', 'end', 'custom', 'join', 'fork'
 const PROCESS_ATTR_KEYS = ['name', 'displayName', 'instanceUrl', 'expireTime', 'instanceNoClass', 'preInterceptors', 'postInterceptors']
 
 // 节点属性
-const NODE_ATTR_KEYS = ['name', 'displayName', 'form', 'assignee', 'assignmentHandler', 'taskType', 'performType',
+const NODE_ATTR_KEYS = ['name', 'displayName', 'form', 'assignee', 'assignmentHandler','countersignCompletionCondition', 'taskType', 'performType',
   'preInterceptors', 'postInterceptors', 'reminderTime', 'reminderRepeat',
   'expireTime', 'autoExecute', 'callback', 'expr', 'handleClass',
   'clazz', 'methodName', 'args', 'layout', 'g', 'version', 'form']

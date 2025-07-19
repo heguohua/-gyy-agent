@@ -135,7 +135,7 @@ const propertyKeys = [
   // 决策节点属性
   'name', 'expr', 'handleClass', 'preInterceptors', 'postInterceptors',
   // 任务节点属性
-  'forms', 'assignee', 'assignmentHandler', 'taskType', 'performType', 'reminderTime', 'reminderRepeat', 'expireTime',
+  'forms', 'assignee', 'assignmentHandler', 'countersignCompletionCondition', 'taskType', 'performType', 'reminderTime', 'reminderRepeat', 'expireTime',
   'autoExecute', 'callback', 'width', 'height', 'field',
   // 额外扩展的属性
   ...props.extendPropertyKeys || props.extendAttrConfig?.extendPropertyKeys || []
@@ -148,8 +148,8 @@ propertyKeysSet.forEach((key: string) => {
   // 监听属性变化
   watch(() => formData[key], (n) => {
     logger.info(`监听到【 流程组件属性 】发生变化，即将回调上层组件，key[${key}]，变化值：`, n);
-    handleEmits(key, n), { deep: true }
-  })
+    handleEmits(key, n)
+  }, { deep: true })
 })
 
 

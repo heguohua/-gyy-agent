@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:57:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:59:23
+ * @LastEditTime: 2025-07-19 09:09:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/processDesign.vue
  * @Description: 
  * 
@@ -69,6 +69,9 @@ const handleSave = (flowData: { json: any }) => {
         flowDataJson = u.tojson(flowData.json)
     }
 
+    console.log('flowData.json:',flowData.json);
+    
+
     // 1、验证流程图是否正确？如连线是否完整
 
     // 2、保存
@@ -79,7 +82,9 @@ const handleSave = (flowData: { json: any }) => {
     const url = '/p/design/updateFlowContent'
 
     u.merged(data, { id: designId })
-    logger.info(`【 更新数据 】，url${url}，数据对象：`);
+    logger.info(`【 保存流程设计配置数据 】，url${url}，数据对象：`);
+    console.log('flow config data:', data);
+
 
     alaPost(u.url(url || ''), data, false, '').then((data: any) => {
 
