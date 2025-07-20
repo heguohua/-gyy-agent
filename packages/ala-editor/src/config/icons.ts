@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 10:56:56
+ * @LastEditTime: 2025-07-20 16:41:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -59,8 +59,8 @@ const icon = {
   // 系统登录页面400电话图标
   phone: 'solar:phone-broken',
   country_cn: 'noto-v1:flag-for-flag-china',
-  country_en: 'icon-park-outline:english',
-  country_ru: 'lucide-lab:russian-ruble-square',
+  country_en: 'noto-v1:flag-for-flag-united-states',
+  country_ru: 'noto-v1:flag-for-flag-russia',
 
   //菜单图标
   log: 'icon-park-outline:log',

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 16:52:08
+ * @LastEditTime: 2025-07-20 16:42:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -26,7 +26,9 @@
         </div>
         <div class="phone-number">
             <AlaCurrentDateTime class="current-date-time" />
-            <v-icon icon="phone" class="phone-icon" />
+            <div class="phone-icon">
+                <v-icon icon="phone" width="22" height="22"/>
+            </div>
             <p>{{ systemInfo.systemPhone }}</p>
         </div>
 
@@ -236,35 +238,35 @@ onMounted(() => {
 const year = date.currentYear()
 
 const systemInfo = reactive({
-    companyNameCN: "科爱思(深圳)科技有限公司",
-    companyNameEN: "( Scenario AI Technologies (Shenzhen) Co., Ltd. )",
+    companyNameCN: "深圳市谷雨云科技有限公司",
+    companyNameEN: "( Guyu Cloud Technologies Co.,Ltd. )",
     systemName: "ALA智慧云原生平台——无代码平台",
     systemPhone: "400-800-9202",
-    remark_cn: "科爱思(深圳)科技有限公司致力于构建透明、公开的商业合作环境，以尊重并保护合作伙伴和自身共同利益。为此，公司也希望与合作伙伴共同遵守所有适用的法律法规，包括联合国安理会、中国、美国、欧盟等，以上感谢。",
-    remark_en: "SAIT is committed to building an open, transparent business community. We value and aim to protect mutual interests of both cooperative partners and SAIT .To this end, SAIT works together with cooperative partners to comply with all applicable laws and regulations of the United Nations Security Council, China, United States, and the European Union, Thanks.",
-    copyright: `@Copyright 2022~${year} 科爱思(深圳)科技有限公司`,
+    remark_cn: "深圳市谷雨云科技有限公司致力于构建透明、公开的商业合作环境，以尊重并保护合作伙伴和自身共同利益。为此，公司也希望与合作伙伴共同遵守所有适用的法律法规，包括联合国安理会、中国、美国、欧盟等，以上感谢。",
+    remark_en: "Guyu is committed to building an open, transparent business community. We value and aim to protect mutual interests of both cooperative partners and Guyu .To this end, Guyu works together with cooperative partners to comply with all applicable laws and regulations of the United Nations Security Council, China, United States, and the European Union, Thanks.",
+    copyright: `@Copyright 2025~${year} 深圳市谷雨云科技有限公司`,
 
 })
 
 const websites = [
     {
         name: "中文站",
-        url: "saitllm.com",
+        url: "guyuyunkeji.com",
         icon: "country_cn"
     },
     {
         name: "英语站",
-        url: "en.saitllm.com",
+        url: "en.guyuyunkeji.com",
         icon: "country_en"
     },
     {
         name: "俄语站",
-        url: "ru.saitllm.com",
+        url: "ru.guyuyunkeji.com",
         icon: "country_ru"
     }
 ]
 const titleArray = ['领先的数字化基础软件与应用开发服务商。', '为企业提供安全、稳定、高效、卓越的产品与服务，同时最大化降低IT系统建设成本。'];
-const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technologies，SAIT）一直致力于IT软件产品研发和应用侧客户服务，拥有从咨询、设计、开发、测试、运维到运营的端到端软件研发全生命周期服务能力，在金融、政务、制造、交通、教育、文旅等各行业积累了丰富的IT案例与研发经验。科爱思(深圳)科技有限公司以“为合作单位持续提供安全、稳定、高效、卓越的产品与服务，同时最大化降低IT系统建设成本”为企业使命，努力成为客户数字化建设过程中最值得信赖的合作伙伴。公司团队核心成员深耕IT行业10年+，依托微服务化业务平台、云计算平台、大数据平台、物联网平台、AI智能平台、数字孪生平台、智能运维平台和安全及隐私保护管理体系等基础能力，形成了以平台产品、工具产品和应用产品为核心的数字化技术底座，同时在产研体系管理、产品质量提升、解决方案开发、销售工具集开发和业务体系管理等方面积累了丰富的、配套化治理经验。公司自研产品、技术方案完全自主可控，打破了国际厂商和大型头部公司的技术垄断，形成了以技术创新为驱动、以制度保障为协同的，完全可独立行走、可独立落地的方法论。公司所有技术底座均经过了众多科技巨头，如中国移动、中国电信、华为、腾讯、阿里、中信集团、中国航天集团等多年、持续的安全和系统稳定性测试，以及大量项目的持续磨炼，具有行业内值得信赖的稳定度和安全性。'];
+const contentArray = ['深圳市谷雨云科技有限公司（Guyu Cloud Technologies Co.,Ltd.，Guyu）一直致力于IT软件产品研发和应用侧客户服务，拥有从咨询、设计、开发、测试、运维到运营的端到端软件研发全生命周期服务能力，在金融、政务、制造、交通、教育、文旅等各行业积累了丰富的IT案例与研发经验。深圳市谷雨云科技有限公司以“为合作单位持续提供安全、稳定、高效、卓越的产品与服务，同时最大化降低IT系统建设成本”为企业使命，努力成为客户数字化建设过程中最值得信赖的合作伙伴。公司团队核心成员深耕IT行业10年+，依托微服务化业务平台、云计算平台、大数据平台、物联网平台、AI智能平台、数字孪生平台、智能运维平台和安全及隐私保护管理体系等基础能力，形成了以平台产品、工具产品和应用产品为核心的数字化技术底座，同时在产研体系管理、产品质量提升、解决方案开发、销售工具集开发和业务体系管理等方面积累了丰富的、配套化治理经验。公司自研产品、技术方案完全自主可控，打破了国际厂商和大型头部公司的技术垄断，形成了以技术创新为驱动、以制度保障为协同的，完全可独立行走、可独立落地的方法论。公司所有技术底座均经过了众多科技巨头，如中国移动、中国电信、华为、腾讯、阿里、中信集团、中国航天集团等多年、持续的安全和系统稳定性测试，以及大量项目的持续磨炼，具有行业内值得信赖的稳定度和安全性。'];
 
 
 
@@ -288,7 +290,7 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
         left: 20px;
         display: flex;
         justify-content: center;
-        gap: 20px;
+        gap: 30px;
 
         .website {
             .website-icon {
@@ -351,12 +353,13 @@ const contentArray = ['科爱思(深圳)科技有限公司（Scenario AI Technol
             font-size: 1.2rem;
             min-width: 290px;
             text-align: left;
+            margin-right: 16px;
         }
 
 
         .phone-icon {
             font-size: 1.8rem;
-            margin-right: 0.5rem;
+            margin-right: 6px;
             transition: transform 0.5s ease;
 
             &:hover {
