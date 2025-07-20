@@ -31,6 +31,7 @@
         </template>
         <div>
           <el-row v-for="item in attrList" :key="item.key" style="margin-bottom: 12px;">
+
             <el-col :span="10"
               style="height: 32px;display: flex;align-items: center;position: relative;z-index: 99999;">
               <span>{{ getLabel(item.key) }}&nbsp;
@@ -39,6 +40,7 @@
                 </el-tooltip>
               </span>
             </el-col>
+
             <el-col :span="12">
               <el-select v-if="item.key == 'countersignType'" size="default" v-model="modelForm.field[item.key]">
                 <el-option value="PARALLEL" label="并行会签"></el-option>
@@ -50,6 +52,7 @@
                 <el-input v-else v-model="modelForm.field[item.key]" size="default"></el-input>
               </template>
             </el-col>
+
             <el-col :span="2" style="height: 32px;display: flex;align-items: center;padding-left: 10px;">
               <el-icon v-if="item.disabled !== true" @click="handleRemoveFieldAttr(item.key)">
                 <remove-filled /></el-icon>
@@ -158,13 +161,13 @@ const performTypeAttrs = [
     tips: '参数类型为会签参与时生效',
     disabled: true
   },
-  {
-    label: '会签完成条件',
-    name: 'countersignCompletionCondition',
-    disabled: true,
-    icon: '',
-    tips: '参数类型为会签参与时生效'
-  }
+  // {
+  //   label: '会签完成条件',
+  //   name: 'countersignCompletionCondition',
+  //   disabled: true,
+  //   icon: '',
+  //   tips: '参数类型为会签参与时生效'
+  // }
 ]
 
 const dropdownData = computed<Array<any>>(() => {
@@ -184,9 +187,11 @@ const dropdownData = computed<Array<any>>(() => {
   return res
 })
 const attrList = computed(() => {
+  
   if (!modelForm.field) {
     return []
   }
+
   // 会签相关属性
   const performTypeAttrs: Array<any> = []
   if (modelForm.performType === 'ALL') {
@@ -195,11 +200,11 @@ const attrList = computed(() => {
       value: modelForm.field.countersignType,
       disabled: true
     })
-    performTypeAttrs.push({
-      key: 'countersignCompletionCondition',
-      value: modelForm.field.countersignCompletionCondition,
-      disabled: true
-    })
+    // performTypeAttrs.push({
+    //   key: 'countersignCompletionCondition',
+    //   value: modelForm.field.countersignCompletionCondition,
+    //   disabled: true
+    // })
   }
 
   const formItems = [
@@ -273,8 +278,6 @@ const getRender = (name: string) => {
 }
 
 watch(() => modelForm.performType, () => {
-  console.log('modelForm.performType:', modelForm.performType);
-  console.log('modelForm.field.countersignType:', modelForm.field.countersignType);
 
   // 设置countersignType默认值
   if (modelForm.performType === 'ALL' && !modelForm.field.countersignType) {
