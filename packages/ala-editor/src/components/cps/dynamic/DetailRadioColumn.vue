@@ -67,7 +67,7 @@ const showValue = computed(() => {
     const items = props.formItem.formData.items.desktop
 
     let v = undefined
-    
+
     if (items) {
         items.forEach((item: any) => {
 
@@ -75,9 +75,12 @@ const showValue = computed(() => {
 
                 if (item[key] === value) {
                     v = key
-                    if(item.color){
+                    if (item.name) {
+                        v = item.name
+                    }
+                    if (item.color) {
                         color.value = item.color
-                    }else{
+                    } else {
                         color.value = ''
                     }
                 }
@@ -85,7 +88,7 @@ const showValue = computed(() => {
 
         })
     }
-    
+
     return v
 })
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 10:01:59
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-07 20:25:03
+ * @LastEditTime: 2025-07-20 16:48:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/typewriter/AlaTypewriterOneLine.vue
  * @Description: 单行、多条文本、循环输入组件
  * 使用方式：
@@ -14,7 +14,7 @@
 -->
 <template>
     <div class="typewriter" ref="typewriter">
-        <p class="blank-space" v-if="keepBlankSpace">&nbsp;</p>
+        <p class="blank-space" v-if="keepBlankSpace">&nbsp;&nbsp;</p>
         {{ currentText }}
     </div>
 </template>
@@ -38,7 +38,7 @@ const props = defineProps({
     },
     keepBlankSpace: {
         type: Boolean,
-        default: true
+        default: false
     },
     waitTime: {
         type: Number,

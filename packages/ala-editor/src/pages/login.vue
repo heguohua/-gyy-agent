@@ -27,7 +27,7 @@
         <div class="phone-number">
             <AlaCurrentDateTime class="current-date-time" />
             <div class="phone-icon">
-                <v-icon icon="phone" width="22" height="22"/>
+                <v-icon icon="phone" width="22" height="22" />
             </div>
             <p>{{ systemInfo.systemPhone }}</p>
         </div>
@@ -44,7 +44,7 @@
                 </h2>
                 <p>
                     <AlaTypewriterOneLine :textArray="contentArray" :typeInterval="100" :clearInterval="20"
-                        :waitTime="60000" />
+                        :waitTime="60000" :keepBlankSpace="true" />
                 </p>
             </div>
 

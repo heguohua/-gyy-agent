@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-20 16:41:55
+ * @LastEditTime: 2025-07-20 20:13:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -270,6 +270,8 @@ const icon = {
   // 办公中心
   tender: "mingcute:paper-line",
   bid: "streamline-ultimate:paper-write",
+  log_details: "gg:details-more",
+  log_project: "eos-icons:project-outlined",
 
   
 }
