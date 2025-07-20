@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-19 14:19:28
+ * @LastEditTime: 2025-07-20 22:59:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -669,6 +669,10 @@ defineExpose({
             color: var(--el-color-primary-light-3);
         }
 
+        :deep(svg) {
+            position: absolute;
+            right: 6px;
+        }
     }
 
     .ala-form-table {

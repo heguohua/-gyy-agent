@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 15:07:01
+ * @LastEditTime: 2025-07-20 22:58:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -377,6 +377,11 @@ const isDynamicTable = () => {
     &:hover {
       cursor: pointer;
       color: var(--el-color-primary-light-3);
+    }
+
+    :deep(svg) {
+      position: absolute;
+      right: 6px;
     }
 
   }
