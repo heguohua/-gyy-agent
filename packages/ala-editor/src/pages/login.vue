@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-20 16:42:23
+ * @LastEditTime: 2025-07-21 20:02:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -240,7 +240,7 @@ const year = date.currentYear()
 const systemInfo = reactive({
     companyNameCN: "深圳市谷雨云科技有限公司",
     companyNameEN: "( Guyu Cloud Technologies Co.,Ltd. )",
-    systemName: "ALA智慧云原生平台——无代码平台",
+    systemName: "谷雨智搭——“无代码+AI”融合式业务中台",
     systemPhone: "400-800-9202",
     remark_cn: "深圳市谷雨云科技有限公司致力于构建透明、公开的商业合作环境，以尊重并保护合作伙伴和自身共同利益。为此，公司也希望与合作伙伴共同遵守所有适用的法律法规，包括联合国安理会、中国、美国、欧盟等，以上感谢。",
     remark_en: "Guyu is committed to building an open, transparent business community. We value and aim to protect mutual interests of both cooperative partners and Guyu .To this end, Guyu works together with cooperative partners to comply with all applicable laws and regulations of the United Nations Security Council, China, United States, and the European Union, Thanks.",

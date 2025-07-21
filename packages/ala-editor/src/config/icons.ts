@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-20 20:13:48
+ * @LastEditTime: 2025-07-21 17:54:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -82,6 +82,7 @@ const icon = {
   // 无代码中心
   code: 'mingcute:code-fill',
   example: 'fa6-solid:democrat',
+  status: 'mdi:list-status',
   // 配置列表
   code_config: 'line-md:document-code',
   code_page: 'icon-park-outline:page',// 页面设计
