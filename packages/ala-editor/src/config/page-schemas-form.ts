@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 18:13:56
+ * @LastEditTime: 2025-07-21 10:46:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -177,6 +177,13 @@ const showUpdatedTime = Type.String({
 })
 
 
+const openDataPermission = Type.String({
+    code: "config-boolean",
+    title: "开启数据权限？",
+    default: true,
+})
+
+
 
 
 const schema = Type.Object({
@@ -197,6 +204,7 @@ const schema = Type.Object({
     showCreatedTime: schemaAllViewport(showCreatedTime),
     showUpdatedBy: schemaAllViewport(showUpdatedBy),
     showUpdatedTime: schemaAllViewport(showUpdatedTime),
+    openDataPermission: schemaAllViewport(openDataPermission),
 })
 
 
