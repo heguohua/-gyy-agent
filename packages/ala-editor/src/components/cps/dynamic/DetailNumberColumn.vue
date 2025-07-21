@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 22:35:20
+ * @LastEditTime: 2025-07-21 15:57:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailNumberColumn.vue
  * @Description: 
  * 
@@ -78,11 +78,17 @@ const showDetail = () => {
 <style scoped lang="scss">
 .detail-link {
     color: var(--el-menu-active-color);
+    width: 100%;
+    padding: 3px 0px;
+
 
     &:hover {
         cursor: pointer;
-        opacity: 0.9;
         font-weight: 500;
+        background: #f3f7fa;
+        border-radius: 2px;
+
+        
     }
 }
 </style>

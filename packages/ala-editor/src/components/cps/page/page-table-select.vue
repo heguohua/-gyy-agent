@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 20:31:16
+ * @LastEditTime: 2025-07-21 16:38:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -30,12 +30,12 @@
                 :reserve-selection="true" />
 
             <!-- 主表列渲染 -->
-            <el-table-column v-for="column in columnss" :key="column.prop" :prop="column.prop"
+            <el-table-column v-for="column in columnss" :key="column.prop" :prop="column.prop" :type="column.type"
                 :label="isFormDesign ? parseLabel(column.label) : column.label" sortable>
 
-                <!-- <template #default="scope">
-                    <slot name="cols" :row="scope.row" :columnName="column.prop"></slot>
-                </template> -->
+                <template #default="scope">
+                    {{ getValue(scope.row, column.prop, column.type) }}
+                </template>
 
 
             </el-table-column>
@@ -54,6 +54,7 @@
 
 <script setup lang="ts">
 import { alaBuildInput } from '@/config/alaBuilders';
+import { date } from '@/utils/date';
 import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaDelete, alaPage, alaPost } from '@/utils/req';
@@ -339,6 +340,21 @@ const isDynamicTable = () => {
         return true;
     }
     return false
+}
+
+const getValue = (rowData: any, columnName: string, type: any) => {
+
+    let v = ""
+    if (type) {
+        if (type === 'date') {
+            v = date.format(new Date(rowData[columnName]), 'YYYY-MM-DD')
+        }
+
+    } else {
+        v = rowData[columnName]
+    }
+
+    return v
 }
 
 // 暴露方法

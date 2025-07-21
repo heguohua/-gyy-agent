@@ -10,13 +10,13 @@
 -->
 <template>
     <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-    <p class="value">
-    <div class="select-table">
-        <div class="ala-select-table-value" v-for="(item, index) in showValue" @click="showDetail(item, index)">
-            {{ item }}
+    <div class="value">
+        <div class="select-table">
+            <div class="ala-select-table-value" v-for="(item, index) in showValue" @click="showDetail(item, index)">
+                {{ item }}
+            </div>
         </div>
     </div>
-    </p>
 
     <teleport to="body" v-if="showDetailPage">
         <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="detailAttr" />
