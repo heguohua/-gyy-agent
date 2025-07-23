@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 20:56:54
+ * @LastEditTime: 2025-07-23 21:15:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
     <!-- 分页列表 -->
     <PageDynamicTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="showEditButton" :showDeleteButton="showDeleteButton" :showAddButton="showAddButton"
+        :showEditButton="showEditButton" :showDisableButton="showDisableButton" :showDeleteButton="showDeleteButton" :showAddButton="showAddButton"
         :showButtonsColumn="showButtonsColumn" :className="className" :beforeQuery="beforeQuery">
 
         <template #cols="{ row, columnName, formItem }">
@@ -269,6 +269,7 @@ const detailFields: any = ref([])
 const showAddButton = ref(false)
 const showDeleteButton = ref(false)
 const showEditButton = ref(false)
+const showDisableButton = ref(false)
 const showButtonsColumn = ref(false)
 
 
@@ -288,6 +289,7 @@ onMounted(async () => {
     showAddButton.value = configs.showAddButton
     showDeleteButton.value = configs.showDeleteButton
     showEditButton.value = configs.showEditButton
+    showDisableButton.value = configs.showDisableButton
     showButtonsColumn.value = configs.showButtonsColumn
     u.merged(formAttr.value, configs.formAttr)
 

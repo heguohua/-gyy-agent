@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 17:42:04
+ * @LastEditTime: 2025-07-23 22:05:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -36,6 +36,10 @@
             <!-- 主表操作列 -->
             <el-table-column :label="$t('buttons.buttons')" v-if="showButtonsColumn">
                 <template #default="scope">
+                    <AlaButton :showButton="displayDisableButton(scope.row)" name="disable"
+                        @disable="toggleEnableOrDisable(scope.$index, scope.row)" buttonType="warning" />
+                    <AlaButton :showButton="displayEnableButton(scope.row)" name="enable"
+                        @enable="toggleEnableOrDisable(scope.$index, scope.row)" buttonType="primary" />
                     <AlaButton :showButton="displayEditButton()" name="edit"
                         @edit="handleEdit(scope.$index, scope.row)" />
                     <AlaButton :showButton="displayDeleteButton()" name="delete"
@@ -60,6 +64,7 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 import { alaDelete, alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { ref } from 'vue'
@@ -98,6 +103,11 @@ const props = defineProps({
     showSelectCheckboxWidth: {
         type: Number,
         default: 55
+    },
+    // 是否显示 启用/禁用 按钮
+    showDisableButton: {
+        type: Boolean,
+        default: false
     },
     // 是否显示 编辑 按钮
     showEditButton: {
@@ -151,6 +161,33 @@ const displaySelectCheckbox = () => {
 const displayEditButton = () => {
     return props.showEditButton;
 }
+const displayDisableButton = (row: any) => {
+
+    if (props.showDisableButton) {
+        const d = row.disable
+        if (d && d === 1) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+const displayEnableButton = (row: any) => {
+
+    if (props.showDisableButton) {
+        const d = row.disable
+        if (d && d === 2) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+
 const displayDeleteButton = () => {
     return props.showDeleteButton;
 }
@@ -201,6 +238,33 @@ const handleDelete = (index: number, item: { id: number }) => {
 
 
 }
+
+const updateUrl = '/l/dynamic/update'
+const toggleEnableOrDisable = (index: number, item: { id: number, disable: number }) => {
+    logger.info(`点击【 启用/禁用 】按钮，当前行数据`, item);
+
+    if (item.disable) {
+        const params = { tableName: props.className, columns: { id: item.id, disable: item.disable === 1 ? 2 : 1 } }
+
+        alaPost(u.url(updateUrl || ''), params, false, 'put').then((data: any) => {
+            const response = data;
+            refresh(response)
+            notify.success(t('pop.warm_title'), "操作成功")
+        });
+
+    }
+
+}
+
+const disableData = (item: { id: number }) => {
+
+    // 刷新列表数据
+    alaDelete(u.url(props.deleteUrl || ""), { id: item.id, tableName: props.className }, false).then((data: any) => {
+        const response = data;
+        refresh(response)
+    });
+}
+
 
 const postData = (item: { id: number }) => {
 

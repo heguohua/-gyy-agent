@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 17:13:05
+ * @LastEditTime: 2025-07-23 22:12:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -18,7 +18,7 @@ import { parseAi, parseCascade, parseChapter, parseCheckbox, parseChildTableCoun
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 import { logger } from "@/utils/logger";
-import { alaDetailDate, alaDetailInput } from "@/config/alaDetailBuilder";
+import { alaDetailDate, alaDetailInput, alaDetailSwitch } from "@/config/alaDetailBuilder";
 
 interface Column { prop: string, label: string, formItem: any }
 
@@ -58,6 +58,7 @@ export interface LowcodingConfig {
     showAddButton: boolean
     showDeleteButton: boolean
     showEditButton: boolean
+    showDisableButton: boolean
     showButtonsColumn: boolean
     formAttr: any
     className: string
@@ -78,6 +79,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
     let showAddButton = false
     let showDeleteButton = false
     let showEditButton = false
+    let showDisableButton = false
     let showButtonsColumn = false
     let className = ''
 
@@ -175,7 +177,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                             formItem = parseDivider(formData)
                         } else if (code === 'chapter') {
                             formItem = parseChapter(formData)
-                        } else if (code === 'selectTable') {                            
+                        } else if (code === 'selectTable') {
                             formItem = parseSelectTable(formData)
                         } else if (code === 'selectDict') {
                             formItem = parseSelectDict(formData)
@@ -283,10 +285,20 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                 showDeleteButton = formData.showDeleteButton.desktop
                 // 是否显示删除按钮
                 showEditButton = formData.showEditButton.desktop
+                // 是否显示删除按钮
+                showDisableButton = formData.showDisableButton?.desktop || false
                 // 是否显示按钮列
                 showButtonsColumn = formData.showButtonsColumn.desktop
 
 
+
+                // 添加禁用、启用列
+                if (showDisableButton) {
+                    const d = alaDetailSwitch('disable', '数据状态', '启用', 1, '禁用', 2, 1)
+                    columns.push(d)
+                    detailFields.push(d)
+                }
+                
                 // 分页列表添加创建人、创建时间、更新人、更新时间字段
                 const showCreatedBy = formData.showCreatedBy.desktop || false
                 const showCreatedTime = formData.showCreatedTime.desktop || false
@@ -311,6 +323,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                     columns.push(ut)
                 }
 
+
                 detailFields.push(cb)
                 detailFields.push(ct)
                 detailFields.push(ub)
@@ -333,6 +346,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
         showAddButton,
         showDeleteButton,
         showEditButton,
+        showDisableButton,
         showButtonsColumn,
         formAttr,
         className,

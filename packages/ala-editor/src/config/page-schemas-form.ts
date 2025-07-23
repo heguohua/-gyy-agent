@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-21 10:46:06
+ * @LastEditTime: 2025-07-23 21:07:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -183,6 +183,12 @@ const openDataPermission = Type.String({
     default: true,
 })
 
+const showDisableButton = Type.String({
+    code: "config-boolean",
+    title: "显示禁用按钮？",
+    default: false,
+})
+
 
 
 
@@ -200,11 +206,12 @@ const schema = Type.Object({
     showAddButton: schemaAllViewport(showAddButton),
     showEditButton: schemaAllViewport(showEditButton),
     showDeleteButton: schemaAllViewport(showDeleteButton),
+    showDisableButton: schemaAllViewport(showDisableButton),
+    openDataPermission: schemaAllViewport(openDataPermission),
     showCreatedBy: schemaAllViewport(showCreatedBy),
     showCreatedTime: schemaAllViewport(showCreatedTime),
     showUpdatedBy: schemaAllViewport(showUpdatedBy),
     showUpdatedTime: schemaAllViewport(showUpdatedTime),
-    openDataPermission: schemaAllViewport(openDataPermission),
 })
 
 
