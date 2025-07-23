@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 22:12:16
+ * @LastEditTime: 2025-07-23 22:17:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -294,7 +294,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
 
                 // 添加禁用、启用列
                 if (showDisableButton) {
-                    const d = alaDetailSwitch('disable', '数据状态', '启用', 1, '禁用', 2, 1)
+                    const d = alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1)
                     columns.push(d)
                     detailFields.push(d)
                 }

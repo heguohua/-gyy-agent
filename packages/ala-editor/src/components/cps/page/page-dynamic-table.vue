@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 22:05:51
+ * @LastEditTime: 2025-07-23 22:19:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -164,7 +164,7 @@ const displayEditButton = () => {
 const displayDisableButton = (row: any) => {
 
     if (props.showDisableButton) {
-        const d = row.disable
+        const d = row.adisable
         if (d && d === 1) {
             return true
         } else {
@@ -177,7 +177,7 @@ const displayDisableButton = (row: any) => {
 const displayEnableButton = (row: any) => {
 
     if (props.showDisableButton) {
-        const d = row.disable
+        const d = row.adisable
         if (d && d === 2) {
             return true
         } else {
@@ -240,12 +240,12 @@ const handleDelete = (index: number, item: { id: number }) => {
 }
 
 const updateUrl = '/l/dynamic/update'
-const toggleEnableOrDisable = (index: number, item: { id: number, disable: number }) => {
+const toggleEnableOrDisable = (index: number, item: { id: number, adisable: number }) => {
     logger.info(`点击【 启用/禁用 】按钮，当前行数据`, item);
 
-    if (item.disable) {
-        const params = { tableName: props.className, columns: { id: item.id, disable: item.disable === 1 ? 2 : 1 } }
-
+    if (item.adisable) {
+        const params = { tableName: props.className, columns: { id: item.id, adisable: item.adisable === 1 ? 2 : 1 } }
+        
         alaPost(u.url(updateUrl || ''), params, false, 'put').then((data: any) => {
             const response = data;
             refresh(response)
