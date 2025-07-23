@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-21 17:54:10
+ * @LastEditTime: 2025-07-23 17:20:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -168,13 +168,11 @@ const icon = {
   clue: "icon-park-outline:clue",
   business: "mdi:business-outline",
   m_order: "ic:round-border-color",
-  finance: "icon-park-outline:finance",
   payment_collection: "hugeicons:cashier",
   payment_in: "hugeicons:payment-01",
   payment_return: "mdi:credit-card-refund-outline",
   invoice: "basil:invoice-outline",
   payment_apply: "stash:hand-holding-dollar",
-  payment: "streamline-freehand:credit-card-payment",
   payment_receive: "hugeicons:money-receive-square",
   customer_service: "ri:customer-service-2-fill",
   business_plane: "uil:plane-fly",
@@ -273,6 +271,19 @@ const icon = {
   bid: "streamline-ultimate:paper-write",
   log_details: "gg:details-more",
   log_project: "eos-icons:project-outlined",
+
+  // 财务中心
+  finance: "icon-park-outline:finance",
+  goodsPurchase: "clarity:devices-solid",
+  borrow: "material-symbols:car-rental-outline-rounded",
+  credit: "icon-park:credit",
+  accounting: "streamline-freehand:accounting-invoice",
+  tax: "tabler:receipt-tax",
+  labor: "streamline-ultimate:labor-hands-action",
+  development: "streamline-freehand:website-development-code-flowchart-1",
+  tech_service: "mdi:account-service-outline",
+  receipt: "fluent:receipt-add-20-regular",
+  payment: "streamline:receipt-subtract-remix",
 
   
 }

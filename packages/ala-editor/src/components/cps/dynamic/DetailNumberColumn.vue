@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-21 15:57:07
+ * @LastEditTime: 2025-07-23 18:49:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailNumberColumn.vue
  * @Description: 
  * 
@@ -12,19 +12,21 @@
 
     <template v-if="isDetailColumn">
         <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-        <p class="detail-link value" @click="showDetail">{{ value }}</p>
+        <p class="detail-link value" @click="showDetail">{{ formatValue(value) }}</p>
     </template>
     <template v-else>
         <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <p class="value"><v-icon v-if="icon && !isDetailColumn" class="image" :icon="icon" :width="width"
                 :height="height" />{{
-                    value }}
+                    formatValue(value) }}
         </p>
     </template>
 
 </template>
 
 <script setup lang="ts">
+import u from '@/utils/u'
+
 
 // State
 const props = defineProps({
@@ -68,9 +70,18 @@ const isDetailColumn = computed(() => {
     return props.formItem.formData?.detail?.desktop
 })
 
+
 const emit = defineEmits(['showDetail'])
 const showDetail = () => {
     emit('showDetail', props.data)
+}
+
+const formatValue = (value: number) => {
+    let v: any = value
+    if (props.formItem.formData?.thousandth?.desktop) {
+        v = u.formatWithThousandsSeparator(value)
+    }
+    return v
 }
 
 </script>
@@ -88,7 +99,7 @@ const showDetail = () => {
         background: #f3f7fa;
         border-radius: 2px;
 
-        
+
     }
 }
 </style>

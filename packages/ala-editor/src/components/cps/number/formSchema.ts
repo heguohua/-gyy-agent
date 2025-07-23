@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 18:37:09
+ * @LastEditTime: 2025-07-23 18:34:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/formSchema.ts
  * @Description: 
  * 
@@ -159,6 +159,11 @@ const detail = Type.String({
     title: "详情列？",
     default: false,
 })
+const thousandth = Type.String({
+    code: "config-boolean",
+    title: "数值千分位？",
+    default: false,
+})
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -178,6 +183,7 @@ const schema = Type.Object({
     detail: schemaAllViewport(detail),
     min: schemaAllViewport(numberMin),
     max: schemaAllViewport(configInt('最大值', Number.MAX_VALUE, 0)),
+    thousandth: schemaAllViewport(thousandth),
     // style: schemaAllViewport(style),
 })
 

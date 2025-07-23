@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 21:32:42
+ * @LastEditTime: 2025-07-23 18:49:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -660,6 +660,17 @@ export default class u {
      */
     public static reverseInPlace<T>(arr: T[]): T[] {
         return arr.reverse();        // Array.prototype.reverse() 就地操作
+    }
+
+    /**
+         * 将数值转化成千位分隔符方式
+         */
+    public static formatWithThousandsSeparator(number: number) {
+        if (typeof number !== 'number') {
+            number = Number(number);
+            if (isNaN(number)) return '';
+        }
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 
 }
