@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:32:26
+ * @LastEditTime: 2025-07-23 10:07:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/formSchema.ts
  * @Description: 
  * 
@@ -75,6 +75,11 @@ const columnWidth = Type.String({
 const showInSearch = Type.String({
     code: "config-boolean",
     title: "查询条件？",
+    default: false,
+})
+const detail = Type.String({
+    code: "config-boolean",
+    title: "详情列？",
     default: false,
 })
 
@@ -164,6 +169,7 @@ const schema = Type.Object({
     columnWidth: schemaAllViewport(columnWidth),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
+    detail: schemaAllViewport(detail),
     required: schemaAllViewport(required),
     strMin: schemaAllViewport(strMin),
     strMax: schemaAllViewport(strMax),

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 09:20:35
+ * @LastEditTime: 2025-07-23 09:55:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -202,6 +202,20 @@ export const seniorFields: BaseBlock[] = [
         name: "数据状态",
         code: "status",
         icon: "status",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "创建时间",
+        code: "createdTime",
+        icon: "calendar",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "完成时间",
+        code: "finishedTime",
+        icon: "calendar",
         formData: {},
     },
     {
