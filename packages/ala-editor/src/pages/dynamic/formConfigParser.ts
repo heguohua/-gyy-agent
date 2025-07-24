@@ -64,6 +64,7 @@ export interface LowcodingConfig {
     showButtonsColumn: boolean
     formAttr: any
     className: string
+    formType: string
 }
 export const formConfigParse = async (url: string, params: any): Promise<LowcodingConfig> => {
 
@@ -84,6 +85,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
     let showDisableButton = false
     let showButtonsColumn = false
     let className = ''
+    let formType = ''
 
     const formAttr = {
         formWidth: 400,
@@ -279,7 +281,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                 // 是否启用表单中定义的标题栏
                 formAttr.useFormTitle = formData.useFormTitle.desktop
                 // 表单类型
-                const formType = formData.formType.desktop
+                formType = formData.formType.desktop
 
                 // 是否显示新增按钮
 
@@ -363,5 +365,6 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
         showButtonsColumn,
         formAttr,
         className,
+        formType,
     }
 }

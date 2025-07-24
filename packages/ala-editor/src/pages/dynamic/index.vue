@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 21:15:00
+ * @LastEditTime: 2025-07-24 21:54:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -16,8 +16,9 @@
     <!-- 分页列表 -->
     <PageDynamicTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="showEditButton" :showDisableButton="showDisableButton" :showDeleteButton="showDeleteButton" :showAddButton="showAddButton"
-        :showButtonsColumn="showButtonsColumn" :className="className" :beforeQuery="beforeQuery">
+        :showEditButton="showEditButton" :showDisableButton="showDisableButton" :showDeleteButton="showDeleteButton"
+        :showAddButton="showAddButton" :showButtonsColumn="showButtonsColumn" :className="className"
+        :beforeQuery="beforeQuery">
 
         <template #cols="{ row, columnName, formItem }">
 
@@ -72,6 +73,7 @@ const moduleName = computed(() => {
     return t(code)
 })
 
+const formType = ref('')
 
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
@@ -79,7 +81,8 @@ const baseInfo = reactive({
     moduleName,
     id: null,
     selectedList: Array<{ id: string }>,
-    item: {}
+    item: {},
+    formType
 })
 const detailItem = reactive({
     moduleName,
@@ -291,6 +294,7 @@ onMounted(async () => {
     showEditButton.value = configs.showEditButton
     showDisableButton.value = configs.showDisableButton
     showButtonsColumn.value = configs.showButtonsColumn
+    formType.value = configs.formType
     u.merged(formAttr.value, configs.formAttr)
 
 })
