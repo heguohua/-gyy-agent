@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 22:17:36
+ * @LastEditTime: 2025-07-24 10:16:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -18,7 +18,9 @@ import { parseAi, parseCascade, parseChapter, parseCheckbox, parseChildTableCoun
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 import { logger } from "@/utils/logger";
-import { alaDetailDate, alaDetailInput, alaDetailSwitch } from "@/config/alaDetailBuilder";
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailRadio, alaDetailSwitch } from "@/config/alaDetailBuilder";
+import { dType } from "@/components/cps/dynamic/detailType";
+import colors from "@/utils/colors";
 
 interface Column { prop: string, label: string, formItem: any }
 
@@ -276,6 +278,8 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                 formAttr.labelPosition = formData.position.desktop
                 // 是否启用表单中定义的标题栏
                 formAttr.useFormTitle = formData.useFormTitle.desktop
+                // 表单类型
+                const formType = formData.formType.desktop
 
                 // 是否显示新增按钮
 
@@ -298,7 +302,16 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                     columns.push(d)
                     detailFields.push(d)
                 }
-                
+
+                // 如果当前表单是流程表单，则添加流程实例状态数据字段
+                if (formType === 'flow') {
+                    // 流程实例状态，10-进行中，20-已完成，30-已撤回，40-强行中止，45-已拒绝，50-挂起，60-已退回，99-已废弃
+                    const col = alaDetailRadio('instanceState', "流程状态", [{ '进行中': '10', 'color': colors.primary }, { '已完成': '20', 'color': colors.primary }, { '已拒绝': '45', 'color': colors.warning }, { '已退回': '60', 'color': colors.danger }], undefined, undefined, { columnWidth: { desktop: '120' } })
+
+                    columns.push(col)
+                    detailFields.push(col)
+                }
+
                 // 分页列表添加创建人、创建时间、更新人、更新时间字段
                 const showCreatedBy = formData.showCreatedBy.desktop || false
                 const showCreatedTime = formData.showCreatedTime.desktop || false
