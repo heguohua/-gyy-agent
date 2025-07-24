@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-29 19:25:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 14:02:55
+ * @LastEditTime: 2025-07-24 10:56:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/detailType.ts
  * @Description: 
  * 
@@ -27,5 +27,6 @@ export class dType {
 
     public static readonly textColor = 'textColor'
     public static readonly radio = 'radio'
+    public static readonly flowInstanceState = 'flowInstanceState'
 
 }

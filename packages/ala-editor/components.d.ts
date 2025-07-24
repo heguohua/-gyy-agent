@@ -125,6 +125,7 @@ declare module 'vue' {
     DetailDateRangeColumn: typeof import('./src/components/cps/dynamic/DetailDateRangeColumn.vue')['default']
     DetailDividerColumn: typeof import('./src/components/cps/dynamic/DetailDividerColumn.vue')['default']
     DetailFileColumn: typeof import('./src/components/cps/dynamic/DetailFileColumn.vue')['default']
+    DetailFlowInstanceStateColumn: typeof import('./src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue')['default']
     DetailFormTableColumn: typeof import('./src/components/cps/dynamic/DetailFormTableColumn.vue')['default']
     DetailImageColumn: typeof import('./src/components/cps/dynamic/DetailImageColumn.vue')['default']
     DetailInputColumn: typeof import('./src/components/cps/dynamic/DetailInputColumn.vue')['default']
