@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-23 17:58:47
+ * @LastEditTime: 2025-07-25 23:17:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/App.vue
  * @Description: APP.vue 主文件
  * 
@@ -52,6 +52,7 @@ onMounted(() => {
 
         const outMessage = u.parseJson(event.data)
         const message = u.parseJson(outMessage.content)
+        
         if (message.messageType && message.messageType === 'ai_full') {
             // 当前是ai智能体回复的完整消息体
             alaStore.set('ai_message', message)
