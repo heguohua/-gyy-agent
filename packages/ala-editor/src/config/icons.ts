@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 20:36:49
+ * @LastEditTime: 2025-07-27 15:24:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -285,6 +285,11 @@ const icon = {
   receipt: "fluent:receipt-add-20-regular",
   payment: "streamline:receipt-subtract-remix",
   invoiceTitle: "iconamoon:invoice-light",
+
+  // 智能调度中心
+  schedule_center: "material-symbols:schedule-send-outline-rounded",
+  schedule_task: "mdi:airplane-schedule",
+  schedule_record: "mdi:invoice-schedule-outline",
 
   
 }
