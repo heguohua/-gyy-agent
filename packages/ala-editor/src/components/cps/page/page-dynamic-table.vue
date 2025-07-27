@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-24 22:00:54
+ * @LastEditTime: 2025-07-27 18:01:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -152,7 +152,10 @@ const baseInfo = inject('baseInfo', {
     formType: '',
     id: 0,
     item: Object,
-    selectedList: Array<{ id: string }>
+    selectedList: Array<{ id: string }>,
+    outApi: false,
+    outApiUrl: '',
+    outApiParams: '',
 });
 
 
@@ -255,14 +258,17 @@ const handleDelete = (index: number, item: { id: number }) => {
 
 }
 
-const updateUrl = '/l/dynamic/update'
+const updateUrl = ref('/l/dynamic/update')
+if (baseInfo.outApi) {
+    updateUrl.value = baseInfo.outApiUrl + '/update'
+}
 const toggleEnableOrDisable = (index: number, item: { id: number, adisable: number }) => {
     logger.info(`点击【 启用/禁用 】按钮，当前行数据`, item);
 
     if (item.adisable) {
         const params = { tableName: props.className, columns: { id: item.id, adisable: item.adisable === 1 ? 2 : 1 } }
 
-        alaPost(u.url(updateUrl || ''), params, false, 'put').then((data: any) => {
+        alaPost(u.url(updateUrl.value || ''), params, false, 'put').then((data: any) => {
             const response = data;
             refresh(response)
             notify.success(t('pop.warm_title'), "操作成功")
@@ -346,6 +352,10 @@ const queryPageData = () => {
         params = props.beforeQuery(u.cloned(props.params || {}))
     }
 
+    if (!props.url) {
+        return
+    }
+
     alaPage(u.url(props.url || ""), page, params, true).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum
@@ -361,9 +371,11 @@ const queryPageData = () => {
 
 onMounted(() => {
     logger.info("onMounted 渲染 menu 分页列表页面");
-    queryPageData()
 })
 
+watch(() => props.url, () => {
+    queryPageData()
+})
 
 
 const paginatedData = computed(() => {

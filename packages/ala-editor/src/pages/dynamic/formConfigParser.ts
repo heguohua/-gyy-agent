@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-24 20:58:28
+ * @LastEditTime: 2025-07-27 17:39:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -65,6 +65,9 @@ export interface LowcodingConfig {
     formAttr: any
     className: string
     formType: string
+    outApi: boolean
+    outApiUrl: string
+    outApiParams: string
 }
 export const formConfigParse = async (url: string, params: any): Promise<LowcodingConfig> => {
 
@@ -86,6 +89,11 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
     let showButtonsColumn = false
     let className = ''
     let formType = ''
+
+    // 静态 api 接口相关配置
+    let outApi = false
+    let outApiUrl = ''
+    let outApiParams = ''
 
     const formAttr = {
         formWidth: 400,
@@ -296,6 +304,17 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                 // 是否显示按钮列
                 showButtonsColumn = formData.showButtonsColumn.desktop
 
+                // 当前模块是否是静态 api ？
+                outApi = formData.outApi?.desktop || false
+                outApiUrl = formData.outApiUrl?.desktop || ''
+                outApiParams = formData.outApiParams?.desktop || '{}'
+                if (outApi) {
+                    // 当前模块是静态 api 模块，需要检查是否已配置 outApiUrl
+                    if (!outApiUrl) {
+                        const title = formData.title.desktop
+                        u.error(`【 ${title} 】模块没有配置【 API地址 】，请联系管理员。`)
+                    }
+                }
 
 
                 // 添加禁用、启用列
@@ -366,5 +385,8 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
         formAttr,
         className,
         formType,
+        outApi,
+        outApiUrl,
+        outApiParams,
     }
 }

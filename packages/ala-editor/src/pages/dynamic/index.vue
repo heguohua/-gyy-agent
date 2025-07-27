@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-24 21:54:43
+ * @LastEditTime: 2025-07-27 17:52:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -74,6 +74,9 @@ const moduleName = computed(() => {
 })
 
 const formType = ref('')
+const outApi = ref(false)
+const outApiUrl = ref('')
+const outApiParams = ref('')
 
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
@@ -82,7 +85,10 @@ const baseInfo = reactive({
     id: null,
     selectedList: Array<{ id: string }>,
     item: {},
-    formType
+    formType,
+    outApi,
+    outApiUrl,
+    outApiParams,
 })
 const detailItem = reactive({
     moduleName,
@@ -165,8 +171,8 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/l/dynamic/page"
-const deleteUrl = "/l/dynamic/delete"
+const url = ref("")
+const deleteUrl = ref("")
 
 // 分页列表中列属性配置
 // const columns = computed(() => {
@@ -296,6 +302,24 @@ onMounted(async () => {
     showButtonsColumn.value = configs.showButtonsColumn
     formType.value = configs.formType
     u.merged(formAttr.value, configs.formAttr)
+
+    if (configs.outApi) {
+        // 说明是 静态api模块
+        outApiUrl.value = configs.outApiUrl
+        outApiParams.value = configs.outApiParams
+
+        url.value = outApiUrl.value + '/page'
+        deleteUrl.value = outApiUrl.value + '/delete'
+        outApi.value = true
+
+        console.log('configs.outApi:', configs.outApi);
+
+
+        // refresh()
+    } else {
+        url.value = "/l/dynamic/page"
+        deleteUrl.value = "/l/dynamic/delete"
+    }
 
 })
 

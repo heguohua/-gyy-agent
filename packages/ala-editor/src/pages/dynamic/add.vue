@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-15 10:08:03
+ * @LastEditTime: 2025-07-27 17:35:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/add.vue
  * @Description: 
  * 
@@ -43,8 +43,16 @@ const props = defineProps({
 })
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/l/dynamic/add'
-const updateUrl = '/l/dynamic/update'
+const url = ref('/l/dynamic/add')
+const updateUrl = ref('/l/dynamic/update')
+
+if (props.baseInfo.outApi) {
+    // 说明当前是静态api
+    const outApiUrl = props.baseInfo.outApiUrl
+    url.value = outApiUrl + '/add'
+    updateUrl.value = outApiUrl + '/update'
+}
+
 // 表单数据保存对象
 const formData = reactive({
 })
