@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-27 17:52:51
+ * @LastEditTime: 2025-07-27 18:04:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -311,11 +311,6 @@ onMounted(async () => {
         url.value = outApiUrl.value + '/page'
         deleteUrl.value = outApiUrl.value + '/delete'
         outApi.value = true
-
-        console.log('configs.outApi:', configs.outApi);
-
-
-        // refresh()
     } else {
         url.value = "/l/dynamic/page"
         deleteUrl.value = "/l/dynamic/delete"
