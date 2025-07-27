@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-27 18:01:44
+ * @LastEditTime: 2025-07-27 19:12:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -259,14 +259,22 @@ const handleDelete = (index: number, item: { id: number }) => {
 }
 
 const updateUrl = ref('/l/dynamic/update')
-if (baseInfo.outApi) {
+const outApi = ref(false)
+
+watch(() => baseInfo.outApiUrl, () => {
     updateUrl.value = baseInfo.outApiUrl + '/update'
-}
+})
+
 const toggleEnableOrDisable = (index: number, item: { id: number, adisable: number }) => {
     logger.info(`点击【 启用/禁用 】按钮，当前行数据`, item);
 
     if (item.adisable) {
-        const params = { tableName: props.className, columns: { id: item.id, adisable: item.adisable === 1 ? 2 : 1 } }
+        let params: any = { tableName: props.className, columns: { id: item.id, adisable: item.adisable === 1 ? 2 : 1 } }
+
+        if (outApi) {
+            // 兼容静态api
+            params = { ...item, 'adisable': item.adisable === 1 ? 2 : 1 }
+        }
 
         alaPost(u.url(updateUrl.value || ''), params, false, 'put').then((data: any) => {
             const response = data;
