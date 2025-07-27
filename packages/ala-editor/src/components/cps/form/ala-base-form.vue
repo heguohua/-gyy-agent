@@ -64,7 +64,17 @@ const props = defineProps({
 // 解构 formAttr，同时保持 formAttr 的响应式
 const { labelWidth } = toRefs(props.formAttr)
 
-
+// 获取数据缓存对象
+const baseInfo = inject('baseInfo', {
+    module: '',
+    moduleName: '',
+    id: 0,
+    item: Object,
+    selectedList: Array<{ id: string }>,
+    outApi: false,
+    outApiUrl: '',
+    outApiParams: '',
+});
 
 // Methods
 // State
@@ -237,13 +247,23 @@ const postData = async (item: any): Promise<any> => {
     // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
     const id = item.id ? item.id : (item.columns?.id)
 
+
+    let params = item
+
     const url = id ? props.updateUrl : props.url
     if (id) {
         logger.info(`【 更新数据 】，url${url}，数据对象：`, item);
     } else {
         logger.info(`【 新增数据 】，url${url}，数据对象：`, item);
     }
-    const result = await alaPost(u.url(url || ''), item, false, id ? 'put' : '').then((data: any) => {
+
+    if (baseInfo.outApi) {
+        //说明是静态api模块
+        params = { ...item.columns }
+    }
+
+
+    const result = await alaPost(u.url(url || ''), params, false, id ? 'put' : '').then((data: any) => {
         const response = data;
         emit("refresh", response)
         notify.success(t('pop.warm_title'), "保存成功")
