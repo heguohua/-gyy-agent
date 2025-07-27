@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-20 15:05:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 10:09:26
+ * @LastEditTime: 2025-07-27 16:00:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-config-render.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="editor-config-render">
-        <el-form label-width="36%">
+        <el-form label-width="40%">
 
             <el-collapse v-model="activeNames">
 

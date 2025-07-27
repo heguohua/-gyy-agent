@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 21:07:22
+ * @LastEditTime: 2025-07-27 15:43:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -12,6 +12,7 @@ import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { min } from "lodash";
 import { formTypes } from "@/components/cps/dynamic/formTypes";
+import { configCollapseItem } from "./configUtil";
 
 const background = Type.Boolean({
     code: "config-color",
@@ -190,6 +191,32 @@ const showDisableButton = Type.String({
 })
 
 
+const outApi = Type.String({
+    code: "config-boolean",
+    title: "外部API？",
+    default: false,
+})
+
+
+
+const outApiUrl = Type.String({
+    code: "config-textarea",
+    title: "API地址",
+    placeholder: "请输入外部API的URL地址",
+    rules: [
+        { name: 'max', length: 30, message: '最多200个字符' },
+    ]
+})
+
+
+const outApiParams = Type.String({
+    code: "config-textarea",
+    title: "默认参数",
+    placeholder: "请输入请求外部API的默认参数",
+    rules: [
+        { name: 'max', length: 30, message: '最多200个字符' },
+    ]
+})
 
 
 const schema = Type.Object({
@@ -202,16 +229,25 @@ const schema = Type.Object({
     formType: schemaAllViewport(formType),
     columnNum: schemaAllViewport(columnNum),
     useFormTitle: schemaAllViewport(useFormTitle),
+    pageButtons: schemaAllViewport(configCollapseItem("页面按钮")),
     showButtonsColumn: schemaAllViewport(showButtonsColumn),
     showAddButton: schemaAllViewport(showAddButton),
     showEditButton: schemaAllViewport(showEditButton),
     showDeleteButton: schemaAllViewport(showDeleteButton),
     showDisableButton: schemaAllViewport(showDisableButton),
+    dataPermission: schemaAllViewport(configCollapseItem("数据权限")),
     openDataPermission: schemaAllViewport(openDataPermission),
+    time: schemaAllViewport(configCollapseItem("创建和更新相关")),
     showCreatedBy: schemaAllViewport(showCreatedBy),
     showCreatedTime: schemaAllViewport(showCreatedTime),
     showUpdatedBy: schemaAllViewport(showUpdatedBy),
     showUpdatedTime: schemaAllViewport(showUpdatedTime),
+
+    outApis: schemaAllViewport(configCollapseItem("外部API")),
+    outApi: schemaAllViewport(outApi),
+    outApiUrl: schemaAllViewport(outApiUrl),
+    outApiParams: schemaAllViewport(outApiParams),
+
 })
 
 
