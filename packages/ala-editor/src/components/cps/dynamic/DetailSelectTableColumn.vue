@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-28 22:45:31
+ * @LastEditTime: 2025-07-27 22:11:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -110,10 +110,11 @@ const query = async (url: string, params: any): Promise<any> => {
 
 
 const showDetailPage = ref(false)
+// 获取数据缓存对象
 
 const showDetail = async (item: string, index: number) => {
     const { formData } = formItem.value
-    const url = formData.url?.desktop
+    let url = formData.url?.desktop
     if (!url) return
     let params = formData.params?.desktop
     const valueName = formData.itemProperty.desktop.valueName
@@ -130,10 +131,15 @@ const showDetail = async (item: string, index: number) => {
 
             formConfig = getFormConfigFromCache(className)
 
+
+
             if (!formConfig) {
 
 
                 const configs = await getLowcodingConfigByClassName(className)
+                if (configs.outApi) {
+                    url = configs.outApiUrl + '/page'
+                }
                 formConfig = {
                     formAttr: configs.formAttr,
                     detailAttr: configs.formAttr,
@@ -149,7 +155,7 @@ const showDetail = async (item: string, index: number) => {
 
         } else {
             // 说明当前模块不是动态表单，那么当前模块是非动态表单模块，但是未在 formConfig 中配置表单信息
-            logger.error(`当前模块是非动态表单模块，但是【 未在 formConfig 中配置表单 】信息，url[${url}]，params[${u.tojson(params)}]`)
+            logger.error(`当前模块是非动态表单模块，但是【 未在 formConfig 中配置表单 】信息，url[${formConfig?.pageApi}]，params[${u.tojson(params)}]`)
         }
     }
 
@@ -179,14 +185,16 @@ const showDetail = async (item: string, index: number) => {
     }
     const queryParams = u.merged({ [valueName]: value }, params)
 
-    const response = await query(url, { body: queryParams, page: { orders: [], current: 1, size: 10 } })
+    const response = await query(formConfig?.pageApi!, { body: queryParams, page: { orders: [], current: 1, size: 10 } })
 
+    console.log('response:',response);
+    
 
     if (response.data?.list) {
         if (response.data.list.length === 0) {
-            logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${url}]接口，返回【 空数组 】`)
+            logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${formConfig?.pageApi}]接口，返回【 空数组 】`)
         } else if (response.data.list.length > 1) {
-            logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${url}]接口，返回【 数据多于1条 】`)
+            logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${formConfig?.pageApi}]接口，返回【 数据多于1条 】`)
         } else {
             // 说明刚好查询到一条数据
 

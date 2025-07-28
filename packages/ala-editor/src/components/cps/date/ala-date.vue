@@ -94,8 +94,6 @@ const model = defineModel({
 
 const handleChange = (value: Date | null) => {
 
-    console.log('props : ---> ', props);
-
 
     if (value) {
 

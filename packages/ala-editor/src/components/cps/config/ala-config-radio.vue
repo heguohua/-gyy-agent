@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:53:39
+ * @LastEditTime: 2025-07-28 10:56:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-radio.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
     <div class="ala-form-rules-wrapper">
 
         <el-form-item :label="title" label-position="top" class="rules-label">
-            <el-radio-group @change="handleChange" class="ala-form-rules-group" :model-value="model">
+            <el-radio-group @change="handleChange" class="ala-form-rules-group" :model-value="checkedValue">
                 <div class="ala-form-rules-item" v-for="(item, index) in checkbox" :key="bType + '-' + item.value">
                     <el-radio :value="item.value">{{ item.name }}</el-radio>
                 </div>
@@ -57,7 +57,9 @@ const bType = props.bType
 const { data } = toRefs(props)
 const { formData, parentKey, key, id } = data.value
 
-const { title, checkbox, required, rules } = data.value.properties[props.viewport]
+const { title, default: defaultValue, checkbox, required, rules } = data.value.properties[props.viewport]
+
+const checkedValue = ref("")
 
 interface Rule {
     name: string,
@@ -66,8 +68,16 @@ interface Rule {
     max: number,
 }
 const model = defineModel({
-    type: Array<Rule>,
-    default: []
+    type: String,
+    default: () => ""
+})
+
+if (defaultValue) {
+    checkedValue.value = defaultValue
+}
+
+watch(() => model.value, (v) => {
+    checkedValue.value = model.value
 })
 
 // 根据 formData 更新当前组件状态
@@ -89,33 +99,32 @@ watch(formData, (form_data) => {
 })
 
 // 通过回调更新 editorStore 中的状态值
-watch(() => model.value, (value) => {
+watch(() => checkedValue.value, (value) => {
     if (!value) return;
     // return;
     let data = {}
-    let _value = value || []
+    let _value = value
 
     if (Object.values(formData || {}).length < 2) {
         data = { desktop: _value, mobile: _value, required: required ? required : false, title, rules }
     } else {
         data = { [props.viewport]: _value, required: required ? required : false, title, rules }
     }
-    logger.info(`config-form-rules组件 input 发生变化,即将调用父组件callback, data`, data);
+    logger.info(`config-radio组件 input 发生变化,即将调用父组件callback, data`, data);
     emit("callback", {
         data: {
             [key]: data
         },
         id
     })
-}, {
-    immediate: true,
-    deep: true
 })
 
 
 // Methods
 const handleChange = (value: any) => {
-    model.value = value
+    console.log('value:', value);
+
+    checkedValue.value = value
 }
 
 
@@ -130,6 +139,11 @@ const handleChange = (value: any) => {
             display: block;
             text-align: left;
             width: 40%;
+        }
+
+        :deep(.el-form-item__content) {
+            display: inline-flex;
+            width: 70%;
         }
 
 

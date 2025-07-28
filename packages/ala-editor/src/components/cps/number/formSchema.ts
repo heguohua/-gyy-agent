@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 18:34:19
+ * @LastEditTime: 2025-07-28 10:32:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/formSchema.ts
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  */
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
-import { configInt } from "@/config/configUtil";
+import { configCollapseItem, configInt, configText } from "@/config/configUtil";
 
 const label = Type.String({
     code: "config-input",
@@ -164,6 +164,31 @@ const thousandth = Type.String({
     title: "数值千分位？",
     default: false,
 })
+
+
+const syncWriteTypes = Type.Array(
+    Type.Object({
+        name: Type.String(),
+        value: Type.String(),
+    }),
+    {
+        code: "config-radio",
+        title: "值转写方式",
+        default: 'replace',
+        checkbox: [{
+            name: '替换',
+            value: 'replace',
+        }, {
+            name: '相加',
+            value: 'addition',
+        }, {
+            name: '相减',
+            value: 'subtraction',
+        }],
+    }
+);
+
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -184,6 +209,11 @@ const schema = Type.Object({
     min: schemaAllViewport(numberMin),
     max: schemaAllViewport(configInt('最大值', Number.MAX_VALUE, 0)),
     thousandth: schemaAllViewport(thousandth),
+    syncWrite: schemaAllViewport(configCollapseItem("数值转写")),
+    syncWriteTableName: schemaAllViewport(configText("模块名", "", [{ name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },])),
+    syncWriteColumnName: schemaAllViewport(configText("字段名", "", [{ name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },])),
+    syncWriteType: schemaAllViewport(syncWriteTypes),
+
     // style: schemaAllViewport(style),
 })
 
