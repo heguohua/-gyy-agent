@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 18:58:05
+ * @LastEditTime: 2025-07-28 16:11:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -170,9 +170,11 @@ export function parseSelectDict(item: { fieldName: { desktop: string }, label: {
     return result
 }
 
-export function parseSelectTree(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: string }, placeholder: { desktop: string }, rules: { desktop: [] } }) {
+export function parseSelectTree(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: string }, placeholder: { desktop: string }, checkStrictly: { desktop: string }, rules: { desktop: [] } }) {
 
-    const result = alaBuildSelectTree(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.params.desktop ? JSON.parse(item.params.desktop) : {}, item.itemProperty.desktop, item.rules?.desktop)
+    const result = alaBuildSelectTree(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.params.desktop ? JSON.parse(item.params.desktop) : {}, item.itemProperty.desktop, item.rules?.desktop, item.placeholder?.desktop, {
+        "checkStrictly": item.checkStrictly?.desktop
+    })
     logger.info(`解析【 selectTree 】字段：`, result);
     return result
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:32:16
+ * @LastEditTime: 2025-07-28 16:09:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/formSchema.ts
  * @Description: 
  * 
@@ -137,6 +137,12 @@ const required = Type.String({
     default: false,
 })
 
+const checkStrictly = Type.String({
+    code: "config-boolean",
+    title: "只选末级？",
+    default: false,
+})
+
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
@@ -155,6 +161,7 @@ const schema = Type.Object({
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
+    checkStrictly: schemaAllViewport(checkStrictly),
     // style: schemaAllViewport(style),
 })
 

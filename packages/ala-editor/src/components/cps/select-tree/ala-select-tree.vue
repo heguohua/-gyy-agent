@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-15 14:21:46
+ * @LastEditTime: 2025-07-28 16:14:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -22,7 +22,7 @@
           label: itemProperty.propertyName, // 自定义label属性名
           value: itemProperty.valueName // 自定义value属性名
         }" :clearable="clearable" :default-expand-all="defaultExpandAll" :default-expanded-keys="eKeys"
-        :placeholder="placeholder" :check-strictly="checkStrictly" :node-key="itemProperty.valueName"
+        :placeholder="placeholder" :check-strictly="!checkStrictly" :node-key="itemProperty.valueName"
         :show-checkbox="showCheckbox" />
 
     </el-form-item>

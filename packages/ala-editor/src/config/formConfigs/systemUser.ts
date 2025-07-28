@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 11:42:08
+ * @LastEditTime: 2025-07-28 16:15:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -38,7 +38,7 @@ export const systemUser: FormConfig = {
         }),
         alaBuildSelectTree("organization", "所属部门", "/u/organization/tree", {}, { propertyName: 'name', valueName: 'id', childrenName: 'children' }, undefined, "请选择用户所属部门", {
             clearable: true,
-            checkStrictly: true,
+            checkStrictly: false,
         }),
         alaBuildSelectTable("roles", "系统角色", "/u/role/page", [{ prop: 'name', label: '角色名', isQuery: true }, { prop: 'remark', label: '备注' }], { propertyName: 'name', valueName: 'id' }, undefined, {}, "请选择授权角色"),
         alaBuildSelectTable("funRoles", "主职能角色", "/l/dynamic/page", [{ "prop": "name", "label": "职能名称", "isQuery": "true" }, { "prop": "remark", "label": "职能描述" }], { propertyName: 'name', valueName: 'id' }, [], { tableName: "functionalRolePage" }, "请选择主职能角色")
