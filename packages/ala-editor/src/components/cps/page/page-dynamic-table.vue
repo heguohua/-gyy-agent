@@ -271,7 +271,7 @@ const toggleEnableOrDisable = (index: number, item: { id: number, adisable: numb
     if (item.adisable) {
         let params: any = { tableName: props.className, columns: { id: item.id, adisable: item.adisable === 1 ? 2 : 1 } }
 
-        if (outApi) {
+        if (outApi.value) {
             // 兼容静态api
             params = { ...item, 'adisable': item.adisable === 1 ? 2 : 1 }
         }
