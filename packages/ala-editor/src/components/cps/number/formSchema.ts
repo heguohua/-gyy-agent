@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-29 09:41:46
+ * @LastEditTime: 2025-07-29 18:49:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/formSchema.ts
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  */
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
-import { configCollapseItem, configInt, configText } from "@/config/configUtil";
+import { configCollapseItem, configInt, configText, configTextarea } from "@/config/configUtil";
 
 const label = Type.String({
     code: "config-input",
@@ -212,6 +212,7 @@ const schema = Type.Object({
     syncWrite: schemaAllViewport(configCollapseItem("数值转写")),
     syncWriteTableName: schemaAllViewport(configText("转写模块名", "", [{ name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },])),
     syncWriteColumnName: schemaAllViewport(configText("转写字段名", "", [{ name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },])),
+    syncWriteWhereColumnName: schemaAllViewport(configTextarea("转写条件关系")),
     syncWriteType: schemaAllViewport(syncWriteTypes),
 
     // style: schemaAllViewport(style),

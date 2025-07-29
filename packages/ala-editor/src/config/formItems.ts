@@ -192,13 +192,6 @@ export const seniorFields: BaseBlock[] = [
     },
     {
         id: "",
-        name: "流程记录",
-        code: "instance",
-        icon: "instance",
-        formData: {},
-    },
-    {
-        id: "",
         name: "创建时间",
         code: "createdTime",
         icon: "calendar",

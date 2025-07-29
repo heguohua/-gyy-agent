@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-19 14:00:03
+ * @LastEditTime: 2025-07-29 20:36:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -96,7 +96,7 @@ const baseInfo = inject('baseInfo', {
 });
 
 const className = ref<string>()
-const url = "/l/dynamic/page"
+const url = ref("")
 const deleteUrl = "/l/dynamic/delete"
 
 const columns = ref<Array<any>>()
@@ -115,6 +115,11 @@ const showTable = ref(false)
 watch([() => props.value, () => baseInfo.id], async () => {
 
     showTable.value = false
+
+    console.log('11111:', 11111);
+    console.log('props.value:', props.value);
+    console.log('baseInfo.id:', baseInfo.id);
+
 
     if (props.value) {
 
@@ -161,6 +166,8 @@ watch([() => props.value, () => baseInfo.id], async () => {
                 }
             ],
         }
+
+        url.value = "/l/dynamic/page"
 
         showTable.value = true
 
