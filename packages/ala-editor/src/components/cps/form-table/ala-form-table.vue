@@ -2,26 +2,26 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-29 21:33:48
+ * @LastEditTime: 2025-07-29 22:11:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-select-table-wrapper">
+    <div class="ala-form-table-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
 
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <div class="ala-select-customer ala-form-item-border" :style="styles">
+            <div class="ala-form-customer ala-form-item-border" :style="styles">
                 <p class="placeholder" v-if="!localValue || localValue.length === 0">{{
                     placeholder ? placeholder : ($t('form.p-select-1') + label) }}
                 </p>
                 <p class="show-values" v-if="localValue && localValue.length != 0" v-html="showValue"></p>
             </div>
-            <div class="ala-select-customer-icon">
+            <div class="ala-form-customer-icon">
                 <v-icon class="icon" :icon="icon" @click="openDialog" :width="iconWidth" :height="iconHeight" />
             </div>
         </el-form-item>
@@ -30,7 +30,7 @@
             <el-dialog v-model="dialogShow" :width="dialogWidth" :append-to-body="true" :showClose="false">
 
                 <template #header="{ titleId, titleClass }">
-                    <div class="ala-select-table-header">
+                    <div class="ala-form-table-header">
                         <h4 :id="titleId" :class="titleClass">{{ $t('form.p-select-1') }} 【 {{ label }} 】</h4>
                     </div>
                 </template>
@@ -38,7 +38,7 @@
                 <div class="dialog-content">
                     <div class="left-panel">
                         <!-- 分页列表 -->
-                        <PageTableSelect ref="pageListRef" :url="url" :columns="cols" :params="params"
+                        <PageTableSelect ref="pageListRef" v-if="dialogShow" :url="url" :columns="cols" :params="params"
                             :showSelectCheckbox="true" :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange"
                             :label="label" v-model="localValue" :itemProperty="itemProperty"
                             :isFormDesign="isFormDesign" :singleValue="singleValue" />
@@ -303,7 +303,7 @@ function cancelClick() {
 }
 
 const generateValue = (value: string) => {
-    return `<p class='ala-select-table-value'>${value}</p>`
+    return `<p class='ala-form-table-value'>${value}</p>`
 }
 
 /**
@@ -513,18 +513,18 @@ watch(() => formTableValues.value, (v) => {
 
     const fieldName = `${props.fieldName}FormTableValues`
 
-    console.log('fieldName:',fieldName);
-    console.log('v:',v);
-    console.log('data.value:',data?.value);
-    
+    console.log('fieldName:', fieldName);
+    console.log('v:', v);
+    console.log('data.value:', data?.value);
+
 
     // console.log('fieldName:', fieldName);
     // console.log('formTableValues.value:', formTableValues.value);
-    data!.value![fieldName]=[]
-    console.log('data.value:',data?.value);
+    data!.value![fieldName] = []
+    console.log('data.value:', data?.value);
 
     u.merged(data?.value!, { [fieldName]: v })
-    console.log('data.value:',data?.value);
+    console.log('data.value:', data?.value);
 
 }, {
     immediate: true,
@@ -539,11 +539,11 @@ const handleAddChild = () => {
 }
 
 const handleDeleteChild = (index: number) => {
-    console.log('formTableValues.value:',formTableValues.value);
-    
+    console.log('formTableValues.value:', formTableValues.value);
+
     formTableValues.value.splice(index, 1);
-    console.log('formTableValues.value:',formTableValues.value);
-    
+    console.log('formTableValues.value:', formTableValues.value);
+
 }
 
 const saveOrPause = (): Boolean => {
@@ -650,12 +650,12 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-.ala-select-table-wrapper {
+.ala-form-table-wrapper {
     :deep(.el-scrollbar__wrap--hidden-default) {
         margin-bottom: 30px;
     }
 
-    .ala-select-customer {
+    .ala-form-customer {
         .placeholder {
             color: var(--el-text-color-placeholder);
         }
@@ -666,7 +666,7 @@ defineExpose({
         }
     }
 
-    .ala-select-customer-icon {
+    .ala-form-customer-icon {
 
         color: #a8abb2;
         width: 30px;
@@ -876,11 +876,11 @@ defineExpose({
     padding: 8px 0px;
 }
 
-.ala-select-table-header {
+.ala-form-table-header {
     padding-left: 12px;
 }
 
-.ala-select-table-value {
+.ala-form-table-value {
     background-color: var(--el-fill-color);
     padding: 0px 6px;
     border-radius: 2px;
