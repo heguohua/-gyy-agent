@@ -172,6 +172,8 @@ const handleSave = () => {
 
                 for (let i = 0; i < fieldNames.length; i++) {
 
+                    console.log('oneFormItem:',oneFormItem);
+                    
                     const fieldName = fieldNames[i]
                     const rules = oneFormItem[fieldName].rules
                     const fieldValue = oneFormItem[fieldName].desktop

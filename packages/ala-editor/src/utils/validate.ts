@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-15 21:37:02
+ * @LastEditTime: 2025-07-29 09:54:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/validate.ts
  * @Description: 
  * 
@@ -24,7 +24,7 @@ export default class validate {
         Ll8: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z\d]*$/,
         LOrlOr8Or_: /^[a-zA-Z0-9\p{P}\p{S}]+$/u,
         Ll8_: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).+$/,
-        No_: /^[？?@\(\)\（\）\-a-zA-Z0-9\u4E00-\u9FFF\u0400-\u04FF]+$/,
+        No_: /^[？?@\(\)\（\）\-a-zA-Z0-9\u4E00-\u9FFF\u0400-\u04FF]*$/,
     }
 
     /**
@@ -68,6 +68,7 @@ export default class validate {
     public static pattern(data: string, type: any) {
         let result = false
         if (typeof data === 'string') {
+            if (data === '') return true // 空字符串直接返回true，修复空字符串触发规则不匹配的bug，例如纯字母校验规则就会检测不通过
             let pattern = undefined
             if (typeof type === "string") {
                 pattern = validate.rules[type]
