@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-29 20:42:51
+ * @LastEditTime: 2025-07-29 22:03:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -377,12 +377,9 @@ const queryPageData = () => {
     });
 }
 
-onMounted(() => {
+// 这里需要 onMounted 和 watch 配合实现列表刷新
+watch([() => props.url], () => {
     logger.info("onMounted 渲染 menu 分页列表页面");
-    // queryPageData()
-})
-
-watch(() => props.url, () => {
     queryPageData()
 }, {
     immediate: true

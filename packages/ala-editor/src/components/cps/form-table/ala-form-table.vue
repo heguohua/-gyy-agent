@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-20 22:59:11
+ * @LastEditTime: 2025-07-29 21:33:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -513,9 +513,18 @@ watch(() => formTableValues.value, (v) => {
 
     const fieldName = `${props.fieldName}FormTableValues`
 
+    console.log('fieldName:',fieldName);
+    console.log('v:',v);
+    console.log('data.value:',data?.value);
+    
+
     // console.log('fieldName:', fieldName);
     // console.log('formTableValues.value:', formTableValues.value);
+    data!.value![fieldName]=[]
+    console.log('data.value:',data?.value);
+
     u.merged(data?.value!, { [fieldName]: v })
+    console.log('data.value:',data?.value);
 
 }, {
     immediate: true,
@@ -530,7 +539,11 @@ const handleAddChild = () => {
 }
 
 const handleDeleteChild = (index: number) => {
+    console.log('formTableValues.value:',formTableValues.value);
+    
     formTableValues.value.splice(index, 1);
+    console.log('formTableValues.value:',formTableValues.value);
+    
 }
 
 const saveOrPause = (): Boolean => {

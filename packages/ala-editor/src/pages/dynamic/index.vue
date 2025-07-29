@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-27 18:04:07
+ * @LastEditTime: 2025-07-29 21:58:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -44,7 +44,7 @@
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" :fields="addFormFields" :formAttr="formAttrs"
         :className="className" />
 
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttrs" />
+    <AlaDetail :data="detailItem" v-model="showDetailPage" v-if="showDetailPage" :fields="detailFields" :formAttr="formAttrs" />
 
 </template>
 

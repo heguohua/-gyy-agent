@@ -113,6 +113,8 @@ const confirm = (data: any) => {
                     }
 
                     let data = props.formData
+
+                 
                     if (props.beforeSave) {
                         if (u.isAsyncFunction(props.beforeSave)) {
                             data = await props.beforeSave(data)
