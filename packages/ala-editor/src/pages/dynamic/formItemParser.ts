@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-28 16:11:43
+ * @LastEditTime: 2025-07-30 09:27:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -142,10 +142,10 @@ export function parseSwitch(item: { fieldName: { desktop: string }, label: { des
 //     alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
 //     alaBuildSelectTree("select_tree", "tree下拉选", "/a/dict/tree", { dictValue: 'i18n' }, { propertyName: 'dictLabel', valueName: 'id', childrenName: 'children' }, undefined, "请选择"),
 
-export function parseSelectTable(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: any }, placeholder: { desktop: string }, icon: { desktop: string }, iconWidth: { desktop: number }, iconHeight: { desktop: number }, canEmpty: { desktop: boolean } }) {
+export function parseSelectTable(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: any }, placeholder: { desktop: string }, icon: { desktop: string }, iconWidth: { desktop: number }, iconHeight: { desktop: number }, canEmpty: { desktop: boolean }, singleValue: { desktop: boolean } }) {
     //  alaBuildSelectTable("select_table", "table下拉选", "/u/menu/page", [{ prop: 'name', label: t('module.menu.name'), isQuery: true }, { prop: 'delFlag', label: t('common.enable') }], { propertyName: 'name', valueName: 'id' }, undefined, { value: '1' }, "请选择"),
     // const result={}
-    const result = alaBuildSelectTable(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.columns.desktop, item.itemProperty.desktop, undefined, item.params?.desktop, item.placeholder?.desktop, item.icon?.desktop ? item.icon.desktop : undefined, item.iconWidth?.desktop, item.iconHeight?.desktop, item.canEmpty?.desktop)
+    const result = alaBuildSelectTable(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.columns.desktop, item.itemProperty.desktop, undefined, item.params?.desktop, item.placeholder?.desktop, item.icon?.desktop ? item.icon.desktop : undefined, item.iconWidth?.desktop, item.iconHeight?.desktop, item.canEmpty?.desktop, item.singleValue?.desktop)
     logger.info(`解析【 selectTable 】字段：`, result);
     return result
 }

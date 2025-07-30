@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-29 22:11:18
+ * @LastEditTime: 2025-07-30 09:28:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -484,8 +484,6 @@ watch(() => localValue.value, async (v) => {
                         label: field.label,
                         width: (fci[field.fieldName]?.formData?.columnWidth?.desktop || 150) + 'px'
                     })
-                    console.log('fci[field.fieldName]:', fci[field.fieldName]);
-
                     formConfigItems.value.push(fci[field.fieldName])
                     addFormFields.value.push(field)
                     addFormFieldRules.value[field.fieldName] = field.rules
@@ -513,18 +511,9 @@ watch(() => formTableValues.value, (v) => {
 
     const fieldName = `${props.fieldName}FormTableValues`
 
-    console.log('fieldName:', fieldName);
-    console.log('v:', v);
-    console.log('data.value:', data?.value);
-
-
-    // console.log('fieldName:', fieldName);
-    // console.log('formTableValues.value:', formTableValues.value);
     data!.value![fieldName] = []
-    console.log('data.value:', data?.value);
 
     u.merged(data?.value!, { [fieldName]: v })
-    console.log('data.value:', data?.value);
 
 }, {
     immediate: true,
@@ -539,11 +528,7 @@ const handleAddChild = () => {
 }
 
 const handleDeleteChild = (index: number) => {
-    console.log('formTableValues.value:', formTableValues.value);
-
     formTableValues.value.splice(index, 1);
-    console.log('formTableValues.value:', formTableValues.value);
-
 }
 
 const saveOrPause = (): Boolean => {

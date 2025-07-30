@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-27 22:11:13
+ * @LastEditTime: 2025-07-30 09:32:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -186,8 +186,6 @@ const showDetail = async (item: string, index: number) => {
     const queryParams = u.merged({ [valueName]: value }, params)
 
     const response = await query(formConfig?.pageApi!, { body: queryParams, page: { orders: [], current: 1, size: 10 } })
-
-    console.log('response:',response);
     
 
     if (response.data?.list) {

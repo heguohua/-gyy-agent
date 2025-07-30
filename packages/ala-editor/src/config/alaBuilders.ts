@@ -340,7 +340,7 @@ export function alaBuildFormTable(fieldName: string, label: string): AlaSelectTr
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelectTable(fieldName: string, label: string, url: string, columns: any, itemProperty: { [key: string]: any }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string, icon?: string, iconWidth?: number, iconHeight?: number, canEmpty = false): AlaSelectTableSchema {
+export function alaBuildSelectTable(fieldName: string, label: string, url: string, columns: any, itemProperty: { [key: string]: any }, rules?: Array<baseRule>, params?: { [key: string]: string }, placeholder?: string, icon?: string, iconWidth?: number, iconHeight?: number, canEmpty = false, singleValue = false): AlaSelectTableSchema {
 
     u.checkTrue(!url, `表单元素 select-table 配置项 url 为空，表单字段名${fieldName}`, () => { })
     // u.checkBoolean(!params, `表单元素 select-table 配置项 params 为空，表单字段名${fieldName}`, () => { })
@@ -348,7 +348,7 @@ export function alaBuildSelectTable(fieldName: string, label: string, url: strin
 
     params = params ? params : {}
 
-    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns: Array.isArray(columns) ? u.tojson(columns) : columns, itemProperty, isFormDesign: false, icon, canEmpty, iconWidth, iconHeight }, rules, placeholder)
+    const obj = alaBuildWithOther("AlaSelectTable", fieldName, label, { url, params, columns: Array.isArray(columns) ? u.tojson(columns) : columns, itemProperty, isFormDesign: false, icon, canEmpty, iconWidth, iconHeight, singleValue }, rules, placeholder)
     return obj
 }
 
