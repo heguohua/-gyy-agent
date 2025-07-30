@@ -319,7 +319,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
 
                 // 添加禁用、启用列
                 if (showDisableButton) {
-                    const d = alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1)
+                    const d = alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '120' } })
                     columns.push(d)
                     detailFields.push(d)
                 }

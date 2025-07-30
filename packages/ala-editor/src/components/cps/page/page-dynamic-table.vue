@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-29 22:03:31
+ * @LastEditTime: 2025-07-30 22:32:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -259,7 +259,6 @@ const handleDelete = (index: number, item: { id: number }) => {
 }
 
 const updateUrl = ref('/l/dynamic/update')
-const outApi = ref(false)
 
 watch(() => baseInfo.outApiUrl, () => {
     updateUrl.value = baseInfo.outApiUrl + '/update'
@@ -271,7 +270,8 @@ const toggleEnableOrDisable = (index: number, item: { id: number, adisable: numb
     if (item.adisable) {
         let params: any = { tableName: props.className, columns: { id: item.id, adisable: item.adisable === 1 ? 2 : 1 } }
 
-        if (outApi.value) {
+
+        if (baseInfo.outApi) {
             // 兼容静态api
             params = { ...item, 'adisable': item.adisable === 1 ? 2 : 1 }
         }
