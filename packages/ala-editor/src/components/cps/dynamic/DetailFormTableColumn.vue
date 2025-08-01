@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-29 22:03:44
+ * @LastEditTime: 2025-08-01 21:52:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -82,9 +82,15 @@ const props = defineProps({
     deepColumnName: {
         type: String,
         default: ''
+    },
+    formIndex: {
+        type: Number,
+        default: 0
+    },
+    previewParams: {
+        type: Object as any
     }
 })
-
 
 // 获取数据缓存对象
 const baseInfo = inject('baseInfo', {
@@ -116,10 +122,6 @@ watch([() => props.value, () => baseInfo.id], async () => {
 
     showTable.value = false
 
-    console.log('11111:', 11111);
-    console.log('props.value:', props.value);
-    console.log('baseInfo.id:', baseInfo.id);
-
 
     if (props.value) {
 
@@ -134,6 +136,7 @@ watch([() => props.value, () => baseInfo.id], async () => {
         let rightColumnName = "a_dynamic_list"
         let rightColumnValue = baseInfo.id
 
+
         if (leftTableName === baseInfo.module) {
             // 两者值相等，说明当前打开详情页面的模块就是 子表单 模块，不相等代表是总表单模块
             // 相等时需要转变查询条件
@@ -142,7 +145,10 @@ watch([() => props.value, () => baseInfo.id], async () => {
             rightColumnValue = props.data.item.id
         }
 
-
+        if (props.previewParams) {
+            rightTableName = `a_${configs.className}_${props.previewParams.forms[props.formIndex].tableName}`
+            rightColumnValue = props.previewParams.forms[props.formIndex].id
+        }
 
         columns.value = configs.columns
         className.value = configs.className

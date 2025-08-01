@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-30 09:28:50
+ * @LastEditTime: 2025-08-01 18:07:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -213,7 +213,7 @@ watch(() => data?.value, (v: any) => {
 })
 
 const url = '/l/lowcodingConfig/page'
-const params = { 'formType': 'pageForm' }
+const params = {}
 const icon = 'f_table'
 const iconWidth = 22
 const iconHeight = 22

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-19 17:16:26
+ * @LastEditTime: 2025-08-01 21:51:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -15,21 +15,21 @@
         <template class="" v-for="(form, index) in fds" :key="index">
 
             <div class="ala-form-detail-one">
-                <div :class="isHidden(item)" v-for="(item, index) in form.fields" :key="index"
+                <div :class="isHidden(item)" v-for="(item, cIndex) in form.fields" :key="cIndex"
                     :style="columnWidth(item)">
 
                     <template v-if="item.formItem.code === 'dateRange'">
                         <component :is="getComponent(item.formItem.code)"
                             :value="{ start: form.data[item.formItem.formData.startFieldName.desktop], end: form.data[item.formItem.formData.endFieldName.desktop] }"
                             :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()"
-                            :isDetailPage="true" />
+                            :isDetailPage="true" :previewParams="previewParams" :formIndex="index" />
                     </template>
 
                     <template v-else>
                         <component :is="getComponent(item.formItem.code)"
                             :value="item.formItem.formData.fieldName?.desktop ? form.data[item.formItem.formData.fieldName.desktop] : ''"
                             :formItem="item.formItem" :label="item.label" :labelWidth="labelWidth()"
-                            :isDetailPage="true" />
+                            :isDetailPage="true" :previewParams="previewParams" :formIndex="index" />
                     </template>
 
                 </div>
