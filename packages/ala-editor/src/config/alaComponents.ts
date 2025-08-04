@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-24 10:55:22
+ * @LastEditTime: 2025-08-04 19:22:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -103,6 +103,7 @@ import DetailFileColumn from '@/components/cps/dynamic/DetailFileColumn.vue';
 import DetailFormTableColumn from '@/components/cps/dynamic/DetailFormTableColumn.vue';
 import DetailChildTableCountColumn from '@/components/cps/dynamic/DetailChildTableCountColumn.vue';
 import DetailFlowInstanceStateColumn from '@/components/cps/dynamic/DetailFlowInstanceStateColumn.vue';
+import DetailVideoHLSColumn from '@/components/cps/dynamic/DetailVideoHLSColumn.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -218,6 +219,7 @@ export default {
     DetailFormTableColumn,
     DetailChildTableCountColumn,
     DetailFlowInstanceStateColumn,
+    DetailVideoHLSColumn,
 
     // 流程引擎相关组件
     ProcessDesign,

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 10:03:16
+ * @LastEditTime: 2025-08-04 18:09:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
@@ -12,6 +12,7 @@
 import { systemUser } from "@/config/formConfigs/systemUser"
 import { systemRole } from "@/config/formConfigs/systemRole"
 import { device } from "@/config/formConfigs/device"
+import { camera } from "@/config/formConfigs/camera"
 import { profile } from "@/config/formConfigs/profile"
 import FormConfig from "@/config/formConfigs/formConfig"
 import { logger } from "@/utils/logger"
@@ -23,6 +24,7 @@ import u from "@/utils/u"
 const formConfigs = {
     systemUser,
     device,
+    camera,
     profile,
     systemRole,
 }

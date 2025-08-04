@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-25 17:41:36
+ * @LastEditTime: 2025-08-04 17:59:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -34,6 +34,10 @@
             <!-- 主表操作列 -->
             <el-table-column :label="$t('buttons.buttons')" v-if="!noButtons">
                 <template #default="scope">
+                    <AlaButton :showButton="displayDisableButton(scope.row)" name="disable"
+                        @disable="toggleEnableOrDisable(scope.$index, scope.row)" buttonType="warning" />
+                    <AlaButton :showButton="displayEnableButton(scope.row)" name="enable"
+                        @enable="toggleEnableOrDisable(scope.$index, scope.row)" buttonType="primary" />
                     <AlaButton :showButton="displayEditButton()" name="edit"
                         @edit="handleEdit(scope.$index, scope.row)" />
                     <AlaButton :showButton="displayDeleteButton()" name="delete"
@@ -58,6 +62,7 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
 import { alaDelete, alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { ref } from 'vue'
@@ -125,7 +130,12 @@ const props = defineProps({
     noButtons: {
         type: Boolean,
         default: false
-    }
+    },
+    // 是否显示 启用/禁用 按钮
+    showDisableButton: {
+        type: Boolean,
+        default: false
+    },
 
 })
 
@@ -151,7 +161,7 @@ const displayAddButton = () => {
 
     return props.showAddButton;
 }
-const displayAddSubButton = () => {    
+const displayAddSubButton = () => {
     return props.showAddSubButton;
 }
 
@@ -292,6 +302,53 @@ const handleSizeChange = (newSize: number) => {
     page.size = newSize;
     queryPageData()
 };
+
+
+const displayDisableButton = (row: any) => {
+
+    if (props.showDisableButton) {
+        const d = row.adisable
+        if (d && d === 1) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+const displayEnableButton = (row: any) => {
+
+    if (props.showDisableButton) {
+        const d = row.adisable
+        if (d && d === 2) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+
+
+const toggleEnableOrDisable = (index: number, item: { id: number, adisable: number }) => {
+    logger.info(`点击【 启用/禁用 】按钮，当前行数据`, item);
+
+    if (item.adisable) {
+        let params: any = { id: item.id, adisable: item.adisable === 1 ? 2 : 1 }
+
+        const updateUrl = props.url?.substring(0, props.url?.lastIndexOf('/')) + '/update'
+
+        alaPost(u.url(updateUrl), params, false, 'put').then((data: any) => {
+            const response = data;
+            refresh(response)
+            notify.success(t('pop.warm_title'), "操作成功")
+        });
+
+    }
+
+}
 
 // Methods
 const emit = defineEmits(["add", "edit"])

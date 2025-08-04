@@ -4,7 +4,7 @@ import { todo } from "node:test"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-27 15:24:34
+ * @LastEditTime: 2025-08-04 17:28:06
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -290,6 +290,10 @@ const icon = {
   schedule_center: "material-symbols:schedule-send-outline-rounded",
   schedule_task: "mdi:airplane-schedule",
   schedule_record: "mdi:invoice-schedule-outline",
+
+  // AI视觉中心
+  vision: "hugeicons:vision",
+  camera: "material-symbols:speed-camera-rounded",
 
   
 }

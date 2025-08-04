@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 18:49:00
+ * @LastEditTime: 2025-08-04 21:12:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -15,6 +15,7 @@ import { cloneDeep, merge } from "lodash";
 import { logger } from "./logger";
 const profile = import.meta.env.VITE_PROFILE
 const ws_url = import.meta.env.VITE_WS_URL
+const video_url = import.meta.env.VITE_VIDEO_URL
 
 export default class u {
 
@@ -25,6 +26,13 @@ export default class u {
             const v = c === 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    }
+
+    /**
+     * 自动拼接访问路径代理前缀
+     */
+    public static videoUrl() {
+        return video_url
     }
 
     /**

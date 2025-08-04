@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 09:16:09
+ * @LastEditTime: 2025-08-04 17:18:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -202,6 +202,11 @@ export const allMenuComponents: MenuComponent = {
     "/warehouseAndLocations/page": {
         name: "warehouseAndLocationsPage",
         component: "../pages/storage/kuqukuwei/index.vue",
+        requiresAuth: true,
+    },
+    "/camera/page": {
+        name: "cameraPage",
+        component: "../pages/iot/camera/index.vue",
         requiresAuth: true,
     },
 
