@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-31 17:07:35
+ * @LastEditTime: 2025-08-06 16:03:23
  * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -53,7 +53,7 @@ const dc = defineConfig(({ command, mode }) => {
         mockPath: 'mock', // 指定 mock 文件夹路径
         enable: command === 'serve',
       }),
-      vueDevTools(),
+      // vueDevTools(),
       createHtmlPlugin({
         inject: {
           data: {
@@ -74,12 +74,14 @@ const dc = defineConfig(({ command, mode }) => {
       }
     },
     server: {
+      host: '0.0.0.0',
       proxy: {
         '/tuwei': {
           target: 'https://api.uomg.com/api/rand.qinghua?format=json', // 目标服务器地址
           changeOrigin: true, // 允许跨域
         },
         '/dev': {
+          // target: 'http://192.168.6.62:2009', // 目标服务器地址
           target: 'http://10.211.55.2:2009', // 目标服务器地址
           changeOrigin: true, // 允许跨域
           rewrite: (path) => path.replace(/^\/dev/, '')
