@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:35:26
+ * @LastEditTime: 2025-08-20 19:57:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/ala-slider.vue
  * @Description: 
  * 
@@ -23,8 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { Arrayable } from 'element-plus/es/utils';
-
 
 
 // State
@@ -74,7 +72,7 @@ type NumberOrNumberArray = number | number[];
 
 const model = defineModel<NumberOrNumberArray>()
 
-const handleChange = (value: Arrayable<number>) => {
+const handleChange = (value: Array<number>) => {
     model.value = value
 }
 
