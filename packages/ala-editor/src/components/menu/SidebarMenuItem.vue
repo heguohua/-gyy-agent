@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:03:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-07 08:31:59
+ * @LastEditTime: 2025-08-22 18:17:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenuItem.vue
  * @Description: 
  * 
@@ -66,16 +66,7 @@ defineProps<{
 // Methods
 const emits = defineEmits(['toggle-collapse']);
 const handleSelect = (child: Menu) => {
-    // const menu = allMenuComponents[child.url]
-    // if (menu) {
-    //     logger.info(`即将切换菜单${child.name}, menu.url[${child.url}], component name[${menu.name}], component path[${menu.component}]`);
-    //     // router.push({ path: child.url})
-    //     router.push({ name: menu.name })
-    //     // lstore.setItem(alaConsts.current_router_name, menu.name)
-    //     // router.push({ name: 'console-router-view', path: child.url })
-    // } else {
-    //     logger.error(`menu.url[${child.url}]对应的菜单未在[ menuRegister.ts ]的[ allMenuComponents ]中注册`);
-    // }
+
 };
 </script>
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-28 11:45:01
+ * @LastEditTime: 2025-08-22 18:17:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-pageTable.vue
  * @Description: 
  * 
@@ -153,8 +153,6 @@ const columnWidth = (item: any) => {
 
 const getComponent = ((code: string) => {
     const component = 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column'
-    console.log('component:', component);
-
     return component
 })
 const labelWidth = () => {

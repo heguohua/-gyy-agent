@@ -167,9 +167,7 @@ const columnWidth = (item: any) => {
 }
 
 const getComponent = ((code: string) => {
-    const component = 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column'
-    console.log('component:',component);
-    
+    const component = 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column'    
     return component
 })
 const labelWidth = () => {
