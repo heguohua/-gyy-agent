@@ -1,10 +1,288 @@
 import { todo } from "node:test"
 import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
+
+
+import rowIcon from '~icons/fluent/layout-row-two-16-regular';
+import columnIcon from '~icons/fluent/layout-column-two-split-right-16-regular';
+import imageIcon from '~icons/fluent/image-16-regular';
+import videoIcon from '~icons/fluent/video-clip-multiple-16-regular';
+import textIcon from '~icons/fluent/text-bullet-list-square-edit-24-regular';
+import swiperIcon from '~icons/fluent/app-recent-24-regular';
+import blankIcon from '~icons/fluent/border-none-20-filled';
+import canvasIcon from '~icons/fluent/draw-image-24-regular';
+
+import allViewportIcon from '~icons/fluent/phone-desktop-24-regular';
+import desktopIcon from '~icons/fluent/desktop-mac-32-regular';
+import mobileIcon from '~icons/fluent/phone-16-regular';
+import previewIcon from '~icons/fluent/open-20-filled';
+import questionIcon from '~icons/fluent/question-circle-12-regular';
+import tipsIcon from '~icons/fluent/info-24-regular';
+import publishIcon from '~icons/fluent/cloud-arrow-up-24-regular';
+import searchIcon from '~icons/fluent/search-12-regular';
+import blockIcon from '~icons/fluent/app-folder-16-regular';
+import blockActiveIcon from '~icons/fluent/app-folder-16-filled';
+import kitIcon from '~icons/fluent/layer-24-regular';
+import kitActiveIcon from '~icons/fluent/layer-24-filled';
+import homeIcon from '~icons/fluent/home-20-regular';
+import homeActiveIcon from '~icons/fluent/home-20-filled';
+import userIcon from '~icons/fluent/person-circle-20-regular';
+import userActiveIcon from '~icons/fluent/person-circle-24-filled';
+import createIcon from '~icons/fluent/add-circle-24-filled';
+import uploadIcon from '~icons/fluent/arrow-upload-16-filled';
+import expandIcon from '~icons/fluent/panel-right-expand-16-regular';
+import closeIcon from '~icons/fluent/panel-left-expand-16-regular';
+import closeCircleIcon from '~icons/gg/close-o';
+import contractIcon from '~icons/clarity/contract-line';
+import sealIcon from '~icons/tdesign/seal';
+import copyIcon from '~icons/fluent/save-copy-24-regular';
+import deleteIcon from '~icons/fluent/delete-24-regular';
+import minusIcon from '~icons/zondicons/minus-outline';
+import dragIcon from '~icons/fluent/grid-dots-20-regular';
+import dragBlankIcon from '~icons/fluent/breakout-room-20-regular';
+import addIcon from '~icons/fluent/add-16-regular';
+import subtractIcon from '~icons/fluent/subtract-16-regular';
+import backIcon from '~icons/fluent/chevron-left-20-filled';
+import saveIcon from '~icons/fluent/document-save-20-regular';
+import downIcon from '~icons/mingcute/arrows-down-line';
+import upIcon from '~icons/mingcute/arrows-up-line';
+import phoneIcon from '~icons/solar/phone-broken';
+import countryCnIcon from '~icons/noto-v1/flag-for-flag-china';
+import countryEnIcon from '~icons/noto-v1/flag-for-flag-united-states';
+import countryRuIcon from '~icons/noto-v1/flag-for-flag-russia';
+
+
+// 无代码中心
+import logIcon from '~icons/icon-park-outline/log';
+import dictIcon from '~icons/streamline/dictionary-language-book';
+import menuIcon from '~icons/hugeicons/menu-square';
+import alaUserIcon from '~icons/ri/user-add-line';
+import organizationIcon from '~icons/charm/organisation';
+import deptIcon from '~icons/fluent/organization-20-regular';
+import roleIcon from '~icons/oui/app-users-roles';
+import teamIcon from '~icons/ri/team-line';
+import sysConfigIcon from '~icons/icon-park-outline/setting-config';
+import customerIcon from '~icons/ix/customer';
+import orderIcon from '~icons/carbon/order-details';
+import workspaceIcon from '~icons/carbon/workspace-import';
+import leaveIcon from '~icons/ri/timeline-view';
+import billIcon from '~icons/stash/billing-info-light';
+import moneyIcon from '~icons/hugeicons/money-bag-02';
+import suggestionIcon from '~icons/iconoir/suggestion';
+import codeIcon from '~icons/mingcute/code-fill';
+import exampleIcon from '~icons/fa6-solid/democrat';
+import statusIcon from '~icons/mdi/list-status';
+
+// 配置列表
+import codeConfigIcon from '~icons/line-md/document-code';
+import codePageIcon from '~icons/icon-park-outline/page'; // 页面设计
+import codeFormIcon from '~icons/fluent/form-sparkle-20-regular'; // 表单设计
+import codeScreenIcon from '~icons/streamline/screensaver-monitor-wallpaper'; // 表单设计
+import flowDefineIcon from '~icons/hugeicons/flow'; // 流程定义
+import flowDesignIcon from '~icons/f7/flowchart'; // 流程设计
+import flowStartIcon from '~icons/heroicons/arrow-right-start-on-rectangle-16-solid'; // 发起流程
+import mineStartIcon from '~icons/token/meed'; // 发起流程
+import mineTodoIcon from '~icons/ix/tasks-open'; // 发起流程
+import mineDoneIcon from '~icons/grommet-icons/task'; // 发起流程
+import mineCopyIcon from '~icons/fluent/document-copy-24-regular'; // 发起流程
+import instanceIcon from '~icons/simple-icons/processwire'; // 流程实例
+import taskIcon from '~icons/hugeicons/task-edit-01'; // 流程实例
+
+// IM中心
+import imIcon from '~icons/uiw/message'; // im中心
+import chatGroupIcon from '~icons/flowbite/users-group-outline'; // 聊天群
+
+// 文件中心
+import fileIcon from '~icons/fa-regular/file-word';
+import fileCenterIcon from '~icons/famicons/document-attach-outline';
+import aiAssistIcon from '~icons/tdesign/service';
+import aiCenterIcon from '~icons/prime/microchip-ai';
+import todoIcon from '~icons/hugeicons/task-edit-01';
+import myTodoIcon from '~icons/ix/tasks-done';
+import oaCenterIcon from '~icons/material-symbols/work-history-outline';
+
+// 数据分析
+import chartIcon from '~icons/memory/chart-bar';
+
+// 系统 logo
+// import logoIcon from '~icons/blocks-scale';
+
+// form 设计器图标
+import inputIcon from '~icons/streamline/input-box';
+import textareaIcon from '~icons/bi/textarea-resize';
+import numberIcon from '~icons/tabler/pentagon-number-6';
+import radioIcon from '~icons/eva/radio-button-on-outline';
+import checkboxIcon from '~icons/tabler/checkbox';
+import selectIcon from '~icons/fluent/multiselect-20-filled';
+import switchIcon from '~icons/line-md/switch-off-to-switch-transition';
+import sliderIcon from '~icons/iconoir/control-slider';
+import starIcon from '~icons/lucide/star';
+import calendarIcon from '~icons/system-uicons/calendar-date';
+import timeIcon from '~icons/mingcute/time-duration-line';
+import fUserIcon from '~icons/gravity-ui/person';
+import fDeptIcon from '~icons/ci/users';
+import lineXIcon from '~icons/pepicons-pop/line-x';
+import chapterIcon from '~icons/fluent/app-title-24-regular';
+import helpIcon from '~icons/proicons/question-circle';
+// f_role: "fluent:person-passkey-24-filled",
+import fRoleIcon from '~icons/fluent/person-wrench-20-filled';
+import fDutyIcon from '~icons/fluent/person-ribbon-16-filled';
+import fPhoneIcon from '~icons/meteor-icons/mobile';
+import fLocationIcon from '~icons/ep/location';
+// money:"ri:money-cny-circle-line",
+import fCnyIcon from '~icons/fa/cny';
+import fUsdIcon from '~icons/fa/usd';
+import fCardIcon from '~icons/ion/id-card-outline';
+import fAddressIcon from '~icons/mdi/address-marker-outline';
+import fCityIcon from '~icons/fluent/city-16-regular';
+import fWechatIcon from '~icons/hugeicons/wechat';
+import fCascaderIcon from '~icons/typcn/flow-children';
+import fTableIcon from '~icons/si/table-line';
+import fCounterIcon from '~icons/mdi/counter';
+import fAiIcon from '~icons/hugeicons/ai-network';
+import fEarthIcon from '~icons/lsicon/earth-outline';
+import fAttachmentIcon from '~icons/majesticons/attachment';
+import fArrowUpIcon from '~icons/tabler/arrow-up';
+import fImageIcon from '~icons/akar-icons/image';
+import fAudioIcon from '~icons/ant-design/audio-outlined';
+import toTopIcon from '~icons/icon-park/to-top';
+
+// 客户中心
+import mCustomerIcon from '~icons/garden/customer-lists-fill-26';
+import contactIcon from '~icons/hugeicons/contact-02';
+import clueIcon from '~icons/icon-park-outline/clue';
+import businessIcon from '~icons/mdi/business-outline';
+import mOrderIcon from '~icons/ic/round-border-color';
+import paymentCollectionIcon from '~icons/hugeicons/cashier';
+import paymentInIcon from '~icons/hugeicons/payment-01';
+import paymentReturnIcon from '~icons/mdi/credit-card-refund-outline';
+import invoiceIcon from '~icons/basil/invoice-outline';
+import paymentApplyIcon from '~icons/stash/hand-holding-dollar';
+import paymentReceiveIcon from '~icons/hugeicons/money-receive-square';
+import customerServiceIcon from '~icons/ri/customer-service-2-fill';
+import businessPlaneIcon from '~icons/uil/plane-fly';
+import businessCreditIcon from '~icons/majesticons/creditcard-hand-line';
+import businessCallIcon from '~icons/fluent/person-call-16-regular';
+import businessLogIcon from '~icons/octicon/log-24';
+
+// 供应链中心
+import sShopIcon from '~icons/mingcute/shopping-cart-2-line';
+import sFactoryIcon from '~icons/gravity-ui/factory';
+import sExamIcon from '~icons/ph/exam-bold';
+import kpiIcon from '~icons/carbon/summary-kpi';
+import requirementIcon from '~icons/carbon/requirement-usage';
+import productIcon from '~icons/ic/outline-production-quantity-limits';
+import inventoryIcon from '~icons/material-symbols/inventory-2-outline-rounded';
+import inboundIcon from '~icons/hugeicons/store-add-02';
+import outboundIcon from '~icons/mdi/truck-subtract-outline';
+import goodsReturnIcon from '~icons/streamline/return-2-solid';
+import goodsShoppingIcon from '~icons/streamline-freehand/mobile-shopping-cart';
+import goodsQuotationIcon from '~icons/solar/tag-price-outline';
+import goodsInquiryIcon from '~icons/solar/user-hand-up-broken';
+import contactsIcon from '~icons/streamline-plump/contact-phonebook-remix';
+
+// IoT中心
+import iotIcon from '~icons/eos-icons/iot';
+import pointIcon from '~icons/carbon/temperature-hot';
+import modelIcon from '~icons/file-icons/3d-model';
+import driverIcon from '~icons/ix/connector-hex';
+import equipmentIcon from '~icons/carbon/iot-platform';
+import iotDataIcon from '~icons/carbon/data-reference';
+import flagIcon from '~icons/hugeicons/flag-01';
+import flagPointIcon from '~icons/solar/map-point-rotate-outline';
+import infoIcon from '~icons/material-symbols/page-info-outline';
+import iotPointIcon from '~icons/icon-park-outline/setting-config';
+import alarmIcon from '~icons/ri/alarm-warning-line';
+import ruleIcon from '~icons/carbon/rule-locked';
+import controllerIcon from '~icons/ph/game-controller';
+import templateIcon from '~icons/heroicons-outline/template';
+import sendIcon from '~icons/streamline-plump/mail-send-email-message-remix';
+// log:"ph:stack-overflow-logo-bold",
+
+// 物流配送中心
+import truckIcon from '~icons/hugeicons/delivery-truck-01';
+import enterpriseIcon from '~icons/carbon/enterprise';
+import serviceIcon from '~icons/streamline-freehand/security-it-service';
+import surveyIcon from '~icons/wpf/survey';
+import priceIcon from '~icons/solar/tag-price-outline';
+import commissionIcon from '~icons/fluent-mdl2/commitments';
+import commissionDetailIcon from '~icons/majesticons/checkbox-list-detail';
+import commissionDeliveryIcon from '~icons/iconamoon/delivery-fast';
+import commissionCalculatorIcon from '~icons/solar/calculator-linear';
+
+// 仓储中心
+import logisticsIcon from '~icons/lsicon/management-stockout-filled';
+import predictionIcon from '~icons/material-symbols/batch-prediction-outline';
+import trackingIcon from '~icons/hugeicons/delivery-tracking-02';
+import qualityTestingIcon from '~icons/fluent-mdl2/test-impact-solid';
+import takeGoodsIcon from '~icons/tdesign/undertake-transaction';
+import goodOutboundIcon from '~icons/icon-park-outline/outbound';
+import goodInboundIcon from '~icons/fluent/picture-in-picture-exit-24-regular';
+import packageIcon from '~icons/mingcute/package-line';
+import goodInventoryIcon from '~icons/lsicon/inventory-filled';
+import goodCheckIcon from '~icons/icon-park-outline/check-in';
+import goodWinLossIcon from '~icons/carbon/chart-win-loss';
+import alertIcon from '~icons/fluent/alert-urgent-24-regular';
+import shelvesIcon from '~icons/material-symbols/shelves-outline-rounded';
+
+// 基础数据
+import basicDataIcon from '~icons/uil/database-alt';
+import noIcon from '~icons/tabler/number';
+
+// 组织架构
+import authorizeIcon from '~icons/hugeicons/authorized';
+import positionIcon from '~icons/fluent/contact-card-32-regular';
+import assistantIcon from '~icons/arcticons/click-assistant';
+
+// 用户基础信息
+import logoutIcon from '~icons/streamline-sharp/logout-2-remix';
+import passwordIcon from '~icons/solar/lock-password-outline';
+
+
+import tenderIcon from '~icons/mingcute/paper-line';
+import bidIcon from '~icons/streamline-ultimate/paper-write';
+import logDetailsIcon from '~icons/gg/details-more';
+import logProjectIcon from '~icons/eos-icons/project-outlined';
+
+// 财务中心
+import financeIcon from '~icons/icon-park-outline/finance';
+import goodsPurchaseIcon from '~icons/clarity/devices-solid';
+import borrowIcon from '~icons/material-symbols/car-rental-outline-rounded';
+import creditIcon from '~icons/icon-park/credit';
+import accountingIcon from '~icons/streamline-freehand/accounting-invoice';
+import taxIcon from '~icons/tabler/receipt-tax';
+import laborIcon from '~icons/streamline-ultimate/labor-hands-action';
+import developmentIcon from '~icons/streamline-freehand/website-development-code-flowchart-1';
+import techServiceIcon from '~icons/mdi/account-service-outline';
+import receiptIcon from '~icons/fluent/receipt-add-20-regular';
+import paymentIcon from '~icons/streamline/receipt-subtract-remix';
+import invoiceTitleIcon from '~icons/iconamoon/invoice-light';
+
+// 智能调度中心
+import scheduleCenterIcon from '~icons/material-symbols/schedule-send-outline-rounded';
+import scheduleTaskIcon from '~icons/mdi/airplane-schedule';
+import scheduleRecordIcon from '~icons/mdi/invoice-schedule-outline';
+
+// AI视觉中心
+import visionIcon from '~icons/hugeicons/vision';
+import cameraIcon from '~icons/material-symbols/speed-camera-rounded';
+
+// 采购产品中心
+import goodsIcon from '~icons/lsicon/goods-outline';
+
+// BI中心
+import datasetIcon from '~icons/material-symbols/dataset-linked-outline';
+import databaseIcon from '~icons/fluent/database-plug-connected-20-regular';
+import dashboardIcon from '~icons/clarity/dashboard-outline-badged';
+import screenIcon from '~icons/ic/round-screenshot-monitor';
+import tableIcon from '~icons/material-symbols-light/table-outline-sharp';
+import bCopyIcon from '~icons/ph/copy-simple';
+import bTextIcon from '~icons/mingcute/text-line';
+
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-23 10:12:33
+ * @LastEditTime: 2025-08-23 10:45:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/icons.ts
  * @Description: 应用使用的所有 ICON 图标文件
  * 
@@ -12,290 +290,253 @@ import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
  */
 const icon = {
   // 基础组件图标
-  row: 'fluent:layout-row-two-16-regular',
-  column: 'fluent:layout-column-two-split-right-16-regular',
-  image: 'fluent:image-16-regular',
-  video: 'fluent:video-clip-multiple-16-regular',
-  text: 'fluent:text-bullet-list-square-edit-24-regular',
-  swiper: 'fluent:app-recent-24-regular',
-  blank: 'fluent:border-none-20-filled',
-  canvas: 'fluent:draw-image-24-regular',
+  row: rowIcon,
+  column: columnIcon,
+  image: imageIcon,
+  video: videoIcon,
+  text: textIcon,
+  swiper: swiperIcon,
+  blank: blankIcon,
+  canvas: canvasIcon,
 
   // 平台图标
-  allViewport: 'fluent:phone-desktop-24-regular',
-  desktop: 'fluent:desktop-mac-32-regular',
-  mobile: 'fluent:phone-16-regular',
-  preview: 'fluent:open-20-filled',
-  question: 'fluent:question-circle-12-regular',
-  tips: 'fluent:info-24-regular',
-  publish: 'fluent:cloud-arrow-up-24-regular',
-  search: 'fluent:search-12-regular',
-  block: 'fluent:app-folder-16-regular',
-  blockActive: 'fluent:app-folder-16-filled',
-  kit: 'fluent:layer-24-regular',
-  kitActive: 'fluent:layer-24-filled',
-  home: 'fluent:home-20-regular',
-  homeActive: 'fluent:home-20-filled',
-  user: 'fluent:person-circle-20-regular',
-  userActive: 'fluent:person-circle-24-filled',
-  create: 'fluent:add-circle-24-filled',
-  upload: 'fluent:arrow-upload-16-filled',
-  expand: 'fluent:panel-right-expand-16-regular',
-  close: 'fluent:panel-left-expand-16-regular',
-  close_circle: 'gg:close-o',
-  contract: 'clarity:contract-line',
-  seal: 'tdesign:seal',
-  copy: 'fluent:save-copy-24-regular',
-  delete: 'fluent:delete-24-regular',
-  minus: 'zondicons:minus-outline',
-  drag: 'fluent:grid-dots-20-regular',
-  dragBlank: 'fluent:breakout-room-20-regular',
-  add: 'fluent:add-16-regular',
-  subtract: 'fluent:subtract-16-regular',
-  back: 'fluent:chevron-left-20-filled',
-  save: 'fluent:document-save-20-regular',
-  down: 'mingcute:arrows-down-line',
-  up: 'mingcute:arrows-up-line',
-  // 系统登录页面400电话图标
-  phone: 'solar:phone-broken',
-  country_cn: 'noto-v1:flag-for-flag-china',
-  country_en: 'noto-v1:flag-for-flag-united-states',
-  country_ru: 'noto-v1:flag-for-flag-russia',
+  allViewport: allViewportIcon,
+  desktop: desktopIcon,
+  mobile: mobileIcon,
+  preview: previewIcon,
+  question: questionIcon,
+  tips: tipsIcon,
+  publish: publishIcon,
+  search: searchIcon,
+  block: blockIcon,
+  blockActive: blockActiveIcon,
+  kit: kitIcon,
+  kitActive: kitActiveIcon,
+  home: homeIcon,
+  homeActive: homeActiveIcon,
+  user: userIcon,
+  userActive: userActiveIcon,
+  create: createIcon,
+  upload: uploadIcon,
+  expand: expandIcon,
+  close: closeIcon,
+  close_circle: closeCircleIcon,
+  contract: contractIcon,
+  seal: sealIcon,
+  copy: copyIcon,
+  delete: deleteIcon,
+  minus: minusIcon,
+  drag: dragIcon,
+  dragBlank: dragBlankIcon,
+  add: addIcon,
+  subtract: subtractIcon,
+  back: backIcon,
+  save: saveIcon,
+  down: downIcon,
+  up: upIcon,
+  phone: phoneIcon,
+  country_cn: countryCnIcon,
+  country_en: countryEnIcon,
+  country_ru: countryRuIcon,
 
   //菜单图标
-  log: 'icon-park-outline:log',
-  dict: 'streamline:dictionary-language-book',
-  menu: 'hugeicons:menu-square',
-  alaUser: 'ri:user-add-line',
-  organization: 'charm:organisation',
-  dept: 'fluent:organization-20-regular',
-  role: 'oui:app-users-roles',
-  team: 'ri:team-line',
-  sysConfig: 'icon-park-outline:setting-config',
-  customer: 'ix:customer',
-  order: 'carbon:order-details',
-  workspace: 'carbon:workspace-import',
-  leave: 'ri:timeline-view',
-  bill: 'stash:billing-info-light',
-  money: 'hugeicons:money-bag-02',
-  suggestion: 'iconoir:suggestion',
-  // 无代码中心
-  code: 'mingcute:code-fill',
-  example: 'fa6-solid:democrat',
-  status: 'mdi:list-status',
-  // 配置列表
-  code_config: 'line-md:document-code',
-  code_page: 'icon-park-outline:page',// 页面设计
-  code_form: 'fluent:form-sparkle-20-regular',// 表单设计
-  code_screen: 'streamline:screensaver-monitor-wallpaper',// 表单设计
-  flow_define: 'hugeicons:flow',// 流程定义
-  flow_design: 'f7:flowchart',// 流程设计
-  flow_start: 'heroicons:arrow-right-start-on-rectangle-16-solid',// 发起流程
-  mine_start: 'token:meed',// 发起流程
-  mine_todo: 'ix:tasks-open',// 发起流程
-  mine_done: 'grommet-icons:task',// 发起流程
-  mine_copy: 'fluent:document-copy-24-regular',// 发起流程
-  instance: 'simple-icons:processwire',// 流程实例
-  task: 'hugeicons:task-edit-01',// 流程实例
+  log: logIcon,
+  dict: dictIcon,
+  menu: menuIcon,
+  alaUser: alaUserIcon,
+  organization: organizationIcon,
+  dept: deptIcon,
+  role: roleIcon,
+  team: teamIcon,
+  sysConfig: sysConfigIcon,
+  customer: customerIcon,
+  order: orderIcon,
+  workspace: workspaceIcon,
+  leave: leaveIcon,
+  bill: billIcon,
+  money: moneyIcon,
+  suggestion: suggestionIcon,
+  code: codeIcon, // 无代码中心
+  example: exampleIcon,
+  status: statusIcon,
+  code_config: codeConfigIcon, // 配置列表
+  code_page: codePageIcon, // 页面设计
+  code_form: codeFormIcon, // 表单设计
+  code_screen: codeScreenIcon, // 表单设计
+  flow_define: flowDefineIcon, // 流程定义
+  flow_design: flowDesignIcon, // 流程设计
+  flow_start: flowStartIcon, // 发起流程
+  mine_start: mineStartIcon, // 发起流程
+  mine_todo: mineTodoIcon, // 发起流程
+  mine_done: mineDoneIcon, // 发起流程
+  mine_copy: mineCopyIcon, // 发起流程
+  instance: instanceIcon, // 流程实例
+  task: taskIcon, // 流程实例
+  im: imIcon, // IM中心
+  chatGroup: chatGroupIcon, // 聊天群
+  file: fileIcon,
+  file_center: fileCenterIcon,
+  ai_assist: aiAssistIcon,
+  ai_center: aiCenterIcon,
+  todo: todoIcon,
+  my_todo: myTodoIcon,
+  oa_center: oaCenterIcon,
 
-  // IM中心
-  im: 'uiw:message',// im中心
-  chatGroup: 'flowbite:users-group-outline',// 聊天群
+  chart: chartIcon, // 数据分析
+  // logo: logoIcon, // 系统 logo
+  input: inputIcon, // form 设计器图标
+  textarea: textareaIcon,
+  number: numberIcon,
+  radio: radioIcon,
+  checkbox: checkboxIcon,
+  select: selectIcon,
+  switch: switchIcon,
+  slider: sliderIcon,
+  star: starIcon,
+  calendar: calendarIcon,
+  time: timeIcon,
+  f_user: fUserIcon,
+  f_dept: fDeptIcon,
+  line_x: lineXIcon,
+  chapter: chapterIcon,
+  help: helpIcon,
+  f_role: fRoleIcon,
+  f_duty: fDutyIcon,
+  f_phone: fPhoneIcon,
+  f_location: fLocationIcon,
+  f_cny: fCnyIcon,
+  f_usd: fUsdIcon,
+  f_card: fCardIcon,
+  f_address: fAddressIcon,
+  f_city: fCityIcon,
+  f_wechat: fWechatIcon,
+  f_cascader: fCascaderIcon,
+  f_table: fTableIcon,
+  f_counter: fCounterIcon,
+  f_ai: fAiIcon,
+  f_earth: fEarthIcon,
+  f_attachment: fAttachmentIcon,
+  f_arrow_up: fArrowUpIcon,
+  f_image: fImageIcon,
+  f_audio: fAudioIcon,
+  toTop: toTopIcon,
+  m_customer: mCustomerIcon, // 客户中心
+  contact: contactIcon,
+  clue: clueIcon,
+  business: businessIcon,
+  m_order: mOrderIcon,
+  payment_collection: paymentCollectionIcon,
+  payment_in: paymentInIcon,
+  payment_return: paymentReturnIcon,
+  invoice: invoiceIcon,
+  payment_apply: paymentApplyIcon,
+  payment_receive: paymentReceiveIcon,
+  customer_service: customerServiceIcon,
+  business_plane: businessPlaneIcon,
+  business_credit: businessCreditIcon,
+  business_call: businessCallIcon,
+  business_log: businessLogIcon,
+  s_shop: sShopIcon, // 供应链中心
+  s_factory: sFactoryIcon,
+  s_exam: sExamIcon,
+  kpi: kpiIcon,
+  requirement: requirementIcon,
+  product: productIcon,
+  inventory: inventoryIcon,
+  inbound: inboundIcon,
+  outbound: outboundIcon,
+  goods_return: goodsReturnIcon,
+  goods_shopping: goodsShoppingIcon,
+  goods_quotation: goodsQuotationIcon,
+  goods_inquiry: goodsInquiryIcon,
+  contacts: contactsIcon,
 
-  // 文件中心
-  file: 'fa-regular:file-word',// 
-  file_center: 'famicons:document-attach-outline',// 
+  goods: goodsIcon, // 采购产品中心
+  dataset: datasetIcon, // BI中心
+  database: databaseIcon,
+  dashboard: dashboardIcon,
+  screen: screenIcon,
+  table: tableIcon,
+  b_copy: bCopyIcon,
+  b_text: bTextIcon,
 
-  // 文件中心
-  ai_assist: 'tdesign:service',// 
-  ai_center: 'prime:microchip-ai',// 
+  iot: iotIcon, // IoT中心
+  point: pointIcon,
+  model: modelIcon,
+  driver: driverIcon,
+  equipment: equipmentIcon,
+  iotData: iotDataIcon,
+  flag: flagIcon,
+  flag_point: flagPointIcon,
+  info: infoIcon,
+  iot_point: iotPointIcon,
+  alarm: alarmIcon,
+  rule: ruleIcon,
+  controller: controllerIcon,
+  template: templateIcon,
+  send: sendIcon,
+  // log: "ph:stack-overflow-logo-bold",
 
-  // 文件中心
-  todo: 'hugeicons:task-edit-01',// 
-  my_todo: 'ix:tasks-done',// 
-  oa_center: 'material-symbols:work-history-outline',// 
+  truck: truckIcon, // 物流配送中心
+  enterprise: enterpriseIcon,
+  service: serviceIcon,
+  survey: surveyIcon,
+  price: priceIcon,
+  commission: commissionIcon,
+  commission_detail: commissionDetailIcon,
+  commission_delivery: commissionDeliveryIcon,
+  commission_calculator: commissionCalculatorIcon,
 
+  logistics: logisticsIcon, // 仓储中心
+  prediction: predictionIcon,
+  tracking: trackingIcon,
+  quality_testing: qualityTestingIcon,
+  take_goods: takeGoodsIcon,
+  good_outbound: goodOutboundIcon,
+  good_inbound: goodInboundIcon,
+  package: packageIcon,
+  good_inventory: goodInventoryIcon,
+  good_check: goodCheckIcon,
+  good_win_loss: goodWinLossIcon,
+  alert: alertIcon,
+  shelves: shelvesIcon,
 
-  // 数据分析
-  chart: "memory:chart-bar",
+  basic_data: basicDataIcon, // 基础数据
+  no: noIcon,
 
-  // 系统 logo
-  logo: "blocks-scale",
+  authorize: authorizeIcon, // 组织架构
+  position: positionIcon,
+  assistant: assistantIcon,
 
-  // form 设计器图标
-  input: "streamline:input-box",
-  textarea: "bi:textarea-resize",
-  number: "tabler:pentagon-number-6",
-  radio: "eva:radio-button-on-outline",
-  checkbox: "tabler:checkbox",
-  select: "fluent:multiselect-20-filled",
-  switch: "line-md:switch-off-to-switch-transition",
-  slider: "iconoir:control-slider",
-  star: "lucide:star",
-  calendar: "system-uicons:calendar-date",
-  time: "mingcute:time-duration-line",
-  f_user: "gravity-ui:person",
-  f_dept: "ci:users",
-  line_x: "pepicons-pop:line-x",
-  chapter: "fluent:app-title-24-regular",
-  help: "proicons:question-circle",
-  // f_role: "fluent:person-passkey-24-filled",
-  f_role: "fluent:person-wrench-20-filled",
-  f_duty: "fluent:person-ribbon-16-filled",
-  f_phone: "meteor-icons:mobile",
-  f_location: "ep:location",
-  // money:"ri:money-cny-circle-line",
-  f_cny: "fa:cny",
-  f_usd: "fa:usd",
-  f_card: "ion:id-card-outline",
-  f_address: "mdi:address-marker-outline",
-  f_city: "fluent:city-16-regular",
-  f_wechat: "hugeicons:wechat",
-  f_cascader: "typcn:flow-children",
-  f_table: "si:table-line",
-  f_counter: "mdi:counter",
-  f_ai: "hugeicons:ai-network",
-  f_earth: "lsicon:earth-outline",
-  f_attachment: "majesticons:attachment",
-  f_arrow_up: "tabler:arrow-up",
-  f_image: "akar-icons:image",
-  f_audio: "ant-design:audio-outlined",
-  toTop: "icon-park:to-top",
-
-  // 客户中心
-  m_customer: "garden:customer-lists-fill-26",
-  contact: "hugeicons:contact-02",
-  clue: "icon-park-outline:clue",
-  business: "mdi:business-outline",
-  m_order: "ic:round-border-color",
-  payment_collection: "hugeicons:cashier",
-  payment_in: "hugeicons:payment-01",
-  payment_return: "mdi:credit-card-refund-outline",
-  invoice: "basil:invoice-outline",
-  payment_apply: "stash:hand-holding-dollar",
-  payment_receive: "hugeicons:money-receive-square",
-  customer_service: "ri:customer-service-2-fill",
-  business_plane: "uil:plane-fly",
-  business_credit: "majesticons:creditcard-hand-line",
-  business_call: "fluent:person-call-16-regular",
-  business_log: "octicon:log-24",
-
-  // 供应链中心
-  s_shop: "mingcute:shopping-cart-2-line",
-  s_factory: "gravity-ui:factory",
-  s_exam: "ph:exam-bold",
-  kpi: "carbon:summary-kpi",
-  requirement: "carbon:requirement-usage",
-  product: "ic:outline-production-quantity-limits",
-  inventory: "material-symbols:inventory-2-outline-rounded",
-  inbound: "hugeicons:store-add-02",
-  outbound: "mdi:truck-subtract-outline",
-  goods_return: "streamline:return-2-solid",
-  goods_shopping: "streamline-freehand:mobile-shopping-cart",
-  goods_quotation: "solar:tag-price-outline",
-  goods_inquiry: "solar:user-hand-up-broken",
-  contacts: "streamline-plump:contact-phonebook-remix",
-
-  // 采购产品中心
-  goods: "lsicon:goods-outline",
-
-  // BI中心
-  dataset: "material-symbols:dataset-linked-outline",
-  database: "fluent:database-plug-connected-20-regular",
-  dashboard: "clarity:dashboard-outline-badged",
-  screen: "ic:round-screenshot-monitor",
-  table: "material-symbols-light:table-outline-sharp",
-  b_copy: "ph:copy-simple",
-  b_text: "mingcute:text-line",
-
-  // IoT中心
-  iot: "eos-icons:iot",
-  point: "carbon:temperature-hot",
-  model: "file-icons:3d-model",
-  driver: "ix:connector-hex",
-  equipment: "carbon:iot-platform",
-  iotData: "carbon:data-reference",
-  flag: "hugeicons:flag-01",
-  flag_point: "solar:map-point-rotate-outline",
-  info: "material-symbols:page-info-outline",
-  iot_point: "icon-park-outline:setting-config",
-  alarm: "ri:alarm-warning-line",
-  rule: "carbon:rule-locked",
-  controller: "ph:game-controller",
-  template: "heroicons-outline:template",
-  send: "streamline-plump:mail-send-email-message-remix",
-  // log:"ph:stack-overflow-logo-bold",
-
-  // 物流配送中心
-  truck: "hugeicons:delivery-truck-01",
-  enterprise: "carbon:enterprise",
-  service: "streamline-freehand:security-it-service",
-  survey: "wpf:survey",
-  price: "solar:tag-price-outline",
-  commission: "fluent-mdl2:commitments",
-  commission_detail: "majesticons:checkbox-list-detail",
-  commission_delivery: "iconamoon:delivery-fast",
-  commission_calculator: "solar:calculator-linear",
-
-
-  // 仓储中心
-  logistics: "lsicon:management-stockout-filled",
-  prediction: "material-symbols:batch-prediction-outline",
-  tracking: "hugeicons:delivery-tracking-02",
-  quality_testing: "fluent-mdl2:test-impact-solid",
-  take_goods: "tdesign:undertake-transaction",
-  good_outbound: "icon-park-outline:outbound",
-  good_inbound: "fluent:picture-in-picture-exit-24-regular",
-  package: "mingcute:package-line",
-  good_inventory: "lsicon:inventory-filled",
-  good_check: "icon-park-outline:check-in",
-  good_win_loss: "carbon:chart-win-loss",
-  alert: "fluent:alert-urgent-24-regular",
-  shelves: "material-symbols:shelves-outline-rounded",
-
-  // 基础数据
-  basic_data: "uil:database-alt",
-  no: "tabler:number",
-
-  // 组织架构
-  authorize: "hugeicons:authorized",
-  position: "fluent:contact-card-32-regular",
-  assistant: "arcticons:click-assistant",
-
-  // 用户基础信息
-  logout: "streamline-sharp:logout-2-remix",
-  password: "solar:lock-password-outline",
+  logout: logoutIcon, // 用户基础信息
+  password: passwordIcon,
 
   // 办公中心
-  tender: "mingcute:paper-line",
-  bid: "streamline-ultimate:paper-write",
-  log_details: "gg:details-more",
-  log_project: EosIconsProjectOutlined,
+  tender: tenderIcon,
+  bid: bidIcon,
+  log_details: logDetailsIcon,
+  log_project: logProjectIcon,
 
-  // 财务中心
-  finance: "icon-park-outline:finance",
-  goodsPurchase: "clarity:devices-solid",
-  borrow: "material-symbols:car-rental-outline-rounded",
-  credit: "icon-park:credit",
-  accounting: "streamline-freehand:accounting-invoice",
-  tax: "tabler:receipt-tax",
-  labor: "streamline-ultimate:labor-hands-action",
-  development: "streamline-freehand:website-development-code-flowchart-1",
-  tech_service: "mdi:account-service-outline",
-  receipt: "fluent:receipt-add-20-regular",
-  payment: "streamline:receipt-subtract-remix",
-  invoiceTitle: "iconamoon:invoice-light",
+  finance: financeIcon, // 财务中心
+  goodsPurchase: goodsPurchaseIcon,
+  borrow: borrowIcon,
+  credit: creditIcon,
+  accounting: accountingIcon,
+  tax: taxIcon,
+  labor: laborIcon,
+  development: developmentIcon,
+  tech_service: techServiceIcon,
+  receipt: receiptIcon,
+  payment: paymentIcon,
+  invoiceTitle: invoiceTitleIcon,
 
-  // 智能调度中心
-  schedule_center: "material-symbols:schedule-send-outline-rounded",
-  schedule_task: "mdi:airplane-schedule",
-  schedule_record: "mdi:invoice-schedule-outline",
+  schedule_center: scheduleCenterIcon, // 智能调度中心
+  schedule_task: scheduleTaskIcon,
+  schedule_record: scheduleRecordIcon,
 
-  // AI视觉中心
-  vision: "hugeicons:vision",
-  camera: "material-symbols:speed-camera-rounded",
+  vision: visionIcon, // AI视觉中心
+  camera: cameraIcon,
 
-  
 }
 
 export default icon

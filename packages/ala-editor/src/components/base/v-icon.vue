@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-23 10:24:57
+ * @LastEditTime: 2025-08-23 10:50:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon.vue
  * @Description: 
  * 
@@ -10,9 +10,10 @@
 -->
 <template>
 
-  <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" @click="handleClick($event)" :style="styles"
+  <!-- <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" @click="handleClick($event)" :style="styles"
+    :alaIcon="icon" /> -->
+  <component v-if="iSrc" :is="iSrc" :height="height" :width="width" @click="handleClick($event)" :style="styles"
     :alaIcon="icon" />
-    <IconMaterialSymbolsFavoriteRounded />
 
   <div v-if="image" class="icon-image" :style="{ height, width }" @click="handleClick($event)" :height="height"
     :width="width">
@@ -24,8 +25,10 @@
 <script lang="ts" setup>
 import iconConfig, { type ConfigIcon } from '@/config/icons'
 import { computed } from 'vue'
-import { Icon } from '@iconify/vue/dist/iconify.js';
-import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
+import { Icon } from '@iconify/vue/dist/iconify.js'
+// fluent:layout-row-two-16-regular
+import fl from '~icons/fluent/layout-row-two-16-regular'
+import hl from '~icons/hugeicons/delivery-truck-01'
 
 const props = defineProps({
   icon: {
@@ -54,11 +57,8 @@ const props = defineProps({
   },
 })
 
-const iconSrc = computed(() => {
+const iSrc = computed(() => {
   const i = iconConfig[props.icon as ConfigIcon]
-  console.log('i: ->>>', props.icon);
-  console.log('i: ->>>', i);
-
   return i
 })
 
