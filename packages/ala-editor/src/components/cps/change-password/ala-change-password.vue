@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-07-14 16:01:24
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 16:39:30
+ * @LastEditTime: 2025-08-23 11:13:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/change-password/ala-change-password.vue
  * @Description: 
  * 
@@ -101,7 +101,7 @@ const handleSubmit = () => {
 
                     setTimeout(() => {
                         lstore.removeItem(alaConsts.is_logined_key)
-                        window.location.href = '/login'
+                        window.location.href = '/'
                     }, 3000)
                 }
             })

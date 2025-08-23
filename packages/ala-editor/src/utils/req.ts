@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-26 15:21:07
+ * @LastEditTime: 2025-08-23 11:13:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -110,7 +110,7 @@ export function configAxios(app: App<Element>) {
             // 删除本地 localStorage中的token
             lstore.removeItem(alaConsts.is_logined_key)
             notify.error("温馨提示：", "请先登录系统。")
-            window.location.href = '/login'
+            window.location.href = '/'
 
             break;
           case 403:

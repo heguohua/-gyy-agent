@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 16:40:59
+ * @LastEditTime: 2025-08-23 11:13:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -109,7 +109,7 @@ const logout = () => {
     if (response.code === 200) {
       // 删除本地 localStorage中的token
       lstore.removeItem(alaConsts.is_logined_key)
-      window.location.href = '/login'
+      window.location.href = '/'
     }
   })
 }
