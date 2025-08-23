@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-26 17:45:20
+ * @LastEditTime: 2025-08-23 10:14:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/main.js
  * @Description: 应用启动入口文件
  * 
@@ -56,8 +56,8 @@ setupI18n(app)
 
 
 // 注册 icon
-import { Icon } from '@iconify/vue';
-app.component('icon', Icon);
+// import { Icon } from '@iconify/vue';
+// app.component('icon', Icon);
 
 
 // 集成 vuedraggable

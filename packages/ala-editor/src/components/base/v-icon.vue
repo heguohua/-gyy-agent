@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-21 17:16:30
+ * @LastEditTime: 2025-08-23 10:24:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/base/v-icon.vue
  * @Description: 
  * 
@@ -10,10 +10,13 @@
 -->
 <template>
 
-  <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" @click="handleClick($event)" :style="styles" :alaIcon="icon"/>
+  <Icon v-if="iconSrc" :icon="iconSrc" :height="height" :width="width" @click="handleClick($event)" :style="styles"
+    :alaIcon="icon" />
+    <IconMaterialSymbolsFavoriteRounded />
+
   <div v-if="image" class="icon-image" :style="{ height, width }" @click="handleClick($event)" :height="height"
     :width="width">
-    <img :src="image"/>
+    <img :src="image" />
   </div>
 
 </template>
@@ -22,6 +25,7 @@
 import iconConfig, { type ConfigIcon } from '@/config/icons'
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
 
 const props = defineProps({
   icon: {
@@ -50,7 +54,13 @@ const props = defineProps({
   },
 })
 
-const iconSrc = computed(() => iconConfig[props.icon as ConfigIcon])
+const iconSrc = computed(() => {
+  const i = iconConfig[props.icon as ConfigIcon]
+  console.log('i: ->>>', props.icon);
+  console.log('i: ->>>', i);
+
+  return i
+})
 
 const emits = defineEmits(["click"])
 const handleClick = (event: MouseEvent) => {

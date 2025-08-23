@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-22 18:16:55
+ * @LastEditTime: 2025-08-23 10:25:35
  * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -20,6 +20,8 @@ import { logger } from './src/utils/logger.ts'
 import { loadEnv } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import topLevelAwait from 'vite-plugin-top-level-await';
+import Icons from 'unplugin-icons/vite'  //图标按需加载工具
+import IconsResolver from 'unplugin-icons/resolver'
 
 
 const ph = path.resolve(__dirname, './src');
@@ -47,7 +49,12 @@ const dc = defineConfig(({ command, mode }) => {
       Components({
         // 指定自动导入的组件位置，默认是 src/components
         dirs: ['src/components'],
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            prefix: 'Icon', // 组件名前缀，如 <IconHome />
+          }),
+        ],
       }),
       viteMockServe({
         mockPath: 'mock', // 指定 mock 文件夹路径
@@ -67,6 +74,9 @@ const dc = defineConfig(({ command, mode }) => {
         },
       }),
       topLevelAwait(),
+      Icons({
+        autoInstall: true, // 按需安装缺失图标
+      }),
     ],
     resolve: {
       alias: {

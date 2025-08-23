@@ -202,6 +202,7 @@ declare module 'vue' {
     Fork: typeof import('./src/components/flow/PropertySetting/fork.vue')['default']
     ForkBk: typeof import('./src/components/flow/PropertySetting/fork-bk.vue')['default']
     HighLightData: typeof import('./src/components/flow/Control/HighLightData.vue')['default']
+    IconMaterialSymbolsFavoriteRounded: typeof import('~icons/material-symbols/favorite-rounded')['default']
     ImportData: typeof import('./src/components/flow/Control/ImportData.vue')['default']
     Join: typeof import('./src/components/flow/PropertySetting/join.vue')['default']
     JoinBk: typeof import('./src/components/flow/PropertySetting/join-bk.vue')['default']
