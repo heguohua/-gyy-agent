@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 17:04:16
+ * @LastEditTime: 2025-08-25 22:58:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/physicalServersDisks/index.vue
  * @Description: 
  * 
@@ -156,7 +156,7 @@ const deleteUrl = "/c/physicalServersDisks/delete"
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("nickName", '用户昵称'),
+        alaBuildInput("name", '磁盘名称'),
     ]
 })
 

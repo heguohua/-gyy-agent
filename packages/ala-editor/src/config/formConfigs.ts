@@ -49,6 +49,8 @@ const lowcodingConfigWithId = new Map<number, LowcodingConfig>()
  */
 export const getFormConfigFromCache = (url: string) => {
     let config = selectTableConfig.get(url)
+    console.log('config: --->', config);
+
     if (!config) {
         // 遍历所有 formConfigs 根据url查找
         Object.entries(formConfigs).forEach(value => {

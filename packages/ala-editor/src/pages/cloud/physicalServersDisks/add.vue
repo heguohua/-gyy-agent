@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 11:26:45
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userAdd.vue
+ * @LastEditTime: 2025-08-25 22:15:29
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/physicalServersDisks/add.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -36,8 +36,8 @@ const props = defineProps({
 
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/u/user/add'
-const updateUrl = '/u/user/update'
+const url = '/c/physicalServersDisks/add'
+const updateUrl = '/c/physicalServersDisks/update'
 // 表单数据保存对象
 const formData = reactive({
 })

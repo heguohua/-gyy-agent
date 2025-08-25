@@ -113,6 +113,8 @@ const showDetailPage = ref(false)
 // 获取数据缓存对象
 
 const showDetail = async (item: string, index: number) => {
+    console.log('formItem:--->',formItem);
+    
     const { formData } = formItem.value
     let url = formData.url?.desktop
     if (!url) return
