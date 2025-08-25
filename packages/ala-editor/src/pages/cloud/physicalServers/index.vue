@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 16:47:23
+ * @LastEditTime: 2025-08-25 21:29:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/physicalServers/index.vue
  * @Description: 
  * 
@@ -130,9 +130,9 @@ const refresh = () => {
 }
 
 
-setInterval(() => {
-    refresh()
-}, 5 * 1000);
+// setInterval(() => {
+//     refresh()
+// }, 5 * 1000);
 
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
@@ -154,7 +154,7 @@ const detailFields: any = ref(physicalServers.detailFields)
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("deviceName", '设备名称'),
+        alaBuildInput("name", '主机名称'),
     ]
 })
 
@@ -173,7 +173,7 @@ const formAttr = ref(physicalServers.formAttr)
  */
 
 const detailItem = reactive({
-    moduleName: '系统用户',
+    moduleName,
     item: {}
 })
 

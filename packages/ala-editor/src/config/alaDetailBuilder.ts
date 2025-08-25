@@ -4,7 +4,7 @@ import { dType } from "@/components/cps/dynamic/detailType"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-04 20:40:03
+ * @LastEditTime: 2025-08-25 21:35:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -18,11 +18,26 @@ export function alaDetailBuild(componentName: string, columnName: string, label:
     }
 }
 
+export function alaDetailChapter(label: string, columnNum = 1, other?: Object) {
+    return {
+        label: label,
+        formItem: { code: dType.chapter, formData: { columnNum: { desktop: columnNum }, ...other } },
+    }
+}
+
 export function alaDetailInput(columnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
     return {
         prop: columnName,
         label: label,
         formItem: { code: dType.input, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
+    }
+}
+
+export function alaDetailNumber(columnName: string, label: string, columnNum = 1, detail = false, other?: Object) {
+    return {
+        prop: columnName,
+        label: label,
+        formItem: { code: dType.number, formData: { fieldName: { desktop: columnName }, detail: { desktop: detail }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 

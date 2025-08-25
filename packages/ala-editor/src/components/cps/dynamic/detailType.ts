@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-29 19:25:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-04 20:39:34
+ * @LastEditTime: 2025-08-25 21:36:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/detailType.ts
  * @Description: 
  * 
@@ -11,6 +11,7 @@
 export class dType {
     public static readonly chapter = 'chapter'
     public static readonly input = 'input'
+    public static readonly number = 'number'
     public static readonly select = 'select'
     public static readonly selectDict = 'selectDict'
     public static readonly selectTable = 'selectTable'

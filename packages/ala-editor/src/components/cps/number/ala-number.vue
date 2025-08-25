@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-12 10:17:52
+ * @LastEditTime: 2025-08-25 20:44:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/ala-number.vue
  * @Description: 
  * 
@@ -66,7 +66,7 @@ const props = defineProps({
     },
     step: {
         type: Number,
-        default: () => 0.0001
+        default: () => 1
     },
     precision: {
         type: Number,
@@ -106,6 +106,8 @@ const controlsPosition = computed(() => {
 })
 
 const handleChange = (current: number, pre: number) => {
+    console.log('current: --->',current);
+    
     model.value = current
 }
 

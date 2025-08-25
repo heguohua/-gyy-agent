@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-17 20:42:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 18:19:22
+ * @LastEditTime: 2025-08-25 21:34:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tab/ala-tab.vue
  * @Description: 
  * 
@@ -77,7 +77,6 @@ router.beforeEach((to) => {
             path: to.path,
             menuCode: to.meta.menuCode as string,
         }
-        console.log('跳转的 menu : ---》 ', menu);
 
         addTab(menu)
     } else {
