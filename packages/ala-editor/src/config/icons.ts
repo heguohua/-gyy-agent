@@ -278,6 +278,14 @@ import tableIcon from '~icons/material-symbols-light/table-outline-sharp';
 import bCopyIcon from '~icons/ph/copy-simple';
 import bTextIcon from '~icons/mingcute/text-line';
 
+// 私有云中心
+import TdesignCloudUpload from '~icons/tdesign/cloud-upload';
+import StreamlineDatabaseServer2Solid from '~icons/streamline/database-server-2-solid';
+import AntDesignCloudServerOutlined from '~icons/ant-design/cloud-server-outlined';
+import LucideLabFloppyDiskRear from '~icons/lucide-lab/floppy-disk-rear';
+import IconParkOutlineSolidStateDisk from '~icons/icon-park-outline/solid-state-disk';
+import IcRoundRestore from '~icons/ic/round-restore';
+
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
@@ -537,6 +545,13 @@ const icon = {
   vision: visionIcon, // AI视觉中心
   camera: cameraIcon,
 
+  // 私有云中心
+  privateCloud:TdesignCloudUpload,
+  physicalServers:StreamlineDatabaseServer2Solid,
+  cloudServers:AntDesignCloudServerOutlined,
+  diskTypes:LucideLabFloppyDiskRear,
+  cloudDisks:IconParkOutlineSolidStateDisk,
+  cloudSnapshots:IcRoundRestore,
 }
 
 export default icon
