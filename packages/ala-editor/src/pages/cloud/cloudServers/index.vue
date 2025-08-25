@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-28 22:22:15
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/device/index.vue
+ * @LastEditTime: 2025-08-25 16:09:04
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,8 +12,8 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree title="设备位置" addUrl="/iot/deviceAreaGroup/add" treeUrl="/iot/deviceAreaGroup/tree"
-                deleteUrl="/iot/deviceAreaGroup/delete" updateUrl="/iot/deviceAreaGroup/update" />
+            <AlaTree title="物理服务器" addUrl="/c/cloudServersGroup/add" treeUrl="/c/cloudServersGroup/tree"
+                deleteUrl="/c/cloudServersGroup/delete" updateUrl="/c/cloudServersGroup/update" />
         </div>
         <div class="right">
 
@@ -139,7 +139,7 @@ setInterval(() => {
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
 const url = device.pageApi
-const deleteUrl = "/iot/device/delete"
+const deleteUrl = "/c/device/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 11:41:19
+ * @LastEditTime: 2025-08-25 16:47:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/physicalServers/index.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree title="存放位置(机架位置)" addUrl="/c/physicalServersGroup/add" treeUrl="/c/physicalServersGroup/tree"
+            <AlaTree title="所在地区" addUrl="/c/physicalServersGroup/add" treeUrl="/c/physicalServersGroup/tree"
                 deleteUrl="/c/physicalServersGroup/delete" updateUrl="/c/physicalServersGroup/update" />
         </div>
         <div class="right">
@@ -70,9 +70,9 @@ import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDetailSelectTable, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
-import Add from '@/pages/iot/device/add.vue';
+import Add from '@/pages/cloud/physicalServers/add.vue';
 import notify from '@/utils/notify';
-import { device } from '@/config/formConfigs/device';
+import { physicalServers } from '@/config/formConfigs/cloud/physicalServers';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -82,6 +82,7 @@ const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
     return t(code)
 })
+
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
     moduleName,
@@ -138,17 +139,17 @@ setInterval(() => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = device.pageApi
-const deleteUrl = "/iot/device/delete"
+const url = physicalServers.pageApi
+const deleteUrl = "/c/physicalServers/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
-    return device.pageFields
+    return physicalServers.pageFields
 })
 /**
  * 详情页面字段
  */
-const detailFields: any = ref(device.detailFields)
+const detailFields: any = ref(physicalServers.detailFields)
 
 // 基础查询条件
 const baseFields = computed(() => {
@@ -165,7 +166,7 @@ const getComponent = ((code: string) => {
 })
 
 
-const formAttr = ref(device.formAttr)
+const formAttr = ref(physicalServers.formAttr)
 
 /**
  * 详情页面字段

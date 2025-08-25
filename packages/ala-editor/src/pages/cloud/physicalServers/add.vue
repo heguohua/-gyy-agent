@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-28 22:25:34
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/device/add.vue
+ * @LastEditTime: 2025-08-25 17:12:56
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/physicalServers/add.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,7 +12,7 @@
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
         labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
-        :formAttr="formAttr" :beforeSave="beforeSave" ref="alaBaseForm">
+        :formAttr="formConfig.physicalServers.formAttr" :beforeSave="beforeSave" ref="alaBaseForm">
 
     </AlaBaseForm>
 
@@ -27,7 +27,7 @@ import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
-import { device } from '@/config/formConfigs/device';
+import formConfig from '@/config/formConfigs';
 const { t } = useI18n();
 
 const props = defineProps({
@@ -45,8 +45,8 @@ const props = defineProps({
 const baseInfo = inject('baseInfo') as { [key: string]: any };
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/iot/device/add'
-const updateUrl = '/iot/device/update'
+const url = '/c/physicalServers/add'
+const updateUrl = '/c/physicalServers/update'
 // 表单数据保存对象
 const formData = reactive<{ [key: string]: any }>({
 })
@@ -67,7 +67,7 @@ watch(() => props.baseInfo.item, (item) => {
 
 // 基础表单字段
 const basicFields = computed(() => {
-    return device.formFields
+    return formConfig.physicalServers.formFields
 })
 
 
@@ -94,13 +94,7 @@ const moduleName = computed(() => {
 })
 
 // ##########################  以上是公共方法，不需要修改 end #########################################
-const formAttr = ref({
-    formWidth: 500,
-    columnNum: 1,
-    labelWidth: 200,
-    labelPosition: 'top',
-    useFormTitle: false,
-})
+
 
 
 const beforeSave = async (data: { [key: string]: any }) => {

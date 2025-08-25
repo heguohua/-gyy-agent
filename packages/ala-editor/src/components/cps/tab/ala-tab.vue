@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-17 20:42:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:54:12
+ * @LastEditTime: 2025-08-25 18:19:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tab/ala-tab.vue
  * @Description: 
  * 
@@ -48,7 +48,7 @@ const tabList = ref<[TabType]>([
     }
 ])
 
-alaStore.set("tabList",tabList.value)
+alaStore.set("tabList", tabList.value)
 
 //点击标签导致activeTab改变时触发
 function tabChange(name: TabPaneName): any {
@@ -72,11 +72,14 @@ router.beforeEach((to) => {
     activeTab.value = to.path
 
     if (to.meta.menuCode) {
-        addTab({
+        const menu = {
             title: t(to.meta.menuCode as string),
             path: to.path,
             menuCode: to.meta.menuCode as string,
-        })
+        }
+        console.log('跳转的 menu : ---》 ', menu);
+
+        addTab(menu)
     } else {
         logger.warn(`【 to.meta.menuCode不存在 】，不添加Tab页，当前跳转URL【 ${to.path} 】`);
 

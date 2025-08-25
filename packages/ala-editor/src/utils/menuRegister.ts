@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 11:42:33
+ * @LastEditTime: 2025-08-25 16:58:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -212,6 +212,16 @@ export const allMenuComponents: MenuComponent = {
     "/physical/servers": {
         name: "physicalServersPage",
         component: "../pages/cloud/physicalServers/index.vue",
+        requiresAuth: true,
+    },
+    "/cloud/servers": {
+        name: "cloudServersPage",
+        component: "../pages/cloud/cloudServers/index.vue",
+        requiresAuth: true,
+    },
+    "/physicalServers/disks": {
+        name: "physicalServersDisks",
+        component: "../pages/cloud/physicalServersDisks/index.vue",
         requiresAuth: true,
     },
 

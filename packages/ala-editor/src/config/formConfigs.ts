@@ -2,13 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-04 18:09:58
+ * @LastEditTime: 2025-08-25 16:56:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
+import { physicalServersDisks } from "@/config/formConfigs/cloud/physicalServersDisks"
+import { cloudServers } from "@/config/formConfigs/cloud/cloudServers"
+import { physicalServers } from "@/config/formConfigs/cloud/physicalServers"
 import { systemUser } from "@/config/formConfigs/systemUser"
 import { systemRole } from "@/config/formConfigs/systemRole"
 import { device } from "@/config/formConfigs/device"
@@ -27,6 +30,9 @@ const formConfigs = {
     camera,
     profile,
     systemRole,
+    physicalServers,
+    cloudServers,
+    physicalServersDisks,
 }
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:03:34
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-22 18:17:37
+ * @LastEditTime: 2025-08-25 18:15:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenuItem.vue
  * @Description: 
  * 
@@ -66,7 +66,7 @@ defineProps<{
 // Methods
 const emits = defineEmits(['toggle-collapse']);
 const handleSelect = (child: Menu) => {
-
+    lstore.setItem('activeMenu', child.url);
 };
 </script>
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:45:14
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-18 09:05:00
+ * @LastEditTime: 2025-08-25 18:25:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/hooks/useLocale.ts
  * @Description: 
  * 
@@ -52,6 +52,8 @@ export const useLocale = () => {
 }
 
 
+import lstore from '@/utils/lstore';
+import router from '@/router';
 
 /**
  * 切换语言
@@ -84,6 +86,17 @@ export const changLanguage = (locale: any, getLocaleMessage: Function, changeLoc
             alaStore.set(locale, newMessages)
 
             changeLocale(locale)
+            
+            nextTick(() => {
+                const storedPath = lstore.getItem('activeMenu');
+                if (storedPath) {
+                    if ("/login" != storedPath) {
+                        logger.warn(`从localStorage恢复路由：${storedPath}`);
+                        router.push(storedPath)
+                    }
+                }   
+            })
+    
 
         });
 

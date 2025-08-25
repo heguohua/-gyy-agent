@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-22 22:24:02
+ * @LastEditTime: 2025-08-25 18:11:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -75,6 +75,8 @@ watch(() => route, (route) => {
     if (toPath != '/editor') {
         logger.info(`监听到路由变化，更新activeMenu：${toPath}`);
         activeMenu.value = toPath;
+        // lstore.setItem('activeMenu', toPath);
+
     }
 
 }, {
