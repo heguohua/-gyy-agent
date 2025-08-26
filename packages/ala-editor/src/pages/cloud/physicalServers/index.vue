@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 20:07:22
+ * @LastEditTime: 2025-08-26 21:16:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/physicalServers/index.vue
  * @Description: 
  * 
@@ -58,7 +58,7 @@
     <!-- dept 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
-    <AlaTabPage v-if="showDetailPage" v-model="showDetailPage" title="【 预览 】物理服务器" width="1400" :tabs="tabs"
+    <AlaTabPage v-if="showDetailPage" v-model="showDetailPage" title="【 预览 】物理服务器" width="1800" :tabs="tabs"
         :previewParams="previewParams" />
 
 </template>
@@ -76,6 +76,7 @@ import { dType } from '@/components/cps/dynamic/detailType';
 import Add from '@/pages/cloud/physicalServers/add.vue';
 import notify from '@/utils/notify';
 import { physicalServers } from '@/config/formConfigs/cloud/physicalServers';
+import formConfigs from '@/config/formConfigs';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -193,10 +194,11 @@ const showDetail = (item: { [key: string]: any }) => {
     showDetailPage.value = true
 }
 // <!-- <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="detailAttr" /> -->
-
+const cFc = formConfigs.cloudServers
 const tabsModel = reactive([
     { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: detailAttr } },
-    // { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
+    { title: '已部署云服务器', code: 'AlaDetailPage', props: { url: "/c/cloudServers/page", deleteUrl: "/c/cloudServers/delete", columns: cFc.pageFields, noButtons: true, formAttr: cFc.detailAttr, detailFields: cFc.detailFields, baseFields: baseFields, moduleName: '云服务器' } },
+    { title: '资源看板', code: 'AlaDetailPage', props: { url: "/c/cloudServers/page", deleteUrl: "/c/cloudServers/delete", columns: cFc.pageFields, noButtons: true, formAttr: cFc.detailAttr, detailFields: cFc.detailFields, baseFields: baseFields, moduleName: '云服务器' } },
 ])
 const tabs = computed(() => {
     return tabsModel

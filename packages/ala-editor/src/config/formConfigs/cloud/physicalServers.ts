@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 20:15:22
+ * @LastEditTime: 2025-08-26 21:11:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/physicalServers.ts
  * @Description: 
  * 
@@ -39,7 +39,7 @@ export const physicalServers: FormConfig = {
 
     ],
     detailAttr: {
-        formWidth: 1360,
+        formWidth: 1800,
         columnNum: 2,
         labelWidth: 150,
         labelPosition: 'left',
