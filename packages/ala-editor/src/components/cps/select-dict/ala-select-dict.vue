@@ -162,12 +162,16 @@ const query = () => {
   alaPost(u.url(url), params, false, '').then((data: any) => {
     const response = data;
     if (response.data) {
+
       const item_s: Array<item> = []
+      const isString = typeof localValue.value === 'string'
+
       response.data.forEach((item: any) => {
         const name = item[props.itemProperty.propertyName]
         const value = item[props.itemProperty.valueName]
-        item_s.push({ name, value })
+        item_s.push({ name, value: isString ? value + '' : value })
       })
+      
       u.merged(items.value, item_s)
     }
 

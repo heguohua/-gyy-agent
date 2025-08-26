@@ -2,13 +2,13 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 10:03:53
+ * @LastEditTime: 2025-08-26 11:13:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/cloudServers.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
-import { alaBuildChapter, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree, alaBuildTextarea } from "@/config/alaBuilders"
+import { alaBuildChapter, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildTextarea } from "@/config/alaBuilders"
 import { alaEmail, alaNumberRange, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
 import { alaDetailBuild, alaDetailChapter, alaDetailDate, alaDetailInput, alaDetailNumber, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from "@/config/alaDetailBuilder"
@@ -29,7 +29,9 @@ export const cloudServers: FormConfig = {
         alaBuildTextarea("specifications", "备注", [], "请输入备注"),
 
         alaBuildChapter('配额信息'),
-        alaBuildInput("osName", '操作系统', [alaRequired()]),
+        // alaBuildInput("osName", '操作系统', [alaRequired()]),
+        alaBuildSelectDict("osName", "操作系统", { "dictValue": "osType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择操作系统", { clearable: true, singleValue: true }),
+
         alaBuildInput("innerIp", '内网IP地址', [alaRequired()]),
         alaBuildNumber("cpuAmount", "CPU核心数", [alaRequired(), alaNumberRange(1, 200)], "请输入CPU最大线程数", { initValue: 4, precision: 0 }),
         alaBuildNumber("memoryAmount", "内存/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 16, precision: 0 }),
