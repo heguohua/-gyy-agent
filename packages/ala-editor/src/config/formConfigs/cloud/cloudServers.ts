@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 12:57:03
+ * @LastEditTime: 2025-08-26 18:05:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/cloudServers.ts
  * @Description: 
  * 
@@ -28,7 +28,7 @@ export const cloudServers: FormConfig = {
         alaBuildInput("name", '服务器名称', [alaRequired()]),
         alaBuildTextarea("specifications", "备注", [], "请输入备注"),
 
-        alaBuildChapter('配额信息'),
+        alaBuildChapter('基础配额'),
         // alaBuildInput("osName", '操作系统', [alaRequired()]),
         alaBuildSelectDict("osName", "操作系统", { "dictValue": "osType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择操作系统", { clearable: true }),
 
@@ -37,6 +37,7 @@ export const cloudServers: FormConfig = {
         alaBuildNumber("memoryAmount", "内存/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 16, precision: 0 }),
         alaBuildNumber("osDiskAmount", "系统盘容量/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入系统盘容量", { initValue: 40, precision: 0 }),
 
+        alaBuildChapter('调度策略'),
     ],
     detailAttr: {
         formWidth: 600,
@@ -59,12 +60,12 @@ export const cloudServers: FormConfig = {
         alaDetailInput('updatedName', "更新人"),
         alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
-        alaDetailChapter('配额信息'),
+        alaDetailChapter('基础配额'),
         alaDetailSelectDict('osName', "操作系统", 'dictLabel', 1, false, { columnWidth: { desktop: '260' } }),
         alaDetailInput('innerIp', "内网IP地址"),
-        alaDetailNumber('cpuAmount', "CPU核心数"),
-        alaDetailNumber('memoryAmount', "内存/GB"),
-        alaDetailNumber('osDiskAmount', "系统盘容量/GB"),
+        alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { unit: { desktop: '核' } }),
+        alaDetailNumber('memoryAmount', "内存", 1, false, { unit: { desktop: 'GB' } }),
+        alaDetailNumber('osDiskAmount', "系统盘容量", 1, false, { unit: { desktop: 'GB' } }),
 
     ],
     pageApi: '/c/cloudServers/page',
@@ -75,9 +76,9 @@ export const cloudServers: FormConfig = {
         alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
         // alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '160' } }),\
         alaDetailSelectDict('osName', "操作系统", 'dictLabel', 1, false, { columnWidth: { desktop: '260' } }),
-        alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' } }),
-        alaDetailNumber('memoryAmount', "内存/GB", 1, false, { columnWidth: { desktop: '115' } }),
-        alaDetailNumber('osDiskAmount', "系统盘容量/GB", 1, false, { columnWidth: { desktop: '160' } }),
+        alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' }, unit: { desktop: '核' } }),
+        alaDetailNumber('memoryAmount', "内存", 1, false, { columnWidth: { desktop: '100' }, unit: { desktop: 'GB' } }),
+        alaDetailNumber('osDiskAmount', "系统盘容量", 1, false, { columnWidth: { desktop: '140' }, unit: { desktop: 'GB' } }),
         alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '115' } }),
         alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '110' } }),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),

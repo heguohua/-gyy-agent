@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 18:49:44
+ * @LastEditTime: 2025-08-26 18:09:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailNumberColumn.vue
  * @Description: 
  * 
@@ -53,6 +53,10 @@ const props = defineProps({
     isDetailPage: {
         type: Boolean,
         default: false
+    },
+    unit: {
+        type: String,
+        default: ''
     }
 })
 
@@ -77,10 +81,17 @@ const showDetail = () => {
 }
 
 const formatValue = (value: number) => {
+
     let v: any = value
     if (props.formItem.formData?.thousandth?.desktop) {
         v = u.formatWithThousandsSeparator(value)
     }
+
+    const unit = props.formItem.formData?.unit?.desktop
+    if (unit) {
+        return `${v} ${unit}`
+    }
+
     return v
 }
 
