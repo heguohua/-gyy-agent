@@ -80,7 +80,7 @@ export const physicalServers: FormConfig = {
     pageApi: '/c/physicalServers/page',
     pageFields: [
 
-        alaDetailInput('name', "主机名称", 1, true, { columnWidth: { desktop: '150' } }),
+        alaDetailInput('name', "主机名称", 1, true, { columnWidth: { desktop: '250' } }),
         alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '115' } }),
         alaDetailInput('innerIp', "内网IP地址", 1, false, { columnWidth: { desktop: '130' } }),
         alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' } }),

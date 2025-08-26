@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-04 22:38:37
+ * @LastEditTime: 2025-08-26 10:18:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/deviceArea/index.vue
  * @Description: 
  * 
@@ -56,7 +56,7 @@
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- dept 新增、编辑 -->
-    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
 </template>
 
@@ -150,9 +150,9 @@ const columns = computed(() => {
         alaDetailInput('mobile', "手机号"),
         alaDetailInput('email', "邮箱"),
         alaDetailInput('iconPath', "用户头像"),
-        alaDetailDate( 'entryDate', "入职时间", 'YYYY-MM-DD'),
+        alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD'),
         alaDetailInput('createdName', "创建人"),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -170,12 +170,12 @@ const detailFields: any = ref([
     alaDetailInput('nickName', "用户昵称"),
     alaDetailInput('mobile', "手机号"),
     alaDetailInput('email', "邮箱"),
-    alaDetailDate( 'entryDate', "入职时间", 'YYYY-MM-DD'),
+    alaDetailDate('entryDate', "入职时间", 'YYYY-MM-DD'),
     alaDetailInput('iconPath', "用户头像"),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 

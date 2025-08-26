@@ -2,60 +2,81 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 16:45:15
+ * @LastEditTime: 2025-08-26 10:03:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/cloudServers.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
-import { alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree } from "@/config/alaBuilders"
-import { alaEmail, alaPhone, alaRequired } from "@/config/alaRules"
+import { alaBuildChapter, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree, alaBuildTextarea } from "@/config/alaBuilders"
+import { alaEmail, alaNumberRange, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
-import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage } from "@/config/alaDetailBuilder"
+import { alaDetailBuild, alaDetailChapter, alaDetailDate, alaDetailInput, alaDetailNumber, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from "@/config/alaDetailBuilder"
 import { dType } from "@/components/cps/dynamic/detailType"
 
 export const cloudServers: FormConfig = {
     formAttr: {
-        formWidth: 800,
+        formWidth: 600,
         columnNum: 1,
         labelWidth: 150,
         labelPosition: 'left',
-        useFormTitle: false,
+        useFormTitle: true,
     },
     formFields: [
+        alaBuildChapter('基本信息'),
         alaBuildHidden('id'),// 固定格式
-        alaBuildInput("deviceName", '设备名称', [alaRequired()]),
-        alaBuildInput("deviceCode", '资产编号', [alaRequired()]),
-        alaBuildSelectTable("profiles", "物模型", "/c/profile/page", [{ prop: 'profileName', label: '模型名称', isQuery: true }, { prop: 'profileCode', label: '模型编号' }], { propertyName: 'profileName', valueName: 'id' }, undefined, {}, "请选择", 'model'),
+        alaBuildInput("name", '服务器名称', [alaRequired()]),
+        alaBuildTextarea("specifications", "备注", [], "请输入备注"),
+
+        alaBuildChapter('配额信息'),
+        alaBuildInput("osName", '操作系统', [alaRequired()]),
+        alaBuildInput("innerIp", '内网IP地址', [alaRequired()]),
+        alaBuildNumber("cpuAmount", "CPU核心数", [alaRequired(), alaNumberRange(1, 200)], "请输入CPU最大线程数", { initValue: 4, precision: 0 }),
+        alaBuildNumber("memoryAmount", "内存/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 16, precision: 0 }),
+        alaBuildNumber("osDiskAmount", "系统盘容量/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入系统盘容量", { initValue: 40, precision: 0 }),
+
     ],
     detailAttr: {
-        formWidth: 800,
+        formWidth: 600,
         columnNum: 1,
         labelWidth: 150,
         labelPosition: 'left',
-        useFormTitle: false,
+        useFormTitle: true,
     },
     detailFields: [
-        alaDetailInput('deviceName', "设备名称", 1, true),
-        alaDetailInput('deviceCode', "资产编号"),
-        alaDetailSelectTable('profiles', "物模型", "profileName"),
-        alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
-        alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/c/online.png', title: '在线' }, { value: false, src: '/c/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
-        alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailChapter('基本信息'),
+        alaDetailInput('name', "主机名称", 1, true),
+
+        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px' }),
+        alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, {}),
+        alaDetailInput('cloudServersGroup', "业务组", 1, false, { deepColumnName: { desktop: 'name' } }),
+        alaDetailTextarea('specifications', "备注"),
+
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailInput('updatedName', "更新人"),
         alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+
+        alaDetailChapter('配额信息'),
+        alaDetailInput('osName', "操作系统"),
+        alaDetailInput('innerIp', "内网IP地址"),
+        alaDetailNumber('cpuAmount', "CPU核心数"),
+        alaDetailNumber('memoryAmount', "内存/GB"),
+        alaDetailNumber('osDiskAmount', "系统盘容量/GB"),
+
     ],
     pageApi: '/c/cloudServers/page',
     pageFields: [
-        alaDetailInput('deviceName', "设备名称", 1, true),
-        alaDetailInput('deviceCode', "资产编号"),
-        alaDetailSelectTable('profiles', "物模型", "profileName", 1, false, { columnWidth: { desktop: '150' } }),
-        alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
-        alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/c/online.png', title: '在线' }, { value: false, src: '/c/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
-        alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
+
+        alaDetailInput('name', "主机名称", 1, true, { columnWidth: { desktop: '250' } }),
+        alaDetailInput('innerIp', "内网IP地址", 1, false, { columnWidth: { desktop: '140' } }),
+        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
+        alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '160' } }),
+        alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' } }),
+        alaDetailNumber('memoryAmount', "内存/GB", 1, false, { columnWidth: { desktop: '115' } }),
+        alaDetailNumber('osDiskAmount', "系统盘容量/GB", 1, false, { columnWidth: { desktop: '160' } }),
+        alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '115' } }),
+        alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '110' } }),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
 
     ],

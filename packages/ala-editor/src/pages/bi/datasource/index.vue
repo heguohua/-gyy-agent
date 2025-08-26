@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-30 15:49:18
+ * @LastEditTime: 2025-08-26 10:22:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/index.vue
  * @Description: 
  * 
@@ -57,7 +57,7 @@
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- datasource 新增、编辑 -->
-    <DatasourceAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <DatasourceAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
 </template>
 
@@ -150,7 +150,7 @@ const columns = computed(() => {
         alaDetailCascader('type', "类型"),
         alaDetailInput('status', "状态"),
         alaDetailTextarea('description', '描述', 16),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         // alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
 
     ]
@@ -189,9 +189,9 @@ const detailFields: any = ref([
     alaDetailInput('status', "状态"),
     alaDetailTextarea('description', '描述', 16),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-16 19:35:56
+ * @LastEditTime: 2025-08-26 10:19:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/organization/index.vue
  * @Description: 
  * 
@@ -56,7 +56,7 @@
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- dept 新增、编辑 -->
-    <DeptAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <DeptAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
 </template>
 

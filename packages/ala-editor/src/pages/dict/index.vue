@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-14 18:50:14
+ * @LastEditTime: 2025-08-26 10:21:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dict/index.vue
  * @Description: 
  * 
@@ -43,7 +43,7 @@
     </PageNestingTable>
 
     <!-- 新增、编辑 -->
-    <DictAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <DictAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
 </template>
 
@@ -90,7 +90,7 @@ const showAdd = (item: { [key: string]: any }) => {
 
 const showEdit = (item: { [key: string]: any }) => {
     showAddForm.value = true
-     // 解除 响应式引用，防止新增页面数据影响列表数据
+    // 解除 响应式引用，防止新增页面数据影响列表数据
     const entity = toRaw(item)
     entity.typeEntity = [{ id: entity.type }]
 

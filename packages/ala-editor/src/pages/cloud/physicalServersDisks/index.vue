@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 22:58:56
+ * @LastEditTime: 2025-08-26 10:18:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/physicalServersDisks/index.vue
  * @Description: 
  * 
@@ -43,8 +43,7 @@
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="formConfigs.physicalServersDisks.detailFields"
-        :formAttr="formConfigs.physicalServersDisks.detailAttr" />
-
+        :formAttr="formConfigs.physicalServersDisks.detailAttr" v-if="showAddForm" />
 
 </template>
 

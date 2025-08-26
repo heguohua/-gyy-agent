@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-07 08:51:18
+ * @LastEditTime: 2025-08-26 10:20:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleList.vue
  * @Description: 
  * 
@@ -44,7 +44,7 @@
     </PageTable>
 
     <!-- 新增、编辑 -->
-    <roleAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <roleAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
     <roleAuthorization v-model="showAuthorizationForm" :baseInfo="baseInfo" />
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="formConfigs.systemRole.detailFields"

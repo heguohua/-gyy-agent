@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 16:15:41
+ * @LastEditTime: 2025-08-26 10:22:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/im/chatGroup/chatGroupList.vue
  * @Description: 
  * 
@@ -40,7 +40,7 @@
     </PageTable>
 
     <!-- 新增、编辑 -->
-    <chatGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <chatGroupAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
@@ -181,7 +181,7 @@ const columns = computed(() => {
         alaDetailRadio('status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailInput('portrait', "群头像", undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '150' } }),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '200' } }),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -202,9 +202,9 @@ const detailFields: any = ref([
     alaDetailRadio('status', "群状态", [{ '正常': 1, 'color': colors.primary }, { '全员禁言': 2, 'color': colors.danger }, { '回收': 3, 'color': colors.info }]),
     alaDetailTextarea('notice', "群公告"),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailTextarea('remark', "备注说明"),
 
 ])

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-20 11:29:32
+ * @LastEditTime: 2025-08-26 10:20:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/storage/kuqukuwei/index.vue
  * @Description: 
  * 
@@ -56,7 +56,7 @@
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- dept 新增、编辑 -->
-    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
 </template>
 
@@ -145,7 +145,7 @@ const columns = computed(() => {
         alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
         alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
         alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
     ]
 })
 /**
@@ -158,9 +158,9 @@ const detailFields: any = ref([
     alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
     alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 ])
 
 // 基础查询条件

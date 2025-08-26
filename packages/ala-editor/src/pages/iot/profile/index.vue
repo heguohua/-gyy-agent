@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-28 22:35:45
+ * @LastEditTime: 2025-08-26 10:19:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -61,7 +61,7 @@
 
 
     <!-- dept 新增、编辑 -->
-    <profileAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <profileAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
 </template>
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 16:09:04
+ * @LastEditTime: 2025-08-26 09:28:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="page">
 
         <div class="left">
-            <AlaTree title="物理服务器" addUrl="/c/cloudServersGroup/add" treeUrl="/c/cloudServersGroup/tree"
+            <AlaTree title="业务组" addUrl="/c/cloudServersGroup/add" treeUrl="/c/cloudServersGroup/tree"
                 deleteUrl="/c/cloudServersGroup/delete" updateUrl="/c/cloudServersGroup/update" />
         </div>
         <div class="right">
@@ -56,7 +56,7 @@
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
     <!-- dept 新增、编辑 -->
-    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" />
+    <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
 </template>
 
@@ -70,9 +70,9 @@ import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDetailSelectTable, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
-import Add from '@/pages/iot/device/add.vue';
+import Add from '@/pages/cloud/cloudServers/add.vue';
 import notify from '@/utils/notify';
-import { device } from '@/config/formConfigs/device';
+import { cloudServers } from '@/config/formConfigs/cloud/cloudServers';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -82,6 +82,7 @@ const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
     return t(code)
 })
+
 // 2、定义当前编辑对象id
 const baseInfo = reactive({
     moduleName,
@@ -129,31 +130,31 @@ const refresh = () => {
 }
 
 
-setInterval(() => {
-    refresh()
-}, 5 * 1000);
+// setInterval(() => {
+//     refresh()
+// }, 5 * 1000);
 
 // ############## 分页列表通用方法，该部分代码不用修改 end ######################################
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = device.pageApi
-const deleteUrl = "/c/device/delete"
+const url = cloudServers.pageApi
+const deleteUrl = "/c/cloudServers/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
-    return device.pageFields
+    return cloudServers.pageFields
 })
 /**
  * 详情页面字段
  */
-const detailFields: any = ref(device.detailFields)
+const detailFields: any = ref(cloudServers.detailFields)
 
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("deviceName", '设备名称'),
+        alaBuildInput("name", '主机名称'),
     ]
 })
 
@@ -165,14 +166,14 @@ const getComponent = ((code: string) => {
 })
 
 
-const formAttr = ref(device.formAttr)
+const formAttr = ref(cloudServers.formAttr)
 
 /**
  * 详情页面字段
  */
 
 const detailItem = reactive({
-    moduleName: '系统用户',
+    moduleName,
     item: {}
 })
 
