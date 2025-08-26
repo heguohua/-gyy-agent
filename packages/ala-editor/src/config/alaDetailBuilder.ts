@@ -4,7 +4,7 @@ import { dType } from "@/components/cps/dynamic/detailType"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 21:35:36
+ * @LastEditTime: 2025-08-26 12:38:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -68,11 +68,11 @@ export function alaDetailDeepBuild(columnName: string, innerColumnName: string, 
 }
 
 
-export function alaDetailSelectDict(columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object) {
+export function alaDetailSelectDict(columnName: string, label: string, propertyName: string, columnNum = 1, detail = false, other?: Object, valueName = 'id') {
     return {
         prop: columnName,
         label: label,
-        formItem: { code: dType.selectDict, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName } }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.selectDict, formData: { fieldName: { desktop: columnName }, detail, itemProperty: { desktop: { propertyName: propertyName, valueName: valueName } }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 

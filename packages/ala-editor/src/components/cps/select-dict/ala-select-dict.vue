@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-09 19:39:13
+ * @LastEditTime: 2025-08-26 12:17:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -30,7 +30,6 @@ import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { PropType } from 'vue';
-
 
 interface ItemProperty {
   propertyName: string,
@@ -115,7 +114,6 @@ const localValue = ref<any>()
 watch(() => model.value, () => {
 
   if (model && model.value) {
-
     if (Array.isArray(model.value)) {
       // 数组类型
       if (model.value.length > 0) {
@@ -124,7 +122,17 @@ watch(() => model.value, () => {
       }
     } else {
       // 普通类型
-      localValue.value = model.value
+      // 判断值是否为 json array 格式的string
+      if (typeof model.value === 'string' && model.value.toString().startsWith('[')) {
+        const m = u.parseJson(model.value)
+        if (m.length > 0) {
+          const pi = props.itemProperty
+          localValue.value = m[0][pi.valueName]
+        }
+      } else {
+        localValue.value = model.value
+      }
+
     }
   } else {
     localValue.value = null
@@ -140,7 +148,7 @@ const handleChange = (value: any) => {
   if (props.singleValue) {
     model.value = value
   } else {
-    model.value = [{ [pi.valueName]: value }]
+    model.value = u.tojson([{ [pi.valueName]: value }])
   }
   localValue.value = value
 
@@ -164,14 +172,13 @@ const query = () => {
     if (response.data) {
 
       const item_s: Array<item> = []
-      const isString = typeof localValue.value === 'string'
 
       response.data.forEach((item: any) => {
         const name = item[props.itemProperty.propertyName]
         const value = item[props.itemProperty.valueName]
-        item_s.push({ name, value: isString ? value + '' : value })
+        item_s.push({ name, value })
       })
-      
+
       u.merged(items.value, item_s)
     }
 

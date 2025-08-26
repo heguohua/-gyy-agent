@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 11:13:47
+ * @LastEditTime: 2025-08-26 12:57:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/cloudServers.ts
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 import { alaBuildChapter, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildTextarea } from "@/config/alaBuilders"
 import { alaEmail, alaNumberRange, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
-import { alaDetailBuild, alaDetailChapter, alaDetailDate, alaDetailInput, alaDetailNumber, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from "@/config/alaDetailBuilder"
+import { alaDetailBuild, alaDetailChapter, alaDetailDate, alaDetailInput, alaDetailNumber, alaDetailSelectDict, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from "@/config/alaDetailBuilder"
 import { dType } from "@/components/cps/dynamic/detailType"
 
 export const cloudServers: FormConfig = {
@@ -30,7 +30,7 @@ export const cloudServers: FormConfig = {
 
         alaBuildChapter('配额信息'),
         // alaBuildInput("osName", '操作系统', [alaRequired()]),
-        alaBuildSelectDict("osName", "操作系统", { "dictValue": "osType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择操作系统", { clearable: true, singleValue: true }),
+        alaBuildSelectDict("osName", "操作系统", { "dictValue": "osType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择操作系统", { clearable: true }),
 
         alaBuildInput("innerIp", '内网IP地址', [alaRequired()]),
         alaBuildNumber("cpuAmount", "CPU核心数", [alaRequired(), alaNumberRange(1, 200)], "请输入CPU最大线程数", { initValue: 4, precision: 0 }),
@@ -60,7 +60,7 @@ export const cloudServers: FormConfig = {
         alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
         alaDetailChapter('配额信息'),
-        alaDetailInput('osName', "操作系统"),
+        alaDetailSelectDict('osName', "操作系统", 'dictLabel', 1, false, { columnWidth: { desktop: '260' } }),
         alaDetailInput('innerIp', "内网IP地址"),
         alaDetailNumber('cpuAmount', "CPU核心数"),
         alaDetailNumber('memoryAmount', "内存/GB"),
@@ -73,7 +73,8 @@ export const cloudServers: FormConfig = {
         alaDetailInput('name', "主机名称", 1, true, { columnWidth: { desktop: '250' } }),
         alaDetailInput('innerIp', "内网IP地址", 1, false, { columnWidth: { desktop: '140' } }),
         alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
-        alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '160' } }),
+        // alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '160' } }),\
+        alaDetailSelectDict('osName', "操作系统", 'dictLabel', 1, false, { columnWidth: { desktop: '260' } }),
         alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' } }),
         alaDetailNumber('memoryAmount', "内存/GB", 1, false, { columnWidth: { desktop: '115' } }),
         alaDetailNumber('osDiskAmount', "系统盘容量/GB", 1, false, { columnWidth: { desktop: '160' } }),

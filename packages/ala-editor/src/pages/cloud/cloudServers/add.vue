@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 17:12:56
+ * @LastEditTime: 2025-08-26 11:49:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/add.vue
  * @Description: 
  * 
@@ -107,11 +107,6 @@ const beforeSave = async (data: { [key: string]: any }) => {
         d['groupId'] = baseInfo?.folder?.id
     } else {
         logger.error(`baseInfo.folder.id【 不存在 ！！！ 】`);
-    }
-
-    // 转换 profileId
-    if (data.profileId && data.profileId.length > 0) {
-        d.profileId = data.profileId[0].id
     }
 
     // 对 configuration 字段进行 base64加密

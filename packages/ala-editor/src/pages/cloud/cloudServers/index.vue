@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 09:28:20
+ * @LastEditTime: 2025-08-26 11:56:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
@@ -113,7 +113,6 @@ const showAdd = (item: { [key: string]: any }) => {
 }
 
 const showEdit = (item: { [key: string]: any }) => {
-
     u.merged(baseInfo, item)
     logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
     showAddForm.value = true
