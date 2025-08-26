@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-07 09:45:52
+ * @LastEditTime: 2025-08-26 10:35:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleAuthorization.vue
  * @Description: 
  * 
@@ -82,7 +82,8 @@ watch(() => props.baseInfo.item, (item) => {
 
 
 }, {
-    deep: true
+    deep: true,
+    immediate: true
 })
 
 // ##########################  以下是公共方法，不需要修改 start #########################################

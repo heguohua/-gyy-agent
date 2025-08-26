@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-09 11:03:31
+ * @LastEditTime: 2025-08-26 10:35:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/menu/menuAdd.vue
  * @Description: 
  * 
@@ -54,7 +54,8 @@ watch(() => props.baseInfo.item, (item) => {
     Object.assign(formData, item)
     logger.info(`formData数据更新后`, formData);
 }, {
-    deep: true
+    deep: true,
+    immediate: true
 })
 
 // 基础表单字段

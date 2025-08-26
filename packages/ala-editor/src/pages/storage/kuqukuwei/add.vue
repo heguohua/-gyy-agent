@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-05 19:18:46
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/device/add.vue
+ * @LastEditTime: 2025-08-26 10:35:36
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/storage/kuqukuwei/add.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -60,7 +60,8 @@ watch(() => props.baseInfo.item, (item) => {
     Object.assign(formData, item)
     logger.info(`formData数据更新后`, formData);
 }, {
-    deep: true
+    deep: true,
+    immediate: true
 })
 
 

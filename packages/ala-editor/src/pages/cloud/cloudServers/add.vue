@@ -61,7 +61,8 @@ watch(() => props.baseInfo.item, (item) => {
     Object.assign(formData, item)
     logger.info(`formData数据更新后`, formData);
 }, {
-    deep: true
+    deep: true,
+    immediate: true
 })
 
 

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 11:26:45
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/user/userAdd.vue
+ * @LastEditTime: 2025-08-26 10:35:38
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleAdd.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -52,7 +52,8 @@ watch(() => props.baseInfo.item, (item) => {
     Object.assign(formData, item)
     logger.info(`formData数据更新后`, formData);
 }, {
-    deep: true
+    deep: true,
+    immediate: true
 })
 
 // 基础表单字段
