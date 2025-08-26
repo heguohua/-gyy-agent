@@ -62,7 +62,7 @@
     </PageTable>
 
     <!-- 新增、编辑 -->
-    <designAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo"  v-if="showAddForm" />
+    <designAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
 
@@ -203,8 +203,8 @@ const columns = computed(() => {
         alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
         alaDetailSwitch('isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
         alaDetailTextarea('remark', "备注说明"),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'displayName', label: '名称' },
         // { prop: 'name', label: '唯一编码' },
@@ -223,9 +223,9 @@ const detailFields: any = ref([
     alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
     alaDetailSwitch('isDeployed', "是否已部署", "已部署", 1, "未部署", 2),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailTextarea('remark', "备注说明"),
 
 ])
