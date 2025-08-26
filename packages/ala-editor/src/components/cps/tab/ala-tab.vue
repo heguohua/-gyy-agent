@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-17 20:42:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 21:34:28
+ * @LastEditTime: 2025-08-26 17:52:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tab/ala-tab.vue
  * @Description: 
  * 
@@ -26,6 +26,7 @@ import { logger } from '@/utils/logger';
 import { TabPaneName } from 'element-plus';
 import { useAlaStore } from '@/store/ala-store';
 const { locale, t } = useI18n();
+import lstore from '@/utils/lstore';
 
 interface TabType {
     title: string,
@@ -54,6 +55,9 @@ alaStore.set("tabList", tabList.value)
 function tabChange(name: TabPaneName): any {
     router.push(name as string)
     activeTab.value = name as string
+    console.log('name: --->', name)
+
+    lstore.setItem('activeMenu', activeTab.value);
 }
 
 
