@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 11:56:23
+ * @LastEditTime: 2025-08-26 18:16:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
@@ -153,7 +153,7 @@ const detailFields: any = ref(cloudServers.detailFields)
 // 基础查询条件
 const baseFields = computed(() => {
     return [
-        alaBuildInput("name", '主机名称'),
+        alaBuildInput("name", '云主机名'),
     ]
 })
 

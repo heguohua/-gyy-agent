@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 21:45:29
+ * @LastEditTime: 2025-08-26 18:10:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/physicalServers.ts
  * @Description: 
  * 
@@ -34,8 +34,8 @@ export const physicalServers: FormConfig = {
         alaBuildNumber("reserveCpuAmount", "预留CPU核心数", [alaRequired(), alaNumberRange(1, 200)], "请输入预留CPU核心数", { initValue: 2, precision: 0 }),
         alaBuildNumber("cpuOverIssueRadio", "CPU超发倍数", [alaRequired(), alaNumberRange(0, 10)], "请输入CPU超发倍数", { initValue: 0 }),
         alaBuildChapter('内存配额'),
-        alaBuildNumber("memoryAmount", "内存/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 128, precision: 0 }),
-        alaBuildNumber("reserveMemoryAmount", "预留内存/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 8 }),
+        alaBuildNumber("memoryAmount", "内存", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 128, precision: 0 }),
+        alaBuildNumber("reserveMemoryAmount", "预留内存", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 8 }),
 
     ],
     detailAttr: {
@@ -64,17 +64,17 @@ export const physicalServers: FormConfig = {
         alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
         alaDetailChapter('CPU配额'),
-        alaDetailNumber('cpuAmount', "CPU核心数"),
-        alaDetailNumber('reserveCpuAmount', "预留CPU核心数"),
-        alaDetailNumber('allocatedCpuAmount', "已分配CPU核心数"),
-        alaDetailNumber('realCpuAmount', "实用CPU核心数"),
-        alaDetailNumber('cpuOverIssueRadio', "CPU超发倍数"),
+        alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { unit: { desktop: '核' } }),
+        alaDetailNumber('reserveCpuAmount', "预留CPU核心数", 1, false, { unit: { desktop: '核' } }),
+        alaDetailNumber('allocatedCpuAmount', "已分配CPU核心数", 1, false, { unit: { desktop: '核' } }),
+        alaDetailNumber('realCpuAmount', "实用CPU核心数", 1, false, { unit: { desktop: '核' } }),
+        alaDetailNumber('cpuOverIssueRadio', "CPU超发倍数", 1, false, { unit: { desktop: '倍' } }),
 
         alaDetailChapter('内存配额'),
-        alaDetailNumber('memoryAmount', "内存/GB"),
-        alaDetailNumber('reserveMemoryAmount', "预留内存/GB"),
-        alaDetailNumber('allocatedMemoryAmount', "已分配内存/GB"),
-        alaDetailNumber('realMemoryAmount', "实用内存/GB"),
+        alaDetailNumber('memoryAmount', "内存", 1, false, { unit: { desktop: 'GB' } }),
+        alaDetailNumber('reserveMemoryAmount', "预留内存", 1, false, { unit: { desktop: 'GB' } }),
+        alaDetailNumber('allocatedMemoryAmount', "已分配内存", 1, false, { unit: { desktop: 'GB' } }),
+        alaDetailNumber('realMemoryAmount', "实用内存", 1, false, { unit: { desktop: 'GB' } }),
 
     ],
     pageApi: '/c/physicalServers/page',
@@ -83,13 +83,13 @@ export const physicalServers: FormConfig = {
         alaDetailInput('name', "主机名称", 1, true, { columnWidth: { desktop: '250' } }),
         alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '115' } }),
         alaDetailInput('innerIp', "内网IP地址", 1, false, { columnWidth: { desktop: '130' } }),
-        alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' } }),
-        alaDetailNumber('cpuOverIssueRadio', "CPU超发倍数", 1, false, { columnWidth: { desktop: '150' } }),
-        alaDetailNumber('allocatedCpuAmount', "已分配CPU核心数", 1, false, { columnWidth: { desktop: '180' } }),
-        alaDetailNumber('realCpuAmount', "实用CPU核心数", 1, false, { columnWidth: { desktop: '165' } }),
-        alaDetailNumber('memoryAmount', "内存/GB", 1, false, { columnWidth: { desktop: '115' } }),
-        alaDetailNumber('allocatedMemoryAmount', "已分配内存/GB", 1, false, { columnWidth: { desktop: '160' } }),
-        alaDetailNumber('realMemoryAmount', "实用内存/GB", 1, false, { columnWidth: { desktop: '145' } }),
+        alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' }, unit: { desktop: '核' } }),
+        alaDetailNumber('cpuOverIssueRadio', "CPU超发倍数", 1, false, { columnWidth: { desktop: '150' }, unit: { desktop: '倍' } }),
+        alaDetailNumber('allocatedCpuAmount', "已分配CPU核心数", 1, false, { columnWidth: { desktop: '180' }, unit: { desktop: '核' } }),
+        alaDetailNumber('realCpuAmount', "实用CPU核心数", 1, false, { columnWidth: { desktop: '165' }, unit: { desktop: '核' } }),
+        alaDetailNumber('memoryAmount', "内存", 1, false, { columnWidth: { desktop: '115' }, unit: { desktop: 'GB' } }),
+        alaDetailNumber('allocatedMemoryAmount', "已分配内存", 1, false, { columnWidth: { desktop: '160' }, unit: { desktop: 'GB' } }),
+        alaDetailNumber('realMemoryAmount', "实用内存", 1, false, { columnWidth: { desktop: '145' }, unit: { desktop: 'GB' } }),
 
         alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
 
