@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 18:10:47
+ * @LastEditTime: 2025-08-26 20:15:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/physicalServers.ts
  * @Description: 
  * 
@@ -39,14 +39,14 @@ export const physicalServers: FormConfig = {
 
     ],
     detailAttr: {
-        formWidth: 600,
-        columnNum: 1,
+        formWidth: 1360,
+        columnNum: 2,
         labelWidth: 150,
         labelPosition: 'left',
         useFormTitle: true,
     },
     detailFields: [
-        alaDetailChapter('基本信息'),
+        alaDetailChapter('基本信息', 2),
         alaDetailInput('name', "主机名称", 1, true),
         alaDetailInput('osName', "操作系统"),
         alaDetailInput('innerIp', "内网IP地址"),
@@ -56,21 +56,21 @@ export const physicalServers: FormConfig = {
         alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, {}),
         alaDetailInput('physicalServersGroup', "所在地区", 1, false, { deepColumnName: { desktop: 'name' } }),
 
-        alaDetailTextarea('specifications', "备注"),
+        alaDetailTextarea('specifications', "备注", 1000, 2),
 
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailInput('updatedName', "更新人"),
         alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
-        alaDetailChapter('CPU配额'),
+        alaDetailChapter('CPU配额', 2),
         alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { unit: { desktop: '核' } }),
         alaDetailNumber('reserveCpuAmount', "预留CPU核心数", 1, false, { unit: { desktop: '核' } }),
         alaDetailNumber('allocatedCpuAmount', "已分配CPU核心数", 1, false, { unit: { desktop: '核' } }),
         alaDetailNumber('realCpuAmount', "实用CPU核心数", 1, false, { unit: { desktop: '核' } }),
-        alaDetailNumber('cpuOverIssueRadio', "CPU超发倍数", 1, false, { unit: { desktop: '倍' } }),
+        alaDetailNumber('cpuOverIssueRadio', "CPU超发倍数", 2, false, { unit: { desktop: '倍' } }),
 
-        alaDetailChapter('内存配额'),
+        alaDetailChapter('内存配额', 2),
         alaDetailNumber('memoryAmount', "内存", 1, false, { unit: { desktop: 'GB' } }),
         alaDetailNumber('reserveMemoryAmount', "预留内存", 1, false, { unit: { desktop: 'GB' } }),
         alaDetailNumber('allocatedMemoryAmount', "已分配内存", 1, false, { unit: { desktop: 'GB' } }),

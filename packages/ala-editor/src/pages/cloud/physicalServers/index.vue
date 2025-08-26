@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 10:17:53
+ * @LastEditTime: 2025-08-26 20:07:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/physicalServers/index.vue
  * @Description: 
  * 
@@ -53,10 +53,13 @@
     </div>
 
     <!-- dept 详情页面 -->
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
+    <!-- <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="detailAttr" /> -->
 
     <!-- dept 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
+
+    <AlaTabPage v-if="showDetailPage" v-model="showDetailPage" title="【 预览 】物理服务器" width="1400" :tabs="tabs"
+        :previewParams="previewParams" />
 
 </template>
 
@@ -166,7 +169,7 @@ const getComponent = ((code: string) => {
 })
 
 
-const formAttr = ref(physicalServers.formAttr)
+const detailAttr = ref(physicalServers.detailAttr)
 
 /**
  * 详情页面字段
@@ -177,15 +180,27 @@ const detailItem = reactive({
     item: {}
 })
 
+const previewParams = reactive<any>({ data: {} })
+
 const showDetailPage = ref(false)
 const showDetail = (item: { [key: string]: any }) => {
-    u.clear(detailItem.item)
-    u.merged(detailItem, { item })
-    logger.info(`当前模块【 detailItem 】对象参数为`, detailItem);
+    // u.clear(detailItem.item)
+    // u.merged(detailItem, { item })
+
+    previewParams.data = { item }
+
+    logger.info(`当前模块【 previewParams 】对象参数为`, previewParams);
     showDetailPage.value = true
 }
+// <!-- <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="detailAttr" /> -->
 
-
+const tabsModel = reactive([
+    { title: '基本信息', code: 'AlaDetailNoDrawer', props: { data: detailItem, fields: detailFields, formAttr: detailAttr } },
+    // { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
+])
+const tabs = computed(() => {
+    return tabsModel
+})
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 

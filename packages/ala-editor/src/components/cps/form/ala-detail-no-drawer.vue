@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-08 17:20:48
+ * @LastEditTime: 2025-08-26 20:29:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer.vue
  * @Description: 
  * 
@@ -125,7 +125,7 @@ const labelWidth = () => {
 const data = ref<any>({})
 
 watch(() => props.previewParams.data, (newValue) => {
-    
+
     if (newValue) {
         u.merged(data.value, newValue)
     }
@@ -135,6 +135,8 @@ watch(() => props.previewParams.data, (newValue) => {
 </script>
 <style scoped lang="scss">
 .ala-detail-form {
+    display: flex;
+    flex-wrap: wrap;
 
     .ala-detail-item {
         display: flex;
