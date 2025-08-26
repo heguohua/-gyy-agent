@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 18:16:14
+ * @LastEditTime: 2025-08-26 19:10:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/cloudServers.ts
  * @Description: 
  * 
@@ -13,6 +13,7 @@ import { alaEmail, alaNumberRange, alaPhone, alaRequired } from "@/config/alaRul
 import FormConfig from "@/config/formConfigs/formConfig"
 import { alaDetailBuild, alaDetailChapter, alaDetailDate, alaDetailInput, alaDetailNumber, alaDetailSelectDict, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from "@/config/alaDetailBuilder"
 import { dType } from "@/components/cps/dynamic/detailType"
+import formConfigs from "@/config/formConfigs"
 
 export const cloudServers: FormConfig = {
     formAttr: {
@@ -38,6 +39,9 @@ export const cloudServers: FormConfig = {
         alaBuildNumber("osDiskAmount", "系统盘容量/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入系统盘容量", { initValue: 40, precision: 0 }),
 
         alaBuildChapter('调度策略'),
+        alaBuildSelectTable("physicalServers", "物理服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true)
+
+
     ],
     detailAttr: {
         formWidth: 600,
@@ -66,6 +70,9 @@ export const cloudServers: FormConfig = {
         alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { unit: { desktop: '核' } }),
         alaDetailNumber('memoryAmount', "内存", 1, false, { unit: { desktop: 'GB' } }),
         alaDetailNumber('osDiskAmount', "系统盘容量", 1, false, { unit: { desktop: 'GB' } }),
+
+        alaDetailChapter('调度策略'),
+        alaDetailSelectTable('physicalServers', "物理服务器", "name", 1, false, { columnWidth: { desktop: '150' }, url: { desktop: '/c/physicalServers/page' } }),
 
     ],
     pageApi: '/c/cloudServers/page',

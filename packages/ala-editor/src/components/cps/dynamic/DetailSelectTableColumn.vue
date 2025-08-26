@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-30 09:32:12
+ * @LastEditTime: 2025-08-26 19:22:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -67,7 +67,13 @@ const { formItem } = toRefs(props)
 
 // Methods
 const showValue = computed(() => {
-    const values = toRaw(props.value)
+    let values: any[] = []
+    if (typeof props.value === 'string') {
+        values = u.parseJson(props.value)
+    } else {
+        values = toRaw(props.value)
+    }
+
     const propertyName = props.formItem.formData.itemProperty.desktop.propertyName
     const results: string[] = []
 
@@ -113,8 +119,7 @@ const showDetailPage = ref(false)
 // 获取数据缓存对象
 
 const showDetail = async (item: string, index: number) => {
-    console.log('formItem:--->',formItem);
-    
+
     const { formData } = formItem.value
     let url = formData.url?.desktop
     if (!url) return
@@ -169,7 +174,12 @@ const showDetail = async (item: string, index: number) => {
     dAttr.value = formConfig?.detailAttr as any
     dFields.value = formConfig?.detailFields as any
 
-    const value = props.value[index][valueName]
+    let value: any[] = []
+    if (typeof props.value === 'string') {
+        value = u.parseJson(props.value)[index][valueName]
+    } else {
+        value = props.value[index][valueName]
+    }
 
     if (params.indexOf('tableName') > 0) {
 
@@ -188,7 +198,7 @@ const showDetail = async (item: string, index: number) => {
     const queryParams = u.merged({ [valueName]: value }, params)
 
     const response = await query(formConfig?.pageApi!, { body: queryParams, page: { orders: [], current: 1, size: 10 } })
-    
+
 
     if (response.data?.list) {
         if (response.data.list.length === 0) {

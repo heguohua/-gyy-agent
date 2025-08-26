@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-20 22:58:55
+ * @LastEditTime: 2025-08-26 19:00:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -97,6 +97,7 @@ import notify from '@/utils/notify';
 import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
+import { PropType } from 'vue';
 
 interface ItemProperty {
   propertyName: string,
@@ -171,11 +172,15 @@ const props = defineProps({
   canEmpty: {
     type: Boolean,
     default: false
+  },
+  valueToString: {
+    type: Boolean,
+    default: false
   }
 })
 
 const model = defineModel({
-  type: Array<any>,
+  type: [String, Array<any>] as PropType<string | Array<any>>,
   default: () => { return [] }
 })
 
@@ -237,7 +242,11 @@ function confirmClick() {
       mv.push(selected)
     })
 
-    model.value = mv
+    if (props.valueToString) {
+      model.value = u.tojson(mv)
+    } else {
+      model.value = mv
+    }
     // 给显示标签赋值
     // localValue.value = sv.join('')
     // localValue.value = modelItemToShowValue(mv)
@@ -254,8 +263,14 @@ function confirmClick() {
 const modelItemToShowValue = (rows: any) => {
   let value: string[] = []
   const pi = props.itemProperty
-  if (rows && rows.length > 0) {
-    rows.forEach((row: any) => {
+
+  let rs = rows
+  if (typeof rows === 'string') {
+    rs = u.parseJson(rows)
+  }
+
+  if (rs && rs.length > 0) {
+    rs.forEach((row: any) => {
       value.push(generateValue(row[pi.propertyName]))
     })
   }
@@ -311,7 +326,13 @@ const querySelectedData = (items: [{ id: number }]) => {
 
 watch(() => dialogShow.value, (value) => {
   if (value) {
-    querySelectedData(model.value as [{ id: number }])
+    let m = []
+    if(typeof model.value === 'string'){
+      m = u.parseJson(model.value)
+    }else{
+      m = model.value
+    }
+    querySelectedData(m as [{ id: number }])
   }
 })
 

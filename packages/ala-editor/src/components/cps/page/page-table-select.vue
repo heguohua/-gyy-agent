@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-30 09:28:33
+ * @LastEditTime: 2025-08-26 18:59:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -167,7 +167,7 @@ const selectCheckboxWidth = () => {
 
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {
-    
+
     if (props.singleValue) {
         // 如果选择了多条，则给出提示信息
         if (items.length > 1) {
@@ -303,7 +303,7 @@ const clear = () => {
 }
 
 const model = defineModel({
-    type: Array<any>,
+    type: [String, Array<any>] as PropType<string | Array<any>>,
     default: () => ([])
 })
 
@@ -314,8 +314,14 @@ onMounted(() => {
     queryPageData()
 
     // 再初始化历史勾选的数据状态
-    if (model.value && model.value.length > 0) {
-        model.value.forEach(item => {
+    let m: Array<any> = []
+    if (typeof model.value === 'string') {
+        m = u.parseJson(model.value)
+    } else {
+        m = model.value
+    }
+    if (m && m.length > 0) {
+        m.forEach(item => {
             table.value.toggleRowSelection(item, true);
         })
     }
