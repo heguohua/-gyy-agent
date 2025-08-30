@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:53:16
+ * @LastEditTime: 2025-08-30 18:05:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -202,8 +202,8 @@ const styles = computed(() => {
 
 // 分页列表中列属性配置
 const dialogShow = ref(false)
-const openDialog = () => {
-  if (isDisabled) {
+const openDialog = () => {  
+  if (isDisabled.value) {
     return
   }
   dialogShow.value = true;
