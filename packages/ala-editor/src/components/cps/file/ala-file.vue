@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 08:24:54
+ * @LastEditTime: 2025-08-30 17:16:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/ala-file.vue
  * @Description: 
  * 
@@ -86,6 +86,13 @@ const props = defineProps({
     default: () => 'demo'
   },
   multipleFile: {
+    type: Boolean,
+    default: () => false
+  },
+  data: {
+    type: Object,
+  },
+  noEditable: {
     type: Boolean,
     default: () => false
   }
@@ -225,6 +232,15 @@ const handleDelete = (file: AFile) => {
     })
 }
 
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
 
 // Methods
 </script>

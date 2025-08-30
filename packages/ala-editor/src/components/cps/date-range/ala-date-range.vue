@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:52:53
+ * @LastEditTime: 2025-08-30 17:21:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
  * @Description: 
  * 
@@ -17,7 +17,7 @@
             <!-- 注意，注意，注意 el-date-picker 中必须使用 @update:model-value 更新数据值-->
             <el-date-picker :model-value="localModel" :disabled-date="disabledDate" :type="dateType"
                 :placeholder="placeholder" :size="size" @update:model-value="handleChange"
-                :picker-options="pickerOptions" />
+                :picker-options="pickerOptions" :disabled="isDisabled" />
         </el-form-item>
 
     </div>
@@ -32,9 +32,6 @@ const size = ref<'default' | 'large' | 'small'>('default')
 
 // State
 const props = defineProps({
-    data: {
-        type: Object
-    },
     label: {
         type: String,
         default: ''
@@ -82,6 +79,13 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -160,6 +164,15 @@ const disabledDate = (time: Date) => {
 }
 
 // Methods
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
 
 </script>
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:34:46
+ * @LastEditTime: 2025-08-30 17:22:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/rating/ala-rating.vue
  * @Description: 
  * 
@@ -14,7 +14,8 @@
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <el-rate :model-value="model" :allow-half="allowHalf" :max="max" @change="handleChange" :id="fieldName" />
+            <el-rate :model-value="model" :allow-half="allowHalf" :max="max" @change="handleChange" :id="fieldName"
+                :disabled="isDisabled" />
         </el-form-item>
     </div>
 </template>
@@ -51,6 +52,13 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -69,6 +77,15 @@ const styles = computed(() => {
     } else {
         return {}
     }
+})
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
 })
 
 // Methods

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 20:34:09
+ * @LastEditTime: 2025-08-30 17:24:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/ala-textarea.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
                 <AlaFormLabel :label="label" :help="help" />
             </template>
             <el-input type="textarea" autosize :model-value="model" @input="handleChange" :placeholder="placeholder"
-                :id="fieldName" class="ala-textarea-el-input">
+                :id="fieldName" class="ala-textarea-el-input" :disabled="isDisabled">
 
                 <template #prefix v-if="icon">
                     <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
@@ -65,6 +65,13 @@ const props = defineProps({
     cleanNewlineCharacter: {
         type: Boolean,
         default: false
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -78,6 +85,17 @@ const handleChange = (value: string) => {
     }
     model.value = value
 }
+
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
+
 
 // Methods
 

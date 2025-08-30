@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-01 18:07:27
+ * @LastEditTime: 2025-08-30 17:16:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -156,9 +156,6 @@ interface ItemProperty {
 }
 // State
 const props = defineProps({
-    data: {
-        type: Object,
-    },
     label: {
         type: String,
         default: ''
@@ -189,6 +186,13 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -629,6 +633,18 @@ const saveOrPause = (): Boolean => {
 
     return checkResult
 }
+
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
+
+
 defineExpose({
     saveOrPause: saveOrPause
 })

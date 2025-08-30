@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:23:57
+ * @LastEditTime: 2025-08-30 17:22:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/ala-select.vue
  * @Description: 
  * 
@@ -15,7 +15,8 @@
       <template #label>
         <AlaFormLabel :label="label" :help="help" />
       </template>
-      <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName">
+      <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName"
+        :disabled="isDisabled">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>
@@ -59,6 +60,13 @@ const props = defineProps({
   },
   help: {
     type: String,
+  },
+  data: {
+    type: Object,
+  },
+  noEditable: {
+    type: Boolean,
+    default: () => false
   }
 })
 
@@ -86,6 +94,15 @@ const clasz = computed(() => {
   }
 
   return claszName;
+})
+
+const isDisabled = computed(() => {
+  const idd = false
+
+  if (props.data?.id && props.noEditable) {
+    return true
+  }
+  return idd
 })
 
 // Methods

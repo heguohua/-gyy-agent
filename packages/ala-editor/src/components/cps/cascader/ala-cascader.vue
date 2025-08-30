@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-27 22:39:36
+ * @LastEditTime: 2025-08-30 17:20:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader/ala-cascader.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
         <AlaFormLabel :label="label" :help="help" />
       </template>
       <el-cascader :model-value="data" :options="options" :props="configs" @change="handleChange" :clearable="clearable"
-        :showAllLevels="showAllLevels" :filterable="filterable" :placeholder="placeholder">
+        :showAllLevels="showAllLevels" :filterable="filterable" :placeholder="placeholder" :disabled="isDisabled">
 
         <template #default="{ node, data }">
           <div v-if="node.isLeaf" class="c-leaf">
@@ -85,6 +85,13 @@ const props = defineProps({
   filterable: {
     type: Boolean,
     default: false
+  },
+  data: {
+    type: Object,
+  },
+  noEditable: {
+    type: Boolean,
+    default: () => false
   }
 })
 
@@ -127,6 +134,15 @@ const options = computed(() => {
     items = u.parseJson(props.items)
   }
   return items
+})
+
+const isDisabled = computed(() => {
+  const idd = false
+
+  if (props.data?.id && props.noEditable) {
+    return true
+  }
+  return idd
 })
 
 </script>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-20 19:57:35
+ * @LastEditTime: 2025-08-30 17:24:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/slider/ala-slider.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <el-slider :model-value="model" :min="min" :max="max" :step="step" :disabled="disabled" :range="range"
+            <el-slider :model-value="model" :min="min" :max="max" :step="step" :disabled="isDisabled" :range="range"
                 @update:model-value="handleChange" :id="fieldName" />
 
         </el-form-item>
@@ -65,6 +65,13 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -76,6 +83,19 @@ const handleChange = (value: Array<number>) => {
     model.value = value
 }
 
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if(props.disabled){
+        return true
+    }
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
 
 // Methods
 

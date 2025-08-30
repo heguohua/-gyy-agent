@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 18:59:09
+ * @LastEditTime: 2025-08-30 17:17:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -130,6 +130,13 @@ const props = defineProps({
     singleValue: {
         type: Boolean,
         default: false
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 
 })
@@ -363,6 +370,15 @@ const getValue = (rowData: any, columnName: string, type: any) => {
 
     return v
 }
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
 
 // 暴露方法
 defineExpose({ refresh, cancelSelect, clear })

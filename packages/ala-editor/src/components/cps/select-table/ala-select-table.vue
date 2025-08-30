@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 19:00:55
+ * @LastEditTime: 2025-08-30 17:18:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -176,6 +176,13 @@ const props = defineProps({
   valueToString: {
     type: Boolean,
     default: false
+  },
+  data: {
+    type: Object,
+  },
+  noEditable: {
+    type: Boolean,
+    default: () => false
   }
 })
 
@@ -327,9 +334,9 @@ const querySelectedData = (items: [{ id: number }]) => {
 watch(() => dialogShow.value, (value) => {
   if (value) {
     let m = []
-    if(typeof model.value === 'string'){
+    if (typeof model.value === 'string') {
       m = u.parseJson(model.value)
-    }else{
+    } else {
       m = model.value
     }
     querySelectedData(m as [{ id: number }])
@@ -363,6 +370,15 @@ const isDynamicTable = () => {
   return false
 }
 
+
+const isDisabled = computed(() => {
+  const idd = false
+
+  if (props.data?.id && props.noEditable) {
+    return true
+  }
+  return idd
+})
 
 </script>
 

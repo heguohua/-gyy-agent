@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-28 16:14:42
+ * @LastEditTime: 2025-08-30 17:23:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -23,7 +23,7 @@
           value: itemProperty.valueName // 自定义value属性名
         }" :clearable="clearable" :default-expand-all="defaultExpandAll" :default-expanded-keys="eKeys"
         :placeholder="placeholder" :check-strictly="!checkStrictly" :node-key="itemProperty.valueName"
-        :show-checkbox="showCheckbox" />
+        :show-checkbox="showCheckbox" :disabled="isDisabled" />
 
     </el-form-item>
   </div>
@@ -112,6 +112,13 @@ const props = defineProps({
   },
   help: {
     type: String,
+  },
+  data: {
+    type: Object,
+  },
+  noEditable: {
+    type: Boolean,
+    default: () => false
   }
 })
 
@@ -216,6 +223,15 @@ watch(() => model.value, () => {
 
 
 
+
+const isDisabled = computed(() => {
+  const idd = false
+
+  if (props.data?.id && props.noEditable) {
+    return true
+  }
+  return idd
+})
 
 
 </script>

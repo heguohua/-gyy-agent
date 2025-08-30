@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-13 15:46:51
+ * @LastEditTime: 2025-08-30 17:22:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <el-radio-group @change="handleChange" :model-value="model" class="ala-radio-group">
+            <el-radio-group @change="handleChange" :model-value="model" class="ala-radio-group" :disabled="isDisabled">
                 <div class="ala-radio-item" v-for="(item, index) in items" :key="item.value">
                     <el-radio :value="item.value" :id="fieldName">{{ item.name }}</el-radio>
                 </div>
@@ -59,6 +59,13 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -93,6 +100,18 @@ const styles = computed(() => {
         return {}
     }
 })
+
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
+
+
 </script>
 
 <style scoped lang="scss">

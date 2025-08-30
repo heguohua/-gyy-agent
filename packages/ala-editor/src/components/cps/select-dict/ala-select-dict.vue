@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 12:17:11
+ * @LastEditTime: 2025-08-30 17:22:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
         <AlaFormLabel :label="label" :help="help" />
       </template>
       <el-select @change="handleChange" :model-value="localValue" class="ala-select-group" :style="styles"
-        :id="fieldName" :clearable="clearable" :placeholder="placeholder">
+        :id="fieldName" :clearable="clearable" :placeholder="placeholder" :disabled="isDisabled">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>
@@ -81,6 +81,13 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  data: {
+    type: Object,
+  },
+  noEditable: {
+    type: Boolean,
+    default: () => false
+  }
 })
 
 interface item {
@@ -198,6 +205,18 @@ watch(() => isFormDesign.value, (v) => {
     query()
   }
 })
+
+
+const isDisabled = computed(() => {
+  const idd = false
+
+  if (props.data?.id && props.noEditable) {
+    return true
+  }
+  return idd
+})
+
+
 </script>
 
 <style scoped lang="scss"></style>

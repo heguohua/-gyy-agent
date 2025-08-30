@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 20:44:46
+ * @LastEditTime: 2025-08-30 17:21:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/ala-number.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
             </template>
             <el-input-number type="number" :model-value="model" @change="handleChange" :placeholder="placeholder"
                 :id="fieldName" :min="min" :max="max" :step="step" :precision="precision"
-                :controls-position="controlsPosition">
+                :controls-position="controlsPosition" :disabled="isDisabled">
                 <template #prefix v-if="icon">
                     <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
                 </template>
@@ -87,7 +87,14 @@ const props = defineProps({
         // type: String as PropType<'' | 'right'>,
         type: Boolean,
         default: () => false
-    }
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
+    },
 })
 
 const model = defineModel({
@@ -106,8 +113,8 @@ const controlsPosition = computed(() => {
 })
 
 const handleChange = (current: number, pre: number) => {
-    console.log('current: --->',current);
-    
+    console.log('current: --->', current);
+
     model.value = current
 }
 
@@ -115,6 +122,15 @@ if (!model.value) {
     model.value = props.initValue
 }
 // Methods
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
 
 </script>
 

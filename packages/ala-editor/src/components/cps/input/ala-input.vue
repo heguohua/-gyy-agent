@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 14:03:14
+ * @LastEditTime: 2025-08-30 17:17:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -10,11 +10,12 @@
 -->
 <template>
     <div class="ala-input-wrapper">
-        <el-form-item :label-position="position" :prop="fieldName" >
+        <el-form-item :label-position="position" :prop="fieldName">
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName">
+            <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName"
+                :disabled="isDisabled">
 
                 <template #prefix v-if="icon">
                     <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
@@ -70,6 +71,13 @@ const props = defineProps({
     iconHeight: {
         type: Number,
         default: 30
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -104,6 +112,15 @@ if (props.bType === 'form') {
 }
 
 
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
+
 
 </script>
 
@@ -113,5 +130,4 @@ if (props.bType === 'form') {
 // }
 // :deep(.el-input__prefix-inner>:last-child){
 //     margin-right: 4px;
-// }
-</style>
+// }</style>

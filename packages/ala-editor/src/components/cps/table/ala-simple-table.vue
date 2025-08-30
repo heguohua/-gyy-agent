@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-02 16:34:34
+ * @LastEditTime: 2025-08-30 17:18:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/table/ala-simple-table.vue
  * @Description: 
  * 
@@ -14,9 +14,10 @@
         <table v-if="rows.length > 0">
             <thead class="thead">
                 <tr>
-                        
+
                     <th v-for="(header, index) in headers" :key="index">
-                        <AlaPopover :src="getIcon(header)" :imageWidth="iconWidth+'px'" :imageHeight="iconHeight+'px'" :text="header.name" trigger="hover">
+                        <AlaPopover :src="getIcon(header)" :imageWidth="iconWidth + 'px'"
+                            :imageHeight="iconHeight + 'px'" :text="header.name" trigger="hover">
                             <template #default>
                                 {{ header.label }}
                             </template>
@@ -101,6 +102,13 @@ const props = defineProps({
         type: Array<Row>,
         default: () => ([])
     },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
+    }
 })
 
 const model = defineModel({
@@ -136,6 +144,15 @@ const getTdClass = (header: Header) => {
 }
 
 
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
 
 
 </script>

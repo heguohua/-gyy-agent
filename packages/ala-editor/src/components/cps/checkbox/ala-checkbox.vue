@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-11 15:48:23
+ * @LastEditTime: 2025-08-30 17:20:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
@@ -14,7 +14,8 @@
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <el-checkbox-group @change="handleChange" :model-value="localValue" class="ala-checkbox-group">
+            <el-checkbox-group @change="handleChange" :model-value="localValue" class="ala-checkbox-group"
+                :disabled="isDisabled">
                 <div class="ala-checkbox--item" v-for="(item, index) in items" :key="bType + '-' + item.value">
                     <el-checkbox :value="item.value" :id="fieldName + index">{{ item.name }}</el-checkbox>
                 </div>
@@ -59,6 +60,13 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -104,6 +112,17 @@ const styles = computed(() => {
         return {}
     }
 })
+
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
+
 </script>
 
 <style scoped lang="scss">

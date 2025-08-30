@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-20 09:23:52
+ * @LastEditTime: 2025-08-30 17:19:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/switch/ala-switch.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
             </template>
             <el-switch :model-value="model" :active-color="activeColor" :inactive-color="inActiveColor"
                 :active-text="activeText" :inactive-text="inActiveText" :active-value="activeValue"
-                :inactive-value="inActiveValue" @change="handleChange" :id="fieldName">
+                :inactive-value="inActiveValue" @change="handleChange" :id="fieldName" :disabled="isDisabled" >
             </el-switch>
         </el-form-item>
     </div>
@@ -73,6 +73,13 @@ const props = defineProps({
     },
     help: {
         type: String,
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -96,6 +103,15 @@ const clasz = computed(() => {
     }
 
     return claszName;
+})
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
 })
 
 // Methods

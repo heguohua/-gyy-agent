@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-04 22:43:03
+ * @LastEditTime: 2025-08-30 17:19:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tree/ala-tree.vue
  * @Description: 
  * 
@@ -47,8 +47,8 @@
     </div>
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="params" :fields="basicFields" :formData="formData"
-        labelPosition="top" :moduleName="title" :url="addUrl" :updateUrl="updateUrl"
-        :tipTitle="$t('pop.warm_title')" :formAttr="formAttr" />
+        labelPosition="top" :moduleName="title" :url="addUrl" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
+        :formAttr="formAttr" />
 
 </template>
 
@@ -106,6 +106,13 @@ const props = defineProps({
         type: Boolean,
         default: true
     },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
+    }
 })
 
 // 表单数据保存对象
@@ -289,6 +296,15 @@ const baseInfo = inject('baseInfo') as { [key: string]: any };
 watch(() => currentNode.value, (value: any) => {
     baseInfo.folder = value
     currentNodeKey.value = value.id
+})
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
 })
 
 </script>

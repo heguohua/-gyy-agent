@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 16:45:03
+ * @LastEditTime: 2025-08-30 16:56:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -17,7 +17,7 @@
             </template>
             <template #default>
 
-                <div :class="isHidden(item)" v-for="(item, index) in realFields" :key="item.fieldName + '-' + index"
+                <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
                     :style="columnWidth(item)">
                     <component :is="item.componentName" :label="item.label"
                         :position="item.other?.position ? item.other.position : labelPosition"
@@ -104,18 +104,18 @@ const props = defineProps({
 
 })
 
-const realFields = computed(() => {
-    const fields: Array<AlaField> = []
-    const ff: Array<AlaField> = props.fields
-    for (let i = 0; i < ff.length; i++) {
-        const af = ff[i]
-        if (props.data?.id && af?.other?.noEditable) {
-            continue
-        }
-        fields.push(af)
-    }
-    return fields
-})
+// const realFields = computed(() => {
+//     const fields: Array<AlaField> = []
+//     const ff: Array<AlaField> = props.fields
+//     for (let i = 0; i < ff.length; i++) {
+//         const af = ff[i]
+//         if (props.data?.id && af?.other?.noEditable) {
+//             continue
+//         }
+//         fields.push(af)
+//     }
+//     return fields
+// })
 
 watch(() => props.formAttr, (v: any) => {
 }, {

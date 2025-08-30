@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-11 22:34:35
+ * @LastEditTime: 2025-08-30 17:21:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/password/ala-password.vue
  * @Description: 
  * 
@@ -14,7 +14,8 @@
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
-            <el-input type="password" :model-value="model" @input="handleChange" :placeholder="placeholder"></el-input>
+            <el-input type="password" :model-value="model" @input="handleChange" :placeholder="placeholder"
+                :disabled="isDisabled"></el-input>
         </el-form-item>
     </div>
 </template>
@@ -41,6 +42,13 @@ defineProps({
     },
     help: {
         type: String,
+    },
+    data: {
+        type: Object,
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -51,6 +59,15 @@ const model = defineModel({
 const handleChange = (value: string) => {
     model.value = value
 }
+
+const isDisabled = computed(() => {
+    const idd = false
+
+    if (props.data?.id && props.noEditable) {
+        return true
+    }
+    return idd
+})
 
 // Methods
 
