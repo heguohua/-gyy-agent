@@ -138,6 +138,12 @@ const required = Type.String({
     title: "必填字段？",
     default: false,
 })
+const noEditable = Type.String({
+    code: "config-boolean",
+    title: "禁止修改？",
+    default: false,
+})
+
 
 const numberMin = Type.String({
     code: "config-int",
@@ -205,6 +211,7 @@ const schema = Type.Object({
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
+    noEditable: schemaAllViewport(noEditable),
     detail: schemaAllViewport(detail),
     min: schemaAllViewport(numberMin),
     max: schemaAllViewport(configInt('最大值', Number.MAX_VALUE, 0)),

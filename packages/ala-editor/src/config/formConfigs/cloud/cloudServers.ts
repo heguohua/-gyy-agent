@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 15:45:00
+ * @LastEditTime: 2025-08-30 16:53:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/cloudServers.ts
  * @Description: 
  * 
@@ -31,15 +31,15 @@ export const cloudServers: FormConfig = {
 
         alaBuildChapter('基础配额'),
         // alaBuildInput("osName", '操作系统', [alaRequired()]),
-        alaBuildSelectDict("osName", "操作系统", { "dictValue": "osType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择操作系统", { clearable: true }),
+        alaBuildSelectDict("osName", "操作系统", { "dictValue": "osType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择操作系统", { clearable: { desktop: true }, noEditable: { desktop: false } }),
 
-        alaBuildInput("innerIp", '内网IP地址', [alaRequired()]),
+        alaBuildInput("innerIp", '内网IP地址', [alaRequired()], "请填写内网IP地址", { noEditable: { desktop: false } }),
         alaBuildNumber("cpuAmount", "CPU核心数", [alaRequired(), alaNumberRange(1, 200)], "请输入CPU最大线程数", { initValue: 4, precision: 0 }),
         alaBuildNumber("memoryAmount", "内存/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 16, precision: 0 }),
         alaBuildNumber("osDiskAmount", "系统盘容量/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入系统盘容量", { initValue: 40, precision: 0 }),
 
-        alaBuildChapter('调度策略'),
-        alaBuildSelectTable("physicalServers", "物理服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true)
+        alaBuildChapter('调度策略', "", { noEditable: { desktop: false } }),
+        alaBuildSelectTable("physicalServers", "物理服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true, { noEditable: { desktop: false } })
 
 
     ],

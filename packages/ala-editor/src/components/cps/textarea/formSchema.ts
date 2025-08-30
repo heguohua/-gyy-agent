@@ -154,6 +154,12 @@ const required = Type.String({
     title: "必填字段？",
     default: false,
 })
+const noEditable = Type.String({
+    code: "config-boolean",
+    title: "禁止修改？",
+    default: false,
+})
+
 
 
 
@@ -171,6 +177,7 @@ const schema = Type.Object({
     showInTable: schemaAllViewport(showInTable),
     detail: schemaAllViewport(detail),
     required: schemaAllViewport(required),
+    noEditable: schemaAllViewport(noEditable),
     strMin: schemaAllViewport(strMin),
     strMax: schemaAllViewport(strMax),
     pageMax: schemaAllViewport(pageMax),

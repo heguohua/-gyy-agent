@@ -76,6 +76,12 @@ const required = Type.String({
     title: "必填字段？",
     default: false,
 })
+const noEditable = Type.String({
+    code: "config-boolean",
+    title: "禁止修改？",
+    default: false,
+})
+
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
@@ -85,6 +91,7 @@ const schema = Type.Object({
     columnNum: schemaAllViewport(columnNum),
     columnWidth: schemaAllViewport(columnWidth),
     required: schemaAllViewport(required),
+    noEditable: schemaAllViewport(noEditable),
 })
 
 export type AlaFormTableSchema = Static<typeof schema>

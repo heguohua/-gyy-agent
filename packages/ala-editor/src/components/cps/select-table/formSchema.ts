@@ -162,6 +162,12 @@ const required = Type.String({
     title: "必填字段？",
     default: false,
 })
+const noEditable = Type.String({
+    code: "config-boolean",
+    title: "禁止修改？",
+    default: false,
+})
+
 const icon = Type.String({
     code: "config-input",
     title: "头部图标",
@@ -213,6 +219,7 @@ const schema = Type.Object({
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
+    noEditable: schemaAllViewport(noEditable),
     canEmpty: schemaAllViewport(canEmpty),
 })
 

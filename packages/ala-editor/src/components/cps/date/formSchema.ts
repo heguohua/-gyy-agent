@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 19:01:55
+ * @LastEditTime: 2025-08-30 16:31:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/formSchema.ts
  * @Description: 
  * 
@@ -121,6 +121,13 @@ const required = Type.String({
     title: "必填字段？",
     default: false,
 })
+const noEditable = Type.String({
+    code: "config-boolean",
+    title: "禁止修改？",
+    default: false,
+})
+
+
 
 const daysBefore = Type.String({
     code: "config-int",
@@ -157,6 +164,7 @@ const schema = Type.Object({
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
+    noEditable: schemaAllViewport(noEditable),
     // style: schemaAllViewport(style),
 })
 
