@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 19:10:34
+ * @LastEditTime: 2025-08-30 15:45:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/cloudServers.ts
  * @Description: 
  * 
@@ -53,6 +53,7 @@ export const cloudServers: FormConfig = {
     detailFields: [
         alaDetailChapter('基本信息'),
         alaDetailInput('name', "云主机名", 1, true),
+        alaDetailInput('code', "云主机编码", 1, false),
 
         alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.svg', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px' }),
         alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, {}),
@@ -78,7 +79,8 @@ export const cloudServers: FormConfig = {
     pageApi: '/c/cloudServers/page',
     pageFields: [
 
-        alaDetailInput('name', "云主机名", 1, true, { columnWidth: { desktop: '250' } }),
+        alaDetailInput('name', "云主机名", 1, true, { columnWidth: { desktop: '150' } }),
+        alaDetailInput('cloudServersGroup', "业务组", 1, false, { deepColumnName: { desktop: 'name' }, columnWidth: { desktop: '250' } }),
         alaDetailInput('innerIp', "内网IP地址", 1, false, { columnWidth: { desktop: '140' } }),
         alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.svg', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
         // alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '160' } }),\
