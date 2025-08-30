@@ -54,7 +54,7 @@ export const cloudServers: FormConfig = {
         alaDetailChapter('基本信息'),
         alaDetailInput('name', "云主机名", 1, true),
 
-        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px' }),
+        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.svg', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px' }),
         alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, {}),
         alaDetailInput('cloudServersGroup', "业务组", 1, false, { deepColumnName: { desktop: 'name' } }),
         alaDetailTextarea('specifications', "备注"),
@@ -80,7 +80,7 @@ export const cloudServers: FormConfig = {
 
         alaDetailInput('name', "云主机名", 1, true, { columnWidth: { desktop: '250' } }),
         alaDetailInput('innerIp', "内网IP地址", 1, false, { columnWidth: { desktop: '140' } }),
-        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
+        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.svg', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
         // alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '160' } }),\
         alaDetailSelectDict('osName', "操作系统", 'dictLabel', 1, false, { columnWidth: { desktop: '260' } }),
         alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' }, unit: { desktop: '核' } }),

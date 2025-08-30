@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 21:11:23
+ * @LastEditTime: 2025-08-30 15:32:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/physicalServers.ts
  * @Description: 
  * 
@@ -51,7 +51,7 @@ export const physicalServers: FormConfig = {
         alaDetailInput('osName', "操作系统"),
         alaDetailInput('innerIp', "内网IP地址"),
 
-        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px' }),
+        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.svg', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px' }),
 
         alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, {}),
         alaDetailInput('physicalServersGroup', "所在地区", 1, false, { deepColumnName: { desktop: 'name' } }),
@@ -80,8 +80,8 @@ export const physicalServers: FormConfig = {
     pageApi: '/c/physicalServers/page',
     pageFields: [
 
-        alaDetailInput('name', "主机名称", 1, true, { columnWidth: { desktop: '250' } }),
-        alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '115' } }),
+        alaDetailInput('name', "主机名称", 1, true, { columnWidth: { desktop: '150' } }),
+        alaDetailInput('osName', "操作系统", 1, false, { columnWidth: { desktop: '250' } }),
         alaDetailInput('innerIp', "内网IP地址", 1, false, { columnWidth: { desktop: '130' } }),
         alaDetailNumber('cpuAmount', "CPU核心数", 1, false, { columnWidth: { desktop: '130' }, unit: { desktop: '核' } }),
         alaDetailNumber('cpuOverIssueRadio', "CPU超发倍数", 1, false, { columnWidth: { desktop: '150' }, unit: { desktop: '倍' } }),
@@ -91,7 +91,7 @@ export const physicalServers: FormConfig = {
         alaDetailNumber('allocatedMemoryAmount', "已分配内存", 1, false, { columnWidth: { desktop: '160' }, unit: { desktop: 'GB' } }),
         alaDetailNumber('realMemoryAmount', "实用内存", 1, false, { columnWidth: { desktop: '145' }, unit: { desktop: 'GB' } }),
 
-        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.png', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
+        alaDetailSwitchImage('runningStatus', '开机/关机/离线', [{ value: 1, src: '/cloud/power-on.svg', title: '开机' }, { value: 2, src: '/cloud/power-off.png', title: '关机' }, { value: 3, src: '/iot/offline.png', title: '离线' }], 1, false, { height: '30px', columnWidth: { desktop: '165' } }),
 
         alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '115' } }),
 
