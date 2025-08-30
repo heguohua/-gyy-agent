@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 12:58:25
+ * @LastEditTime: 2025-08-30 17:41:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectDictColumn.vue
  * @Description: 
  * 
@@ -30,6 +30,7 @@
 import u from '@/utils/u';
 import { useAlaStore } from '@/store/ala-store'
 import { alaPost } from '@/utils/req';
+import { PropType } from 'vue';
 
 // State
 const props = defineProps({
@@ -42,7 +43,7 @@ const props = defineProps({
         default: {}
     },
     value: {
-        type: Array,
+        type: [String, Array<any>] as PropType<string | Array<any>>,
         default: []
     },
     label: {

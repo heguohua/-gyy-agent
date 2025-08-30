@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:18:18
+ * @LastEditTime: 2025-08-30 17:53:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -21,7 +21,7 @@
         </p>
         <p class="show-values" v-if="model && model.length != 0" v-html="showValue"></p>
       </div>
-      <div class="ala-select-customer-icon">
+      <div class="ala-select-customer-icon" :style="disableStyles">
         <v-icon class="icon" :icon="icon" @click="openDialog" :width="iconWidth" :height="iconHeight" />
       </div>
     </el-form-item>
@@ -192,12 +192,20 @@ const model = defineModel({
 })
 
 const styles = computed(() => {
-  return { minWidth: props.width + 'px' }
+  const style: any = { minWidth: props.width + 'px' }
+  if (props.data?.id && props.noEditable) {
+    style.cursor = 'not-allowed'
+    style.opacity = 0.6
+  }
+  return style
 })
 
 // 分页列表中列属性配置
 const dialogShow = ref(false)
 const openDialog = () => {
+  if (isDisabled) {
+    return
+  }
   dialogShow.value = true;
 }
 
@@ -378,6 +386,17 @@ const isDisabled = computed(() => {
     return true
   }
   return idd
+})
+
+
+const disableStyles = computed(() => {
+  const style: any = {}
+
+  if (props.data?.id && props.noEditable) {
+    style.cursor = 'not-allowed'
+    style.opacity = 0.6
+  }
+  return style
 })
 
 </script>
