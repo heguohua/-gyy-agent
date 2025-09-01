@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-06 15:39:46
+ * @LastEditTime: 2025-09-01 11:27:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemRole.ts
  * @Description: 
  * 
@@ -29,7 +29,8 @@ export const systemRole: FormConfig = {
     formFields: [
         alaBuildHidden('id'),// 固定格式
         alaBuildInput("name", '角色名', [alaRequired()]),
-        alaBuildRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1 }, { '本部门及下级部门': 2 }, { '本部门': 3 }, { '仅本人': 4 }], [alaRequired()]),
+        // alaBuildRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1 }, { '本部门及下级部门': 2 }, { '本部门': 3 }, { '仅本人': 4 }], [alaRequired()]),
+        alaBuildRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1 }, { '本部门': 3 }, { '仅本人': 4 }], [alaRequired()]),
         alaBuildTextarea("remark", "备注", [], "请输入角色备注"),
     ],
     detailAttr: {
@@ -41,7 +42,8 @@ export const systemRole: FormConfig = {
     },
     detailFields: [
         alaDetailInput('name', "角色名"),
-        alaDetailRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1, 'color': colors.danger }, { '本部门及下级部门': 2, 'color': colors.warning }, { '本部门': 3, 'color': colors.primary }, { '仅本人': 4, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
+        // alaDetailRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1, 'color': colors.danger }, { '本部门及下级部门': 2, 'color': colors.warning }, { '本部门': 3, 'color': colors.primary }, { '仅本人': 4, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
+        alaDetailRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1, 'color': colors.danger }, { '本部门': 3, 'color': colors.primary }, { '仅本人': 4, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '100' } }),
         alaDetailTextarea('remark', '备注', 200),
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -52,7 +54,8 @@ export const systemRole: FormConfig = {
     pageApi: '/u/role/page',
     pageFields: [
         alaDetailInput('name', "角色名", 1, true),
-        alaDetailRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1, 'color': colors.danger }, { '本部门及下级部门': 2, 'color': colors.warning }, { '本部门': 3, 'color': colors.primary }, { '仅本人': 4, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '200' } }),
+        // alaDetailRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1, 'color': colors.danger }, { '本部门及下级部门': 2, 'color': colors.warning }, { '本部门': 3, 'color': colors.primary }, { '仅本人': 4, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '200' } }),
+        alaDetailRadio('dataAuthority', "数据权限范围", [{ '所有数据': 1, 'color': colors.danger }, { '本部门': 3, 'color': colors.primary }, { '仅本人': 4, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '200' } }),
         alaDetailTextarea('remark', '备注', 200),
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
