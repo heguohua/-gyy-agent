@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 10:08:26
+ * @LastEditTime: 2025-09-01 21:36:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -56,6 +56,16 @@
 
     <!-- 新增、编辑 -->
     <!-- <MenuAdd @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" /> -->
+
+    <AlaDialog v-if="showParentMenuSelectDialog" :showDialog="showParentMenuSelectDialog" @confirm="handleConfirm"
+        @cancel="handleCancel" title="请选择父级菜单">
+        <template #body>
+            <el-form :model="form" :rules="rules" ref="formRef" label-width="100px">
+                <AlaSelectTree label="父级菜单" fieldName="pid" placeholder="请选择父级菜单" url="/u/menu/parentTree"
+                    :itemProperty="itemProperty" v-model="form.pid" />
+            </el-form>
+        </template>
+    </AlaDialog>
 
 </template>
 
@@ -200,16 +210,19 @@ const showDetail = (item: { [key: string]: any }) => {
 }
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
+const showParentMenuSelectDialog = ref(false)
+const itemProperty = {
+    propertyName: 'name',
+    valueName: 'id',
+    childrenName: 'children',
+}
+const formRef = ref()
 
 const handlePublish = (item: any) => {
-    // 保存数据并刷新分页列表
-    // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
-    const url = "/l/lowcodingConfig/publish"
-    logger.info(`发布配置项，url【 ${url} 】，数据对象：`, item);
-    alaPost(u.url(url || ''), { id: item.id }, false, '').then((data: any) => {
-        const response = data;
-        notify.success(t('pop.warm_title'), t('buttons.publish') + '成功')
-    });
+
+    showParentMenuSelectDialog.value = true
+    form.value.id = item.id
+
 }
 
 const handleForcePublish = (item: any) => {
@@ -218,10 +231,37 @@ const handleForcePublish = (item: any) => {
     const url = "/l/lowcodingConfig/forcePublish"
     logger.info(`发布配置项，url【 ${url} 】，数据对象：`, item);
     alaPost(u.url(url || ''), { id: item.id }, false, '').then((data: any) => {
-        const response = data;
         notify.success(t('pop.warm_title'), t('buttons.force_publish') + '成功')
-
     });
+}
+
+const form = ref({ id: undefined, pid: undefined })
+const rules = {
+    pid: [
+        { required: true, message: '请选择父菜单', trigger: 'blur' },
+    ]
+}
+
+const handleConfirm = () => {
+
+    formRef.value.validate((valid: boolean) => {
+        if (valid) {
+
+            form.value.pid = form.value.pid![0]['id']
+            const url = "/l/lowcodingConfig/publish"
+            logger.info(`发布配置项，url【 ${url} 】，数据对象：`, form.value);
+
+            alaPost(u.url(url || ''), form.value, false, '').then((data: any) => {
+                notify.success(t('pop.warm_title'), t('buttons.publish') + '成功')
+                showParentMenuSelectDialog.value = false
+            });
+
+        }
+    })
+}
+
+const handleCancel = () => {
+    showParentMenuSelectDialog.value = false
 }
 
 </script>
