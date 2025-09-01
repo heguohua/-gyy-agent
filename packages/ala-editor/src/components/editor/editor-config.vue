@@ -172,8 +172,8 @@ const handleSave = () => {
 
                 for (let i = 0; i < fieldNames.length; i++) {
 
-                    console.log('oneFormItem:',oneFormItem);
-                    
+                    console.log('oneFormItem:', oneFormItem);
+
                     const fieldName = fieldNames[i]
                     const rules = oneFormItem[fieldName].rules
                     const fieldValue = oneFormItem[fieldName].desktop
@@ -243,6 +243,9 @@ const handleSave = () => {
         alaPost(u.url(realUrl || ''), data, false, id ? 'put' : '').then((response: any) => {
             if (response.code === 200) {
                 notify.success("温馨提示：", `保存【 ${bType} 】成功`)
+                if (!id) {
+                    u.merged(editorStore.pageConfig[bType], { id: response.data.id })
+                }
             }
         });
     } else {

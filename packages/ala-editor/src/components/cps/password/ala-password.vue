@@ -23,7 +23,7 @@
 <script setup lang="ts">
 
 // State
-defineProps({
+const props = defineProps({
     label: {
         type: String,
         default: ''
