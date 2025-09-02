@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 18:16:50
+ * @LastEditTime: 2025-09-02 22:37:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
@@ -25,7 +25,7 @@
             <!-- 分页列表 -->
             <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
                 :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-                :showEditButton="true" :showAddButton="true" :showDeleteButton="true">
+                :showEditButton="true" :showAddButton="true" :showDeleteButton="false">
 
 
                 <template #cols="{ row, columnName, formItem }">
@@ -45,6 +45,19 @@
 
                 </template>
 
+                <template #btns="{ row }">
+
+                    <AlaButton :showButton="true" name="start" @start="handleStart(row)" buttonType="primary" />
+
+                    <AlaButton :showButton="true" name="shutdown" @shutdown="handleShutdown(row)" buttonType="danger" />
+
+                    <AlaButtonGroup :buttons="[
+                        { name: 'snapshot', popConfirm: true, handle: handleSnapshot, row: row, buttonType: 'primary' },
+                        { name: 'toSnapshot', popConfirm: true, handle: handleToSnapshot, row: row, buttonType: 'danger' },
+                        { name: 'delete', popConfirm: true, handle: handleDelete, row: row, buttonType: 'danger' },
+                    ]" />
+
+                </template>
 
             </PageTable>
 
@@ -73,6 +86,7 @@ import { dType } from '@/components/cps/dynamic/detailType';
 import Add from '@/pages/cloud/cloudServers/add.vue';
 import notify from '@/utils/notify';
 import { cloudServers } from '@/config/formConfigs/cloud/cloudServers';
+import { alaPost } from '@/utils/req';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -198,6 +212,34 @@ watch(() => baseInfo.folder, (value: any) => {
     refresh()
 })
 
+
+const handleStart = (row: any) => {
+    const params = { id: row.id, runningStatus: 1 }
+    alaPost(u.url('/c/cloudServers/startOrShutdown'), params, false, '').then((response: any) => {
+        let d = response.data
+        notify.success("温馨提示", d)
+    });
+}
+
+const handleShutdown = (row: any) => {
+    const params = { id: row.id, runningStatus: 2 }
+    alaPost(u.url('/c/cloudServers/startOrShutdown'), params, false, '').then((response: any) => {
+        let d = response.data
+        notify.success("温馨提示", d)
+    });
+}
+
+const handleSnapshot = (row: any) => {
+    console.log(' handleSnapshot ', row);
+}
+
+const handleToSnapshot = (row: any) => {
+    console.log(' handleToSnapshot ', row);
+}
+
+const handleDelete = (row: any) => {
+    console.log(' handleDelete ', row);
+}
 
 </script>
 
