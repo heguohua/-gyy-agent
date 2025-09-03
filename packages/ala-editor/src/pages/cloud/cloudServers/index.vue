@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-03 16:31:45
+ * @LastEditTime: 2025-09-03 21:20:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
@@ -52,7 +52,7 @@
                     <AlaButton :showButton="true" name="shutdown" @shutdown="handleShutdown(row)" buttonType="danger" />
 
                     <AlaButtonGroup :buttons="[
-                        { name: 'snapshot', popConfirm: true, handle: handleSnapshot, row: row, buttonType: 'primary' },
+                        { name: 'snapshot', popConfirm: false, handle: handleSnapshot, row: row, buttonType: 'primary' },
                         { name: 'toSnapshot', popConfirm: true, handle: handleToSnapshot, row: row, buttonType: 'danger' },
                         { name: 'delete', popConfirm: true, handle: handleDelete, row: row, buttonType: 'danger' },
                     ]" />
@@ -70,6 +70,16 @@
 
     <!-- dept 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
+
+
+    <AlaDialog v-if="showTypeInSnapshotRemarkDialog" :showDialog="showTypeInSnapshotRemarkDialog"
+        @confirm="handleConfirm" @cancel="handleCancel" title="请填写快照名称">
+        <template #body>
+            <el-form :model="form" :rules="rules" ref="formRef" label-width="100px">
+                <AlaInput label="快照名称" placeholder="请填写快照名称" fieldName="name" v-model="form.name" />
+            </el-form>
+        </template>
+    </AlaDialog>
 
 </template>
 
@@ -235,8 +245,30 @@ const handleShutdown = (row: any) => {
     });
 }
 
+
+const showTypeInSnapshotRemarkDialog = ref(false)
+const form = ref({ cloudServers: undefined, name: undefined })
+const rules = {
+    name: [
+        { required: true, message: '请填写快照名称', trigger: 'blur' },
+    ]
+}
+const handleConfirm = () => {
+    const params = form.value
+    alaPost(u.url('/c/cloudServers/snapshot'), params, false, '').then((response: any) => {
+        let d = response.data
+        notify.success("温馨提示", "提交成功，请等待快照创建完成")
+        u.clear(form.value)
+        showTypeInSnapshotRemarkDialog.value = false
+    });
+}
+
+const handleCancel = () => {
+    showTypeInSnapshotRemarkDialog.value = false
+}
 const handleSnapshot = (row: any) => {
-    console.log(' handleSnapshot ', row);
+    form.value.cloudServers = row.id
+    showTypeInSnapshotRemarkDialog.value = true
 }
 
 const handleToSnapshot = (row: any) => {

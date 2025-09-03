@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-03 18:37:28
+ * @LastEditTime: 2025-09-03 21:21:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/snapshot.ts
  * @Description: 
  * 
@@ -37,6 +37,7 @@ export const snapshot: FormConfig = {
     detailFields: [
         alaDetailInput('name', "快照名称"),
         alaDetailSelectTable('cloudServers', "云主机", "name", 1, false, { columnWidth: { desktop: '200' }, url: { desktop: '/c/cloudServers/page' } }),
+        alaDetailInput('snapshotName', "快照文件名"),
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailInput('updatedName', "更新人"),
@@ -46,6 +47,7 @@ export const snapshot: FormConfig = {
     pageFields: [
         alaDetailInput('name', "快照名称", 1, true, { columnWidth: { desktop: '150' } }),
         alaDetailSelectTable('cloudServers', "云主机", "name", 1, false, { columnWidth: { desktop: '200' }, url: { desktop: '/c/cloudServers/page' } }),
+        alaDetailInput('snapshotName', "快照文件名"),
         alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     ],
