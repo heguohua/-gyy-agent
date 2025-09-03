@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-02 22:37:17
+ * @LastEditTime: 2025-09-03 16:31:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
@@ -218,6 +218,9 @@ const handleStart = (row: any) => {
     alaPost(u.url('/c/cloudServers/startOrShutdown'), params, false, '').then((response: any) => {
         let d = response.data
         notify.success("温馨提示", d)
+        setTimeout(() => {
+            refresh()
+        }, 5000)
     });
 }
 
@@ -226,6 +229,9 @@ const handleShutdown = (row: any) => {
     alaPost(u.url('/c/cloudServers/startOrShutdown'), params, false, '').then((response: any) => {
         let d = response.data
         notify.success("温馨提示", d)
+        setTimeout(() => {
+            refresh()
+        }, 5000)
     });
 }
 
