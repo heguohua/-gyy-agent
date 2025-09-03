@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-03 17:47:27
+ * @LastEditTime: 2025-09-03 23:03:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/snapshot/index.vue
  * @Description: 
  * 
@@ -16,7 +16,7 @@
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="formConfigs.snapshot.pageFields"
         :params="params" :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="true" :showAddButton="true" :showDeleteButton="true">
+        :showEditButton="false" :showAddButton="false" :showDeleteButton="true">
 
 
         <template #cols="{ row, columnName, formItem }">
@@ -34,6 +34,10 @@
                     v-else />
             </template>
 
+        </template>
+
+        <template #btns="{ row }">
+            <AlaButton :showButton="true" name="toSnapshot" @toSnapshot="handleToSnapshot(row)" buttonType="warning" />
         </template>
 
 
@@ -59,6 +63,8 @@ import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import formConfigs from '@/config/formConfigs';
+import { alaPost } from '@/utils/req';
+import notify from '@/utils/notify';
 const { t } = useI18n();
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
@@ -167,6 +173,30 @@ const advancedFields: any = []
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
+
+
+const handleToSnapshot = (row: any) => {
+
+
+    ElMessageBox.confirm(
+        `您确定要还原名字为【 ${row.name} 】的快照吗？`,
+        t('pop.warm_title'),
+        {
+            confirmButtonText: t("buttons.confirm"),
+            cancelButtonText: t("buttons.cancel"),
+            type: 'warning',
+        })
+        .then(() => {
+            alaPost(u.url('/c/cloudServers/toSnapshot'), { id: row.id }, false, '').then((response: any) => {
+                let d = response.data
+                notify.success("温馨提示", "提交成功，请等待快照还原完成")
+            });
+        })
+        .catch(() => {
+            logger.info("用户选择【返回】按钮");
+        })
+
+}
 
 </script>
 

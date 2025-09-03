@@ -53,7 +53,6 @@
 
                     <AlaButtonGroup :buttons="[
                         { name: 'snapshot', popConfirm: false, handle: handleSnapshot, row: row, buttonType: 'primary' },
-                        { name: 'toSnapshot', popConfirm: true, handle: handleToSnapshot, row: row, buttonType: 'danger' },
                         { name: 'delete', popConfirm: true, handle: handleDelete, row: row, buttonType: 'danger' },
                     ]" />
 
@@ -271,9 +270,6 @@ const handleSnapshot = (row: any) => {
     showTypeInSnapshotRemarkDialog.value = true
 }
 
-const handleToSnapshot = (row: any) => {
-    console.log(' handleToSnapshot ', row);
-}
 
 const handleDelete = (row: any) => {
     console.log(' handleDelete ', row);
