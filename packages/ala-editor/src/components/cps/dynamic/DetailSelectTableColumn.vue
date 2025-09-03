@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:41:48
+ * @LastEditTime: 2025-09-03 18:07:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -121,13 +121,15 @@ const showDetailPage = ref(false)
 const showDetail = async (item: string, index: number) => {
 
     const { formData } = formItem.value
-    let url = formData.url?.desktop
+    let url = formData.url?.desktop    
+
     if (!url) return
     let params = formData.params?.desktop
     const valueName = formData.itemProperty.desktop.valueName
 
     // 先从 缓存中加载
     let formConfig = getFormConfigFromCache(url)
+
 
     if (!formConfig) {
         // 说明缓存中没加载到表单配置

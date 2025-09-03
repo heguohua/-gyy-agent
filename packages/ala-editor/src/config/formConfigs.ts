@@ -2,13 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 16:56:40
+ * @LastEditTime: 2025-09-03 18:38:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
+import { snapshot } from "@/config/formConfigs/cloud/snapshot"
 import { physicalServersDisks } from "@/config/formConfigs/cloud/physicalServersDisks"
 import { cloudServers } from "@/config/formConfigs/cloud/cloudServers"
 import { physicalServers } from "@/config/formConfigs/cloud/physicalServers"
@@ -33,6 +34,7 @@ const formConfigs = {
     physicalServers,
     cloudServers,
     physicalServersDisks,
+    snapshot,
 }
 
 
@@ -49,7 +51,6 @@ const lowcodingConfigWithId = new Map<number, LowcodingConfig>()
  */
 export const getFormConfigFromCache = (url: string) => {
     let config = selectTableConfig.get(url)
-    console.log('config: --->', config);
 
     if (!config) {
         // 遍历所有 formConfigs 根据url查找
