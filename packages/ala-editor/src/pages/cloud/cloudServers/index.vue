@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-03 21:20:14
+ * @LastEditTime: 2025-09-04 09:35:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
@@ -53,7 +53,7 @@
 
                     <AlaButtonGroup :buttons="[
                         { name: 'snapshot', popConfirm: false, handle: handleSnapshot, row: row, buttonType: 'primary' },
-                        { name: 'delete', popConfirm: true, handle: handleDelete, row: row, buttonType: 'danger' },
+                        { name: 'delete', popConfirm: false, handle: handleDelete, row: row, buttonType: 'danger' },
                     ]" />
 
                 </template>
@@ -95,7 +95,7 @@ import { dType } from '@/components/cps/dynamic/detailType';
 import Add from '@/pages/cloud/cloudServers/add.vue';
 import notify from '@/utils/notify';
 import { cloudServers } from '@/config/formConfigs/cloud/cloudServers';
-import { alaPost } from '@/utils/req';
+import { alaDelete, alaPost } from '@/utils/req';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -272,7 +272,27 @@ const handleSnapshot = (row: any) => {
 
 
 const handleDelete = (row: any) => {
-    console.log(' handleDelete ', row);
+    ElMessageBox.confirm(
+        `您确定要删除名为【 ${row.name} 】的云服务器吗？`,
+        t('pop.warm_title'),
+        {
+            confirmButtonText: t("buttons.confirm"),
+            cancelButtonText: t("buttons.cancel"),
+            type: 'warning',
+        })
+        .then(() => {
+            logger.info("用户选择【确认】按钮，即将删除数据，当前对象id为：", row.id);
+
+            alaDelete(u.url('/c/cloudServers/delete'), { id: row.id }, false).then((data: any) => {
+                notify.success(t('pop.warm_title'), "云服务器删除【 成功 】。")
+                refresh()
+            });
+
+        })
+        .catch(() => {
+            logger.info("用户选择【返回】按钮");
+        })
+
 }
 
 </script>

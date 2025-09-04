@@ -233,8 +233,6 @@ const showValue = computed(() => {
 function confirmClick() {
 
   const length = selectedData.value.length
-  console.log('props:', props);
-
 
   if (!props.canEmpty && (!selectedData.value || length <= 0)) {
 
