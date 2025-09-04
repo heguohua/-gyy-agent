@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 18:05:54
+ * @LastEditTime: 2025-09-04 18:24:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -256,7 +256,7 @@ function confirmClick() {
     })
 
     if (props.valueToString) {
-      model.value = u.tojson(mv)
+      model.value = u.toSortedJson(mv)
     } else {
       model.value = mv
     }

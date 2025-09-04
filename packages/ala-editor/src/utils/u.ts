@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-04 21:12:31
+ * @LastEditTime: 2025-09-04 18:23:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -163,6 +163,54 @@ export default class u {
      */
     public static tojson(obj: any) {
         return JSON.stringify(obj);
+    }
+
+
+    /**
+     * 将对象转为json字符串，并且属性按照字母自然顺序正序排序
+     * @param obj 
+     * @returns 
+     */
+    public static toSortedJson(obj: any): string {
+        const seen = new WeakSet();
+
+        function helper(value: any): string {
+            // 处理原始类型
+            if (value === null || typeof value !== "object") {
+                return JSON.stringify(value);
+            }
+
+            // 防止循环引用
+            if (seen.has(value)) {
+                throw new TypeError("Converting circular structure to JSON");
+            }
+
+            seen.add(value);
+
+            // 数组处理
+            if (Array.isArray(value)) {
+                const arrItems = value.map(item => helper(item));
+                seen.delete(value);
+                return `[${arrItems.join(",")}]`;
+            }
+
+            // 对象处理，按 key 排序
+            const keys = Object.keys(value).sort();
+            const keyValuePairs: string[] = [];
+
+            for (const key of keys) {
+                const v = value[key];
+                // 忽略 undefined、函数、Symbol（与 JSON.stringify 行为一致）
+                if (v !== undefined && typeof v !== "function" && typeof v !== "symbol") {
+                    keyValuePairs.push(`${JSON.stringify(key)}:${helper(v)}`);
+                }
+            }
+
+            seen.delete(value);
+            return `{${keyValuePairs.join(",")}}`;
+        }
+
+        return helper(obj);
     }
 
     /**
