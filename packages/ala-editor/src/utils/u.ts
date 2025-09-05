@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-04 18:23:25
+ * @LastEditTime: 2025-09-05 08:30:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -727,6 +727,50 @@ export default class u {
             if (isNaN(number)) return '';
         }
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+
+    /**
+ * 封装一个带次数限制的 setInterval
+ * @param callback   要执行的函数
+ * @param interval   间隔时间 (ms)
+ * @param times      执行次数 (默认无限)
+ * @returns 一个对象，包含 stop 方法
+ * 
+ * // 使用示例：
+    const task = runInterval(
+    (i) => {
+        console.log(`第 ${i} 次执行`);
+    },
+    1000,
+    5
+    );
+
+    // 也可以提前结束
+    setTimeout(() => {
+    task.stop();
+    console.log("提前结束循环");
+    }, 3000);
+
+ */
+    public static runInterval(
+        callback: (count: number) => void,
+        interval: number,
+        times: number = Infinity
+    ): { stop: () => void } {
+        let count = 0;
+        const timer = setInterval(() => {
+            count++;
+            callback(count);
+
+            if (count >= times) {
+                clearInterval(timer);
+            }
+        }, interval);
+
+        return {
+            stop: () => clearInterval(timer)
+        };
     }
 
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-04 09:35:20
+ * @LastEditTime: 2025-09-05 08:33:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/index.vue
  * @Description: 
  * 
@@ -47,11 +47,13 @@
 
                 <template #btns="{ row }">
 
-                    <AlaButton :showButton="true" name="start" @start="handleStart(row)" buttonType="primary" />
+                    <AlaButton v-if="row.runningStatus != 3 && row.runningStatus == 2" :showButton="true" name="start"
+                        @start="handleStart(row)" buttonType="primary" />
 
-                    <AlaButton :showButton="true" name="shutdown" @shutdown="handleShutdown(row)" buttonType="danger" />
+                    <AlaButton v-if="row.runningStatus != 3 && row.runningStatus == 1" :showButton="true"
+                        name="shutdown" @shutdown="handleShutdown(row)" buttonType="danger" />
 
-                    <AlaButtonGroup :buttons="[
+                    <AlaButtonGroup v-if="row.runningStatus != 3" :buttons="[
                         { name: 'snapshot', popConfirm: false, handle: handleSnapshot, row: row, buttonType: 'primary' },
                         { name: 'delete', popConfirm: false, handle: handleDelete, row: row, buttonType: 'danger' },
                     ]" />
@@ -227,9 +229,7 @@ const handleStart = (row: any) => {
     alaPost(u.url('/c/cloudServers/startOrShutdown'), params, false, '').then((response: any) => {
         let d = response.data
         notify.success("温馨提示", d)
-        setTimeout(() => {
-            refresh()
-        }, 5000)
+        u.runInterval(refresh, 2000, 6)
     });
 }
 
@@ -238,9 +238,7 @@ const handleShutdown = (row: any) => {
     alaPost(u.url('/c/cloudServers/startOrShutdown'), params, false, '').then((response: any) => {
         let d = response.data
         notify.success("温馨提示", d)
-        setTimeout(() => {
-            refresh()
-        }, 5000)
+        u.runInterval(refresh, 2000, 10)
     });
 }
 
