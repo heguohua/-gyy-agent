@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-23 10:25:35
+ * @LastEditTime: 2025-09-07 17:07:07
  * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -60,7 +60,7 @@ const dc = defineConfig(({ command, mode }) => {
         mockPath: 'mock', // 指定 mock 文件夹路径
         enable: command === 'serve',
       }),
-      // vueDevTools(),
+      vueDevTools(),
       createHtmlPlugin({
         inject: {
           data: {

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:59:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 23:09:11
+ * @LastEditTime: 2025-09-07 18:23:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaItemSchema.ts
  * @Description: 
  * 
@@ -18,7 +18,7 @@ export default interface AlaItemSchema {
     /**
      * 属性值
      */
-    value: string;
+    value: any;
 
 }
 

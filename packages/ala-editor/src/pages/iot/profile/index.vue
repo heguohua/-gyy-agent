@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 10:19:02
+ * @LastEditTime: 2025-09-07 18:19:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/profile/index.vue
  * @Description: 
  * 
@@ -266,12 +266,12 @@ const pointAddFields = computed(() => {
         alaBuildInput("platformName", '平台属性名', [alaRequired()]),
         alaBuildInput("pointCode", '设备属性名（支持 xxx.yyy.zzz 格式多层级取值）', [alaRequired()]),
         // 点位数据类型：0-字符串,1-字节,2-短整数,3-整数,4-长整数,5-浮点数,6-双精度浮点数,7-布尔
-        alaBuildSelect("pointTypeFlag", "点位数据类型", [{ '字符串': '0' }, { '浮点数': '5' }, { '双精度浮点数': '6' }, { '短整数': '2' }, { '整数': '3' }, { '长整数': '4' }, { '字节': '1' }, { '布尔': '7' }], [alaRequired()], "请选择数据类型", { clearable: true }),
+        alaBuildSelect("pointTypeFlag", "点位数据类型", [{ '字符串': 0 }, { '浮点数': 5 }, { '双精度浮点数': 6 }, { '短整数': 2 }, { '整数': 3 }, { '长整数': 4 }, { '字节': 1 }, { '布尔': 7 }], [alaRequired()], "请选择数据类型", { clearable: true }),
         // 读写标识，1-只读、2-只写、3-读写
-        alaBuildRadio('rwFlag', "读写标识", [{ '只读': '1' }, { '只写': '2' }, { '读写': '3' }], [alaRequired()]),
+        alaBuildRadio('rwFlag', "读写标识", [{ '只读': 1 }, { '只写': 2 }, { '读写': 3 }], [alaRequired()]),
         alaBuildNumber("valueDecimal", "数据精度", [alaRequired()], "请输入高度", { initValue: 2, min: 0, max: 6, step: 1 }),
 
-        alaBuildSelectDict("unitDict", "数值单位", { "dictValue": "unit" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择数值单位", {}),
+        alaBuildSelectDict("unit", "数值单位", { "dictValue": "unit" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择数值单位", { singleValue: true }),
 
         alaBuildNumber("baseValue", "基础值", [], "请输入基础值", { initValue: 0, min: 0 }),
         alaBuildNumber("multiple", "倍数", [], "请输入基础值", { initValue: 1, min: 0 }),
@@ -287,7 +287,7 @@ const pointAddFields = computed(() => {
 
 
 const beforeSaveFun = (data: any) => {
-    data.unitDict = data.unitDict[0]
+    // data.unitDict = u.parseJson(data.unitDict)[0]
     data.profileId = detailItem.item.id
     return data;
 }

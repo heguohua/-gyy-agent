@@ -28,8 +28,8 @@ import AlaSelectTreeSchema from "@/components/cps/select-tree/alaSelectTredSchem
 /**
  * 将 {"男":'man'} 格式对象转换成 { name: "男", value: "man" } 格式
  */
-type Item = { name: string; value: string };
-export function convertToItem(config: { [key: string]: string }): Item {
+type Item = { name: string; value: string | number };
+export function convertToItem(config: { [key: string]: string | number }): Item {
 
     const item: Item = {
         name: '',
@@ -256,7 +256,7 @@ export function alaBuildImage(fieldName: string, label: string, rules?: Array<ba
  * @param placeholder 占位符
  * @returns 
  */
-export function alaBuildSelect(fieldName: string, label: string, items: Array<{ [key: string]: string }>, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaRadioSchema {
+export function alaBuildSelect(fieldName: string, label: string, items: Array<{ [key: string]: string | number }>, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaRadioSchema {
     u.checkTrue(!items, `表单元素select配置项items为空，表单字段名${fieldName}`, () => { })
     const item_s = items.map((item => {
         return convertToItem(item)
