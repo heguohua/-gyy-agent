@@ -285,6 +285,8 @@ import AntDesignCloudServerOutlined from '~icons/ant-design/cloud-server-outline
 import LucideLabFloppyDiskRear from '~icons/lucide-lab/floppy-disk-rear';
 import IconParkOutlineSolidStateDisk from '~icons/icon-park-outline/solid-state-disk';
 import IcRoundRestore from '~icons/ic/round-restore';
+import Applications from '~icons/carbon/web-services-container';
+import ApplicationInstances from '~icons/streamline/application-add-remix';
 
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
@@ -552,6 +554,8 @@ const icon = {
   diskTypes:LucideLabFloppyDiskRear,
   cloudDisks:IconParkOutlineSolidStateDisk,
   cloudSnapshots:IcRoundRestore,
+  applications:Applications,
+  applicationsInstances:ApplicationInstances,
 }
 
 export default icon

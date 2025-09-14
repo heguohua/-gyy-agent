@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-03 17:49:12
+ * @LastEditTime: 2025-09-14 20:43:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -227,6 +227,16 @@ export const allMenuComponents: MenuComponent = {
     "/snapshot": {
         name: "snapshot",
         component: "../pages/cloud/snapshot/index.vue",
+        requiresAuth: true,
+    },
+    "/cloud/application": {
+        name: "applicationPage",
+        component: "../pages/cloud/application/index.vue",
+        requiresAuth: true,
+    },
+    "/cloud/applicationInstance": {
+        name: "applicationInstancePage",
+        component: "../pages/cloud/applicationInstance/index.vue",
         requiresAuth: true,
     },
 
