@@ -3,7 +3,7 @@
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
  * @LastEditTime: 2025-08-26 11:49:35
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/cloudServers/add.vue
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/application/add.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,7 +12,7 @@
 
     <AlaBaseForm v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="basicFields" :formData="formData"
         labelPosition="top" :moduleName="moduleName" :url="url" :updateUrl="updateUrl" :tipTitle="$t('pop.warm_title')"
-        :formAttr="formConfig.cloudServers.formAttr" :beforeSave="beforeSave" ref="alaBaseForm">
+        :formAttr="formConfig.application.formAttr" :beforeSave="beforeSave" ref="alaBaseForm">
 
     </AlaBaseForm>
 
@@ -45,8 +45,8 @@ const props = defineProps({
 const baseInfo = inject('baseInfo') as { [key: string]: any };
 
 // ##########################  以下当前模块自定义业务逻辑处理部分  #########################################
-const url = '/c/cloudServers/add'
-const updateUrl = '/c/cloudServers/update'
+const url = '/c/application/add'
+const updateUrl = '/c/application/update'
 // 表单数据保存对象
 const formData = reactive<{ [key: string]: any }>({
 })
@@ -68,7 +68,7 @@ watch(() => props.baseInfo.item, (item) => {
 
 // 基础表单字段
 const basicFields = computed(() => {
-    return formConfig.cloudServers.formFields
+    return formConfig.application.formFields
 })
 
 

@@ -9,6 +9,7 @@
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
+import { application } from "@/config/formConfigs/cloud/application"
 import { snapshot } from "@/config/formConfigs/cloud/snapshot"
 import { physicalServersDisks } from "@/config/formConfigs/cloud/physicalServersDisks"
 import { cloudServers } from "@/config/formConfigs/cloud/cloudServers"
@@ -35,6 +36,7 @@ const formConfigs = {
     cloudServers,
     physicalServersDisks,
     snapshot,
+    application,
 }
 
 

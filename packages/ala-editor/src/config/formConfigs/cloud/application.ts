@@ -2,13 +2,13 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-14 20:42:59
+ * @LastEditTime: 2025-09-14 21:12:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/application.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
-import { alaBuildChapter, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildTextarea } from "@/config/alaBuilders"
+import { alaBuildChapter, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildTextarea } from "@/config/alaBuilders"
 import { alaEmail, alaNumberRange, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
 import { alaDetailBuild, alaDetailChapter, alaDetailDate, alaDetailInput, alaDetailNumber, alaDetailSelectDict, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from "@/config/alaDetailBuilder"
@@ -26,20 +26,22 @@ export const application: FormConfig = {
     formFields: [
         alaBuildChapter('基本信息'),
         alaBuildHidden('id'),// 固定格式
-        alaBuildInput("name", '云主机名', [alaRequired()]),
-        alaBuildTextarea("specifications", "备注", [], "请输入备注"),
+        alaBuildInput("name", '服务名称', [alaRequired()]),
+        alaBuildSelect('type', "服务类型", [
+            { 'MySQL单机': 'mysql-1m' },
+            { 'MySQL主从集群': 'mysql-1m-1s' },
+            { 'Redis单机': 'redis-1m' },
+            { 'Redis Sentinel集群': 'redis-sentinel' },
+            { 'Kafka单机': 'kafka-1m' },
+            { 'Kafka 3节点集群': 'kafka-3m' },
+            { 'MinIO单机': 'minio-1m' },
+            { 'MinIO 4节点集群': 'minio-4m' },
+            { 'IoTDB 1C1D集群': 'iotdb-1c1d' },
+            { 'IoTDB 3C3D集群': 'iotdb-3c3d' },
+        ], [alaRequired()], "请选择服务类型"),
+        alaBuildTextarea("remark", "备注", [], "请输入备注"),
 
-        alaBuildChapter('基础配额'),
-        // alaBuildInput("osName", '操作系统', [alaRequired()]),
-        alaBuildSelectDict("osName", "操作系统", { "dictValue": "osType" }, { "propertyName": 'dictLabel', "valueName": 'id' }, [alaRequired()], "请选择操作系统", { clearable: true, noEditable: true }),
-
-        alaBuildInput("innerIp", '内网IP地址', [alaRequired()], "请填写内网IP地址", { noEditable: true }),
-        alaBuildNumber("cpuAmount", "CPU核心数", [alaRequired(), alaNumberRange(1, 200)], "请输入CPU最大线程数", { initValue: 4, precision: 0 }),
-        alaBuildNumber("memoryAmount", "内存/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入内存", { initValue: 16, precision: 0 }),
-        alaBuildNumber("osDiskAmount", "系统盘容量/GB", [alaRequired(), alaNumberRange(1, 2048)], "请输入系统盘容量", { initValue: 40, precision: 0 }),
-
-        alaBuildChapter('调度策略', "", { noEditable: true }),
-        alaBuildSelectTable("physicalServers", "物理服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true, { noEditable: true })
+        alaBuildChapter('服务实例'),
 
 
     ],

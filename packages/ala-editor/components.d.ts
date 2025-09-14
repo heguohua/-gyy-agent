@@ -85,6 +85,8 @@ declare module 'vue' {
     AlaProcessing: typeof import('./src/components/cps/loading/ala-processing.vue')['default']
     AlaRadio: typeof import('./src/components/cps/radio/ala-radio.vue')['default']
     AlaRating: typeof import('./src/components/cps/rating/ala-rating.vue')['default']
+    AlaRelation: typeof import('./src/components/cps/relation/ala-relation.vue')['default']
+    AlaRelationFormItems: typeof import('./src/components/cps/relation/ala-relation-form-items.vue')['default']
     AlaSelect: typeof import('./src/components/cps/select/ala-select.vue')['default']
     AlaSelectApi: typeof import('./src/components/cps/select-api/ala-select-api.vue')['default']
     AlaSelectDict: typeof import('./src/components/cps/select-dict/ala-select-dict.vue')['default']
