@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 22:11:31
+ * @LastEditTime: 2025-09-15 22:25:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/relation/ala-relation-sub-form.vue
  * @Description: 
  * 
@@ -14,11 +14,11 @@
         :style="columnWidth(item)">
         <component :is="item.componentName" :label="item.label"
             :position="item.other?.position ? item.other.position : labelPosition" :placeholder="item.placeholder"
-            v-bind="item.other" v-model="data[fieldName][item.fieldName]" :fieldName="item.fieldName"
-            :data="data[fieldName]" @formItemChangeCallback="formItemChangeCallback"
+            v-bind="item.other" v-model="data![fieldName][item.fieldName]" :fieldName="item.fieldName"
+            :data="data![fieldName]" @formItemChangeCallback="formItemChangeCallback"
             @update:modelValue="handleModelValueChange(fieldName + '.' + item.fieldName, $event)"
             :ref="setItemRef(index)"
-            :noEditable="data.id ? (item.other?.noEditable != undefined ? item.other?.noEditable : undefined) : undefined" />
+            :noEditable="data!.id ? (item.other?.noEditable != undefined ? item.other?.noEditable : undefined) : undefined" />
     </div>
 
 
