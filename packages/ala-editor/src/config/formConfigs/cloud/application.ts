@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 10:18:06
+ * @LastEditTime: 2025-09-15 10:45:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/application.ts
  * @Description: 
  * 
@@ -42,17 +42,29 @@ export const application: FormConfig = {
         ], [alaRequired()], "请选择服务类型"),
         alaBuildTextarea("remark", "备注", [], "请输入备注"),
 
-        alaBuildChapter('服务实例'),
         alaBuildRelationSubForm("typeForm", "所选服务配置项表单", {
             watchFieldName: 'type',
             formAttr,
             subFormFields: {
                 "mysql-1m": [
-                    alaBuildSelectTable("1m", "部署服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true, { noEditable: true })
+                    alaBuildChapter('部署信息'),
+                    alaBuildSelectTable("1m", "部署服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true, { noEditable: true }),
+                    alaBuildNumber("maxCpu", "最大使用CPU"),
+                    alaBuildNumber("maxMemory", "最大使用内存(m)"),
+                    alaBuildTextarea("containerParam", "容器参数", [], "请输入容器参数"),
                 ],
                 "mysql-1m-1s": [
-                    alaBuildSelectTable("1m", "主节点部署服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true, { noEditable: true }),
-                    alaBuildSelectTable("1s", "从节点部署服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true, { noEditable: true }),
+                    alaBuildChapter('【 主节点 】部署信息'),
+                    alaBuildSelectTable("1m", "部署服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true, { noEditable: true }),
+                    alaBuildNumber("maxCpu", "最大使用CPU"),
+                    alaBuildNumber("maxMemory", "最大使用内存(m)"),
+                    alaBuildTextarea("containerParam", "容器参数", [], "请输入容器参数"),
+
+                    alaBuildChapter('【 从节点 】部署信息'),
+                    alaBuildSelectTable("1s", "部署服务器", "/c/physicalServers/page", [{ "prop": "name", "label": "主机名称", "isQuery": "true" }, { "prop": "cpuAmount", "label": "CPU总核心数" }, { "prop": "realCpuAmount", "label": "实用CPU核心数" }, { "prop": "memoryAmount", "label": "总内存/GB" }, { "prop": "realMemoryAmount", "label": "实用内存/GB" }], { propertyName: 'name', valueName: 'id' }, [], {}, "请选择计划运行当前云服务器的物理服务器", 'physicalServers', 30, 18, false, true, true, { noEditable: true }),
+                    alaBuildNumber("maxCpu", "最大使用CPU"),
+                    alaBuildNumber("maxMemory", "最大使用内存(m)"),
+                    alaBuildTextarea("containerParam", "容器参数", [], "请输入容器参数"),
                 ],
             }
         })

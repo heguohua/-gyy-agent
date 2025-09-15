@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 11:49:35
+ * @LastEditTime: 2025-09-15 11:13:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/application/add.vue
  * @Description: 
  * 
@@ -43,6 +43,7 @@ const url = '/c/application/add'
 const updateUrl = '/c/application/update'
 // 表单数据保存对象
 const formData = reactive<{ [key: string]: any }>({
+    typeForm: {}
 })
 
 watch(() => props.baseInfo.item, (item) => {
