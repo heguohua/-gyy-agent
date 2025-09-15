@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-14 20:33:46
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/applicationInstances/index.vue
+ * @LastEditTime: 2025-09-15 18:08:53
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/cloud/applicationInstance/index.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -60,7 +60,8 @@
 
 
     <!-- dept 详情页面 -->
-    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields" :formAttr="formAttr" />
+    <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="detailFields"
+        :formAttr="formConfigs.applicationInstance.detailAttr" />
 
     <!-- dept 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
@@ -87,10 +88,11 @@ import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
 import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDetailSelectTable, alaDetailSwitch, alaDetailSwitchImage, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
-import Add from '@/pages/cloud/cloudServers/add.vue';
+import Add from '@/pages/cloud/applicationInstance/add.vue';
 import notify from '@/utils/notify';
-import { cloudServers } from '@/config/formConfigs/cloud/cloudServers';
+import { applicationInstance } from '@/config/formConfigs/cloud/applicationInstance';
 import { alaDelete, alaPost } from '@/utils/req';
+import formConfigs from '@/config/formConfigs';
 const { t } = useI18n();
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -156,17 +158,17 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = cloudServers.pageApi
-const deleteUrl = "/c/cloudServers/delete"
+const url = applicationInstance.pageApi
+const deleteUrl = "/c/applicationInstance/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
-    return cloudServers.pageFields
+    return applicationInstance.pageFields
 })
 /**
  * 详情页面字段
  */
-const detailFields: any = ref(cloudServers.detailFields)
+const detailFields: any = ref(applicationInstance.detailFields)
 
 // 基础查询条件
 const baseFields = computed(() => {
@@ -183,7 +185,7 @@ const getComponent = ((code: string) => {
 })
 
 
-const formAttr = ref(cloudServers.formAttr)
+const formAttr = ref(applicationInstance.formAttr)
 
 /**
  * 详情页面字段
@@ -219,7 +221,7 @@ watch(() => baseInfo.folder, (value: any) => {
 
 const handleStart = (row: any) => {
     const params = { id: row.id, runningStatus: 1 }
-    alaPost(u.url('/c/cloudServers/startOrShutdown'), params, false, '').then((response: any) => {
+    alaPost(u.url('/c/applicationInstance/startOrShutdown'), params, false, '').then((response: any) => {
         let d = response.data
         notify.success("温馨提示", d)
         u.runInterval(refresh, 2000, 6)
@@ -228,7 +230,7 @@ const handleStart = (row: any) => {
 
 const handleShutdown = (row: any) => {
     const params = { id: row.id, runningStatus: 2 }
-    alaPost(u.url('/c/cloudServers/startOrShutdown'), params, false, '').then((response: any) => {
+    alaPost(u.url('/c/applicationInstance/startOrShutdown'), params, false, '').then((response: any) => {
         let d = response.data
         notify.success("温馨提示", d)
         u.runInterval(refresh, 2000, 10)
@@ -237,7 +239,7 @@ const handleShutdown = (row: any) => {
 
 
 const showTypeInSnapshotRemarkDialog = ref(false)
-const form = ref({ cloudServers: undefined, name: undefined })
+const form = ref({ applicationInstance: undefined, name: undefined })
 const rules = {
     name: [
         { required: true, message: '请填写快照名称', trigger: 'blur' },
@@ -245,7 +247,7 @@ const rules = {
 }
 const handleConfirm = () => {
     const params = form.value
-    alaPost(u.url('/c/cloudServers/snapshot'), params, false, '').then((response: any) => {
+    alaPost(u.url('/c/applicationInstance/snapshot'), params, false, '').then((response: any) => {
         let d = response.data
         notify.success("温馨提示", "提交成功，请等待快照创建完成")
         u.clear(form.value)
@@ -257,7 +259,7 @@ const handleCancel = () => {
     showTypeInSnapshotRemarkDialog.value = false
 }
 const handleSnapshot = (row: any) => {
-    form.value.cloudServers = row.id
+    form.value.applicationInstance = row.id
     showTypeInSnapshotRemarkDialog.value = true
 }
 
@@ -274,7 +276,7 @@ const handleDelete = (row: any) => {
         .then(() => {
             logger.info("用户选择【确认】按钮，即将删除数据，当前对象id为：", row.id);
 
-            alaDelete(u.url('/c/cloudServers/delete'), { id: row.id }, false).then((data: any) => {
+            alaDelete(u.url('/c/applicationInstance/delete'), { id: row.id }, false).then((data: any) => {
                 notify.success(t('pop.warm_title'), "云服务器删除【 成功 】。")
                 refresh()
             });

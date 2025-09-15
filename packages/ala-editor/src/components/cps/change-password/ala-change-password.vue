@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-07-14 16:01:24
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-23 11:13:31
+ * @LastEditTime: 2025-09-15 15:31:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/change-password/ala-change-password.vue
  * @Description: 
  * 
@@ -92,7 +92,6 @@ const handleSubmit = () => {
             ElMessage.success('密码修改成功')
 
             alaPost(u.url('/u/user/updateSword'), { sword: form.value.newPassword }, false, 'PUT').then((response: any) => {
-                console.log('response:', response);
                 if (response.code === 200) {
                     // 删除本地 localStorage中的token
                     close()

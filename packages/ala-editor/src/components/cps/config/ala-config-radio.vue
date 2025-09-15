@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-28 10:56:05
+ * @LastEditTime: 2025-09-15 15:31:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-radio.vue
  * @Description: 
  * 
@@ -122,7 +122,6 @@ watch(() => checkedValue.value, (value) => {
 
 // Methods
 const handleChange = (value: any) => {
-    console.log('value:', value);
 
     checkedValue.value = value
 }

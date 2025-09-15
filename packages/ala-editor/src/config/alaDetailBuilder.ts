@@ -1,10 +1,11 @@
 import { dType } from "@/components/cps/dynamic/detailType"
+import { convertToItem } from "./alaBuilders"
 
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-26 09:38:46
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 12:38:54
+ * @LastEditTime: 2025-09-15 18:36:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaDetailBuilder.ts
  * @Description: 
  *  { prop: formData.fieldName?.desktop, label: formData.label?.desktop, formItem: item }
@@ -95,10 +96,19 @@ export function alaDetailFlowInstanceState(columnName: string, label: string, it
 }
 
 export function alaDetailSelect(columnName: string, label: string, items: Array<{ [key: string]: any }>, columnNum = 1, detail = false, other?: Object) {
+
+
+    const item_s = items.map((item => {
+        return convertToItem(item)
+    }))
+
+    console.log('item_s: --->',item_s) ;
+    
+    
     return {
         prop: columnName,
         label: label,
-        formItem: { code: dType.select, formData: { fieldName: { desktop: columnName }, detail, items: { desktop: items }, columnNum: { desktop: columnNum }, ...other } },
+        formItem: { code: dType.select, formData: { fieldName: { desktop: columnName }, detail, items: { desktop: item_s }, columnNum: { desktop: columnNum }, ...other } },
     }
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 11:17:33
+ * @LastEditTime: 2025-09-15 15:14:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/relation/ala-relation-sub-form.vue
  * @Description: 
  * 
@@ -85,6 +85,10 @@ const props = defineProps({
     placeholder: {
         type: String,
         default: ''
+    },
+    saveOrPause: {
+        type: Function,
+        default: () => { return true }
     }
 
 })
@@ -98,8 +102,8 @@ watch(() => props.data![props.watchFieldName], (v: any) => {
     console.log('v: --->', v);
     console.log('item: --->', props.item);
     console.log('props.data: --->', props.data);
-    if(!props.data?.[props.fieldName]){
-        u.merged(props.data!,{[props.fieldName]:{}})
+    if (!props.data?.[props.fieldName]) {
+        u.merged(props.data!, { [props.fieldName]: {} })
     }
     console.log('props.data: --->', props.data);
 
@@ -168,9 +172,6 @@ const columnWidth = (item: any) => {
  * @param value 
  */
 const handleModelValueChange = (fieldName: string, value: any) => {
-
-    console.log('fieldName:', fieldName);
-    console.log('value:', value);
 
     if (fieldName.indexOf('.') > -1) {
 

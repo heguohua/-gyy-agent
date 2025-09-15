@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 21:50:40
+ * @LastEditTime: 2025-09-15 15:31:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -237,7 +237,6 @@ const query = () => {
                 dd.push(oneSeries)
             })
             data.value = dd
-            console.log('data.value: --> ', data.value);
 
             //     const dd = u.convertPropertyToNumber(d, yName, yDecimalNum)
             //     data.value = dd as any

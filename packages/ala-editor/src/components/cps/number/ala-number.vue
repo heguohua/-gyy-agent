@@ -113,8 +113,6 @@ const controlsPosition = computed(() => {
 })
 
 const handleChange = (current: number, pre: number) => {
-    console.log('current: --->', current);
-
     model.value = current
 }
 

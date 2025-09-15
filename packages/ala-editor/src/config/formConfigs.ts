@@ -2,13 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-03 18:38:10
+ * @LastEditTime: 2025-09-15 18:09:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
+import { applicationInstance } from "@/config/formConfigs/cloud/applicationInstance"
 import { application } from "@/config/formConfigs/cloud/application"
 import { snapshot } from "@/config/formConfigs/cloud/snapshot"
 import { physicalServersDisks } from "@/config/formConfigs/cloud/physicalServersDisks"
@@ -37,6 +38,7 @@ const formConfigs = {
     physicalServersDisks,
     snapshot,
     application,
+    applicationInstance,
 }
 
 
