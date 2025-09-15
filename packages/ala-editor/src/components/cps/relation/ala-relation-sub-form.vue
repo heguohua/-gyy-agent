@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-14 21:42:50
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/relation/ala-relation-form-items.vue
+ * @LastEditTime: 2025-09-15 10:17:33
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/relation/ala-relation-sub-form.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -16,7 +16,8 @@
             :position="item.other?.position ? item.other.position : labelPosition" :placeholder="item.placeholder"
             v-bind="item.other" v-model="data[item.fieldName]" :fieldName="item.fieldName" :data="data"
             @formItemChangeCallback="formItemChangeCallback"
-            @update:modelValue="handleModelValueChange(item.fieldName, $event)" :ref="setItemRef(index)" />
+            @update:modelValue="handleModelValueChange(fieldName + '.' + item.fieldName, $event)"
+            :ref="setItemRef(index)" />
     </div>
 
 
@@ -27,7 +28,7 @@ import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
 import u from '@/utils/u';
 import { DrawerProps, ElMessageBox } from 'element-plus';
-import { ref } from 'vue'
+import { PropType, ref } from 'vue'
 
 // State
 
@@ -36,17 +37,25 @@ const props = defineProps({
         type: String,
         default: '温馨提示：'
     },
-    closeContent: {
+    item: {
+        type: Object as PropType<AlaField>,
+        default: () => { }
+    },
+    fieldName: {
         type: String,
-        default: '您确定要关闭新增页面吗？'
+        default: ''
+    },
+    watchFieldName: {
+        type: String,
+        default: ''
     },
     moduleName: {
         type: String,
         default: ''
     },
-    fields: {
-        type: Array<AlaField>,
-        default: []
+    subFormFields: {
+        type: Object as PropType<{ [key: string]: Array<AlaField> }>,
+        default: () => { }
     },
     data: {
         type: Object,
@@ -65,27 +74,37 @@ const props = defineProps({
             useFormTitle: false,
         })
     },
-    showSaveButton: {
-        type: Boolean,
-        default: true
+    label: {
+        type: String,
+        default: ''
     },
-    showCancelButton: {
-        type: Boolean,
-        default: true
+    position: {
+        type: String,
+        default: ''
     },
-    showInitiateButton: {
-        type: Boolean,
-        default: false
+    placeholder: {
+        type: String,
+        default: ''
     }
 
 })
 
-watch(() => props.formAttr, (v: any) => {
+const subFormFields = ref<Array<AlaField>>([])
+const fields = computed(() => {
+    return subFormFields.value
+})
+
+watch(() => props.data![props.watchFieldName], (v: any) => {
+    console.log('v: --->', v);
+    console.log('item: --->', props.item);
+
+    subFormFields.value = props.subFormFields[v]
+    console.log('item: --->', subFormFields.value);
+
 }, {
     immediate: true,
     deep: true
 })
-
 
 
 const isHidden = (item: { componentName: string, other?: any }) => {
@@ -99,11 +118,9 @@ const isHidden = (item: { componentName: string, other?: any }) => {
     }
 }
 
-const showDrawer = defineModel({
-    type: Boolean,
-    default: false
+const model = defineModel<any>({
+    default: null
 })
-
 
 const emit = defineEmits(["confirm", "formItemChangeCallback", "cancel"])
 const formItemChangeCallback = (data: any) => {
@@ -147,6 +164,9 @@ const columnWidth = (item: any) => {
  */
 const handleModelValueChange = (fieldName: string, value: any) => {
 
+    console.log('fieldName:', fieldName);
+    console.log('value:', value);
+
     if (fieldName.indexOf('.') > -1) {
 
         // 说明是多层级属性，则动态更改内嵌属性的值
@@ -175,6 +195,4 @@ const setItemRef = (index: number) => (el: any) => {
 
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

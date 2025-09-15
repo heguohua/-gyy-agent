@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-14 21:28:00
+ * @LastEditTime: 2025-09-15 08:59:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -68,6 +68,8 @@ import AlaFormTable from '@/components/cps/form-table/ala-form-table.vue';
 import AlaChildTableCount from '@/components/cps/childTableCount/ala-child-table-count.vue';
 import AlaAi from '@/components/cps/ai/ala-ai.vue';
 import AlaRelation from '@/components/cps/relation/ala-relation.vue';
+import AlaRelationSubForm from '@/components/cps/relation/ala-relation-sub-form.vue';
+import AlaSelectRelation from '@/components/cps/select-relation/ala-select-relation.vue';
 
 // 列表、详情页字段渲染组件
 import DetailInputColumn from '@/components/cps/dynamic/DetailInputColumn.vue';
@@ -186,6 +188,8 @@ export default {
     AlaChildTableCount,
     AlaAi,
     AlaRelation,
+    AlaRelationSubForm,
+    AlaSelectRelation,
 
     // ALA架构列表、详情组件
     DetailInputColumn,

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 16:56:59
+ * @LastEditTime: 2025-09-15 09:21:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -19,7 +19,7 @@
 
                 <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
                     :style="columnWidth(item)">
-                    <component :is="item.componentName" :label="item.label"
+                    <component :is="item.componentName" :label="item.label" :item="item"
                         :position="item.other?.position ? item.other.position : labelPosition"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
                         :fieldName="item.fieldName" :data="data" @formItemChangeCallback="formItemChangeCallback"

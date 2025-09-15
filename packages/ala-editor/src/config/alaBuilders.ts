@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 18:49:01
+ * @LastEditTime: 2025-09-15 09:09:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -262,6 +262,11 @@ export function alaBuildSelect(fieldName: string, label: string, items: Array<{ 
         return convertToItem(item)
     }))
     const obj = alaBuildWithItems("AlaSelect", fieldName, label, item_s, rules, placeholder, other)
+    return obj
+}
+
+export function alaBuildRelationSubForm(fieldName: string, label: string, other?: { [key: string]: any }): AlaRadioSchema {
+    const obj = alaBuildWithOther("AlaRelationSubForm", fieldName, label, { ...other })
     return obj
 }
 

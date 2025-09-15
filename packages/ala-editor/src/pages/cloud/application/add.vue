@@ -20,15 +20,9 @@
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
-import { alaLl8_, alaLOrlOr8Or_, alaNumberRange, alaNumberMin, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaNumberMax, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaPassword, alaLinuxPort } from '@/config/alaRules';
-import { alaBuildCheckbox, alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildNumber, alaBuildPassword, alaBuildRadio, alaBuildRating, alaBuildRawInput, alaBuildSelect, alaBuildDivider, alaBuildSlider, alaBuildSwitch, alaBuildCascader, alaBuildTextarea, alaBuildChapter, alaBuildSelectTable } from '@/config/alaBuilders';
 import u from '@/utils/u';
-import { date } from '@/utils/date';
 import { useI18n } from 'vue-i18n';
-import { alaPost } from '@/utils/req';
-import notify from '@/utils/notify';
 import formConfig from '@/config/formConfigs';
-const { t } = useI18n();
 
 const props = defineProps({
     baseInfo: {
