@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 18:48:44
+ * @LastEditTime: 2025-09-15 22:11:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/cloud/application.ts
  * @Description: 
  * 
@@ -39,11 +39,11 @@ export const appTypes: Array<{ [key: string]: string | number }> = [
 const getConfig = (title: string, index: number) => {
     return [
         alaBuildChapter(title),
-        alaBuildSelectTable("cloudServers_" + index, "云主机", "/c/cloudServers/page", [{ prop: 'name', label: '云主机名', isQuery: true }, { prop: 'specifications', label: '备注' }], { propertyName: 'name', valueName: 'id' }, [alaRequired()], {}, "请选择云服务器", "cloudServers", 36, 23, false, true, true),
-        alaBuildNumber("maxCpu_" + index, "最大使用CPU", [alaRequired()], "", { initValue: 0.5, min: 0.1, max: 16, precision: 1, step: 0.1 }),
-        alaBuildNumber("maxMemory_" + index, "最大使用内存(m)", [alaRequired()], "", { initValue: 256, min: 128, max: 1024 * 32, precision: 0, step: 1 }),
-        alaBuildTextarea("containerParam_" + index, "容器参数", [], "请输入容器参数"),
-        alaBuildTextarea("remark_" + index, "备注", [], "请输入备注"),
+        alaBuildSelectTable("cloudServers_" + index, "云主机", "/c/cloudServers/page", [{ prop: 'name', label: '云主机名', isQuery: true }, { prop: 'specifications', label: '备注' }], { propertyName: 'name', valueName: 'id' }, [alaRequired()], {}, "请选择云服务器", "cloudServers", 36, 23, false, true, true, { noEditable: true }),
+        alaBuildNumber("maxCpu_" + index, "最大使用CPU", [alaRequired()], "", { initValue: 0.5, min: 0.1, max: 16, precision: 1, step: 0.1, noEditable: true }),
+        alaBuildNumber("maxMemory_" + index, "最大使用内存(m)", [alaRequired()], "", { initValue: 256, min: 128, max: 1024 * 32, precision: 0, step: 1, noEditable: true }),
+        alaBuildTextarea("containerParam_" + index, "容器参数", [], "请输入容器参数", { noEditable: true }),
+        alaBuildTextarea("remark_" + index, "备注", [], "请输入备注", { noEditable: true }),
     ]
 }
 export const application: FormConfig = {
@@ -52,7 +52,7 @@ export const application: FormConfig = {
         alaBuildChapter('基本信息'),
         alaBuildHidden('id'),// 固定格式
         alaBuildInput("name", '服务名称', [alaRequired()]),
-        alaBuildSelect('type', "服务类型", appTypes, [alaRequired()], "请选择服务类型"),
+        alaBuildSelect('type', "服务类型", appTypes, [alaRequired()], "请选择服务类型", { noEditable: true }),
         alaBuildTextarea("remark", "备注", [], "请输入备注"),
 
         alaBuildRelationSubForm("typeForm", "所选服务配置项表单", {

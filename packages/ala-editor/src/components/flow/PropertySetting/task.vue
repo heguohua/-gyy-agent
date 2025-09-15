@@ -217,7 +217,6 @@ const attrList = computed(() => {
     })
   ]
 
-  console.log('formItems: --->', formItems);
 
 
   return formItems

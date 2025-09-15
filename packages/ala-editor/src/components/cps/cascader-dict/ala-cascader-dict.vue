@@ -194,7 +194,7 @@ watch(() => isFormDesign.value, (v) => {
 const isDisabled = computed(() => {
   const idd = false
 
-  if (props.data?.id && props.noEditable) {
+  if (props.noEditable) {
     return true
   }
   return idd

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 09:21:37
+ * @LastEditTime: 2025-09-15 21:41:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -23,7 +23,8 @@
                         :position="item.other?.position ? item.other.position : labelPosition"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="data[item.fieldName]"
                         :fieldName="item.fieldName" :data="data" @formItemChangeCallback="formItemChangeCallback"
-                        @update:modelValue="handleModelValueChange(item.fieldName, $event)" :ref="setItemRef(index)" />
+                        @update:modelValue="handleModelValueChange(item.fieldName, $event)" :ref="setItemRef(index)"
+                        :noEditable="data.id ? (item.other?.noEditable != undefined ? item.other?.noEditable : undefined) : undefined" />
                 </div>
 
             </template>

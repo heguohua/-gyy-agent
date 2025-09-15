@@ -102,7 +102,6 @@ export function alaDetailSelect(columnName: string, label: string, items: Array<
         return convertToItem(item)
     }))
 
-    console.log('item_s: --->',item_s) ;
     
     
     return {

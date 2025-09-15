@@ -91,7 +91,7 @@ const isDisabled = computed(() => {
         return true
     }
 
-    if (props.data?.id && props.noEditable) {
+    if (props.noEditable) {
         return true
     }
     return idd

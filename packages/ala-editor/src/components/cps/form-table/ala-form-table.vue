@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:16:55
+ * @LastEditTime: 2025-09-15 21:52:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -202,7 +202,6 @@ const headers = ref<Array<Header>>([])
 
 watch(() => data?.value, (v: any) => {
     const keys = Object.keys(v)
-    // console.log('data --->:', v);
     if (keys.length === 0) {
         // 说明表单数据为空
         formTableValues.value = []
@@ -262,7 +261,6 @@ watch(() => baseInfo, (v) => {
             alaPost(u.url(listUrl || ''), params, false).then((data: any) => {
                 const response = data;
                 if (response.data && response.data.length > 0) {
-                    // console.log('response.data ---> :', response.data);
                     formTableValues.value = response.data
                 }
             });
@@ -638,7 +636,7 @@ const saveOrPause = (): Boolean => {
 const isDisabled = computed(() => {
     const idd = false
 
-    if (props.data?.id && props.noEditable) {
+    if (props.noEditable) {
         return true
     }
     return idd

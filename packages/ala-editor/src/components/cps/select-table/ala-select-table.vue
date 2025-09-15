@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-04 18:24:25
+ * @LastEditTime: 2025-09-15 21:37:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -193,7 +193,9 @@ const model = defineModel({
 
 const styles = computed(() => {
   const style: any = { minWidth: props.width + 'px' }
-  if (props.data?.id && props.noEditable) {
+
+  
+  if (props.noEditable) {
     style.cursor = 'not-allowed'
     style.opacity = 0.6
   }
@@ -380,7 +382,7 @@ const isDynamicTable = () => {
 const isDisabled = computed(() => {
   const idd = false
 
-  if (props.data?.id && props.noEditable) {
+  if (props.noEditable) {
     return true
   }
   return idd
@@ -390,7 +392,7 @@ const isDisabled = computed(() => {
 const disableStyles = computed(() => {
   const style: any = {}
 
-  if (props.data?.id && props.noEditable) {
+  if (props.noEditable) {
     style.cursor = 'not-allowed'
     style.opacity = 0.6
   }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 15:14:11
+ * @LastEditTime: 2025-09-15 22:11:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/relation/ala-relation-sub-form.vue
  * @Description: 
  * 
@@ -17,7 +17,8 @@
             v-bind="item.other" v-model="data[fieldName][item.fieldName]" :fieldName="item.fieldName"
             :data="data[fieldName]" @formItemChangeCallback="formItemChangeCallback"
             @update:modelValue="handleModelValueChange(fieldName + '.' + item.fieldName, $event)"
-            :ref="setItemRef(index)" />
+            :ref="setItemRef(index)"
+            :noEditable="data.id ? (item.other?.noEditable != undefined ? item.other?.noEditable : undefined) : undefined" />
     </div>
 
 
@@ -89,26 +90,27 @@ const props = defineProps({
     saveOrPause: {
         type: Function,
         default: () => { return true }
+    },
+    noEditable: {
+        type: Boolean,
+        default: () => false
     }
 
 })
 
 const subFormFields = ref<Array<AlaField>>([])
 const fields = computed(() => {
+
     return subFormFields.value
 })
 
 watch(() => props.data![props.watchFieldName], (v: any) => {
-    console.log('v: --->', v);
-    console.log('item: --->', props.item);
-    console.log('props.data: --->', props.data);
     if (!props.data?.[props.fieldName]) {
         u.merged(props.data!, { [props.fieldName]: {} })
     }
-    console.log('props.data: --->', props.data);
 
     subFormFields.value = props.subFormFields[v]
-    console.log('item: --->', subFormFields.value);
+
 
 }, {
     immediate: true,
