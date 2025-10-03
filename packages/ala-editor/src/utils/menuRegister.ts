@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-14 20:43:56
+ * @LastEditTime: 2025-10-03 20:53:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -30,7 +30,7 @@ export const allMenuComponents: MenuComponent = {
     },
     "/log/page": {
         name: "LogPage",
-        component: "../pages/log/index.vue",
+        component: "../pages/system/log/index.vue",
         requiresAuth: true
     },
     "/organization/page": {
@@ -239,6 +239,7 @@ export const allMenuComponents: MenuComponent = {
         component: "../pages/cloud/applicationInstance/index.vue",
         requiresAuth: true,
     },
+
 
 
 }

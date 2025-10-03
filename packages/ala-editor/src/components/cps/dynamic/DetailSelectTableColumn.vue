@@ -9,7 +9,7 @@
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+    <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
     <div class="value">
         <div class="select-table">
             <div class="ala-select-table-value" v-for="(item, index) in showValue" @click="showDetail(item, index)">

@@ -10,7 +10,7 @@
 -->
 <template>
 
-    <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+    <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
     <p class="value" v-if="isDetailPage">
         <img :src="showValue" :width="height" :title="title" /> 【 {{ imageTitle }} 】
     </p>

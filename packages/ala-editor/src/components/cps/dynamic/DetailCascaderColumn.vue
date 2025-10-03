@@ -10,11 +10,11 @@
 -->
 <template>
     <template v-if="isDetailColumn">
-        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <p class="detail-link value" @click="showDetail">{{ showValue }}</p>
     </template>
     <template v-else>
-        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <p class="value"><v-icon v-if="icon && !isDetailColumn" class="image" :icon="icon" :width="width"
                 :height="height" />{{
                     showValue }}

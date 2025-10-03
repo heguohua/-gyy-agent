@@ -16,6 +16,7 @@ import { physicalServersDisks } from "@/config/formConfigs/cloud/physicalServers
 import { cloudServers } from "@/config/formConfigs/cloud/cloudServers"
 import { physicalServers } from "@/config/formConfigs/cloud/physicalServers"
 import { systemUser } from "@/config/formConfigs/systemUser"
+import { systemLog } from "@/config/formConfigs/systemLog"
 import { systemRole } from "@/config/formConfigs/systemRole"
 import { device } from "@/config/formConfigs/device"
 import { camera } from "@/config/formConfigs/camera"
@@ -29,6 +30,7 @@ import u from "@/utils/u"
 
 const formConfigs = {
     systemUser,
+    systemLog,
     device,
     camera,
     profile,

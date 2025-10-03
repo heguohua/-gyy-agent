@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 10:09:16
+ * @LastEditTime: 2025-10-03 21:58:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTextareaColumn.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <template v-if="isDetailColumn">
 
 
-        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <p class="value detail-link" @click="showDetail">
         <div class="omit">
             <el-tooltip effect="light" :content="value" :hide-after="0" v-if="!isDetailPage">
@@ -27,7 +27,7 @@
 
     </template>
     <template v-else>
-        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <p class="value">
         <div class="omit">
             <el-tooltip effect="light" :content="value" :hide-after="0" v-if="!isDetailPage">
@@ -108,6 +108,7 @@ const showDetail = () => {
     padding: 4px;
     white-space: pre-line;
     width: 100%;
+    word-break: break-all;
 }
 
 .detail-link {

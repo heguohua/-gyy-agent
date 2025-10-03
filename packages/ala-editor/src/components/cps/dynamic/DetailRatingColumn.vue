@@ -10,7 +10,7 @@
 -->
 <template>
 
-    <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+    <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
     <p class="value">
         {{ value }}<i class="el-icon el-rate__icon is-active star"><svg xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1024 1024" style="">

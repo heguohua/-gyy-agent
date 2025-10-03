@@ -10,14 +10,14 @@
 -->
 <template>
     <template v-if="isDetailColumn">
-        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <div class="ala-image value">
             <img class="image" :src="image" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
                 :key="index" @click="showDetail" />
         </div>
     </template>
     <template v-else>
-        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <div class="value ala-image">
             <img class="image" :src="image" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
                 :key="index" />

@@ -11,10 +11,10 @@
 <template>
 
     <template v-if="isDetailColumn">
-        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
     </template>
     <template v-else>
-        <p class="title" :style="{ width: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <p class="value">
             <div v-if="localValues && localValues.length > 0" class="files">
                 <div class="one-file" v-for="(item, index) in localValues" :key="u.uuid()" @click="handleDownload(item)">
