@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-13 08:36:53
+ * @LastEditTime: 2025-10-13 09:32:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/form-design-editor.vue
  * @Description: 
  * 
@@ -91,6 +91,8 @@ onMounted(() => {
             // 如果是clone跳转，则去除 pageConfig.module 属性
             if (route.query.isClone && route.query.isClone == 'true') {
                 pageConfig['formData']['moduleName']['desktop'] = ''
+                pageConfig["id"] = ''
+
             } else {
                 // 向 pageConfig 添加 id ，供 editor-config 页面保存数据用于判断当前是新建还是编辑操作
                 pageConfig["id"] = route.query.id
