@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-03 19:34:28
+ * @LastEditTime: 2025-10-13 08:36:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/form-design-editor.vue
  * @Description: 
  * 
@@ -14,7 +14,8 @@
 
         <div class="container" :class="classes">
 
-            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseFields" :seniorBlocks="seniorFields"  :businessFields="businessFields" />
+            <EditorBlock :bType="bType" :menuList="menuList" :baseBlocks="baseFields" :seniorBlocks="seniorFields"
+                :businessFields="businessFields" />
 
             <EditorRender :bType="bType" />
 
@@ -87,9 +88,15 @@ onMounted(() => {
             const blockConfig = conf["blockConfig"][bType]
             const pageConfig = conf["pageConfig"][bType]
 
-            // 向 pageConfig 添加 id ，供 editor-config 页面保存数据用于判断当前是新建还是编辑操作
-            pageConfig["id"] = route.query.id
-            
+            // 如果是clone跳转，则去除 pageConfig.module 属性
+            if (route.query.isClone && route.query.isClone == 'true') {
+                pageConfig['formData']['moduleName']['desktop'] = ''
+            } else {
+                // 向 pageConfig 添加 id ，供 editor-config 页面保存数据用于判断当前是新建还是编辑操作
+                pageConfig["id"] = route.query.id
+
+            }
+
             editorStore.setBlockConfig(blockConfig, bType)
             editorStore.setPageConfig(pageConfig, bType)
 

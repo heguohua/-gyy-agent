@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-01 21:36:33
+ * @LastEditTime: 2025-10-13 08:30:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -37,6 +37,7 @@
         </template>
 
         <template #btns="{ row }">
+            <AlaButton :showButton="true" name="clone" @clone="handleClone(row)"/>
             <AlaButton :showButton="true" name="publish" @publish="handlePublish(row)" buttonType="primary"
                 v-if="row.formType != 'screen'" />
             <AlaButton :showButton="true" name="force_publish" @force_publish="handleForcePublish(row)"
@@ -222,6 +223,31 @@ const handlePublish = (item: any) => {
 
     showParentMenuSelectDialog.value = true
     form.value.id = item.id
+
+}
+
+const handleClone = (item: any) => {
+
+    showAddForm.value = true
+    // 解除 响应式引用，防止新增页面数据影响列表数据
+    const entity = toRaw(item)
+    entity.typeEntity = [{ id: entity.type }]
+
+    u.merged(baseInfo, { entity })
+    logger.info(`【编辑】方法接收到参数 entity `, entity);
+    logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    // u.merged(baseInfo, { item })
+    // logger.info(`【编辑】方法接收到参数 item `, item);
+    // logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    // showAddForm.value = true
+    // 打开form编辑页面
+    const formType = item.formType
+    if (formType === 'screen' || formType === 'page') {
+        router.push({ name: "ScreenDesignPage", query: { type: 'edit', id: entity.id, isClone: 'true' } })
+    } else {
+        router.push({ name: "FormDesignPage", query: { type: 'edit', id: entity.id, isClone: 'true' } })
+    }
+
 
 }
 
