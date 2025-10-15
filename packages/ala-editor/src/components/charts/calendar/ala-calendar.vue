@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 21:39:27
+ * @LastEditTime: 2025-10-15 22:37:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -30,7 +30,17 @@
 
         </div>
       </div>
-      <el-calendar v-model="today" class="ala-calendar" :first-day-of-week="2" />
+      <el-calendar v-model="today" class="ala-calendar" :first-day-of-week="2">
+        <!-- 自定义日期格子 -->
+        <template #date-cell="{ data }">
+          <div class="cell-content">
+            <div>{{ data.day.split('-')[2] }}</div>
+            <div v-if="events[data.day]" class="event-tag">
+              {{ events[data.day] }}
+            </div>
+          </div>
+        </template>
+      </el-calendar>
     </div>
     <div v-if="props.showWeek && dateType === '周'" label="周" name="周" class="ala-calendar-week">
       <div class="header" v-if="props.showHeader">
@@ -93,6 +103,7 @@ const { t } = useI18n();
 
 // 设置 日历开始列为从星期一开始
 import { ElConfigProvider, dayjs } from 'element-plus'
+import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 dayjs.en.weekStart = 1
 
 interface ItemProperty {
@@ -114,25 +125,17 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  url: {
-    type: String,
-    default: ''
-  },
-  itemProperty: {
-    type: Object as () => ItemProperty,
+  params: {
+    type: Object,
     default: () => ({})
   },
-  params: {
+  formData: {
     type: Object,
     default: () => ({})
   },
   width: {
     type: Number,
     default: 100,
-  },
-  fieldName: {
-    type: String,
-    default: ''
   },
   firstDayOfWeek: {
     type: Number,
@@ -157,9 +160,6 @@ const props = defineProps({
   showDay: {
     type: Boolean,
     default: false
-  },
-  help: {
-    type: String,
   }
 })
 
@@ -189,27 +189,45 @@ const model = defineModel({
 
 
 
+const apiUrl = ref("")
 
 const query = () => {
 
+  const formData = props.formData
+
   // Methods
-  const url = props.url
-  const params = props.params
+  const url = apiUrl.value
+  const params = props.params || {}
   logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
   if (!url) {
     notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
   } else {
-    alaPost(u.url(url), params, false, '').then((data: any) => {
+
+
+    // dateName: {
+    //   type: String,
+    // },
+    // valueName: {
+    //   type: String,
+    // },
+    // colorName: {
+    //   type: String,
+    //   default: ""
+    // },
+    // data_time: {
+    //   type: Number,
+    //   default: 60000
+    // }
+
+    const className = formData.className.desktop
+    const dateName = formData.dateName.desktop
+    const valueName = formData.valueName.desktop
+    const colorName = formData.colorName.desktop
+    const data_time = formData.data_time.desktop
+    alaPost(u.url(url), u.merged({ "tableName": className },params), false, '').then((data: any) => {
       const response = data;
       if (response.data) {
-        const item_s: Array<item> = []
-        response.data.forEach((item: any) => {
-          const name = item[props.itemProperty.propertyName]
-          const value = item[props.itemProperty.valueName]
-          item_s.push({ name, value })
-        })
-
-        u.merged(items.value, item_s)
+        console.log('response.data: ---> ', response);
       }
     });
   }
@@ -231,8 +249,48 @@ const handleSwitchCurrentMonth = () => {
 //   }
 // })
 
+// 这里存放每个日期的自定义数据（可动态）
+const events = {
+  '2025-10-15': '🔥 发布会',
+  '2025-10-18': '🎉 团建',
+  '2025-10-25': '📦 发货日'
+}
 
-onMounted(() => {
+interface Column { prop: string, label: string, formItem: any }
+// const columns = ref<Array<Column>>([])
+const detailFields: any = ref([])
+
+
+onMounted(async () => {
+
+  const formData = props.formData
+  const className = formData.className.desktop
+  const configs = await getLowcodingConfigByClassName(className || "")
+
+  console.log('configs:--->', configs);
+
+  // columns.value = configs.columns
+  // baseFields.value = configs.baseFields
+  // formConfigItems.value = configs.formConfigItems
+  // addFormFields.value = configs.addFormFields
+  detailFields.value = configs.detailFields
+  // showAddButton.value = configs.showAddButton
+  // showDeleteButton.value = configs.showDeleteButton
+  // showEditButton.value = configs.showEditButton
+  // showDisableButton.value = configs.showDisableButton
+  // showButtonsColumn.value = configs.showButtonsColumn
+  // formType.value = configs.formType
+  // u.merged(formAttr.value, configs.formAttr)
+  const url = formData.url.desktop
+
+  if (url) {
+    // 说明是 静态api模块
+    apiUrl.value = url
+  } else {
+    apiUrl.value = "/l/dynamic/list"
+  }
+
+  query()
 
 })
 </script>

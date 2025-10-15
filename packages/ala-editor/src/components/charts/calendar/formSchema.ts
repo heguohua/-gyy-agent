@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 21:50:50
+ * @LastEditTime: 2025-10-15 22:06:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/formSchema.ts
  * @Description: 
  * 
@@ -23,7 +23,7 @@ const mainTitleText = Type.String({
     ]
 })
 
-const moduleName = Type.String({
+const className = Type.String({
     code: "config-input",
     title: "模块名",
     rules: [
@@ -35,6 +35,14 @@ const moduleName = Type.String({
 const url = Type.String({
     code: "config-input",
     title: "数据API",
+    rules: [
+        { name: 'max', length: 100, message: '最多100个字符' },
+    ]
+})
+
+const dateName = Type.String({
+    code: "config-input",
+    title: "日期字段名",
     rules: [
         { name: 'max', length: 100, message: '最多100个字符' },
     ]
@@ -73,8 +81,9 @@ const schema = Type.Object({
 
     // 数据请求API相关
     configApi: schemaAllViewport(configCollapseItem("数据API")),
-    moduleName: schemaAllViewport(moduleName),
+    className: schemaAllViewport(className),
     url: schemaAllViewport(url),
+    dateName: schemaAllViewport(dateName),
     valueName: schemaAllViewport(valueName),
     colorName: schemaAllViewport(colorName),
     data_time: schemaAllViewport(configInt('数据刷新间隔', 30000, 1000)),
