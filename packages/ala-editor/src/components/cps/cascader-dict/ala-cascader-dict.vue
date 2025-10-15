@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:20:30
+ * @LastEditTime: 2025-10-15 11:26:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader-dict/ala-cascader-dict.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <div class="ala-select-api-wrapper">
+  <div class="ala-cascader-dict-wrapper">
     <!-- <span :class="clasz">{{ label }}</span>  -->
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
       <template #label>

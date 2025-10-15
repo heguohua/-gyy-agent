@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 22:25:47
+ * @LastEditTime: 2025-10-15 11:28:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/relation/ala-relation-sub-form.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
-        :style="columnWidth(item)">
+        :style="columnWidth(item)" class="ala-relation-sub-form-wrapper">
         <component :is="item.componentName" :label="item.label"
             :position="item.other?.position ? item.other.position : labelPosition" :placeholder="item.placeholder"
             v-bind="item.other" v-model="data![fieldName][item.fieldName]" :fieldName="item.fieldName"

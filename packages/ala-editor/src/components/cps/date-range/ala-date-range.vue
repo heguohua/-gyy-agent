@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:21:04
+ * @LastEditTime: 2025-10-15 11:24:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-date-picker-wrapper">
+    <div class="ala-date-range-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
@@ -177,7 +177,7 @@ const isDisabled = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.ala-date-picker-wrapper {
+.ala-date-range-wrapper {
     :deep .el-form-item__label {
         justify-content: right;
     }

@@ -2,6 +2,12 @@ import { todo } from "node:test"
 import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
 
 
+// 智慧营销中心
+import marketing from '~icons/nimbus/marketing';
+import visitRecord from '~icons/fluent/handshake-20-regular';
+import visitPlan from '~icons/icon-park-outline/plan';
+
+
 import rowIcon from '~icons/fluent/layout-row-two-16-regular';
 import columnIcon from '~icons/fluent/layout-column-two-split-right-16-regular';
 import imageIcon from '~icons/fluent/image-16-regular';
@@ -556,6 +562,12 @@ const icon = {
   cloudSnapshots:IcRoundRestore,
   applications:Applications,
   applicationsInstances:ApplicationInstances,
+
+  // 智慧营销中心
+  marketing,
+  visitRecord,
+  visitPlan,
+
 }
 
 export default icon

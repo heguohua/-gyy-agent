@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:23:02
+ * @LastEditTime: 2025-10-15 11:25:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 
 <template>
-  <div class="ala-select-api-wrapper">
+  <div class="ala-select-tree-wrapper">
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
 
       <template #label>
