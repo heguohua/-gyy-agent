@@ -219,8 +219,8 @@ export const themeRiverChart: BaseBlock[] = [
 export const calendarCoordinateSystem: BaseBlock[] = [
     {
         id: "",
-        name: "基础饼图",
-        code: "calendarCoordinateSystem",
+        name: "月份日历视图",
+        code: "calendar",
         icon: "calendarCoordinateSystem.png",
         formData: {},
     }

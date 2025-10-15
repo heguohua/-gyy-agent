@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 22:32:55
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 16:19:58
+ * @LastEditTime: 2025-10-15 17:57:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/welcome.vue
  * @Description: 
  * 
@@ -35,7 +35,6 @@
 
     </template>
   </div>
-  <AlaCalendar :show-header="false" :show-month="true" />
 
 </template>
 

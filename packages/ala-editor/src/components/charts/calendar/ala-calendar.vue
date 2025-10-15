@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 16:24:35
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/calendar/ala-calendar.vue
+ * @LastEditTime: 2025-10-15 21:39:27
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -30,7 +30,7 @@
 
         </div>
       </div>
-      <el-calendar v-model="today" class="ala-calendar" />
+      <el-calendar v-model="today" class="ala-calendar" :first-day-of-week="2" />
     </div>
     <div v-if="props.showWeek && dateType === '周'" label="周" name="周" class="ala-calendar-week">
       <div class="header" v-if="props.showHeader">
@@ -91,6 +91,10 @@ import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
+// 设置 日历开始列为从星期一开始
+import { ElConfigProvider, dayjs } from 'element-plus'
+dayjs.en.weekStart = 1
+
 interface ItemProperty {
   propertyName: string,
   valueName: string
@@ -130,13 +134,17 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  firstDayOfWeek: {
+    type: Number,
+    default: 1
+  },
   isFormDesign: {
     type: Boolean,
     default: false
   },
   showMonth: {
     type: Boolean,
-    default: false
+    default: true
   },
   showHeader: {
     type: Boolean,
@@ -223,6 +231,10 @@ const handleSwitchCurrentMonth = () => {
 //   }
 // })
 
+
+onMounted(() => {
+
+})
 </script>
 
 <style scoped lang="scss">
@@ -322,6 +334,16 @@ const handleSwitchCurrentMonth = () => {
     .ala-calendar {
       border-radius: 8px;
       border: 1px solid #E5E7EC;
+
+      :deep(.el-calendar-table th) {
+        color: #409eff;
+        font-weight: bold;
+      }
+
+      :deep(.el-calendar-table .is-today) {
+        color: #f56c6c;
+        font-weight: bold;
+      }
 
     }
   }

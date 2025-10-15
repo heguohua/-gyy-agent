@@ -39,12 +39,12 @@ const { t } = useI18n();
 const route = useRoute()
 
 // State
-const bType = 'form'
+const bType = ref<string>('form')
 const editorStore = useEditorStore()
 
 // Methods
 const classes = computed(() => {
-    return { "mobile-background": editorStore.isMobileViewport(bType) }
+    return { "mobile-background": editorStore.isMobileViewport(bType.value) }
 })
 
 
@@ -73,6 +73,10 @@ const formData = ref({})
 
 // 加载编辑时的初始化数据
 onMounted(() => {
+
+
+    bType.value = route.query.bType ? route.query.bType + '' : ""
+
     if (route.query.id) {
 
         const url = "/l/lowcodingConfig/get"
@@ -85,8 +89,8 @@ onMounted(() => {
 
             const conf = u.parseJson(config)
 
-            const blockConfig = conf["blockConfig"][bType]
-            const pageConfig = conf["pageConfig"][bType]
+            const blockConfig = conf["blockConfig"][bType.value]
+            const pageConfig = conf["pageConfig"][bType.value]
 
             // 如果是clone跳转，则去除 pageConfig.module 属性
             if (route.query.isClone && route.query.isClone == 'true') {
@@ -99,8 +103,8 @@ onMounted(() => {
 
             }
 
-            editorStore.setBlockConfig(blockConfig, bType)
-            editorStore.setPageConfig(pageConfig, bType)
+            editorStore.setBlockConfig(blockConfig, bType.value)
+            editorStore.setPageConfig(pageConfig, bType.value)
 
         });
     }

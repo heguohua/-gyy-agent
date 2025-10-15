@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:23:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-16 16:04:39
+ * @LastEditTime: 2025-10-15 21:14:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/store/locale.ts
  * @Description: 
  * 
@@ -16,6 +16,7 @@ import ru from 'element-plus/es/locale/lang/ru'
 import lstore from '@/utils/lstore'
 import { alaConsts } from '@/config/alaConsts'
 import { logger } from '@/utils/logger'
+
 
 export enum languages {
     "zh-CN" = '简体中文',

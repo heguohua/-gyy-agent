@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-06 18:14:18
+ * @LastEditTime: 2025-10-15 20:27:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-page.ts
  * @Description: 
  * 
@@ -102,7 +102,7 @@ const formType = Type.String({
     other: {
         clearable: true
     },
-    default: 'pageForm'
+    default: 'page'
 })
 
 
