@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-03-16 11:23:09
+ * @LastEditTime: 2025-10-15 16:24:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
   <div class="ala-calendar-wrapper">
 
     <div v-if="props.showMonth && dateType === '月'" label="月" name="月" class="ala-calendar-month">
-      <div class="header">
+      <div class="header" v-if="props.showHeader">
         <div class="left">
           <div class="switch-button">
             <p :class="dateType === '月' ? 'is-select' : ''" @click="handleSwitchDateType('月')" v-if="props.showMonth">月
@@ -25,7 +25,6 @@
 
         </div>
         <div class="right">
-          <!-- alaBuildDate('bornDate', "出生日期", 'date', "YYYY-MM-DD", [alaRequired()], "", date.YYYY_MM_DD(new Date())), -->
           <AlaDate v-model="month" placeholder="请选择月份" dateType="month" format="YYYY-MM" />
           <p @click="handleSwitchCurrentMonth()">本月</p>
 
@@ -34,7 +33,7 @@
       <el-calendar v-model="today" class="ala-calendar" />
     </div>
     <div v-if="props.showWeek && dateType === '周'" label="周" name="周" class="ala-calendar-week">
-      <div class="header">
+      <div class="header" v-if="props.showHeader">
         <div class="left">
           <div class="switch-button">
             <p @click="handleSwitchDateType('月')" v-if="props.showMonth">月
@@ -57,7 +56,7 @@
       </div>
     </div>
     <div v-if="props.showDay && dateType === '日'" label="日" name="日" class="ala-calendar-day">
-      <div class="header">
+      <div class="header" v-if="props.showHeader">
         <div class="left">
           <div class="switch-button">
             <p @click="handleSwitchDateType('月')" v-if="props.showMonth">月
@@ -136,6 +135,10 @@ const props = defineProps({
     default: false
   },
   showMonth: {
+    type: Boolean,
+    default: false
+  },
+  showHeader: {
     type: Boolean,
     default: false
   },

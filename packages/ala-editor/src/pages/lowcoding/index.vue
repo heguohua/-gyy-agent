@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-13 08:30:59
+ * @LastEditTime: 2025-10-15 17:02:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -37,9 +37,8 @@
         </template>
 
         <template #btns="{ row }">
-            <AlaButton :showButton="true" name="clone" @clone="handleClone(row)"/>
-            <AlaButton :showButton="true" name="publish" @publish="handlePublish(row)" buttonType="primary"
-                v-if="row.formType != 'screen'" />
+            <AlaButton :showButton="true" name="clone" @clone="handleClone(row)" />
+            <AlaButton :showButton="true" name="publish" @publish="handlePublish(row)" buttonType="primary" />
             <AlaButton :showButton="true" name="force_publish" @force_publish="handleForcePublish(row)"
                 buttonType="danger" v-if="row.formType != 'screen'" />
         </template>
@@ -81,10 +80,18 @@ import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
 import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelect } from '@/config/alaDetailBuilder';
-import { formTypes } from '@/components/cps/dynamic/formTypes';
+
 import { dType } from '@/components/cps/dynamic/detailType';
 const { t } = useI18n();
 const router = useRouter()
+
+const formTypes: Array<{ [key: string]: string }> = [
+    { "列表表单": "pageForm" },
+    { "流程表单": "flow" },
+    { "大屏": "screen" },
+    { "页面": "page" }
+]
+
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
