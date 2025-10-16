@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 22:37:09
+ * @LastEditTime: 2025-10-16 11:25:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -30,15 +30,29 @@
 
         </div>
       </div>
-      <el-calendar v-model="today" class="ala-calendar" :first-day-of-week="2">
+      <el-calendar v-model="today" class="ala-calendar">
         <!-- 自定义日期格子 -->
         <template #date-cell="{ data }">
-          <div class="cell-content">
-            <div>{{ data.day.split('-')[2] }}</div>
-            <div v-if="events[data.day]" class="event-tag">
-              {{ events[data.day] }}
+          <div class="ala-calendar-cell-content" @mouseenter="showPopover($event, data.day)"
+            @mouseleave="hidePopover(data.day)">
+
+            <div class="ala-calendar-cell-title">{{ data.day.split('-')[2] }}</div>
+            <div v-if="events[data.day]" class="ala-calendar-cell-body">
+              <em v-for="(item, index) in events[data.day]" :key="item.id">
+                {{ index + 1 }}、{{ item.name }}
+              </em>
             </div>
+
           </div>
+
+          <div class="ala-calendar-cell-body-popover" v-if="popoverStates[data.day]?.visible"
+            :style="popoverStates[data.day].styles">
+            <em v-for="(item, index) in events[data.day]" :key="item.id" @click="selectItem(data.day, item)">
+              {{ index + 1 }}、{{ item.name }}
+            </em>
+          </div>
+
+
         </template>
       </el-calendar>
     </div>
@@ -106,6 +120,7 @@ import { ElConfigProvider, dayjs } from 'element-plus'
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 dayjs.en.weekStart = 1
 
+
 interface ItemProperty {
   propertyName: string,
   valueName: string
@@ -163,17 +178,6 @@ const props = defineProps({
   }
 })
 
-interface item {
-  name: string,
-  value: string,
-}
-
-const items = ref<Array<item>>([])
-
-const activeTab = ref('month')
-const tabList = ref<Array<string>>([
-])
-
 const month = ref(new Date().getTime())
 const today = ref(new Date())
 const dateType = ref('月')
@@ -203,33 +207,18 @@ const query = () => {
     notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
   } else {
 
-
-    // dateName: {
-    //   type: String,
-    // },
-    // valueName: {
-    //   type: String,
-    // },
-    // colorName: {
-    //   type: String,
-    //   default: ""
-    // },
-    // data_time: {
-    //   type: Number,
-    //   default: 60000
-    // }
-
     const className = formData.className.desktop
     const dateName = formData.dateName.desktop
     const valueName = formData.valueName.desktop
     const colorName = formData.colorName.desktop
     const data_time = formData.data_time.desktop
-    alaPost(u.url(url), u.merged({ "tableName": className },params), false, '').then((data: any) => {
+    alaPost(u.url(url), u.merged({ "tableName": className }, params), false, '').then((data: any) => {
       const response = data;
       if (response.data) {
         console.log('response.data: ---> ', response);
       }
     });
+
   }
 }
 
@@ -250,16 +239,15 @@ const handleSwitchCurrentMonth = () => {
 // })
 
 // 这里存放每个日期的自定义数据（可动态）
-const events = {
-  '2025-10-15': '🔥 发布会',
-  '2025-10-18': '🎉 团建',
-  '2025-10-25': '📦 发货日'
+const events: { [key: string]: Array<any> } = {
+  '2025-10-15': [{ id: 1, name: '🔥 发布会' }],
+  '2025-10-18': [{ id: 2, name: '🎉 团建' }],
+  '2025-10-25': [{ id: 3, name: '📦 发货日' }, { id: 3, name: '📦 去北京，拜访华兰集团董事长' }, { id: 4, name: '📦 去北京，拜访华兰集团董事长' }, { id: 5, name: '📦 去北京，拜访华兰集团董事长' }, { id: 6, name: '📦 去北京，拜访华兰集团董事长华兰集团董事长华兰集团董事长' },]
 }
 
 interface Column { prop: string, label: string, formItem: any }
 // const columns = ref<Array<Column>>([])
 const detailFields: any = ref([])
-
 
 onMounted(async () => {
 
@@ -293,6 +281,51 @@ onMounted(async () => {
   query()
 
 })
+
+
+const currentDay = ref("")
+
+const popoverStates = ref({})
+
+function showPopover(e, day) {
+
+
+  console.log('getElementPositionInfo:', u.getElementPositionInfo(e));
+
+
+  popoverStates.value[day] = {
+    visible: true,
+    styles: {
+      position: 'absolute',
+      left: e.clientX + 'px',
+      top: e.clientY + 'px'
+    }
+  }
+
+  console.log('popoverStates.value[day]:', day);
+  console.log('popoverStates.value[day]:', popoverStates.value[day]);
+  currentDay.value = day
+
+}
+
+function hidePopover(day) {
+  // 可以选择不立即隐藏，让点击内部关闭
+  // popoverStates.value[day].visible = false
+}
+
+function selectItem(day, item) {
+  console.log('选中', day, item)
+  popoverStates.value[day].visible = false
+}
+
+
+const popoverStyles = computed(() => {
+  console.log('popoverStates.value[currentDay.value].styles', popoverStates.value[currentDay.value].styles);
+
+  return popoverStates.value[currentDay.value].styles
+})
+
+
 </script>
 
 <style scoped lang="scss">
@@ -314,13 +347,11 @@ onMounted(async () => {
       display: flex;
       width: 50%;
 
-
       .switch-button {
         display: inline-flex;
         border: 1px solid #E5E7EC;
         border-radius: 4px;
         cursor: pointer;
-
 
         p {
           width: 38px;
@@ -355,7 +386,6 @@ onMounted(async () => {
         }
       }
 
-
     }
 
     .right {
@@ -386,10 +416,83 @@ onMounted(async () => {
     }
   }
 
-  .ala-calendar-month {
+  .ala-calendar-week {
+    .header {
+      .left {
+        .switch-button {
+          p {}
 
+          .is-select {}
+        }
+      }
+
+      .right {
+        p {}
+      }
+    }
+
+    .ala-week {}
+  }
+
+  .ala-calendar-day {
+    .header {
+      .left {
+        .switch-button {
+          p {}
+
+          .is-select {}
+        }
+      }
+
+      .right {
+        p {}
+      }
+    }
+
+    .ala-day {}
+  }
+
+  .ala-calendar-month {
+    .header {
+      .left {
+        .switch-button {
+          .is-select {}
+
+          p {}
+        }
+      }
+
+      .right {
+        p {}
+      }
+    }
 
     .ala-calendar {
+
+      :deep(.el-calendar-table__row .current:hover) {
+        background-color: var(--el-calendar-selected-bg-color);
+        cursor: pointer;
+      }
+
+
+      .ala-calendar-cell-content {
+
+        .ala-calendar-cell-title {
+          margin-bottom: 10px;
+        }
+
+        .ala-calendar-cell-body {
+          display: flex;
+          flex-direction: column;
+
+          em {}
+        }
+
+        .ala-calendar-cell-body-popover {
+          position: relative;
+        }
+      }
+
       border-radius: 8px;
       border: 1px solid #E5E7EC;
 
@@ -401,6 +504,11 @@ onMounted(async () => {
       :deep(.el-calendar-table .is-today) {
         color: #f56c6c;
         font-weight: bold;
+      }
+
+      :deep(.el-calendar-day) {
+        height: auto;
+        min-height: 80px;
       }
 
     }

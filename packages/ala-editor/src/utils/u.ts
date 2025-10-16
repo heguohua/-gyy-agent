@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-05 08:30:18
+ * @LastEditTime: 2025-10-16 11:32:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -773,5 +773,53 @@ export default class u {
         };
     }
 
+
+    /**
+     * 获取当前元素位置和中心点信息
+     * @param {MouseEvent} event 鼠标事件
+     * @returns {object} 包含元素坐标、中心点、中心点到窗口边距
+     * 示例：{
+                element: div#myDiv,
+                width: 100,
+                height: 50,
+                leftTop: { x: 100, y: 200 },
+                center: { x: 150, y: 225 },
+                distancesToWindow: { top: 225, right: 650, bottom: 375, left: 150 }
+            }
+     * 
+     */
+    public static getElementPositionInfo(event: any) {
+        const el = event.currentTarget || event.target
+
+        if (!el) return null
+
+        // 获取元素边界信息
+        const rect = el.getBoundingClientRect()
+        const left = rect.left
+        const top = rect.top
+        const width = rect.width
+        const height = rect.height
+
+        // 元素中心点坐标
+        const centerX = left + width / 2
+        const centerY = top + height / 2
+
+        // 中心点到浏览器窗口上下左右距离
+        const distances = {
+            top: centerY,
+            right: window.innerWidth - centerX,
+            bottom: window.innerHeight - centerY,
+            left: centerX
+        }
+
+        return {
+            element: el,
+            width,
+            height,
+            leftTop: { x: left, y: top },
+            center: { x: centerX, y: centerY },
+            distancesToWindow: distances
+        }
+    }
 }
 
