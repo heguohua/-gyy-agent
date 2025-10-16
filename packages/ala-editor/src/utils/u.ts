@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-16 11:32:20
+ * @LastEditTime: 2025-10-16 19:04:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -820,6 +820,18 @@ export default class u {
             center: { x: centerX, y: centerY },
             distancesToWindow: distances
         }
+    }
+
+    /**
+     * 截取字符串到指定长度，超出部分用中文省略号代替。
+     * @param str 原始字符串
+     * @param maxLength 最大长度（按字符数）
+     * @returns 处理后的字符串
+     */
+    public static truncateWithEllipsis(str: string, maxLength: number): string {
+        if (typeof str !== 'string') return ''
+        if (str.length <= maxLength) return str
+        return str.slice(0, maxLength) + '...' // 三个中文句号
     }
 }
 

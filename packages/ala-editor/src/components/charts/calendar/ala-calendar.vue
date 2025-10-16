@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-16 11:25:49
+ * @LastEditTime: 2025-10-16 19:13:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -33,25 +33,27 @@
       <el-calendar v-model="today" class="ala-calendar">
         <!-- 自定义日期格子 -->
         <template #date-cell="{ data }">
-          <div class="ala-calendar-cell-content" @mouseenter="showPopover($event, data.day)"
-            @mouseleave="hidePopover(data.day)">
 
-            <div class="ala-calendar-cell-title">{{ data.day.split('-')[2] }}</div>
-            <div v-if="events[data.day]" class="ala-calendar-cell-body">
-              <em v-for="(item, index) in events[data.day]" :key="item.id">
+          <AlaPopoverInfo :key="data.day">
+
+            <template #shortContent>
+              <div class="ala-calendar-cell-title">{{ data.day.split('-')[2] }}</div>
+              <div v-for="(item, index) in events[data.day]?.slice(0, 6) || []" :key="item.id">
+                {{ index + 1 }}、{{ u.truncateWithEllipsis(item.name, 12) }}
+              </div>
+            </template>
+
+            <template #detailContent>
+              <div v-for="(item, index) in events[data.day]" :key="'d-' + item.id" v-if="events[data.day]?.length > 0">
                 {{ index + 1 }}、{{ item.name }}
-              </em>
-            </div>
+              </div>
 
-          </div>
+              <div v-else class="ala-calendar-cell-detail-content-empty">
+                没有明细数据。。。
+              </div>
+            </template>
 
-          <div class="ala-calendar-cell-body-popover" v-if="popoverStates[data.day]?.visible"
-            :style="popoverStates[data.day].styles">
-            <em v-for="(item, index) in events[data.day]" :key="item.id" @click="selectItem(data.day, item)">
-              {{ index + 1 }}、{{ item.name }}
-            </em>
-          </div>
-
+          </AlaPopoverInfo>
 
         </template>
       </el-calendar>
@@ -70,8 +72,6 @@
 
         </div>
         <div class="right">
-          <!-- alaBuildDate('bornDate', "出生日期", 'date', "YYYY-MM-DD", [alaRequired()], "", date.YYYY_MM_DD(new Date())), -->
-          <!-- <AlaDate v-model="month" placeholder="请选择周" dateType="week" format="yyyy 第 WW 周"/>  -->
           <p @click="handleSwitchCurrentMonth()">本周</p>
         </div>
       </div>
@@ -118,6 +118,7 @@ const { t } = useI18n();
 // 设置 日历开始列为从星期一开始
 import { ElConfigProvider, dayjs } from 'element-plus'
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
+import AlaPopoverInfo from '@/components/cps/popover/ala-popover-info.vue';
 dayjs.en.weekStart = 1
 
 
@@ -242,7 +243,7 @@ const handleSwitchCurrentMonth = () => {
 const events: { [key: string]: Array<any> } = {
   '2025-10-15': [{ id: 1, name: '🔥 发布会' }],
   '2025-10-18': [{ id: 2, name: '🎉 团建' }],
-  '2025-10-25': [{ id: 3, name: '📦 发货日' }, { id: 3, name: '📦 去北京，拜访华兰集团董事长' }, { id: 4, name: '📦 去北京，拜访华兰集团董事长' }, { id: 5, name: '📦 去北京，拜访华兰集团董事长' }, { id: 6, name: '📦 去北京，拜访华兰集团董事长华兰集团董事长华兰集团董事长' },]
+  '2025-10-25': [{ id: 3, name: '📦 发货日' }, { id: 3, name: '📦 去北京，拜访华兰集团董事长' }, { id: 4, name: '📦 去北京，拜访华兰集团董事长' }, { id: 5, name: '📦 去北京，拜访华兰集团董事长，拜访华兰集团董事长' },]
 }
 
 interface Column { prop: string, label: string, formItem: any }
@@ -280,49 +281,6 @@ onMounted(async () => {
 
   query()
 
-})
-
-
-const currentDay = ref("")
-
-const popoverStates = ref({})
-
-function showPopover(e, day) {
-
-
-  console.log('getElementPositionInfo:', u.getElementPositionInfo(e));
-
-
-  popoverStates.value[day] = {
-    visible: true,
-    styles: {
-      position: 'absolute',
-      left: e.clientX + 'px',
-      top: e.clientY + 'px'
-    }
-  }
-
-  console.log('popoverStates.value[day]:', day);
-  console.log('popoverStates.value[day]:', popoverStates.value[day]);
-  currentDay.value = day
-
-}
-
-function hidePopover(day) {
-  // 可以选择不立即隐藏，让点击内部关闭
-  // popoverStates.value[day].visible = false
-}
-
-function selectItem(day, item) {
-  console.log('选中', day, item)
-  popoverStates.value[day].visible = false
-}
-
-
-const popoverStyles = computed(() => {
-  console.log('popoverStates.value[currentDay.value].styles', popoverStates.value[currentDay.value].styles);
-
-  return popoverStates.value[currentDay.value].styles
 })
 
 
@@ -468,28 +426,36 @@ const popoverStyles = computed(() => {
     }
 
     .ala-calendar {
+      .ala-calendar-cell-detail-content-empty {
+        color: #e6a23c;
+      }
 
       :deep(.el-calendar-table__row .current:hover) {
         background-color: var(--el-calendar-selected-bg-color);
         cursor: pointer;
       }
 
+      :deep(.ala-calendar-cell-short-content) {
+        display: flex;
+        flex-direction: column;
+      }
 
-      .ala-calendar-cell-content {
+      :deep(.ala-calendar-cell-detail-content div) {
+        width: 100%;
+        flex: 1;
+        /* 让文字区占满剩余空间 */
+        word-break: break-all;
+        /* 允许中文/英文自动换行 */
+        white-space: normal;
+        /* 保证换行生效 */
+        line-height: 1.5;
+        text-align: left;
+        /* 避免多行文字居中 */
+        margin-top: 0.5rem;
 
-        .ala-calendar-cell-title {
-          margin-bottom: 10px;
-        }
-
-        .ala-calendar-cell-body {
-          display: flex;
-          flex-direction: column;
-
-          em {}
-        }
-
-        .ala-calendar-cell-body-popover {
-          position: relative;
+        &:hover {
+          color: var(--el-color-primary);
+          font-weight: bold;
         }
       }
 

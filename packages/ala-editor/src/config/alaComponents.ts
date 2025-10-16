@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 18:29:11
+ * @LastEditTime: 2025-10-16 16:54:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -13,6 +13,7 @@ import AlaEmpty from '@/components/cps/empty/ala-empty.vue';
 import AlaFile from '@/components/cps/file/ala-file.vue';
 import AlaLink from '@/components/cps/link/ala-link.vue';
 import AlaColumn from '@/components/cps/column/ala-column.vue';
+import AlaPopoverInfo from '@/components/cps/popover/ala-popover-info.vue';
 
 
 // 注册表单组件
@@ -135,6 +136,7 @@ export default {
     AlaLink,
     AlaColumn,
     AlaFile,
+    AlaPopoverInfo,
 
     // editor-config 区域表单组件
     AlaConfigInput,
