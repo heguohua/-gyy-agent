@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-01 21:40:00
+ * @LastEditTime: 2025-10-16 20:01:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms.vue
  * @Description: 
  * 
@@ -156,9 +156,6 @@ watch(() => props.previewParams.forms, (forms) => {
 
             // 查询表单配置信息    
             const config = await getRawLowcodingConfigByClassName(form.tableName!)
-
-            console.log('config:', config);
-
 
             config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 

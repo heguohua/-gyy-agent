@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-16 19:13:43
+ * @LastEditTime: 2025-10-16 21:58:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -44,7 +44,8 @@
             </template>
 
             <template #detailContent>
-              <div v-for="(item, index) in events[data.day]" :key="'d-' + item.id" v-if="events[data.day]?.length > 0">
+              <div v-for="(item, index) in events[data.day]" :key="'d-' + item.id" v-if="events[data.day]?.length > 0"
+                @click="showDetail(item)">
                 {{ index + 1 }}、{{ item.name }}
               </div>
 
@@ -105,9 +106,16 @@
     </div>
 
   </div>
+
+
+  <AlaDetail :data="detailItem" v-model="showDetailPage" v-if="showDetailPage" :fields="detailFields"
+    :formAttr="formAttrs" />
+
 </template>
 
 <script setup lang="ts">
+
+
 import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
 import { alaPost } from '@/utils/req';
@@ -119,6 +127,8 @@ const { t } = useI18n();
 import { ElConfigProvider, dayjs } from 'element-plus'
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 import AlaPopoverInfo from '@/components/cps/popover/ala-popover-info.vue';
+import { date } from '@/utils/date';
+import { string } from 'sql-formatter/dist/cjs/lexer/regexFactory';
 dayjs.en.weekStart = 1
 
 
@@ -195,8 +205,18 @@ const model = defineModel({
 
 
 const apiUrl = ref("")
-
+const dataCache: any = ref({})
 const query = () => {
+
+  const year = today.value.getFullYear();
+  const month = today.value.getMonth(); // 0 ~ 11
+
+  // 当月第一天 00:00:00
+  const firstDay = new Date(year, month, 1, 0, 0, 0, 0);
+  const firstDayTimestamp = firstDay.getTime();
+  // 当月最后一天 24:00:00 = 下一月的第一天 00:00:00
+  const lastDay = new Date(year, month + 1, 1, 0, 0, 0, 0);
+  const lastDayTimestamp = lastDay.getTime();
 
   const formData = props.formData
 
@@ -204,19 +224,68 @@ const query = () => {
   const url = apiUrl.value
   const params = props.params || {}
   logger.info(`从 api 加载下拉组件数据，url【 ${url} 】，查询参数：`, params);
+
   if (!url) {
     notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
   } else {
 
     const className = formData.className.desktop
-    const dateName = formData.dateName.desktop
+    const dateName = "a_" + formData.dateName.desktop
     const valueName = formData.valueName.desktop
     const colorName = formData.colorName.desktop
     const data_time = formData.data_time.desktop
-    alaPost(u.url(url), u.merged({ "tableName": className }, params), false, '').then((data: any) => {
-      const response = data;
-      if (response.data) {
-        console.log('response.data: ---> ', response);
+
+    // 日期查询条件
+
+    const pms = {
+      "body": {
+        "tableName": className,
+        "conditions": [
+          {
+            column: dateName,
+            operator: ">=",
+            value: firstDayTimestamp,
+          },
+          {
+            column: dateName,
+            operator: "<=",
+            value: lastDayTimestamp,
+          }
+        ]
+      },
+      "page": {
+        "current": 1,
+        "size": 200000,
+        "orders": [
+          {
+            "column": "id",
+            "asc": false
+          }
+        ]
+      }
+    }
+
+    // u.merged({ "tableName": className, conditions }, params)
+
+    alaPost(u.url(url), pms, false, '').then((response: any) => {
+      const data = response.data?.list;
+      if (data) {
+        const evs: any = {}
+        const dataCaches: any = {}
+        for (let index in data) {
+          const item = data[index]
+          dataCaches[item.id] = item
+
+          const d = date.YYYY_MM_DD(item[dateName])
+          if (evs[d]) {
+            evs[d].push({ id: item.id, name: item[valueName] })
+          } else {
+            evs[d] = [{ id: item.id, name: item[valueName] }]
+          }
+
+        }
+        events.value = evs
+        dataCache.value = dataCaches
       }
     });
 
@@ -226,37 +295,31 @@ const query = () => {
 const handleSwitchCurrentMonth = () => {
 
 }
-// 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
-// const isFormDesign = computed(() => props.isFormDesign)
-// if (!isFormDesign.value) {
-//   query()
-// }
-
-// watch(() => isFormDesign.value, (v) => {
-//   if (v) {
-//     // 说明是form表单设计页面
-//     query()
-//   }
-// })
 
 // 这里存放每个日期的自定义数据（可动态）
-const events: { [key: string]: Array<any> } = {
-  '2025-10-15': [{ id: 1, name: '🔥 发布会' }],
-  '2025-10-18': [{ id: 2, name: '🎉 团建' }],
-  '2025-10-25': [{ id: 3, name: '📦 发货日' }, { id: 3, name: '📦 去北京，拜访华兰集团董事长' }, { id: 4, name: '📦 去北京，拜访华兰集团董事长' }, { id: 5, name: '📦 去北京，拜访华兰集团董事长，拜访华兰集团董事长' },]
-}
+const events: any = ref<any>({})
+//   {
+//   '2025-10-15': [{ id: 1, name: '🔥 发布会' }],
+//   '2025-10-18': [{ id: 2, name: '🎉 团建' }],
+//   '2025-10-25': [{ id: 3, name: '📦 发货日' }, { id: 3, name: '📦 去北京，拜访华兰集团董事长' }, { id: 4, name: '📦 去北京，拜访华兰集团董事长' }, { id: 5, name: '📦 去北京，拜访华兰集团董事长，拜访华兰集团董事长' },]
+// }
 
-interface Column { prop: string, label: string, formItem: any }
-// const columns = ref<Array<Column>>([])
 const detailFields: any = ref([])
+const detailItem = reactive({
+  moduleName: '',
+  item: {}
+})
+
+
+const showDetailPage = ref(false)
+const formAttrs = ref()
 
 onMounted(async () => {
 
   const formData = props.formData
   const className = formData.className.desktop
+  detailItem.moduleName = t('menu.' + className)
   const configs = await getLowcodingConfigByClassName(className || "")
-
-  console.log('configs:--->', configs);
 
   // columns.value = configs.columns
   // baseFields.value = configs.baseFields
@@ -269,6 +332,7 @@ onMounted(async () => {
   // showDisableButton.value = configs.showDisableButton
   // showButtonsColumn.value = configs.showButtonsColumn
   // formType.value = configs.formType
+  formAttrs.value = configs.formAttr
   // u.merged(formAttr.value, configs.formAttr)
   const url = formData.url.desktop
 
@@ -276,13 +340,30 @@ onMounted(async () => {
     // 说明是 静态api模块
     apiUrl.value = url
   } else {
-    apiUrl.value = "/l/dynamic/list"
+    apiUrl.value = "/l/dynamic/page"
   }
 
-  query()
+  //刷新数据
+  watch(() => today.value, (currentDay) => {
+    query()
+  }, {
+    immediate: true
+  })
 
 })
 
+
+const showDetail = (item: { id: number, name: string }) => {
+
+  const formData = props.formData
+  const className = formData.className.desktop
+
+  console.log('item: -- className -> ', item, className);
+  detailItem.item = dataCache.value[item.id]
+
+  showDetailPage.value = true
+
+}
 
 </script>
 
