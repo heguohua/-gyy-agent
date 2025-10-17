@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 16:13:05
+ * @LastEditTime: 2025-10-17 08:22:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -22,8 +22,12 @@
                 <!-- @mousedown="startDrag"> -->
 
                 <Transition name="fade">
-                    <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name" @copy="copy"
-                        @clear="clear" :bType="bType" :showDrag="false" :showTop="true" @top="top">
+                    <EditRenderHover v-if="bType == 'screen'" v-show="hoverId === element.id" :id="element.id"
+                        :name="element.name" @copy="copy" @clear="clear" :bType="bType" :showDrag="false"
+                        :showTop="true" :showClone="true" @top="top" @clone="clone">
+                    </EditRenderHover>
+                    <EditRenderHover v-else v-show="hoverId === element.id" :id="element.id" :name="element.name"
+                        @copy="copy" @clear="clear" :bType="bType" :showDrag="false" :showTop="true" @top="top">
                     </EditRenderHover>
                 </Transition>
 
@@ -269,6 +273,16 @@ const clear = (id: string) => {
     const newBlockConfig = handleNodeById(editorStore.blockConfig[bType], id, 'clear')
     editorStore.setCurrentSelect({}, bType)
     editorStore.setBlockConfig(newBlockConfig, bType)
+}
+
+
+const clone = (id: string) => {
+    // if (!editorStore.blockConfig[bType]?.length) return
+    // const newBlockConfig = handleNodeById(editorStore.blockConfig[bType], id, 'clear')
+    // editorStore.setCurrentSelect({}, bType)
+    // editorStore.setBlockConfig(newBlockConfig, bType)
+    console.log('id: ---> ', id);
+
 }
 
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-20 19:10:48
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 15:59:27
+ * @LastEditTime: 2025-10-17 08:21:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/edit-render-hover.vue
  * @Description: 
  * 
@@ -15,6 +15,7 @@
             @click="top" />
         <v-icon-tooltip v-if="showCopy" icon="copy" content="复制" class="item" @click.stop="copy" />
         <v-icon-tooltip v-if="showDelete" icon="delete" content="删除" class="item" @click.stop="clear" />
+        <v-icon-tooltip v-if="showClone" icon="clone" content="模板复制" class="item" @click.stop="clone" />
     </div>
 </template>
 
@@ -40,6 +41,10 @@ const props = defineProps({
         type: Boolean,
         default: () => true
     },
+    showClone: {
+        type: Boolean,
+        default: () => false
+    },
     showDrag: {
         type: Boolean,
         default: () => true
@@ -52,10 +57,14 @@ const props = defineProps({
 
 const bType = props.bType
 
-const emit = defineEmits(['copy', 'clear', 'top'])
+const emit = defineEmits(['copy', 'clear', 'top', 'clone'])
 
 const copy = () => {
     emit('copy', props.id)
+}
+
+const clone = () => {
+    emit('clone', props.id)
 }
 
 const clear = () => {

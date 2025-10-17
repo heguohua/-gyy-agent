@@ -112,7 +112,21 @@ onMounted(() => {
             const pageConfig = conf["pageConfig"][bType]
 
             // 向 pageConfig 添加 id ，供 editor-config 页面保存数据用于判断当前是新建还是编辑操作
-            pageConfig["id"] = route.query.id
+            // pageConfig["id"] = route.query.id
+
+            // 如果是clone跳转，则去除 pageConfig.module 属性
+            if (route.query.isClone && route.query.isClone == 'true') {
+                pageConfig['formData']['moduleName']['desktop'] = ''
+                pageConfig["id"] = ''
+
+            } else {
+                // 向 pageConfig 添加 id ，供 editor-config 页面保存数据用于判断当前是新建还是编辑操作
+                pageConfig["id"] = route.query.id
+
+            }
+
+
+
 
             editorStore.setBlockConfig(blockConfig, bType)
             editorStore.setPageConfig(pageConfig, bType)

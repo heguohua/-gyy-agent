@@ -41,6 +41,7 @@ import closeCircleIcon from '~icons/gg/close-o';
 import contractIcon from '~icons/clarity/contract-line';
 import sealIcon from '~icons/tdesign/seal';
 import copyIcon from '~icons/fluent/save-copy-24-regular';
+import cloneIcon from '~icons/fluent/table-copy-20-regular';
 import deleteIcon from '~icons/fluent/delete-24-regular';
 import minusIcon from '~icons/zondicons/minus-outline';
 import dragIcon from '~icons/fluent/grid-dots-20-regular';
@@ -340,6 +341,7 @@ const icon = {
   contract: contractIcon,
   seal: sealIcon,
   copy: copyIcon,
+  clone: cloneIcon,
   delete: deleteIcon,
   minus: minusIcon,
   drag: dragIcon,
