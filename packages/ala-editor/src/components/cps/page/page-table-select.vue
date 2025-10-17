@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:17:24
+ * @LastEditTime: 2025-10-17 10:28:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -147,7 +147,14 @@ const columnss = ref<Array<any>>([])
 const searchFields = computed(() => {
     const fields: any = []
     if (props.columns) {
-        const columns = u.parseJson(props.columns)
+        let columns = []
+
+        if (typeof props.columns === 'string') {
+            columns = u.parseJson(props.columns)
+        } else {
+            columns = props.columns
+        }
+        
         columns.forEach((column: any) => {
 
             if (column.isQuery) {

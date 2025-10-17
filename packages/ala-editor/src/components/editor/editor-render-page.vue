@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-17 08:22:18
+ * @LastEditTime: 2025-10-17 10:51:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -10,16 +10,10 @@
 -->
 <template>
     <div class="drop-canvas" @dragover.prevent @drop="onDrop" ref="canvasRef" :style="canvasStyles">
-        <!-- <div v-for="(item, index) in droppedComponents" :key="item.id" :id="item.id" class="dropped-item"
-            :style="{ top: item.y + 'px', left: item.x + 'px', width: item.width + 'px', height: item.height + 'px', }"
-            @mousedown="startDrag" @click="onClick">
-            {{ item.type }}
-        </div> -->
 
         <template v-for="(element, index) in blockList" :key="element.id">
             <div class="dropped-item" :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
                 :style="styles(element)" @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''">
-                <!-- @mousedown="startDrag"> -->
 
                 <Transition name="fade">
                     <EditRenderHover v-if="bType == 'screen'" v-show="hoverId === element.id" :id="element.id"
@@ -41,35 +35,10 @@
         <div v-for="line in guidelines" :key="line.id" :class="['guide-line', line.direction]" :style="lineStyle(line)">
         </div>
     </div>
-    <!-- <draggable :list="blockList" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
-        class="edit-render-drag" :clone="clone" :move="move">
-        <template #item="{ element }">
 
-            <div class="page-block"> -->
+    <EditorSelectComponent url="/l/lowcodingConfig/page" ref="editorSelectComponent" :columns="columns"
+        :label="u.parseI18n('模块', t)" :singleValue="true" :params="params" />
 
-    <!-- 
-                    1、渲染普通组件 
-                    2、更新 editorStore.currentSelect 值 
-                 
-                -->
-    <!-- <div :class="activeClass(element)" @click.stop="setCurrentSelect(element)"
-                    @mouseenter="hoverId = element.id" @mouseleave="hoverId = ''"> -->
-
-    <!-- <Transition name="fade">
-                            <EditRenderHover v-show="hoverId === element.id" :id="element.id" :name="element.name"
-                                @copy="copy" @clear="clear" :bType="bType">
-
-                            </EditRenderHover>
-                        </Transition> -->
-    <!-- 
-                    <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
-                        :viewport="editorStore.viewport[bType]" :currentId="element.id" :formData="element.formData"
-                        :pid="pid" :block="element" :bType="bType" />
-                </div>
-
-            </div>
-        </template>
-</draggable> -->
 </template>
 
 <script setup lang="ts">
@@ -81,12 +50,14 @@ import { useEditorStore } from "@/store/useEditorStore"
 import { BaseBlock } from "@/types/editorType";
 import { logger } from "@/utils/logger";
 import EditRenderHover from "./edit-render-hover.vue";
-import DropCanvas from '@/pages/drag/DropCanvas.vue'
 
 import u from '@/utils/u'
 import { reactive } from 'vue'
 import { nanoid } from "@/utils/nanoid";
-import { dType } from "../cps/dynamic/detailType";
+import { getFormConfigFromCache, getLowcodingConfigByClassName } from "@/config/formConfigs";
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const editorStore = useEditorStore()
 
@@ -149,9 +120,6 @@ const currentSelectedBlock = ref<BaseBlock>()
 
 // Methods
 
-// const addedBlock = (element) => {
-//     setCurrentSelect(element)
-// }
 /**
  * 1）将当前选中的 BaseBlock 存储到 editorStore 中的 currentSelect 中
  * 2）同时将当前 BaseBlock 存储到 editorStore 中的 blockConfig[] 中（ 如果不存在则添加）
@@ -274,18 +242,6 @@ const clear = (id: string) => {
     editorStore.setCurrentSelect({}, bType)
     editorStore.setBlockConfig(newBlockConfig, bType)
 }
-
-
-const clone = (id: string) => {
-    // if (!editorStore.blockConfig[bType]?.length) return
-    // const newBlockConfig = handleNodeById(editorStore.blockConfig[bType], id, 'clear')
-    // editorStore.setCurrentSelect({}, bType)
-    // editorStore.setBlockConfig(newBlockConfig, bType)
-    console.log('id: ---> ', id);
-
-}
-
-
 
 
 const handleStart = (e: MouseEvent) => {
@@ -610,6 +566,34 @@ watch(() => editorStore.pageConfig[bType].formData?.background?.desktop, (v) => 
     canvasBackground.value = v
 }, {
     immediate: true
+})
+
+const columns = ref<Array<any>>([])
+const editorSelectComponent = ref()
+const clone = async (id: string) => {
+
+    const configs = await getFormConfigFromCache("/l/lowcodingConfig/page")
+
+    const cc = []
+    const name = ["name", "formType", "className"]
+    for (let i in configs?.pageFields) {
+        const item = configs?.pageFields[i]
+        if (name.includes(item.prop)) {
+            cc.push(item)
+        }
+        if (item.prop === 'name') {
+            item.isQuery = true
+        }
+    }
+
+    columns.value = cc
+
+    editorSelectComponent.value.openDialog()
+
+}
+
+const params = ref({
+    formType: 'screen'
 })
 
 </script>

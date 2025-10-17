@@ -2,13 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 18:09:14
+ * @LastEditTime: 2025-10-17 09:29:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
+import { lowcodingConfig as lowcodingConfigs } from "@/config/formConfigs/lowcoding/lowcodingConfig"
 import { applicationInstance } from "@/config/formConfigs/cloud/applicationInstance"
 import { application } from "@/config/formConfigs/cloud/application"
 import { snapshot } from "@/config/formConfigs/cloud/snapshot"
@@ -41,6 +42,7 @@ const formConfigs = {
     snapshot,
     application,
     applicationInstance,
+    lowcodingConfig:lowcodingConfigs,
 }
 
 

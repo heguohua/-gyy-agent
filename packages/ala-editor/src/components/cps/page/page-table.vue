@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-04 17:59:47
+ * @LastEditTime: 2025-10-17 10:12:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -20,7 +20,7 @@
             <el-table-column type="selection" :width="selectCheckboxWidth()" v-if="displaySelectCheckbox()" />
 
             <!-- 主表列渲染 -->
-            <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="column.label"
+            <el-table-column v-for="column in columns" :key="column.prop" :prop="column.prop" :label="u.parseI18n(column.label, t)"
                 :width="column.formItem?.formData?.columnWidth?.desktop ? column.formItem.formData.columnWidth.desktop : ''"
                 sortable>
 

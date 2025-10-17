@@ -156,6 +156,7 @@ declare module 'vue' {
     EditorRenderDragForm: typeof import('./src/components/editor/editor-render-drag-form.vue')['default']
     EditorRenderDragPage: typeof import('./src/components/editor/editor-render-drag-page.vue')['default']
     EditorRenderPage: typeof import('./src/components/editor/editor-render-page.vue')['default']
+    EditorSelectComponent: typeof import('./src/components/editor/editor-select-component/editor-select-component.vue')['default']
     EditRenderHover: typeof import('./src/components/editor/edit-render-hover.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']

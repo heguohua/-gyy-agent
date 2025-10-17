@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 20:51:40
+ * @LastEditTime: 2025-10-17 10:19:02
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/index.vue
  * @Description: 
  * 
@@ -82,15 +82,10 @@ import notify from '@/utils/notify';
 import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelect } from '@/config/alaDetailBuilder';
 
 import { dType } from '@/components/cps/dynamic/detailType';
+import formConfigs from '@/config/formConfigs';
 const { t } = useI18n();
 const router = useRouter()
 
-const formTypes: Array<{ [key: string]: string }> = [
-    { "列表表单": "pageForm" },
-    { "流程表单": "flow" },
-    { "大屏": "screen" },
-    { "页面": "page" }
-]
 
 
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
@@ -160,21 +155,12 @@ const refresh = () => {
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
 
-const url = "/l/lowcodingConfig/page"
+const url = formConfigs.lowcodingConfig.pageApi
 const deleteUrl = "/l/lowcodingConfig/delete"
 
 // 分页列表中列属性配置
 const columns = computed(() => {
-    return [
-        alaDetailInput('name', t('module.lowcoding.name')),
-        alaDetailSelect("formType", t('module.lowcoding.pageType'), formTypes),
-        alaDetailInput('className', t('module.lowcoding.className')),
-        // alaDetailInput( 'version', t('module.lowcoding.version')),
-        alaDetailInput('createdName', t('common.createdBy'), 1, false, { columnWidth: { desktop: '140' } }),
-        alaDetailDate('createdTime', t('common.createdTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
-        alaDetailInput('updatedName', t('common.updatedBy')),
-        alaDetailDate('updatedTime', t('common.updatedTime'), 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
-    ]
+    return formConfigs.lowcodingConfig.pageFields
 })
 
 
