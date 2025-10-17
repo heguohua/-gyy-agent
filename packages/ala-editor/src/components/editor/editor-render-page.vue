@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-17 10:51:09
+ * @LastEditTime: 2025-10-17 17:13:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-page.vue
  * @Description: 
  * 
@@ -37,7 +37,8 @@
     </div>
 
     <EditorSelectComponent url="/l/lowcodingConfig/page" ref="editorSelectComponent" :columns="columns"
-        :label="u.parseI18n('模块', t)" :singleValue="true" :params="params" />
+        :label="u.parseI18n('模块', t)" :singleValue="true" :params="params"
+        @handleSelectedCharts="handleSelectedCharts" />
 
 </template>
 
@@ -595,6 +596,15 @@ const clone = async (id: string) => {
 const params = ref({
     formType: 'screen'
 })
+
+
+const handleSelectedCharts = (blocks: BaseBlock[]) => {
+    if(blocks && blocks.length > 0){
+        blocks.forEach(block =>{
+            editorStore.addToBlockConfigIfNotExist(block, bType)
+        })
+    }
+}
 
 </script>
 

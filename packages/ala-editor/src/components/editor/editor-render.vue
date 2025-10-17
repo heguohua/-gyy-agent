@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:22:07
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-05 20:07:08
+ * @LastEditTime: 2025-10-17 16:02:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render.vue
  * @Description: 
  * 
@@ -13,19 +13,18 @@
 
 
         <!-- 渲染 页面 拖拽编辑区域组件 -->
-        <EditorRenderDragPage v-if="bType === 'page'" :blockList="blockList" :group="dragGroup" class="render"
-            :bType="bType" :labelWidth="labelWidth"></EditorRenderDragPage>
+        <EditorRenderDragPage v-if="bType === 'page'" :blockList="blockList" :group="dragGroup" :bType="bType"
+            :labelWidth="labelWidth"></EditorRenderDragPage>
 
         <!-- 渲染 大屏 拖拽编辑区域组件 -->
-        <EditorRenderPage v-else-if="bType === 'screen'" :blockList="blockList" :group="dragGroup" class="render"
-            :bType="bType">
+        <EditorRenderPage v-else-if="bType === 'screen'" :blockList="blockList" :group="dragGroup" :bType="bType">
 
 
         </EditorRenderPage>
 
         <!-- 渲染 表单 拖拽编辑区域组件 -->
-        <EditorRenderDragForm v-else-if="bType === 'form'" :blockList="blockList" :group="dragGroup" class="render"
-            :bType="bType" :labelWidth="labelWidth"></EditorRenderDragForm>
+        <EditorRenderDragForm v-else-if="bType === 'form'" :blockList="blockList" :group="dragGroup" :bType="bType"
+            :labelWidth="labelWidth"></EditorRenderDragForm>
 
 
         <!-- 以下是空列表渲染节点 -->

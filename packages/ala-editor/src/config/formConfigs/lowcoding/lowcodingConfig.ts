@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-17 10:17:37
+ * @LastEditTime: 2025-10-17 15:49:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/lowcoding/lowcodingConfig.ts
  * @Description: 
  * 
@@ -40,7 +40,7 @@ export const lowcodingConfig: FormConfig = {
         alaDetailInput('name', "t('module.lowcoding.name')"),
         alaDetailSelect("formType", "t('module.lowcoding.pageType')", formTypes),
         alaDetailInput('className', "t('module.lowcoding.className')"),
-        alaDetailInput('version', "t('module.lowcoding.version')"),
+        // alaDetailInput('version', "t('module.lowcoding.version')"),
         alaDetailInput('createdName', "t('common.createdBy')", 1, false, { columnWidth: { desktop: '140' } }),
         alaDetailDate('createdTime', "t('common.createdTime')", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
         alaDetailInput('updatedName', "t('common.updatedBy')"),

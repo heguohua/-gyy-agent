@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-17 10:45:50
+ * @LastEditTime: 2025-10-17 17:18:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-select-component/editor-select-component.vue
  * @Description: 
  * 
@@ -34,25 +34,15 @@
               {{ $t('form.p-select-1') }}【 图表 】
             </div>
 
-            <el-table :data="selectedData" style="width: 100%" row-key="id">
+            <el-table :data="selectedData" style="width: 100%" row-key="id" @selection-change="handleSelectedChange">
               <!-- 多选框 -->
               <el-table-column type="selection" :reserve-selection="false" />
 
-              <!-- 主表列渲染 -->
+              <!-- 列渲染 -->
               <el-table-column v-for="column in columnss" :key="column.prop" :prop="column.prop"
                 :label="isFormDesign ? parseLabel(column.label) : column.label">
               </el-table-column>
 
-              <!-- 主表操作列 -->
-              <el-table-column :label="$t('buttons.buttons')">
-                <template #default="scope">
-
-                  <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
-                    {{ $t('buttons.delete') }}
-                  </el-button>
-
-                </template>
-              </el-table-column>
 
             </el-table>
 
@@ -85,6 +75,7 @@ import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { PropType } from 'vue';
+import { nanoid } from '@/utils/nanoid';
 
 interface ItemProperty {
   propertyName: string,
@@ -126,7 +117,7 @@ const props = defineProps({
     default: ''
   },
   columns: {
-    type: String,
+    type: [Array, String] as PropType<Array<any> | string>,
     default: ''
   },
   itemProperty: {
@@ -208,49 +199,6 @@ const showValue = computed(() => {
 })
 
 
-function confirmClick() {
-
-  const length = selectedData.value.length
-
-  if (!props.canEmpty && (!selectedData.value || length <= 0)) {
-
-    notify.warn(t('pop.warm_title'), t('form.p-select-1') + '【 ' + props.label + ' 】')
-
-  } else {
-
-    // 给 model 赋值
-    const mv: any = []
-    // const sv: string[] = []
-    const pi = props.itemProperty
-    selectedData.value.forEach((item) => {
-
-      const selected = { [pi.valueName]: item[pi.valueName], [pi.propertyName]: item[pi.propertyName], }
-      if (pi.otherProperty && pi.otherProperty.length > 0) {
-        pi.otherProperty.forEach((op: string) => {
-          Object.assign(selected, { [op]: item[op] })
-        })
-      }
-      mv.push(selected)
-    })
-
-    if (props.valueToString) {
-      model.value = u.toSortedJson(mv)
-    } else {
-      model.value = mv
-    }
-    // 给显示标签赋值
-    // localValue.value = sv.join('')
-    // localValue.value = modelItemToShowValue(mv)
-    // 清空列表选择页面当前状态
-    pageListRef.value.clear()
-    // 关闭弹窗
-    dialogShow.value = false
-
-    selectedData.value = []
-
-  }
-}
-
 const modelItemToShowValue = (rows: any) => {
   let value: string[] = []
   const pi = props.itemProperty
@@ -268,9 +216,40 @@ const modelItemToShowValue = (rows: any) => {
   return value.join('')
 }
 
-const selectedData = ref([])
-const selectedChange = (currentSelected: [never]) => {
-  selectedData.value = currentSelected
+interface Item {
+  id: string
+  name: string
+  config: object
+}
+const selectedData = ref<Array<Item>>([])
+const selectedChange = (currentSelected: [{ config: string }]) => {
+  if (!currentSelected[0]) {
+    return
+  }
+  const itemStr = currentSelected[0].config
+  const itemS = u.parseJson(itemStr)
+  const items = itemS.blockConfig?.screen
+  if (items && items.length > 0) {
+
+    const pageInfo = itemS.pageConfig.screen.formData
+    const charts: Item[] = []
+
+    for (let i in items) {
+      const item = items[i]
+      const mainTitleText = item.formData?.mainTitleText?.desktop
+
+      if (!mainTitleText) {
+        logger.error(`【 错误，错误，错误 】：发现没有“mainTitleText”属性的图表，模块名[ ${pageInfo.moduleName.desktop
+          } ]，模块名称[ ${pageInfo.title.desktop} ]，图表类型[ ${item.name} ]，图表序号[ ${i} ]`);
+      }
+      charts.push({ name: mainTitleText, config: item, id: `${pageInfo.moduleName.desktop}-${i}` })
+    }
+    selectedData.value = charts
+
+  } else {
+    notify.warn(t('pop.warm_title'), "当前选择的页面中没有可复制图表！")
+  }
+
 }
 
 // 删除选择项
@@ -301,31 +280,66 @@ watch(() => dialogShow.value, (value) => {
 const parseLabel = (label: string) => {
   return t(label.slice(3, label.length - 2));
 }
+
 const columnss = computed(() => {
-  const fields: any = []
-  if (props.columns) {
-
-    let columns = []
-
-    if (typeof props.columns === 'string') {
-      columns = u.parseJson(props.columns)
-    } else {
-      columns = props.columns
+  const fields: any = [
+    {
+      label: "图表名称",
+      prop: "name"
+    },
+    {
+      label: "图表ID",
+      prop: "id"
     }
+  ]
 
-    columns.forEach((column: any) => {
-      column['label'] = u.parseI18n(column.label, t)
-      fields.push(column)
-    })
-  }
   return fields
 })
 
 
+const selectCharts = ref<Array<any>>([])
+const handleSelectedChange = (items: Array<{ id: string }>) => {
+  selectCharts.value = items
+}
+
+
+const emit = defineEmits(["handleSelectedCharts"])
+
+const confirmClick = () => {
+
+  const length = selectCharts.value.length
+
+  if (!selectedData.value || length <= 0) {
+
+    notify.warn(t('pop.warm_title'), t('form.p-select-1') + '【 图表 】')
+
+  } else {
+
+    const charts: any[] = []
+    selectCharts.value.forEach(selectChart => {
+      const block = u.cloned(selectChart.config) as any
+      block["id"] = nanoid(8)
+      charts.push(block)
+    })
+
+    emit('handleSelectedCharts', charts)
+
+    selectedData.value = []
+    selectCharts.value = []
+
+    // 清空列表选择页面当前状态
+    pageListRef.value.clear()
+    // 关闭弹窗
+    dialogShow.value = false
+
+
+  }
+}
 
 
 // 对外暴露方法
 defineExpose({ openDialog })
+
 
 </script>
 

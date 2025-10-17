@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-17 10:28:35
+ * @LastEditTime: 2025-10-17 15:50:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -84,7 +84,7 @@ const props = defineProps({
         default: '温馨提示：'
     },
     columns: {
-        type: String
+        type: [Array, String] as PropType<Array<any> | string>
     },
     url: {
         type: String
