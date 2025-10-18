@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-31 19:05:16
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-16 19:11:26
+ * @LastEditTime: 2025-10-18 17:03:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/popover/ala-popover-info.vue
  * @Description: 
  * 
@@ -66,7 +66,7 @@ function showPopover(e: MouseEvent) {
 
     if (!popoverStates.value.visible) {
 
-        const ratio = 1.5
+        const ratio = 2
         u.merged(popoverStates.value, {
             visible: true,
             styles: {
@@ -81,12 +81,14 @@ function showPopover(e: MouseEvent) {
 
 
 const left = (position: any, width: number, ratio: number) => {
-    const { distancesToWindow: { left, right } } = position
+    const { distancesToWindow: { left, right }, center: { x } } = position
     if (left >= right) {
-        const l = left - (width) * ratio - width / 2
+        // const l = left - (width) * ratio - width / 2
+        const l = x - width / 2 - (width) * ratio
         return l
     } else {
-        const l = left - width + width * ratio
+        // const l = left + width - (left - x)
+        const l = x + width / 2
         return l
     }
 }
