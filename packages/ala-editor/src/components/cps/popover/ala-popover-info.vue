@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-31 19:05:16
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-18 17:14:54
+ * @LastEditTime: 2025-10-18 17:30:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/popover/ala-popover-info.vue
  * @Description: 
  * 
@@ -12,7 +12,8 @@
 
     <div class="ala-popover-info-wrapper">
 
-        <div class="ala-calendar-cell-short-content" @mouseenter="showPopover($event)" @mouseleave="hidePopover()">
+        <div class="ala-calendar-cell-short-content" @mouseenter="showPopover($event)" @mouseleave="hidePopover()"
+            @click.stop="">
             <slot name="shortContent" />
 
             <div class="ala-calendar-cell-detail-content" v-if="popoverStates.visible" :style="popoverStates.styles">
@@ -126,6 +127,26 @@ function hidePopover() {
         padding: 1rem 1.6rem;
         align-items: flex-start;
         flex-direction: column;
+        max-height: 600px;
+        overflow-y: auto;
+
+
+        &::-webkit-scrollbar {
+            width: 4px;
+            /* 设置滚动条的宽度 */
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #cfcfcf;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #cfcfcf;
+        }
     }
 }
 </style>

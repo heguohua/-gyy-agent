@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-18 17:13:38
+ * @LastEditTime: 2025-10-18 17:24:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -47,7 +47,7 @@
 
             <template #detailContent>
               <div v-for="(item, index) in events[data.day]" :key="'d-' + item.id" v-if="events[data.day]?.length > 0"
-                @click="showDetail(item)">
+                @click="showDetail(item)" @click.stop="">
                 {{ index + 1 }}、{{ item.name }}
               </div>
 
@@ -365,7 +365,6 @@ onMounted(async () => {
 const showDetail = (item: { id: number, name: string }) => {
 
   const formData = props.formData
-  const className = formData.className.desktop
 
   detailItem.item = dataCache.value[item.id]
 
