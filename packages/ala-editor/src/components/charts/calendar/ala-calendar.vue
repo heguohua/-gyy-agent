@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-16 21:58:07
+ * @LastEditTime: 2025-10-18 16:43:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -38,8 +38,10 @@
 
             <template #shortContent>
               <div class="ala-calendar-cell-title">{{ data.day.split('-')[2] }}</div>
-              <div v-for="(item, index) in events[data.day]?.slice(0, 6) || []" :key="item.id">
-                {{ index + 1 }}、{{ u.truncateWithEllipsis(item.name, 12) }}
+              <div v-for="(item, index) in events[data.day]?.slice(0, 2) || []" :key="item.id"
+                class="ala-calendar-cell-content-one-row">
+                <!-- {{ index + 1 }}、{{ u.truncateWithEllipsis(item.name, 12) }} -->
+                {{ index + 1 }}、{{ item.name }}
               </div>
             </template>
 
@@ -230,7 +232,7 @@ const query = () => {
   } else {
 
     const className = formData.className.desktop
-    const dateName = "a_" + formData.dateName.desktop
+    const dateName = formData.dateName.desktop
     const valueName = formData.valueName.desktop
     const colorName = formData.colorName.desktop
     const data_time = formData.data_time.desktop
@@ -242,12 +244,12 @@ const query = () => {
         "tableName": className,
         "conditions": [
           {
-            column: dateName,
+            column: 'a_' + dateName,
             operator: ">=",
             value: firstDayTimestamp,
           },
           {
-            column: dateName,
+            column: 'a_' + dateName,
             operator: "<=",
             value: lastDayTimestamp,
           }
@@ -277,6 +279,9 @@ const query = () => {
           dataCaches[item.id] = item
 
           const d = date.YYYY_MM_DD(item[dateName])
+          console.log('item[dateName]:', item[dateName]);
+          console.log('d:', d);
+
           if (evs[d]) {
             evs[d].push({ id: item.id, name: item[valueName] })
           } else {
@@ -286,6 +291,10 @@ const query = () => {
         }
         events.value = evs
         dataCache.value = dataCaches
+
+        console.log('evs:', evs);
+        console.log('evs:', dataCaches);
+
       }
     });
 
@@ -358,7 +367,6 @@ const showDetail = (item: { id: number, name: string }) => {
   const formData = props.formData
   const className = formData.className.desktop
 
-  console.log('item: -- className -> ', item, className);
   detailItem.item = dataCache.value[item.id]
 
   showDetailPage.value = true
@@ -507,6 +515,28 @@ const showDetail = (item: { id: number, name: string }) => {
     }
 
     .ala-calendar {
+      .ala-calendar-cell-title {
+        font-size: 1.1rem;
+        margin: 8px 0px;
+      }
+
+      .ala-calendar-cell-content-one-row {
+        white-space: nowrap;
+        /* 不换行 */
+        overflow: hidden;
+        /* 隐藏超出部分 */
+        text-overflow: ellipsis;
+        /* 显示省略号 (...) */
+        text-align: left;
+        // color:var(--el-color-info);
+        // color:var(--el-text-color-regular);
+        color:var(--el-color-info-dark-2);
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+      }
+
+      div {}
+
       .ala-calendar-cell-detail-content-empty {
         color: #e6a23c;
       }
