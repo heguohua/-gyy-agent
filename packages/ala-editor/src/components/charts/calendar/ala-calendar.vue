@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-18 16:43:14
+ * @LastEditTime: 2025-10-18 17:13:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -530,7 +530,7 @@ const showDetail = (item: { id: number, name: string }) => {
         text-align: left;
         // color:var(--el-color-info);
         // color:var(--el-text-color-regular);
-        color:var(--el-color-info-dark-2);
+        color: var(--el-color-info-dark-2);
         font-size: 0.9rem;
         margin-bottom: 0.2rem;
       }
@@ -563,6 +563,11 @@ const showDetail = (item: { id: number, name: string }) => {
         text-align: left;
         /* 避免多行文字居中 */
         margin-top: 0.5rem;
+        font-size: 0.9rem;
+
+        background: #f3f7fa;
+        padding: 6px 12px;
+        border-radius: 4px;
 
         &:hover {
           color: var(--el-color-primary);
