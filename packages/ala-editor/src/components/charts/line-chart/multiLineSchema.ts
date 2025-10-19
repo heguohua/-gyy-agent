@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 22:05:37
+ * @LastEditTime: 2025-10-19 19:49:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/multiLineSchema.ts
  * @Description: 
  * 
@@ -29,19 +29,26 @@ const mainTitleLink = Type.String({
 
 
 
-const attrs = Type.Array(
-    Type.Object({
-        name: Type.String(),
-        value: Type.String(),
-    }),
-    {
-        code: "config-key-value",
-        title: "属性配置",
-        default: [],
-        required: true,
-    }
-);
+const attrs = Type.String({
+    code: "config-input",
+    title: "值字段名",
+    rules: [
+        { name: 'max', length: 50, message: '最多50个字符' },
+    ]
+})
 
+// const attrs = Type.Array(
+//     Type.Object({
+//         name: Type.String(),
+//         value: Type.String(),
+//     }),
+//     {
+//         code: "config-key-value",
+//         title: "属性配置",
+//         default: [],
+//         required: true,
+//     }
+// );
 
 
 const cs = configStyle()

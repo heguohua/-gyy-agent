@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 15:31:32
+ * @LastEditTime: 2025-10-19 22:05:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -64,7 +64,9 @@ watch(() => props.formData, (v) => {
         height = ad3.calculateSVGHeight(height, formData);
         dHeight.value = height
         nextTick(() => {
-            drawChart()
+            if (data.value && data.value.length > 0) {
+                drawChart()
+            }
         })
     })
 
@@ -177,11 +179,10 @@ const drawChart = () => {
 
     // 10、绘制折线
 
+    const line_color = formData.line_color?.desktop
     data.value.forEach((one, index) => {
-        const line_color = formData.line_color?.desktop;
         ad3.drawLine(formData, group, one, line, line_color[index]);
     })
-
 
 
     // 11、添加区域图生成器
@@ -210,6 +211,45 @@ const drawChart = () => {
 }
 
 
+const transformDataKeepOrder = (data: any[], xName: string, yName: string, seriesName: string): any[][] => {
+
+    const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
+
+    // 1. 按原始数组顺序去重获取所有日期
+    const allXValues: string[] = [];
+    data.forEach(item => {
+        if (!allXValues.includes(item[xName])) {
+            allXValues.push(item[xName]);
+        }
+    });
+
+    // 2. 按 [seriesName] 分组
+    const grouped: Record<string, Record<string, string>> = {};
+    data.forEach(item => {
+        if (!grouped[item[seriesName]]) {
+            grouped[item[seriesName]] = {};
+        }
+        grouped[item[seriesName]][item[xName]] = item.num;
+    });
+
+    // 3. 构造结果二维数组
+    const result: any[][] = Object.keys(grouped).map(key => {
+        return allXValues.map(xValue => {
+            const v = u.convertStringToNumber(grouped[key][xValue] || '0', yDecimalNum)
+
+            return {
+                [xName]: xValue,
+                category: key,
+                [yName]: v, // 缺失数据填充 '0'
+                value: v, // 缺失数据填充 '0'
+            }
+        });
+    });
+
+    return result;
+}
+
+
 const query = () => {
     // Methods
     const url = '/b/datasetTable/query'
@@ -224,18 +264,48 @@ const query = () => {
 
         const d = response.data?.data
         const xName = props.formData.xName.desktop
+        const yName = props.formData.yName.desktop
         const attrs = props.formData.attrs.desktop
 
         if (d) {
-            const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
-            const dd: Array<any> = []
-            attrs.forEach((attr: any) => {
-                const oneSeries: Array<any> = []
-                d.forEach((one: any) => {
-                    oneSeries.push({ [xName]: one[xName], value: u.convertStringToNumber(one[attr.value]), category: attr.name })
-                })
-                dd.push(oneSeries)
-            })
+
+            /**
+             *  说明：图表组件接受的数据格式是
+             *  {day: "2025-09-20", weiqueren: "8", wubao: "15", total: "42"}
+                {day: "2025-09-21", weiqueren: "7", wubao: "14", total: "39"}
+                {day: "2025-09-22", weiqueren: "14", wubao: "13", total: "49"}
+                {day: "2025-09-23", weiqueren: "1", wubao: "3", total: "13"}
+                {day: "2025-09-24", weiqueren: "0", wubao: "1", total: "1"}
+
+                后端返回的格式是：
+                {planVisitDate: '2025-08-14', nickName: '张三', num: '1'}
+                {planVisitDate: '2025-08-19', nickName: '李四', num: '1'}
+                {planVisitDate: '2025-08-23', nickName: '王五', num: '2'}
+                {planVisitDate: '2025-08-26', nickName: '赵六', num: '2'}
+                {planVisitDate: '2025-09-02', nickName: '孙七', num: '1'}
+
+                因此需要做如下数据预处理：
+                1）汇总X轴所有系列值；
+                2）填补 attrs值字段在X轴所有系列缺失的值为0；
+                3）按照X轴系列合并相同系列值的数据到一行中；
+             * 
+             */
+
+
+            // 按照key进行
+
+
+
+            // attrs.forEach((attr: any) => {
+            //     const oneSeries: Array<any> = []
+            //     d.forEach((one: any) => {
+            //         oneSeries.push({ [xName]: one[xName], value: u.convertStringToNumber(one[attr.value]), category: attr.name })
+            //     })
+            //     dd.push(oneSeries)
+            // })
+
+            const dd = transformDataKeepOrder(d, xName, yName, attrs)
+
             data.value = dd
 
             //     const dd = u.convertPropertyToNumber(d, yName, yDecimalNum)
