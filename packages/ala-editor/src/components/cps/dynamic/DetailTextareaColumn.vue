@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-03 21:58:29
+ * @LastEditTime: 2025-10-19 08:13:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTextareaColumn.vue
  * @Description: 
  * 
@@ -109,6 +109,7 @@ const showDetail = () => {
     white-space: pre-line;
     width: 100%;
     word-break: break-all;
+    line-height: 1.7rem;
 }
 
 .detail-link {

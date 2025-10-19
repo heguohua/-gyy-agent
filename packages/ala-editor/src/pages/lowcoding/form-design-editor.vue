@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-13 09:32:43
+ * @LastEditTime: 2025-10-19 08:07:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/form-design-editor.vue
  * @Description: 
  * 
@@ -75,7 +75,7 @@ const formData = ref({})
 onMounted(() => {
 
 
-    bType.value = route.query.bType ? route.query.bType + '' : ""
+    // bType.value = route.query.bType ? route.query.bType + '' : ""
 
     if (route.query.id) {
 
