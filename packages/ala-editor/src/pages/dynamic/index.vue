@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 10:22:13
+ * @LastEditTime: 2025-10-21 21:07:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -242,22 +242,32 @@ const formConfigItems: any = {}
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 interface Result {
     tableName: string,
-    conditions: Array<any>,
+    conditionGroups: Array<any>,
 }
 
 const beforeQuery = (params: any) => {
-    const result: Result = { tableName: className, conditions: [] }
-    const conditions = result.conditions
+    
+    const result: Result = { tableName: className, conditionGroups: [] }
+    const conditionGroups = result.conditionGroups
+
+    const conditionGroup: { [key: string]: any } = {
+        logicalOperator: 'and',
+        conditions: []
+    }
+
+    conditionGroups.push(conditionGroup)
+
     Object.keys(params).forEach((key: string) => {
         if (key != 'tableName' && params[key]) {
             // 转换字段查询条件为动态分页列表形式
             const formConfigItem = formConfigItems.value[key]
             const code = formConfigItem.code
             if (code === 'input') {
-                conditions.push({ column: 'a_' + key, operator: 'like', value: params[key] })
+                conditionGroup.conditions.push({ column: 'a_' + key, operator: 'like', value: params[key], logicalOperator: 'and' })
             }
         }
     })
+
     return result
 }
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-27 15:43:44
+ * @LastEditTime: 2025-10-21 18:28:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -128,6 +128,8 @@ const useFormTitle = Type.String({
     default: false,
 })
 
+
+
 const showButtonsColumn = Type.String({
     code: "config-boolean",
     title: "显示按钮列？",
@@ -183,7 +185,18 @@ const openDataPermission = Type.String({
     title: "开启数据权限？",
     default: true,
 })
-
+// 数据权限字段名
+const dataPermissionColumn = Type.String({
+    id: "config-input",
+    code: "config-input",
+    title: "数据权限字段名",
+    placeholder: "请填写组件字段名",
+    required: false,
+    rules: [
+        { name: 'max', length: 50, message: '最多50个字符' },
+        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
+    ]
+})
 const showDisableButton = Type.String({
     code: "config-boolean",
     title: "显示禁用按钮？",
@@ -237,6 +250,7 @@ const schema = Type.Object({
     showDisableButton: schemaAllViewport(showDisableButton),
     dataPermission: schemaAllViewport(configCollapseItem("数据权限")),
     openDataPermission: schemaAllViewport(openDataPermission),
+    dataPermissionColumn: schemaAllViewport(dataPermissionColumn),
     time: schemaAllViewport(configCollapseItem("创建和更新相关")),
     showCreatedBy: schemaAllViewport(showCreatedBy),
     showCreatedTime: schemaAllViewport(showCreatedTime),
