@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-17 15:50:47
+ * @LastEditTime: 2025-10-21 21:14:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -154,7 +154,7 @@ const searchFields = computed(() => {
         } else {
             columns = props.columns
         }
-        
+
         columns.forEach((column: any) => {
 
             if (column.isQuery) {
@@ -251,16 +251,26 @@ const queryPageData = () => {
     if (isDynamicTable()) {
 
         // 当前是 动态分页列表，需要转换查询条件
-        const conditions: any[] = []
+        const conditionGroups = []
+
+        const conditionGroup: { [key: string]: any } = {
+            logicalOperator: 'and',
+            conditions: []
+        }
+
+        conditionGroups.push(conditionGroup)
+
+
+
         const fp = formParams.value as { [key: string]: any }
         Object.keys(fp).forEach((key: string) => {
             const value = fp[key]
             if (value) {
-                conditions.push({ column: 'a_' + key, operator: 'like', value })
+                conditionGroup.conditions.push({ logicalOperator: 'and', column: 'a_' + key, operator: 'like', value })
             }
         })
 
-        u.merged(totalParams, { conditions });
+        u.merged(totalParams, { conditionGroups });
 
     } else {
         // 当前 不是 动态分页列表，不需要转换查询条件，直接合并
