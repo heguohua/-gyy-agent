@@ -260,8 +260,6 @@ const queryPageData = () => {
 
         conditionGroups.push(conditionGroup)
 
-
-
         const fp = formParams.value as { [key: string]: any }
         Object.keys(fp).forEach((key: string) => {
             const value = fp[key]
