@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-19 22:05:33
+ * @LastEditTime: 2025-10-20 11:19:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/line-chart/ala-multi-line-chart.vue
  * @Description: 
  * 
@@ -183,7 +183,6 @@ const drawChart = () => {
     data.value.forEach((one, index) => {
         ad3.drawLine(formData, group, one, line, line_color[index]);
     })
-
 
     // 11、添加区域图生成器
     // const addArea = formData.addArea?.desktop || false
