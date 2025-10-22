@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-03 18:07:48
+ * @LastEditTime: 2025-10-22 18:21:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -121,7 +121,7 @@ const showDetailPage = ref(false)
 const showDetail = async (item: string, index: number) => {
 
     const { formData } = formItem.value
-    let url = formData.url?.desktop    
+    let url = formData.url?.desktop
 
     if (!url) return
     let params = formData.params?.desktop
@@ -183,6 +183,7 @@ const showDetail = async (item: string, index: number) => {
         value = props.value[index][valueName]
     }
 
+    let queryParams = {}
     if (params.indexOf('tableName') > 0) {
 
         // 说明当前关联字段是动态表单
@@ -194,10 +195,24 @@ const showDetail = async (item: string, index: number) => {
 
         mName.value = params.tableName
 
+        const conditionGroups = [
+            {
+                conditions: [{
+                    column: valueName,
+                    operator: "=",
+                    value: value,
+                    logicalOperator: 'and',
+                }],
+                logicalOperator: "and"
+            }
+        ]
+
+        queryParams = u.merged({ conditionGroups }, params)
+
     } else {
         mName.value = formConfig?.moduleName!
+        queryParams = u.merged({ [valueName]: value }, params)
     }
-    const queryParams = u.merged({ [valueName]: value }, params)
 
     const response = await query(formConfig?.pageApi!, { body: queryParams, page: { orders: [], current: 1, size: 10 } })
 
