@@ -1,9 +1,9 @@
 <template>
     <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
-        <AlaFormItems v-model="showDrawer" @confirm="confirm" v-bind="props" :fields="fields" :data="formData"
-            :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName" :operationType="operationType"
-            :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback" :showSaveButton="showSaveButton"
-            :showInitiateButton="showInitiateButton" />
+        <AlaFormItems v-model="showDrawer" @confirm="confirm" @cancel="cancel" v-bind="props" :fields="fields"
+            :data="formData" :closeContent="closeContent" :formAttr="formAttr" :moduleName="moduleName"
+            :operationType="operationType" :tipTitle="tipTitle" @formItemChangeCallback="formItemChangeCallback"
+            :showSaveButton="showSaveButton" :showInitiateButton="showInitiateButton" />
     </el-form>
 
 </template>
@@ -81,7 +81,7 @@ const confirm = (data: any) => {
     logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", data);
     formRef.value.validate((valid: boolean) => {
         if (valid) {
-            
+
             ElMessageBox.confirm(
                 saveContent(),
                 props.tipTitle,
@@ -146,6 +146,9 @@ const saveContent = () => {
     return content
 }
 
+const cancel = () => {
+    showDrawer.value = false
+}
 
 
 // 验证规则（ 第一种编码方式 ）
