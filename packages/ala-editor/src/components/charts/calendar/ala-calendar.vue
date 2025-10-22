@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-18 17:24:16
+ * @LastEditTime: 2025-10-22 18:48:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -242,16 +242,23 @@ const query = () => {
     const pms = {
       "body": {
         "tableName": className,
-        "conditions": [
+        conditionGroups: [
           {
-            column: 'a_' + dateName,
-            operator: ">=",
-            value: firstDayTimestamp,
-          },
-          {
-            column: 'a_' + dateName,
-            operator: "<=",
-            value: lastDayTimestamp,
+            "conditions": [
+              {
+                column: 'a_' + dateName,
+                operator: ">=",
+                value: firstDayTimestamp,
+                logicalOperator: 'and',
+              },
+              {
+                column: 'a_' + dateName,
+                operator: "<=",
+                value: lastDayTimestamp,
+                logicalOperator: 'and',
+              }
+            ],
+            logicalOperator: "and"
           }
         ]
       },
@@ -279,8 +286,6 @@ const query = () => {
           dataCaches[item.id] = item
 
           const d = date.YYYY_MM_DD(item[dateName])
-          console.log('item[dateName]:', item[dateName]);
-          console.log('d:', d);
 
           if (evs[d]) {
             evs[d].push({ id: item.id, name: item[valueName] })
@@ -292,8 +297,6 @@ const query = () => {
         events.value = evs
         dataCache.value = dataCaches
 
-        console.log('evs:', evs);
-        console.log('evs:', dataCaches);
 
       }
     });
