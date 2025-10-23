@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:24:48
+ * @LastEditTime: 2025-10-23 20:51:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/ala-textarea.vue
  * @Description: 
  * 
@@ -106,6 +106,7 @@ const isDisabled = computed(() => {
     :deep(.el-textarea__inner) {
         padding: 0px 11px;
         min-height: 64px !important;
+        line-height: 1.4rem;
     }
 }
 </style>

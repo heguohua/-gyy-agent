@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 21:37:36
+ * @LastEditTime: 2025-10-23 20:23:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -132,7 +132,7 @@ const props = defineProps({
   },
   width: {
     type: Number,
-    default: 250,
+    default: 200,
   },
   fieldName: {
     type: String,

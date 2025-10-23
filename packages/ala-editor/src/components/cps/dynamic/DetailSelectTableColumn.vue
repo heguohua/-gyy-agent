@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-22 18:21:57
+ * @LastEditTime: 2025-10-23 16:16:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -220,6 +220,7 @@ const showDetail = async (item: string, index: number) => {
     if (response.data?.list) {
         if (response.data.list.length === 0) {
             logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${formConfig?.pageApi}]接口，返回【 空数组 】`)
+            notify.warn(t('pop.warm_title'), "您没有查看该内容的数据权限。")
         } else if (response.data.list.length > 1) {
             logger.error(`【 错误，错误，错误 】selectTable详情组件根据 [${queryParams}] 调用 [${formConfig?.pageApi}]接口，返回【 数据多于1条 】`)
         } else {

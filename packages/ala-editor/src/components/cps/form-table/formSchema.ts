@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:31:46
+ * @LastEditTime: 2025-10-23 16:50:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/formSchema.ts
  * @Description: 
  * 
@@ -39,6 +39,12 @@ const fieldName = Type.String({
         { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
         { name: 'pattern', pattern: 'LOrl', message: '只能包含大写字母、小写字母' },
     ]
+})
+
+const moduleName = Type.String({
+    code: "config-input",
+    title: "固定模块名",
+    default: "",
 })
 
 const help = Type.String({
@@ -87,6 +93,7 @@ const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
     fieldName: schemaAllViewport(fieldName),
+    moduleName: schemaAllViewport(moduleName),
     help: schemaAllViewport(help),
     columnNum: schemaAllViewport(columnNum),
     columnWidth: schemaAllViewport(columnWidth),

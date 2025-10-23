@@ -330,8 +330,8 @@ export function alaBuildSelectTree(fieldName: string, label: string, url: string
     const obj = alaBuildWithOther("AlaSelectTree", fieldName, label, { url, params, itemProperty, ...other }, rules, placeholder)
     return obj
 }
-export function alaBuildFormTable(fieldName: string, label: string): AlaSelectTreeSchema {
-    const obj = alaBuildWithOther("AlaFormTable", fieldName, label, {})
+export function alaBuildFormTable(fieldName: string, label: string, moduleName: string): AlaSelectTreeSchema {
+    const obj = alaBuildWithOther("AlaFormTable", fieldName, label, { moduleName })
     return obj
 }
 

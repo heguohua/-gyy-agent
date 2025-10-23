@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 11:25:45
+ * @LastEditTime: 2025-10-23 20:52:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -137,7 +137,11 @@ const model = defineModel({
 })
 
 
-const query = () => {
+const query = async () => {
+
+  if (items.value && items.value.length > 0) {
+    return
+  }
 
   // Methods
   const url = props.url
@@ -152,10 +156,11 @@ const query = () => {
   if (!url) {
     notify.warn(t('pop.warm_title'), "当前选择框【 api链接 】不存在")
   } else {
-    alaPost(u.url(url), pms, false, '').then((data: any) => {
+    await alaPost(u.url(url), pms, false, '').then((data: any) => {
       const response = data;
       if (response.data) {
         items.value = response.data
+
       } else {
         logger.error(`select-tree组件没有加载到 Tree 数据，url[ ${url} ]，params：`, pms);
       }
@@ -166,9 +171,7 @@ const query = () => {
 
 // 如果不添加该判断条件那么在form设计器中拖拽并放置该组件后会立马请求后端 / 路径Api，网关则会报错并重定向前端页面到 /login 
 const isFormDesign = computed(() => props.isFormDesign)
-if (!isFormDesign.value) {
-  query()
-}
+
 
 watch(() => isFormDesign.value, (v) => {
   if (v) {
@@ -183,6 +186,7 @@ const handleChange = (val: string | number) => {
 
   currentModel.value = val
 
+
   const pi = props.itemProperty
   const valueName = pi.valueName
   const propertyName = pi.propertyName
@@ -192,30 +196,40 @@ const handleChange = (val: string | number) => {
 
 const expandedKeys = ref<Array<number | string>>([])
 const eKeys = computed(() => {
-  console.log('expandedKeys.value:', expandedKeys.value);
 
   return expandedKeys.value
 })
 
-watch(() => model.value, () => {
-  console.log('model.value[0]:', model.value[0]);
+watch(() => model.value, async () => {
 
   if (model && model.value && model.value[0]) {
+
+
+    await query()
+
+
 
     const pi = props.itemProperty
     const valueName = pi.valueName
 
     // 注意，注意，注意： 我们发现 el-tree-select 组件使用时，如果不展开某个层级级，而当前选择的选项恰好在当前层级，那么el-tree-select显示值会显示为value的值，因此这里做主动展开到当前节点的设置
     const v = model.value[0][valueName]
-    expandedKeys.value = [v]
 
-    currentModel.value = v
+
+    nextTick(() => {
+      expandedKeys.value = [v]
+      currentModel.value = v
+    })
 
   } else {
     if (props.defaultExpandedKeys && props.defaultExpandedKeys.length > 0) {
       expandedKeys.value = props.defaultExpandedKeys
     }
     currentModel.value = undefined
+
+    query()
+
+
   }
 }, {
   immediate: true

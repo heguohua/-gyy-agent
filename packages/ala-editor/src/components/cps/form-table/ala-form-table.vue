@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 21:52:05
+ * @LastEditTime: 2025-10-23 20:03:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -21,7 +21,7 @@
                 </p>
                 <p class="show-values" v-if="localValue && localValue.length != 0" v-html="showValue"></p>
             </div>
-            <div class="ala-form-customer-icon">
+            <div class="ala-form-customer-icon" :style="disableStyles">
                 <v-icon class="icon" :icon="icon" @click="openDialog" :width="iconWidth" :height="iconHeight" />
             </div>
         </el-form-item>
@@ -142,10 +142,10 @@ const { t } = useI18n();
 import PageTableSelect from '@/components/cps/page/page-table-select.vue';
 import notify from '@/utils/notify';
 import { logger } from '@/utils/logger';
-import { alaPost } from '@/utils/req';
+import { alaPage, alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { alaDetailInput } from '@/config/alaDetailBuilder';
-import { formConfigParse } from '@/pages/dynamic/formConfigParser';
+import { formConfigParse, LowcodingConfig } from '@/pages/dynamic/formConfigParser';
 import { getLowcodingConfigById } from '@/config/formConfigs';
 // import { data } from './d';
 
@@ -193,6 +193,10 @@ const props = defineProps({
     noEditable: {
         type: Boolean,
         default: () => false
+    },
+    moduleName: {
+        type: String,
+        default: () => ''
     }
 })
 
@@ -243,7 +247,6 @@ const baseInfo = inject('baseInfo', {
 
 
 watch(() => baseInfo, (v) => {
-    // console.log('观察到 model.value 发生变化 :', model.value);
 
     if (model.value) {
 
@@ -276,7 +279,6 @@ watch(() => baseInfo, (v) => {
 })
 
 watch(() => localValue.value, (v) => {
-    // console.log('观察到 localValue.value 发生变化 :', v);
 
     if (v) {
         model.value = u.tojson(v)
@@ -289,10 +291,23 @@ watch(() => localValue.value, (v) => {
 const styles = computed(() => {
     return { minWidth: props.width + 'px' }
 })
+const disableStyles = computed(() => {
+    let style = {}
+    if (props.moduleName) {
+        // 说明用户指定了具体的模块名，则设置禁用样式
+        style = { opacity: 0.5 }
+    }
+    return style
+})
 
 // 分页列表中列属性配置
 const dialogShow = ref(false)
 const openDialog = () => {
+    if (props.moduleName) {
+        // 说明用户指定了具体的模块名
+        // 禁用点击事件
+        return
+    }
     dialogShow.value = true;
 }
 
@@ -464,6 +479,14 @@ watch(() => localValue.value, async (v) => {
 
     const configs = await getLowcodingConfigById(v[0].id)
 
+    initFormTable(configs)
+
+}, {
+    immediate: true
+})
+
+
+const initFormTable = (configs: LowcodingConfig) => {
     const currentModule = baseInfo.module
     const fci = configs.formConfigItems
 
@@ -473,12 +496,12 @@ watch(() => localValue.value, async (v) => {
     addFormFields.value = []
     configs.addFormFields.forEach(field => {
 
-        // console.log('field.fieldName:', field.fieldName);
 
         // 去除 ala-divider 此类没有属性name的组件
         if (fci[field.fieldName]) {
 
             // 剔除当前模块对应的字段
+            
             if (field.fieldName != currentModule) {
 
                 if (fci[field.fieldName].code != 'ai') {
@@ -497,16 +520,8 @@ watch(() => localValue.value, async (v) => {
         }
     })
 
-    // console.log('headers.value:', headers.value);
-    // console.log('formConfigItems.value:', formConfigItems.value);
-    // console.log('addFormFields.value:', addFormFields.value);
-
-
     formTableValues.value = [{}]
-
-}, {
-    immediate: true
-})
+}
 
 
 watch(() => formTableValues.value, (v) => {
@@ -541,8 +556,6 @@ const saveOrPause = (): Boolean => {
     const rowValues = Object.values(formTableValues.value)
     for (let rowValueIndex in rowValues) {
         const rowValue = rowValues[rowValueIndex]
-        // console.log('rowValueIndex:', rowValueIndex);
-        // console.log('rowValue:', rowValue);
 
         const columns = Object.values(addFormFields.value)
 
@@ -555,8 +568,7 @@ const saveOrPause = (): Boolean => {
             // 根据key查找表单校验规则，并进行匹配
             if (rules) {
                 for (let ruleIndex in Object.values(rules)) {
-                    // console.log('ruleIndex:', ruleIndex);
-                    // console.log('rule:', rules[ruleIndex]);
+
                     const { required, min, max, message } = rules[ruleIndex]
 
                     // 不能为空
@@ -626,8 +638,6 @@ const saveOrPause = (): Boolean => {
         }
     }
 
-    // console.log('addFormFieldRules:', addFormFieldRules.value);
-    // console.log('addFormFields.value:', addFormFields.value);
 
     return checkResult
 }
@@ -642,6 +652,21 @@ const isDisabled = computed(() => {
     return idd
 })
 
+
+onMounted(async () => {
+    if (props.moduleName) {
+        alaPage(u.url('/l/lowcodingConfig/page'), { current: 1, size: 1, orders: [{ column: "id", asc: false }] }, { className: props.moduleName }, false).then(async (data: any) => {
+            const response = data;
+
+            if (response.data?.list?.length > 0) {
+                const lowcodingConfig = response.data.list[0]
+                const pi = itemProperty
+                localValue.value = [{ [pi.valueName]: lowcodingConfig.id, [pi.propertyName]: lowcodingConfig.name, }]
+            }
+        });
+    }
+
+})
 
 defineExpose({
     saveOrPause: saveOrPause
