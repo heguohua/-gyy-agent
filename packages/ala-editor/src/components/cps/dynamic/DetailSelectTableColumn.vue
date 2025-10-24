@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-23 16:16:30
+ * @LastEditTime: 2025-10-24 21:58:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -34,6 +34,8 @@ import u from '@/utils/u';
 import WarnException from '@/utils/WarnException';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
+import { useAlaStore } from '@/store/ala-store';
+const alaStore = useAlaStore()
 
 // State
 const props = defineProps({
@@ -119,6 +121,10 @@ const showDetailPage = ref(false)
 // 获取数据缓存对象
 
 const showDetail = async (item: string, index: number) => {
+
+    // 缓存当前模块到pinia中，方便后续页面获取
+    alaStore.set('ala_current_module_name', props.formItem.formData.fieldName.desktop)
+    alaStore.set('ala_current_module_id', props.value[0].id)
 
     const { formData } = formItem.value
     let url = formData.url?.desktop

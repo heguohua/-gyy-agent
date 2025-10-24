@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-24 10:00:21
+ * @LastEditTime: 2025-10-24 22:05:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -51,6 +51,8 @@
 import { getLowcodingConfigById } from '@/config/formConfigs';
 import { formConfigParse } from '@/pages/dynamic/formConfigParser';
 import u from '@/utils/u';
+import { useAlaStore } from '@/store/ala-store';
+const alaStore = useAlaStore()
 
 
 // State
@@ -131,13 +133,16 @@ watch([() => props.value, () => baseInfo.id], async () => {
 
         let leftTableName = configs.className
 
-        let rightTableName = `a_${configs.className}_${baseInfo.module}`
+
+        const module = baseInfo.module ? baseInfo.module : alaStore.get('ala_current_module_name');
+
+        let rightTableName = `a_${configs.className}_${module}`
         let joinLeftColumn = `a_${configs.className}_id`
         let rightColumnName = "a_dynamic_list"
-        let rightColumnValue = baseInfo.id
+        let rightColumnValue = baseInfo.id ? baseInfo.id : alaStore.get('ala_current_module_id')
 
 
-        if (leftTableName === baseInfo.module) {
+        if (leftTableName === module) {
             // 两者值相等，说明当前打开详情页面的模块就是 子表单 模块，不相等代表是总表单模块
             // 相等时需要转变查询条件
             const currentModuleClassName = props.data.item.className

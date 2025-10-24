@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-24 11:42:24
+ * @LastEditTime: 2025-10-24 15:40:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue
  * @Description: 
  * 
@@ -18,12 +18,14 @@
 
     </div>
 
-
     <teleport to="body" v-if="showPreviewPage">
         <!-- 新增、编辑 -->
         <AlaTabPage v-if="showPreviewPage" v-model="showPreviewPage" title="【 预览 】流程信息" width="1800" :tabs="tabs"
             :previewParams="previewParams" />
     </teleport>
+
+    <AlaSelectListPop ref="alaSelectListPop" :columns="columns" :data="pageData" title="审批流程"
+        :itemProperty="itemProperty" @selectedChange="handleSelectedFlow" :singleValue="true" />
 
 </template>
 
@@ -130,6 +132,7 @@ const detailFields: any = ref([
     alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
 ])
 
+
 const tabsModel = reactive([
     { title: '流程基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
     { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
@@ -154,7 +157,6 @@ const showInstanceInfo = () => {
 
     const url = '/p/instance/findByBusinessNo'
     alaPost(u.url(url), params, false, '').then((response: any) => {
-
         if (response.data) {
             const row = response.data
 
@@ -175,62 +177,71 @@ const showInstanceInfo = () => {
             // 组装 审批记录 页面参数
             previewParams.instanceId = row.id
 
-
             showPreviewPage.value = true
 
         } else {
             notify.error(t('pop.warm_title'), "没有查询到符合条件的【 流程实例 】")
         }
-
-
-
     });
-
 }
 
-interface item {
-    name: string,
-    value: string,
+const alaSelectListPop = ref()
+const itemProperty: { valueName: string, propertyName: string, otherProperty: any } = {
+    valueName: 'id',
+    propertyName: 'displayName',
+    otherProperty: {}
 }
+
+const columns = ref([
+    { label: '流程名称', prop: 'displayName' },
+    { label: '唯一编码', prop: 'name' },
+    { label: '备注', prop: 'remark' },
+])
+
+const pageData = ref([])
 
 const startFlow = () => {
-    console.log('props.data:', props.data);
-    console.log('props.formItem:', props.formItem);
 
     // 1）根据 dict_code 从数据字典中查询当前流程分类的id和dict_label；
-    // Methods
     const url = '/a/dict/list'
 
     let params = { dictCode: `pType-${baseInfo.module}` }
 
-
-    alaPost(u.url(url), params, false, '').then((data: any) => {
-        const response = data;
-        console.log('response:', response);
-
+    alaPost(u.url(url), params, false, '').then((response: any) => {
         if (response.data?.[0]) {
-
-            console.log('response.data:', response.data?.[0]);
             // 根据 流程分类信息获取流程流程定义数据
             const url = '/p/define/searchForApply'
             const params = { state: 1, type: response.data?.[0].id }
-            alaPost(u.url(url), params, false, '').then((data: any) => {
-                const response = data;
-                console.log('response:', response);
-
+            alaPost(u.url(url), params, false, '').then((response: any) => {
                 if (response.data?.[0]?.defineVos) {
-                    console.log('response.data:', response.data?.[0].defineVos);
+                    pageData.value = response.data?.[0].defineVos
+                    alaSelectListPop.value.openDialog()
                 }
             })
-
-
-
         } else {
-            notify.warn(t('pop.warm_title'), `错误：没有在数据字典中查询到【字典值】为“pType-${baseInfo.module}”的流程分类信息！`)
+            notify.error(t('pop.warm_title'), `错误：没有在数据字典中查询到【字典值】为“pType-${baseInfo.module}”的流程分类信息！`)
         }
-
     });
+}
 
+const handleSelectedFlow = (flows: any[]) => {
+
+    if (flows?.[0]?.id) {
+        const defineId = flows[0].id
+
+        const url = '/l/dynamic/startForPage'
+
+        let params = { tableName: `${baseInfo.module}`, defineId, businessId: props.data.id || baseInfo.id }
+
+        alaPost(u.url(url), params, false, '').then((response: any) => {
+            if (response.code == 200) {
+                notify.success(t('pop.warm_title'), `流程发起【 成功 】！`)
+            } else {
+                notify.error(t('pop.warm_title'), `错误：发起流程【 失败 】！`)
+            }
+        });
+
+    }
 }
 
 </script>
@@ -247,6 +258,7 @@ const startFlow = () => {
         border-radius: 4px;
         padding: 2px 16px;
         font-weight: bold;
+
 
     }
 

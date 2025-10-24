@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-01 21:51:24
+ * @LastEditTime: 2025-10-24 18:16:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -364,22 +364,26 @@ formConfigs.forEach(async (form: Form) => {
             formItem.other.endFieldName = formData.endFieldName.desktop
         }
 
-        const fieldName = formData.fieldName.desktop
-        if (fieldName != 'taskId' && fieldName != 'args' && fieldName != 'taskName') {
-            formFields.push(formItem)
+
+        if (formData.fieldName?.desktop) {
+            const fieldName = formData.fieldName.desktop
+            if (fieldName != 'taskId' && fieldName != 'args' && fieldName != 'taskName') {
+                formFields.push(formItem)
+            }
         }
+
 
         const other = formItem.other || {}
 
-        if (item.formData.columnNum) {
+        if (item.formData?.columnNum) {
             formItem.columnNum = item.formData.columnNum.desktop
         }
 
         // 处理 组件 other 中的属性信息
-        if (item.formData.help && item.formData.help.desktop) {
+        if (item.formData?.help && item.formData.help?.desktop) {
             other.help = item.formData.help.desktop
         }
-        if (item.formData.icon && item.formData.icon.desktop) {
+        if (item.formData?.icon && item.formData.icon?.desktop) {
             other.icon = item.formData.icon.desktop
             other.iconWidth = item.formData.iconWidth.desktop
             other.iconHeight = item.formData.iconHeight.desktop
@@ -393,29 +397,29 @@ formConfigs.forEach(async (form: Form) => {
         const rules: Array<baseRule> = []
 
         // 非空验证条件
-        if (formData.required && formData.required.desktop) {
+        if (formData.required?.desktop) {
             rules.push(alaRequired())
         }
 
         // 添加字符数最少、最多和范围验证
-        if (formData.strMin && formData.strMax && formData.strMin.desktop && formData.strMax.desktop) {
+        if (formData.strMin?.desktop && formData.strMax?.desktop) {
             rules.push(alaStrLengthRange(formData.strMin.desktop, formData.strMax.desktop))
-        } else if (formData.strMin && formData.strMin.desktop) {
+        } else if (formData.strMin?.desktop) {
             rules.push(alaStrMin(formData.strMin.desktop))
-        } else if (formData.strMax && formData.strMax.desktop) {
+        } else if (formData.strMax?.desktop) {
             rules.push(alaStrMax(formData.strMax.desktop))
         }
 
         // 添加 数值最小、最大和范围验证
-        if (formData.numberMin && formData.numberMax && formData.numberMin.desktop && formData.numberMax.desktop) {
+        if (formData.numberMin?.desktop && formData.numberMax?.desktop) {
             rules.push(alaNumberRange(formData.numberMin.desktop, formData.numberMax.desktop))
-        } else if (formData.numberMin && formData.numberMin.desktop) {
+        } else if (formData.numberMin?.desktop) {
             rules.push(alaNumberMin(formData.numberMin.desktop))
-        } else if (formData.numberMax && formData.numberMax.desktop) {
+        } else if (formData.numberMax?.desktop) {
             rules.push(alaNumberMax(formData.numberMax.desktop))
         }
 
-        if (formData.rules && formData.rules.desktop) {
+        if (formData.rules?.desktop) {
             const functionName = ruleFunctions[formData.rules.desktop]
             if (!functionName) {
                 logger.error(`【 错误，错误，错误 】${formData.rules.desktop} 函数不存在`);

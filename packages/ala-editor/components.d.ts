@@ -92,6 +92,7 @@ declare module 'vue' {
     AlaSelect: typeof import('./src/components/cps/select/ala-select.vue')['default']
     AlaSelectApi: typeof import('./src/components/cps/select-api/ala-select-api.vue')['default']
     AlaSelectDict: typeof import('./src/components/cps/select-dict/ala-select-dict.vue')['default']
+    AlaSelectListPop: typeof import('./src/components/cps/select-list-pop/ala-select-list-pop.vue')['default']
     AlaSelectRelation: typeof import('./src/components/cps/select-relation/ala-select-relation.vue')['default']
     AlaSelectTable: typeof import('./src/components/cps/select-table/ala-select-table.vue')['default']
     AlaSelectTree: typeof import('./src/components/cps/select-tree/ala-select-tree.vue')['default']
