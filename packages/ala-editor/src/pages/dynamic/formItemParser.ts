@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-23 17:04:11
+ * @LastEditTime: 2025-10-24 08:17:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -180,7 +180,7 @@ export function parseSelectTree(item: { fieldName: { desktop: string }, label: {
 }
 
 export function parseFormTable(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: string }, placeholder: { desktop: string }, moduleName: { desktop: string } }) {
-    const result = alaBuildFormTable(item.fieldName.desktop, item.label.desktop, item.moduleName.desktop)
+    const result = alaBuildFormTable(item.fieldName.desktop, item.label.desktop, item.moduleName?.desktop)
     logger.info(`解析【 formTable 】字段：`, result);
     return result
 }

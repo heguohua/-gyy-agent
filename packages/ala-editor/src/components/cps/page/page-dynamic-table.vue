@@ -169,7 +169,7 @@ const showButtonOrNot = (showButton: boolean, row: any) => {
     // 流程实例状态，10-进行中，20-已完成，30-已撤回，40-强行中止，45-已拒绝，50-挂起，60-已退回，99-已废弃
     if (baseInfo.formType === 'flow') {
         const instanceState = row.instanceState
-        if (instanceState === '10' || instanceState === '20' || instanceState === '45') {
+        if (instanceState === 10 || instanceState === 20 || instanceState === 45) {
             return false
         } else {
             return true

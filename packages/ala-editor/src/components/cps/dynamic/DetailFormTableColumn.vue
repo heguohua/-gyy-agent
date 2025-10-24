@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-01 21:52:42
+ * @LastEditTime: 2025-10-24 10:00:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -162,13 +162,20 @@ watch([() => props.value, () => baseInfo.id], async () => {
                     columns: ["a_dynamic_list"],
                     joinType: 'innerJoin',
                     joinLeftColumn: joinLeftColumn,
-                    conditions: [
+                    conditionGroupVos: [
                         {
-                            column: rightColumnName,
-                            operator: "=",
-                            value: rightColumnValue,
+                            logicalOperator: 'and',
+                            conditions: [
+                                {
+                                    logicalOperator: 'and',
+                                    column: rightColumnName,
+                                    operator: "=",
+                                    value: rightColumnValue,
+                                }
+                            ]
                         }
                     ]
+
                 }
             ],
         }

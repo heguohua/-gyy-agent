@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-24 20:56:09
+ * @LastEditTime: 2025-10-23 20:59:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 
     <div class="ala-detail-flow-instance-state">
         <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-        <p class="value" :style="style" @click="showInstanceInfo">{{ showValue }}</p>
+        <p class="value" :style="style" @click="showInstanceInfo">{{ showValue?showValue:'123' }}</p>
 
     </div>
 

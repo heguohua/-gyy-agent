@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-27 17:39:21
+ * @LastEditTime: 2025-10-24 07:59:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -327,7 +327,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                 // 如果当前表单是流程表单，则添加流程实例状态数据字段
                 if (formType === 'flow') {
                     // 流程实例状态，10-进行中，20-已完成，30-已撤回，40-强行中止，45-已拒绝，50-挂起，60-已退回，99-已废弃
-                    const col = alaDetailFlowInstanceState('instanceState', "流程状态", [{ '进行中': '10', 'color': colors.primary }, { '已完成': '20', 'color': colors.success }, { '已拒绝': '45', 'color': colors.danger }, { '已退回': '60', 'color': colors.warning }], undefined, undefined, { columnWidth: { desktop: '120' } })
+                    const col = alaDetailFlowInstanceState('instanceState', "流程状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.warning }], undefined, undefined, { columnWidth: { desktop: '120' } })
 
                     columns.push(col)
                     detailFields.push(col)
