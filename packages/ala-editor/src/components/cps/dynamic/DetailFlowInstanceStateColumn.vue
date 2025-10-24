@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-23 20:59:36
+ * @LastEditTime: 2025-10-24 11:42:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue
  * @Description: 
  * 
@@ -12,7 +12,9 @@
 
     <div class="ala-detail-flow-instance-state">
         <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-        <p class="value" :style="style" @click="showInstanceInfo">{{ showValue?showValue:'123' }}</p>
+        <p class="value" v-if="showValue" :style="style" @click="showInstanceInfo">{{ showValue ? showValue : '123' }}
+        </p>
+        <p class="value startFlow" v-else :style="style" @click="startFlow">{{ t('buttons.form_initiate') }}</p>
 
     </div>
 
@@ -184,7 +186,50 @@ const showInstanceInfo = () => {
 
     });
 
+}
 
+interface item {
+    name: string,
+    value: string,
+}
+
+const startFlow = () => {
+    console.log('props.data:', props.data);
+    console.log('props.formItem:', props.formItem);
+
+    // 1）根据 dict_code 从数据字典中查询当前流程分类的id和dict_label；
+    // Methods
+    const url = '/a/dict/list'
+
+    let params = { dictCode: `pType-${baseInfo.module}` }
+
+
+    alaPost(u.url(url), params, false, '').then((data: any) => {
+        const response = data;
+        console.log('response:', response);
+
+        if (response.data?.[0]) {
+
+            console.log('response.data:', response.data?.[0]);
+            // 根据 流程分类信息获取流程流程定义数据
+            const url = '/p/define/searchForApply'
+            const params = { state: 1, type: response.data?.[0].id }
+            alaPost(u.url(url), params, false, '').then((data: any) => {
+                const response = data;
+                console.log('response:', response);
+
+                if (response.data?.[0]?.defineVos) {
+                    console.log('response.data:', response.data?.[0].defineVos);
+                }
+            })
+
+
+
+        } else {
+            notify.warn(t('pop.warm_title'), `错误：没有在数据字典中查询到【字典值】为“pType-${baseInfo.module}”的流程分类信息！`)
+        }
+
+    });
 
 }
 
@@ -196,11 +241,25 @@ const showInstanceInfo = () => {
     width: 100%;
     display: flex;
 
+    .startFlow {
+        color: #409eff;
+        background: #ecf5ff;
+        border-radius: 4px;
+        padding: 2px 16px;
+        font-weight: bold;
+
+    }
+
     &:hover {
         cursor: pointer;
 
         .value {
             color: #67c23a !important;
+        }
+
+        .startFlow {
+            background: #409eff;
+            color: #fff !important;
         }
     }
 }
