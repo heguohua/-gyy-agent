@@ -189,8 +189,8 @@ watch(() => props.previewParams.instanceId, (newValue) => {
 
                 }
 
-                console.log('task: =====>',task);
-                
+                console.log('task: =====>', task);
+
 
                 const time = u.timeDiff(task.finishTime, task.createdTime)
                 let t = ''
@@ -320,7 +320,7 @@ const emit = defineEmits(["close"])
         background: rgba(64, 158, 255, 0.1);
         box-shadow: 8px 0 0 0 rgba(64, 158, 255, 0.1), -8px 0 0 0 rgba(64, 158, 255, 0.1);
         border-radius: 4px;
-        margin-bottom: 10px;
+        margin-bottom: 10px !important;
         margin-top: 10px;
 
         .ala-chapter-icon {

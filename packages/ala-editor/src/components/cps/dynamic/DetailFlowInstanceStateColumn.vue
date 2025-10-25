@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 08:24:00
+ * @LastEditTime: 2025-10-25 14:58:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue
  * @Description: 
  * 
@@ -243,6 +243,10 @@ const handleSelectedFlow = (flows: any[]) => {
         alaPost(u.url(url), params, false, '').then((response: any) => {
             if (response.code == 200) {
                 notify.success(t('pop.warm_title'), `流程发起【 成功 】！`)
+
+                // 刷新当前列表数据
+                emit('refresh')
+
             } else {
                 notify.error(t('pop.warm_title'), `错误：发起流程【 失败 】！`)
             }
@@ -250,6 +254,8 @@ const handleSelectedFlow = (flows: any[]) => {
 
     }
 }
+
+const emit = defineEmits(['refresh'])
 
 </script>
 

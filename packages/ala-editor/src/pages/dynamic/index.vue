@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 11:26:59
+ * @LastEditTime: 2025-10-25 15:02:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -26,14 +26,14 @@
 
                 <component :is="getComponent(formItem.code)"
                     :value="{ start: row[formItem.formData.startFieldName.desktop], end: row[formItem.formData.endFieldName.desktop] }"
-                    :formItem="formItem" :data="row" />
+                    :formItem="formItem" :data="row" @refresh="refresh" />
             </template>
             <template v-else>
                 <!-- 该条渲染分支，适用于 <SwitchColumn :value="row[columnName]" :formItem="formItem" /> 类组件渲染，即 可以通过row[columnName]直接获取到Column值-->
                 <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
-                    v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" />
+                    v-if="formItem.formData.detail?.desktop" @showDetail="showDetail" @refresh="refresh" />
                 <component :is="getComponent(formItem.code)" :value="row[columnName]" :formItem="formItem" :data="row"
-                    v-else />
+                    v-else @refresh="refresh" />
             </template>
 
         </template>
@@ -71,9 +71,9 @@ const className = route.path.slice(route.path.lastIndexOf('/') + 1)
 
 const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
-    console.log('code:',code);
-    console.log('t(code):',t(code));
-    
+    console.log('code:', code);
+    console.log('t(code):', t(code));
+
     return t(code)
 })
 
@@ -249,7 +249,7 @@ interface Result {
 }
 
 const beforeQuery = (params: any) => {
-    
+
     const result: Result = { tableName: className, conditionGroups: [] }
     const conditionGroups = result.conditionGroups
 
@@ -305,8 +305,6 @@ onMounted(async () => {
     logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`, params)
 
     const configs = await getLowcodingConfigByClassName(className)
-    console.log('configs:',configs);
-    
 
     columns.value = configs.columns
     baseFields.value = configs.baseFields
