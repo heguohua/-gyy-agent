@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-24 18:16:55
+ * @LastEditTime: 2025-10-25 15:57:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -735,6 +735,10 @@ const postData = async (url: string, item: any): Promise<any> => {
             margin-right: 8px;
         }
 
+    }
+
+    .ala-detail-item {
+        margin-bottom: 10px;
     }
 }
 </style>
