@@ -71,6 +71,9 @@ const className = route.path.slice(route.path.lastIndexOf('/') + 1)
 
 const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
+    console.log('code:',code);
+    console.log('t(code):',t(code));
+    
     return t(code)
 })
 

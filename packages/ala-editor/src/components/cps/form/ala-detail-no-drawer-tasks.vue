@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 08:28:03
+ * @LastEditTime: 2025-10-25 09:35:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -15,7 +15,7 @@
             <p class="ala-chapter-icon"></p>
             审批进度
         </div>
-        <DetailTimelineColumn :value="timelines" />
+        <DetailTimelineColumn :timelines="timelines" />
     </div>
 
     <div class="ala-detail-timeline">
@@ -169,6 +169,8 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                     timelines.value.push({
                         title: task.displayName,
                         content: getApproveType(-1),
+                        showDetail: task.formKeyEntity?.id ? true : false,
+                        detailEntity: task.formKeyEntity,
                         timestamp: 0,
                         properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState))
                     })
@@ -177,6 +179,8 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                         timelines.value.push({
                             title: task.displayName,
                             content: `${task.formKeyEntity.remark} @${task.operatorEntity.nickName} ${getApproveType(task.approveType)}  于 `,
+                            showDetail: task.formKeyEntity?.id ? true : false,
+                            detailEntity: task.formKeyEntity,
                             timestamp: task.updatedTime,
                             properties: alaDetailBuild("timelines", "time", "label", 1, false, getCardProperties(task.taskState)),
 
@@ -184,6 +188,9 @@ watch(() => props.previewParams.instanceId, (newValue) => {
                     }
 
                 }
+
+                console.log('task: =====>',task);
+                
 
                 const time = u.timeDiff(task.finishTime, task.createdTime)
                 let t = ''

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 08:25:22
+ * @LastEditTime: 2025-10-25 09:44:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTimelineItem.vue
  * @Description: 
  * 
@@ -14,7 +14,8 @@
     <el-timeline-item :timestamp="formTimestamp(timestamp)" placement="top" :color="color" :hollow="hollow"
         :center="center" :type="type">
         <el-card>
-            <h4 class="title">{{ title }}</h4>
+            <h4 class="title">{{ title }}<i v-if="showDetail" @click="handleShowDetail"
+                    class="showDetailButton">查看明细</i></h4>
             <p class="content"><i v-html="content"></i>{{ formContentTimestamp(timestamp) }}</p>
         </el-card>
     </el-timeline-item>
@@ -62,6 +63,10 @@ const props = defineProps({
     },
     previewParams: {
         type: Object as any
+    },
+    showDetail: {
+        type: Boolean,
+        default: () => false
     }
 })
 
@@ -103,11 +108,32 @@ const center = computed(() => {
 })
 
 
+const emit = defineEmits(['handleShowDetail'])
+const handleShowDetail = () => {
+    emit('handleShowDetail')
+}
+
 </script>
 
 <style scoped lang="scss">
+.title {
+    .showDetailButton {
+        color: #aaa;
+        margin-left: 10px;
+        display: inline;
+        font-style: italic !important;
+        font-family: "Times New Roman", serif;
+        &:hover{
+            color:#409eff;
+            cursor: pointer;
+        }
+    }
+}
+
 .content {
     margin-top: 4px;
+
+    i {}
 }
 
 :deep(.el-card__body) {

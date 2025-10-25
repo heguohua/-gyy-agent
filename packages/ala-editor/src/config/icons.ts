@@ -6,7 +6,9 @@ import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
 import marketing from '~icons/nimbus/marketing';
 import visitRecord from '~icons/fluent/handshake-20-regular';
 import visitPlan from '~icons/icon-park-outline/plan';
-import workOrder from '~icons/carbon/follow-up-work-order';
+import customerVisitWorkOrderConfirm from '~icons/material-symbols/approval-delegation-outline-rounded';
+import customerVisitWorkOrderResponse from '~icons/fluent/person-arrow-back-24-regular';
+import flow from '~icons/fluent/flow-sparkle-16-filled';
 
 
 import rowIcon from '~icons/fluent/layout-row-two-16-regular';
@@ -570,6 +572,9 @@ const icon = {
   marketing,
   visitRecord,
   visitPlan,
+  customerVisitWorkOrderConfirm,
+  customerVisitWorkOrderResponse,
+  flow,
 
 
 }
