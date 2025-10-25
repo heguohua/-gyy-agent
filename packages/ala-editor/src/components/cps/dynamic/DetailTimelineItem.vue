@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-10 22:08:50
+ * @LastEditTime: 2025-10-25 08:25:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTimelineItem.vue
  * @Description: 
  * 
@@ -55,6 +55,13 @@ const props = defineProps({
     },
     content: {
         type: String,
+    },
+    formIndex: {
+        type: Number,
+        default: 0
+    },
+    previewParams: {
+        type: Object as any
     }
 })
 
@@ -99,7 +106,6 @@ const center = computed(() => {
 </script>
 
 <style scoped lang="scss">
-
 .content {
     margin-top: 4px;
 }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:59:41
+ * @LastEditTime: 2025-10-25 08:23:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailDividerColumn.vue
  * @Description: 
  * 
@@ -41,6 +41,13 @@ const props = defineProps({
     isDetailPage: {
         type: Boolean,
         default: false
+    },
+    formIndex: {
+        type: Number,
+        default: 0
+    },
+    previewParams: {
+        type: Object as any
     }
 })
 

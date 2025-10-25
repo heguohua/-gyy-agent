@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-20 16:28:13
+ * @LastEditTime: 2025-10-25 08:28:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -161,6 +161,8 @@ watch(() => props.previewParams.instanceId, (newValue) => {
             const tks: any = []
             response.data.forEach((task: any) => {
 
+                console.log('task: -->', task);
+
                 // 1、准备 timeline 数据
                 if (task.taskState === 10) {
                     // 说明是处理中的任务，则显示为空心、颜色为danger、居中
@@ -294,6 +296,7 @@ const getApproveTypeClass = (approveType: number) => {
     return className
 }
 
+const emit = defineEmits(["close"])
 
 
 </script>

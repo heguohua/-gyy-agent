@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:57:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 20:17:55
+ * @LastEditTime: 2025-10-25 08:28:39
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/processPreview.vue
  * @Description: 
  * 
@@ -83,6 +83,9 @@ watch(() => props.previewParams.defineId, (id) => {
     }
 
 }, { immediate: true })
+
+const emit = defineEmits(["close"])
+
 
 </script>
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 11:17:07
+ * @LastEditTime: 2025-10-25 08:24:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailInputColumn.vue
  * @Description: 
  * 
@@ -56,6 +56,13 @@ const props = defineProps({
     deepColumnName: {
         type: String,
         default: ''
+    },
+    formIndex: {
+        type: Number,
+        default: 0
+    },
+    previewParams: {
+        type: Object as any
     }
 })
 
@@ -90,7 +97,7 @@ const showValue = computed(() => {
 
     if (value) {
         const deepColumnName = props.formItem.formData.deepColumnName?.desktop
-        if (deepColumnName) {            
+        if (deepColumnName) {
             tmp = u.deepValue(value as object, deepColumnName)
         } else {
             tmp = value

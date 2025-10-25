@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-08 11:17:07
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailInputColumn.vue
+ * @LastEditTime: 2025-10-25 08:23:17
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailCascaderColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -56,6 +56,13 @@ const props = defineProps({
     deepColumnName: {
         type: String,
         default: ''
+    },
+    formIndex: {
+        type: Number,
+        default: 0
+    },
+    previewParams: {
+        type: Object as any
     }
 })
 
@@ -90,15 +97,15 @@ const showValue = computed(() => {
 
     if (value) {
         const deepColumnName = props.formItem.formData.deepColumnName?.desktop
-        if (deepColumnName) {            
+        if (deepColumnName) {
             tmp = u.deepValue(value as object, deepColumnName)
         } else {
             tmp = value
         }
     }
-    if(tmp){
+    if (tmp) {
         tmp = u.parseJson(tmp)
-        tmp= tmp.join(" / ")
+        tmp = tmp.join(" / ")
     }
     return tmp
 })
