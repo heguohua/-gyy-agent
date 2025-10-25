@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-21 21:07:23
+ * @LastEditTime: 2025-10-25 11:26:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -305,6 +305,8 @@ onMounted(async () => {
     logger.info(`从后台加载【 ${className} 】配置数据，数据对象：`, params)
 
     const configs = await getLowcodingConfigByClassName(className)
+    console.log('configs:',configs);
+    
 
     columns.value = configs.columns
     baseFields.value = configs.baseFields
