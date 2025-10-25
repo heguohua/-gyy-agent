@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-21 18:28:58
+ * @LastEditTime: 2025-10-25 11:10:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -12,7 +12,7 @@ import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { min } from "lodash";
 import { formTypes } from "@/components/cps/dynamic/formTypes";
-import { configCollapseItem } from "./configUtil";
+import { configBoolean, configCollapseItem } from "./configUtil";
 
 const background = Type.Boolean({
     code: "config-color",
@@ -256,6 +256,8 @@ const schema = Type.Object({
     showCreatedTime: schemaAllViewport(showCreatedTime),
     showUpdatedBy: schemaAllViewport(showUpdatedBy),
     showUpdatedTime: schemaAllViewport(showUpdatedTime),
+    flow: schemaAllViewport(configCollapseItem("流程相关")),
+    showFlowStateColumn: schemaAllViewport(configBoolean("显示流程状态列", false)),
 
     outApis: schemaAllViewport(configCollapseItem("外部API")),
     outApi: schemaAllViewport(outApi),
