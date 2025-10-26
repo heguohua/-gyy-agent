@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 14:58:01
+ * @LastEditTime: 2025-10-26 17:53:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue
  * @Description: 
  * 
@@ -266,11 +266,10 @@ const emit = defineEmits(['refresh'])
     display: flex;
 
     .startFlow {
-        color: #409eff;
-        background: #ecf5ff;
+        color: var(--el-text-color-regular);
+        background: rgb(230, 162, 60, 0.6);
         border-radius: 4px;
         padding: 2px 16px;
-        font-weight: bold;
 
 
     }
@@ -285,6 +284,8 @@ const emit = defineEmits(['refresh'])
         .startFlow {
             background: #409eff;
             color: #fff !important;
+            font-weight: bold;
+
         }
     }
 }
