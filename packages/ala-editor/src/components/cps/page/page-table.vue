@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-17 10:12:38
+ * @LastEditTime: 2025-10-26 19:26:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table.vue
  * @Description: 
  * 
@@ -136,6 +136,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    beforeShowQueryData: {
+        type: Function,
+        default: undefined
+    },
 
 })
 
@@ -268,7 +272,10 @@ const queryPageData = () => {
         total.value = responsePage.total
 
         if (data?.data?.list) {
-            onePageList.value = data?.data?.list
+            if(props.beforeShowQueryData){
+                props.beforeShowQueryData(data.data.list)
+            }
+            onePageList.value = data.data.list
         }
         loading.value = false
 

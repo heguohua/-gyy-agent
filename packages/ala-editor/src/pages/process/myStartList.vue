@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 16:07:27
+ * @LastEditTime: 2025-10-26 19:33:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -15,7 +15,8 @@
 
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
-        :showSelectCheckbox="false" @add="" @edit="" :tipTitle="$t('pop.warm_title')">
+        :showSelectCheckbox="false" @add="" @edit="" :tipTitle="$t('pop.warm_title')"
+        :beforeShowQueryData="beforeShowQueryData">
 
         <template #cols="{ row, columnName, formItem }">
             <template v-if="formItem.code === 'dateRange'">
@@ -293,6 +294,7 @@ const deleteUrl = "/p/instance/delete"
 const columns = computed(() => {
     return [
         alaDetailInput('defineDisplayName', "流程名称", 1, true),
+        alaDetailInput('autoGenTitle', "流程任务名称", 1, false, { columnWidth: { desktop: '500' } }),
         alaDetailInput('operatorName', "发起人"),
         alaDetailDate('createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
         alaDetailDate('expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -397,6 +399,7 @@ const detailItem = reactive({
 
 const detailFields: any = ref([
     alaDetailInput('defineDisplayName', "流程名称", 1, true),
+    alaDetailInput('autoGenTitle', "流程任务名称", 1, false),
     alaDetailInput('operatorName', "发起人"),
     alaDetailDate('createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailDate('expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -460,6 +463,16 @@ const ruleFunctions: { [key: string]: Function } = {
     alaTw: alaTw,
 };
 // ################### 更新申请单 end ###############################################################
+
+
+const beforeShowQueryData = (list: Array<any>) => {
+    list.forEach(row => {
+        if (row.variable) {
+            row.autoGenTitle = u.parseJson(row.variable)['autoGenTitle']
+        }
+    })
+}
+
 </script>
 
 <style lang="scss" scoped></style>
