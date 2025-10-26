@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 16:01:30
+ * @LastEditTime: 2025-10-25 16:07:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myStartList.vue
  * @Description: 
  * 
@@ -37,11 +37,11 @@
             <AlaButton v-if="row.stateName == '进行中'" :showButton="true" name="form_withdraw"
                 @form_withdraw="handleWithdraw(row)" buttonType="danger" />
 
-            <!-- <AlaButton v-if="row.stateName == '已退回'" :showButton="true" name="update_application_form"
+            <AlaButton v-if="row.stateName == '已退回'" :showButton="true" name="update_application_form"
                 @update_application_form="showEdit(row)" buttonType="" />
 
             <AlaButton v-if="row.stateName == '已退回'" :showButton="true" name="reinitiate"
-                @reinitiate="handleRestart(row)" buttonType="primary" /> -->
+                @reinitiate="handleRestart(row)" buttonType="primary" />
 
 
         </template>

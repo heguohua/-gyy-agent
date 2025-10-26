@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-21 17:44:59
+ * @LastEditTime: 2025-10-25 18:56:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/systemUser.ts
  * @Description: 
  * 
@@ -29,7 +29,7 @@ export const systemUser: FormConfig = {
         alaBuildInput("nickName", '用户昵称', [alaRequired()]),
         alaBuildInput("mobile", '手机号', [alaRequired(), alaPhone()]),
         alaBuildInput("email", '邮箱', [alaRequired(), alaEmail()]),
-        alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间"),
+        alaBuildDate("entryDate", "入职时间", "date", "YYYY-MM-DD", [alaRequired()], "", "", "请选择入职时间", -1, 0),
         alaBuildImage("iconPath", '用户头像', [alaRequired()], "请选择用户头像", {
             oneLevel: 'system',
             secondLevel: 'user',

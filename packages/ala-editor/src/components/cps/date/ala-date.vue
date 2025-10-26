@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 11:23:53
+ * @LastEditTime: 2025-10-25 18:55:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/ala-date.vue
  * @Description: 
  * 
@@ -79,11 +79,11 @@ const props = defineProps({
     },
     daysBefore: {
         type: Number,
-        default: () => 0
+        default: () => -1
     },
     daysAfter: {
         type: Number,
-        default: () => 0
+        default: () => -1
     },
     data: {
         type: Object,

@@ -9,6 +9,7 @@ import visitPlan from '~icons/icon-park-outline/plan';
 import customerVisitWorkOrderConfirm from '~icons/material-symbols/approval-delegation-outline-rounded';
 import customerVisitWorkOrderResponse from '~icons/fluent/person-arrow-back-24-regular';
 import flow from '~icons/fluent/flow-sparkle-16-filled';
+import project from '~icons/fluent/projection-screen-text-sparkle-20-regular';
 
 
 import rowIcon from '~icons/fluent/layout-row-two-16-regular';
@@ -559,14 +560,14 @@ const icon = {
   camera: cameraIcon,
 
   // 私有云中心
-  privateCloud:TdesignCloudUpload,
-  physicalServers:StreamlineDatabaseServer2Solid,
-  cloudServers:AntDesignCloudServerOutlined,
-  diskTypes:LucideLabFloppyDiskRear,
-  cloudDisks:IconParkOutlineSolidStateDisk,
-  cloudSnapshots:IcRoundRestore,
-  applications:Applications,
-  applicationsInstances:ApplicationInstances,
+  privateCloud: TdesignCloudUpload,
+  physicalServers: StreamlineDatabaseServer2Solid,
+  cloudServers: AntDesignCloudServerOutlined,
+  diskTypes: LucideLabFloppyDiskRear,
+  cloudDisks: IconParkOutlineSolidStateDisk,
+  cloudSnapshots: IcRoundRestore,
+  applications: Applications,
+  applicationsInstances: ApplicationInstances,
 
   // 智慧营销中心
   marketing,
@@ -575,6 +576,7 @@ const icon = {
   customerVisitWorkOrderConfirm,
   customerVisitWorkOrderResponse,
   flow,
+  project,
 
 
 }
