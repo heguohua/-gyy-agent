@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-19 18:45:19
+ * @LastEditTime: 2025-10-27 11:19:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myDoneList.vue
  * @Description: 
  * 
@@ -16,7 +16,8 @@
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="false" :showDeleteButton="false" :showAddButton="false" :noButtons="true">
+        :showEditButton="false" :showDeleteButton="false" :showAddButton="false" :noButtons="true"
+        :beforeShowQueryData="beforeShowQueryData">
 
 
         <template #cols="{ row, columnName, formItem }">
@@ -160,6 +161,13 @@ const showDetail = (row: any) => {
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 start ######################################
+const beforeShowQueryData = (list: any[]) => {
+    list.forEach(row => {
+        if (row.instanceVo?.state) {
+            row['instanceVoState'] = row.instanceVo?.state
+        }
+    })
+}
 
 const url = "/p/task/myPage"
 const deleteUrl = "/p/task/delete"
@@ -173,6 +181,8 @@ const columns = computed(() => {
         alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
         alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' }, columnWidth: { desktop: '140' } }),
         alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
+        alaDetailRadio('instanceVoState', "审批状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
+
         alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'operator', label: '发起人' },
@@ -219,6 +229,7 @@ const detailFields: any = ref([
     alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
     alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
     alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
+    alaDetailRadio('instanceVoState', "审批状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
     alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
     alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
 ])
