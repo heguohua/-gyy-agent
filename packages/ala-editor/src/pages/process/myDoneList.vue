@@ -180,10 +180,10 @@ const columns = computed(() => {
         alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
         alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
         alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' }, columnWidth: { desktop: '140' } }),
-        alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
         alaDetailRadio('instanceVoState', "审批状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
-
+        alaDetailDate('instanceVo', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: { desktop: 'createdTime' } }),
         alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('finishTime', "任务审批时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'operator', label: '发起人' },
         // { prop: 'createdTime', label: '发起时间' },
@@ -230,8 +230,10 @@ const detailFields: any = ref([
     alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
     alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
     alaDetailRadio('instanceVoState', "审批状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
-    alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
+    alaDetailDate('instanceVo', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: { desktop: 'createdTime' } }),
     alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('finishTime', "任务审批时间", 'YYYY-MM-DD HH:mm:ss'),
+
 ])
 
 // forms: { id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },

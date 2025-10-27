@@ -62,6 +62,8 @@ const showValue = computed(() => {
     if (value) {
         const format = props.formItem.formData.format.desktop
         const deepColumnName = props.formItem.formData.deepColumnName?.desktop
+        console.log('deepColumnName:',deepColumnName);
+        
         if (deepColumnName) {
             const innerValue = u.deepValue(value, deepColumnName)
             if (innerValue) {

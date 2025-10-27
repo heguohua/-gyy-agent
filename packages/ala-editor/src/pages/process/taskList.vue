@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-19 18:47:00
+ * @LastEditTime: 2025-10-27 15:50:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/taskList.vue
  * @Description: 
  * 
@@ -173,6 +173,7 @@ const columns = computed(() => {
         alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
         alaDetailDate( 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
         alaDetailDate( 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate( 'finishTime', "任务审批时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'operator', label: '发起人' },
         // { prop: 'createdTime', label: '发起时间' },
