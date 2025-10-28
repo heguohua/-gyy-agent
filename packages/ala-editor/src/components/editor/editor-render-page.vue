@@ -599,8 +599,8 @@ const params = ref({
 
 
 const handleSelectedCharts = (blocks: BaseBlock[]) => {
-    if(blocks && blocks.length > 0){
-        blocks.forEach(block =>{
+    if (blocks && blocks.length > 0) {
+        blocks.forEach(block => {
             editorStore.addToBlockConfigIfNotExist(block, bType)
         })
     }
@@ -615,6 +615,8 @@ const handleSelectedCharts = (blocks: BaseBlock[]) => {
     min-height: 600px;
     // background-color: #f5f5f5;
     border: 1px dashed var(--color-edit-render-block-border-hover);
+    height: 1200px !important;
+    overflow-y: auto;
 
     .dropped-item {
         // position: fixed;
