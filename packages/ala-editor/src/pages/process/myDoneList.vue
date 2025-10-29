@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-27 11:19:04
+ * @LastEditTime: 2025-10-29 10:12:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myDoneList.vue
  * @Description: 
  * 
@@ -151,7 +151,7 @@ const showDetail = (row: any) => {
     // 组装 流程图 预览页面参数
     previewParams.defineId = row.instanceVo.defineId
 
-    // 组装 审批记录 页面参数
+    // 组装 办理记录 页面参数
     previewParams.instanceId = row.instanceId
 
     showPreviewPage.value = true
@@ -180,10 +180,10 @@ const columns = computed(() => {
         alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
         alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
         alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' }, columnWidth: { desktop: '140' } }),
-        alaDetailRadio('instanceVoState', "审批状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
+        alaDetailRadio('instanceVoState', "办理状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
         alaDetailDate('instanceVo', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: { desktop: 'createdTime' } }),
         alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailDate('finishTime', "任务审批时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('finishTime', "任务办理时间", 'YYYY-MM-DD HH:mm:ss'),
 
         // { prop: 'operator', label: '发起人' },
         // { prop: 'createdTime', label: '发起时间' },
@@ -229,10 +229,10 @@ const detailFields: any = ref([
     alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
     alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
     alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
-    alaDetailRadio('instanceVoState', "审批状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
+    alaDetailRadio('instanceVoState', "办理状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
     alaDetailDate('instanceVo', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: { desktop: 'createdTime' } }),
     alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailDate('finishTime', "任务审批时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('finishTime', "任务办理时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 
@@ -241,7 +241,7 @@ const tabsModel = reactive([
     { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
     { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
     { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
-    { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
+    { title: '办理记录', code: 'AlaDetailNoDrawerTasks', props: {} },
 ])
 const tabs = computed(() => {
     return tabsModel

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 15:57:20
+ * @LastEditTime: 2025-10-29 10:11:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -300,7 +300,7 @@ const formFields = reactive<Array<any>>([
     alaBuildHidden('taskName'),// 固定格式
     alaBuildHidden('args'),// 固定格式
 ])
-// 查询当前用户审批填写的表单配置数据
+// 查询当前用户办理填写的表单配置数据
 
 const { item } = toRefs(props.data)
 
@@ -308,10 +308,10 @@ formData.value['taskId'] = item.value.id
 formData.value['taskName'] = item.value.displayName
 formData.value['args'] = item.value.formKey
 
-u.checkNull(item.value['formKey'], "当前审批节点Form表单配置信息", t)
+u.checkNull(item.value['formKey'], "当前办理节点Form表单配置信息", t)
 const formConfigs = u.parseJson(item.value['formKey'])
-u.checkNull(formConfigs, "当前审批节点Form表单配置信息", t)
-u.checkTrue(formConfigs.length == 0, "当前审批节点Form表单配置信息", t)
+u.checkNull(formConfigs, "当前办理节点Form表单配置信息", t)
+u.checkTrue(formConfigs.length == 0, "当前办理节点Form表单配置信息", t)
 
 formConfigs.forEach(async (form: Form) => {
 
@@ -321,7 +321,7 @@ formConfigs.forEach(async (form: Form) => {
 
     const config = await getRawLowcodingConfigByClassName(form.className!)
 
-    u.checkNull(config, "当前审批节点Form表单配置信息", t)
+    u.checkNull(config, "当前办理节点Form表单配置信息", t)
 
     config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
 

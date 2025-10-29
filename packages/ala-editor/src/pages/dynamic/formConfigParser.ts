@@ -342,8 +342,8 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
 
                 const cb = alaDetailInput('createdName', "创建人", undefined, undefined, { columnWidth: { desktop: '120' } })
                 const ub = alaDetailInput('updatedName', "更新人", undefined, undefined, { columnWidth: { desktop: '120' } })
-                const ct = alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '170' } })
-                const ut = alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '170' } })
+                const ct = alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '180' } })
+                const ut = alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss', undefined, undefined, { columnWidth: { desktop: '180' } })
 
                 if (showCreatedBy) {
                     columns.push(cb)

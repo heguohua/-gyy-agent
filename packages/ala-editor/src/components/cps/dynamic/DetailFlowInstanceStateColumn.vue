@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-26 17:53:56
+ * @LastEditTime: 2025-10-29 10:11:16
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue
  * @Description: 
  * 
@@ -24,7 +24,7 @@
             :previewParams="previewParams" />
     </teleport>
 
-    <AlaSelectListPop ref="alaSelectListPop" :columns="columns" :data="pageData" title="审批流程"
+    <AlaSelectListPop ref="alaSelectListPop" :columns="columns" :data="pageData" title="办理流程"
         :itemProperty="itemProperty" @selectedChange="handleSelectedFlow" :singleValue="true" />
 
 </template>
@@ -69,7 +69,8 @@ const props = defineProps({
     },
     previewParams: {
         type: Object as any
-    }
+    },
+
 })
 
 // Methods
@@ -136,7 +137,7 @@ const detailFields: any = ref([
     alaDetailInput('operatorName', "发起人"),
     alaDetailDate('createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailDate('expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.textColor, 'stateName', "审批状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
+    alaDetailBuild(dType.textColor, 'stateName', "办理状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
 ])
 
 
@@ -144,7 +145,7 @@ const tabsModel = reactive([
     { title: '流程基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
     { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
     { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
-    { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
+    { title: '办理记录', code: 'AlaDetailNoDrawerTasks', props: {} },
 ])
 const tabs = computed(() => {
     return tabsModel
@@ -158,6 +159,11 @@ const baseInfo = inject('baseInfo', {
     item: Object
 });
 const showInstanceInfo = () => {
+
+
+    if (props.formItem.formData?.disableEvent?.desktop) {
+        return
+    }
 
     const businessNo = [{ id: props.data.id || baseInfo.id, tableName: baseInfo.module }]
     const params = { businessNo: u.tojson(businessNo) }
@@ -181,7 +187,7 @@ const showInstanceInfo = () => {
             // 组装 流程图 预览页面参数
             previewParams.defineId = row.defineId
 
-            // 组装 审批记录 页面参数
+            // 组装 办理记录 页面参数
             previewParams.instanceId = row.id
 
             showPreviewPage.value = true
@@ -208,6 +214,10 @@ const columns = ref([
 const pageData = ref([])
 
 const startFlow = () => {
+
+    if (props.formItem.formData?.disableEvent?.desktop) {
+        return
+    }
 
     // 1）根据 dict_code 从数据字典中查询当前流程分类的id和dict_label；
     const url = '/a/dict/list'

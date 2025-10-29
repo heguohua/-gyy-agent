@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 09:35:33
+ * @LastEditTime: 2025-10-29 10:11:59
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-tasks.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <div class="ala-detail-timeline">
         <div class="title">
             <p class="ala-chapter-icon"></p>
-            审批进度
+            办理进度
         </div>
         <DetailTimelineColumn :timelines="timelines" />
     </div>
@@ -21,21 +21,21 @@
     <div class="ala-detail-timeline">
         <div class="title">
             <p class="ala-chapter-icon"></p>
-            审批记录列表
+            办理记录列表
         </div>
         <el-table :data="tasks" style="width: 100%">
 
             <el-table-column prop="displayName" label="任务名称"></el-table-column>
-            <el-table-column prop="approveType" label="审批结果">
+            <el-table-column prop="approveType" label="办理结果">
                 <template #default="scope">
                     <i v-html="scope.row.approveType" />
                 </template>
             </el-table-column>
-            <el-table-column prop="nickName" label="审批人"></el-table-column>
-            <el-table-column prop="remark" label="审批说明"></el-table-column>
+            <el-table-column prop="nickName" label="办理人"></el-table-column>
+            <el-table-column prop="remark" label="办理说明"></el-table-column>
             <el-table-column prop="createdTime" label="任务创建时间"></el-table-column>
-            <el-table-column prop="finishTime" label="审批时间"></el-table-column>
-            <el-table-column prop="time" label="审批耗时"></el-table-column>
+            <el-table-column prop="finishTime" label="办理时间"></el-table-column>
+            <el-table-column prop="time" label="办理耗时"></el-table-column>
 
         </el-table>
     </div>

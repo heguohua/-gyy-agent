@@ -186,7 +186,7 @@ const postData = async (item: any): Promise<any> => {
     const result = await alaPost(u.url(url || ''), item, false, id ? 'put' : '').then((data: any) => {
         const response = data;
         emit("refresh", response)
-        notify.success(t('pop.warm_title'), "申请单提交成功，请等待审批。")
+        notify.success(t('pop.warm_title'), "申请单提交成功，请等待办理。")
         return response
     });
 

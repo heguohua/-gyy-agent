@@ -194,7 +194,7 @@ const showDetail = (item: { [key: string]: any }) => {
     // 组装 审核表单预览页面参数
     previewParams.forms = []
 
-    // 组装 审批记录 页面参数
+    // 组装 办理记录 页面参数
     // previewParams.instanceId = row.instanceId
 
     showPreviewPage.value = true

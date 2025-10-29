@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 21:02:11
+ * @LastEditTime: 2025-10-29 10:13:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -73,7 +73,7 @@ const imageSrc = (item: any) => {
     return imgSrc
 }
 
-const remark = '普工请假审批普工请假审批普工请假审批'
+const remark = '普工请假办理普工请假办理普工请假办理'
 
 // Methods
 const showValue = (value: string) => {

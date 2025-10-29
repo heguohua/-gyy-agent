@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-27 15:50:13
+ * @LastEditTime: 2025-10-29 10:27:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/taskList.vue
  * @Description: 
  * 
@@ -16,7 +16,8 @@
     <!-- 分页列表 -->
     <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
         :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-        :showEditButton="false" :showDeleteButton="false" :showAddButton="false" :noButtons="true">
+        :showEditButton="false" :showDeleteButton="false" :showAddButton="false" :noButtons="true"
+        :beforeShowQueryData="beforeShowQueryData">
 
 
         <template #cols="{ row, columnName, formItem }">
@@ -59,7 +60,7 @@ import { alaBuildDateRange, alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { id } from 'element-plus/es/locale';
 import { useI18n } from 'vue-i18n';
-import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailRadio, alaDetailSelectDict } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailDate, alaDetailFlowInstanceState, alaDetailInput, alaDetailRadio, alaDetailSelectDict } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import colors from '@/utils/colors';
 const { t } = useI18n();
@@ -110,7 +111,6 @@ const showEdit = (item: { [key: string]: any }) => {
 
 // 查询条件
 const params = reactive({
-    taskState: 20
 })
 
 const pageRef = ref<InstanceType<typeof PageTable> | null>(null)
@@ -149,7 +149,7 @@ const showDetail = (row: any) => {
     // 组装 流程图 预览页面参数
     previewParams.defineId = row.instanceVo.defineId
 
-    // 组装 审批记录 页面参数
+    // 组装 办理记录 页面参数
     previewParams.instanceId = row.instanceId
 
     showPreviewPage.value = true
@@ -167,13 +167,15 @@ const deleteUrl = "/p/task/delete"
 const columns = computed(() => {
     return [
         alaDetailInput('variable', "任务名称", 1, true, { deepColumnName: { desktop: 'autoGenTitle' }, columnWidth: { desktop: '400' } }),
-        alaDetailInput('displayName', "流程节点", 1, false),
-        alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
+        alaDetailInput('displayName', "流程节点", 1, false, { columnWidth: { desktop: '300' } }),
+        alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' }, columnWidth: { desktop: '200' } }),
         alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
         alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
-        alaDetailDate( 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
-        alaDetailDate( 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        alaDetailDate( 'finishTime', "任务审批时间", 'YYYY-MM-DD HH:mm:ss'),
+        alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime', columnWidth: { desktop: '180' } }),
+        alaDetailFlowInstanceState('instanceState', "流程状态", [{ '进行中': 10, 'color': colors.primary }, { '已通过': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.warning }], undefined, undefined, { columnWidth: { desktop: '120' }, disableEvent: { desktop: true } }),
+        alaDetailInput('operatorEntity', "任务所属用户", 1, false, { deepColumnName: { desktop: 'nickName' } }),
+        alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
+        alaDetailDate('finishTime', "任务办理时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),
 
         // { prop: 'operator', label: '发起人' },
         // { prop: 'createdTime', label: '发起时间' },
@@ -219,8 +221,12 @@ const detailFields: any = ref([
     alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
     alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
     alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
-    alaDetailDate( 'createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
-    alaDetailDate( 'createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
+    alaDetailFlowInstanceState('instanceState', "流程状态", [{ '进行中': 10, 'color': colors.primary }, { '已通过': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.warning }], undefined, undefined, { columnWidth: { desktop: '120' }, disableEvent: { desktop: true } }),
+    alaDetailInput('operatorEntity', "任务所属用户", 1, false, { deepColumnName: { desktop: 'nickName' } }),
+    alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('finishTime', "任务办理时间", 'YYYY-MM-DD HH:mm:ss'),
+
 ])
 
 // forms: { id: 3, moduleName: "member" }, { id: 1, moduleName: "member" },
@@ -228,13 +234,19 @@ const tabsModel = reactive([
     { title: '基本信息', code: 'AlaDetailNoDrawer', props: { fields: detailFields, formAttr: formAttr } },
     { title: '流程表单', code: 'AlaDetailNoDrawerForms', props: { forms: [], formAttr: formAttr } },
     { title: '流程图', code: 'ProcessPreview', props: { viewer: true } },
-    { title: '审批记录', code: 'AlaDetailNoDrawerTasks', props: {} },
+    { title: '办理记录', code: 'AlaDetailNoDrawerTasks', props: {} },
 ])
 const tabs = computed(() => {
     return tabsModel
 })
 
-
+const beforeShowQueryData = (list: Array<any>) => {
+    list.forEach(row => {
+        if (row.instanceVo?.state) {
+            row['instanceState'] = row.instanceVo?.state
+        }
+    })
+}
 // ######################## 流程详情预览 end ####################################################
 
 </script>
