@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 10:11:16
+ * @LastEditTime: 2025-10-29 10:39:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue
  * @Description: 
  * 
@@ -137,7 +137,7 @@ const detailFields: any = ref([
     alaDetailInput('operatorName', "发起人"),
     alaDetailDate('createdTime', "发起时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailDate('expireTime', "过期时间", 'YYYY-MM-DD HH:mm:ss'),
-    alaDetailBuild(dType.textColor, 'stateName', "办理状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已完成': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
+    alaDetailBuild(dType.textColor, 'stateName', "办理状态", 1, true, { colors: { desktop: { '进行中': '#409eff', '已通过': '#67c23a', '已拒绝': '#f56c6c', '已撤回': '#b2b6bf' } }, background: { desktop: true } }),
 ])
 
 

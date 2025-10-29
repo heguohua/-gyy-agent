@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 10:13:05
+ * @LastEditTime: 2025-10-29 10:40:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -160,7 +160,7 @@ const columns = computed(() => {
         alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
         alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' }, columnWidth: { desktop: '140' } }),
         alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
-        alaDetailRadio('instanceVoState', "办理状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
+        alaDetailRadio('instanceVoState', "办理状态", [{ '进行中': 10, 'color': colors.primary }, { '已通过': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }, { '已撤回': 30, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
 
 
         alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
@@ -216,7 +216,7 @@ const detailFields: any = ref([
     alaDetailInput('instanceVo', "流程名", 1, false, { deepColumnName: { desktop: 'displayName' } }),
     alaDetailRadio('performType', "参与类型", [{ '普通参与': 0 }, { '会签参与': 1, 'color': colors.primary }], undefined, undefined, { columnWidth: { desktop: '140' } }),
     alaDetailInput('instanceVo', "发起人", 1, false, { deepColumnName: { desktop: 'operatorEntity.nickName' } }),
-    alaDetailRadio('instanceVoState', "办理状态", [{ '进行中': 10, 'color': colors.primary }, { '已完成': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
+    alaDetailRadio('instanceVoState', "办理状态", [{ '进行中': 10, 'color': colors.primary }, { '已通过': 20, 'color': colors.success }, { '已拒绝': 45, 'color': colors.danger }, { '已退回': 60, 'color': colors.info }, { '已撤回': 30, 'color': colors.info }], undefined, undefined, { columnWidth: { desktop: '120' } }),
     alaDetailDate('createdTime', "流程发起时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { deepColumnName: 'instanceVo.createdTime' }),
     alaDetailDate('createdTime', "任务创建时间", 'YYYY-MM-DD HH:mm:ss'),
 

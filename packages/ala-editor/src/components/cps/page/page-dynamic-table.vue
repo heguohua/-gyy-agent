@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 15:28:00
+ * @LastEditTime: 2025-10-29 10:40:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -166,7 +166,7 @@ const displaySelectCheckbox = () => {
 }
 
 const showButtonOrNot = (showButton: boolean, row: any) => {
-    // 流程实例状态，10-进行中，20-已完成，30-已撤回，40-强行中止，45-已拒绝，50-挂起，60-已退回，99-已废弃
+    // 流程实例状态，10-进行中，20-已通过，30-已撤回，40-强行中止，45-已拒绝，50-挂起，60-已退回，99-已废弃
     // if (baseInfo.formType === 'flow') {
     //     const instanceState = row.instanceState
     //     if (instanceState === 10 || instanceState === 20 || instanceState === 45) {
@@ -180,7 +180,7 @@ const showButtonOrNot = (showButton: boolean, row: any) => {
 
 const displayEditButton = (row: any) => {
 
-      // 流程实例状态，10-进行中，20-已完成，30-已撤回，40-强行中止，45-已拒绝，50-挂起，60-已退回，99-已废弃
+      // 流程实例状态，10-进行中，20-已通过，30-已撤回，40-强行中止，45-已拒绝，50-挂起，60-已退回，99-已废弃
     if (baseInfo.formType === 'flow' && row.instanceState) {
         return false
     }

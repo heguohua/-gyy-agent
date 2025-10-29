@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 22:32:55
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 17:57:41
+ * @LastEditTime: 2025-10-29 10:40:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/welcome.vue
  * @Description: 
  * 
@@ -61,7 +61,7 @@ const data = [
   },
   {
     imageSrc: '/welcome/complete.svg',
-    title: '已完成流程数',
+    title: '已通过流程数',
     num: 99,
     backgroundColor: '#f0f9eb',
     weekNum: 20,
