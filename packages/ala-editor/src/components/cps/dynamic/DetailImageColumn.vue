@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 08:24:08
+ * @LastEditTime: 2025-10-29 11:16:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailImageColumn.vue
  * @Description: 
  * 
@@ -102,7 +102,7 @@ const localValues = ref<Array<string>>([])
 watch(() => props.value, () => {
 
     localValues.value = []
-    
+
     if (props.value) {
 
         const images = u.parseJson(props.value)
@@ -119,8 +119,12 @@ watch(() => props.value, () => {
 
             reader.onloadend = () => {
                 const base64 = reader.result
+                let imageType = u.fileExtension(image.fileName)
+                if (imageType === 'svg') {
+                    imageType = 'svg+xml'
+                }
                 if (typeof base64 === 'string') {
-                    localValues.value.push(base64.replace('data:application/octet-stream', `data:image/${u.fileExtension(image.fileName)}`))
+                    localValues.value.push(base64.replace('data:application/octet-stream', `data:image/${imageType}`))
                 }
             }
 
@@ -132,7 +136,7 @@ watch(() => props.value, () => {
 
         })
 
-    } 
+    }
 
 }, {
     immediate: true,
