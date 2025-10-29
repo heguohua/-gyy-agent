@@ -1,12 +1,13 @@
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport"
 import colors from "@/utils/colors"
 import { Type } from "@sinclair/typebox"
+import icon from "./icons"
 
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 15:27:33
+ * @LastEditTime: 2025-10-29 15:55:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -430,6 +431,23 @@ export const configSelectApi = (title: string, defaultValue = {}) => {
     )
     return st
 }
+export const configSelectImage = (title: string, defaultValue = {}) => {
+    const st = Type.Object(
+        {
+            code: Type.String(),
+            title: Type.String(),
+            other: Type.Object({
+
+            }),
+        },
+        {
+            code: "config-select-image",
+            title,
+            default: defaultValue
+        }
+    )
+    return st
+}
 
 export const configMainTitle = () => {
     const config = {
@@ -758,6 +776,34 @@ export const configApis = () => {
         // line_curve_style: schemaAllViewport(configCurveStyle("平滑策略")),
         // addArea: schemaAllViewport(configBoolean('添加区域图')),
         // areaColor: schemaAllViewport(configColor('区域图颜色')),
+
+    }
+    return config
+}
+
+
+export const configIcons = () => {
+    const config = {
+
+        // 刻度线
+        // data_url: schemaAllViewport(configTextarea("数据API")),
+        // data_params: schemaAllViewport(configTextarea("请求参数")),
+        icon: schemaAllViewport(configSelectImage('选择图标', {
+            url: '/l/dynamic/list',
+            itemProperty: {
+                propertyName: 'name',
+                valueName: 'fid',
+            },
+            params: {
+                "tableName": "lowcodingImages",
+                "conditionGroups": [
+                    {
+                        "logicalOperator": "and",
+                        "conditions": []
+                    }
+                ]
+            }
+        }))
 
     }
     return config

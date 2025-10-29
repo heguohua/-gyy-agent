@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 15:34:18
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-select-api.vue
+ * @LastEditTime: 2025-10-29 15:56:32
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-select-image.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -170,7 +170,7 @@ const query = () => {
         const item_s: Array<item> = []
         response.data.forEach((item: any) => {
           const name = item[defaultValue.itemProperty.propertyName]
-          const value = item[defaultValue.itemProperty.valueName]
+          const value = u.parseJson(item.file)[0].fid
           item_s.push({ name, value })
         })
 

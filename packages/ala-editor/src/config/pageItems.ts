@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 18:20:04
+ * @LastEditTime: 2025-10-29 15:27:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/pageItems.ts
  * @Description: 
  * 
@@ -17,23 +17,23 @@ export const cardChart: BaseBlock[] = [
         id: "",
         name: "单指标卡",
         code: "card1",
-        icon: "card-chart-1.png",
+        icon: "cards/ala-card-1.png",
         formData: {},
     },
-    {
-        id: "",
-        name: "双指标卡",
-        code: "card2",
-        icon: "card-chart-2.jpg",
-        formData: {},
-    },
-    {
-        id: "",
-        name: "三指标卡",
-        code: "card3",
-        icon: "card-chart-3.jpg",
-        formData: {},
-    }
+    // {
+    //     id: "",
+    //     name: "双指标卡",
+    //     code: "card2",
+    //     icon: "card-chart-2.jpg",
+    //     formData: {},
+    // },
+    // {
+    //     id: "",
+    //     name: "三指标卡",
+    //     code: "card3",
+    //     icon: "card-chart-3.jpg",
+    //     formData: {},
+    // }
 ]
 
 export const lineChart: BaseBlock[] = [

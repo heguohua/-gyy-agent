@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 16:37:50
+ * @LastEditTime: 2025-10-29 18:22:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/cards/ala-card-1.vue
  * @Description: 
  * 
@@ -11,9 +11,11 @@
 <template>
     <div class="ala-card-chart-wrapper" :style="divStyles" ref="chartWrapper">
 
-        <div class="icon" :style="iconStyles">
-            <VIcon v-if="formData.icon?.desktop" :image="'/bi/' + formData.icon?.desktop"
-                :width="formData.icon_width?.desktop + 'px'" :height="formData.icon_height?.desktop + 'px'" />
+        <div class="icon" :style="iconBackgroundStyles">
+            <!-- <VIcon v-if="formData.icon?.desktop" :image="'/bi/' + formData.icon?.desktop"
+                :width="formData.icon_width?.desktop + 'px'" :height="formData.icon_height?.desktop + 'px'" /> -->
+            <!-- <img class="image" :src="image" :style="{ maxWidth: imageWidth }" /> -->
+            <img class="image" :src="image" :style="iconStyles" />
         </div>
 
         <div class="quota">
@@ -36,7 +38,7 @@ import { logger } from '@/utils/logger';
 import * as d3 from 'd3';
 import DataPoint, * as ad3 from '@/components/charts/utils/dChart';
 import u from '@/utils/u';
-import { alaPost } from '@/utils/req';
+import { alaDownload, alaPost } from '@/utils/req';
 import colors from '@/utils/colors';
 
 // State
@@ -65,11 +67,11 @@ const chartWrapper = ref()
 // svg图形
 
 // 0、宽度、高度变化时更新图表
-const dWidth = ref()
-const dHeight = ref()
 watch(() => props.formData, (v) => {
     nextTick(() => {
         drawChart()
+        // 加载图标
+        loadImage()
     })
 
 }, { immediate: true, deep: true })
@@ -86,14 +88,43 @@ const divStyles = computed(() => {
         style.flexDirection = 'column'
     }
 
+    const top = props.formData.top?.desktop || 0
+    const bottom = props.formData.bottom?.desktop || 0
+    const left = props.formData.left?.desktop || 0
+    const right = props.formData.right?.desktop || 0
+    style.paddingTop = top + 'px'
+    style.paddingBottom = bottom + 'px'
+    style.paddingLeft = left + 'px'
+    style.paddingRight = right + 'px'
+
+
+    return style
+})
+
+const iconBackgroundStyles = computed(() => {
+    const background = props.formData.icon_background?.desktop || '#fff'
+    const background_radius = props.formData.icon_background_radius?.desktop || 0
+    const width = props.formData.icon_background_width?.desktop || 30
+    const height = props.formData.icon_background_height?.desktop || 30
+
+    const style: { [key: string]: any } = {
+        borderRadius: background_radius + '%',
+        background, boxShadow: background + ' 0px 0px 10px 5px',
+        width: width + 'px',
+        height: height + 'px'
+    }
+
     return style
 })
 
 const iconStyles = computed(() => {
-    const background = props.formData.icon_background?.desktop || '#fff'
-    const background_radius = props.formData.icon_background_radius?.desktop || 0
+    const width = props.formData.icon_width?.desktop || 30
+    const height = props.formData.icon_height?.desktop || 30
 
-    const style: { [key: string]: any } = { borderRadius: background_radius + '%', background, boxShadow: background + ' 0px 0px 10px 5px' }
+    const style: { [key: string]: any } = {
+        width: width + 'px',
+        height: height + 'px'
+    }
 
     return style
 })
@@ -129,6 +160,7 @@ const valueStyles = computed(() => {
     let fontWeight = formData.value_fontWeight?.desktop || 400
     let marginTop = formData.value_top?.desktop || '0px'
     let marginLeft = formData.value_left?.desktop || '0px'
+    let wordNum = formData.wordNum?.desktop || 1
 
     let style: { [key: string]: any } = {
         color,
@@ -136,7 +168,8 @@ const valueStyles = computed(() => {
         marginTop,
         marginLeft,
         fontWeight,
-        lineHeight: fontSize
+        lineHeight: fontSize,
+        width: wordNum + 'ch'
     }
 
 
@@ -152,15 +185,6 @@ const drawChart = () => {
     // 1、查找 svg 图形组件
 
     // 2、清除原有的图形元素，例如路径、圆、文本等
-
-    // 3、计算 svg 图形内边距信息
-    const margin = {
-        top: formData.top?.desktop,
-        bottom: formData.bottom?.desktop,
-        left: formData.left?.desktop,
-        right: formData.right?.desktop,
-    };
-
 
 }
 
@@ -199,9 +223,50 @@ const query = () => {
     });
 }
 
+
+const loadImage = async () => {
+
+    if (props.formData.icon?.desktop) {
+
+        const result = await alaDownload(u.url('/f/ossfile/download'), { fid: props.formData.icon.desktop }).then((data: any) => {
+            const response = data;
+            
+            return response
+        })
+
+        const blob = new Blob([result.data])
+        const reader = new FileReader()
+
+        reader.onloadend = () => {
+            const base64 = reader.result
+            console.log('props.formData.icon.desktop:',props.formData.icon.desktop);
+            console.log('base64:',base64);
+
+            if (typeof base64 === 'string') {
+                // localValues.value.push(base64.replace('data:application/octet-stream', `data:image/${imageType}`))
+                image.value = base64.replace('data:application/octet-stream', `data:image/svg+xml`)
+            }
+        }
+
+        reader.onerror = (e) => {
+            console.log('e:', e)
+        }
+
+        reader.readAsDataURL(blob) // 转成 base64
+
+
+    }
+
+
+}
+
+
 let timerId: number
+
+const image = ref('')
 // 开启数据请求
 onMounted(() => {
+
 
     // 第一次加载数据
     queryDataAndDrawChart()
@@ -271,9 +336,9 @@ const queryDataAndDrawChart = () => {
     .quota {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: left;
         flex-wrap: wrap;
-        width: 60%;
+        // width: 60%;
         padding-left: 10px;
         order: 2;
 
