@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 20:26:53
+ * @LastEditTime: 2025-10-30 10:21:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-screen.ts
  * @Description: 
  * 
@@ -32,7 +32,7 @@ const title = Type.String({
     required: true,
     rules: [
         { name: 'required', message: '不能为空' },
-        { name: 'max', length: 20, message: '最多20个字符' },
+        { name: 'max', length: 50, message: '最多50个字符' },
         { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
     ]
 })
