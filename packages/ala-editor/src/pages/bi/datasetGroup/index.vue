@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-02-03 11:59:46
+ * @LastEditTime: 2025-10-31 10:05:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasetGroup/index.vue
  * @Description: 
  * 
@@ -25,7 +25,7 @@
             <!-- 分页列表 -->
             <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
                 :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
-                :showEditButton="true" :showDeleteButton="true">
+                :showEditButton="true" :showDeleteButton="false" :showDisableButton="true">
 
 
                 <template #cols="{ row, columnName, formItem }">
@@ -71,7 +71,7 @@ import { alaBuildInput } from '@/config/alaBuilders';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import PageTable from '@/components/cps/page/page-table.vue';
-import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDetailTextarea } from '@/config/alaDetailBuilder';
+import { alaDetailBuild, alaDetailCascader, alaDetailDate, alaDetailInput, alaDetailSwitch, alaDetailTextarea } from '@/config/alaDetailBuilder';
 import { dType } from '@/components/cps/dynamic/detailType';
 import DatasetAdd from './datasetAdd.vue';
 import notify from '@/utils/notify';
@@ -147,12 +147,9 @@ const deleteUrl = "/b/datasetGroup/delete"
 const columns = computed(() => {
     return [
         alaDetailInput('name', "数据源名称", 1, true),
-        alaDetailCascader('type', "类型"),
-        alaDetailInput('status', "状态"),
-        alaDetailTextarea('description', '描述', 16),
-        alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
-        // alaDetailSelectDict('typeEntity', "流程分类", 'dictLabel'),
-
+        alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '120' } }),
+        alaDetailInput('createdName', "创建人"),
+        alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     ]
 })
 
@@ -185,13 +182,11 @@ const formAttr = ref({
  */
 const detailFields: any = ref([
     alaDetailInput('name', "数据源名称", 1, true),
-    alaDetailCascader('type', "类型"),
-    alaDetailInput('status', "状态"),
-    alaDetailTextarea('description', '描述', 16),
+    alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '120' } }),
     alaDetailInput('createdName', "创建人"),
-    alaDetailDate( 'createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
     alaDetailInput('updatedName', "更新人"),
-    alaDetailDate( 'updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
+    alaDetailDate('updatedTime', "更新时间", 'YYYY-MM-DD HH:mm:ss'),
 
 ])
 
