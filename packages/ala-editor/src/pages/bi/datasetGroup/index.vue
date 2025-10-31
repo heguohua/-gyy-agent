@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-31 10:05:52
+ * @LastEditTime: 2025-10-31 10:12:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasetGroup/index.vue
  * @Description: 
  * 
@@ -146,7 +146,7 @@ const deleteUrl = "/b/datasetGroup/delete"
 // 分页列表中列属性配置
 const columns = computed(() => {
     return [
-        alaDetailInput('name', "数据源名称", 1, true),
+        alaDetailInput('name', "数据源名称", 1, true, { columnWidth: { desktop: '800' } }),
         alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('createdName', "创建人"),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss'),
