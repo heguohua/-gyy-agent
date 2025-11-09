@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-22 18:48:46
+ * @LastEditTime: 2025-11-09 14:24:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -188,6 +188,26 @@ const props = defineProps({
   showDay: {
     type: Boolean,
     default: false
+  },
+  viewport: {
+    type: String,
+    default: ''
+  },
+  block: {
+    type: Object,
+    default: () => { }
+  },
+  bType: {
+    type: String,
+    default: ''
+  },
+  currentId: {
+    type: String,
+    default: ''
+  },
+  pid: {
+    type: Number,
+    default: 0
   }
 })
 
