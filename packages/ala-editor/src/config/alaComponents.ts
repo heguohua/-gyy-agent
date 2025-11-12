@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 15:51:47
+ * @LastEditTime: 2025-11-12 08:16:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -69,6 +69,7 @@ import AlaCascaderDict from '@/components/cps/cascader-dict/ala-cascader-dict.vu
 import AlaFormTable from '@/components/cps/form-table/ala-form-table.vue';
 import AlaChildTableCount from '@/components/cps/childTableCount/ala-child-table-count.vue';
 import AlaAi from '@/components/cps/ai/ala-ai.vue';
+import AlaAiInfo from '@/components/cps/ai-info/ala-ai-info.vue';
 import AlaRelation from '@/components/cps/relation/ala-relation.vue';
 import AlaRelationSubForm from '@/components/cps/relation/ala-relation-sub-form.vue';
 import AlaSelectRelation from '@/components/cps/select-relation/ala-select-relation.vue';
@@ -192,6 +193,7 @@ export default {
     AlaFormTable,
     AlaChildTableCount,
     AlaAi,
+    AlaAiInfo,
     AlaRelation,
     AlaRelationSubForm,
     AlaSelectRelation,

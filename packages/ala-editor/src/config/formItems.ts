@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-23 21:04:38
+ * @LastEditTime: 2025-11-12 08:19:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -116,7 +116,7 @@ export const baseFields: BaseBlock[] = [
         code: "file",
         icon: "file",
         formData: {},
-    },
+    }
 ]
 
 export const seniorFields: BaseBlock[] = [
@@ -216,6 +216,13 @@ export const seniorFields: BaseBlock[] = [
         name: "AI智慧填充",
         code: "ai",
         icon: "f_ai",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "AI助手",
+        code: "aiInfo",
+        icon: "aiIcon",
         formData: {},
     }
 ]

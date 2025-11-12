@@ -156,6 +156,7 @@ import fArrowUpIcon from '~icons/tabler/arrow-up';
 import fImageIcon from '~icons/akar-icons/image';
 import fAudioIcon from '~icons/ant-design/audio-outlined';
 import toTopIcon from '~icons/icon-park/to-top';
+import aiIcon from '~icons/carbon/ai'; // 流程实例
 
 // 客户中心
 import mCustomerIcon from '~icons/garden/customer-lists-fill-26';
@@ -442,6 +443,7 @@ const icon = {
   f_image: fImageIcon,
   f_audio: fAudioIcon,
   toTop: toTopIcon,
+  aiIcon: aiIcon,
   m_customer: mCustomerIcon, // 客户中心
   contact: contactIcon,
   clue: clueIcon,
