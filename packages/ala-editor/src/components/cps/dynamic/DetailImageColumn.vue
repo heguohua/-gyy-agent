@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 11:16:10
+ * @LastEditTime: 2025-11-12 19:08:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailImageColumn.vue
  * @Description: 
  * 
@@ -73,7 +73,7 @@ const isDetailColumn = computed(() => {
     return props.formItem.formData?.detail?.desktop
 })
 
-const emit = defineEmits(['showDetail'])
+const emit = defineEmits(['showDetail','refresh'])
 const showDetail = () => {
     emit('showDetail', props.data)
 }
@@ -142,6 +142,7 @@ watch(() => props.value, () => {
     immediate: true,
     deep: true
 })
+
 
 </script>
 

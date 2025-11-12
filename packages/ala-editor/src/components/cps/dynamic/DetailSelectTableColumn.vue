@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 08:24:46
+ * @LastEditTime: 2025-11-12 19:06:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -272,7 +272,7 @@ const detailFields = computed(() => {
     return dFields.value
 })
 
-
+defineEmits(['refresh'])
 </script>
 
 <style scoped lang="scss">

@@ -1,4 +1,4 @@
-import { alaBuildAi, alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildChildTableCount, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import { alaBuildAi, alaBuildAiInfo, alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildChildTableCount, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
 
@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-24 08:17:15
+ * @LastEditTime: 2025-11-12 19:13:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -65,6 +65,13 @@ export function parseAi(item: { fieldName: { desktop: string }, label: { desktop
     logger.info(`解析【 ai 】字段：`, result);
     return result
 }
+export function parseAiInfo(item: { fieldName: { desktop: string }, label: { desktop: string }, required: { desktop: boolean }, strMin: { desktop: number }, strMax: { desktop: number }, numberMin: { desktop: number }, numberMax: { desktop: number }, rules: { desktop: [] }, placeholder: { desktop: string } }) {
+
+    const result = alaBuildAiInfo(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop)
+    logger.info(`解析【 aiInfo 】字段：`, result);
+    return result
+}
+
 
 export function parseCheckbox(item: { fieldName: { desktop: string }, label: { desktop: string }, items: { desktop: [] } }) {
     // alaBuildCheckbox('color', "偏好色系", [{ '红色': 'red' }, { '绿色': 'green' }, { '黄色': 'yellow' }], [alaRequired()]),

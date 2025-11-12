@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-26 19:34:28
+ * @LastEditTime: 2025-11-12 19:07:57
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailXiaoshuColumn.vue
  * @Description: 
  * 
@@ -44,7 +44,7 @@ defineProps({
 })
 
 // Methods
-
+defineEmits(['refresh'])
 </script>
 
 <style scoped lang="scss"></style>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 10:52:27
+ * @LastEditTime: 2025-11-12 19:07:44
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTimelineColumn.vue
  * @Description: 
  * 
@@ -106,7 +106,7 @@ const handleShowDetail = async (item: Item) => {
     showDetailPage.value = true
 
 }
-
+defineEmits(['refresh'])
 </script>
 
 <style scoped lang="scss">

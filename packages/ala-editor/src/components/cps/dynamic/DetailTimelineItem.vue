@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 09:44:04
+ * @LastEditTime: 2025-11-12 19:02:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTimelineItem.vue
  * @Description: 
  * 
@@ -108,10 +108,12 @@ const center = computed(() => {
 })
 
 
-const emit = defineEmits(['handleShowDetail'])
+const emit = defineEmits(['handleShowDetail', 'refresh'])
 const handleShowDetail = () => {
     emit('handleShowDetail')
 }
+
+
 
 </script>
 
@@ -123,8 +125,9 @@ const handleShowDetail = () => {
         display: inline;
         font-style: italic !important;
         font-family: "Times New Roman", serif;
-        &:hover{
-            color:#409eff;
+
+        &:hover {
+            color: #409eff;
             cursor: pointer;
         }
     }

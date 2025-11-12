@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-04 22:41:05
+ * @LastEditTime: 2025-11-12 19:07:54
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailVideoHLSColumn.vue
  * @Description: 
  * 
@@ -86,6 +86,9 @@ const time = ref("")
 setInterval(() => {
     time.value = date.YYYY_MM_DD__HH_mm_ss(new Date())
 }, 1 * 1000)
+
+
+defineEmits(['refresh'])
 
 </script>
 

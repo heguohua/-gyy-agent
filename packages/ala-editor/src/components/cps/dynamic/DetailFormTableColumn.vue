@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-24 22:05:37
+ * @LastEditTime: 2025-11-12 19:05:31
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -201,7 +201,7 @@ const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
 })
 
-
+defineEmits(['refresh'])
 </script>
 
 <style scoped lang="scss">

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-12-24 14:42:01
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label-wrapper.vue
+ * @LastEditTime: 2025-11-12 20:41:43
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -13,7 +13,9 @@
     {{ label }}
     <el-tooltip v-if="help" class="tip ala-help-icon" :effect="effect" :content="u.parseI18n(help, t)"
       :placement="placement" :hide-after="0">
-      <v-icon class="image" icon="help" :width="width" :height="height" />
+      <template>
+        <v-icon class="image" icon="help" :width="width" :height="height" />
+      </template>
     </el-tooltip>
   </div>
 </template>

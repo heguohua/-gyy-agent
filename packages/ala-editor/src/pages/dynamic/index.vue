@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 15:48:12
+ * @LastEditTime: 2025-11-12 16:48:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -112,9 +112,7 @@ const showAdd = (item: { [key: string]: any }) => {
 }
 
 
-
 watch(() => alaStore.get('ai_toPage'), (url: string) => {
-
 
     if (!url) return
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 08:23:22
+ * @LastEditTime: 2025-11-12 19:04:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailChapterColumn.vue
  * @Description: 
  * 
@@ -75,6 +75,7 @@ const styles = computed(() => {
     const style = { minWidth: width + 'px', }
     return style
 })
+defineEmits(['refresh'])
 
 </script>
 

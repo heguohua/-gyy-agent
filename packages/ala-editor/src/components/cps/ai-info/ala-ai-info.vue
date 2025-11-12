@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:17:01
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
+ * @LastEditTime: 2025-11-12 20:37:55
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/ai-info/ala-ai-info.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-input-wrapper">
+    <div class="ala-ai-info-wrapper">
         <el-form-item :label-position="position" :prop="fieldName">
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
@@ -17,17 +17,38 @@
             <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName"
                 :disabled="isDisabled">
 
-                <template #prefix v-if="icon">
-                    <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" />
+                <template #suffix v-if="icon">
+                    <v-icon class="image" :icon="icon" :width="iconWidth" :height="iconHeight" @click="search" />
                 </template>
 
             </el-input>
         </el-form-item>
     </div>
+
+
+    <AlaDrawer v-model="showDrawer" :title="'【 详情 】'" :width="drawerWidth()" :direction="direction"
+        @beforeClose="handleClose">
+        <template #content>
+            <div class="is-empty">
+                没有查询到数据 1
+            </div>
+            <div class="is-empty">
+                没有查询到数据 2
+            </div>
+        </template>
+        <template #footer>
+            <div style="flex: auto">
+                <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
+            </div>
+        </template>
+    </AlaDrawer>
+
+
 </template>
 
 <script setup lang="ts">
 import { logger } from '@/utils/logger';
+import { DrawerProps } from 'element-plus';
 
 
 // State
@@ -78,6 +99,10 @@ const props = defineProps({
     noEditable: {
         type: Boolean,
         default: () => false
+    },
+    item: {
+        type: Object,
+        default: () => { }
     }
 })
 
@@ -85,7 +110,7 @@ const model = defineModel({
     type: String || Number || null || undefined
 })
 
-const emit = defineEmits(['callback', "init"])
+const emit = defineEmits(['callback', "init", "formItemChangeCallback"])
 
 const handleChange = (value: string) => {
     model.value = value
@@ -93,7 +118,7 @@ const handleChange = (value: string) => {
 
 // Methods
 
-logger.info(`bType[ ${props.bType} ]，渲染 动态表单 ala-input 组件，props：`, props);
+logger.info(`bType[ ${props.bType} ]，渲染 动态表单 ala-ai-info 组件，props：`, props);
 
 
 // // 发送组件初始化消息
@@ -121,13 +146,44 @@ const isDisabled = computed(() => {
     return idd
 })
 
+const search = () => {
+    console.log('props: ---> ', props);
+    showDrawer.value = true
+}
+
+const showDrawer = ref(false)
+
+// 计算css宽度
+// 1、动态计算 drawer 宽度
+const drawerWidth = (): string => {
+    const paddingWidth = 66
+    // let width = (formWidth.value + paddingWidth) * (1 + Math.random() * 0.1) + 'px'
+    // formWidth.value = formWidth.value * (1 + Math.random() * 0.1)    
+    let width = '600px'
+    return width
+}
+
+const direction = ref<DrawerProps['direction']>('rtl')
+
+const handleClose = (done: () => void) => {
+    done()
+}
+
+/**
+ * 点击取消按钮，关闭弹窗
+ */
+const cancelClick = () => {
+    showDrawer.value = false
+}
 
 </script>
 
 <style scoped lang="scss">
-// :deep(.el-input__wrapper){
-//     padding-left: 4px;
-// }
-// :deep(.el-input__prefix-inner>:last-child){
-//     margin-right: 4px;
-// }</style>
+.ala-ai-info-wrapper {
+
+    :deep(.el-input__suffix) {
+        cursor: pointer;
+    }
+
+}
+</style>

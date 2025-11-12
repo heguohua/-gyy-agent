@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 08:23:17
+ * @LastEditTime: 2025-11-12 19:04:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailCascaderColumn.vue
  * @Description: 
  * 
@@ -71,8 +71,7 @@ const props = defineProps({
 const isDetailColumn = computed(() => {
     return props.formItem.formData?.detail?.desktop
 })
-
-const emit = defineEmits(['showDetail'])
+const emit = defineEmits(['showDetail', 'refresh'])
 const showDetail = () => {
     emit('showDetail', props.data)
 }
