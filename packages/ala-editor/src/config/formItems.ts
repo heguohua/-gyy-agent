@@ -220,7 +220,7 @@ export const seniorFields: BaseBlock[] = [
     },
     {
         id: "",
-        name: "AI助手",
+        name: "AI搜索",
         code: "aiInfo",
         icon: "aiIcon",
         formData: {},

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 08:23:39
+ * @LastEditTime: 2025-11-12 15:47:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailDateColumn.vue
  * @Description: 
  * 
@@ -62,7 +62,6 @@ const showValue = computed(() => {
     if (value) {
         const format = props.formItem.formData.format.desktop
         const deepColumnName = props.formItem.formData.deepColumnName?.desktop
-        console.log('deepColumnName:',deepColumnName);
         
         if (deepColumnName) {
             const innerValue = u.deepValue(value, deepColumnName)

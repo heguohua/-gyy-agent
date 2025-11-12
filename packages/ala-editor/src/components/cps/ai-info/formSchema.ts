@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 08:09:38
+ * @LastEditTime: 2025-11-12 15:54:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/ai-info/formSchema.ts
  * @Description: 
  * 
@@ -78,7 +78,7 @@ const columnWidth = Type.String({
 
 const icon = Type.String({
     code: "config-input",
-    title: "头部图标",
+    title: "尾部图标",
     default: "",
 })
 
@@ -105,6 +105,13 @@ const iconHeight = Type.String({
     }
 })
 
+const system = Type.String({
+    code: "config-textarea",
+    title: "系统提示词",
+    default: "",
+})
+
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -114,7 +121,8 @@ const schema = Type.Object({
     iconWidth: schemaAllViewport(iconWidth),
     iconHeight: schemaAllViewport(iconHeight),
     columnNum: schemaAllViewport(columnNum),
-    columnWidth: schemaAllViewport(columnWidth)
+    columnWidth: schemaAllViewport(columnWidth),
+    system: schemaAllViewport(system)
 })
 
 export type AlaFormInputSchema = Static<typeof schema>

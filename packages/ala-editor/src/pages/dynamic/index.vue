@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-25 15:02:54
+ * @LastEditTime: 2025-11-12 15:48:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -71,9 +71,6 @@ const className = route.path.slice(route.path.lastIndexOf('/') + 1)
 
 const moduleName = computed(() => {
     const code = route.meta.menuCode as string;
-    console.log('code:', code);
-    console.log('t(code):', t(code));
-
     return t(code)
 })
 
