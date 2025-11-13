@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-07 17:07:07
+ * @LastEditTime: 2025-11-13 17:21:30
  * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -92,7 +92,7 @@ const dc = defineConfig(({ command, mode }) => {
         },
         '/dev': {
           // target: 'http://192.168.6.62:2009', // 目标服务器地址
-          target: 'http://10.211.55.2:2009', // 目标服务器地址
+          target: 'http://ala-gateway.gyykj.com:38080', // 目标服务器地址
           changeOrigin: true, // 允许跨域
           rewrite: (path) => path.replace(/^\/dev/, '')
         },
