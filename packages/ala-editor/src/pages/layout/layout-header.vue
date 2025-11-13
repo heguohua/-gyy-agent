@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-23 11:13:22
+ * @LastEditTime: 2025-11-13 08:03:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -56,7 +56,7 @@
     </div>
 
   </div>
-  
+
   <ala-change-password ref="changePasswordRef" />
 
 </template>
@@ -80,7 +80,10 @@ import { changLanguage, useLocale } from '@/hooks/useLocale'
 const { changeLocale } = useLocale()
 import u from '@/utils/u';
 import { alaDownload, alaPost, get } from '@/utils/req';
+import { useAlaStore } from '@/store/ala-store';
 const { getLocaleMessage } = useI18n();
+const alaStore = useAlaStore()
+
 const chang = (locale: any) => {
   changLanguage(locale, getLocaleMessage, changeLocale)
 }
@@ -142,6 +145,7 @@ watch(() => user.value, async (v) => {
       const base64 = reader.result
       if (typeof base64 === 'string') {
         imageValue.value = base64
+        alaStore.set('userPhoto', base64)
       }
     }
 

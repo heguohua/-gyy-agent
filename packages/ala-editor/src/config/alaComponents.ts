@@ -111,6 +111,7 @@ import DetailChildTableCountColumn from '@/components/cps/dynamic/DetailChildTab
 import DetailFlowInstanceStateColumn from '@/components/cps/dynamic/DetailFlowInstanceStateColumn.vue';
 import DetailVideoHLSColumn from '@/components/cps/dynamic/DetailVideoHLSColumn.vue';
 import AlaDialog from '@/components/cps/dialog/ala-dialog.vue';
+import DetailAiInfoColumn from '@/components/cps/dynamic/DetailAiInfoColumn.vue';
 
 // 流程引擎相关组件
 import ProcessDesign from '@/pages/process/processDesign.vue';
@@ -235,6 +236,7 @@ export default {
     DetailFlowInstanceStateColumn,
     DetailVideoHLSColumn,
     AlaDialog,
+    DetailAiInfoColumn,
 
     // 流程引擎相关组件
     ProcessDesign,

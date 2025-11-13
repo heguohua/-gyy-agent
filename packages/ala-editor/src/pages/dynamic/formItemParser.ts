@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:13:35
+ * @LastEditTime: 2025-11-13 09:11:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -21,6 +21,8 @@ export function parseInput(item: { fieldName: { desktop: string }, label: { desk
     logger.info(`解析【 input 】字段：`, result);
     return result
 }
+
+
 
 export function parseNumber(item: { fieldName: { desktop: string }, label: { desktop: string }, rules: { desktop: [] }, placeholder: { desktop: string }, min: { desktop: number }, max: { desktop: number }, step: { desktop: number }, precision: { desktop: number }, right: { desktop: boolean } }) {
     const result = alaBuildNumber(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop, {
@@ -65,9 +67,9 @@ export function parseAi(item: { fieldName: { desktop: string }, label: { desktop
     logger.info(`解析【 ai 】字段：`, result);
     return result
 }
-export function parseAiInfo(item: { fieldName: { desktop: string }, label: { desktop: string }, required: { desktop: boolean }, strMin: { desktop: number }, strMax: { desktop: number }, numberMin: { desktop: number }, numberMax: { desktop: number }, rules: { desktop: [] }, placeholder: { desktop: string } }) {
+export function parseAiInfo(item: { fieldName: { desktop: string }, label: { desktop: string }, required: { desktop: boolean }, strMin: { desktop: number }, strMax: { desktop: number }, numberMin: { desktop: number }, numberMax: { desktop: number }, rules: { desktop: [] }, placeholder: { desktop: string }, type: { desktop: string } }) {
 
-    const result = alaBuildAiInfo(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop)
+    const result = alaBuildAiInfo(item.fieldName.desktop, item.label.desktop, item.rules?.desktop, item.placeholder?.desktop, { type: item.type?.desktop })
     logger.info(`解析【 aiInfo 】字段：`, result);
     return result
 }

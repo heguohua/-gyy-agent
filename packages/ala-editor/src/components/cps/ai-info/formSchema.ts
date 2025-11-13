@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 15:54:20
+ * @LastEditTime: 2025-11-13 08:58:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/ai-info/formSchema.ts
  * @Description: 
  * 
@@ -112,6 +112,121 @@ const system = Type.String({
 })
 
 
+
+// const type = Type.Array(
+//     Type.Object({
+//         name: Type.String(),
+//         value: Type.String(),
+//     }),
+//     {
+//         code: "config-radio",
+//         title: "组件类型",
+//         default: 'input',
+//         checkbox: [{
+//             name: '单行文本',
+//             value: 'input',
+//         }, {
+//             name: '多行文本',
+//             value: 'textarea',
+//         }],
+//     }
+// );
+
+const required = Type.String({
+    code: "config-boolean",
+    title: "必填字段？",
+    default: false,
+})
+const noEditable = Type.String({
+    code: "config-boolean",
+    title: "禁止修改？",
+    default: false,
+})
+
+const detail = Type.String({
+    code: "config-boolean",
+    title: "详情列？",
+    default: false,
+})
+
+const rules = Type.Array(
+    Type.Object({
+        name: Type.String(),
+        value: Type.String(),
+    }),
+    {
+        code: "config-form-rules",
+        title: "字段校验规则",
+        checkbox: [{
+            name: '手机号',
+            value: 'alaPhone',
+        }, {
+            name: '邮箱',
+            value: 'alaEmail',
+        }, {
+            name: '身份证',
+            value: 'alaCard',
+        }, {
+            name: 'URL',
+            value: 'alaUrl',
+        }, {
+            name: '纯数字',
+            value: 'alaNumber',
+        }, {
+            name: '大、小写字母',
+            value: 'alaLetter',
+        }, {
+            name: '大、小写字母、数字',
+            value: 'alaLOrlOr8',
+        }, {
+            name: '大、小写字母、数字、特殊字符',
+            value: 'alaLOrlOr8Or_',
+        }, {
+            name: '简体中文',
+            value: 'alaCn',
+        }, {
+            name: '繁体中文',
+            value: 'alaTw',
+        }, {
+            name: '简体、繁体中文',
+            value: 'alaCnTw',
+        },],
+    }
+);
+
+const strMin = Type.String({
+    code: "config-int",
+    title: "最小长度",
+    other: {
+        min: 0,
+        max: 500,
+        controlsPosition: 'right'
+    }
+})
+
+const strMax = Type.String({
+    code: "config-int",
+    title: "最大长度",
+    other: {
+        min: 0,
+        max: 500,
+        controlsPosition: 'right'
+    }
+})
+
+
+const showInSearch = Type.String({
+    code: "config-boolean",
+    title: "查询条件？",
+    default: false,
+})
+
+const showInTable = Type.String({
+    code: "config-boolean",
+    title: "列表显示？",
+    default: false,
+})
+
 const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
@@ -122,7 +237,16 @@ const schema = Type.Object({
     iconHeight: schemaAllViewport(iconHeight),
     columnNum: schemaAllViewport(columnNum),
     columnWidth: schemaAllViewport(columnWidth),
-    system: schemaAllViewport(system)
+    detail: schemaAllViewport(detail),
+    showInSearch: schemaAllViewport(showInSearch),
+    showInTable: schemaAllViewport(showInTable),
+    required: schemaAllViewport(required),
+    noEditable: schemaAllViewport(noEditable),
+    rules: schemaAllViewport(rules),
+    strMin: schemaAllViewport(strMin),
+    strMax: schemaAllViewport(strMax),    // type: schemaAllViewport(type),
+    system: schemaAllViewport(system),
+
 })
 
 export type AlaFormInputSchema = Static<typeof schema>
