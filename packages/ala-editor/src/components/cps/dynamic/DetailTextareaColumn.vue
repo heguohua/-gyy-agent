@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:07:14
+ * @LastEditTime: 2025-11-13 13:39:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTextareaColumn.vue
  * @Description: 
  * 
@@ -14,30 +14,30 @@
 
 
         <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-        <p class="value detail-link" @click="showDetail">
-        <div class="omit">
-            <el-tooltip effect="light" :content="value" :hide-after="0" v-if="!isDetailPage">
-                {{ showValue }}
-            </el-tooltip>
-            <template v-else>
-                {{ showValue }}
-            </template>
+        <div class="value detail-link" @click="showDetail">
+            <div class="omit">
+                <el-tooltip effect="light" :content="value" :hide-after="0" v-if="!isDetailPage">
+                    {{ showValue }}
+                </el-tooltip>
+                <template v-else>
+                    {{ showValue }}
+                </template>
+            </div>
         </div>
-        </p>
 
     </template>
     <template v-else>
         <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-        <p class="value">
-        <div class="omit">
-            <el-tooltip effect="light" :content="value" :hide-after="0" v-if="!isDetailPage">
-                {{ showValue }}
-            </el-tooltip>
-            <template v-else>
-                {{ showValue }}
-            </template>
+        <div class="value">
+            <div class="omit">
+                <el-tooltip effect="light" :content="value" :hide-after="0" v-if="!isDetailPage">
+                    {{ showValue }}
+                </el-tooltip>
+                <template v-else>
+                    {{ showValue }}
+                </template>
+            </div>
         </div>
-        </p>
     </template>
 
 
