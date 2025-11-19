@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-19 19:52:27
+ * @LastEditTime: 2025-11-19 21:48:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader-dict/formSchema.ts
  * @Description: 
  * 
@@ -63,11 +63,6 @@ const width = Type.Number({
 })
 
 
-const items = Type.String({
-    code: "config-textarea-json",
-    title: "JSON数据",
-    default: "",
-})
 
 const help = Type.String({
     code: "config-textarea",
@@ -146,7 +141,6 @@ const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
     width: schemaAllViewport(width),
-    items: schemaAllViewport(items),
     fieldName: schemaAllViewport(fieldName),
     help: schemaAllViewport(help),
     dictValue: schemaAllViewport(dictValue),
