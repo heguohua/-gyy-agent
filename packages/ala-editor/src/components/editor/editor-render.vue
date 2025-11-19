@@ -91,7 +91,7 @@ watch(() => editorStore.pageConfig[bType], (newValue) => {
 })
 
 const styles = computed(() => {
-    return { width: pageWidth.value + 'px' }
+    return { width: (pageWidth.value + 8) + 'px' }
 })
 
 const pageClass = computed(() => {
@@ -113,7 +113,7 @@ const pageClass = computed(() => {
     border: 1px dashed var(--color-edit-render-block-border-hover);
     height: 1100px !important;
     overflow-y: auto;
-    
+
     &.is-mobile {
         width: 375px;
         overflow: hidden;

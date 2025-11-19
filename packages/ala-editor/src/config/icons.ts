@@ -138,6 +138,7 @@ import helpIcon from '~icons/proicons/question-circle';
 import fRoleIcon from '~icons/fluent/person-wrench-20-filled';
 import fDutyIcon from '~icons/fluent/person-ribbon-16-filled';
 import fPhoneIcon from '~icons/meteor-icons/mobile';
+import fEmailIcon from '~icons/mage/email';
 import fLocationIcon from '~icons/ep/location';
 // money:"ri:money-cny-circle-line",
 import fCnyIcon from '~icons/fa/cny';
@@ -444,6 +445,7 @@ const icon = {
   f_role: fRoleIcon,
   f_duty: fDutyIcon,
   f_phone: fPhoneIcon,
+  f_email: fEmailIcon,
   f_location: fLocationIcon,
   f_cny: fCnyIcon,
   f_usd: fUsdIcon,

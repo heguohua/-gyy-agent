@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 16:31:56
+ * @LastEditTime: 2025-11-19 18:41:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date/formSchema.ts
  * @Description: 
  * 
@@ -148,7 +148,11 @@ const daysAfter = Type.String({
         controlsPosition: ''
     }
 })
-
+const detail = Type.String({
+    code: "config-boolean",
+    title: "详情列？",
+    default: false,
+})
 
 const schema = Type.Object({
     label: schemaAllViewport(label),
@@ -163,6 +167,7 @@ const schema = Type.Object({
     columnWidth: schemaAllViewport(columnWidth),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
+    detail: schemaAllViewport(detail),
     required: schemaAllViewport(required),
     noEditable: schemaAllViewport(noEditable),
     // style: schemaAllViewport(style),
