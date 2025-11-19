@@ -300,6 +300,24 @@ import IcRoundRestore from '~icons/ic/round-restore';
 import Applications from '~icons/carbon/web-services-container';
 import ApplicationInstances from '~icons/streamline/application-add-remix';
 
+
+// 智慧协会中心
+import association from '~icons/icon-park-outline/association';
+import income from '~icons/hugeicons/payment-01';
+import outcome from '~icons/hugeicons/chat-outcome';
+import membership from '~icons/material-symbols-light/card-membership-outline-rounded';
+import pay from '~icons/ant-design/alipay-outlined';
+import fenRun from '~icons/streamline-freehand/time-clock-share-1';
+import yunYingZhiChu from '~icons/hugeicons/payment-02';
+import party from '~icons/streamline-ultimate/team-meeting-bold';
+import juJianFei from '~icons/icon-park-outline/align-text-middle';
+import huiFei from '~icons/streamline-logos/friends-feed-logo';
+import quanYi from '~icons/material-symbols/interests-rounded';
+import reward from '~icons/fluent/reward-12-regular';
+import downgrade from '~icons/ic/outline-move-down';
+
+
+
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:44:04
@@ -579,6 +597,19 @@ const icon = {
   customerVisitWorkOrderResponse,
   flow,
   project,
+  association,
+  income,
+  outcome,
+  membership,
+  pay,
+  fenRun,
+  yunYingZhiChu,
+  party,
+  juJianFei,
+  huiFei,
+  quanYi,
+  reward,
+  downgrade,
 
 
 }
