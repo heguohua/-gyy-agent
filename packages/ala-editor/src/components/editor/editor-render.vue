@@ -110,6 +110,10 @@ const pageClass = computed(() => {
     margin: 0 auto;
     left: -150px;
 
+    border: 1px dashed var(--color-edit-render-block-border-hover);
+    height: 1100px !important;
+    overflow-y: auto;
+    
     &.is-mobile {
         width: 375px;
         overflow: hidden;
