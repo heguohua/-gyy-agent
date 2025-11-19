@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-13 09:11:39
+ * @LastEditTime: 2025-11-19 17:02:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -10,7 +10,7 @@
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 
-import { alaBuildInput } from "@/config/alaBuilders";
+import { alaBuildChapter, alaBuildInput } from "@/config/alaBuilders";
 import { date } from "@/utils/date";
 import { alaPost } from "@/utils/req";
 import u from "@/utils/u";
@@ -318,6 +318,12 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                     }
                 }
 
+
+                // 添加 系统信息chapter
+                const chapter = alaBuildChapter('系统信息', '')
+                u.merged(chapter, { code: "chapter", formData: { columnNum: { desktop: 100 } } })
+                const systemChapter = { prop: '', label: '系统信息', formItem: chapter }
+                detailFields.push(systemChapter)
 
                 // 添加禁用、启用列
                 if (showDisableButton) {

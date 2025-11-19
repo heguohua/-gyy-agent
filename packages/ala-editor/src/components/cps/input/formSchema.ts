@@ -191,6 +191,7 @@ const strMin = Type.String({
 const strMax = Type.String({
     code: "config-int",
     title: "最大长度",
+    default: 200,
     other: {
         min: 0,
         max: 500,
