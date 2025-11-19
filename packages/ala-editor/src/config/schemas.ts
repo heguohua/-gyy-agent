@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 08:18:37
+ * @LastEditTime: 2025-11-19 19:31:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -34,6 +34,7 @@ import SelectTableSchema from '@/components/cps/select-table/formSchema'
 import DividerSchema from '@/components/cps/divider/formSchema'
 import ChapterSchema from '@/components/cps/chapter/formSchema'
 import CascaderSchema from '@/components/cps/cascader/formSchema'
+import CascaderDictSchema from '@/components/cps/cascader-dict/formSchema'
 import FormTableSchema from '@/components/cps/form-table/formSchema'
 import ChildTableCount from '@/components/cps/childTableCount/formSchema'
 import Ai from '@/components/cps/ai/formSchema'
@@ -74,6 +75,7 @@ const _allSchemas = {
     divider: DividerSchema,
     chapter: ChapterSchema,
     cascader: CascaderSchema,
+    cascaderDict: CascaderDictSchema,
     formTable: FormTableSchema,
     childTableCount: ChildTableCount,
     ai: Ai,

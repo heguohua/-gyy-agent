@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:12:58
+ * @LastEditTime: 2025-11-19 20:01:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -321,6 +321,10 @@ export function alaBuildSelectDict(fieldName: string, label: string, params: { [
  */
 export function alaBuildCascader(fieldName: string, label: string, items: string, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaSelectDictSchema {
     const obj = alaBuildWithOther("AlaCascader", fieldName, label, { items, isFormDesign: false, ...other }, rules, placeholder)
+    return obj
+}
+export function alaBuildCascaderDict(fieldName: string, label: string, items: string, rules?: Array<baseRule>, placeholder?: string, other?: { [key: string]: any }): AlaSelectDictSchema {
+    const obj = alaBuildWithOther("AlaCascaderDict", fieldName, label, { items, isFormDesign: false, ...other }, rules, placeholder)
     return obj
 }
 

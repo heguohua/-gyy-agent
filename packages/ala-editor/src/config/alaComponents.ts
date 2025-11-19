@@ -105,6 +105,7 @@ import AlaDetailNoDrawerFormsHandle from '@/components/cps/form/ala-detail-no-dr
 import DetailImageColumn from '@/components/cps/dynamic/DetailImageColumn.vue';
 import DetailTextColorColumn from '@/components/cps/dynamic/DetailTextColorColumn.vue';
 import DetailCascaderColumn from '@/components/cps/dynamic/DetailCascaderColumn.vue';
+import DetailCascaderDictColumn from '@/components/cps/dynamic/DetailCascaderDictColumn.vue';
 import DetailFileColumn from '@/components/cps/dynamic/DetailFileColumn.vue';
 import DetailFormTableColumn from '@/components/cps/dynamic/DetailFormTableColumn.vue';
 import DetailChildTableCountColumn from '@/components/cps/dynamic/DetailChildTableCountColumn.vue';
@@ -230,6 +231,7 @@ export default {
     DetailImageColumn,
     DetailTextColorColumn,
     DetailCascaderColumn,
+    DetailCascaderDictColumn,
     DetailFileColumn,
     DetailFormTableColumn,
     DetailChildTableCountColumn,

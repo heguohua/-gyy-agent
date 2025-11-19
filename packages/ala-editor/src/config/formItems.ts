@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 08:19:48
+ * @LastEditTime: 2025-11-19 19:28:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -58,6 +58,13 @@ export const baseFields: BaseBlock[] = [
         id: "",
         name: "级联选择",
         code: "cascader",
+        icon: "f_cascader",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "Dict级联",
+        code: "cascaderDict",
         icon: "f_cascader",
         formData: {},
     },

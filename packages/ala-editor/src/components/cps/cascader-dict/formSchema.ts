@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:31:19
+ * @LastEditTime: 2025-11-19 19:52:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader-dict/formSchema.ts
  * @Description: 
  * 
@@ -43,11 +43,17 @@ const fieldName = Type.String({
     ]
 })
 
-const linkUrl = Type.String({
-    code: "config-textarea",
-    title: "ID查询URL",
-    default: "/u/menu/list",
+const dictValue = Type.String({
+    code: "config-input",
+    title: "字典数据值",
     required: true,
+    rules: [
+        { name: 'required', message: '不能为空' },
+        { name: 'min', length: 3, message: '最少3个字符' },
+        { name: 'max', length: 30, message: '最多30个字符' },
+        { name: 'pattern', pattern: 'No_', message: '不能含有特殊字符' },
+        { name: 'pattern', pattern: 'LOrl', message: '只能包含大写字母、小写字母' },
+    ]
 })
 
 const width = Type.Number({
@@ -56,37 +62,11 @@ const width = Type.Number({
     default: "",
 })
 
-const propertyName = Type.String({
-    code: "config-input",
-    title: "属性名字段",
-    default: "",
-    required: true,
-})
 
-const valueName = Type.String({
-    code: "config-input",
-    title: "属性值字段",
+const items = Type.String({
+    code: "config-textarea-json",
+    title: "JSON数据",
     default: "",
-    required: true,
-})
-
-const itemProperty = Type.String({
-    code: "config-itemProperty",
-    title: "属性映射字段",
-    default: "",
-})
-
-const params = Type.String({
-    code: "config-textarea",
-    title: "请求参数",
-    default: "",
-    required: true,
-})
-
-const isFormDesign = Type.Boolean({
-    code: "config-boolean",
-    title: "api请求测试",
-    default: true,
 })
 
 const help = Type.String({
@@ -143,9 +123,21 @@ const noEditable = Type.String({
 })
 
 
-const detail = Type.String({
+const clearable = Type.String({
     code: "config-boolean",
-    title: "详情列？",
+    title: "是否可清空？",
+    default: false,
+})
+
+const showAllLevels = Type.String({
+    code: "config-boolean",
+    title: "显示全名？",
+    default: false,
+})
+
+const filterable = Type.String({
+    code: "config-boolean",
+    title: "开启搜索？",
     default: false,
 })
 
@@ -154,25 +146,24 @@ const schema = Type.Object({
     label: schemaAllViewport(label),
     placeholder: schemaAllViewport(placeholder),
     width: schemaAllViewport(width),
+    items: schemaAllViewport(items),
     fieldName: schemaAllViewport(fieldName),
-    linkUrl: schemaAllViewport(linkUrl),
-    propertyName: schemaAllViewport(propertyName),
-    valueName: schemaAllViewport(valueName),
-    itemProperty: schemaAllViewport(itemProperty),
-    params: schemaAllViewport(params),
-    isFormDesign: schemaAllViewport(isFormDesign),
     help: schemaAllViewport(help),
+    dictValue: schemaAllViewport(dictValue),
     columnNum: schemaAllViewport(columnNum),
     columnWidth: schemaAllViewport(columnWidth),
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
-    detail: schemaAllViewport(detail),
     required: schemaAllViewport(required),
     noEditable: schemaAllViewport(noEditable),
+    clearable: schemaAllViewport(clearable),
+    showAllLevels: schemaAllViewport(showAllLevels),
+    filterable: schemaAllViewport(filterable),
+    // style: schemaAllViewport(style),
 })
 
 
-export type AlaFormSelectDictSchema = Static<typeof schema>
+export type AlaFormSelectSchema = Static<typeof schema>
 
 export default schema
 

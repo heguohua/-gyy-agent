@@ -1,4 +1,4 @@
-import { alaBuildAi, alaBuildAiInfo, alaBuildCascader, alaBuildChapter, alaBuildCheckbox, alaBuildChildTableCount, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import { alaBuildAi, alaBuildAiInfo, alaBuildCascader, alaBuildCascaderDict, alaBuildChapter, alaBuildCheckbox, alaBuildChildTableCount, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
 
@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-13 09:11:08
+ * @LastEditTime: 2025-11-19 20:02:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -197,7 +197,15 @@ export function parseFormTable(item: { fieldName: { desktop: string }, label: { 
 
 export function parseCascade(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, items: { desktop: string }, placeholder: { desktop: string }, rules: { desktop: [] } }) {
     const result = alaBuildCascader(item.fieldName.desktop, item.label.desktop, item.items.desktop, item.rules?.desktop, item.placeholder?.desktop)
-    logger.info(`解析【 selectDict 】字段：`, result);
+    logger.info(`解析【 cascade 】字段：`, result);
+    return result
+}
+
+
+
+export function parseCascaderDict(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, items: { desktop: string }, placeholder: { desktop: string }, dictValue: { desktop: string }, rules: { desktop: [] } }) {
+    const result = alaBuildCascaderDict(item.fieldName.desktop, item.label.desktop, item.items.desktop, item.rules?.desktop, item.placeholder?.desktop, { dictValue: item.dictValue.desktop })
+    logger.info(`解析【 cascadeDict 】字段：`, result);
     return result
 }
 
