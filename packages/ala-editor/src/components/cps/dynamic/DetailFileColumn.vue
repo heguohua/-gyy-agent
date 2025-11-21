@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-21 15:42:40
+ * @LastEditTime: 2025-11-21 15:48:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFileColumn.vue
  * @Description: 
  * 
@@ -126,7 +126,6 @@ defineEmits(['refresh'])
 </script>
 
 <style scoped lang="scss">
-.title {}
 
 .value {
     .files {
@@ -147,6 +146,5 @@ defineEmits(['refresh'])
         color: #aaa;
     }
 
-    div {}
 }
 </style>
