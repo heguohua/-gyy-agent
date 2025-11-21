@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 16:48:11
+ * @LastEditTime: 2025-11-21 22:06:43
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -259,9 +259,19 @@ const beforeQuery = (params: any) => {
         if (key != 'tableName' && params[key]) {
             // 转换字段查询条件为动态分页列表形式
             const formConfigItem = formConfigItems.value[key]
+            if (!formConfigItem) return
+
             const code = formConfigItem.code
+            const fieldName = formConfigItem.formData.fieldName.desktop
             if (code === 'input') {
                 conditionGroup.conditions.push({ column: 'a_' + key, operator: 'like', value: params[key], logicalOperator: 'and' })
+            } else if (code === 'date') {
+                // 开始时间戳
+                conditionGroup.conditions.push({ column: 'a_' + key, operator: '>=', value: params[key][fieldName + '_start'], logicalOperator: 'and' })
+
+                // 结束时间戳 + 1 天
+                conditionGroup.conditions.push({ column: 'a_' + key, operator: '<', value: params[key][fieldName + '_end'] + 86400000, logicalOperator: 'and' })
+
             }
         }
     })

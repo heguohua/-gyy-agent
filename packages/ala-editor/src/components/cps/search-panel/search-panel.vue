@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-06 08:40:10
+ * @LastEditTime: 2025-11-21 22:04:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -16,12 +16,16 @@
             <!-- 基础查询条件 -->
             <div class="ala-search-base">
 
-                <div class="ala-search-base-item" v-for="(item, index) in baseFields"
-                    :key="item.fieldName + '-' + index">
+                <div class="ala-search-base-item" v-for="(item, index) in bFields" :key="item.fieldName + '-' + index">
 
-                    <component :is="item.componentName" :label="isFormDesign ? parseLabel(item.label) : item.label"
+                    <!-- <component :is="item.componentName" :label="isFormDesign ? parseLabel(item.label) : item.label"
                         :position="item.position" :placeholder="item.placeholder" v-bind="item.other"
-                        v-model="params[item.fieldName]" :fieldName="item.fieldName" />
+                        v-model="params[item.fieldName]" :fieldName="item.fieldName" /> -->
+
+                    <component :is="item.componentName" :label="item.label" :item="item" :placeholder="item.placeholder"
+                        v-bind="item.other" v-model="params[item.fieldName]" :fieldName="item.fieldName" :data="params"
+                        @formItemChangeCallback="(val: any) => formItemChangeCallback(item, val)" />
+
 
                 </div>
 
@@ -69,6 +73,7 @@
 
 <script setup lang="ts">
 import { AlaField } from '@/config/fieldSchemas';
+import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -131,8 +136,13 @@ const toggleAdvanced = () => {
 // 清空表单
 const formRef = ref()
 const clear = () => {
+
     // 重置表单数据
     formRef.value.resetFields();
+
+    // 清除 AlaDateRange 类型组件表单数据
+    u.clear(props.params)
+
     // 刷新分页列表数据
     emit('refresh')
 }
@@ -148,6 +158,63 @@ const showAdd = () => {
 const parseLabel = (label: string) => {
     return t(label);
 }
+
+
+const bFields = ref<Array<AlaField>>([])
+
+watch(() => props.baseFields, (baseFields) => {
+    const baseSearchFields: Array<AlaField> = []
+
+    if (baseFields && baseFields.length > 0) {
+
+        baseFields.forEach(baseField => {
+
+            if (baseField.componentName === 'AlaInput') {
+                baseSearchFields.push(baseField)
+            } else if (baseField.componentName === 'AlaDate') {
+
+                // {"componentName":"AlaDate","label":"权益日期","placeholder":"请选择权益日期","fieldName":"time","other":{"dateType":"datetime","format":"YYYY-MM-DD HH:mm","daysBefore":-1,"daysAfter":0},"rules":[{"required":true,"trigger":"change","message":"不能为空"}],"columnNum":1}
+
+                /**
+                 * 1）将 AlaDate 类型转换成 时间范围 AlaDateRange ；
+                 * 2）dateType 转换成 date ；
+                 * 3）将 format 转换成 YYYY-MM-DD ；
+                 * 4）将 daysBefore 和 daysAfter 均设置成 -1 ；
+                 * 5）清除所有的 rules ；
+                 */
+
+                baseField.componentName = 'AlaDateRange'
+                const other = baseField.other!
+                other.dateType = 'daterange'
+                other.format = 'YYYY-MM-DD'
+                other.daysBefore = -1
+                other.daysAfter = -1
+                baseField.rules = []
+                other['startFieldName'] = baseField.fieldName + '_start'
+                other['endFieldName'] = baseField.fieldName + '_end'
+                other['placeholder'] = '请选择'
+
+                baseSearchFields.push(baseField)
+            }
+
+        })
+    }
+
+    bFields.value = baseSearchFields
+
+}, {
+    immediate: true
+})
+
+
+const formItemChangeCallback = (item: any, value: any) => {
+
+    props.params[item.fieldName] = value
+    props.params[item.other.startFieldName] = value[item.other.startFieldName]
+    props.params[item.other.endFieldName] = value[item.other.endFieldName]
+
+}
+
 
 defineExpose({ clear })
 
@@ -190,7 +257,8 @@ defineExpose({ clear })
                 vertical-align: top;
                 align-items: baseline;
             }
-            :deep(.ala-button-wrapper){
+
+            :deep(.ala-button-wrapper) {
                 align-items: baseline;
             }
         }

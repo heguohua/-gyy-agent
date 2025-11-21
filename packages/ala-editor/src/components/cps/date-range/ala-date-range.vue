@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 11:24:08
+ * @LastEditTime: 2025-11-21 22:06:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
  * @Description: 
  * 
@@ -98,17 +98,22 @@ const fieldName = computed(() => {
 
 const emit = defineEmits(["formItemChangeCallback"])
 
-const localModel = computed(() => {
+const localModel = ref<Array<any>>([])
+watch(() => props.data, () => {
+
     const arr: number[] = []
     if (props.data && props.data?.[props.startFieldName] && props.data?.[props.endFieldName]) {
         const startDate = props.data?.[props.startFieldName]
         const endDate = props.data?.[props.endFieldName]
         arr.push(startDate, endDate)
     }
-    return arr
+    
+    localModel.value = arr
+
+}, {
+    immediate: true,
+    deep: true
 })
-
-
 
 
 const startValue = ref(0)
@@ -130,6 +135,7 @@ const handleChange = (value: Date | null) => {
                     endValue.value = milliseconds
                 }
             }
+
             localModel.value = dates
             // 表单数据更新回调
 
@@ -173,6 +179,7 @@ const isDisabled = computed(() => {
     }
     return idd
 })
+
 
 </script>
 

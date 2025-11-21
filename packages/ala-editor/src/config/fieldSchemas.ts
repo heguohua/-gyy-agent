@@ -20,7 +20,9 @@ export interface AlaField {
         [key: string]: any
     },
     model?: any,
-    rules?: Array<baseRule>
+    rules?: Array<baseRule>,
+    startFieldName?: string,
+    endFieldName?: string,
 }
 
 export interface AlaInputField extends AlaField {

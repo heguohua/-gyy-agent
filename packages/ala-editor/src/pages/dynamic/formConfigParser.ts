@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-19 19:59:07
+ * @LastEditTime: 2025-11-21 19:35:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -149,13 +149,13 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                     }
 
                     // 组装基础查询字段
-                    if (formData.showInSearch?.desktop) {
-                        if (code === 'dateRange') {
+                    // if (formData.showInSearch?.desktop) {
+                    //     if (code === 'dateRange') {
 
-                        } else {
-                            baseFields.push(alaBuildInput(formData.fieldName.desktop, formData.label.desktop))
-                        }
-                    }
+                    //     } else {
+                    //         baseFields.push(alaBuildInput(formData.fieldName.desktop, formData.label.desktop))
+                    //     }
+                    // }
 
                     // 组装 form 表单字段
                     let formItem: any = {}
@@ -200,7 +200,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                             formItem.other.endFieldName = formData.endFieldName.desktop
                         } else if (code === 'cascader') {
                             formItem = parseCascade(formData)
-                        }else if (code === 'cascaderDict') {
+                        } else if (code === 'cascaderDict') {
                             formItem = parseCascaderDict(formData)
                         } else if (code === 'file') {
                             formItem = parseFile(formData)
@@ -220,6 +220,12 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                         }
 
                         addFormFields.push(formItem)
+
+                        if (formData.showInSearch?.desktop) {
+                            baseFields.push(formItem)
+                        }
+
+
                     }
 
                     const other = formItem.other || {}
