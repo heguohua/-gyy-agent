@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:05:18
+ * @LastEditTime: 2025-11-21 15:42:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFileColumn.vue
  * @Description: 
  * 
@@ -15,13 +15,17 @@
     </template>
     <template v-else>
         <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-        <p class="value">
+        <div class="value">
             <div v-if="localValues && localValues.length > 0" class="files">
-                <div class="one-file" v-for="(item, index) in localValues" :key="u.uuid()" @click="handleDownload(item)">
+                <div class="one-file" v-for="(item, index) in localValues" :key="u.uuid()"
+                    @click="handleDownload(item)">
                     {{ item.fileName }}
                 </div>
             </div>
-        </p>
+            <div v-else class="no-file">
+                没有附件
+            </div>
+        </div>
     </template>
 
 
@@ -122,21 +126,27 @@ defineEmits(['refresh'])
 </script>
 
 <style scoped lang="scss">
-.files {
+.title {}
 
-    display: flex;
-    flex-wrap: wrap;
+.value {
+    .files {
+        display: flex;
+        flex-wrap: wrap;
 
-    .one-file {
-        width: 100%;
+        .one-file {
+            width: 100%;
 
-        &:hover {
-            color: var(--el-color-primary);
-            cursor: pointer;
+            &:hover {
+                color: var(--el-color-primary);
+                cursor: pointer;
+            }
         }
     }
 
+    .no-file {
+        color: #aaa;
+    }
 
-
+    div {}
 }
 </style>

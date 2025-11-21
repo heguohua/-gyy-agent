@@ -160,6 +160,9 @@ const baseInfo = inject('baseInfo', {
 });
 const showInstanceInfo = () => {
 
+    if (props.isDetailPage) {
+        return
+    }
 
     if (props.formItem.formData?.disableEvent?.desktop) {
         return
@@ -214,6 +217,10 @@ const columns = ref([
 const pageData = ref([])
 
 const startFlow = () => {
+
+    if (props.isDetailPage) {
+        return
+    }
 
     if (props.formItem.formData?.disableEvent?.desktop) {
         return
