@@ -253,7 +253,7 @@ import passwordIcon from '~icons/solar/lock-password-outline';
 
 import tenderIcon from '~icons/mingcute/paper-line';
 import bidIcon from '~icons/streamline-ultimate/paper-write';
-import logDetailsIcon from '~icons/gg/details-more';
+import logDetailsIcon from '~icons/tabler/list-details';
 import logProjectIcon from '~icons/eos-icons/project-outlined';
 
 // 财务中心
