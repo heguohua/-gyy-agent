@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 11:13:51
+ * @LastEditTime: 2025-11-22 19:18:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -284,36 +284,82 @@ const beforeQuery = (params: any) => {
                     result['tableInfos'] = tableInfos
                 }
 
-                if (!result['joinRightColumn']) {
-                    result['joinRightColumn'] = 'id'
+
+                if (tableInfos.length === 0) {
+
+                    // 使用主表id 作为 联表关联左侧条件
+                    if (!result['joinRightColumn']) {
+                        result['joinRightColumn'] = 'id'
+                    }
+
+                    const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
+                    const parts = url.split("/");
+                    const innerColumnName = parts[parts.length - 2];
+
+                    const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+                    const tableInfo = {
+                        tableName: fullRelationTableName,
+                        joinType: 'innerJoin',
+                        joinLeftColumn: `a_${mainTableName}_id`,
+                        conditionGroupVos: [
+                            {
+                                logicalOperator: 'and',
+                                conditions: [
+                                    {
+                                        tableName: fullRelationTableName,
+                                        column: `a_${innerColumnName}_list`,
+                                        logicalOperator: 'and',
+                                        operator: '=',
+                                        value: params[key][0].id
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+
+                    tableInfos.push(tableInfo)
+
+                } else {
+
+
+                    // 使用上一个联表中的主表字段 作为 联表关联左侧的连接条件
+                    const leftTable = tableInfos[tableInfos.length - 1]
+                    console.log('leftTable:', leftTable);
+
+                    if (!leftTable['joinRightColumn']) {
+                        leftTable['joinRightColumn'] = leftTable.joinLeftColumn
+                    }
+
+                    const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
+                    const parts = url.split("/");
+                    const innerColumnName = parts[parts.length - 2];
+
+                    const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+                    const tableInfo = {
+                        tableName: fullRelationTableName,
+                        joinType: 'innerJoin',
+                        joinLeftColumn: `a_${mainTableName}_id`,
+                        conditionGroupVos: [
+                            {
+                                logicalOperator: 'and',
+                                conditions: [
+                                    {
+                                        tableName: fullRelationTableName,
+                                        column: `a_${innerColumnName}_list`,
+                                        logicalOperator: 'and',
+                                        operator: '=',
+                                        value: params[key][0].id
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+
+                    tableInfos.push(tableInfo)
+
                 }
 
-                const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
-                const parts = url.split("/");
-                const innerColumnName = parts[parts.length - 2];
 
-                const fullRelationTableName = `a_${mainTableName}_${fieldName}`
-                const tableInfo = {
-                    tableName: fullRelationTableName,
-                    joinType: 'innerJoin',
-                    joinLeftColumn: `a_${mainTableName}_id`,
-                    conditionGroupVos: [
-                        {
-                            logicalOperator: 'and',
-                            conditions: [
-                                {
-                                    tableName: fullRelationTableName,
-                                    column: `a_${innerColumnName}_list`,
-                                    logicalOperator: 'and',
-                                    operator: '=',
-                                    value: params[key][0].id
-                                }
-                            ]
-                        }
-                    ]
-                }
-
-                tableInfos.push(tableInfo)
 
             } else if (code === 'selectDict') {
 
@@ -325,36 +371,82 @@ const beforeQuery = (params: any) => {
                     result['tableInfos'] = tableInfos
                 }
 
-                if (!result['joinRightColumn']) {
-                    result['joinRightColumn'] = 'id'
+                if (tableInfos.length === 0) {
+
+                    // 使用主表id 作为 联表关联左侧条件
+                    if (!result['joinRightColumn']) {
+                        result['joinRightColumn'] = 'id'
+                    }
+
+                    const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
+                    const parts = url.split("/");
+                    const innerColumnName = parts[parts.length - 2];
+
+                    const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+                    const tableInfo = {
+                        tableName: fullRelationTableName,
+                        joinType: 'innerJoin',
+                        joinLeftColumn: `a_${mainTableName}_id`,
+                        conditionGroupVos: [
+                            {
+                                logicalOperator: 'and',
+                                conditions: [
+                                    {
+                                        tableName: fullRelationTableName,
+                                        column: `a_${innerColumnName}_list`,
+                                        logicalOperator: 'and',
+                                        operator: '=',
+                                        value: u.parseJson(params[key])[0].id
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+
+                    tableInfos.push(tableInfo)
+
+                } else {
+
+                    // 使用上一个联表中的主表字段 作为 联表关联左侧的连接条件
+
+                    const leftTable = tableInfos[tableInfos.length - 1]
+
+                    console.log('leftTable:', leftTable);
+
+
+                    if (!result['joinRightColumn']) {
+                        result['joinRightColumn'] = 'id'
+                    }
+
+                    // const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
+                    // const parts = url.split("/");
+                    // const innerColumnName = parts[parts.length - 2];
+
+                    // const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+                    // const tableInfo = {
+                    //     tableName: fullRelationTableName,
+                    //     joinType: 'innerJoin',
+                    //     joinLeftColumn: `a_${mainTableName}_id`,
+                    //     conditionGroupVos: [
+                    //         {
+                    //             logicalOperator: 'and',
+                    //             conditions: [
+                    //                 {
+                    //                     tableName: fullRelationTableName,
+                    //                     column: `a_${innerColumnName}_list`,
+                    //                     logicalOperator: 'and',
+                    //                     operator: '=',
+                    //                     value: u.parseJson(params[key])[0].id
+                    //                 }
+                    //             ]
+                    //         }
+                    //     ]
+                    // }
+
+                    // tableInfos.push(tableInfo)
+
                 }
 
-                const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
-                const parts = url.split("/");
-                const innerColumnName = parts[parts.length - 2];
-
-                const fullRelationTableName = `a_${mainTableName}_${fieldName}`
-                const tableInfo = {
-                    tableName: fullRelationTableName,
-                    joinType: 'innerJoin',
-                    joinLeftColumn: `a_${mainTableName}_id`,
-                    conditionGroupVos: [
-                        {
-                            logicalOperator: 'and',
-                            conditions: [
-                                {
-                                    tableName: fullRelationTableName,
-                                    column: `a_${innerColumnName}_list`,
-                                    logicalOperator: 'and',
-                                    operator: '=',
-                                    value: u.parseJson(params[key])[0].id
-                                }
-                            ]
-                        }
-                    ]
-                }
-                
-                tableInfos.push(tableInfo)
 
             } else if (code === 'radio') {
                 conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
