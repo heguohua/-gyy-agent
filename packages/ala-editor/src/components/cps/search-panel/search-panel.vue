@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 11:06:49
+ * @LastEditTime: 2025-11-22 11:24:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -168,7 +168,7 @@ watch(() => props.baseFields, (baseFields) => {
 
     if (baseFields && baseFields.length > 0) {
 
-        baseFields.forEach(baseField => {
+        baseFields.forEach((baseField: any) => {
 
             if (baseField.componentName === 'AlaInput') {
                 baseSearchFields.push(baseField)
@@ -212,7 +212,8 @@ watch(() => props.baseFields, (baseFields) => {
                 const select = alaBuildSelect(fieldName, label, newItems, [], "", { clearable: true })
 
                 baseSearchFields.push(select)
-            }else if (baseField.componentName === 'AlaSelectDict') {
+            } else if (baseField.componentName === 'AlaSelectDict') {
+                baseField.other['width'] = baseField['formData'].columnWidth.desktop
                 baseSearchFields.push(baseField)
             }
 

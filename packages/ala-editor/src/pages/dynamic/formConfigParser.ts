@@ -222,6 +222,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                         addFormFields.push(formItem)
 
                         if (formData.showInSearch?.desktop) {
+                            formItem['formData'] = formData
                             baseFields.push(formItem)
                         }
 
