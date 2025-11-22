@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 09:23:48
+ * @LastEditTime: 2025-11-22 11:13:51
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -315,7 +315,48 @@ const beforeQuery = (params: any) => {
 
                 tableInfos.push(tableInfo)
 
-            }else if (code === 'radio') {
+            } else if (code === 'selectDict') {
+
+                const mainTableName = className
+
+                let tableInfos = result['tableInfos']
+                if (!tableInfos) {
+                    tableInfos = []
+                    result['tableInfos'] = tableInfos
+                }
+
+                if (!result['joinRightColumn']) {
+                    result['joinRightColumn'] = 'id'
+                }
+
+                const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
+                const parts = url.split("/");
+                const innerColumnName = parts[parts.length - 2];
+
+                const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+                const tableInfo = {
+                    tableName: fullRelationTableName,
+                    joinType: 'innerJoin',
+                    joinLeftColumn: `a_${mainTableName}_id`,
+                    conditionGroupVos: [
+                        {
+                            logicalOperator: 'and',
+                            conditions: [
+                                {
+                                    tableName: fullRelationTableName,
+                                    column: `a_${innerColumnName}_list`,
+                                    logicalOperator: 'and',
+                                    operator: '=',
+                                    value: u.parseJson(params[key])[0].id
+                                }
+                            ]
+                        }
+                    ]
+                }
+                
+                tableInfos.push(tableInfo)
+
+            } else if (code === 'radio') {
                 conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
             }
         }

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 09:24:19
+ * @LastEditTime: 2025-11-22 11:06:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -212,6 +212,8 @@ watch(() => props.baseFields, (baseFields) => {
                 const select = alaBuildSelect(fieldName, label, newItems, [], "", { clearable: true })
 
                 baseSearchFields.push(select)
+            }else if (baseField.componentName === 'AlaSelectDict') {
+                baseSearchFields.push(baseField)
             }
 
         })
