@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 11:53:37
+ * @LastEditTime: 2025-11-22 19:58:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader-dict/ala-cascader-dict.vue
  * @Description: 
  * 
@@ -130,7 +130,11 @@ watch(() => model.value, (value: any) => {
 
   if (value) {
     data.value = u.parseJson(value)
+  } else {
+    // 修复查询条件组件中重置按钮不能清空该组件值的bug
+    data.value = []
   }
+
 }, {
   immediate: true
 })
