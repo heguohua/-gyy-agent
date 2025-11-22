@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 07:12:40
+ * @LastEditTime: 2025-11-22 09:24:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -72,6 +72,7 @@
 </template>
 
 <script setup lang="ts">
+import { alaBuildSelect } from '@/config/alaBuilders';
 import { AlaField } from '@/config/fieldSchemas';
 import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
@@ -195,8 +196,22 @@ watch(() => props.baseFields, (baseFields) => {
                 other['placeholder'] = '请选择'
 
                 baseSearchFields.push(baseField)
-            }else if (baseField.componentName === 'AlaSelectTable') {
+            } else if (baseField.componentName === 'AlaSelectTable') {
                 baseSearchFields.push(baseField)
+            } else if (baseField.componentName === 'AlaRadio') {
+
+                // 单选转换成 select 下拉选
+                const fieldName = baseField['fieldName']
+                const label = baseField['label']
+                const items = baseField['other']!.items
+                let newItems: Array<any> = []
+                items.forEach((item: any) => {
+                    newItems.push({ [item.name]: item.value })
+                })
+
+                const select = alaBuildSelect(fieldName, label, newItems, [], "", { clearable: true })
+
+                baseSearchFields.push(select)
             }
 
         })

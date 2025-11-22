@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 08:54:01
+ * @LastEditTime: 2025-11-22 09:23:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -315,7 +315,8 @@ const beforeQuery = (params: any) => {
 
                 tableInfos.push(tableInfo)
 
-
+            }else if (code === 'radio') {
+                conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
             }
         }
     })
