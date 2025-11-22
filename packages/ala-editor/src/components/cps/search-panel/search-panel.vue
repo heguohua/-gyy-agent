@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-21 22:04:52
+ * @LastEditTime: 2025-11-22 07:12:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -194,6 +194,8 @@ watch(() => props.baseFields, (baseFields) => {
                 other['endFieldName'] = baseField.fieldName + '_end'
                 other['placeholder'] = '请选择'
 
+                baseSearchFields.push(baseField)
+            }else if (baseField.componentName === 'AlaSelectTable') {
                 baseSearchFields.push(baseField)
             }
 

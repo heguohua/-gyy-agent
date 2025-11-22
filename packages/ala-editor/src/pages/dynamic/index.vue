@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-21 22:06:43
+ * @LastEditTime: 2025-11-22 08:54:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -241,11 +241,13 @@ const formConfigItems: any = {}
 interface Result {
     tableName: string,
     conditionGroups: Array<any>,
+    tableInfos: Array<any>,
+    joinRightColumn?: string,
 }
 
 const beforeQuery = (params: any) => {
 
-    const result: Result = { tableName: className, conditionGroups: [] }
+    const result: Result = { tableName: className, conditionGroups: [], tableInfos: [] }
     const conditionGroups = result.conditionGroups
 
     const conditionGroup: { [key: string]: any } = {
@@ -272,20 +274,56 @@ const beforeQuery = (params: any) => {
                 // 结束时间戳 + 1 天
                 conditionGroup.conditions.push({ column: 'a_' + key, operator: '<', value: params[key][fieldName + '_end'] + 86400000, logicalOperator: 'and' })
 
+            } else if (code === 'selectTable') {
+
+                const mainTableName = className
+
+                let tableInfos = result['tableInfos']
+                if (!tableInfos) {
+                    tableInfos = []
+                    result['tableInfos'] = tableInfos
+                }
+
+                if (!result['joinRightColumn']) {
+                    result['joinRightColumn'] = 'id'
+                }
+
+                const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
+                const parts = url.split("/");
+                const innerColumnName = parts[parts.length - 2];
+
+                const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+                const tableInfo = {
+                    tableName: fullRelationTableName,
+                    joinType: 'innerJoin',
+                    joinLeftColumn: `a_${mainTableName}_id`,
+                    conditionGroupVos: [
+                        {
+                            logicalOperator: 'and',
+                            conditions: [
+                                {
+                                    tableName: fullRelationTableName,
+                                    column: `a_${innerColumnName}_list`,
+                                    logicalOperator: 'and',
+                                    operator: '=',
+                                    value: params[key][0].id
+                                }
+                            ]
+                        }
+                    ]
+                }
+
+                tableInfos.push(tableInfo)
+
+
             }
         }
     })
 
+
     return result
 }
 
-/**
- * 动态解析国际化字符串
- * @param label 
- */
-const parseLabel = (label: string) => {
-    return t(label);
-}
 
 const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
