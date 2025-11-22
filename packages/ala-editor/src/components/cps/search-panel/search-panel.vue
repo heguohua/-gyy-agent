@@ -197,8 +197,6 @@ watch(() => props.baseFields, (baseFields) => {
 
                 baseSearchFields.push(baseField)
             } else if (baseField.componentName === 'AlaSelectTable') {
-                console.log('baseField: --->', baseField);
-
                 baseSearchFields.push(baseField)
             } else if (baseField.componentName === 'AlaRadio') {
 

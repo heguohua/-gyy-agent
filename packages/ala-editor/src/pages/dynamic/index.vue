@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 19:18:17
+ * @LastEditTime: 2025-11-22 19:22:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -324,7 +324,6 @@ const beforeQuery = (params: any) => {
 
                     // 使用上一个联表中的主表字段 作为 联表关联左侧的连接条件
                     const leftTable = tableInfos[tableInfos.length - 1]
-                    console.log('leftTable:', leftTable);
 
                     if (!leftTable['joinRightColumn']) {
                         leftTable['joinRightColumn'] = leftTable.joinLeftColumn
@@ -410,8 +409,6 @@ const beforeQuery = (params: any) => {
                     // 使用上一个联表中的主表字段 作为 联表关联左侧的连接条件
 
                     const leftTable = tableInfos[tableInfos.length - 1]
-
-                    console.log('leftTable:', leftTable);
 
 
                     if (!result['joinRightColumn']) {
