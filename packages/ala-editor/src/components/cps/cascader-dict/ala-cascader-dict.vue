@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-19 21:02:22
+ * @LastEditTime: 2025-11-22 11:53:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader-dict/ala-cascader-dict.vue
  * @Description: 
  * 
@@ -118,19 +118,15 @@ logger.info(`${model.value}`);
 // const styles = computed(() => ({}))
 const data = ref<CascaderValue>([])
 const handleChange = (value: any) => {
-  console.log('handleChange - value:', value);
-
   data.value = value
 }
 
 watch(() => data.value, (value: any) => {
   model.value = u.tojson(value)
-  console.log('data.value:', data.value);
 
 })
 
 watch(() => model.value, (value: any) => {
-  console.log('model.value:', model.value);
 
   if (value) {
     data.value = u.parseJson(value)
@@ -196,23 +192,13 @@ const query = () => {
     const response = data;
 
     if (response.data) {
-
-      console.log('response.data:', response.data);
-
       options.value = transformDictLabelToLabel(response.data[0].children || [])
-      console.log('options.value:', options.value);
-
-
-
     }
 
   });
 }
 onMounted(() => {
-
-  console.log('props.value:', props);
   query()
-
 })
 
 </script>
