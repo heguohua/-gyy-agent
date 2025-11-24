@@ -172,6 +172,9 @@ watch(() => props.baseFields, (baseFields) => {
 
             if (baseField.componentName === 'AlaInput') {
                 baseSearchFields.push(baseField)
+            } else if (baseField.componentName === 'AlaTextarea') {
+                baseField.componentName = 'AlaInput'
+                baseSearchFields.push(baseField)
             } else if (baseField.componentName === 'AlaDate') {
 
                 // {"componentName":"AlaDate","label":"权益日期","placeholder":"请选择权益日期","fieldName":"time","other":{"dateType":"datetime","format":"YYYY-MM-DD HH:mm","daysBefore":-1,"daysAfter":0},"rules":[{"required":true,"trigger":"change","message":"不能为空"}],"columnNum":1}

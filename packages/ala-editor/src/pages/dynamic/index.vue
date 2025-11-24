@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 19:48:04
+ * @LastEditTime: 2025-11-24 15:13:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -448,6 +448,8 @@ const beforeQuery = (params: any) => {
                 conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
             } else if (code === 'cascaderDict') {
                 conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
+            } else if (code === 'textarea') {
+                conditionGroup.conditions.push({ column: 'a_' + key, operator: 'like', value: params[key], logicalOperator: 'and' })
             }
         }
     })
