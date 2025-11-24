@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-28 15:59:53
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 10:13:17
+ * @LastEditTime: 2025-11-24 09:06:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/start.vue
  * @Description: 
  * 
@@ -20,7 +20,7 @@
                     <div class="ala-card" v-for="(item, i) in define.defineVos" :key="index + '-' + i"
                         @click="handleClick(item)">
                         <div class="ala-card-image">
-                            <img :src="imageSrc(item)" :style="{ width: imageWidth, height: imageHeight }" />
+                            <img :src="imageSrc(item)" :style="{ width: imageWidth, height: imageHeight }" :img="item.icon"/>
                         </div>
                         <div class="ala-card-content">
                             <p class="title">
@@ -50,7 +50,7 @@
 <script setup lang="ts">
 import { alaBuildInput } from '@/config/alaBuilders';
 import { logger } from '@/utils/logger';
-import { alaPost, get } from '@/utils/req'
+import { alaDownload, alaPost, get } from '@/utils/req'
 import u from '@/utils/u'
 import { useI18n } from 'vue-i18n';
 import StartForm from '@/pages/process/startForm.vue';
@@ -67,11 +67,20 @@ const { t } = useI18n();
 const imageWidth = '36px'
 const imageHeight = '36px'
 
-const src = '/flow/'
-const imageSrc = (item: any) => {
-    const imgSrc = item.icon ? src + item.icon + '.svg' : src + 'leave.svg'
-    return imgSrc
-}
+// const src = '/flow/'
+// const imageSrc = (item: any) => {
+//     const imgSrc = item.icon ? src + item.icon + '.svg' : src + 'leave.svg'
+//     return imgSrc
+// }
+
+const images = ref<{ [key: string]: string }>({})
+const imageSrc = computed(() => (item: { [key: string]: string }) => {
+    const icon = item.icon
+    if (!images.value[icon]) {
+        loadImage(icon)
+    }
+    return images.value[icon]
+})
 
 const remark = '普工请假办理普工请假办理普工请假办理'
 
@@ -267,7 +276,45 @@ const ruleFunctions: { [key: string]: Function } = {
     alaCnTw: alaCnTw,
     alaCn: alaCn,
     alaTw: alaTw,
-};
+}
+
+
+const loadImage = (image: string) => {
+
+    if (image) {
+
+        alaDownload(u.url('/f/ossfile/download'), { fid: image }).then((data: any) => {
+            const response = data;
+
+            const blob = new Blob([response.data])
+            const reader = new FileReader()
+
+            reader.onloadend = () => {
+                const base64 = reader.result
+                console.log('props.formData.icon.desktop:', image);
+                console.log('base64:', base64);
+
+                if (typeof base64 === 'string') {
+                    // localValues.value.push(base64.replace('data:application/octet-stream', `data:image/${imageType}`))
+                    const imageBlob = base64.replace('data:application/octet-stream', `data:image/svg+xml`)
+
+                    images.value[image] = imageBlob
+                }
+            }
+
+            reader.onerror = (e) => {
+                console.log('e:', e)
+            }
+
+            reader.readAsDataURL(blob) // 转成 base64
+        })
+
+
+    }
+
+
+}
+
 </script>
 
 <style scoped lang="scss">

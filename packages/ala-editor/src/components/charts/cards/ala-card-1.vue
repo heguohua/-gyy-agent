@@ -239,9 +239,6 @@ const loadImage = async () => {
 
         reader.onloadend = () => {
             const base64 = reader.result
-            console.log('props.formData.icon.desktop:',props.formData.icon.desktop);
-            console.log('base64:',base64);
-
             if (typeof base64 === 'string') {
                 // localValues.value.push(base64.replace('data:application/octet-stream', `data:image/${imageType}`))
                 image.value = base64.replace('data:application/octet-stream', `data:image/svg+xml`)

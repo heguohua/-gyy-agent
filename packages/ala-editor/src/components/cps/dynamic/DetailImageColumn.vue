@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:08:12
+ * @LastEditTime: 2025-11-24 09:16:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailImageColumn.vue
  * @Description: 
  * 
@@ -12,15 +12,15 @@
     <template v-if="isDetailColumn">
         <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <div class="ala-image value">
-            <img class="image" :src="image" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
-                :key="index" @click="showDetail" />
+            <img class="image" :src="image.src" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
+                :key="index" @click="showDetail" :image="image.fid" />
         </div>
     </template>
     <template v-else>
         <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
         <div class="value ala-image">
-            <img class="image" :src="image" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
-                :key="index" />
+            <img class="image" :src="image.src" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
+                :key="index" :image="image.fid" />
         </div>
     </template>
 
@@ -73,7 +73,7 @@ const isDetailColumn = computed(() => {
     return props.formItem.formData?.detail?.desktop
 })
 
-const emit = defineEmits(['showDetail','refresh'])
+const emit = defineEmits(['showDetail', 'refresh'])
 const showDetail = () => {
     emit('showDetail', props.data)
 }
@@ -96,8 +96,13 @@ interface AFile {
     classify: string
     url: string
 }
+interface Image {
+    src: string,
+    fid: string
+}
 
-const localValues = ref<Array<string>>([])
+
+const localValues = ref<Array<Image>>([])
 
 watch(() => props.value, () => {
 
@@ -124,7 +129,7 @@ watch(() => props.value, () => {
                     imageType = 'svg+xml'
                 }
                 if (typeof base64 === 'string') {
-                    localValues.value.push(base64.replace('data:application/octet-stream', `data:image/${imageType}`))
+                    localValues.value.push({ src: base64.replace('data:application/octet-stream', `data:image/${imageType}`), fid: image.fid })
                 }
             }
 
