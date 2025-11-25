@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 20:41:43
+ * @LastEditTime: 2025-11-25 08:10:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label.vue
  * @Description: 
  * 
@@ -11,11 +11,12 @@
 <template>
   <div class="ala-form-label-wrapper">
     {{ label }}
-    <el-tooltip v-if="help" class="tip ala-help-icon" :effect="effect" :content="u.parseI18n(help, t)"
-      :placement="placement" :hide-after="0">
-      <template>
+    <!-- <el-tooltip v-if="help" class="tip ala-help-icon" :effect="effect" :content="u.parseI18n(help, t)" -->
+    <el-tooltip v-if="help" class="tip ala-help-icon" :effect="effect" :content="help" :placement="placement"
+      :hide-after="0">
+      <div class="ala-tooltip-wrapper">
         <v-icon class="image" icon="help" :width="width" :height="height" />
-      </template>
+      </div>
     </el-tooltip>
   </div>
 </template>
@@ -27,7 +28,7 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 
-defineProps({
+const props = defineProps({
   icon: {
     type: String,
     default: '',
@@ -59,6 +60,9 @@ defineProps({
 })
 
 
+console.log('props.help:', props.help);
+
+
 
 </script>
 
@@ -75,6 +79,14 @@ defineProps({
 
   .ala-help-icon {
     color: var(--el-input-hover-border-color);
+  }
+
+  // 2025-11-25 修复 tooltip 不显示的bug
+  .ala-tooltip-wrapper {
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
   }
 
 }
