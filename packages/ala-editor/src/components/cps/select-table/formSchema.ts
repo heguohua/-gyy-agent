@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 15:03:53
+ * @LastEditTime: 2025-11-26 10:04:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/formSchema.ts
  * @Description: 
  * 
@@ -10,6 +10,7 @@
  */
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
+import { configCollapseItem, configText } from "@/config/configUtil";
 
 const label = Type.String({
     code: "config-input",
@@ -221,6 +222,10 @@ const schema = Type.Object({
     required: schemaAllViewport(required),
     noEditable: schemaAllViewport(noEditable),
     canEmpty: schemaAllViewport(canEmpty),
+    outApis: schemaAllViewport(configCollapseItem("新增填写")),
+    sourceFieldName: schemaAllViewport(configText("源表单字段名")),
+    targetFieldName: schemaAllViewport(configText("当前表单字段名")),
+
 })
 
 

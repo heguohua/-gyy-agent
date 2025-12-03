@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-19 19:28:23
+ * @LastEditTime: 2025-11-26 10:42:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formItems.ts
  * @Description: 
  * 
@@ -164,7 +164,7 @@ export const seniorFields: BaseBlock[] = [
     },
     {
         id: "",
-        name: "下拉选(Table)",
+        name: "Table选择",
         code: "selectTable",
         icon: "select",
         formData: {},
@@ -230,6 +230,13 @@ export const seniorFields: BaseBlock[] = [
         name: "AI搜索",
         code: "aiInfo",
         icon: "aiIcon",
+        formData: {},
+    },
+    {
+        id: "",
+        name: "Table数值转写",
+        code: "numberTransliterate",
+        icon: "number",
         formData: {},
     }
 ]

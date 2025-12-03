@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 08:16:29
+ * @LastEditTime: 2025-11-26 10:15:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -56,6 +56,7 @@ import AlaDateRange from '@/components/cps/date-range/ala-date-range.vue';
 import AlaRating from '@/components/cps/rating/ala-rating.vue';
 import AlaCustomerizationComponentDemo from '@/components/cps/input/ala-customerization-component-demo.vue';
 import AlaNumber from '@/components/cps/number/ala-number.vue';
+import AlaNumberTransliterate from '@/components/cps/number-transliterate/ala-number-transliterate.vue';
 import AlaHidden from '@/components/cps/hidden/ala-hidden.vue';
 import AlaSelectApi from '@/components/cps/select-api/ala-select-api.vue';
 import AlaSelectDict from '@/components/cps/select-dict/ala-select-dict.vue';
@@ -182,6 +183,7 @@ export default {
     AlaDateRange,
     AlaRating,
     AlaNumber,
+    AlaNumberTransliterate,
     AlaHidden,
     AlaSelectApi,
     AlaSelectDict,

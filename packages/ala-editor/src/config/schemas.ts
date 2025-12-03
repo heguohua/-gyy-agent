@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-19 19:31:07
+ * @LastEditTime: 2025-11-26 10:18:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -19,6 +19,7 @@ import TextareaSchema from '@/components/cps/textarea/formSchema'
 import HiddenSchema from '@/components/cps/hidden/formSchema'
 import PasswordSchema from '@/components/cps/password/formSchema'
 import NumberSchema from '@/components/cps/number/formSchema'
+import NumberTransliterateSchema from '@/components/cps/number-transliterate/formSchema'
 import RadioSchema from '@/components/cps/radio/formSchema'
 import CheckboxSchema from '@/components/cps/checkbox/formSchema'
 import SelectSchema from '@/components/cps/select/formSchema'
@@ -60,6 +61,7 @@ const _allSchemas = {
     hidden: HiddenSchema,
     password: PasswordSchema,
     number: NumberSchema,
+    numberTransliterate: NumberTransliterateSchema,
     radio: RadioSchema,
     checkbox: CheckboxSchema,
     select: SelectSchema,

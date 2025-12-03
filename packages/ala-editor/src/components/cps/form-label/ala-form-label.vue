@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-25 08:10:17
+ * @LastEditTime: 2025-11-25 08:56:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label.vue
  * @Description: 
  * 
@@ -87,6 +87,7 @@ console.log('props.help:', props.help);
     height: 32px;
     justify-content: center;
     align-items: center;
+    width: 8px;
   }
 
 }
@@ -94,7 +95,7 @@ console.log('props.help:', props.help);
 <style>
 .ala-form-label-wrapper svg {
   position: absolute;
-  right: -11px;
+  right: -3px;
   opacity: 0.7;
 }
 </style>

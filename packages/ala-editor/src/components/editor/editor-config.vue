@@ -163,16 +163,40 @@ const handleSave = () => {
 
     if (blockConfig && blockConfig.length > 0) {
 
+        const fullFieldNames = new Map<string, any>();
+
         for (let b = 0; b < blockConfig.length; b++) {
 
             const oneFormItem = blockConfig[b].formData
 
+
+
             if (oneFormItem) {
+
+                if (oneFormItem.fieldName) {
+                    const fieldName = oneFormItem.fieldName.desktop
+                    const existedField = fullFieldNames.get(fieldName)
+                    if (existedField) {
+                        // 说明存在重复字段名的表单组件
+                        // 给出提示信息，并终止循环
+                        console.log('existedField:', existedField);
+                        const newFieldLabel = oneFormItem.label.desktop
+                        const existedFieldLabel = existedField.label.desktop
+                        // notify.error(t('pop.warm_title'), `“${newFieldLabel}”和“${existedFieldLabel}”字段名重复！`)
+                        u.error(`“${newFieldLabel}”和“${existedFieldLabel}”字段名重复！`, t('pop.warm_title'))
+
+                    } else {
+                        // 将新字段缓存到 map 中
+                        fullFieldNames.set(fieldName, oneFormItem)
+                    }
+                }
+
+
+
                 const fieldNames = Object.keys(oneFormItem)
 
                 for (let i = 0; i < fieldNames.length; i++) {
 
-                    console.log('oneFormItem:', oneFormItem);
 
                     const fieldName = fieldNames[i]
                     const rules = oneFormItem[fieldName].rules

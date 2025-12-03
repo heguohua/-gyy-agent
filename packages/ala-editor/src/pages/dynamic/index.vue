@@ -447,7 +447,9 @@ const beforeQuery = (params: any) => {
             } else if (code === 'radio') {
                 conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
             } else if (code === 'cascaderDict') {
-                conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
+                if (params[key] && params[key].length > 2) {
+                    conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
+                }
             } else if (code === 'textarea') {
                 conditionGroup.conditions.push({ column: 'a_' + key, operator: 'like', value: params[key], logicalOperator: 'and' })
             }

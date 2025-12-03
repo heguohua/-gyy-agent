@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-21 21:14:37
+ * @LastEditTime: 2025-11-27 19:27:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -380,7 +380,7 @@ const getValue = (rowData: any, columnName: string, type: any) => {
         }
 
     } else {
-        v = rowData[columnName]
+        v = u.deepValueFromArrayOrObject(rowData, columnName)
     }
 
     return v

@@ -316,6 +316,7 @@ import huiFei from '~icons/streamline-logos/friends-feed-logo';
 import quanYi from '~icons/material-symbols/interests-rounded';
 import reward from '~icons/fluent/reward-12-regular';
 import downgrade from '~icons/ic/outline-move-down';
+import donate from '~icons/streamline-flex/blood-donate-drop';
 
 
 
@@ -612,6 +613,7 @@ const icon = {
   quanYi,
   reward,
   downgrade,
+  donate,
 
 
 }

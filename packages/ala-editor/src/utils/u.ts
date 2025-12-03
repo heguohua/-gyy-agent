@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-16 19:04:15
+ * @LastEditTime: 2025-11-27 19:04:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -833,5 +833,23 @@ export default class u {
         if (str.length <= maxLength) return str
         return str.slice(0, maxLength) + '...' // 三个中文句号
     }
+
+    /**
+     * 根据 '[0].name' 或 'user.name' 从对象中取值
+     * @param obj 
+     * @param path 
+     * @returns 
+     */
+    public static deepValueFromArrayOrObject(obj: any, path: string) {
+        if (!path) return undefined;
+        return path
+            // 将 '[key]' 或 '[0]' 转换为 '.key' 或 '.0'
+            .replace(/\[(\w+)\]/g, '.$1')
+            // 移除开头可能多余的点
+            .replace(/^\./, '')
+            .split('.')
+            .reduce((acc, key) => acc?.[key], obj);
+    }
+
 }
 
