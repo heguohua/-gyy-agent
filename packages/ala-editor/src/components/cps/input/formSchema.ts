@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-13 22:41:28
+ * @LastEditTime: 2025-12-03 10:56:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/formSchema.ts
  * @Description: 
  * 
@@ -121,6 +121,11 @@ const required = Type.String({
     title: "必填字段？",
     default: false,
 })
+const unique = Type.String({
+    code: "config-boolean",
+    title: "值唯一？",
+    default: false,
+})
 const noEditable = Type.String({
     code: "config-boolean",
     title: "禁止修改？",
@@ -216,6 +221,7 @@ const schema = Type.Object({
     showInSearch: schemaAllViewport(showInSearch),
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
+    unique: schemaAllViewport(unique),
     noEditable: schemaAllViewport(noEditable),
     rules: schemaAllViewport(rules),
     strMin: schemaAllViewport(strMin),
