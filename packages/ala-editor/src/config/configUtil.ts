@@ -7,7 +7,7 @@ import icon from "./icons"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 15:55:49
+ * @LastEditTime: 2025-12-05 20:39:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -672,6 +672,74 @@ export const configScaleLinearScale = () => {
 }
 
 
+export const configScaleOrdinalScaleY = () => {
+    const config = {
+        yName: schemaAllViewport(configText("属性名", 'name')),
+        scaleYType: schemaAllViewport(configScale('比例尺类型', 'scaleOrdinal')),
+
+
+        // 轴线
+        y_axis_color: schemaAllViewport(configColor("轴线颜色")),
+        y_axis_width: schemaAllViewport(configFloat("轴线宽度", 1, 0, 0.2)),
+
+        // 刻度线
+        y_scaleMarks_length: schemaAllViewport(configText("刻度线长度", '10px')),
+        y_scaleMarks_width: schemaAllViewport(configFloat("刻度线宽度", 1, 0, 0.2)),
+        y_scaleMarks_color: schemaAllViewport(configColor("刻度线颜色")),
+        y_dashed_line_style: schemaAllViewport(configText("虚线样式(6,4)")),
+        y_dashed_line_point: schemaAllViewport(configCap('虚线端点样式')),
+
+        // 标签
+        y_label_color: schemaAllViewport(configColor("标签字体颜色")),
+        y_label_fontSize: schemaAllViewport(configInt("标签字体大小", 14)),
+        y_label_weight: schemaAllViewport(configFontWeight("标签字体粗细")),
+        y_label_letter_spacing: schemaAllViewport(configInt("标签字体间距", 0, 0)),
+        y_label_textAnchor: schemaAllViewport(configTextAnchor("标签对齐方式")),
+        y_label_dy: schemaAllViewport(configInt("标签轴线间距", 6)),
+        y_label_rotate: schemaAllViewport(configInt("标签旋转角度", 0, -359)),
+
+    }
+    return config
+}
+
+export const configScaleLinearScaleX = () => {
+    const config = {
+        showXAxis: schemaAllViewport(configBoolean('显示横坐标轴？', true)),
+        xName: schemaAllViewport(configText("属性名", 'value')),
+        scaleXType: schemaAllViewport(configScale('比例尺类型', 'scaleLinear')),
+
+        addZero: schemaAllViewport(configBoolean('填补零值？')),
+        addMinPercentage: schemaAllViewport(configFloat("填补最小值%", 0, 1, 0.1)),
+        xDecimalNum: schemaAllViewport(configInt("小数位数", 0, 0)),
+        levelNum: schemaAllViewport(configInt("分段数", 5, 0)),
+
+        // 轴线
+        x_axis_color: schemaAllViewport(configColor("轴线颜色")),
+        x_axis_width: schemaAllViewport(configFloat("轴线宽度", 1, 0, 0.2)),
+
+        // 刻度线
+        x_scaleMarks_length: schemaAllViewport(configText("刻度线长度", '10px')),
+        x_scaleMarks_width: schemaAllViewport(configFloat("刻度线宽度", 1, 0, 0.2)),
+        x_scaleMarks_color: schemaAllViewport(configColor("刻度线颜色")),
+        x_dashed_line_style: schemaAllViewport(configText("虚线样式(6,4)")),
+        x_dashed_line_point: schemaAllViewport(configCap('虚线端点样式')),
+
+
+        // 标签
+        x_label_color: schemaAllViewport(configColor("标签字体颜色")),
+        x_label_fontSize: schemaAllViewport(configInt("标签字体大小", 14)),
+        x_label_weight: schemaAllViewport(configFontWeight("标签字体粗细")),
+        x_label_textAnchor: schemaAllViewport(configTextAnchor("标签对齐方式")),
+        x_label_dy: schemaAllViewport(configInt("标签轴线间距", -16, -100)),
+        x_label_rotate: schemaAllViewport(configInt("标签旋转角度", 0, -359)),
+        x_label_unit: schemaAllViewport(configText("数据单位")),
+
+
+    }
+    return config
+}
+
+
 export const configLine = () => {
     const config = {
 
@@ -761,7 +829,7 @@ export const configApis = () => {
                 valueName: 'id',
             }
         })),
-        data_time: schemaAllViewport(configInt('数据刷新间隔', 5000, 1000)),
+        data_time: schemaAllViewport(configInt('数据刷新间隔', 18000000, 1000)),
         data_request_enabled: schemaAllViewport(configBoolean('开启API请求？')),
         data_reversed: schemaAllViewport(configBoolean('逆序排序？')),
         // line_color: schemaAllViewport(configColors("折线颜色",colors.chartColors)),

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-27 14:45:22
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/bar-chart/formSchema.ts
+ * @LastEditTime: 2025-12-05 17:41:30
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/horizontal-bar-chart/formSchema.ts
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -11,7 +11,7 @@
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
 import { max } from "lodash";
-import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle, configBoolean, configText, configScaleOrdinalScale, configScaleLinearScale, configLine, configApis, configLineLabel, configBar } from "@/config/configUtil";
+import { configColor, configFontStyle, configFontWeight, configMainTitle, configInt, configSubTitle, configTextAlign, configTextOverflow, configTextVerticalAlign, configTitle, configItemStyle, configCollapseItem, configStyle, configBoolean, configText, configScaleOrdinalScale, configScaleLinearScale, configLine, configApis, configLineLabel, configBar, configScaleLinearScaleX, configScaleOrdinalScaleY } from "@/config/configUtil";
 
 
 const mainTitleText = Type.String({
@@ -30,8 +30,8 @@ const mainTitleLink = Type.String({
 
 const cs = configStyle()
 const cmt = configMainTitle()
-const xScale = configScaleOrdinalScale()
-const yScale = configScaleLinearScale()
+const xScale = configScaleLinearScaleX()
+const yScale = configScaleOrdinalScaleY()
 const bar = configBar()
 const lineLabel = configLineLabel()
 const apis = configApis()

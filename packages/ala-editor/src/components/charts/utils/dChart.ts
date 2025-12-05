@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-26 13:44:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-01 11:09:33
+ * @LastEditTime: 2025-12-05 20:57:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/utils/dChart.ts
  * @Description: 
  * 
@@ -351,6 +351,92 @@ export const drawBar = (formData: Record<string, any>, group: d3.Selection<SVGGE
 
 }
 
+export const drawHorizontalBar = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, width: number, data: DataPoint[], fillColor: string, yScale: d3.ScaleBand<string>, xScale: any, chartWrapper: any, chart: any) => {
+
+    const yName = formData.yName?.desktop
+    const xName = formData.xName?.desktop
+
+    const bar_width = formData.bar_width?.desktop || 60;
+    const barAnimationTime = formData.barAnimationTime?.desktop || 1000;
+    const bar_radius_y_width = formData.bar_radius_y_width?.desktop || 0;
+    const bar_radius_x_width = formData.bar_radius_x_width?.desktop || 0;
+    const bar_top_opacity = formData.bar_top_opacity?.desktop || 100;
+    const bar_bottom_opacity = formData.bar_bottom_opacity?.desktop || 100;
+    const x_label_unit = formData.x_label_unit?.desktop || ''
+
+    d3.select(chartWrapper.value).selectAll('.ala-chart-tooltip').remove()
+
+    const tooltip = d3.select(chartWrapper.value)
+        .append('div')
+        .attr('class', 'ala-chart-tooltip')
+        .style('opacity', 0)
+
+    const bWidth = yScale!.bandwidth() * bar_width / 100
+    const yGap = (yScale!.bandwidth() * (100 - bar_width) / 100) / 2
+
+    const yRadius = yScale!.bandwidth() * bar_radius_y_width / 100
+    const xRadius = yScale!.bandwidth() * bar_radius_x_width / 100
+
+    const id = u.uuid()
+
+    const svg = d3.select(chart);
+    const defs = svg.append('defs')
+    const gradient = defs.append('linearGradient')
+        .attr('id', id)
+        .attr('x1', '100%')
+        .attr('y1', '0%')  // 从底部开始
+        .attr('x2', '0%')
+        .attr('y2', '0%')
+        .attr('gradientUnits', 'userSpaceOnUse')  // 关键：使用坐标单位
+
+    gradient.append('stop')
+        .attr('offset', '0%')       // 底部
+        .attr('stop-color', fillColor)  // 或其他颜色
+        .attr('stop-opacity', bar_bottom_opacity / 100)  // 透明度 20%
+
+    gradient.append('stop')
+        .attr('offset', '100%')     // 顶部
+        .attr('stop-color', fillColor)
+        .attr('stop-opacity', bar_top_opacity / 100)    // 透明度 100%
+
+
+    // 绘制柱子
+    group.selectAll('.bar')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('x', 0)
+        .attr('y', (d: any) => {
+            const v = (yScale!(d[yName]) || 0) + yGap
+            return v
+        })
+        .attr('height', bWidth)
+        .attr('width', 0)
+        .attr('rx', xRadius) // 横向圆角半径
+        .attr('ry', yRadius) // 纵向圆角半径
+        .attr('fill', `url(#${id})`)
+        .on('mouseover', (event, d: any) => {
+            tooltip.transition().duration(200).style('opacity', 0.9)
+            tooltip.html(`${d[yName]}<br/>值: ${d[xName]} ${x_label_unit}`)
+                .style('left', `${event.offsetX + 10}px`)
+                .style('top', `${event.offsetY - 28}px`)
+        })
+        .on('mouseout', () => {
+            tooltip.transition().duration(300).style('opacity', 0)
+        })
+        .transition()
+        .duration(barAnimationTime)
+        .attr('width', (d: any) => {
+            let w = xScale(d[xName])
+            if (w < 0) {
+                w = 0
+            }
+            return w
+        })
+
+}
+
 
 /**
  * 绘制 线性 坐标轴
@@ -447,6 +533,95 @@ export const drawScaleLinear = (formData: Record<string, any>, yData: any[], hei
 
     return yScale;
 }
+export const drawHorizontalScaleLinear = (formData: Record<string, any>, xData: any[], width: number, height: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+
+    // 先按照最小值百分比填充，如果最小值百分比不存在则再按照 补充 0 值填充
+    const addMinPercentage = formData.addMinPercentage?.desktop;
+    const showXAxis = formData.showXAxis?.desktop;
+
+
+    if (addMinPercentage) {
+        const minValue = d3.min(xData)
+        xData.push(minValue * addMinPercentage / 100);
+    } else {
+        // const addZero = formData.addZero?.desktop || false;
+        // if (addZero) 
+        xData.push(0);
+    }
+
+
+    const xScale = aScaleLinear(xData, [0, width], false);
+
+    // 横坐标轴 在 右侧
+    const xTicks = aTick(xScale, 'bottom', undefined, 2, 6, 0, 0);
+
+    if (!showXAxis) {
+        return xScale
+    }
+    // 计算横坐标档位数
+    // const yDecimalNum = formData.yDecimalNum?.desktop
+    let levelNum = formData.levelNum?.desktop
+    if (levelNum) {
+        xTicks.ticks(levelNum)
+    }
+
+    const xAxisAttrs = new Map<string, any>();
+    xAxisAttrs.set("class", "ala-axis-y");
+    xAxisAttrs.set("transform", `translate(0,${height})`);
+
+    const xAxis = aAxis(group, xTicks, xAxisAttrs);
+
+
+    // 设置 轴线 样式
+    const x_axis_width = formData.x_axis_width?.desktop;
+    const x_axis_color = formData.x_axis_color?.desktop;
+
+    xAxis.selectAll('.domain')
+        .style("stroke-width", x_axis_width) // 轴线宽度
+        .style('stroke', x_axis_color); // 轴线颜色
+
+    // 设置 刻度线 样式
+    let x_scaleMarks_length = formData.x_scaleMarks_length?.desktop;
+    const x_scaleMarks_width = formData.x_scaleMarks_width?.desktop;
+    const x_scaleMarks_color = formData.x_scaleMarks_color?.desktop;
+    const x_dashed_line_style = formData.x_dashed_line_style?.desktop;
+    const x_dashed_line_point = formData.x_dashed_line_point?.desktop;
+
+    // 这里和 x 轴不同，height 换成了 width
+    x_scaleMarks_length = calculateValue(width, x_scaleMarks_length);
+
+    xAxis.selectAll('line')
+        // 这里和 x 轴不同，y2 换成了 x2
+        .attr('x2', x_scaleMarks_length) // 刻度线长度
+        .style("stroke-width", x_scaleMarks_width) // 刻度线宽度
+        .style('stroke', x_scaleMarks_color); // 刻度线颜色
+
+    if (x_dashed_line_style) {
+        xAxis.selectAll('line')
+            .style("stroke-dasharray", x_dashed_line_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
+            .style("stroke-linecap", x_dashed_line_point); // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+    }
+
+    // 刻度标签字体样式
+    const x_label_color = formData.x_label_color?.desktop || 'red';
+    const x_label_fontSize = formData.x_label_fontSize?.desktop || 14;
+    const x_label_weight = formData.x_label_weight?.desktop || 400;
+    const x_label_textAnchor = formData.x_label_textAnchor?.desktop || 'middle';
+    const x_label_dy = formData.x_label_dy?.desktop || 6;
+    const x_label_rotate = formData.x_label_rotate?.desktop || 0;
+
+    xAxis.style("stroke", x_label_color);
+    xAxis.style("font-size", x_label_fontSize + "px");
+    xAxis.style("font-weight", x_label_weight);
+    // 对齐方式
+    xAxis.style("text-anchor", x_label_textAnchor);
+    // 设置 刻度标签 样式
+    xAxis.selectAll('text')
+        .attr('dx', x_label_dy) //  设置 标签和轴线 间的距离
+        .style('transform', `rotate(${x_label_rotate}deg)`); //  设置 标签 旋转角度
+
+    return xScale;
+}
 
 /**
  * 绘制 序列 坐标轴 
@@ -518,6 +693,68 @@ export const drawScaleOrdinal = (formData: Record<string, any>, data: DataPoint[
         .style('transform', `rotate(${x_label_rotate}deg)`); //  设置 标签 旋转角度
 
     return xScale;
+}
+export const drawHorizontalScaleOrdinal = (formData: Record<string, any>, data: DataPoint[], width: number, height: number, group: d3.Selection<SVGGElement, unknown, null, undefined>) => {
+
+    const yName = formData.yName?.desktop
+
+    const yScale = aScaleBand(data, yName, [0, height]);
+    const ticks = aTick(yScale, 'left');
+    const yAxisAttrs = new Map<string, any>();
+    // yAxisAttrs.set("transform", `translate(0,${height})`);
+    const yAxis = aAxis(group, ticks, yAxisAttrs);
+
+    // 设置 轴线 样式
+    const y_axis_width = formData.y_axis_width?.desktop;
+    const y_axis_color = formData.y_axis_color?.desktop;
+
+    yAxis.selectAll('.domain')
+        .style("stroke-width", y_axis_width) // 轴线宽度
+        .style('stroke', y_axis_color); // 轴线颜色
+
+    // 设置 刻度线 样式
+    let y_scaleMarks_length = formData.y_scaleMarks_length?.desktop;
+    const y_scaleMarks_width = formData.y_scaleMarks_width?.desktop;
+    const y_scaleMarks_color = formData.y_scaleMarks_color?.desktop;
+    const y_dashed_line_style = formData.y_dashed_line_style?.desktop;
+    const y_dashed_line_point = formData.y_dashed_line_point?.desktop;
+
+    y_scaleMarks_length = calculateValue(height, y_scaleMarks_length);
+
+    yAxis.selectAll('line')
+        // .attr('y2', y_scaleMarks_length) // 刻度线长度
+        .style("stroke-width", y_scaleMarks_width) // 刻度线宽度
+        .style('stroke', y_scaleMarks_color); // 刻度线颜色
+
+    if (y_dashed_line_style) {
+        yAxis.selectAll('line')
+            .style("stroke-dasharray", y_dashed_line_style) // 虚线样式，8-虚线线段长度、2-虚线间隔
+            .style("stroke-linecap", y_dashed_line_point); // 端点样式，butt - 平直（默认值）、round - 圆形、square - 方形
+    }
+
+    // 刻度标签字体样式
+    const y_label_color = formData.y_label_color?.desktop || 'red';
+    const y_label_fontSize = formData.y_label_fontSize?.desktop || 14;
+    const y_label_weight = formData.y_label_weight?.desktop || 400;
+    const y_label_textAnchor = formData.y_label_textAnchor?.desktop || 'middle';
+    const y_label_dy = formData.y_label_dy?.desktop || 6;
+    const y_label_rotate = formData.y_label_rotate?.desktop || 0;
+    const y_label_letter_spacing = formData.y_label_letter_spacing?.desktop || 0
+
+    yAxis.style("stroke", y_label_color);
+    yAxis.style("font-size", y_label_fontSize + "px");
+    yAxis.style("font-weight", y_label_weight);
+    yAxis.style("letter-spacing", y_label_letter_spacing + "px");
+
+    // 对齐方式
+    yAxis.style("teyt-anchor", y_label_textAnchor);
+    // xAxis.tickPadding(10)
+    // 设置 刻度标签 样式
+    yAxis.selectAll('text')
+        .attr('dx', -(y_label_dy)) //  设置 标签和轴线 间的距离
+        .style('transform', `rotate(${y_label_rotate}deg)`); //  设置 标签 旋转角度
+
+    return yScale;
 }
 
 
@@ -703,6 +940,7 @@ export const drawLineCircle = (formData: Record<string, any>, group: d3.Selectio
     }
 
 }
+
 export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: DataPoint[], xScale: d3.ScaleBand<string>, yScale: any, chartWrapper: any) => {
 
     const xName = formData.xName?.desktop
@@ -721,7 +959,7 @@ export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection
     const line_label_bottom = formData.line_label_bottom?.desktop || 0
     const y_label_unit = formData.y_label_unit?.desktop || ''
 
-    
+
 
     // const labels = group.selectAll('text')
     //     .data(data)
@@ -745,6 +983,56 @@ export const drawLineLabel = (formData: Record<string, any>, group: d3.Selection
         .attr("font-weight", line_label_fontWeight)
         .attr("fill", line_label_color)
         .text((d: any) => d[yName] + ' ' + y_label_unit);
+    // yDecimalNum == 0 ? d[yName] : (d[yName] || 0).toFixed(yDecimalNum)
+    if (circleAnimation) {
+        labels.transition()
+            .duration(circleAnimationTime)
+            .attr('opacity', 1);
+    }
+
+}
+
+export const drawHorizontalLineLabel = (formData: Record<string, any>, group: d3.Selection<SVGGElement, unknown, null, undefined>, data: DataPoint[], yScale: d3.ScaleBand<string>, xScale: any, chartWrapper: any) => {
+
+    const yName = formData.yName?.desktop
+    const xName = formData.xName?.desktop
+
+
+    const circleAnimation = formData.circleAnimation?.desktop || false
+    const circleAnimationTime = formData.circleAnimationTime?.desktop || 2000
+
+    const line_label_color = formData.line_label_color?.desktop || 'red'
+    const line_label_fontSize = formData.line_label_fontSize?.desktop || 12
+
+    const line_label_fontWeight = formData.line_label_fontWeight?.desktop || 400
+    const line_label_left = formData.line_label_left?.desktop || 0
+    const line_label_bottom = formData.line_label_bottom?.desktop || 0
+    const x_label_unit = formData.x_label_unit?.desktop || ''
+
+
+
+    // const labels = group.selectAll('text')
+    //     .data(data)
+    //     .enter()
+    //     .append('text')
+    //     .attr('x', (d: any) => (yScale!(d[xName]) || 0) + yScale!.bandwidth() / 2 + line_label_left)
+    //     .attr('y', (d: any) => xScale(d[yName]) - line_label_bottom)
+    //     .attr("text-anchor", "middle")
+    //     .attr("font-size", line_label_fontSize + "px")
+    //     .attr("fill", line_label_color)
+    //     .text((d: any) => d[yName]);
+    const labels = group.selectAll("text.label")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "label")
+        .attr("x", (d: any) => xScale(d[xName]) - line_label_left) // 提前 10 像素，避免重叠圆点
+        .attr("y", (d: any) => (yScale!(d[yName]) || 0) + yScale!.bandwidth() / 2 + line_label_bottom)
+        .attr("text-anchor", "middle")
+        .attr("font-size", line_label_fontSize + "px")
+        .attr("font-weight", line_label_fontWeight)
+        .attr("fill", line_label_color)
+        .text((d: any) => d[xName] + ' ' + x_label_unit);
     // yDecimalNum == 0 ? d[yName] : (d[yName] || 0).toFixed(yDecimalNum)
     if (circleAnimation) {
         labels.transition()

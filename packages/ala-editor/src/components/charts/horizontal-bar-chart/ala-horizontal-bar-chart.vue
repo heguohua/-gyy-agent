@@ -2,20 +2,20 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-09-15 15:31:25
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/bar-chart/ala-bar-chart.vue
+ * @LastEditTime: 2025-12-05 21:32:07
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/horizontal-bar-chart/ala-horizontal-bar-chart.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-bar-chart-wrapper" :style="divStyles" ref="chartWrapper">
+    <div class="ala-horizontal-bar-chart-wrapper" :style="divStyles" ref="chartWrapper">
         <div v-if="formData.freeTitle?.desktop" class="title" :style="titleStyles">
             <VIcon v-if="formData.freeTitleIcon?.desktop" :image="'/bi/' + formData.freeTitleIcon?.desktop"
                 :width="formData.text_fontSize?.desktop + 'px'" :height="formData.text_fontSize?.desktop + 'px'" />
             {{ formData.mainTitleText?.desktop }}
         </div>
-        <svg class="ala-bar-chart-svg" ref="chart" :width="dWidth" :height="dHeight" :style="svgStyle"></svg>
+        <svg class="ala-horizontal-bar-chart-svg" ref="chart" :width="dWidth" :height="dHeight" :style="svgStyle"></svg>
     </div>
 </template>
 
@@ -25,7 +25,6 @@ import * as d3 from 'd3';
 import DataPoint, * as ad3 from '@/components/charts/utils/dChart';
 import u from '@/utils/u';
 import { alaPost } from '@/utils/req';
-import colors from '@/utils/colors';
 
 // State
 const props = defineProps({
@@ -41,7 +40,7 @@ const props = defineProps({
 const emit = defineEmits(['callback', "init"])
 
 // Methods
-logger.info(`bType[ ${props.bType} ]，动态渲染 ala-bar-chart 组件，props：`, props);
+logger.info(`bType[ ${props.bType} ]，动态渲染 ala-horizontal-bar-chart 组件，props：`, props);
 
 // 示例数据
 const data = ref<DataPoint[]>([]);
@@ -103,7 +102,6 @@ const titleStyles = computed(() => {
 // 4、绘制图形
 const drawChart = () => {
 
-
     const formData = props.formData
 
     // 1、查找 svg 图形组件
@@ -120,16 +118,14 @@ const drawChart = () => {
         right: formData.right?.desktop,
     };
 
-
     if (svg.empty()) {
         logger.error('svg为空')
         return
     }
+
     // 4、计算 svg 图形宽度、高度
     const width = +svg.attr("width") - margin.left - margin.right;
     let height = +svg.attr("height") - margin.top - margin.bottom;
-
-    // const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
     // 5、设置 svg 内部顶层 group 的坐标原点
     const group = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
@@ -146,86 +142,38 @@ const drawChart = () => {
     const xName = formData.xName?.desktop
     const scaleXType = formData.scaleXType?.desktop || 'scaleLinear'
 
+    // 组装多组 x 轴数据
+    let xData: any[] = Array.from(new Set(data.value.map((d: any) => d[xName])));
+
+
     let xScale = undefined
     if ('scaleLinear' === scaleXType) {
-
-    } else if ('scaleOrdinal' === scaleXType) {
         // 以下不需要修改
-        xScale = ad3.drawScaleOrdinal(formData, data.value, width, height, group); //  设置 标签 旋转角度
+        xScale = ad3.drawHorizontalScaleLinear(formData, xData, width, height, group) //  设置 标签 旋转角度
+    } else if ('scaleOrdinal' === scaleXType) {
+
     }
 
     // 8、添加 Y 坐标轴
     const yName = formData.yName?.desktop
-    const scaleYType = formData.scaleYType?.desktop || 'scaleLinear'
-
-    // 组装多组 y 轴数据
-    // const yDecimalNum = formData.yDecimalNum?.desktop;
-    let yData: any[] = Array.from(new Set(data.value.map((d: any) => d[yName])));
-    // let yData: any[] = [];
-    // const maxValue = d3.max(data.value, (d: any) => d[yName])
-    // const minValue = d3.min(data.value, (d: any) => d[yName])
-
-    // yData.push(minValue)
-    // yData.push(maxValue)
-    // const yDecimalNum = formData.yDecimalNum?.desktop;
-
-    // const num = 5
-    // const levelNum = num - 2
-    // const v = (maxValue - minValue) / levelNum
-    // for (let i = 1; i <= levelNum; i++) {
-    //     yData.push(minValue + v * i)
-    // }
-
-
+    const scaleYType = formData.scaleYType?.desktop || 'scaleOrdinal'
 
 
     let yScale: any = undefined
     if ('scaleLinear' === scaleYType) {
-        yScale = ad3.drawScaleLinear(formData, yData, height, width, group)
 
     } else if ('scaleOrdinal' === scaleYType) {
-
+        yScale = ad3.drawHorizontalScaleOrdinal(formData, data.value, width, height, group);
     }
 
-
     const fillColor = formData.bar_color?.desktop || 'red';
-    ad3.drawBar(formData, group, height, data.value, fillColor, xScale!, yScale, chartWrapper, chart.value);
-
-
-
-    // // 9、创建 折线 生成器
-    // const line = d3.line<DataPoint>()
-    //     .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
-    //     .y((d: any) => yScale(d[yName]));
-    // const line_curve_style = formData.line_curve_style?.desktop || 'curveLinear'
-    // // 设定曲线样式
-    // ad3.curveStyle(line, line_curve_style)
-
-    // // 10、绘制折线
-    // ad3.drawLine(formData, group, data.value, line, line_color);
-
-    // // 11、添加区域图生成器
-    // const addArea = formData.addArea?.desktop || false
-    // const areaColor = formData.areaColor?.desktop || 'red'
-    // if (addArea) {
-    //     const area = d3.area<DataPoint>()
-    //         .x((d: any) => (xScale!(d[xName]) || 0) + xScale!.bandwidth() / 2)
-    //         .y0(height)
-    //         .y1((d: any) => yScale(d[yName]))
-    //     // 设定曲线样式 
-    //     ad3.curveStyle(area, line_curve_style)
-    //     // 绘制面积
-    //     ad3.drawArea(group, data.value, areaColor, area);
-    // }
-
-    // 12、设置端点样式，Circle 点和 tooltip
-    // ad3.drawLineCircle(formData, group, data.value, xScale!, yScale, chartWrapper.value);
+    ad3.drawHorizontalBar(formData, group, width, data.value, fillColor, yScale!, xScale, chartWrapper, chart.value);
 
     // 绘制数据标签文本
     const addLineLabel = formData.addLineLabel?.desktop || false;
     if (addLineLabel) {
         // ad3.drawLineCircle(formData, group, data.value, xScale!, yScale, chartWrapper.value);
-        ad3.drawLineLabel(formData, group, data.value, xScale!, yScale, chartWrapper.value);
+        ad3.drawHorizontalLineLabel(formData, group, data.value, yScale!, xScale, chartWrapper.value);
     }
 
 }
@@ -245,14 +193,14 @@ const query = () => {
     alaPost(u.url(url), params, false, '').then((response: any) => {
 
         let d = response.data?.data
-        const yName = props.formData.yName.desktop
+        const xName = props.formData.xName.desktop
 
         if (d) {
             if (data_reversed) {
                 d = u.reverseInPlace(d)
             }
-            const yDecimalNum = props.formData.yDecimalNum?.desktop || 0
-            const dd = u.convertPropertyToNumber(d, yName, yDecimalNum)
+            const xDecimalNum = props.formData.xDecimalNum?.desktop || 0
+            const dd = u.convertPropertyToNumber(d, xName, xDecimalNum)
             data.value = dd as any
             drawChart()
 
@@ -300,13 +248,15 @@ const queryDataAndDrawChart = () => {
         let newData: Array<any> = u.randomizeProperty(demoData, 'value', yDecimalNum)
         const xName = props.formData.xName.desktop
         const yName = props.formData.yName.desktop
-        if (xName != 'name') {
-            newData = u.renameKeyInArray(newData, 'name', xName)
+
+        if (xName != 'value') {
+            newData = u.renameKeyInArray(newData, 'value', xName)
         }
-        if (yName != 'value') {
-            newData = u.renameKeyInArray(newData, 'value', yName)
+        if (yName != 'name') {
+            newData = u.renameKeyInArray(newData, 'name', yName)
         }
         data.value = newData
+
 
 
         drawChart()
@@ -317,7 +267,7 @@ const queryDataAndDrawChart = () => {
 </script>
 
 <style scoped lang="scss">
-.ala-bar-chart-wrapper {
+.ala-horizontal-bar-chart-wrapper {
 
     display: inline-flex;
     height: auto;
