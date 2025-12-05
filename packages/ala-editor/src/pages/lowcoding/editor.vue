@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 17:45:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-12 20:58:36
+ * @LastEditTime: 2025-12-05 17:12:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/lowcoding/editor.vue
  * @Description: 
  * 
@@ -32,6 +32,7 @@ import { useEditorStore } from '@/store/useEditorStore';
 import {
     lineChart,
     barChart,
+    horizontalBarChart,
     pieChart,
     scatterPlotChart,
     map,
@@ -124,6 +125,7 @@ onMounted(() => {
 const blocks = ref<any>([
     { name: 'module.page_designer.line_chart', blocks: lineChart },
     { name: 'module.page_designer.bar_chart', blocks: barChart },
+    { name: 'module.page_designer.horizontal_bar_chart', blocks: horizontalBarChart },
     { name: 'module.page_designer.pie_chart', blocks: pieChart },
     { name: 'module.page_designer.scatter_plot_chart', blocks: scatterPlotChart },
     { name: 'module.page_designer.map', blocks: map },

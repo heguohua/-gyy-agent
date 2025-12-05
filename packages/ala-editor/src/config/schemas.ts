@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:05:56
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-26 10:18:35
+ * @LastEditTime: 2025-12-05 17:14:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/schemas.ts
  * @Description: 
  * 
@@ -44,6 +44,7 @@ import AiInfo from '@/components/cps/ai-info/formSchema'
 // 图表相关组件
 import AlaLineChartSchema from '@/components/charts/line-chart/formSchema'
 import AlaBarChartSchema from '@/components/charts/bar-chart/formSchema'
+import AlaHorizontalBarChartSchema from '@/components/charts/horizontal-bar-chart/formSchema'
 import AlaMultiLineChartSchema from '@/components/charts/line-chart/multiLineSchema'
 import AlaCard1Schema from '@/components/charts/cards/formSchema'
 import AlaCalendar from '@/components/charts/calendar/formSchema'
@@ -87,6 +88,7 @@ const _allSchemas = {
     lineChart: AlaLineChartSchema,
     multiLineChart: AlaMultiLineChartSchema,
     barChart: AlaBarChartSchema,
+    horizontalBarChart: AlaHorizontalBarChartSchema,
     card1: AlaCard1Schema,
     calendar: AlaCalendar,
 }

@@ -74,6 +74,7 @@ declare module 'vue' {
     AlaFormTable: typeof import('./src/components/cps/form-table/ala-form-table.vue')['default']
     AlaFullScreen: typeof import('./src/components/cps/full-screen/ala-full-screen.vue')['default']
     AlaHidden: typeof import('./src/components/cps/hidden/ala-hidden.vue')['default']
+    AlaHorizontalBarChart: typeof import('./src/components/charts/horizontal-bar-chart/ala-horizontal-bar-chart.vue')['default']
     AlaImage: typeof import('./src/components/cps/image/ala-image.vue')['default']
     AlaInput: typeof import('./src/components/cps/input/ala-input.vue')['default']
     AlaLineChart: typeof import('./src/components/charts/line-chart/ala-line-chart.vue')['default']
