@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-25 08:56:22
+ * @LastEditTime: 2025-12-04 10:31:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label.vue
  * @Description: 
  * 
@@ -59,8 +59,6 @@ const props = defineProps({
   },
 })
 
-
-console.log('props.help:', props.help);
 
 
 

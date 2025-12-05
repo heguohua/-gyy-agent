@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-19 20:02:41
+ * @LastEditTime: 2025-12-04 10:07:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -204,7 +204,7 @@ export function parseCascade(item: { fieldName: { desktop: string }, label: { de
 
 
 export function parseCascaderDict(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, items: { desktop: string }, placeholder: { desktop: string }, dictValue: { desktop: string }, rules: { desktop: [] } }) {
-    const result = alaBuildCascaderDict(item.fieldName.desktop, item.label.desktop, item.items.desktop, item.rules?.desktop, item.placeholder?.desktop, { dictValue: item.dictValue.desktop })
+    const result = alaBuildCascaderDict(item.fieldName.desktop, item.label.desktop, item.items?.desktop, item.rules?.desktop, item.placeholder?.desktop, { dictValue: item.dictValue.desktop })
     logger.info(`解析【 cascadeDict 】字段：`, result);
     return result
 }

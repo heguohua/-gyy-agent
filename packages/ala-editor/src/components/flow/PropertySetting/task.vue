@@ -161,13 +161,13 @@ const performTypeAttrs = [
     tips: '参数类型为会签参与时生效',
     disabled: true
   },
-  // {
-  //   label: '会签完成条件',
-  //   name: 'countersignCompletionCondition',
-  //   disabled: true,
-  //   icon: '',
-  //   tips: '参数类型为会签参与时生效'
-  // }
+  {
+    label: '会签完成条件',
+    name: 'countersignCompletionCondition',
+    disabled: true,
+    icon: '',
+    tips: '参数类型为会签参与时生效'
+  }
 ]
 
 const dropdownData = computed<Array<any>>(() => {
@@ -200,11 +200,11 @@ const attrList = computed(() => {
       value: modelForm.field.countersignType,
       disabled: true
     })
-    // performTypeAttrs.push({
-    //   key: 'countersignCompletionCondition',
-    //   value: modelForm.field.countersignCompletionCondition,
-    //   disabled: true
-    // })
+    performTypeAttrs.push({
+      key: 'countersignCompletionCondition',
+      value: modelForm.field.countersignCompletionCondition,
+      disabled: true
+    })
   }
 
   const formItems = [

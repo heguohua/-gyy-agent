@@ -2,6 +2,10 @@ import { todo } from "node:test"
 import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
 
 
+// 固定资产中心
+import funds from '~icons/icon-park-outline/funds';
+
+
 // 智慧营销中心
 import marketing from '~icons/nimbus/marketing';
 import visitRecord from '~icons/fluent/handshake-20-regular';
@@ -592,6 +596,7 @@ const icon = {
   applications: Applications,
   applicationsInstances: ApplicationInstances,
 
+
   // 智慧营销中心
   marketing,
   visitRecord,
@@ -615,6 +620,8 @@ const icon = {
   downgrade,
   donate,
 
+  // 固定资产中心
+  funds,
 
 }
 
