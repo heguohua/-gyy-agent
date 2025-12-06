@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 15:34:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-05 17:03:36
+ * @LastEditTime: 2025-12-06 09:33:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/pageItems.ts
  * @Description: 
  * 
@@ -69,7 +69,7 @@ export const horizontalBarChart: BaseBlock[] = [
         id: "",
         name: "基础条形图",
         code: "horizontalBarChart",
-        icon: "bar-chart.png",
+        icon: "horizontalBarChart.jpg",
         formData: {},
     }
 ]

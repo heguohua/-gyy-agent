@@ -86,6 +86,7 @@ declare module 'vue' {
     AlaPageViewStatus: typeof import('./src/components/cps/page/ala-page-view-status.vue')['default']
     AlaPassword: typeof import('./src/components/cps/password/ala-password.vue')['default']
     AlaPermission: typeof import('./src/components/cps/permission/ala-permission.vue')['default']
+    AlaPieChart: typeof import('./src/components/charts/pie-chart/ala-pie-chart.vue')['default']
     AlaPopover: typeof import('./src/components/cps/popover/ala-popover.vue')['default']
     AlaPopoverInfo: typeof import('./src/components/cps/popover/ala-popover-info.vue')['default']
     AlaProcessing: typeof import('./src/components/cps/loading/ala-processing.vue')['default']

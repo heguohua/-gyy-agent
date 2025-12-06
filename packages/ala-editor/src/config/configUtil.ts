@@ -7,7 +7,7 @@ import icon from "./icons"
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-01-13 10:37:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-05 20:39:28
+ * @LastEditTime: 2025-12-06 09:43:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/configUtil.ts
  * @Description: 
  * 
@@ -795,6 +795,29 @@ export const configLineLabel = () => {
 
 
 export const configLines = () => {
+    const config = {
+
+        // 刻度线
+        line_width: schemaAllViewport(configFloat("折线宽度", 3, 0, 0.2)),
+        line_color: schemaAllViewport(configColors("折线颜色", colors.chartColors)),
+        line_dashed_style: schemaAllViewport(configText("虚线样式(6,4)")),
+        line_dashed_point: schemaAllViewport(configCap('虚线端点样式')),
+        lineAnimation: schemaAllViewport(configBoolean('折线动画？')),
+        lineAnimationTime: schemaAllViewport(configInt('折线动画时间', 1000, 1)),
+        line_inflection_point: schemaAllViewport(configFloat("拐点半径", 4, 0, 0.2)),
+        line_inflection_color: schemaAllViewport(configColors("拐点颜色", colors.chartColors)),
+        circleAnimation: schemaAllViewport(configBoolean('拐点动画？')),
+        circleAnimationTime: schemaAllViewport(configInt('拐点动画时间', 2000, 1)),
+        line_curve_style: schemaAllViewport(configCurveStyle("平滑策略")),
+        addArea: schemaAllViewport(configBoolean('添加区域图')),
+        areaColor: schemaAllViewport(configColor('区域图颜色')),
+
+    }
+    return config
+}
+
+
+export const configPies = () => {
     const config = {
 
         // 刻度线
