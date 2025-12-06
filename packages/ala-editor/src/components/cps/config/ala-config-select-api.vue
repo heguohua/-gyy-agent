@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 15:34:18
+ * @LastEditTime: 2025-12-06 09:01:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/config/ala-config-select-api.vue
  * @Description: 
  * 
@@ -125,8 +125,22 @@ const { title, default: defaultValue, placeholder, required, rules } = data.valu
 
 const emit = defineEmits(["callback"])
 
+
 const input = ref<number>()
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
+
+
+
+watch(() => formData, (form_data) => {
+    if (form_data[key]?.[props.viewport]) {      
+        logger.info(`bType[ ${bType} ],config-select-api组件 【 监听到 】 form_data 发生变化，key[ ${key} ]，即将更新 input 的属性值,input.value=form_data[key][props.viewport]`, form_data[key][props.viewport]);
+        input.value = form_data[key][props.viewport] || defaultValue
+    } else {
+        logger.info(`bType[ ${bType} ],config-select-api组件 【 监听到 】 formData 发生变化，key[ ${key} ]，value?.[props.viewport]值不存在,不更新 input.value 属性值`);
+    }
+}, {
+    immediate: true
+})
 
 const handleChange = (value: any) => {
   input.value = value
