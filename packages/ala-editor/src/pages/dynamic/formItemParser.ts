@@ -1,4 +1,4 @@
-import { alaBuildAi, alaBuildAiInfo, alaBuildCascader, alaBuildCascaderDict, alaBuildChapter, alaBuildCheckbox, alaBuildChildTableCount, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
+import { alaBuildAi, alaBuildAiInfo, alaBuildCascader, alaBuildCascaderDict, alaBuildChapter, alaBuildCheckbox, alaBuildChildTableCount, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectApi, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
 
@@ -6,7 +6,7 @@ import { logger } from "@/utils/logger";
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-04 10:07:08
+ * @LastEditTime: 2025-12-07 22:22:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -184,6 +184,13 @@ export function parseSelectTree(item: { fieldName: { desktop: string }, label: {
     const result = alaBuildSelectTree(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.params.desktop ? JSON.parse(item.params.desktop) : {}, item.itemProperty.desktop, item.rules?.desktop, item.placeholder?.desktop, {
         "checkStrictly": item.checkStrictly?.desktop
     })
+    logger.info(`解析【 selectTree 】字段：`, result);
+    return result
+}
+
+export function parseSelectApi(item: { fieldName: { desktop: string }, label: { desktop: string }, url: { desktop: string }, columns: { desktop: any }, itemProperty: { desktop: any }, params: { desktop: string }, placeholder: { desktop: string }, rules: { desktop: [] } }) {
+
+    const result = alaBuildSelectApi(item.fieldName.desktop, item.label.desktop, item.url.desktop, item.itemProperty.desktop, item.rules?.desktop, item.params.desktop ? JSON.parse(item.params.desktop) : {}, item.placeholder?.desktop, {})
     logger.info(`解析【 selectTree 】字段：`, result);
     return result
 }

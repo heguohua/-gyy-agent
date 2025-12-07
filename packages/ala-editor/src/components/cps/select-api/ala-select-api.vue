@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:22:31
+ * @LastEditTime: 2025-12-07 22:36:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-api/ala-select-api.vue
  * @Description: 
  * 
@@ -15,8 +15,8 @@
       <template #label>
         <AlaFormLabel :label="label" :help="help" />
       </template>
-      <el-select @change="handleChange" :model-value="model" class="ala-select-group" :style="styles" :id="fieldName"
-        :placeholder="placeholder" :disabled="isDisabled">
+      <el-select @change="handleChange" :model-value="localValue" class="ala-select-group" :style="styles"
+        :id="fieldName" :placeholder="placeholder" :disabled="isDisabled">
         <div class="el-select-item" v-for="(item, index) in items" :key="item.value">
           <el-option :key="item.value" :label="item.name" :value="item.value" />
         </div>
@@ -94,14 +94,30 @@ interface item {
 
 const items = ref<Array<item>>([])
 
+// const model = defineModel({
+//   type: [Number, String, Boolean] as PropType<number | string | boolean>,
+//   default: ''
+// })
+
 const model = defineModel({
-  type: [Number, String, Boolean] as PropType<number | string | boolean>,
-  default: ''
+  type: Array<any>,
+  default: () => []
 })
+
+
+const localValue = computed(() => {
+  let v = undefined
+
+  if (model.value && model.value.length > 0) {
+    v = model.value[0][props.itemProperty.valueName]
+  }
+  return v
+})
+
 const styles = computed(() => ({ minWidth: props.width + 'px' }))
 
 const handleChange = (value: any) => {
-  model.value = value
+  model.value = [{ [props.itemProperty.valueName]: value }]
 }
 
 const query = () => {

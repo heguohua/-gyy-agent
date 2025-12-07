@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-21 19:35:56
+ * @LastEditTime: 2025-12-07 22:20:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -14,7 +14,7 @@ import { alaBuildChapter, alaBuildInput } from "@/config/alaBuilders";
 import { date } from "@/utils/date";
 import { alaPost } from "@/utils/req";
 import u from "@/utils/u";
-import { parseAi, parseAiInfo, parseCascade, parseCascaderDict, parseChapter, parseCheckbox, parseChildTableCount, parseDate, parseDateRange, parseDivider, parseFile, parseFormTable, parseImage, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSelectTree, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
+import { parseAi, parseAiInfo, parseCascade, parseCascaderDict, parseChapter, parseCheckbox, parseChildTableCount, parseDate, parseDateRange, parseDivider, parseFile, parseFormTable, parseImage, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectApi, parseSelectDict, parseSelectTable, parseSelectTree, parseSlider, parseSwitch, parseTextarea } from './formItemParser';
 import { alaStrLengthRange, alaRequired, alaStrMax, alaStrMin, alaStrLength, alaNumberMin, alaNumberMax, alaNumberRange, alaPattern, alaEnumRule, alaEmail, alaPhone, alaUrl, alaCard, alaNumber, alaLetter, alaLOrlOr8, alaLl8, alaLOrlOr8Or_, alaLl8_, alaPassword, alaCnTw, alaCn, alaTw } from "@/config/alaRules";
 import baseRule from '@/config/rules/baseRule';
 import { logger } from "@/utils/logger";
@@ -214,6 +214,8 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                             formItem = parseAi(formData)
                         } else if (code === 'aiInfo') {
                             formItem = parseAiInfo(formData)
+                        }else if (code === 'selectApi') {
+                            formItem = parseSelectApi(formData)
                         } else {
                             logger.error(`【 错误，错误，错误 】发现未知类型[ ${code} ]的【 form字段 】`)
                             console.log('formData:', formData);

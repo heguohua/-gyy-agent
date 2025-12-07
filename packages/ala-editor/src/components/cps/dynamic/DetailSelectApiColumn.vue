@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:06:20
+ * @LastEditTime: 2025-12-07 22:32:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectApiColumn.vue
  * @Description: 
  * 
@@ -10,13 +10,13 @@
 -->
 <template>
     <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
-    <p class="value">{{ value }}</p>
+    <p class="value">{{ localValue }}</p>
 </template>
 
 <script setup lang="ts">
 
 // State
-defineProps({
+const props = defineProps({
     data: {
         type: Object,
         default: {}
@@ -26,8 +26,8 @@ defineProps({
         default: {}
     },
     value: {
-        type: String,
-        default: ''
+        type: Array<any>,
+        default: () => []
     },
     label: {
         type: String,
@@ -48,6 +48,14 @@ defineProps({
     previewParams: {
         type: Object as any
     }
+})
+
+const localValue = computed(() => {
+    const propertyName = props.formItem.formData.itemProperty.desktop.propertyName
+    if (props.value && props.value.length > 0) {
+        return props.value[0][propertyName]
+    }
+    return '...'
 })
 
 // Methods
