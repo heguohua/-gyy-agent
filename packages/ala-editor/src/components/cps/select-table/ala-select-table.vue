@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-23 20:23:10
+ * @LastEditTime: 2025-12-08 23:02:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -38,9 +38,10 @@
         <div class="dialog-content">
           <div class="left-panel">
             <!-- 分页列表 -->
-            <PageTableSelect ref="pageListRef" :url="url" :columns="columns" :params="params" :showSelectCheckbox="true"
-              :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange" :label="label" v-model="model"
-              :itemProperty="itemProperty" :isFormDesign="isFormDesign" :singleValue="singleValue" />
+            <PageTableSelect ref="pageListRef" :url="url" :columns="columnss" :params="params"
+              :showSelectCheckbox="true" :tipTitle="$t('pop.warm_title')" @selectedChange="selectedChange"
+              :label="label" v-model="model" :itemProperty="itemProperty" :isFormDesign="isFormDesign"
+              :singleValue="singleValue" />
 
           </div>
 
@@ -92,12 +93,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
-import PageTableSelect from '@/components/cps/page/page-table-select.vue';
 import notify from '@/utils/notify';
 import { logger } from '@/utils/logger';
 import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { PropType } from 'vue';
+import { getFormConfigFromCache, getLowcodingConfigByClassName, setFormConfigToCache } from '@/config/formConfigs';
 
 interface ItemProperty {
   propertyName: string,
@@ -194,7 +195,7 @@ const model = defineModel({
 const styles = computed(() => {
   const style: any = { minWidth: props.width + 'px' }
 
-  
+
   if (props.noEditable) {
     style.cursor = 'not-allowed'
     style.opacity = 0.6
@@ -204,7 +205,7 @@ const styles = computed(() => {
 
 // 分页列表中列属性配置
 const dialogShow = ref(false)
-const openDialog = () => {  
+const openDialog = () => {
   if (isDisabled.value) {
     return
   }
@@ -358,16 +359,78 @@ watch(() => dialogShow.value, (value) => {
 const parseLabel = (label: string) => {
   return t(label.slice(3, label.length - 2));
 }
-const columnss = computed(() => {
+const columnss = ref<Array<any>>([])
+
+watch(() => props.columns, async (cls) => {
   const fields: any = []
-  if (props.columns) {
-    const columns = u.parseJson(props.columns)
+
+  const url = props.url!
+
+  let formConfig = getFormConfigFromCache(url)
+
+  if (!formConfig) {
+
+    // 说明缓存中没加载到表单配置
+    if (url === '/l/dynamic/page') {
+      // 说明是动态表单，则根据新的key加载缓存对象
+      const params = props.params as string
+      const { tableName: className } = u.parseJson(params)
+
+      formConfig = getFormConfigFromCache(className)
+
+      if (!formConfig) {
+
+        const configs = await getLowcodingConfigByClassName(className)
+
+        let pageApi = ''
+        if (configs.outApi) {
+          pageApi = configs.outApiUrl + '/page'
+        }
+
+        formConfig = {
+          formAttr: configs.formAttr,
+          detailAttr: configs.formAttr,
+          formFields: configs.addFormFields,
+          detailFields: configs.detailFields,
+          pageApi: url
+        }
+        // 将 formConfig 放置到缓存中
+        setFormConfigToCache(className, formConfig)
+      }
+
+    } else {
+      // 说明当前模块不是动态表单，那么当前模块是非动态表单模块，但是未在 formConfig 中配置表单信息
+      logger.error(`当前模块是非动态表单模块，但是【 未在 formConfig 中配置表单 】信息，url[${url}]`)
+    }
+
+  }
+  if (!formConfig) {
+    if (url === '/l/dynamic/page') {
+      const params = props.params as string
+      const { tableName: className } = u.parseJson(params)
+      formConfig = getFormConfigFromCache(className)
+    }
+  }
+
+  const fieldMap = new Map<string, any>()
+  formConfig?.formFields.forEach(formConfig => {
+    fieldMap.set(formConfig['fieldName'], formConfig)
+  })
+
+
+  if (cls) {
+    const columns = u.parseJson(cls)
     columns.forEach((column: any) => {
       column['label'] = u.parseI18n(column.label, t)
+      column['formConfig'] = fieldMap.get(column['prop'])
       fields.push(column)
     })
   }
-  return fields
+
+  columnss.value = fields
+
+}, {
+  immediate: true
 })
 
 const isDynamicTable = () => {

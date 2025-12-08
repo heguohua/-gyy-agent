@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-17 09:29:59
+ * @LastEditTime: 2025-12-08 23:01:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
@@ -42,7 +42,7 @@ const formConfigs = {
     snapshot,
     application,
     applicationInstance,
-    lowcodingConfig:lowcodingConfigs,
+    lowcodingConfig: lowcodingConfigs,
 }
 
 
@@ -71,7 +71,7 @@ export const getFormConfigFromCache = (url: string) => {
         })
 
     }
-    if (!config) {
+    if (!config && url != '/l/dynamic/page' && url.startsWith('/')) {
         // 没找到当前模块对应的 FormConfig 则给出提示信息
         logger.error(`【 错误，错误，错误 】根据[ ${url} ]没有找到当前模块注册的FormConfig`)
     }

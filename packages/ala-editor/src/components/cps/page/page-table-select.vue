@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-27 19:27:58
+ * @LastEditTime: 2025-12-08 23:10:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-table-select.vue
  * @Description: 
  * 
@@ -30,11 +30,11 @@
                 :reserve-selection="true" />
 
             <!-- 主表列渲染 -->
-            <el-table-column v-for="column in columnss" :key="column.prop" :prop="column.prop" :type="column.type"
+            <el-table-column v-for="column in columnss" :key="column.prop" :type="column.type"
                 :label="isFormDesign ? parseLabel(column.label) : column.label" sortable>
 
                 <template #default="scope">
-                    {{ getValue(scope.row, column.prop, column.type) }}
+                    {{ getValue(scope.row, column.prop, column.type, column) }}
                 </template>
 
 
@@ -144,6 +144,7 @@ const props = defineProps({
 // 查询条件区域对象
 const formParams = ref({})
 const columnss = ref<Array<any>>([])
+
 const searchFields = computed(() => {
     const fields: any = []
     if (props.columns) {
@@ -174,11 +175,9 @@ const displaySelectCheckbox = () => {
     return props.showSelectCheckbox;
 }
 
-
 const selectCheckboxWidth = () => {
     return props.showSelectCheckboxWidth;
 }
-
 
 const handleSelectedChange = (items: Array<{ id: string }>) => {
 
@@ -332,6 +331,7 @@ const model = defineModel({
 
 onMounted(() => {
     logger.info(`onMounted 渲染 menu 分页列表页面，url [ ${props.url} ]，当前页面 model`);
+
     // 先刷新分页列表数据
     queryPageData()
 
@@ -371,16 +371,24 @@ const isDynamicTable = () => {
     return false
 }
 
-const getValue = (rowData: any, columnName: string, type: any) => {
+const getValue = (rowData: any, columnName: string, type: any, column: any) => {
 
     let v = ""
     if (type) {
         if (type === 'date') {
             v = date.format(new Date(rowData[columnName]), 'YYYY-MM-DD')
         }
-
     } else {
-        v = u.deepValueFromArrayOrObject(rowData, columnName)
+        if (column['formConfig']?.['componentName'] === 'AlaRadio') {
+            const tmp = u.deepValueFromArrayOrObject(rowData, columnName)
+            column['formConfig']['formData']['items']['desktop'].forEach((item: any) => {
+                if (item.value === tmp) {
+                    v = item.name
+                }
+            })
+        } else {
+            v = u.deepValueFromArrayOrObject(rowData, columnName)
+        }
     }
 
     return v
