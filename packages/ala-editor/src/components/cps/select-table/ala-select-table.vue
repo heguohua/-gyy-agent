@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-08 23:02:09
+ * @LastEditTime: 2025-12-08 23:17:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
@@ -55,6 +55,10 @@
               <!-- 主表列渲染 -->
               <el-table-column v-for="column in columnss" :key="column.prop" :prop="column.prop"
                 :label="isFormDesign ? parseLabel(column.label) : column.label">
+                <template #default="scope">
+                  {{ getValue(scope.row, column.prop, column.type, column) }}
+                </template>
+
               </el-table-column>
 
               <!-- 主表操作列 -->
@@ -99,6 +103,7 @@ import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
 import { PropType } from 'vue';
 import { getFormConfigFromCache, getLowcodingConfigByClassName, setFormConfigToCache } from '@/config/formConfigs';
+import { date } from '@/utils/date';
 
 interface ItemProperty {
   propertyName: string,
@@ -461,6 +466,30 @@ const disableStyles = computed(() => {
   }
   return style
 })
+
+const getValue = (rowData: any, columnName: string, type: any, column: any) => {
+
+let v = ""
+if (type) {
+    if (type === 'date') {
+        v = date.format(new Date(rowData[columnName]), 'YYYY-MM-DD')
+    }
+} else {
+    if (column['formConfig']?.['componentName'] === 'AlaRadio') {
+        const tmp = u.deepValueFromArrayOrObject(rowData, columnName)
+        column['formConfig']['formData']['items']['desktop'].forEach((item: any) => {
+            if (item.value === tmp) {
+                v = item.name
+            }
+        })
+    } else {
+        v = u.deepValueFromArrayOrObject(rowData, columnName)
+    }
+}
+
+return v
+}
+
 
 </script>
 
