@@ -4,6 +4,7 @@ import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
 
 // 固定资产中心
 import funds from '~icons/icon-park-outline/funds';
+import disposal from '~icons/weui/delete-on-outlined';
 
 
 // 智慧营销中心
@@ -622,6 +623,7 @@ const icon = {
 
   // 固定资产中心
   funds,
+  disposal,
 
 }
 
