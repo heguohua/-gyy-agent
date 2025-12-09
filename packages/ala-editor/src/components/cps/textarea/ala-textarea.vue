@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-23 20:51:13
+ * @LastEditTime: 2025-12-09 09:31:52
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/textarea/ala-textarea.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-textarea-wrapper">
-        <el-form-item :label="label" :label-position="position">
+        <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
@@ -79,11 +79,13 @@ const model = defineModel({
     type: String || Number || null || undefined
 })
 
+const emits = defineEmits(['update:modelValue'])
 const handleChange = (value: string) => {
     if (props.cleanNewlineCharacter) {
         value = u.cleanJsonString(value)
     }
-    model.value = value
+    // 必须通知 v-model
+    emits('update:modelValue', value)
 }
 
 

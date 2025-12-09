@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:06:44
+ * @LastEditTime: 2025-12-09 08:48:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -220,7 +220,9 @@ const showDetail = async (item: string, index: number) => {
             }
         ]
 
-        queryParams = u.merged({ conditionGroups }, params)
+        queryParams = u.merged({ conditionGroups }, { tableName: params.tableName })
+        console.log('queryParams:',queryParams);
+        
 
     } else {
         mName.value = formConfig?.moduleName!
