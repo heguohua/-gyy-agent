@@ -69,6 +69,9 @@ const props = defineProps({
 const { labelWidth } = toRefs(props.formAttr)
 
 
+console.log('props.fields: ---> ', props.fields);
+
+
 // Methods
 // State
 const showDrawer = defineModel({

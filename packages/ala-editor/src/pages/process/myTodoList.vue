@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 10:40:51
+ * @LastEditTime: 2025-12-09 10:50:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/process/myTodoList.vue
  * @Description: 
  * 
@@ -225,7 +225,7 @@ const detailFields: any = ref([
 const formAttr = {
     formWidth: 1800,
     columnNum: 1,
-    labelWidth: 120,
+    labelWidth: 180,
     labelPosition: 'right',
     useFormTitle: false,
 }

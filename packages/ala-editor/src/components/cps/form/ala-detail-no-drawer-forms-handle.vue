@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 10:11:44
+ * @LastEditTime: 2025-12-09 10:24:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-forms-handle.vue
  * @Description: 
  * 
@@ -74,7 +74,7 @@
 import { alaBuildHidden, alaBuildInput, alaBuildSelectDict, alaBuildTextarea } from '@/config/alaBuilders';
 import { alaCard, alaCn, alaCnTw, alaEmail, alaEnumRule, alaLetter, alaLl8, alaLl8_, alaLOrlOr8, alaLOrlOr8Or_, alaNumber, alaNumberMax, alaNumberMin, alaNumberRange, alaPassword, alaPattern, alaPhone, alaRequired, alaStrLength, alaStrLengthRange, alaStrMax, alaStrMin, alaTw, alaUrl } from '@/config/alaRules';
 import baseRule from '@/config/rules/baseRule';
-import { parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from '@/pages/dynamic/formItemParser';
+import { parseCascade, parseCascaderDict, parseChapter, parseCheckbox, parseDate, parseDateRange, parseDivider, parseFile, parseImage, parseInput, parseNumber, parseRadio, parseRating, parseSelect, parseSelectApi, parseSelectDict, parseSelectTable, parseSlider, parseSwitch, parseTextarea } from '@/pages/dynamic/formItemParser';
 import { date } from '@/utils/date';
 import { logger } from '@/utils/logger';
 import notify from '@/utils/notify';
@@ -180,6 +180,8 @@ const getComponent = ((code: string) => {
 })
 
 const labelWidth = () => {
+    console.log('props.formAttr: --->', props.formAttr);
+
     return props.formAttr?.labelWidth + 'px' || '120px'
 }
 
@@ -362,6 +364,16 @@ formConfigs.forEach(async (form: Form) => {
             formItem = parseDateRange(formData)
             formItem.other.startFieldName = formData.startFieldName.desktop
             formItem.other.endFieldName = formData.endFieldName.desktop
+        } else if (code === 'file') {
+            formItem = parseFile(formData)
+        } else if (code === 'image') {
+            formItem = parseImage(formData)
+        } else if (code === 'selectApi') {
+            formItem = parseSelectApi(formData)
+        } else if (code === 'cascader') {
+            formItem = parseCascade(formData)
+        } else if (code === 'cascaderDict') {
+            formItem = parseCascaderDict(formData)
         }
 
 
@@ -371,6 +383,7 @@ formConfigs.forEach(async (form: Form) => {
                 formFields.push(formItem)
             }
         }
+        console.log('formFields:', formFields);
 
 
         const other = formItem.other || {}
