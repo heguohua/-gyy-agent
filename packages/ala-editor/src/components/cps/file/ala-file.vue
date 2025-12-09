@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:16:38
+ * @LastEditTime: 2025-12-09 10:59:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/file/ala-file.vue
  * @Description: 
  * 
@@ -234,12 +234,12 @@ const handleDelete = (file: AFile) => {
 
 
 const isDisabled = computed(() => {
-    const idd = false
+  const idd = false
 
-    if (props.noEditable) {
-        return true
-    }
-    return idd
+  if (props.noEditable) {
+    return true
+  }
+  return idd
 })
 
 // Methods
@@ -250,8 +250,14 @@ const isDisabled = computed(() => {
 
   min-width: 250px;
 
+  // fix 20251209 修复审批页面字段标签不右侧对齐的bug
+  :deep(.ala-form-label-wrapper) {
+    justify-content: right;
+  }
+
   div {
-    width: 100%;
+    // fix 20251209 修复审批页面字段标签不右侧对齐的bug
+    // width: 100%;
   }
 
   :deep(.ala-form-label) {
