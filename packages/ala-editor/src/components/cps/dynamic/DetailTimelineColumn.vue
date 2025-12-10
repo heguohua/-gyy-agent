@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:07:44
+ * @LastEditTime: 2025-12-09 11:22:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTimelineColumn.vue
  * @Description: 
  * 
@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import { getLowcodingConfigByClassName } from '@/config/formConfigs'
+import { get } from '@/utils/req';
 import u from '@/utils/u'
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -85,11 +86,11 @@ const showDetailPage = ref(false)
 
 
 const handleShowDetail = async (item: Item) => {
-    console.log('item: --->', item);
 
 
     // 获取表单元数据
     const className = u.parseJson(item.detailEntity.args)[0].className
+    const id = u.parseJson(item.detailEntity.args)[0].id
     const config = await getLowcodingConfigByClassName(className)
     detailFields.value = config.detailFields
     formAttrs.value = config.formAttr
@@ -98,9 +99,15 @@ const handleShowDetail = async (item: Item) => {
 
     // 渲染弹窗
 
+    console.log('item: ---> ', item);
+    const dynamicTableUrl = '/l/dynamic/get'
+    const dynamicTableParams = { tableName: className, id }
+
+    const response = await get(u.url(dynamicTableUrl || ''), dynamicTableParams)
+    console.log('response.data.data:', response);
+
     u.clear(detailItem.item)
-    console.log('`menu.${className}`:',t("menu.customerVisitWorkOrderConfirm"));
-    
+
     u.merged(detailItem, { item: item.detailEntity, moduleName: u.parseI18n(`t("menu.${className}")`, t) })
     // u.merged(baseInfo, { id: entity.id })
     showDetailPage.value = true
