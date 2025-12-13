@@ -1,7 +1,7 @@
 <template>
     <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
         <AlaFormItems ref="formItemsRef" v-model="showDrawer" @confirm="confirm" @cancel="cancel" v-bind="props"
-            :fields="fields" :data="formData" :closeContent="closeContent" :formAttr="formAttr"
+            :fields="fields" :formData="formData" :closeContent="closeContent" :formAttr="formAttr"
             :moduleName="moduleName.replaceAll('管理', '')" :operationType="operationType" :tipTitle="tipTitle"
             @formItemChangeCallback="formItemChangeCallback">
             <template #buttons>
@@ -279,7 +279,7 @@ const postData = async (item: any): Promise<any> => {
 const emit = defineEmits(["confirm", "refresh"])
 
 const formItemChangeCallback = (data: any) => {
-    u.merged(props.formData || {}, data)
+    u.merged(props.formData!, data)
 }
 
 // watch(() => props.formData, (value: any) => {

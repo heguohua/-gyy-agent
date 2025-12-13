@@ -10,7 +10,8 @@
                     <ala-input class="dataset-input" placeholder="请填写数据集名称" v-model="dataset.name" />
                 </div>
                 <div class="right">
-                    <AlaButton :showButton="true" name="saveAndBack" @saveAndBack="handleSave(true)" buttonType="default" />
+                    <AlaButton :showButton="true" name="saveAndBack" @saveAndBack="handleSave(true)"
+                        buttonType="default" />
                     <AlaButton :showButton="true" name="save" @save="handleSave()" buttonType="primary" />
                 </div>
             </div>
@@ -23,7 +24,7 @@
                 <div class="left">
                     <div class="select-datasource">
                         <h1 class="sd-title">选择数据源</h1>
-                        <AlaSelectApi v-model="datasourceId" url="/b/datasource/list"
+                        <AlaSelectApi v-model="datasource" url="/b/datasource/list"
                             :item-property="{ propertyName: 'name', valueName: 'id', }" :params="{ noType: 'folder' }"
                             placeholder="请选择数据源" />
                     </div>
@@ -193,19 +194,23 @@ const close = () => {
 
 // ################## 选择数据源 start ####################################################
 
-const datasourceId = ref('')
+const datasource = ref<Array<any>>([])
 interface Table {
     tableName: string,
     datasourceId: number
 }
 const tables = ref<Array<Table>>([])
-watch(() => datasourceId.value, (id: any) => {
-    logger.info(`观察到数据源发生变化，即将加载数据源中的表信息，datasourceId[ ${datasourceId.value} ]`);
+watch(() => datasource.value, (datasource: any) => {
+    logger.info(`观察到数据源发生变化，即将加载数据源中的表信息，datasource[ ${datasource.value} ]`);
+
+    if (!datasource || datasource.length === 0) {
+        return
+    }
 
     // Methods
     const url = '/b/datasource/getTables'
 
-    let params = { datasourceId: id }
+    let params = { datasourceId: datasource[0].id }
 
     logger.info(`加载数据源中的表信息，url【 ${url} 】，查询参数：`, params);
 
@@ -221,6 +226,8 @@ watch(() => datasourceId.value, (id: any) => {
 
     });
 
+}, {
+    deep: true
 })
 
 const handleCopy = (value: string) => {
@@ -235,7 +242,7 @@ interface TableField {
 }
 const tableFields = ref<Array<TableField>>([])
 const showTableFields = (tableName: string) => {
-    const params = { datasourceId: datasourceId.value, tableName, info: u.tojson({ table: tableName, sql: "" }), "type": "db" }
+    const params = { datasourceId: datasource.value, tableName, info: u.tojson({ table: tableName, sql: "" }), "type": "db" }
 
     const url = '/b/datasetTableField/tableField'
 
@@ -283,7 +290,7 @@ const handleRun = () => {
     // "sqlVariableDetails": "[{\"variableName\":\"limitNum\",\"alias\":\"\",\"type\":[\"LONG\"],\"required\":false,\"defaultValue\":\"10\",\"details\":\"\",\"defaultValueScope\":\"ALLSCOPE\"}]"
     // }
     const sql = u.base64Encode(alaSqlEditor.value.sqlContent)
-    const id = datasourceId.value
+    const id = datasource.value[0].id
     u.checkEmpty(id, "数据源", t)
 
     let params = { sql, datasourceId: id, sqlVariableDetails: u.tojson([]) }
@@ -416,21 +423,17 @@ if (baseInfo.datasetGroup.id) {
             if (currentDataset.info) {
                 info = u.parseJson(currentDataset.info)
             }
-            const sql = u.base64Decode(info.sql)
 
+            const sql = u.base64Decode(info.sql)
 
             const dt = dataset.value
             dt.name = name
             baseInfo.datasetGroup.pid = pid
-            datasourceId.value = dId
+            datasource.value.push({ name: 'xxx', id: dId })
             if (sql) {
                 alaSqlEditor.value.sqlContent = sql
             }
 
-
-            // fields.forEach((field: any) => {
-
-            // })
         } else {
             notify.error(t('pop.warm_title'), "没有加载到数据集原始数据！")
         }
@@ -457,7 +460,7 @@ const handleSave = async (closeAddPage = false) => {
     u.checkEmpty(dt.name, '数据集名称', t)
 
     // 检查 数据源id 是否存在 ？
-    u.checkEmpty(datasourceId.value, '数据源id', t)
+    u.checkEmpty(datasource.value, '数据源id', t)
 
     const sql = alaSqlEditor.value.sqlContent
     u.checkEmpty(sql, "查询SQL", t)
@@ -478,7 +481,7 @@ const handleSave = async (closeAddPage = false) => {
     const tableFieldsUrl = '/b/datasetTableField/tableField'
     const tableFieldsParams = {
         tableName: dt.name,
-        datasourceId: datasourceId.value,
+        datasourceId: datasource.value,
         info: u.tojson({
             table: dt.name,
             sql: u.base64Encode(sql)
@@ -497,7 +500,7 @@ const handleSave = async (closeAddPage = false) => {
             fields.forEach((field: any) => {
                 allFields.push({
                     // id: snowflake.nextId(), //
-                    datasourceId: datasourceId.value, //
+                    datasourceId: datasource.value, //
                     originName: field.originName, //
                     name: field.name, //
                     description: field.type, //
@@ -515,7 +518,7 @@ const handleSave = async (closeAddPage = false) => {
 
     // 组装 union
     const currentDataset: CurrentDataset = {
-        datasourceId: datasourceId.value,
+        datasourceId: datasource.value,
         type: 'sql',
         tableName: dt.name,
         sqlVariableDetails: '[]',
@@ -543,7 +546,7 @@ const handleSave = async (closeAddPage = false) => {
     const datasetUrl = id ? '/b/datasetGroup/updateDatasetGroup' : '/b/datasetGroup/create'
     alaPost(u.url(datasetUrl), dt, false, '').then((response: any) => {
         notify.success(t('pop.warm_title'), "保存成功");
-        
+
         if (closeAddPage) {
             close()
         } else {
@@ -616,6 +619,8 @@ const handleSave = async (closeAddPage = false) => {
         width: 300px;
         height: 100%;
         border-right: 1px solid rgba(31, 35, 41, 0.15);
+        overflow-y: auto;
+
 
         .sd-title {
             font-size: 16px;
@@ -635,17 +640,44 @@ const handleSave = async (closeAddPage = false) => {
         }
 
         .tables {
+            height: 100%;
             padding: 0px 8px;
 
             .table-item {
 
+                // display: flex;
+                // align-items: center;
+                // justify-content: left;
+                // justify-items: left;
+                // padding: 4px 0px;
+                // padding-left: 16px;
+                // border-radius: 4px;
+
                 display: flex;
-                align-items: center;
-                justify-content: left;
-                justify-items: left;
-                padding: 4px 0px;
+                /* 子元素顶部对齐（关键） */
+                align-items: flex-start;
+                /* 左对齐 */
+                justify-content: flex-start;
+                /* 一行放不下就换行 */
+                flex-wrap: wrap;
+
+                padding: 4px 0;
                 padding-left: 16px;
                 border-radius: 4px;
+                /* 单词过长时换行 */
+                word-break: break-word;
+                /* 兼容写法 */
+                overflow-wrap: break-word;
+
+                .tableName {
+                    /* 占据剩余空间 */
+                    min-width: 0;
+                    /* ⭐ 非常关键：允许在 flex 中换行 */
+                    word-break: break-word;
+                    overflow-wrap: break-word;
+                    text-align: left;
+                    width: 200px;
+                }
 
                 &:hover {
                     cursor: pointer;

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 10:34:19
+ * @LastEditTime: 2025-12-13 18:03:08
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/bi/datasource/datasourceAdd.vue
  * @Description: 
  * 
@@ -90,11 +90,18 @@ const datasourceFields = ref<Array<any>>([])
 
 // 基础表单字段
 const basicFields = computed(() => {
-    return preFields.value.concat(datasourceFields.value)
+    const bfs = preFields.value.concat(datasourceFields.value)
+    return bfs
 })
 
-watch(() => formData['type'], (value: string) => {
+watch(() => formData["type"], async (value: any) => {
+
+    if (!value) {
+        return
+    }
+
     // 数据源类型发生变化，重新初始化表单区域
+    await nextTick()
 
     let fields: any[] = []
     if (value === '["OLTP","MySQL"]') {
@@ -107,7 +114,6 @@ watch(() => formData['type'], (value: string) => {
             alaBuildPassword("configuration.password", "密码", [alaRequired(), alaStrLengthRange(2, 256)]),
             alaBuildTextarea("configuration.extraParams", "额外的 JDBC 连接字符串", [alaRequired(), alaStrLengthRange(2, 256)], "请输入数据库连接额外参数信息，如 ‘ useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true ’", { cleanNewlineCharacter: true, columnNum: 2 }),
         ].concat(subFields.value)
-
     } else if (value === '["OLTP","Db2"]') {
         datasourceFields.value = [
             alaBuildInput("name", 'Db2', [alaRequired()]),
@@ -185,6 +191,8 @@ watch(() => formData['type'], (value: string) => {
     //     alaBuildNumber("sort", t('common.sorting')),
     // ]
 
+}, {
+    immediate: true
 })
 
 // // 基础表单字段
