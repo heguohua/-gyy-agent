@@ -240,7 +240,7 @@ const year = date.currentYear()
 const systemInfo = reactive({
     companyNameCN: "深圳市谷雨云科技有限公司",
     companyNameEN: "( Guyu Cloud Technologies Co.,Ltd. )",
-    systemName: "谷雨智搭业务中台",
+    systemName: "智慧营销管理平台",
     systemPhone: "400-800-9202",
     remark_cn: "深圳市谷雨云科技有限公司致力于构建透明、公开的商业合作环境，以尊重并保护合作伙伴和自身共同利益。为此，公司也希望与合作伙伴共同遵守所有适用的法律法规，包括联合国安理会、中国、美国、欧盟等，以上感谢。",
     remark_en: "Guyu is committed to building an open, transparent business community. We value and aim to protect mutual interests of both cooperative partners and Guyu .To this end, Guyu works together with cooperative partners to comply with all applicable laws and regulations of the United Nations Security Council, China, United States, and the European Union, Thanks.",

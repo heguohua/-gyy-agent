@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-28 11:44:47
+ * @LastEditTime: 2025-12-15 11:12:25
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail.vue
  * @Description: 
  * 
@@ -78,7 +78,6 @@ const props = defineProps({
         })
     }
 })
-
 
 const isHidden = (item: { componentName: string, other?: any }) => {
 

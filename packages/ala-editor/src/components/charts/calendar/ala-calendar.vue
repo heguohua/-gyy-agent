@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-13 06:50:18
+ * @LastEditTime: 2025-12-15 11:21:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/charts/calendar/ala-calendar.vue
  * @Description: 
  * 
@@ -343,6 +343,16 @@ const detailItem = reactive({
 })
 
 
+
+const baseInfo = reactive({
+  module: '',
+  id: 0,
+})
+
+
+provide('baseInfo', baseInfo);
+
+
 const showDetailPage = ref(false)
 const formAttrs = ref()
 
@@ -350,6 +360,8 @@ onMounted(async () => {
 
   const formData = props.formData
   const className = formData.className.desktop
+  baseInfo.module = className
+
   detailItem.moduleName = t('menu.' + className)
   const configs = await getLowcodingConfigByClassName(className || "")
 
@@ -390,6 +402,7 @@ const showDetail = (item: { id: number, name: string }) => {
   const formData = props.formData
 
   detailItem.item = dataCache.value[item.id]
+  baseInfo.id = item.id
 
   showDetailPage.value = true
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 16:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-07 22:20:52
+ * @LastEditTime: 2025-12-15 11:08:40
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formConfigParser.ts
  * @Description: 
  * 
@@ -116,7 +116,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
             if (config.blockConfig?.form) {
 
                 config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
-                    
+
                     const { code, formData } = { ...item }
 
                     // 首先添加 formConfigItem 配置
@@ -174,7 +174,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                         } else if (code === 'checkbox') {
                             formItem = parseCheckbox(formData)
                         } else if (code === 'date') {
-                            formItem = parseDate(formData)                            
+                            formItem = parseDate(formData)
                         } else if (code === 'number') {
                             formItem = parseNumber(formData)
                         } else if (code === 'select') {
@@ -214,7 +214,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                             formItem = parseAi(formData)
                         } else if (code === 'aiInfo') {
                             formItem = parseAiInfo(formData)
-                        }else if (code === 'selectApi') {
+                        } else if (code === 'selectApi') {
                             formItem = parseSelectApi(formData)
                         } else {
                             logger.error(`【 错误，错误，错误 】发现未知类型[ ${code} ]的【 form字段 】`)

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:05:31
+ * @LastEditTime: 2025-12-15 11:26:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFormTableColumn.vue
  * @Description: 
  * 
@@ -128,11 +128,10 @@ watch([() => props.value, () => baseInfo.id], async () => {
     if (props.value) {
 
         const childTableLowcodingConfig = u.parseJson(props.value)
-
+        
         const configs = await getLowcodingConfigById(childTableLowcodingConfig[0].id)
 
         let leftTableName = configs.className
-
 
         const module = baseInfo.module ? baseInfo.module : alaStore.get('ala_current_module_name');
 
