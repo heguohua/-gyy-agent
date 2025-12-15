@@ -116,7 +116,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
             if (config.blockConfig?.form) {
 
                 config.blockConfig?.form.forEach((item: { code: string, formData: any }) => {
-
+                    
                     const { code, formData } = { ...item }
 
                     // 首先添加 formConfigItem 配置
@@ -174,7 +174,7 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                         } else if (code === 'checkbox') {
                             formItem = parseCheckbox(formData)
                         } else if (code === 'date') {
-                            formItem = parseDate(formData)
+                            formItem = parseDate(formData)                            
                         } else if (code === 'number') {
                             formItem = parseNumber(formData)
                         } else if (code === 'select') {

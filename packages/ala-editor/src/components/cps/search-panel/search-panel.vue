@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-22 11:52:26
+ * @LastEditTime: 2025-12-15 08:39:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -11,7 +11,7 @@
 <template>
 
     <div class="ala-form-wrapper">
-        <el-form ref="formRef" :model="params" class="ala-form">
+        <el-form ref="searchParamFormRef" :model="params" class="ala-form">
 
             <!-- 基础查询条件 -->
             <div class="ala-search-base">
@@ -135,11 +135,11 @@ const toggleAdvanced = () => {
 }
 
 // 清空表单
-const formRef = ref()
+const searchParamFormRef = ref()
 const clear = () => {
 
     // 重置表单数据
-    formRef.value.resetFields();
+    searchParamFormRef.value.resetFields();
 
     // 清除 AlaDateRange 类型组件表单数据
     u.clear(props.params)
@@ -164,11 +164,13 @@ const parseLabel = (label: string) => {
 const bFields = ref<Array<AlaField>>([])
 
 watch(() => props.baseFields, (baseFields) => {
-    const baseSearchFields: Array<AlaField> = []
 
+    const baseSearchFields: Array<AlaField> = []
     if (baseFields && baseFields.length > 0) {
 
-        baseFields.forEach((baseField: any) => {
+        const rawFields = structuredClone(toRaw(baseFields)) as any
+        
+        rawFields.forEach((baseField: any) => {
 
             if (baseField.componentName === 'AlaInput') {
                 baseSearchFields.push(baseField)

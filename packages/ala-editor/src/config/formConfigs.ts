@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-08 23:01:21
+ * @LastEditTime: 2025-12-15 08:39:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
@@ -91,6 +91,7 @@ export const getLowcodingConfigByClassName = async (className: string): Promise<
         const list_url = "/l/lowcodingConfig/list"
         const list_params = { className }
         config = await formConfigParse(list_url, list_params)
+        
         if (config) {
             lowcodingConfigWithClassName.set(className, config)
         }

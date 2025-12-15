@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-24 15:13:08
+ * @LastEditTime: 2025-12-15 08:39:35
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -497,6 +497,7 @@ onMounted(async () => {
     showButtonsColumn.value = configs.showButtonsColumn
     formType.value = configs.formType
     u.merged(formAttr.value, configs.formAttr)
+    
 
     if (configs.outApi) {
         // 说明是 静态api模块
