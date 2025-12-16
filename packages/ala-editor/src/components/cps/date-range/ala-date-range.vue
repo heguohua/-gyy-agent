@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-21 22:06:47
+ * @LastEditTime: 2025-12-16 09:59:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
  * @Description: 
  * 
@@ -10,7 +10,7 @@
 -->
 <template>
     <div class="ala-date-range-wrapper">
-        <el-form-item :label="label" :label-position="position" :prop="fieldName">
+        <el-form-item :label="label" :label-position="position" :prop="startFieldName">
             <template #label>
                 <AlaFormLabel :label="label" :help="help" />
             </template>
@@ -92,7 +92,10 @@ const props = defineProps({
 
 
 const fieldName = computed(() => {
-    return props.startFieldName + '_' + props.endFieldName
+    const fn = props.startFieldName + '_' + props.endFieldName
+    console.log('fn:-- 112233 -->', fn);
+
+    return fn
 })
 
 
@@ -107,7 +110,7 @@ watch(() => props.data, () => {
         const endDate = props.data?.[props.endFieldName]
         arr.push(startDate, endDate)
     }
-    
+
     localModel.value = arr
 
 }, {
@@ -137,6 +140,10 @@ const handleChange = (value: Date | null) => {
             }
 
             localModel.value = dates
+
+            console.log('fieldName:', fieldName);
+            console.log('localModel.value:', localModel.value);
+
             // 表单数据更新回调
 
             emit("formItemChangeCallback", {
