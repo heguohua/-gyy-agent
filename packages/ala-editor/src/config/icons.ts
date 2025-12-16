@@ -178,6 +178,7 @@ import paymentApplyIcon from '~icons/stash/hand-holding-dollar';
 import paymentReceiveIcon from '~icons/hugeicons/money-receive-square';
 import customerServiceIcon from '~icons/ri/customer-service-2-fill';
 import businessPlaneIcon from '~icons/uil/plane-fly';
+import businessBackIcon from '~icons/icon-park-outline/round-trip';
 import businessCreditIcon from '~icons/majesticons/creditcard-hand-line';
 import businessCallIcon from '~icons/fluent/person-call-16-regular';
 import businessLogIcon from '~icons/octicon/log-24';
@@ -483,6 +484,7 @@ const icon = {
   payment_receive: paymentReceiveIcon,
   customer_service: customerServiceIcon,
   business_plane: businessPlaneIcon,
+  business_back: businessBackIcon,
   business_credit: businessCreditIcon,
   business_call: businessCallIcon,
   business_log: businessLogIcon,
