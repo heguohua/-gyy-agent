@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:07:26
+ * @LastEditTime: 2025-12-20 16:23:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTextColorColumn.vue
  * @Description: 
  * 
@@ -10,7 +10,14 @@
 -->
 <template>
 
-    <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+    <p class="title" :style="{ minWidth: labelWidth }">
+        <template v-if="isDetailPage">
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+            </template>
+            <template v-else>
+                {{ label }}
+            </template>
+    </p>
     <p class="value">
         <i :style="styles">{{ value }}</i>
     </p>

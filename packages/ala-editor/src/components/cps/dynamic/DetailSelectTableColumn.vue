@@ -2,14 +2,21 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-10 19:59:26
+ * @LastEditTime: 2025-12-20 16:22:55
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+    <p class="title" :style="{ minWidth: labelWidth }">
+        <template v-if="isDetailPage">
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+            </template>
+            <template v-else>
+                {{ label }}
+            </template>
+    </p>
     <div class="value">
         <div class="select-table">
             <div class="ala-select-table-value" v-for="(item, index) in showValue" @click="showDetail(item, index)">

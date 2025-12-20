@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-24 09:16:00
+ * @LastEditTime: 2025-12-20 16:21:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailImageColumn.vue
  * @Description: 
  * 
@@ -10,14 +10,28 @@
 -->
 <template>
     <template v-if="isDetailColumn">
-        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">
+            <template v-if="isDetailPage">
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+            </template>
+            <template v-else>
+                {{ label }}
+            </template>
+        </p>
         <div class="ala-image value">
             <img class="image" :src="image.src" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
                 :key="index" @click="showDetail" :image="image.fid" />
         </div>
     </template>
     <template v-else>
-        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">
+            <template v-if="isDetailPage">
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+            </template>
+            <template v-else>
+                {{ label }}
+            </template>
+        </p>
         <div class="value ala-image">
             <img class="image" :src="image.src" :style="{ maxWidth: imageWidth }" v-for="(image, index) in localValues"
                 :key="index" :image="image.fid" />

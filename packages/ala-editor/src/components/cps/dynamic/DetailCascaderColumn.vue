@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 19:04:11
+ * @LastEditTime: 2025-12-20 16:20:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailCascaderColumn.vue
  * @Description: 
  * 
@@ -10,11 +10,25 @@
 -->
 <template>
     <template v-if="isDetailColumn">
-        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">
+            <template v-if="isDetailPage">
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+            </template>
+            <template v-else>
+                {{ label }}
+            </template>
+        </p>
         <p class="detail-link value" @click="showDetail">{{ showValue }}</p>
     </template>
     <template v-else>
-        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">
+            <template v-if="isDetailPage">
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+            </template>
+            <template v-else>
+                {{ label }}
+            </template>
+        </p>
         <p class="value"><v-icon v-if="icon && !isDetailColumn" class="image" :icon="icon" :width="width"
                 :height="height" />{{
                     showValue }}

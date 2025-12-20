@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 10:39:56
+ * @LastEditTime: 2025-12-20 16:21:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailFlowInstanceStateColumn.vue
  * @Description: 
  * 
@@ -11,7 +11,14 @@
 <template>
 
     <div class="ala-detail-flow-instance-state">
-        <p class="title" :style="{ minWidth: labelWidth }">{{ label }} <template v-if="isDetailPage"> ：</template></p>
+        <p class="title" :style="{ minWidth: labelWidth }">
+            <template v-if="isDetailPage">
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+            </template>
+            <template v-else>
+                {{ label }}
+            </template>
+        </p>
         <p class="value" v-if="showValue" :style="style" @click="showInstanceInfo">{{ showValue ? showValue : '123' }}
         </p>
         <p class="value startFlow" v-else :style="style" @click="startFlow">{{ t('buttons.form_initiate') }}</p>
