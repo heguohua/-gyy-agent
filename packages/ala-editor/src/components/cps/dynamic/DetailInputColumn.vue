@@ -86,8 +86,6 @@ const isDetailColumn = computed(() => {
     return props.formItem.formData?.detail?.desktop
 })
 
-console.log('props.formItem:', props.formItem);
-
 
 const emit = defineEmits(['showDetail', 'refresh'])
 const showDetail = () => {
