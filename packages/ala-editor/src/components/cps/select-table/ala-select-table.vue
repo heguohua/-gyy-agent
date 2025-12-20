@@ -198,8 +198,8 @@ const model = defineModel({
 })
 
 const styles = computed(() => {
-  const style: any = { minWidth: props.width + 'px' }
 
+  const style: any = { minWidth: props.width + 'px' }
 
   if (props.noEditable) {
     style.cursor = 'not-allowed'

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-15 08:39:20
+ * @LastEditTime: 2025-12-19 15:56:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -169,7 +169,7 @@ watch(() => props.baseFields, (baseFields) => {
     if (baseFields && baseFields.length > 0) {
 
         const rawFields = structuredClone(toRaw(baseFields)) as any
-        
+
         rawFields.forEach((baseField: any) => {
 
             if (baseField.componentName === 'AlaInput') {
@@ -202,6 +202,12 @@ watch(() => props.baseFields, (baseFields) => {
 
                 baseSearchFields.push(baseField)
             } else if (baseField.componentName === 'AlaSelectTable') {
+                const formData = baseField.formData
+                u.merged(baseField['other'], {
+                    width: formData.columnWidth?.desktop,
+                    iconWidth: formData.iconWidth?.desktop,
+                    iconHeight: formData.iconHeight?.desktop,
+                })
                 baseSearchFields.push(baseField)
             } else if (baseField.componentName === 'AlaRadio') {
 
