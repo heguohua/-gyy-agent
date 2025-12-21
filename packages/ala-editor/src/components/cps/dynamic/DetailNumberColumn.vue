@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-20 16:21:39
+ * @LastEditTime: 2025-12-21 18:22:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailNumberColumn.vue
  * @Description: 
  * 
@@ -19,7 +19,10 @@
                 {{ label }}
             </template>
         </p>
-        <p class="detail-link value" @click="showDetail">{{ formatValue(value) }}</p>
+        <p class="detail-link value" @click="showDetail">
+            <v-icon v-if="icon" class="image" :icon="icon" :width="width" :height="height" />
+            {{ formatValue(value) }}
+        </p>
     </template>
     <template v-else>
         <p class="title" :style="{ minWidth: labelWidth }">
@@ -30,9 +33,9 @@
                 {{ label }}
             </template>
         </p>
-        <p class="value"><v-icon v-if="icon && !isDetailColumn" class="image" :icon="icon" :width="width"
-                :height="height" />{{
-                    formatValue(value) }}
+        <p class="value">
+            <v-icon v-if="icon" class="image" :icon="icon" :width="width" :height="height" />
+            {{ formatValue(value) }}
         </p>
     </template>
 
