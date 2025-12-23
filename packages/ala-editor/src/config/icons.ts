@@ -261,6 +261,15 @@ import tenderIcon from '~icons/mingcute/paper-line';
 import bidIcon from '~icons/streamline-ultimate/paper-write';
 import logDetailsIcon from '~icons/tabler/list-details';
 import logProjectIcon from '~icons/eos-icons/project-outlined';
+import certificate from '~icons/mdi/certificate-outline';
+import certificate_in from '~icons/fluent/library-32-regular';
+import certificate_borrow from '~icons/ic/outline-local-library';
+import go_out from '~icons/ic/outline-time-to-leave';
+import taxi from '~icons/icon-park-outline/taxi';
+import run from '~icons/fa7-solid/person-running';
+import business_card from '~icons/fa6-regular/address-card';
+import handshake from '~icons/fluent/handshake-20-regular';
+import overtime from '~icons/lsicon/overtime-filled';
 
 // 财务中心
 import financeIcon from '~icons/icon-park-outline/finance';
@@ -275,6 +284,7 @@ import techServiceIcon from '~icons/mdi/account-service-outline';
 import receiptIcon from '~icons/fluent/receipt-add-20-regular';
 import paymentIcon from '~icons/streamline/receipt-subtract-remix';
 import invoiceTitleIcon from '~icons/iconamoon/invoice-light';
+import loan from '~icons/carbon/global-loan-and-trial';
 
 // 智能调度中心
 import scheduleCenterIcon from '~icons/material-symbols/schedule-send-outline-rounded';
@@ -568,6 +578,15 @@ const icon = {
   bid: bidIcon,
   log_details: logDetailsIcon,
   log_project: logProjectIcon,
+  certificate,
+  certificate_in,
+  certificate_borrow,
+  go_out,
+  taxi,
+  run,
+  business_card,
+  handshake,
+  overtime,
 
   finance: financeIcon, // 财务中心
   goodsPurchase: goodsPurchaseIcon,
@@ -581,6 +600,7 @@ const icon = {
   receipt: receiptIcon,
   payment: paymentIcon,
   invoiceTitle: invoiceTitleIcon,
+  loan,
 
   schedule_center: scheduleCenterIcon, // 智能调度中心
   schedule_task: scheduleTaskIcon,
