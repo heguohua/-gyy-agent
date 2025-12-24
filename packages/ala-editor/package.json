@@ -43,7 +43,9 @@
     "vue-json-pretty": "^2.4.0",
     "vue-router": "^4.5.1",
     "vue3-ace-editor": "^2.2.4",
-    "vuedraggable": "^4.1.0"
+    "vuedraggable": "^4.1.0",
+    "xgplayer": "^3.0.23",
+    "xgplayer-flv": "^3.0.23"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",

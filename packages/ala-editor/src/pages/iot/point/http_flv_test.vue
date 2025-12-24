@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-12-24 08:41:16
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-24 09:00:19
+ * @LastEditTime: 2025-12-24 17:45:15
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/http_flv_test.vue
  * @Description: 
  * 
@@ -15,54 +15,26 @@
 
 <script setup>
 import { onMounted, onBeforeUnmount, ref } from 'vue'
+// 核心播放器
+import Player from 'xgplayer'
+// FLV 插件
+import FlvPlayer from 'xgplayer-flv'
 
-/**
- * xgplayer 使用 CDN 方式加载
- * 如果你想用 npm 安装版本，我可以再给你一版
- */
-let player = null
+// 样式（必须引）
+import 'xgplayer/dist/index.min.css'
+
 const playerRef = ref(null)
-import u from '@/utils/u';
+let player = null
 
-onMounted(async () => {
-    // 动态加载 CSS
-    const loadCss = (href) =>
-        new Promise((resolve) => {
-            const link = document.createElement('link')
-            link.rel = 'stylesheet'
-            link.href = href
-            link.onload = resolve
-            document.head.appendChild(link)
-        })
-
-    // 动态加载 JS
-    const loadScript = (src) =>
-        new Promise((resolve) => {
-            const script = document.createElement('script')
-            script.src = src
-            script.onload = resolve
-            document.body.appendChild(script)
-        })
-
-    await loadCss('https://unpkg.byted-static.com/xgplayer/3.0.23/dist/index.min.css')
-    await loadScript('https://unpkg.byted-static.com/xgplayer/3.0.23/dist/index.min.js')
-    await loadScript('https://unpkg.byted-static.com/xgplayer-flv/3.0.23/dist/index.min.js')
-
-    // eslint-disable-next-line no-undef
-    const { Player } = window
-    // eslint-disable-next-line no-undef
-    const FlvPlayer = window.FlvPlayer
-
-    const config = {
+onMounted(() => {
+    player = new Player({
         el: playerRef.value,
-        url: 'http://100.127.203.57:2060/live?url=/Users/darcy/Downloads/38148_2025_12_19_08.ts&&&isLocal=true&&&ffmpeg=true',
+        url: 'http://127.0.0.1:2060/live?url=/Users/darcy/Downloads/38148_2025_12_19_08.ts&&&isLocal=true&&&ffmpeg=true&&&autoClose=true',
+        isLive: true,
         playsinline: true,
         poster: '//lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/poster.jpg',
-        isLive: true,
-        plugins: [FlvPlayer]
-    }
-
-    player = new Player(config)
+        plugins: [FlvPlayer],
+    })
 })
 
 onBeforeUnmount(() => {

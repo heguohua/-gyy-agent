@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-23 20:24:53
+ * @LastEditTime: 2025-12-24 21:36:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailVideoFlvColumn.vue
  * @Description: 
  * 
@@ -84,7 +84,8 @@ const showVideo = () => {
         return
     }
 
-    url.value = `/v/${props.value.toLocaleLowerCase()}`
+    // http://127.0.0.1:2060/live?url=/Users/darcy/Downloads/38148_2025_12_19_08.ts&&&isLocal=true&&&ffmpeg=true&&&autoClose=true
+    url.value = `${u.videoUrl()}/live?url=${props.value}&&&isLocal=true&&&ffmpeg=true&&&autoClose=true`
     title.value = props.data[props.formItem.formData.titleColumnName.desktop]
     show.value = true    
 }

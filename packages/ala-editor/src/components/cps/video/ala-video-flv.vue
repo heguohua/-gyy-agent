@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-08-04 19:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-24 08:56:00
+ * @LastEditTime: 2025-12-24 18:02:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/video/ala-video-flv.vue
  * @Description: 
  * 
@@ -10,17 +10,19 @@
 -->
 <template>
     <div class="ala-video-flv">
-        <!-- <video ref="videoPlayer" class="video-js vjs-default-skin" controls autoplay playsinline muted></video> -->
-
-        <video ref="videoRef" controls autoplay muted style="width: 100%; height: 100%; background: black" />
-
+        <div ref="playerRef" class="player-container"></div>
     </div>
 </template>
 
 <script setup>
 import { onMounted, onBeforeUnmount, ref } from 'vue'
-import videojs from 'video.js'
-import 'video.js/dist/video-js.css'
+// 核心播放器
+import Player from 'xgplayer'
+// FLV 插件
+import FlvPlayer from 'xgplayer-flv'
+
+// 样式（必须引）
+import 'xgplayer/dist/index.min.css'
 
 // State
 const props = defineProps({
@@ -43,41 +45,36 @@ const props = defineProps({
 })
 
 
-const videoRef = ref(null)
-let flvPlayer = null
+const playerRef = ref(null)
+let player = null
+
+console.log('props.url:', props.url);
+
 
 onMounted(() => {
-
-    console.log('props.url:','http://localhost:5173/v/38148_2025_12_19_08.ts.flv');
-    
-    if (flvjs.isSupported()) {
-        flvPlayer = flvjs.createPlayer({
-            type: 'flv',
-            url: 'http://localhost:5173/v/live?url=/Users/darcy/Downloads/38148_2025_12_19_08.ts&&&isLocal=true',
-            isLive: true,          // 直播流
-            hasAudio: true,
-            hasVideo: true
-        }, {
-            // enableWorker: true,    // 使用 Web Worker
-            stashInitialSize: 128  // 降低首帧延迟
-        })
-
-        flvPlayer.attachMediaElement(videoRef.value)
-        flvPlayer.load()
-        flvPlayer.play()
-    } else {
-        console.error('当前浏览器不支持 flv.js')
-    }
+    player = new Player({
+        el: playerRef.value,
+        url: props.url,
+        isLive: true,
+        playsinline: true,
+        poster: '//lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/poster.jpg',
+        plugins: [FlvPlayer],
+    })
 })
 
 onBeforeUnmount(() => {
-    if (flvPlayer) {
-        flvPlayer.pause()
-        flvPlayer.unload()
-        flvPlayer.detachMediaElement()
-        flvPlayer.destroy()
-        flvPlayer = null
+    if (player) {
+        player.destroy()
+        player = null
     }
 })
 
 </script>
+<style lang="scss" scoped>
+.ala-video-flv {
+    .player-container {
+        width: 100% !important;
+        min-height: 800px;
+    }
+}
+</style>
