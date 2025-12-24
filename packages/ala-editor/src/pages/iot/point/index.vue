@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-05-25 17:11:18
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-03 16:48:52
+ * @LastEditTime: 2025-12-24 08:45:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/point/index.vue
  * @Description: 
  * 
@@ -13,6 +13,7 @@
   <d_1_d3基础教程/> -->
   <div class="demo">
 
+    <XgFlvPlayer/>
 
       <d_229_使用path绘制条形图 />
       <d_228_携带数据的条形图 />
@@ -52,6 +53,7 @@
       <e_5_折线图 />
       <e_6_堆叠折线图 />
       <e_7_条形图 />
+
   </div>
 
 </template>
@@ -99,6 +101,9 @@ import e_3_雷达图 from './e_3_雷达图.vue'
 import e_5_折线图 from './e_5_折线图.vue'
 import e_6_堆叠折线图 from './e_6_堆叠折线图.vue'
 import e_7_条形图 from './e_7_条形图.vue'
+
+
+import XgFlvPlayer from './http_flv_test.vue'
 
 // Methods
 

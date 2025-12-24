@@ -11,7 +11,7 @@
 import { alaBuildDate, alaBuildHidden, alaBuildInput, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree } from "@/config/alaBuilders"
 import { alaEmail, alaPhone, alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
-import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage, alaDetailVideoHLS } from "../alaDetailBuilder"
+import { alaDetailBuild, alaDetailDate, alaDetailInput, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailSwitchImage, alaDetailVideoFlv, alaDetailVideoHLS } from "../alaDetailBuilder"
 import { dType } from "@/components/cps/dynamic/detailType"
 
 export const camera: FormConfig = {
@@ -54,7 +54,8 @@ export const camera: FormConfig = {
         alaDetailSelectTable('profiles', "物模型", "profileName", 1, false, { columnWidth: { desktop: '150' } }),
         alaDetailInput('deviceAreaGroup', "所在区域", 1, false, { deepColumnName: { desktop: 'name' } }),
         alaDetailSwitchImage('online', '在/离线状态', [{ value: true, src: '/iot/online.png', title: '在线' }, { value: false, src: '/iot/offline.png', title: '已离线' }], 1, false, { height: '30px', columnWidth: { desktop: '140' } }),
-        alaDetailVideoHLS('deviceCode', '视频流', { columnWidth: { desktop: '100' },titleColumnName: { desktop: 'deviceName' }, }),
+        // alaDetailVideoHLS('deviceCode', '视频流', { columnWidth: { desktop: '100' },titleColumnName: { desktop: 'deviceName' }, }),
+        alaDetailVideoFlv('deviceCode', '视频流', { columnWidth: { desktop: '100' },titleColumnName: { desktop: 'deviceName' }, }),
         alaDetailSwitch('adisable', '数据状态', '启用', 1, '禁用', 2, 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailInput('createdName', "创建人", 1, false, { columnWidth: { desktop: '120' } }),
         alaDetailDate('createdTime', "创建时间", 'YYYY-MM-DD HH:mm:ss', 1, false, { columnWidth: { desktop: '180' } }),

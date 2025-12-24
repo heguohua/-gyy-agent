@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-06 09:29:28
+ * @LastEditTime: 2025-12-23 20:26:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -112,6 +112,7 @@ import DetailFormTableColumn from '@/components/cps/dynamic/DetailFormTableColum
 import DetailChildTableCountColumn from '@/components/cps/dynamic/DetailChildTableCountColumn.vue';
 import DetailFlowInstanceStateColumn from '@/components/cps/dynamic/DetailFlowInstanceStateColumn.vue';
 import DetailVideoHLSColumn from '@/components/cps/dynamic/DetailVideoHLSColumn.vue';
+import DetailVideoFlvColumn from '@/components/cps/dynamic/DetailVideoFlvColumn.vue';
 import AlaDialog from '@/components/cps/dialog/ala-dialog.vue';
 import DetailAiInfoColumn from '@/components/cps/dynamic/DetailAiInfoColumn.vue';
 
@@ -241,6 +242,7 @@ export default {
     DetailChildTableCountColumn,
     DetailFlowInstanceStateColumn,
     DetailVideoHLSColumn,
+    DetailVideoFlvColumn,
     AlaDialog,
     DetailAiInfoColumn,
 
