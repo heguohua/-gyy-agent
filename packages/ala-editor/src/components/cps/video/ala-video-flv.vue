@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-08-04 19:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-24 18:02:56
+ * @LastEditTime: 2025-12-24 22:56:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/video/ala-video-flv.vue
  * @Description: 
  * 
@@ -48,16 +48,16 @@ const props = defineProps({
 const playerRef = ref(null)
 let player = null
 
-console.log('props.url:', props.url);
-
 
 onMounted(() => {
+    console.log('props.url:',props.url);
+    
     player = new Player({
         el: playerRef.value,
         url: props.url,
         isLive: true,
         playsinline: true,
-        poster: '//lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/poster.jpg',
+        poster: '/charts/logo.svg',
         plugins: [FlvPlayer],
     })
 })
@@ -74,7 +74,7 @@ onBeforeUnmount(() => {
 .ala-video-flv {
     .player-container {
         width: 100% !important;
-        min-height: 800px;
+        // min-height: 800px;
     }
 }
 </style>

@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 10:18:42
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/index.vue
+ * @LastEditTime: 2025-12-24 21:58:52
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/index-card.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -19,11 +19,11 @@
 
             <!-- 查询条件 -->
             <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-                @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="true" />
+                @showAdd="showAdd({ id: null, pid: 0 })" labelWidth="180px" :showAddButton="false" />
 
             <!-- 分页列表 -->
             <!-- 分页列表 -->
-            <PageTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
+            <VideoTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
                 :showSelectCheckbox="false" @add="showAdd" @edit="showEdit" :tipTitle="$t('pop.warm_title')"
                 :showEditButton="true" :showAddButton="true" :showDeleteButton="true" :showDisableButton="true">
 
@@ -46,7 +46,7 @@
                 </template>
 
 
-            </PageTable>
+            </VideoTable>
 
 
         </div>
