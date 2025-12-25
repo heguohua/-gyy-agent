@@ -2,19 +2,19 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-09-01 10:33:39
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 10:29:37
+ * @LastEditTime: 2025-12-25 10:48:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-label/ala-form-label.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <div class="ala-form-label-wrapper" :ala-component="alaComponent">
+  <div class="ala-form-label-wrapper" :ala-component="alaComponent" :ala-fieldname="alaFieldName">
     {{ label }}
     <!-- <el-tooltip v-if="help" class="tip ala-help-icon" :effect="effect" :content="u.parseI18n(help, t)" -->
     <el-tooltip v-if="help" class="tip ala-help-icon" :effect="effect" :content="help" :placement="placement"
       :hide-after="0">
-      <div class="ala-tooltip-wrapper" :ala-component="alaComponent">
+      <div class="ala-tooltip-wrapper">
         <v-icon class="image" icon="help" :width="width" :height="height" />
       </div>
     </el-tooltip>
@@ -42,6 +42,10 @@ const props = defineProps({
     default: 'right',
   },
   alaComponent: {
+    type: String,
+    default: '',
+  },
+  alaFieldName: {
     type: String,
     default: '',
   },

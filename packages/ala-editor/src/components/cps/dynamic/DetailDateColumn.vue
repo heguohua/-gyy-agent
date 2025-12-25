@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 10:31:14
+ * @LastEditTime: 2025-12-25 10:47:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailDateColumn.vue
  * @Description: 
  * 
@@ -13,7 +13,8 @@
     <template v-if="isDetailColumn">
         <p class="title" :style="{ minWidth: labelWidth }">
             <template v-if="isDetailPage">
-                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code" />：
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code"
+                    :alaFieldName="formItem.formData.fieldName.desktop" />：
             </template>
             <template v-else>
                 {{ label }}
@@ -24,7 +25,8 @@
     <template v-else>
         <p class="title" :style="{ minWidth: labelWidth }">
             <template v-if="isDetailPage">
-                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code" />：
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code"
+                    :alaFieldName="formItem.formData.fieldName.desktop" />：
             </template>
             <template v-else>
                 {{ label }}

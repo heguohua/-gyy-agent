@@ -13,7 +13,8 @@
     <div class="ala-detail-flow-instance-state">
         <p class="title" :style="{ minWidth: labelWidth }">
             <template v-if="isDetailPage">
-                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code" />：
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code"
+                    :alaFieldName="formItem.formData.fieldName.desktop" />：
             </template>
             <template v-else>
                 {{ label }}
