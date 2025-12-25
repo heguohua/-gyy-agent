@@ -15,7 +15,7 @@
 
         <p class="title" :style="{ minWidth: labelWidth }">
             <template v-if="isDetailPage">
-                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code" />：
             </template>
             <template v-else>
                 {{ label }}
@@ -36,7 +36,7 @@
     <template v-else>
         <p class="title" :style="{ minWidth: labelWidth }">
             <template v-if="isDetailPage">
-                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" />：
+                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code" />：
             </template>
             <template v-else>
                 {{ label }}
