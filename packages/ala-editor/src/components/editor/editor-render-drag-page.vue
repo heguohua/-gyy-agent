@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-01-13 08:56:52
+ * @LastEditTime: 2025-12-25 11:40:38
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag-page.vue
  * @Description: 
  * 
@@ -37,7 +37,8 @@
                             -->
                             <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
                                 :viewport="editorStore.viewport[bType]" :id="element.id" :formData="element.formData"
-                                :children="element.children" :pid="pid" :block="element" @init="init" :bType="bType">
+                                :children="element.children" :pid="pid" :block="element" @init="init" :bType="bType"
+                                :alaComponent="getComponentNameByCode(element)">
 
                                 <template #default="{ childrenBlocks, index }">
                                     <EditRenderDragPage :blockList="childrenBlocks" :level="level + 1" :group="group"
@@ -69,7 +70,8 @@
                             <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
                                 :viewport="editorStore.viewport[bType]" :id="element.id" :formData="element.formData"
                                 :pid="pid" :block="element" :bType="bType"
-                                v-bind="extractFormItemProps(element.formData)" @init="init" :data="formData" />
+                                v-bind="extractFormItemProps(element.formData)" @init="init" :data="formData"
+                                :alaComponent="getComponentNameByCode(element)" />
                             <!-- 通过 v-bind ，用于转换 baseBlock 属性到表单元素需要的 props 属性 -->
                         </div>
 
@@ -239,7 +241,7 @@ const styles = (item: any) => {
 
 
     const width = editorStore.pageConfig.page.formData?.width.desktop || 400
-    const labelWidth =  120
+    const labelWidth = 120
     const columnNum = editorStore.pageConfig.page.formData?.columnNum.desktop || 1
 
 
@@ -277,7 +279,7 @@ const styles = (item: any) => {
         width: var(--ala-form-design-item-width);
         display: inline-block;
 
-      
+
     }
 
     .element {

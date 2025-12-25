@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 10:02:47
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-21 15:02:23
+ * @LastEditTime: 2025-12-25 11:40:45
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-render-drag.vue
  * @Description: 
  * 
@@ -32,7 +32,8 @@
                     -->
                     <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
                         :viewport="editorStore.viewport[bType]" :currentId="element.id" :formData="element.formData"
-                        :children="element.children" :pid="pid" :block="element" @init="init" :bType="bType">
+                        :children="element.children" :pid="pid" :block="element" @init="init" :bType="bType"
+                        :alaComponent="getComponentNameByCode(element)">
 
                         <template #default="{ childrenBlocks, index }">
                             <EditRenderDrag :blockList="childrenBlocks" :level="level + 1" :group="group"
@@ -61,7 +62,7 @@
                     </Transition>
                     <component :is="getComponentNameByCode(element)" :key="bType + '-' + element.id"
                         :viewport="editorStore.viewport[bType]" :currentId="element.id" :formData="element.formData"
-                        :pid="pid" :block="element" :bType="bType" />
+                        :pid="pid" :block="element" :bType="bType" :alaComponent="getComponentNameByCode(element)" />
                 </div>
 
             </div>
