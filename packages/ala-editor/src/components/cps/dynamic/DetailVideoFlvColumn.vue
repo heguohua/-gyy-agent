@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-24 21:36:21
+ * @LastEditTime: 2025-12-25 08:06:03
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailVideoFlvColumn.vue
  * @Description: 
  * 
@@ -152,6 +152,9 @@ defineEmits(['refresh'])
     .ala-video-player-title {
         padding: 0px !important;
         margin: 0px !important;
+    }
+    .ala-video-flv .xgplayer {
+        min-height: 800px!important;
     }
 
 }

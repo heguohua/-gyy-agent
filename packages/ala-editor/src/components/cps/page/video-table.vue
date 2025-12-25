@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-24 23:06:40
+ * @LastEditTime: 2025-12-25 08:09:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/video-table.vue
  * @Description: 
  * 
@@ -266,6 +266,7 @@ defineExpose({ refresh })
 
             :deep(.ala-video-flv) {
                 width: 100%;
+                margin-bottom: 12px;
             }
 
             :deep(.xgplayer) {
