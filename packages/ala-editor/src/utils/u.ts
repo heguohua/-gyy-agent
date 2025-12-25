@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-27 19:04:08
+ * @LastEditTime: 2025-12-25 19:47:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -259,6 +259,20 @@ export default class u {
             const notifyTitle = (title.startsWith("t('") || title.startsWith('t("') ? t(title.slice(3, -2)) : title)
             const content = (i18nKey.startsWith("t('") || i18nKey.startsWith('t("') ? t(i18nKey.slice(3, -2)) : i18nKey) + '“ 不存在 ” ！'
             notify.error(notifyTitle, content)
+            throw `${title}`
+        }
+    }
+
+    /**
+     *  非空校验
+     * @param data 数据
+     * @param content 提示信息
+     * @param title
+     * @returns 
+     */
+    public static isEmpty(data: any, content: string, title = "温馨提示") {
+        if (!data) {
+            notify.error(title, content)
             throw `${title}`
         }
     }
