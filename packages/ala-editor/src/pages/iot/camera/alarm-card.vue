@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-12-25 08:51:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 22:36:19
+ * @LastEditTime: 2025-12-25 22:51:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/alarm-card.vue
  * @Description: 
  * 
@@ -10,17 +10,31 @@
 -->
 
 <template>
-    <PageDynamicTableCustomizationSimplest className="aiAlarmRecords">
+
+    <PageDynamicTableCustomizationSimplest className="aiAlarmRecords" :beforeQuery="beforeQuery">
+
+        <template #header>
+            <div class="ccc">
+                ddd
+            </div>
+        </template>
+
         <template #default="{ row }">
 
-            {{ row }}
+            {{ row.images }}
 
         </template>
     </PageDynamicTableCustomizationSimplest>
 </template>
 
 <script setup lang="ts">
+import u from '@/utils/u';
 
+
+const beforeQuery = (params: any) => {
+    const p = u.merged(params, {})
+    return p
+}
 
 </script>
 

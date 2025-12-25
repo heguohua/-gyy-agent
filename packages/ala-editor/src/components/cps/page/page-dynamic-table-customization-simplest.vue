@@ -2,16 +2,18 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 22:38:31
+ * @LastEditTime: 2025-12-25 22:46:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table-customization-simplest.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <!-- 查询条件 -->
+    <!-- 查询条件 header-->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
         labelWidth="180px" />
+
+    <slot name="header" />
 
     <!-- 分页列表 -->
     <PageDynamicTableCustomization ref="pageRef" :url="url" :columns="columns" :params="params"
@@ -39,8 +41,14 @@ const { t } = useI18n();
 
 
 const props = defineProps({
-    className:{
-        type:String,
+    className: {
+        type: String,
+    },
+    beforeQuery: {
+        type: Function,
+        default: () => {
+            return {}
+        }
     }
 })
 
@@ -121,7 +129,8 @@ const formConfigItems: any = {}
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
 
 const beforeQuery = (params: any) => {
-    return req.beforeQuery(params, props.className, formConfigItems.value)
+    const p = props.beforeQuery(params)
+    return req.beforeQuery(p, props.className!, formConfigItems.value)
 }
 
 /**
