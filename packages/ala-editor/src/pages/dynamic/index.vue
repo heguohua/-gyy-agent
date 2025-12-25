@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-15 08:39:35
+ * @LastEditTime: 2025-12-25 22:06:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -59,6 +59,7 @@ import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 import { useAlaStore } from '@/store/ala-store';
+import req from '@/utils/req';
 const alaStore = useAlaStore()
 const { t } = useI18n();
 
@@ -141,10 +142,6 @@ const showEdit = (item: { [key: string]: any }) => {
 
     showAddForm.value = true
 
-    // u.merged(baseInfo, { item })
-    // logger.info(`【编辑】方法接收到参数 item `, item);
-    // logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
-    // showAddForm.value = true
 }
 
 const showDetailPage = ref(false)
@@ -175,16 +172,6 @@ const refresh = () => {
 const url = ref("")
 const deleteUrl = ref("")
 
-// 分页列表中列属性配置
-// const columns = computed(() => {
-//     return [
-//         { prop: 'displayName', label: '名称' },
-//         { prop: 'name', label: '唯一编码' },
-//         { prop: 'type', label: '流程分类' },
-//         { prop: 'version', label: '版本号' },
-//         { prop: 'state', label: '状态' },
-//     ]
-// })
 interface Column { prop: string, label: string, formItem: any }
 const columns = ref<Array<Column>>([])
 
@@ -197,8 +184,6 @@ const advancedFields: any[] = []
 const addFormFields = ref<Array<any>>([
 ])
 
-
-
 const formAttr = ref({
     formWidth: 400,
     columnNum: 1,
@@ -207,259 +192,16 @@ const formAttr = ref({
     useFormTitle: false,
 })
 
-
 const formAttrs = computed(() => {
     return formAttr.value
 })
-
 const formConfigItems: any = {}
 
-
-
-
-
-// 基础表单字段
-// const basicFields = computed(() => {
-//     return [
-//         alaBuildHidden('id'),// 固定格式
-//         alaBuildSwitch('value', t('module.menu.name') + ' or ' + t('module.menu.url'), t('module.menu.url'), t('module.menu.name'), 2, 1, [alaRequired()]),
-//         alaBuildInput("name", t('module.menu.name'), [alaRequired()]),
-//         alaBuildDivider("这里是分隔线", "right"),
-
-//         alaBuildInput("url", t('module.menu.url'), [alaRequired()]),
-//         alaBuildDivider("这里是分隔线", "left"),
-//         alaBuildSwitch('delFlag', t('common.enable'), t('buttons.enable'), t('buttons.disable'), 2, 1, [alaRequired()]),
-//         alaBuildInput("icon", t('module.menu.icon'), [alaRequired()]),
-//         alaBuildDivider("这里是分隔线"),
-//         alaBuildNumber("width", t('module.menu.width'), [alaRequired()]),
-//         alaBuildNumber("height", t('module.menu.height'), [alaRequired()]),
-//         alaBuildNumber("sort", t('common.sorting')),
-//     ]
-// })
-
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
-interface Result {
-    tableName: string,
-    conditionGroups: Array<any>,
-    tableInfos: Array<any>,
-    joinRightColumn?: string,
-}
 
 const beforeQuery = (params: any) => {
-
-    const result: Result = { tableName: className, conditionGroups: [], tableInfos: [] }
-    const conditionGroups = result.conditionGroups
-
-    const conditionGroup: { [key: string]: any } = {
-        logicalOperator: 'and',
-        conditions: []
-    }
-
-    conditionGroups.push(conditionGroup)
-
-    Object.keys(params).forEach((key: string) => {
-        if (key != 'tableName' && params[key]) {
-            // 转换字段查询条件为动态分页列表形式
-            const formConfigItem = formConfigItems.value[key]
-            if (!formConfigItem) return
-
-            const code = formConfigItem.code
-            const fieldName = formConfigItem.formData.fieldName.desktop
-            if (code === 'input') {
-                conditionGroup.conditions.push({ column: 'a_' + key, operator: 'like', value: params[key], logicalOperator: 'and' })
-            } else if (code === 'date') {
-                // 开始时间戳
-                conditionGroup.conditions.push({ column: 'a_' + key, operator: '>=', value: params[key][fieldName + '_start'], logicalOperator: 'and' })
-
-                // 结束时间戳 + 1 天
-                conditionGroup.conditions.push({ column: 'a_' + key, operator: '<', value: params[key][fieldName + '_end'] + 86400000, logicalOperator: 'and' })
-
-            } else if (code === 'selectTable') {
-
-                const mainTableName = className
-
-                let tableInfos = result['tableInfos']
-                if (!tableInfos) {
-                    tableInfos = []
-                    result['tableInfos'] = tableInfos
-                }
-
-
-                if (tableInfos.length === 0) {
-
-                    // 使用主表id 作为 联表关联左侧条件
-                    if (!result['joinRightColumn']) {
-                        result['joinRightColumn'] = 'id'
-                    }
-
-                    const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
-                    const parts = url.split("/");
-                    const innerColumnName = parts[parts.length - 2];
-
-                    const fullRelationTableName = `a_${mainTableName}_${fieldName}`
-                    const tableInfo = {
-                        tableName: fullRelationTableName,
-                        joinType: 'innerJoin',
-                        joinLeftColumn: `a_${mainTableName}_id`,
-                        conditionGroupVos: [
-                            {
-                                logicalOperator: 'and',
-                                conditions: [
-                                    {
-                                        tableName: fullRelationTableName,
-                                        column: `a_${innerColumnName}_list`,
-                                        logicalOperator: 'and',
-                                        operator: '=',
-                                        value: params[key][0].id
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-
-                    tableInfos.push(tableInfo)
-
-                } else {
-
-
-                    // 使用上一个联表中的主表字段 作为 联表关联左侧的连接条件
-                    const leftTable = tableInfos[tableInfos.length - 1]
-
-                    if (!leftTable['joinRightColumn']) {
-                        leftTable['joinRightColumn'] = leftTable.joinLeftColumn
-                    }
-
-                    const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
-                    const parts = url.split("/");
-                    const innerColumnName = parts[parts.length - 2];
-
-                    const fullRelationTableName = `a_${mainTableName}_${fieldName}`
-                    const tableInfo = {
-                        tableName: fullRelationTableName,
-                        joinType: 'innerJoin',
-                        joinLeftColumn: `a_${mainTableName}_id`,
-                        conditionGroupVos: [
-                            {
-                                logicalOperator: 'and',
-                                conditions: [
-                                    {
-                                        tableName: fullRelationTableName,
-                                        column: `a_${innerColumnName}_list`,
-                                        logicalOperator: 'and',
-                                        operator: '=',
-                                        value: params[key][0].id
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-
-                    tableInfos.push(tableInfo)
-
-                }
-
-
-
-            } else if (code === 'selectDict') {
-
-                const mainTableName = className
-
-                let tableInfos = result['tableInfos']
-                if (!tableInfos) {
-                    tableInfos = []
-                    result['tableInfos'] = tableInfos
-                }
-
-                if (tableInfos.length === 0) {
-
-                    // 使用主表id 作为 联表关联左侧条件
-                    if (!result['joinRightColumn']) {
-                        result['joinRightColumn'] = 'id'
-                    }
-
-                    const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
-                    const parts = url.split("/");
-                    const innerColumnName = parts[parts.length - 2];
-
-                    const fullRelationTableName = `a_${mainTableName}_${fieldName}`
-                    const tableInfo = {
-                        tableName: fullRelationTableName,
-                        joinType: 'innerJoin',
-                        joinLeftColumn: `a_${mainTableName}_id`,
-                        conditionGroupVos: [
-                            {
-                                logicalOperator: 'and',
-                                conditions: [
-                                    {
-                                        tableName: fullRelationTableName,
-                                        column: `a_${innerColumnName}_list`,
-                                        logicalOperator: 'and',
-                                        operator: '=',
-                                        value: u.parseJson(params[key])[0].id
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-
-                    tableInfos.push(tableInfo)
-
-                } else {
-
-
-                    // 使用上一个联表中的主表字段 作为 联表关联左侧的连接条件
-                    const leftTable = tableInfos[tableInfos.length - 1]
-
-                    if (!leftTable['joinRightColumn']) {
-                        leftTable['joinRightColumn'] = leftTable.joinLeftColumn
-                    }
-
-                    const url = formConfigItem.formData.linkUrl.desktop //"http://f-ala-lowcoding/dynamic/list";
-                    const parts = url.split("/");
-                    const innerColumnName = parts[parts.length - 2];
-
-                    const fullRelationTableName = `a_${mainTableName}_${fieldName}`
-                    const tableInfo = {
-                        tableName: fullRelationTableName,
-                        joinType: 'innerJoin',
-                        joinLeftColumn: `a_${mainTableName}_id`,
-                        conditionGroupVos: [
-                            {
-                                logicalOperator: 'and',
-                                conditions: [
-                                    {
-                                        tableName: fullRelationTableName,
-                                        column: `a_${innerColumnName}_list`,
-                                        logicalOperator: 'and',
-                                        operator: '=',
-                                        value: params[key][0].id
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-
-                    tableInfos.push(tableInfo)
-
-                }
-
-
-            } else if (code === 'radio') {
-                conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
-            } else if (code === 'cascaderDict') {
-                if (params[key] && params[key].length > 2) {
-                    conditionGroup.conditions.push({ column: 'a_' + key, operator: '=', value: params[key], logicalOperator: 'and' })
-                }
-            } else if (code === 'textarea') {
-                conditionGroup.conditions.push({ column: 'a_' + key, operator: 'like', value: params[key], logicalOperator: 'and' })
-            }
-        }
-    })
-
-
-    return result
+    return req.beforeQuery(params, className, formConfigItems.value)
 }
-
 
 const getComponent = ((code: string) => {
     return 'Detail' + code.charAt(0).toUpperCase() + code.slice(1) + 'Column';
@@ -475,8 +217,6 @@ const showDeleteButton = ref(false)
 const showEditButton = ref(false)
 const showDisableButton = ref(false)
 const showButtonsColumn = ref(false)
-
-
 
 onMounted(async () => {
 
@@ -497,7 +237,7 @@ onMounted(async () => {
     showButtonsColumn.value = configs.showButtonsColumn
     formType.value = configs.formType
     u.merged(formAttr.value, configs.formAttr)
-    
+
 
     if (configs.outApi) {
         // 说明是 静态api模块
