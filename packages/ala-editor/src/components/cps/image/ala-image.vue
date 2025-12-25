@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-14 08:24:22
+ * @LastEditTime: 2025-12-25 11:19:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/image/ala-image.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <!-- <span :class="clasz">{{ label }}</span>  -->
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
       <template #label>
-        <AlaFormLabel :label="label" :help="help" />
+        <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
       </template>
       <div class="ala-files">
         <div v-if="localValues && localValues.length > 0" class="files">
@@ -88,7 +88,11 @@ const props = defineProps({
   multipleFile: {
     type: Boolean,
     default: () => false
-  }
+  },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
+    }
 })
 
 const localValues = ref<Array<AFile>>([])

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-16 09:59:18
+ * @LastEditTime: 2025-12-25 11:21:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="ala-date-range-wrapper">
         <el-form-item :label="label" :label-position="position" :prop="startFieldName">
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
             <!-- 注意，注意，注意 el-date-picker 中必须使用 @update:model-value 更新数据值-->
             <el-date-picker :model-value="localModel" :disabled-date="disabledDate" :type="dateType"
@@ -86,6 +86,10 @@ const props = defineProps({
     noEditable: {
         type: Boolean,
         default: () => false
+    },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
     }
 })
 
@@ -93,8 +97,6 @@ const props = defineProps({
 
 const fieldName = computed(() => {
     const fn = props.startFieldName + '_' + props.endFieldName
-    console.log('fn:-- 112233 -->', fn);
-
     return fn
 })
 

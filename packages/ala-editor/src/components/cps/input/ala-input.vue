@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:17:01
+ * @LastEditTime: 2025-12-25 11:19:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-input.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="ala-input-wrapper">
         <el-form-item :label-position="position" :prop="fieldName">
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
             <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName"
                 :disabled="isDisabled">
@@ -78,6 +78,10 @@ const props = defineProps({
     noEditable: {
         type: Boolean,
         default: () => false
+    },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
     }
 })
 

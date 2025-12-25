@@ -14,7 +14,7 @@
         <el-form-item :label-position="position" :prop="fieldName">
 
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
 
             <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName"
@@ -141,6 +141,10 @@ const props = defineProps({
     type: {
         type: String,
         default: () => 'input'
+    },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
     }
 })
 

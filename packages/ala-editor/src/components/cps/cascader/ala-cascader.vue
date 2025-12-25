@@ -12,7 +12,7 @@
   <div class="ala-cascader-wrapper">
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
       <template #label>
-        <AlaFormLabel :label="label" :help="help" />
+        <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
       </template>
       <el-cascader :model-value="data" :options="options" :props="configs" @change="handleChange" :clearable="clearable"
         :showAllLevels="showAllLevels" :filterable="filterable" :placeholder="placeholder" :disabled="isDisabled">
@@ -92,7 +92,11 @@ const props = defineProps({
   noEditable: {
     type: Boolean,
     default: () => false
-  }
+  },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
+    }
 })
 
 

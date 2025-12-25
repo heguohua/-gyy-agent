@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:22:07
+ * @LastEditTime: 2025-12-25 11:19:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <el-form-item :label="label" :label-position="position" :prop="fieldName" class="minHeight">
             <!-- <span :class="clasz">{{ label }}</span> -->
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
             <el-radio-group @change="handleChange" :model-value="model" class="ala-radio-group" :disabled="isDisabled">
                 <div class="ala-radio-item" v-for="(item, index) in items" :key="item.value">
@@ -66,6 +66,10 @@ const props = defineProps({
     noEditable: {
         type: Boolean,
         default: () => false
+    },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
     }
 })
 

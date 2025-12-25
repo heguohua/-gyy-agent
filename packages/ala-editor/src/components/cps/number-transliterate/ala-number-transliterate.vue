@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 11:24:47
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number/ala-number.vue
+ * @LastEditTime: 2025-12-25 11:19:40
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/number-transliterate/ala-number-transliterate.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -12,7 +12,7 @@
     <div class="ala-number-wrapper">
         <el-form-item :label="label" :labelWidth="labelWidth" :label-position="position" :prop="fieldName">
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
             <el-input-number type="number" :model-value="model" @change="handleChange" :placeholder="placeholder"
                 :id="fieldName" :min="min" :max="max" :step="step" :precision="precision"
@@ -95,6 +95,10 @@ const props = defineProps({
         type: Boolean,
         default: () => false
     },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
+    }
 })
 
 const model = defineModel({

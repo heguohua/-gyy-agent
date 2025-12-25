@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-10 22:18:01
+ * @LastEditTime: 2025-12-25 11:21:11
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/chapter/ala-chapter.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
     <!-- <el-divider :content-position="position" :style="styles">{{ label }}</el-divider> -->
     <div class="ala-chapter" :style="styles">
       <p class="ala-chapter-icon" />
-      <AlaFormLabel :label="label" :help="help" />
+      <AlaFormLabel :label="label" :help="help"/>
     </div>
   </div>
 </template>
@@ -46,6 +46,10 @@ const props = defineProps({
   },
   help: {
     type: String,
+  },
+  alaComponent: { // 当前被渲染组件 block
+    type: String,
+    default: ''
   }
 })
 
@@ -82,6 +86,7 @@ const styles = computed(() => {
     margin-bottom: 12px;
     box-shadow: 8px 0 0 0 var(--al-title-color), -8px 0 0 0 var(--al-title-color);
     height: 34px;
+
     .ala-chapter-icon {
       display: inline-block;
       width: 6px;

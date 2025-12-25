@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-17 15:46:24
+ * @LastEditTime: 2025-12-25 11:19:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/childTableCount/ala-child-table-count.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <el-form-item :label="label" :label-position="position" :prop="fieldName" class="minHeight">
             <!-- <span :class="clasz">{{ label }}</span> -->
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
             <div class="ala-child-table-count-item">
                 <i :style="styles">10</i> 条
@@ -52,6 +52,10 @@ const props = defineProps({
     },
     backgroundNum: {
         type: String,
+    },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
     }
 })
 

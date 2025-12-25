@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-23 20:03:30
+ * @LastEditTime: 2025-12-25 11:19:18
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -13,7 +13,7 @@
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
 
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
             <div class="ala-form-customer ala-form-item-border" :style="styles">
                 <p class="placeholder" v-if="!localValue || localValue.length === 0">{{
@@ -197,6 +197,10 @@ const props = defineProps({
     moduleName: {
         type: String,
         default: () => ''
+    },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
     }
 })
 

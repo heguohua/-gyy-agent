@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-30 17:20:44
+ * @LastEditTime: 2025-12-25 11:18:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <div class="ala-checkbox-wrapper" :style="styles">
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
             <el-checkbox-group @change="handleChange" :model-value="localValue" class="ala-checkbox-group"
                 :disabled="isDisabled">
@@ -67,6 +67,10 @@ const props = defineProps({
     noEditable: {
         type: Boolean,
         default: () => false
+    },
+    alaComponent: { // 当前被渲染组件 block
+        type: String,
+        default: ''
     }
 })
 

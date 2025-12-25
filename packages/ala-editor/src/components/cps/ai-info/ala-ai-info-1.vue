@@ -12,7 +12,7 @@
     <div class="ala-ai-info-wrapper">
         <el-form-item :label-position="position" :prop="fieldName">
             <template #label>
-                <AlaFormLabel :label="label" :help="help" />
+                <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
             </template>
             <el-input :model-value="model" @input="handleChange" :placeholder="placeholder" :id="fieldName"
                 :disabled="isDisabled">
