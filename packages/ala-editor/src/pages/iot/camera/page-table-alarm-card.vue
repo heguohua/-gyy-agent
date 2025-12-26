@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-12-25 08:51:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-26 09:08:50
+ * @LastEditTime: 2025-12-26 09:22:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/page-table-alarm-card.vue
  * @Description: 
  * 
@@ -21,16 +21,17 @@
 
         <template #default="{ row }">
 
-            <AlaAlarmCard :time="formatTime(row.time)" />
+            <AlarmCard :alarmType="row.alarmType[0].dictLabel" :time="formatTime(row.time)" :camera="row.device[0]"
+                :images="row.images" :confirmStatus="row.confirmStatus" :confirmResult="row.confirmResult"
+                :pushStatus="row.pushStatus" />
 
         </template>
     </PageDynamicTableCustomizationSimplest>
 </template>
 
 <script setup lang="ts">
-import { AlaDateFormat, date } from '@/utils/date';
+import { date } from '@/utils/date';
 import u from '@/utils/u';
-import { format } from 'd3';
 
 
 const beforeQuery = (params: any) => {
