@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-18 16:11:31
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-23 20:26:21
+ * @LastEditTime: 2025-12-26 09:02:37
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaComponents.ts
  * @Description: 
  * 
@@ -123,6 +123,7 @@ import ProcessPreview from '@/pages/process/processPreview.vue';
 
 // IoT平台相关组件
 import PointCard from '@/components/iot/pointCard.vue';
+import AlaAlarmCard from '@/components/iot/alarm-card.vue';
 
 
 // 图表相关组件
@@ -261,6 +262,7 @@ export default {
 
     // IoT平台相关
     PointCard,
+    AlaAlarmCard,
 
 }
 

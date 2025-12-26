@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 08:50:37
+ * @LastEditTime: 2025-12-26 08:48:19
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -216,7 +216,7 @@ export const allMenuComponents: MenuComponent = {
     },
     "/camera/aiAlarmDashboard": {
         name: "aiAlarmDashboardPage",
-        component: "../pages/iot/camera/alarm-card.vue",
+        component: "../pages/iot/camera/page-table-alarm-card.vue",
         requiresAuth: true,
     },
     "/physical/servers": {

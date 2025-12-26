@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 11:14:52
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-07-15 18:01:36
+ * @LastEditTime: 2025-12-26 09:12:53
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/date.ts
  * @Description: 时间工具类
  *
@@ -43,7 +43,12 @@ export const AlaDateFormat = [
   { name: "YYYYMMDD HHmmss", value: "YYYYMMDD HHmmss" },
 ]
 
+
 export class date {
+
+
+  static readonly F_YYYY_MM_DD_HH_mm_ss = "YYYY-MM-DD HH:mm:ss"
+  static readonly F_YYYY_MM_DD = "YYYY-MM-DD"
 
   /**
    * 获取毫秒数
@@ -59,7 +64,7 @@ export class date {
    * @returns {boolean}
    */
   public static isValidDate(date: Date) {
-    return dayjs(date, 'YYYY-MM-DD', true).isValid();
+    return dayjs(date, this.F_YYYY_MM_DD, true).isValid();
   }
 
   /**
@@ -68,7 +73,7 @@ export class date {
    * @returns {boolean}
    */
   public static isValidDateTime(date: Date) {
-    return dayjs(date, 'YYYY-MM-DD HH:mm:ss', true).isValid();
+    return dayjs(date, this.F_YYYY_MM_DD_HH_mm_ss, true).isValid();
   }
 
   /**
@@ -76,7 +81,7 @@ export class date {
    * @returns {string}
    */
   public static currentDate_YYYY_MM_DD() {
-    return dayjs(new Date()).format('YYYY-MM-DD');
+    return dayjs(new Date()).format(this.F_YYYY_MM_DD);
   }
 
   /**
@@ -101,7 +106,7 @@ export class date {
    * @returns {string}
    */
   public static YYYY_MM_DD(date: Date) {
-    return dayjs(date).format('YYYY-MM-DD');
+    return dayjs(date).format(this.F_YYYY_MM_DD);
   }
 
   /**
@@ -110,7 +115,7 @@ export class date {
    * @returns {string}
    */
   public static YYYY_MM_DD__HH_mm_ss(date: Date) {
-    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+    return dayjs(date).format(this.F_YYYY_MM_DD_HH_mm_ss);
   }
 
   /**
@@ -130,7 +135,7 @@ export class date {
    * @returns {string}
    */
   public static getXAfterDate(date: Date | string, num: number, dateType: dt) {
-    return dayjs(date).add(num, dateType).format('YYYY-MM-DD');
+    return dayjs(date).add(num, dateType).format(this.F_YYYY_MM_DD);
   }
 
   /**
@@ -141,7 +146,7 @@ export class date {
    * @returns {string}
    */
   public static getXAfterDateTime(date: Date | string, num: number, dateType: dt) {
-    return dayjs(date).add(num, dateType).format('YYYY-MM-DD HH:mm:ss');
+    return dayjs(date).add(num, dateType).format(this.F_YYYY_MM_DD_HH_mm_ss);
   }
 
   /**
@@ -152,7 +157,7 @@ export class date {
    * @returns {string}
    */
   public static getXBeforeDate(date: Date | string, num: number, dateType: dt) {
-    return dayjs(date).subtract(num, dateType).format('YYYY-MM-DD');
+    return dayjs(date).subtract(num, dateType).format(this.F_YYYY_MM_DD);
   }
 
   /**
@@ -163,7 +168,7 @@ export class date {
    * @returns {string}
    */
   public static getXBeforeDateTime(date: Date | string, num: number, dateType: dt) {
-    return dayjs(date).subtract(num, dateType).format('YYYY-MM-DD HH:mm:ss');
+    return dayjs(date).subtract(num, dateType).format(this.F_YYYY_MM_DD_HH_mm_ss);
   }
 
   /**
@@ -214,7 +219,7 @@ export class date {
    * @returns {string}
    */
   public static getEarlyDaysDate(date: Date | string, dateType: dt) {
-    return dayjs(date).startOf(dateType).format('YYYY-MM-DD');
+    return dayjs(date).startOf(dateType).format(this.F_YYYY_MM_DD);
   }
 
   /**
@@ -224,7 +229,7 @@ export class date {
    * @returns {string}
    */
   public static getLastDaysDate(date: Date | string, dateType: dt) {
-    return dayjs(date).endOf(dateType).format('YYYY-MM-DD');
+    return dayjs(date).endOf(dateType).format(this.F_YYYY_MM_DD);
   }
 
   /**
