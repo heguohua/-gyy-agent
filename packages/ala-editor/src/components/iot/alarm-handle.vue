@@ -1,7 +1,7 @@
 <template>
-    <div class="ala-list-pop-wrapper">
+    <div class="ala-list-pop-wrapper" v-if="dialogShow">
 
-        <div class="ala-el-dialog-wrapper" v-if="dialogShow">
+        <div class="ala-el-dialog-wrapper">
             <el-dialog v-model="dialogShow" :width="dialogWidth" :append-to-body="true" :showClose="false">
 
                 <template #header="{ titleId, titleClass }">
@@ -12,7 +12,7 @@
 
                 <div class="dialog-content">
                     <!-- 分页列表 -->
-                    <AlaImageViewer :images="images" v-if="dialogShow" />
+                    <AlaImageViewer :images="images" />
                     <div class="alarm-info">
                         <div class="header">
                             <p class="title">基础信息</p>
@@ -54,7 +54,12 @@
                         <div class="header">
                             <p class="title">确认信息</p>
                         </div>
-
+                        <div class="infos">
+                            <AlaDetailNoDrawerFormCustomerization :fields="addFormFields"
+                                v-if="addFormFields.length > 0" :formAttr="formAttr" :formData="formData"
+                                url="/l/dynamic/add" updateUrl="/lb/aialarmrecords/confirm" ref="form"
+                                moduleName="aiAlarmRecords" :beforeSave="beforeSave" @refresh="refresh" />
+                        </div>
 
                     </div>
 
@@ -82,6 +87,7 @@ const { t } = useI18n();
 import notify from '@/utils/notify';
 import { date } from '@/utils/date';
 import u from '@/utils/u';
+import { getLowcodingConfigByClassName, getRawLowcodingConfigByClassName } from '@/config/formConfigs';
 
 // State
 const props = defineProps({
@@ -126,14 +132,60 @@ function cancelClick() {
     selectedData.value = []
 }
 
+const form = ref()
 function confirmClick() {
-    notify.warn(t('pop.warm_title'), t('form.p-select-1') + '【 ' + props.title + ' 】')
+    form.value.save()
+
+    // notify.warn(t('pop.warm_title'), t('form.p-select-1') + '【 ' + props.title + ' 】')
 }
 
 const selectedData = ref<Array<any>>([])
 
-const emit = defineEmits(["add", "edit", "selectedChange"])
+const emit = defineEmits(["refresh"])
 
+const formData = ref({})
+const formAttr = reactive({
+    formWidth: 1000,
+    columnNum: 2,
+    labelWidth: 150,
+    labelPosition: 'left',
+    useFormTitle: false
+})
+const addFormFields = ref<Array<any>>([])
+
+
+watch(() => dialogShow.value, async (v) => {
+    if (v) {
+        const config = await getLowcodingConfigByClassName('aiAlarmRecords')
+        const clsNames = new Set<string>(['confirmResult', 'remark'])
+        const cls: Array<any> = []
+
+        config.addFormFields.forEach(addFormField => {
+            if (clsNames.has(addFormField.fieldName)) {
+                cls.push(addFormField)
+            }
+        })
+        addFormFields.value = cls
+    }
+})
+
+
+const beforeSave = (fields: any) => {
+    // 转换
+    const params: { [key: string]: any } = {
+        "tableName": "aiAlarmRecords",
+        "id": props.aiAlarmRecord.id,
+        ...fields
+    }
+    console.log('params:', params);
+
+    return params
+}
+
+
+const refresh = () => {
+    emit('refresh')
+}
 
 defineExpose({ openDialog })
 

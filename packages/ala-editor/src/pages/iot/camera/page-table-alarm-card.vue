@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-12-25 08:51:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-27 17:39:59
+ * @LastEditTime: 2025-12-27 21:22:05
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/page-table-alarm-card.vue
  * @Description: 
  * 
@@ -24,12 +24,14 @@
 
             <AlarmCard :alarmType="row.alarmType[0].dictLabel" :time="formatTime(row.time)" :camera="row.device[0]"
                 :images="row.images" :confirmStatus="row.confirmStatus" :confirmResult="row.confirmResult"
-                :pushStatus="row.pushStatus" :formConfigItems="formConfigItems" @handle="handle(row,formConfigItems)" />
+                :pushStatus="row.pushStatus" :formConfigItems="formConfigItems"
+                @handle="handle(row, formConfigItems)" />
 
         </template>
     </PageDynamicTableCustomizationSimplest>
 
-    <AlarmHandle ref="alarmHandle" title="AI告警确认" :aiAlarmRecord="aiAlarmRecord" :images="images" :formConfigItems="formConfigItems"/>
+    <AlarmHandle ref="alarmHandle" title="AI告警确认" :aiAlarmRecord="aiAlarmRecord" :images="images"
+        :formConfigItems="formConfigItems" @refresh="refresh" />
 
 
 </template>
@@ -69,7 +71,7 @@ interface Image {
 
 const images = ref<Array<string>>([])
 
-const handle = (row: any,fConfigItems:Array<any>) => {
+const handle = (row: any, fConfigItems: Array<any>) => {
 
     aiAlarmRecord.value = row
     formConfigItems.value = fConfigItems
@@ -118,6 +120,10 @@ const handle = (row: any,fConfigItems:Array<any>) => {
 
     // pageList.value.refresh()
 
+}
+
+const refresh = () => {
+    pageList.value.refresh()
 }
 
 </script>

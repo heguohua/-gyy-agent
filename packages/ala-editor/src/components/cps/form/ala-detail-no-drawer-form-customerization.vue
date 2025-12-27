@@ -2,58 +2,39 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-27 19:34:24
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
+ * @LastEditTime: 2025-12-27 21:33:57
+ * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-detail-no-drawer-form-customerization.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-add-form">
-        <el-drawer v-model="showDrawer" :direction="direction" :before-close="handleClose" class="ala-drawer"
-            :size="drawerWidth" :with-header="!useFormTitle()">
-            <template #header v-if="!useFormTitle()">
-                <h4>【 {{ operationType }} 】{{ moduleName }}</h4>
-            </template>
-            <template #default>
+    <div class="ala-detail-no-drawer-form-customerization">
+        <el-form :model="formData" :label-width="labelWidth" :rules="rules" ref="formRef">
 
-                <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
-                    :style="columnWidth(item)">
-                    <component :is="item.componentName" :alaComponent="item.componentName" :label="item.label" :item="item"
-                        :position="item.other?.position ? item.other.position : labelPosition"
-                        :placeholder="item.placeholder" v-bind="item.other" v-model="formData[item.fieldName]"
-                        :fieldName="item.fieldName" :data="formData" @formItemChangeCallback="formItemChangeCallback"
-                        @update:modelValue="handleModelValueChange(item.fieldName, $event)" :ref="setItemRef(index)"
-                        :noEditable="formData.id ? (item.other?.noEditable != undefined ? item.other?.noEditable : undefined) : undefined" />
-                </div>
+            <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
+                :style="columnWidth(item)">
+                <component :is="item.componentName" :alaComponent="item.componentName" :label="item.label" :item="item"
+                    :position="item.other?.position ? item.other.position : labelPosition"
+                    :placeholder="item.placeholder" v-bind="item.other" v-model="formData[item.fieldName]"
+                    :fieldName="item.fieldName" :data="formData" @formItemChangeCallback="formItemChangeCallback"
+                    @update:modelValue="handleModelValueChange(item.fieldName, $event)" :ref="setItemRef(index)"
+                    :noEditable="formData.id ? (item.other?.noEditable != undefined ? item.other?.noEditable : undefined) : undefined" />
+            </div>
+        </el-form>
 
-            </template>
-            <template #footer>
-                <div class="ala-drawer-buttons">
-                    <el-button @click="cancelClick" v-if="cancelButton">
-                        {{ $t('buttons.cancel') }}
-                    </el-button>
-                    <el-button type="primary" @click="confirmClick" v-if="saveButton">
-                        {{ $t('buttons.save') }}
-                    </el-button>
-                    <el-button type="primary" @click="confirmClick" v-if="initiateButton()">
-                        {{ $t('buttons.form_initiate') }}
-                    </el-button>
-                    <slot name="buttons"></slot>
-                    <!-- <el-button type="primary" @click="confirmClick">{{ $t('button.error') }}</el-button> -->
-                </div>
-            </template>
-        </el-drawer>
     </div>
 </template>
 
 <script setup lang="ts">
 import { AlaField } from '@/config/fieldSchemas';
 import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
+import { alaPost } from '@/utils/req';
 import u from '@/utils/u';
-import { DrawerProps, ElMessageBox } from 'element-plus';
 import { ref } from 'vue'
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 // State
 
 const props = defineProps({
@@ -101,25 +82,23 @@ const props = defineProps({
     showInitiateButton: {
         type: Boolean,
         default: false
+    },
+    outApi: {
+        type: Boolean,
+        default: false
+    },
+    url: {
+        type: String
+    },
+    updateUrl: {
+        type: String
+    },
+    beforeSave: {
+        type: Function,
+        default: null
     }
 
 })
-
-
-
-const saveButton = computed(() => {
-    return props.showSaveButton;
-})
-const cancelButton = computed(() => {
-    return props.showCancelButton;
-})
-const initiateButton = () => {
-    return props.showInitiateButton;
-}
-
-const useFormTitle = () => {
-    return props.formAttr.useFormTitle
-}
 
 const isHidden = (item: { componentName: string, other?: any }) => {
 
@@ -138,64 +117,18 @@ const showDrawer = defineModel({
 })
 
 
-const emit = defineEmits(["confirm", "formItemChangeCallback", "cancel"])
+const emit = defineEmits(["confirm", "formItemChangeCallback", "cancel", "refresh"])
+
 const formItemChangeCallback = (data: any) => {
     emit("formItemChangeCallback", data)
 }
 
-const direction = ref<DrawerProps['direction']>('rtl')
-
-
 // Methods
 // ##########################  以下是公共方法，不需要修改  #########################################
-import { useI18n } from 'vue-i18n';
-import AlaFile from '../file/ala-file.vue';
-const { t } = useI18n();
 
-const handleClose = (done: () => void) => {
-    ElMessageBox.confirm(
-        props.closeContent,
-        props.tipTitle,
-        {
-            confirmButtonText: t("buttons.confirm"),
-            cancelButtonText: t("buttons.cancel"),
-            type: 'warning',
-        })
-        .then(() => {
-            done()
-        })
-        .catch(() => {
-            logger.info("点击右上角关闭按钮，弹出取消提示信息框，用户选择【取消关闭】");
-        })
-}
-
-/**
- * 点击取消按钮，关闭弹窗 
- */
-function cancelClick() {
-    emit("cancel", {})
-}
-
-/**
- * 点击确认按钮，弹窗消息提示框
- */
-function confirmClick() {
-    emit("confirm", {
-        abc: 123
-    })
-}
 
 // 解构 formAttr，同时保持 formAttr 的响应式
 const { formWidth, labelWidth, labelPosition, columnNum } = toRefs(props.formAttr)
-
-// 计算css宽度
-// 1、动态计算 drawer 宽度
-const drawerWidth = computed((): string => {
-    const paddingWidth = 66
-    let width = (formWidth.value + paddingWidth) + 'px'
-
-    return width
-})
 
 const columnWidth = (item: any) => {
 
@@ -239,40 +172,127 @@ const handleModelValueChange = (fieldName: string, value: any) => {
         u.merged(data!, tmp)
 
     }
-
 }
 
 const childRefs = ref<{ [key: number]: any }>({})
+
 // 返回一个函数作为 ref 名称设置器
 const setItemRef = (index: number) => (el: any) => {
     if (el) childRefs.value[index] = el
 }
 
-const saveOrPause = (): Boolean => {
-    let result = true
-    const refs = Object.values(childRefs.value)
-    for (const comp of refs) {
-        if (comp?.saveOrPause) {
-            const re = comp.saveOrPause()
-            if (!re) {
-
-                const props = comp.$props
-                console.info(`字段【 ${props.label} 】的 saveOrPause 返回false`)
-                result = re
-                break
-            }
+const rules = computed(() => {
+    const ruless: { [key: string]: object } = {}
+    props.fields?.forEach(field => {
+        if (field.rules) {
+            ruless[field.fieldName] = field.rules
         }
-    }
-    return result
-}
-defineExpose({
-    saveOrPause: saveOrPause
+    })
+    return ruless
 })
 
+const formRef = ref()
+const save = () => {
+    logger.warn("新增页面 confirm 接收到回调数据，即将回调list页面", props.formData);
+
+    formRef.value.validate(async (valid: boolean) => {
+
+        console.log('rules:', rules);
+        console.log('valid:', valid);
+
+        if (!valid) {
+            // 表单验证失败，阻止提交
+            logger.error(`【 表单验证 不通过 】`);
+            notify.error(t('pop.warm_title'), "表单数据不正确，请修改")
+
+        } else {
+
+            //保存数据
+            let data = props.formData
+
+            if (props.beforeSave) {
+                if (u.isAsyncFunction(props.beforeSave)) {
+                    data = await props.beforeSave(data)
+                } else {
+                    data = props.beforeSave(data)
+                }
+            }
+
+            const response = await postData(data)
+
+            if (response) {
+
+                // 清空 formData
+                u.clear(props.formData)
+                logger.info("点击【确认】按钮，弹出提示信息框，用户选择【确认保存】按钮，数据提交成功后当前表单数据为：", props.formData);
+
+                emit("refresh", props.formData)
+
+            }
+
+        }
+    });
+}
+
+
+const postData = async (item: any): Promise<any> => {
+
+    // 保存数据并刷新分页列表
+    // 判断当前数据 id 存不存在，不存在调用【 新增 】接口，存在则调用【 更新 】接口
+    const id = item.id ? item.id : (item.columns?.id)
+
+    let params = item
+
+    const url = id ? props.updateUrl : props.url
+    if (id) {
+        logger.info(`【 更新数据 】，url${url}，数据对象：`, item);
+    } else {
+        logger.info(`【 新增数据 】，url${url}，数据对象：`, item);
+    }
+
+    if (props.outApi) {
+        //说明是静态api模块
+        params = { ...item.columns }
+    }
+
+    const result = await alaPost(u.url(url || ''), params, false, id ? 'put' : '').then((data: any) => {
+        const response = data;
+        emit("refresh", response)
+        notify.success(t('pop.warm_title'), "保存成功")
+        return response
+    });
+
+    return result
+}
+
+defineExpose({
+    save
+})
 
 </script>
 <style scoped lang="scss">
-.ala-add-form {
+.ala-detail-no-drawer-form-customerization {
+
+    .ala-form-base-item {
+        display: inline-block;
+    }
+
+    .ala-form-base-item-full-width {
+        width: 100%;
+    }
+
+    .ala-form-base-item-hidden {
+        display: none;
+    }
+
+    :deep(.el-form-item__label) {
+        justify-content: end;
+    }
+
+}
+</style>
+<style lang="scss">
+.ala-detail-no-drawer-form-customerization {
     .ala-drawer {
 
         .ala-form-base-item {
@@ -291,26 +311,7 @@ defineExpose({
 }
 </style>
 <style lang="scss">
-.ala-add-form {
-    .ala-drawer {
-
-        .ala-form-base-item {
-            display: inline-block;
-        }
-
-        .ala-form-base-item-full-width {
-            width: 100%;
-        }
-
-        .ala-form-base-item-hidden {
-            display: none;
-        }
-
-    }
-}
-</style>
-<style lang="scss">
-.ala-add-form {
+.ala-detail-no-drawer-form-customerization {
 
     .ala-drawer {
 

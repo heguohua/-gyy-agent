@@ -58,6 +58,7 @@ declare module 'vue' {
     AlaDetail: typeof import('./src/components/cps/form/ala-detail.vue')['default']
     AlaDetailCard: typeof import('./src/components/cps/form/ala-detail-card.vue')['default']
     AlaDetailNoDrawer: typeof import('./src/components/cps/form/ala-detail-no-drawer.vue')['default']
+    AlaDetailNoDrawerFormCustomerization: typeof import('./src/components/cps/form/ala-detail-no-drawer-form-customerization.vue')['default']
     AlaDetailNoDrawerForms: typeof import('./src/components/cps/form/ala-detail-no-drawer-forms.vue')['default']
     AlaDetailNoDrawerFormsHandle: typeof import('./src/components/cps/form/ala-detail-no-drawer-forms-handle.vue')['default']
     AlaDetailNoDrawerTasks: typeof import('./src/components/cps/form/ala-detail-no-drawer-tasks.vue')['default']
