@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-17 14:35:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-06-18 14:31:55
+ * @LastEditTime: 2025-12-26 19:27:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/formSchema.ts
  * @Description: 
  * 
@@ -10,6 +10,7 @@
  */
 import { Static, Type } from "@sinclair/typebox";
 import { schemaAllViewport } from "@/components/cps/utils/schemaAllViewport";
+import { configTextarea } from "@/config/configUtil";
 
 const label = Type.String({
     code: "config-input",
@@ -124,6 +125,7 @@ const schema = Type.Object({
     showInTable: schemaAllViewport(showInTable),
     required: schemaAllViewport(required),
     noEditable: schemaAllViewport(noEditable),
+    colors: schemaAllViewport(configTextarea("颜色值")),
     // style: schemaAllViewport(style),
 })
 

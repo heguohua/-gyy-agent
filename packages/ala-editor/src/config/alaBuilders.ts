@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-14 22:50:58
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-19 20:01:35
+ * @LastEditTime: 2025-12-27 08:35:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaBuilders.ts
  * @Description: 
  * 
@@ -28,7 +28,7 @@ import AlaSelectTreeSchema from "@/components/cps/select-tree/alaSelectTredSchem
 /**
  * 将 {"男":'man'} 格式对象转换成 { name: "男", value: "man" } 格式
  */
-type Item = { name: string; value: string | number };
+type Item = { name: string; value: string | number; color?: string };
 export function convertToItem(config: { [key: string]: string | number }): Item {
 
     const item: Item = {
@@ -74,6 +74,7 @@ export function alaBuildWithItems(componentName: string, fieldName: string, labe
         },
         rules
     }
+
     return obj
 }
 
@@ -214,9 +215,15 @@ export function alaBuildCheckbox(fieldName: string, label: string, items: Array<
 export function alaBuildRadio(fieldName: string, label: string, items: Array<{ [key: string]: any }>, rules?: Array<baseRule>, placeholder?: string): AlaRadioSchema {
     u.checkTrue(!items, `表单元素radio配置项items为空，表单字段名${fieldName}`, () => { })
     const item_s = items.map((item => {
-        return convertToItem(item)
+        const { color, ...newObj } = item
+
+        let it = convertToItem(newObj)
+        it['color'] = color
+        return it
     }))
+
     const obj = alaBuildWithItems("AlaRadio", fieldName, label, item_s, rules, placeholder)
+
     return obj
 }
 

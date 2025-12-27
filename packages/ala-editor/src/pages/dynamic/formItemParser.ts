@@ -1,12 +1,13 @@
 import { alaBuildAi, alaBuildAiInfo, alaBuildCascader, alaBuildCascaderDict, alaBuildChapter, alaBuildCheckbox, alaBuildChildTableCount, alaBuildDate, alaBuildDateRange, alaBuildDivider, alaBuildFile, alaBuildFormTable, alaBuildImage, alaBuildInput, alaBuildNumber, alaBuildRadio, alaBuildRating, alaBuildSelect, alaBuildSelectApi, alaBuildSelectDict, alaBuildSelectTable, alaBuildSelectTree, alaBuildSlider, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders";
 import baseRule from "@/config/rules/baseRule";
 import { logger } from "@/utils/logger";
+import u from "@/utils/u";
 
 /*
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-17 21:06:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-07 22:22:45
+ * @LastEditTime: 2025-12-27 08:35:09
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/formItemParser.ts
  * @Description: 
  * 
@@ -42,15 +43,25 @@ export function parseTextarea(item: { fieldName: { desktop: string }, label: { d
     return result
 }
 
-export function parseRadio(item: { fieldName: { desktop: string }, label: { desktop: string }, items: { desktop: [] } }) {
-    // alaBuildRadio('gender', "性别", [{ '男': 'man' }, { '女': 'men' }, { '未知': 'unknown' }], [alaRequired()])
+export function parseRadio(item: { fieldName: { desktop: string }, label: { desktop: string }, items: { desktop: [] }, colors: { desktop: string } }) {
+
+    let colors: { [key: string]: string } = {}
+    if (item.colors?.desktop) {
+        colors = u.parseJson(item.colors?.desktop)
+    }
+
     const item_s: any = []
     const items = item.items.desktop
-    items.forEach(((it: { name: string, value: any }) => {
+    items.forEach(((it: { name: string, value: any, color: any }) => {
         item_s.push({ [it.name]: it.value })
+        if (colors[it.value]) {
+            it['color'] = colors[it.value]
+        }
     }))
+
     const result = alaBuildRadio(item.fieldName.desktop, item.label.desktop, item_s)
     logger.info(`解析【 radio 】字段：`, result);
+
     return result
 }
 

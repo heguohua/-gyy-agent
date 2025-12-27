@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-12-25 08:51:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-26 09:22:10
+ * @LastEditTime: 2025-12-27 08:35:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/page-table-alarm-card.vue
  * @Description: 
  * 
@@ -19,11 +19,11 @@
             </div>
         </template>
 
-        <template #default="{ row }">
+        <template #default="{ row, formConfigItems }">
 
             <AlarmCard :alarmType="row.alarmType[0].dictLabel" :time="formatTime(row.time)" :camera="row.device[0]"
                 :images="row.images" :confirmStatus="row.confirmStatus" :confirmResult="row.confirmResult"
-                :pushStatus="row.pushStatus" />
+                :pushStatus="row.pushStatus" :formConfigItems="formConfigItems" />
 
         </template>
     </PageDynamicTableCustomizationSimplest>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 22:46:17
+ * @LastEditTime: 2025-12-26 12:31:29
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table-customization-simplest.vue
  * @Description: 
  * 
@@ -20,7 +20,7 @@
         :showSelectCheckbox="false" :tipTitle="$t('pop.warm_title')" :className="className" :beforeQuery="beforeQuery">
         <template #default="{ row }">
 
-            <slot :row="row" />
+            <slot :row="row" :formConfigItems="formConfigItems" />
 
         </template>
 
