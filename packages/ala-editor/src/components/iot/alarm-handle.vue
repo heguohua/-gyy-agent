@@ -15,7 +15,7 @@
                     <AlaImageViewer :images="images" v-if="dialogShow" />
                     <div class="alarm-info">
                         <div class="header">
-                            <p class="title">告警基础信息</p>
+                            <p class="title">基础信息</p>
                             <div class="buttons">
                                 <p class="alarmVideo">告警视频</p>
                                 <p class="realVideo">实时视频</p>
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="header">
-                            <p class="title">告警处理信息</p>
+                            <p class="title">确认信息</p>
                         </div>
 
 
