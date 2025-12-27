@@ -7,8 +7,9 @@
             <p>{{ camera['deviceName'] }}</p>
         </div>
 
-        <div class="images">
-            <img class="image" :src="image.src" v-for="(image, index) in localValues" :key="index" :image="image.fid" />
+        <div class="images" @click="handle">
+            <img class=" image" :src="image.src" v-for="(image, index) in localValues" :key="index"
+                :image="image.fid" />
         </div>
 
         <div class="footer">
@@ -155,6 +156,11 @@ watch(() => props.images, async () => {
     deep: true
 })
 
+
+const emit = defineEmits(['handle'])
+const handle = () => {
+    emit('handle')
+}
 
 </script>
 

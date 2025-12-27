@@ -186,6 +186,9 @@ onMounted(async () => {
 
 })
 
+
+defineExpose({ refresh })
+
 </script>
 
 <style lang="scss" scoped></style>

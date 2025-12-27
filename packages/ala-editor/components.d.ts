@@ -96,6 +96,7 @@ declare module 'vue' {
     AlaRelationFormItems: typeof import('./src/components/cps/relation/ala-relation-form-items.vue')['default']
     AlaRelationSubForm: typeof import('./src/components/cps/relation/ala-relation-sub-form.vue')['default']
     AlarmCard: typeof import('./src/components/iot/alarm-card.vue')['default']
+    AlarmHandle: typeof import('./src/components/iot/alarm-handle.vue')['default']
     AlaSelect: typeof import('./src/components/cps/select/ala-select.vue')['default']
     AlaSelectApi: typeof import('./src/components/cps/select-api/ala-select-api.vue')['default']
     AlaSelectDict: typeof import('./src/components/cps/select-dict/ala-select-dict.vue')['default']
