@@ -45,7 +45,7 @@ const props = defineProps({
     },
     dialogWidth: {
         type: String,
-        default: "60%",
+        default: "70%",
     },
     aiAlarmRecord: {
         type: Object,

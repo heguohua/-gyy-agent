@@ -2,7 +2,7 @@
     <div class="image-viewer">
         <!-- 左箭头 -->
         <div class="arrow left" :class="{ disabled: !hasPrev }" @click="prev">
-           《
+            <img class="left-arrow" src="/ai/left-arrow.svg" />
         </div>
 
         <!-- 图片 -->
@@ -10,7 +10,7 @@
 
         <!-- 右箭头 -->
         <div class="arrow right" :class="{ disabled: !hasNext }" @click="next">
-            》
+            <img class="right-arrow" src="/ai/left-arrow.svg" />
         </div>
     </div>
 </template>
@@ -57,7 +57,7 @@ const next = () => {
 
 /** 当图片数组变化时，防止越界 */
 watch(() => props.images, (newImages) => {
-    if(!newImages){
+    if (!newImages) {
         return
     }
 
@@ -67,7 +67,7 @@ watch(() => props.images, (newImages) => {
 })
 </script>
 
-<style scoped>
+<style scss scoped>
 .image-viewer {
     position: relative;
     width: 100%;
@@ -77,47 +77,63 @@ watch(() => props.images, (newImages) => {
     justify-content: center;
     overflow: hidden;
     user-select: none;
-}
 
-/* 图片 */
-.image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
 
-/* 箭头公共样式 */
-.arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 32px;
-    color: #fff;
-    cursor: pointer;
-    user-select: none;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 50%;
-    transition: opacity 0.2s;
-}
+    /* 箭头公共样式 */
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+        padding: 8px;
+        background: rgb(64, 158, 255, 0.6);
+        border-radius: 50%;
+        transition: opacity 0.2s;
 
-.arrow:hover {
-    background: rgba(0, 0, 0, 0.6);
-}
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-/* 左右位置 */
-.arrow.left {
-    left: 10px;
-}
+        .left-arrow {
+            width: 38px;
+            margin: 18px 6px;
+        }
 
-.arrow.right {
-    right: 10px;
-}
+        .right-arrow {
+            width: 38px;
+            margin: 18px 6px;
+            transform: rotateY(180deg);
+        }
 
-/* 禁用状态 */
-.arrow.disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    pointer-events: none;
+        &:hover {
+            background: rgba(64, 158, 255, 0.8);
+        }
+    }
+
+    /* 图片 */
+    .image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    /* 左右位置 */
+    .left {
+        left: 10px;
+    }
+
+    .right {
+        right: 10px;
+    }
+
+    /* 禁用状态 */
+    .disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
 }
 </style>
