@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 22:26:26
+ * @LastEditTime: 2025-12-27 09:43:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table-customization.vue
  * @Description: 
  * 
@@ -12,9 +12,13 @@
     <div class="ala-customization-table">
         <!-- 分页列表区域 -->
 
-        <template v-for="row in paginatedData">
-            <slot :row="row" />
-        </template>
+        <el-empty v-if="paginatedData.length === 0" description="暂无数据" />
+
+        <div class="ala-customization-table-rows">
+            <template v-for="row in paginatedData">
+                <slot :row="row" />
+            </template>
+        </div>
 
         <!-- 分页列表 -->
         <el-pagination v-model:current-page="current" :page-sizes="pageSize" :page-size="page.size"
@@ -102,6 +106,10 @@ const props = defineProps({
     pageSize: {
         type: Array<number>,
         default: [10, 20, 30, 40, 50, 100, 200]
+    },
+    defaultPageSize: {
+        type: Number,
+        default: 8
     },
     className: {
         type: String
@@ -308,13 +316,16 @@ const loading = ref(true)
 // 分页参数
 const page = reactive({
     "current": 1,
-    "size": 20,
+    "size": props.defaultPageSize,
     "total": 0,
     orders: [{
         column: 'id',
         asc: false
     }]
 })
+
+console.log('page:',page);
+
 const { current, total, size } = toRefs(page)
 
 
@@ -389,6 +400,17 @@ defineExpose({ refresh })
 .ala-customization-table {
     padding-left: 4px;
 
+    .el-empty {
+        background: #fff;
+    }
+
+    .ala-customization-table-rows {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
     .video-cards {
         padding: 4px 0px;
         display: flex;
@@ -401,6 +423,14 @@ defineExpose({ refresh })
         }
 
         .video-card {
+
+
+            cursor: pointer;
+            border: 1px solid #e7e7e7;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 12px 32px 0 rgba(0, 0, 0, .04),
+                0 8px 20px 0 rgba(0, 0, 0, .08);
             display: flex;
             flex-direction: column;
 
@@ -423,14 +453,6 @@ defineExpose({ refresh })
             &:hover {
                 scale: 1.005;
             }
-
-
-            cursor: pointer;
-            border: 1px solid #e7e7e7;
-            background:#fff;
-            border-radius: 6px;
-            box-shadow: 0 12px 32px 0 rgba(0, 0, 0, .04),
-            0 8px 20px 0 rgba(0, 0, 0, .08);
         }
     }
 

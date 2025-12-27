@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-20 16:21:52
+ * @LastEditTime: 2025-12-27 08:43:13
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailRadioColumn.vue
  * @Description: 
  * 
@@ -69,7 +69,7 @@ const style = computed(() => {
     const st = {}
 
     if (color.value) {
-        u.merged(st, { color: color.value, fontWeight: 'bold' })
+        u.merged(st, { color: color.value })
     }
 
     return st

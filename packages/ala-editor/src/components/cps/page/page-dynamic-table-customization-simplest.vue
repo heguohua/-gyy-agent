@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-26 12:31:29
+ * @LastEditTime: 2025-12-27 09:44:56
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table-customization-simplest.vue
  * @Description: 
  * 
@@ -17,7 +17,8 @@
 
     <!-- 分页列表 -->
     <PageDynamicTableCustomization ref="pageRef" :url="url" :columns="columns" :params="params"
-        :showSelectCheckbox="false" :tipTitle="$t('pop.warm_title')" :className="className" :beforeQuery="beforeQuery">
+        :showSelectCheckbox="false" :tipTitle="$t('pop.warm_title')" :className="className" :beforeQuery="beforeQuery"
+        :pageSize="pageSize" :defaultPageSize="defaultPageSize">
         <template #default="{ row }">
 
             <slot :row="row" :formConfigItems="formConfigItems" />
@@ -49,6 +50,14 @@ const props = defineProps({
         default: () => {
             return {}
         }
+    },
+    pageSize: {
+        type: Array<number>,
+        default: [10, 20, 30, 40, 50, 100, 200]
+    },
+    defaultPageSize: {
+        type: Number,
+        default: 8
     }
 })
 
