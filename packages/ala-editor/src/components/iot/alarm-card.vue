@@ -224,8 +224,6 @@ watch(() => props.images, async () => {
             margin-left: 10px;
 
         }
-
-        p {}
     }
 }
 </style>
