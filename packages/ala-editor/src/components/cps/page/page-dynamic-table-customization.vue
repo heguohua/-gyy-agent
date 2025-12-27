@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-27 09:43:56
+ * @LastEditTime: 2025-12-27 09:55:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table-customization.vue
  * @Description: 
  * 
@@ -323,8 +323,6 @@ const page = reactive({
         asc: false
     }]
 })
-
-console.log('page:',page);
 
 const { current, total, size } = toRefs(page)
 
