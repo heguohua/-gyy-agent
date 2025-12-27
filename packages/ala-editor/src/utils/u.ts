@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-07 20:45:03
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 19:47:12
+ * @LastEditTime: 2025-12-27 17:27:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/u.ts
  * @Description: 
  * 
@@ -369,6 +369,33 @@ export default class u {
 
         // 根据天数、小时数是否为0来拼接返回结果
         return { days, hours: remainingHours, minutes: remainingMinutes }
+    }
+
+    /**
+     * 计算2个时间戳之间的差值，返参 X天 Y小时 Z分
+     * @param timestamp1 
+     * @param timestamp2 
+     * @returns 
+     */
+    public static timeConsuming(timestamp1: number, timestamp2: number): string {
+
+        const time = u.timeDiff(timestamp1, timestamp2)
+        let t = ''
+        t += time.days ? (time.days + '天 ') : ''
+        t += time.hours ? (time.hours + '小时 ') : ''
+        t += time.minutes ? (time.minutes + '分 ') : '0分'
+
+
+        // 根据天数、小时数是否为0来拼接返回结果
+        return t
+    }
+    
+    /**
+     * 获取当前时间戳
+     * @returns
+     */
+    public static now(): number {
+        return new Date().getTime()
     }
 
     /**

@@ -10,14 +10,14 @@
 -->
 <template>
 
-    <p class="title" :style="{ minWidth: labelWidth }">
+    <p class="title" :style="{ minWidth: labelWidth }" v-if="isDetailPage">
         <template v-if="isDetailPage">
-                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code"
-                    :alaFieldName="formItem.formData.fieldName.desktop" />：
-            </template>
-            <template v-else>
-                {{ label }}
-            </template>
+            <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code"
+                :alaFieldName="formItem.formData.fieldName.desktop" />：
+        </template>
+        <template v-else>
+            {{ label }}
+        </template>
     </p>
     <p class="value" :style="style">{{ showValue }}</p>
 

@@ -12,7 +12,51 @@
 
                 <div class="dialog-content">
                     <!-- 分页列表 -->
-                    <AlaImageViewer :images="images" v-if="dialogShow"/>
+                    <AlaImageViewer :images="images" v-if="dialogShow" />
+                    <div class="alarm-info">
+                        <div class="header">
+                            <p class="title">告警基础信息</p>
+                            <div class="buttons">
+                                <p class="alarmVideo">告警视频</p>
+                                <p class="realVideo">实时视频</p>
+                            </div>
+                        </div>
+                        <div class="infos">
+                            <div class="info">
+                                <p class="label">告警类型：</p>
+                                <p class="value">{{ aiAlarmRecord.alarmType[0].dictLabel }}</p>
+                            </div>
+                            <div class="info">
+                                <p class="label">告警等级：</p>
+                                <p class="value">
+                                    <DetailRadioColumn :formItem="formConfigItems.value['level']"
+                                        :value="aiAlarmRecord.level" />
+                                </p>
+                            </div>
+                            <div class="info">
+                                <p class="label">告警时间：</p>
+                                <p class="value">
+                                    {{ date.formatDateTime(aiAlarmRecord.time, date.F_YYYY_MM_DD_HH_mm_ss) }}
+                                </p>
+                            </div>
+                            <div class="info">
+                                <p class="label">告警距今时间：</p>
+                                <p class="value">{{ u.timeConsuming(u.now(), aiAlarmRecord.time) }}</p>
+                            </div>
+
+                            <div class="info">
+                                <p class="label">告警摄像头：</p>
+                                <p class="value">{{ aiAlarmRecord.device[0].deviceName }}</p>
+                            </div>
+
+                        </div>
+
+                        <div class="header">
+                            <p class="title">告警处理信息</p>
+                        </div>
+
+
+                    </div>
 
                 </div>
 
@@ -36,6 +80,8 @@
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 import notify from '@/utils/notify';
+import { date } from '@/utils/date';
+import u from '@/utils/u';
 
 // State
 const props = defineProps({
@@ -54,6 +100,10 @@ const props = defineProps({
     images: {
         type: Array<string>,
         default: () => []
+    },
+    formConfigItems: {
+        type: Object,
+        default: () => { }
     }
 })
 
@@ -137,6 +187,8 @@ defineExpose({ openDialog })
     display: flex;
     align-items: top;
     justify-content: center;
+    flex-direction: column;
+
     gap: 2%;
 
     .left-panel {
@@ -161,6 +213,109 @@ defineExpose({ openDialog })
             font-size: 1rem;
             font-weight: 600;
         }
+    }
+
+    .alarm-info {
+        width: 98%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 1%;
+
+        .header {
+
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            padding: 8px 8px;
+            justify-content: space-between;
+            background: var(--al-title-color);
+
+            p {
+                margin: 0px;
+                user-select: none;
+            }
+
+            .title {
+                font-size: 1rem;
+                font-weight: bold;
+                align-items: center;
+                justify-content: center;
+
+            }
+
+            .buttons {
+                display: flex;
+                flex-direction: row;
+                column-gap: 12px;
+
+                .alarmVideo {
+                    background: rgb(230, 162, 60, 0.7);
+                    color: #fff;
+                    padding: 4px 12px;
+                    border-radius: 14px;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: rgb(230, 162, 60);
+                    }
+
+                }
+
+                .realVideo {
+                    background: rgb(64, 158, 255, 0.7);
+                    color: #fff;
+                    padding: 4px 12px;
+                    border-radius: 14px;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: rgb(64, 158, 255);
+                    }
+
+                }
+            }
+
+        }
+
+        .infos {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            column-gap: 16px;
+            row-gap: 6px;
+            padding: 8px 0px;
+
+            p {
+                margin: 0px;
+            }
+
+            .info {
+                display: inline-flex;
+                width: 18%;
+
+                .label {
+                    // background: rgb(249, 249, 250);
+                    padding: 4px 2px 4px 4px;
+                    font-weight: 500;
+                }
+
+                .value {
+                    background: #f3f7fa;
+                    padding: 4px 14px 4px 10px;
+
+                    :deep(p) {
+                        margin: 0px;
+                    }
+
+                    width: 50%;
+                }
+            }
+        }
+
     }
 
 
