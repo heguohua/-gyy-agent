@@ -2,7 +2,7 @@
     <div class="image-viewer">
         <!-- 左箭头 -->
         <div class="arrow left" :class="{ disabled: !hasPrev }" @click="prev">
-            ◀
+           《
         </div>
 
         <!-- 图片 -->
@@ -10,29 +10,32 @@
 
         <!-- 右箭头 -->
         <div class="arrow right" :class="{ disabled: !hasNext }" @click="next">
-            ▶
+            》
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import u from '@/utils/u';
 import { computed, ref, watch } from 'vue'
 
-interface Props {
-    images: string[]
-    defaultIndex?: number
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    defaultIndex: 0,
+const props = defineProps({
+    images: {
+        type: Array<string>,
+        default: () => []
+    }
 })
 
-const currentIndex = ref(props.defaultIndex)
+const currentIndex = ref(0)
 
 /** 当前图片 */
 const currentImage = computed(() => {
-    return props.images[currentIndex.value]
+
+    const image = props.images[currentIndex.value]
+
+    return image
 })
+
 
 /** 是否有上一张 */
 const hasPrev = computed(() => currentIndex.value > 0)
@@ -53,26 +56,27 @@ const next = () => {
 }
 
 /** 当图片数组变化时，防止越界 */
-watch(
-    () => props.images,
-    (newImages) => {
-        if (currentIndex.value >= newImages.length) {
-            currentIndex.value = newImages.length - 1
-        }
+watch(() => props.images, (newImages) => {
+    if(!newImages){
+        return
     }
-)
+
+    if (currentIndex.value >= newImages.length) {
+        currentIndex.value = newImages.length - 1
+    }
+})
 </script>
 
 <style scoped>
 .image-viewer {
     position: relative;
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    min-height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #000;
     overflow: hidden;
+    user-select: none;
 }
 
 /* 图片 */
@@ -116,5 +120,4 @@ watch(
     cursor: not-allowed;
     pointer-events: none;
 }
-
 </style>

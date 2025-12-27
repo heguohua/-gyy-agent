@@ -9,6 +9,7 @@
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 import AlaImage from '@/components/cps/image/ala-image.vue';
+import AlaImageViewer from '@/components/cps/image/ala-image-viewer.vue';
 import AlaEmpty from '@/components/cps/empty/ala-empty.vue';
 import AlaFile from '@/components/cps/file/ala-file.vue';
 import AlaLink from '@/components/cps/link/ala-link.vue';
@@ -141,6 +142,7 @@ export default {
 
     // 页面组件
     AlaImage,
+    AlaImageViewer,
     AlaEmpty,
     AlaLink,
     AlaColumn,

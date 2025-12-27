@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-12-25 08:51:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-27 10:12:56
+ * @LastEditTime: 2025-12-27 11:34:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/page-table-alarm-card.vue
  * @Description: 
  * 
@@ -29,13 +29,14 @@
         </template>
     </PageDynamicTableCustomizationSimplest>
 
-    <AlarmHandle ref="alarmHandle" title="AI告警确认" :singleValue="true" />
+    <AlarmHandle ref="alarmHandle" title="AI告警确认" :aiAlarmRecord="aiAlarmRecord" :images="images" />
 
 
 </template>
 
 <script setup lang="ts">
 import { date } from '@/utils/date';
+import { alaDownload } from '@/utils/req';
 import u from '@/utils/u';
 
 
@@ -51,11 +52,69 @@ const formatTime = (time: number) => {
 const pageList = ref()
 
 const alarmHandle = ref()
+const aiAlarmRecord = ref()
+
+interface AFile {
+    id: number,
+    fid: string,
+    fileName: string
+    classify: string
+    url: string
+}
+interface Image {
+    src: string,
+    fid: string
+}
+
+const images = ref<Array<string>>([])
+
 const handle = (row: any) => {
-    
-    console.log('row:', row);
+
+    aiAlarmRecord.value = row
+
+    if (row.images) {
+
+        const tmp_images = u.parseJson(row.images) || []
+
+        const imgs: Array<string> = []
+
+        tmp_images.forEach(async (image: AFile) => {
+
+            const result = await alaDownload(u.url('/f/ossfile/download'), { fid: image.fid }).then((data: any) => {
+                const response = data;
+                return response
+            })
+
+            const blob = new Blob([result.data])
+            const reader = new FileReader()
+
+            reader.onloadend = () => {
+                const base64 = reader.result
+                let imageType = u.fileExtension(image.fileName)
+                if (imageType === 'svg') {
+                    imageType = 'svg+xml'
+                }
+                if (typeof base64 === 'string') {
+                    images.value.push(base64.replace('data:application/octet-stream', `data:image/${imageType}`))
+                }
+            }
+
+            reader.onerror = (e) => {
+                console.log('e:', e)
+            }
+
+            reader.readAsDataURL(blob) // 转成 base64
+
+        })
+
+        images.value = imgs
+
+    }
+
+
     alarmHandle.value.openDialog()
-    pageList.value.refresh()
+
+    // pageList.value.refresh()
 
 }
 

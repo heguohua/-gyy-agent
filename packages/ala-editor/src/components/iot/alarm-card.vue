@@ -8,8 +8,7 @@
         </div>
 
         <div class="images" @click="handle">
-            <img class=" image" :src="image.src" v-for="(image, index) in localValues" :key="index"
-                :image="image.fid" />
+            <img class="image" :src="image.src" v-for="(image, index) in localValues" :key="index" :image="image.fid" />
         </div>
 
         <div class="footer">
@@ -28,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import { alaBuildRadio } from '@/config/alaBuilders'
 import { alaDownload } from '@/utils/req'
 import u from '@/utils/u'
 

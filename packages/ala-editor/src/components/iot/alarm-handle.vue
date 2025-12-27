@@ -12,6 +12,7 @@
 
                 <div class="dialog-content">
                     <!-- 分页列表 -->
+                    <AlaImageViewer :images="images" v-if="dialogShow"/>
 
                 </div>
 
@@ -35,93 +36,24 @@
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 import notify from '@/utils/notify';
-import { PropType } from 'vue';
 
-interface ItemProperty {
-    propertyName: string,
-    valueName: string
-    otherProperty: Array<string>
-}
 // State
 const props = defineProps({
     title: {
         type: String,
         default: ''
     },
-    position: {
-        type: String as () => '' | 'top' | 'left' | 'right',
-        default: 'left'
-    },
-    placeholder: {
-        type: String,
-        default: ''
-    },
-    url: {
-        type: String,
-        default: ''
-    },
-    params: {
-        type: [Object, String] as PropType<object | string>,
-        default: () => ({})
-    },
     dialogWidth: {
         type: String,
-        default: "80%",
+        default: "60%",
     },
-    width: {
-        type: Number,
-        default: 200,
+    aiAlarmRecord: {
+        type: Object,
+        default: () => { }
     },
-    fieldName: {
-        type: String,
-        default: ''
-    },
-    columns: {
-        type: Array<any>,
+    images: {
+        type: Array<string>,
         default: () => []
-    },
-    itemProperty: {
-        type: Object as () => ItemProperty,
-        default: () => ({})
-    },
-    isFormDesign: {
-        type: Boolean,
-        default: false
-    },
-    help: {
-        type: String,
-    },
-    icon: {
-        type: String,
-        default: 'f_user'
-    },
-    iconWidth: {
-        type: Number,
-        default: 26
-    },
-    iconHeight: {
-        type: Number,
-        default: 26
-    },
-    singleValue: {
-        type: Boolean,
-        default: false
-    },
-    canEmpty: {
-        type: Boolean,
-        default: false
-    },
-    valueToString: {
-        type: Boolean,
-        default: false
-    },
-    data: {
-        type: Array<any>,
-        default: () => []
-    },
-    noEditable: {
-        type: Boolean,
-        default: () => false
     }
 })
 
@@ -130,14 +62,9 @@ const model = defineModel({
     default: () => { return [] }
 })
 
-
-
 // 分页列表中列属性配置
 const dialogShow = ref(false)
 const openDialog = () => {
-    if (isDisabled.value) {
-        return
-    }
     dialogShow.value = true;
 }
 
@@ -149,55 +76,14 @@ function cancelClick() {
     selectedData.value = []
 }
 
-
 function confirmClick() {
-
-    const length = selectedData.value.length
-
-    if (!props.canEmpty && (!selectedData.value || length <= 0)) {
-
-        notify.warn(t('pop.warm_title'), t('form.p-select-1') + '【 ' + props.title + ' 】')
-
-    } else {
-
-        // 给 model 赋值
-        const mv: any = []
-        // const sv: string[] = []
-        const pi = props.itemProperty
-        selectedData.value.forEach((item) => {
-
-            const selected = { [pi.valueName]: item[pi.valueName], [pi.propertyName]: item[pi.propertyName], }
-            if (pi.otherProperty && pi.otherProperty.length > 0) {
-                pi.otherProperty.forEach((op: string) => {
-                    Object.assign(selected, { [op]: item[op] })
-                })
-            }
-            mv.push(selected)
-        })
-
-        // 清空列表选择页面当前状态
-        // 关闭弹窗
-        dialogShow.value = false
-
-        selectedData.value = []
-
-        emit('selectedChange', mv)
-
-    }
+    notify.warn(t('pop.warm_title'), t('form.p-select-1') + '【 ' + props.title + ' 】')
 }
 
 const selectedData = ref<Array<any>>([])
 
-const isDisabled = computed(() => {
-    const idd = false
-
-    if (props.noEditable) {
-        return true
-    }
-    return idd
-})
-
 const emit = defineEmits(["add", "edit", "selectedChange"])
+
 
 defineExpose({ openDialog })
 
@@ -281,11 +167,6 @@ defineExpose({ openDialog })
 }
 </style>
 <style>
-
-.el-dialog {
-    width: 60% !important;
-}
-
 .el-dialog__header {
     padding-bottom: 0px !important;
 }
