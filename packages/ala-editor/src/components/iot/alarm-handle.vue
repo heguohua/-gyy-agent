@@ -6,7 +6,7 @@
 
                 <template #header="{ titleId, titleClass }">
                     <div class="ala-list-pop-header">
-                        <h4 :id="titleId" :class="titleClass"> {{ title }} </h4>
+                        <h4 :id="titleId" :class="titleClass"> {{ cameraTitle }} </h4>
                     </div>
                 </template>
 
@@ -18,7 +18,7 @@
                             <p class="title">基础信息</p>
                             <div class="buttons">
                                 <p class="alarmVideo">告警视频</p>
-                                <p class="realVideo">实时视频</p>
+                                <p class="realVideo" @click="showRealVideo">实时视频</p>
                             </div>
                         </div>
                         <div class="infos">
@@ -79,7 +79,7 @@
                                     </p>
                                 </div>
                                 <div class="info">
-                                    <p class="label">判定时长：</p>
+                                    <p class="label">判定耗时：</p>
                                     <p class="value">
                                         {{ u.timeConsuming(aiAlarmRecord.confirmTime, aiAlarmRecord.time) }}
                                     </p>
@@ -108,6 +108,22 @@
         </div>
 
 
+        <Teleport to="body">
+            <div class="ala-video-player">
+
+                <el-dialog v-model="show" width="80%">
+                    <template #header>
+                        <p class="ala-video-player-title">摄像头【 {{ cameraTitle }} 】实时画面，当前时间：{{ time }}</p>
+                    </template>
+
+                    <ala-video-flv v-if="show" :url="videoStreamUrl" />
+
+                </el-dialog>
+            </div>
+
+        </Teleport>
+
+
     </div>
 </template>
 
@@ -115,7 +131,11 @@
 import { date } from '@/utils/date';
 import u from '@/utils/u';
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
-
+import req, { alaPost } from '@/utils/req';
+import { logger } from '@/utils/logger';
+import notify from '@/utils/notify';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 // State
 const props = defineProps({
     title: {
@@ -213,6 +233,58 @@ const beforeSave = (fields: any) => {
 const refresh = () => {
     emit('refresh')
 }
+
+const time = ref("")
+const timerId = window.setInterval(() => {
+    time.value = date.YYYY_MM_DD__HH_mm_ss(new Date())
+}, 1 * 1000);
+
+onUnmounted(() => {
+    if (timerId) {
+        clearInterval(timerId);
+    }
+})
+
+
+const show = ref(false)
+const videoStreamUrl = ref<string>('')
+const cameraTitle = ref<string>('')
+const deviceUrl = '/iot/device/get'
+const showRealVideo = async () => {
+    console.log('row:', props.aiAlarmRecord);
+
+    if (!props.aiAlarmRecord.device[0]?.id) {
+        logger.error(`【错误，错误，错误】，摄像头id不存在，无法获取摄像头视频信息，摄像头设备信息如下：`, props.aiAlarmRecord)
+        return
+    }
+
+    // 根据摄像头id加载 摄像头编码
+    const params = { 'id': props.aiAlarmRecord.device[0]?.id }
+
+    const deviceCode = await req.get(u.url(deviceUrl || ''), params).then((response: any) => {
+        const { data: { deviceCode } } = response.data;
+        return deviceCode
+    });
+
+    if (!deviceCode) {
+        const msg = `当前告警绑定的摄像头“摄像头编码”(deviceCode)不存在！`
+        logger.error(`${msg}，摄像头ID[${params.id}]`, props.aiAlarmRecord)
+        notify.error(t('pop.warm_title'), msg)
+    } else {
+
+        videoStreamUrl.value = `${u.videoUrl()}/live?url=${deviceCode}&&&isLocal=true&&&ffmpeg=true&&&autoClose=true`
+        cameraTitle.value = props.aiAlarmRecord.device[0]?.deviceName
+
+        show.value = true
+
+    }
+
+
+
+}
+
+
+
 
 defineExpose({ openDialog })
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 08:06:03
+ * @LastEditTime: 2025-12-28 20:05:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailVideoFlvColumn.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
     <p class="title" :style="{ minWidth: labelWidth }">
         <template v-if="isDetailPage">
             <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code"
-                    :alaFieldName="formItem.formData.fieldName.desktop" />：
+                :alaFieldName="formItem.formData.fieldName.desktop" />：
         </template>
         <template v-else>
             {{ label }}
@@ -25,11 +25,12 @@
     <Teleport to="body">
         <div class="ala-video-player">
             <el-dialog v-model="show" width="1600px">
-                <template #title>
+                <template #header>
                     <p class="ala-video-player-title">摄像头【 {{ title }} 】实时画面，当前时间：{{ time }}</p>
                 </template>
 
                 <ala-video-flv v-if="show" :url="url" />
+
             </el-dialog>
         </div>
 
@@ -39,9 +40,7 @@
 
 <script setup lang="ts">
 import { date } from '@/utils/date';
-import { alaDownload } from '@/utils/req';
 import u from '@/utils/u';
-
 
 // State
 const props = defineProps({
@@ -88,13 +87,19 @@ const showVideo = () => {
     // http://127.0.0.1:2060/live?url=/Users/darcy/Downloads/38148_2025_12_19_08.ts&&&isLocal=true&&&ffmpeg=true&&&autoClose=true
     url.value = `${u.videoUrl()}/live?url=${props.value}&&&isLocal=true&&&ffmpeg=true&&&autoClose=true`
     title.value = props.data[props.formItem.formData.titleColumnName.desktop]
-    show.value = true    
+    show.value = true
 }
 
 const time = ref("")
-setInterval(() => {
+const timerId = window.setInterval(() => {
     time.value = date.YYYY_MM_DD__HH_mm_ss(new Date())
-}, 1 * 1000)
+}, 1 * 1000);
+
+onUnmounted(() => {
+    if (timerId) {
+        clearInterval(timerId);
+    }
+})
 
 
 defineEmits(['refresh'])
@@ -154,8 +159,9 @@ defineEmits(['refresh'])
         padding: 0px !important;
         margin: 0px !important;
     }
+
     .ala-video-flv .xgplayer {
-        min-height: 800px!important;
+        min-height: 800px !important;
     }
 
 }

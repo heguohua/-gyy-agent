@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-20 16:23:55
+ * @LastEditTime: 2025-12-28 20:04:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailVideoHLSColumn.vue
  * @Description: 
  * 
@@ -11,12 +11,12 @@
 <template>
     <p class="title" :style="{ minWidth: labelWidth }">
         <template v-if="isDetailPage">
-                <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code"
-                    :alaFieldName="formItem.formData.fieldName.desktop" />：
-            </template>
-            <template v-else>
-                {{ label }}
-            </template>
+            <AlaFormLabel :label="label" :help="formItem.formData.help?.desktop" :alaComponent="formItem.code"
+                :alaFieldName="formItem.formData.fieldName.desktop" />：
+        </template>
+        <template v-else>
+            {{ label }}
+        </template>
     </p>
     <div class="ala-video" @click="showVideo">
         <img class="image" src="/iot/video-online.svg" />
@@ -25,7 +25,7 @@
     <Teleport to="body">
         <div class="ala-video-player">
             <el-dialog v-model="show" width="1600px">
-                <template #title>
+                <template #header>
                     <p class="ala-video-player-title">摄像头【 {{ title }} 】实时画面，当前时间：{{ time }}</p>
                 </template>
 
