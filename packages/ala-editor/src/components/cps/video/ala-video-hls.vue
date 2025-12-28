@@ -45,6 +45,8 @@ let player = null
 
 onMounted(() => {
     
+    console.log('props.url:',props.url);
+    
     const video = videoPlayer.value
 
     if (Hls.isSupported()) {

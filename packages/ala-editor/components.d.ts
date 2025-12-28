@@ -115,6 +115,7 @@ declare module 'vue' {
     AlaTextarea: typeof import('./src/components/cps/textarea/ala-textarea.vue')['default']
     AlaTree: typeof import('./src/components/cps/tree/ala-tree.vue')['default']
     AlaTypewriterOneLine: typeof import('./src/components/cps/typewriter/AlaTypewriterOneLine.vue')['default']
+    AlaVideo: typeof import('./src/components/cps/video/ala-video.vue')['default']
     AlaVideoFlv: typeof import('./src/components/cps/video/ala-video-flv.vue')['default']
     AlaVideoHls: typeof import('./src/components/cps/video/ala-video-hls.vue')['default']
     AlaWeek: typeof import('./src/components/charts/calendar/ala-week.vue')['default']

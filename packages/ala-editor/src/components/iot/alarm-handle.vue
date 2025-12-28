@@ -17,7 +17,7 @@
                         <div class="header">
                             <p class="title">基础信息</p>
                             <div class="buttons">
-                                <p class="alarmVideo">告警视频</p>
+                                <p class="alarmVideo" @click="showAlarmVideo">告警视频</p>
                                 <p class="realVideo" @click="showRealVideo">实时视频</p>
                             </div>
                         </div>
@@ -117,6 +117,24 @@
                     </template>
 
                     <ala-video-flv v-if="show" :url="videoStreamUrl" />
+
+                </el-dialog>
+            </div>
+
+        </Teleport>
+
+
+
+        <Teleport to="body">
+            <div class="ala-video-player">
+
+                <el-dialog v-model="showAlarm" width="80%">
+                    <template #header>
+                        <p class="ala-video-player-title">摄像头【 {{ cameraTitle }} 】实时画面，当前时间：{{ time }}</p>
+                    </template>
+
+                    <AlaVideo v-if="showAlarm" :url="alarmVideoStreamUrl"/>
+
 
                 </el-dialog>
             </div>
@@ -281,6 +299,53 @@ const showRealVideo = async () => {
 
 
 
+}
+
+
+const showAlarm = ref(false)
+
+const videoUrl = '/f/ossfile/preview'
+const times = 600 // 单位秒
+
+const alarmVideoStreamUrl = ref<string>('')
+const alarmCameraTitle = ref<string>('')
+const showAlarmVideo = async () => {
+    console.log('row:', props.aiAlarmRecord.video);
+    if (!props.aiAlarmRecord?.video) {
+        notify.error(t('pop.warm_title'), `当前告警信息没有告警视频！`)
+    }
+    const videos = u.parseJson(props.aiAlarmRecord?.video)
+    const fid = videos[0].fid
+    console.log('fid:', fid);
+
+
+    const params = { fid, times }
+
+    const url = await req.get(u.url(videoUrl || ''), params).then((response: any) => {
+        const url = response.data.data;
+        return url
+    });
+
+    if (!url) {
+        const msg = `没有获取到当前告警监控视频`
+        notify.error(t('pop.warm_title'), msg)
+    } else {
+
+
+        console.log('url:', url);
+        alarmCameraTitle.value = '123'
+        alarmVideoStreamUrl.value = url
+
+        showAlarm.value = true
+        // videoStreamUrl.value = `${u.videoUrl()}/live?url=${deviceCode}&&&isLocal=true&&&ffmpeg=true&&&autoClose=true`
+        // cameraTitle.value = props.aiAlarmRecord.device[0]?.deviceName
+
+        // show.value = true
+
+    }
+
+
+    // 
 }
 
 
