@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="header">
-                            <p class="title">确认信息</p>
+                            <p class="title">判定信息</p>
                         </div>
                         <div class="infos">
                             <AlaDetailNoDrawerFormCustomerization :fields="addFormFields"
@@ -98,7 +98,7 @@
                 <template #footer>
                     <span class="dialog-footer">
                         <el-button @click="cancelClick">{{ $t('buttons.cancel') }}</el-button>
-                        <el-button type="primary" @click="confirmClick">
+                        <el-button type="primary" @click="confirmClick" v-if="!props.aiAlarmRecord.confirmStatus">
                             {{ $t('buttons.confirm') }}
                         </el-button>
                     </span>
