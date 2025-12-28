@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-28 17:54:04
+ * @LastEditTime: 2025-12-28 18:34:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/radio/ala-radio.vue
  * @Description: 
  * 
@@ -74,8 +74,6 @@ const props = defineProps({
     }
 })
 
-console.log('props:', props);
-
 
 const model = defineModel({
     type: [String, Number, Boolean, undefined] as PropType<string | number | boolean | undefined>
@@ -85,20 +83,6 @@ logger.info(`bType[ $bType ],ala-radio组件被渲染, props :`, props);
 const handleChange = (value: any) => {
     model.value = value
 }
-
-const clasz = computed(() => {
-    const position = props.position
-    let claszName = ''
-    if (!position || position === 'left') {
-        claszName = 'label-left';
-    } else {
-        if (position === 'top') {
-            claszName = 'label-top';
-        }
-    }
-
-    return claszName;
-})
 
 // Methods
 const styles = computed(() => {

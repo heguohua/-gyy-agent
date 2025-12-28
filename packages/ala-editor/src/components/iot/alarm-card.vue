@@ -12,13 +12,13 @@
         </div>
 
         <div class="footer">
-            <div class="confirmResult">
+            <div class="confirmResult" v-if="confirmResult">
                 <DetailRadioColumn :formItem="formConfigItems.value['confirmResult']" :value="confirmResult" />
             </div>
-            <div class="confirmStatus">
+            <div class="confirmStatus" v-if="confirmStatus">
                 <DetailRadioColumn :formItem="formConfigItems.value['confirmStatus']" :value="confirmStatus" />
             </div>
-            <div class="pushStatus">
+            <div class="pushStatus" v-if="pushStatus">
                 <DetailRadioColumn :formItem="formConfigItems.value['pushStatus']" :value="pushStatus" />
             </div>
         </div>

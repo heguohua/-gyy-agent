@@ -56,9 +56,39 @@
                         </div>
                         <div class="infos">
                             <AlaDetailNoDrawerFormCustomerization :fields="addFormFields"
-                                v-if="addFormFields.length > 0" :formAttr="formAttr" :formData="formData"
-                                url="/l/dynamic/add" updateUrl="/lb/aialarmrecords/confirm" ref="form"
-                                moduleName="aiAlarmRecords" :beforeSave="beforeSave" @refresh="refresh" />
+                                v-if="!props.aiAlarmRecord.confirmStatus && addFormFields.length > 0"
+                                :formAttr="formAttr" :formData="formData" url="/l/dynamic/add"
+                                updateUrl="/lb/aialarmrecords/confirm" ref="form" moduleName="aiAlarmRecords"
+                                :beforeSave="beforeSave" @refresh="refresh" />
+                            <template v-else>
+                                <div class="info">
+                                    <p class="label">判定结果：</p>
+                                    <p class="value">
+                                        <DetailRadioColumn :formItem="formConfigItems.value['confirmResult']"
+                                            :value="aiAlarmRecord.confirmResult" />
+                                    </p>
+                                </div>
+                                <div class="info">
+                                    <p class="label">判定说明：</p>
+                                    <p class="value">{{ aiAlarmRecord.remark }}</p>
+                                </div>
+                                <div class="info">
+                                    <p class="label">判定时间：</p>
+                                    <p class="value">
+                                        {{ date.formatDateTime(aiAlarmRecord.confirmTime, date.F_YYYY_MM_DD_HH_mm_ss) }}
+                                    </p>
+                                </div>
+                                <div class="info">
+                                    <p class="label">判定时长：</p>
+                                    <p class="value">
+                                        {{ u.timeConsuming(aiAlarmRecord.confirmTime, aiAlarmRecord.time) }}
+                                    </p>
+                                </div>
+                                <div class="info">
+                                    <p class="label">判定人：</p>
+                                    <p class="value">{{ aiAlarmRecord.confirmUser[0].nickName }}</p>
+                                </div>
+                            </template>
                         </div>
 
                     </div>
@@ -82,12 +112,9 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
-import notify from '@/utils/notify';
 import { date } from '@/utils/date';
 import u from '@/utils/u';
-import { getLowcodingConfigByClassName, getRawLowcodingConfigByClassName } from '@/config/formConfigs';
+import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 
 // State
 const props = defineProps({
@@ -112,6 +139,7 @@ const props = defineProps({
         default: () => { }
     }
 })
+
 
 const model = defineModel({
     type: Array<any>,
@@ -155,7 +183,8 @@ const addFormFields = ref<Array<any>>([])
 
 
 watch(() => dialogShow.value, async (v) => {
-    if (v) {
+    if (v && !props.aiAlarmRecord.confirmStatus) {
+
         const config = await getLowcodingConfigByClassName('aiAlarmRecords')
         const clsNames = new Set<string>(['confirmResult', 'remark'])
         const cls: Array<any> = []
@@ -177,8 +206,6 @@ const beforeSave = (fields: any) => {
         "id": props.aiAlarmRecord.id,
         ...fields
     }
-    console.log('params:', params);
-
     return params
 }
 
@@ -347,7 +374,7 @@ defineExpose({ openDialog })
 
             .info {
                 display: inline-flex;
-                width: 18%;
+                width: 19%;
 
                 .label {
                     // background: rgb(249, 249, 250);

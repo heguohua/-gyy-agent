@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 13:59:33
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-27 19:34:24
+ * @LastEditTime: 2025-12-28 19:04:34
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form/ala-form-items.vue
  * @Description: 
  * 
@@ -19,8 +19,8 @@
 
                 <div :class="isHidden(item)" v-for="(item, index) in fields" :key="item.fieldName + '-' + index"
                     :style="columnWidth(item)">
-                    <component :is="item.componentName" :alaComponent="item.componentName" :label="item.label" :item="item"
-                        :position="item.other?.position ? item.other.position : labelPosition"
+                    <component :is="item.componentName" :alaComponent="item.componentName" :label="item.label"
+                        :item="item" :position="item.other?.position ? item.other.position : labelPosition"
                         :placeholder="item.placeholder" v-bind="item.other" v-model="formData[item.fieldName]"
                         :fieldName="item.fieldName" :data="formData" @formItemChangeCallback="formItemChangeCallback"
                         @update:modelValue="handleModelValueChange(item.fieldName, $event)" :ref="setItemRef(index)"
