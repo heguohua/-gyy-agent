@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 11:20:16
+ * @LastEditTime: 2025-12-28 17:14:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-table/ala-select-table.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <div class="ala-select-table-wrapper">
+  <div class="ala-select-table-wrapper" :displayName="props.itemProperty.propertyName">
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
 
       <template #label>
@@ -190,10 +190,10 @@ const props = defineProps({
     type: Boolean,
     default: () => false
   },
-    alaComponent: { // 当前被渲染组件 block
-        type: String,
-        default: ''
-    }
+  alaComponent: { // 当前被渲染组件 block
+    type: String,
+    default: ''
+  }
 })
 
 const model = defineModel({
@@ -241,6 +241,8 @@ const generateValue = (value: string) => {
 const showValue = computed(() => {
   return modelItemToShowValue(model.value)
 })
+
+
 
 function confirmClick() {
 
@@ -473,25 +475,25 @@ const disableStyles = computed(() => {
 
 const getValue = (rowData: any, columnName: string, type: any, column: any) => {
 
-let v = ""
-if (type) {
+  let v = ""
+  if (type) {
     if (type === 'date') {
-        v = date.format(new Date(rowData[columnName]), 'YYYY-MM-DD')
+      v = date.format(new Date(rowData[columnName]), 'YYYY-MM-DD')
     }
-} else {
+  } else {
     if (column['formConfig']?.['componentName'] === 'AlaRadio') {
-        const tmp = u.deepValueFromArrayOrObject(rowData, columnName)
-        column['formConfig']['formData']['items']['desktop'].forEach((item: any) => {
-            if (item.value === tmp) {
-                v = item.name
-            }
-        })
+      const tmp = u.deepValueFromArrayOrObject(rowData, columnName)
+      column['formConfig']['formData']['items']['desktop'].forEach((item: any) => {
+        if (item.value === tmp) {
+          v = item.name
+        }
+      })
     } else {
-        v = u.deepValueFromArrayOrObject(rowData, columnName)
+      v = u.deepValueFromArrayOrObject(rowData, columnName)
     }
-}
+  }
 
-return v
+  return v
 }
 
 

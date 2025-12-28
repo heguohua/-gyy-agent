@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 11:18:56
+ * @LastEditTime: 2025-12-28 17:49:33
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/checkbox/ala-checkbox.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-    <div class="ala-checkbox-wrapper" :style="styles">
+    <div class="ala-checkbox-wrapper" :style="styles" :ala-checkbox-items='u.tojson(items)'>
         <el-form-item :label="label" :label-position="position" :prop="fieldName">
             <template #label>
                 <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
@@ -26,6 +26,8 @@
 </template>
 
 <script setup lang="ts">
+import u from '@/utils/u'
+
 
 interface Item {
     name: string,

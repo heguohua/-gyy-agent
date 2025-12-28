@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-12 20:37:46
+ * @LastEditTime: 2025-12-28 17:54:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/cascader/ala-cascader.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <div class="ala-cascader-wrapper">
+  <div class="ala-cascader-wrapper" :ala-cascader-items='u.tojson(items)'>
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
       <template #label>
         <AlaFormLabel :label="label" :help="help" :alaComponent="alaComponent" :alaFieldName="fieldName" />
@@ -93,10 +93,10 @@ const props = defineProps({
     type: Boolean,
     default: () => false
   },
-    alaComponent: { // 当前被渲染组件 block
-        type: String,
-        default: ''
-    }
+  alaComponent: { // 当前被渲染组件 block
+    type: String,
+    default: ''
+  }
 })
 
 

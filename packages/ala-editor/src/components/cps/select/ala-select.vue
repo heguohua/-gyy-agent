@@ -2,14 +2,14 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 11:19:57
+ * @LastEditTime: 2025-12-28 17:54:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select/ala-select.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
 -->
 <template>
-  <div class="ala-select-wrapper">
+  <div class="ala-select-wrapper" :ala-select-items='u.tojson(items)'>
     <!-- <span :class="clasz">{{ label }}</span>  -->
     <el-form-item :label="label" :label-position="position" :prop="fieldName">
       <template #label>
@@ -26,6 +26,8 @@
 </template>
 
 <script setup lang="ts">
+import u from '@/utils/u'
+
 
 interface Item {
   name: string,
@@ -68,10 +70,10 @@ const props = defineProps({
     type: Boolean,
     default: () => false
   },
-    alaComponent: { // 当前被渲染组件 block
-        type: String,
-        default: ''
-    }
+  alaComponent: { // 当前被渲染组件 block
+    type: String,
+    default: ''
+  }
 })
 
 const model = defineModel({
