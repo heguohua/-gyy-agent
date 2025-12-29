@@ -6,7 +6,7 @@
 
                 <template #header="{ titleId, titleClass }">
                     <div class="ala-list-pop-header">
-                        <h4 :id="titleId" :class="titleClass"> {{ cameraTitle }} </h4>
+                        <h4 :id="titleId" :class="titleClass"> 摄像头【 {{ aiAlarmRecord.device[0]?.deviceName }} 】告警 </h4>
                     </div>
                 </template>
 
@@ -129,11 +129,12 @@
             <div class="ala-video-player">
 
                 <el-dialog v-model="showAlarm" width="80%">
+
                     <template #header>
-                        <p class="ala-video-player-title">摄像头【 {{ cameraTitle }} 】实时画面，当前时间：{{ time }}</p>
+                        <p class="ala-video-player-title">摄像头【 {{ alarmCameraTitle }} 】本次告警视频画面</p>
                     </template>
 
-                    <AlaVideo v-if="showAlarm" :url="alarmVideoStreamUrl"/>
+                    <AlaVideo v-if="showAlarm" :url="alarmVideoStreamUrl" />
 
 
                 </el-dialog>
@@ -269,7 +270,6 @@ const videoStreamUrl = ref<string>('')
 const cameraTitle = ref<string>('')
 const deviceUrl = '/iot/device/get'
 const showRealVideo = async () => {
-    console.log('row:', props.aiAlarmRecord);
 
     if (!props.aiAlarmRecord.device[0]?.id) {
         logger.error(`【错误，错误，错误】，摄像头id不存在，无法获取摄像头视频信息，摄像头设备信息如下：`, props.aiAlarmRecord)
@@ -310,14 +310,11 @@ const times = 600 // 单位秒
 const alarmVideoStreamUrl = ref<string>('')
 const alarmCameraTitle = ref<string>('')
 const showAlarmVideo = async () => {
-    console.log('row:', props.aiAlarmRecord.video);
     if (!props.aiAlarmRecord?.video) {
         notify.error(t('pop.warm_title'), `当前告警信息没有告警视频！`)
     }
     const videos = u.parseJson(props.aiAlarmRecord?.video)
     const fid = videos[0].fid
-    console.log('fid:', fid);
-
 
     const params = { fid, times }
 
@@ -331,11 +328,8 @@ const showAlarmVideo = async () => {
         notify.error(t('pop.warm_title'), msg)
     } else {
 
-
-        console.log('url:', url);
-        alarmCameraTitle.value = '123'
+        alarmCameraTitle.value = props.aiAlarmRecord.device[0]?.deviceName
         alarmVideoStreamUrl.value = url
-
         showAlarm.value = true
         // videoStreamUrl.value = `${u.videoUrl()}/live?url=${deviceCode}&&&isLocal=true&&&ffmpeg=true&&&autoClose=true`
         // cameraTitle.value = props.aiAlarmRecord.device[0]?.deviceName

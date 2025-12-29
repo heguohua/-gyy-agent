@@ -116,6 +116,7 @@ watch(() => props.images, (newImages) => {
     .image {
         max-width: 100%;
         max-height: 100%;
+        min-height: 650px;
         object-fit: contain;
     }
 
