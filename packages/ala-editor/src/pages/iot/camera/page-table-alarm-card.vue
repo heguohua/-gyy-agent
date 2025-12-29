@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-12-25 08:51:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-27 21:22:05
+ * @LastEditTime: 2025-12-29 22:29:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/page-table-alarm-card.vue
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 <template>
 
     <PageDynamicTableCustomizationSimplest className="aiAlarmRecords" :beforeQuery="beforeQuery"
-        :pageSize="[8, 12, 16, 20]" :defaultPageSize="8" ref="pageList">
+        :pageSize="[8, 12, 16, 20]" :defaultPageSize="12" ref="pageList">
 
         <template #header>
             <div class="ccc">
