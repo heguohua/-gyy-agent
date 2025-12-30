@@ -119,6 +119,7 @@ declare module 'vue' {
     AlaVideoFlv: typeof import('./src/components/cps/video/ala-video-flv.vue')['default']
     AlaVideoHls: typeof import('./src/components/cps/video/ala-video-hls.vue')['default']
     AlaWeek: typeof import('./src/components/charts/calendar/ala-week.vue')['default']
+    AlgorithmCard: typeof import('./src/components/iot/algorithm-card.vue')['default']
     CardInfo: typeof import('./src/components/charts/card/card-info.vue')['default']
     copy: typeof import('./src/components/cps/page/page-dynamic-table-customization copy.vue')['default']
     Custom: typeof import('./src/components/flow/PropertySetting/custom.vue')['default']
