@@ -293,6 +293,7 @@ import visionIcon from '~icons/hugeicons/vision';
 import cameraIcon from '~icons/material-symbols/speed-camera-rounded';
 import algorithm from '~icons/hugeicons/ai-view';
 import aiAlgorithm from '~icons/streamline-plump/ai-generate-variation-spark-remix';
+import version from '~icons/mingcute/version-fill';
 
 // 采购产品中心
 import goodsIcon from '~icons/lsicon/goods-outline';
@@ -609,6 +610,7 @@ const icon = {
   camera: cameraIcon,
   algorithm,
   aiAlgorithm,
+  version,
 
   // 私有云中心
   privateCloud: TdesignCloudUpload,
