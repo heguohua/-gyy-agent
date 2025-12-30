@@ -1,6 +1,3 @@
-import { todo } from "node:test"
-import EosIconsProjectOutlined from '~icons/eos-icons/project-outlined';
-
 
 // 固定资产中心
 import funds from '~icons/icon-park-outline/funds';
@@ -294,6 +291,8 @@ import scheduleRecordIcon from '~icons/mdi/invoice-schedule-outline';
 // AI视觉中心
 import visionIcon from '~icons/hugeicons/vision';
 import cameraIcon from '~icons/material-symbols/speed-camera-rounded';
+import algorithm from '~icons/hugeicons/ai-view';
+import aiAlgorithm from '~icons/streamline-plump/ai-generate-variation-spark-remix';
 
 // 采购产品中心
 import goodsIcon from '~icons/lsicon/goods-outline';
@@ -608,6 +607,8 @@ const icon = {
 
   vision: visionIcon, // AI视觉中心
   camera: cameraIcon,
+  algorithm,
+  aiAlgorithm,
 
   // 私有云中心
   privateCloud: TdesignCloudUpload,
