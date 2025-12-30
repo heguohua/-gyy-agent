@@ -24,8 +24,8 @@
 
             <AlarmCard :alarmType="row.alarmType[0].dictLabel" :time="formatTime(row.time)" :camera="row.device[0]"
                 :images="row.images" :confirmStatus="row.confirmStatus" :confirmResult="row.confirmResult"
-                :pushStatus="row.pushStatus" :formConfigItems="formConfigItems"
-                @handle="handle(row, formConfigItems)" />
+                :pushStatus="row.pushStatus" :formConfigItems="formConfigItems" @handle="handle(row, formConfigItems)"
+                :key="row.id" />
 
         </template>
     </PageDynamicTableCustomizationSimplest>

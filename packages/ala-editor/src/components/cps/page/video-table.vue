@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 08:09:56
+ * @LastEditTime: 2025-12-30 09:01:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/video-table.vue
  * @Description: 
  * 
@@ -14,7 +14,7 @@
 
         <div class="video-cards">
 
-            <div class="video-card" v-for="row in paginatedData" :style="styles">
+            <div class="video-card" v-for="row in paginatedData" :style="styles" :key="row.id" >
                 <div class="video-title">
                     {{ row.deviceAreaGroup.name.replaceAll(' ', '') }}/{{ row.deviceName }}
                 </div>
