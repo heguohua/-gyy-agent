@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-12-25 08:51:05
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-29 22:29:12
+ * @LastEditTime: 2025-12-30 09:37:50
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/iot/camera/page-table-alarm-card.vue
  * @Description: 
  * 
@@ -15,9 +15,7 @@
         :pageSize="[8, 12, 16, 20]" :defaultPageSize="12" ref="pageList">
 
         <template #header>
-            <div class="ccc">
-                ddd
-            </div>
+
         </template>
 
         <template #default="{ row, formConfigItems }">
@@ -127,5 +125,3 @@ const refresh = () => {
 }
 
 </script>
-
-<style scoped lang="scss"></style>

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 11:20:05
+ * @LastEditTime: 2025-12-30 09:30:00
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-dict/ala-select-dict.vue
  * @Description: 
  * 
@@ -95,12 +95,12 @@ const props = defineProps({
 })
 
 
-interface item {
+interface Item {
   name: string,
   value: string,
 }
 
-const items = ref<Array<item>>([])
+const items = ref<Array<Item>>([])
 
 const styles = computed(() => {
   return { minWidth: props.width + 'px' }
@@ -173,7 +173,7 @@ const query = () => {
     const response = data;
     if (response.data) {
 
-      const item_s: Array<item> = []
+      const item_s: Array<Item> = []
 
       response.data.forEach((item: any) => {
         const name = item[props.itemProperty.propertyName]
