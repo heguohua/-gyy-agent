@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-31 15:33:21
+ * @LastEditTime: 2025-12-31 15:46:04
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -331,7 +331,7 @@ export function alaUpload(url: string, params = {}, showProgress = false, method
  *  url:请求地址
  *  params:参数
  * */
-export function alaDelete(url: string, params = {}, showProgress = false) {
+export function alaDelete(url: string, params: { [key: string]: any } = {}, showProgress = false) {
   return new Promise((resolve, reject) => {
 
     let alatb = undefined
@@ -372,7 +372,7 @@ export function alaDelete(url: string, params = {}, showProgress = false) {
  *  url:请求地址
  *  params:参数
  * */
-export function alaPage(url: string, page = {}, params: { [key: string]: any } = {}, showProgress = false) {
+export function alaPage(url: string, page: { [key: string]: any } = {}, params: { [key: string]: any } = {}, showProgress = false) {
   return new Promise((resolve, reject) => {
 
 
