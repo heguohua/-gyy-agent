@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-09 11:22:48
+ * @LastEditTime: 2025-12-31 16:15:10
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailTimelineColumn.vue
  * @Description: 
  * 
@@ -99,7 +99,6 @@ const handleShowDetail = async (item: Item) => {
 
     // 渲染弹窗
 
-    console.log('item: ---> ', item);
     const dynamicTableUrl = '/l/dynamic/get'
     const dynamicTableParams = { tableName: className, id }
 

@@ -166,10 +166,23 @@ export function configAxios(app: App<Element>) {
  * */
 export function get(url: string, params = {}) {
   return new Promise((resolve, reject) => {
+
+    let alatb = undefined
+    if (url.indexOf('/dynamic') > 0) {
+      if (params.tableName) {
+        alatb = params.tableName
+      }  else {
+        notify.error('温馨提示：', '错误：请求参数中没有发现tableName属性！')
+      }
+    }
+
     axiosInstance({
       url: url,
       method: 'get',
       params: params,
+      headers: {
+        alatb,
+      }
     })
       .then((response) => {
         resolve(response);
