@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-12-25 16:15:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-20 16:22:55
+ * @LastEditTime: 2025-12-31 15:32:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/dynamic/DetailSelectTableColumn.vue
  * @Description: 
  * 
@@ -123,7 +123,7 @@ const detailItem = reactive({
 
 const query = async (url: string, params: any): Promise<any> => {
     // Methods
-    logger.info(`从 api 图标数据，url【 ${url} 】，查询参数：`, params);
+    logger.info(`从 api 加载数据，url【 ${url} 】，查询参数：`, params);
 
     const result = await alaPost(u.url(url), params, false, '').then((response: any) => {
         return response

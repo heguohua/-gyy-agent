@@ -231,7 +231,7 @@ const query = () => {
     let params = { id: dataSetId }
 
 
-    logger.info(`从 api 图标数据，url【 ${url} 】，查询参数：`, params);
+    logger.info(`从 api 加载数据，url【 ${url} 】，查询参数：`, params);
 
     alaPost(u.url(url), params, false, '').then((response: any) => {
 

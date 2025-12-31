@@ -73,7 +73,7 @@ watch(() => props.baseInfo.item, (item) => {
     let params = { id: item.id }
 
 
-    logger.info(`从 api 图标数据，url【 ${url} 】，查询参数：`, params);
+    logger.info(`从 api 加载数据，url【 ${url} 】，查询参数：`, params);
 
     alaPost(u.url(url), params, false, '').then((response: any) => {
         const data = response.data

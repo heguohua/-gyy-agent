@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-29 10:40:00
+ * @LastEditTime: 2025-12-31 10:44:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -371,7 +371,6 @@ const queryPageData = () => {
     if (!props.url) {
         return
     }
-
     alaPage(u.url(props.url || ""), page, params, true).then((data: any) => {
         const responsePage = data.data;
         current.value = responsePage.pageNum

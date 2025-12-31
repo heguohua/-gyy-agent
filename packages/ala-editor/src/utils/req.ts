@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 22:04:21
+ * @LastEditTime: 2025-12-31 15:33:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -260,8 +260,19 @@ export function alaDownload(url: string, params = {}) {
  *  url:请求地址
  *  params:参数
  * */
-export function alaPost(url: string, params = {}, showProgress = false, method?: string, timeout = 20000) {
+export function alaPost(url: string, params: { [key: string]: any } = {}, showProgress = false, method?: string, timeout = 20000) {
   return new Promise((resolve, reject) => {
+
+    let alatb = undefined
+    if (url.indexOf('/dynamic') > 0) {
+      if (params.tableName) {
+        alatb = params.tableName
+      } else if (params.body?.tableName) {
+        alatb = params.body.tableName
+      } else {
+        notify.error('温馨提示：', '错误：请求参数中没有发现tableName属性！')
+      }
+    }
 
     axiosInstance({
       url: url,
@@ -271,6 +282,7 @@ export function alaPost(url: string, params = {}, showProgress = false, method?:
       headers: {
         sp: showProgress,
         'Content-Type': 'application/json',
+        alatb,
       }
     })
       .then((response) => {
@@ -322,11 +334,21 @@ export function alaUpload(url: string, params = {}, showProgress = false, method
 export function alaDelete(url: string, params = {}, showProgress = false) {
   return new Promise((resolve, reject) => {
 
+    let alatb = undefined
+    if (url.indexOf('/dynamic') > 0) {
+      if (params.tableName) {
+        alatb = params.tableName
+      } else {
+        notify.error('温馨提示：', '错误：请求参数中没有发现tableName属性！')
+      }
+    }
+
     axiosInstance({
       url: url,
       method: 'DELETE',
       headers: {
-        sp: showProgress
+        sp: showProgress,
+        alatb
       },
       params
     })
@@ -350,15 +372,27 @@ export function alaDelete(url: string, params = {}, showProgress = false) {
  *  url:请求地址
  *  params:参数
  * */
-export function alaPage(url: string, page = {}, params = {}, showProgress = false) {
+export function alaPage(url: string, page = {}, params: { [key: string]: any } = {}, showProgress = false) {
   return new Promise((resolve, reject) => {
+
+
+    let alatb = undefined
+    if (url.indexOf('/dynamic') > 0) {
+      if (params.tableName) {
+        alatb = params.tableName
+      } else {
+        notify.error('温馨提示：', '错误：请求参数中没有发现tableName属性！')
+      }
+    }
+
 
     axiosInstance({
       url: url,
       method: 'post',
       data: { page, body: params },
       headers: {
-        sp: showProgress
+        sp: showProgress,
+        alatb
       }
     })
       .then((response) => {
@@ -415,7 +449,7 @@ export const beforeQuery = (params: any, className: string, formConfigItems: { [
 
       } else if (code === 'selectTable') {
 
-        const mainTableName = className
+        const tableName = className
 
         let tableInfos = result['tableInfos']
         if (!tableInfos) {
@@ -435,11 +469,11 @@ export const beforeQuery = (params: any, className: string, formConfigItems: { [
           const parts = url.split("/");
           const innerColumnName = parts[parts.length - 2];
 
-          const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+          const fullRelationTableName = `a_${tableName}_${fieldName}`
           const tableInfo = {
             tableName: fullRelationTableName,
             joinType: 'innerJoin',
-            joinLeftColumn: `a_${mainTableName}_id`,
+            joinLeftColumn: `a_${tableName}_id`,
             conditionGroupVos: [
               {
                 logicalOperator: 'and',
@@ -472,11 +506,11 @@ export const beforeQuery = (params: any, className: string, formConfigItems: { [
           const parts = url.split("/");
           const innerColumnName = parts[parts.length - 2];
 
-          const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+          const fullRelationTableName = `a_${tableName}_${fieldName}`
           const tableInfo = {
             tableName: fullRelationTableName,
             joinType: 'innerJoin',
-            joinLeftColumn: `a_${mainTableName}_id`,
+            joinLeftColumn: `a_${tableName}_id`,
             conditionGroupVos: [
               {
                 logicalOperator: 'and',
@@ -501,7 +535,7 @@ export const beforeQuery = (params: any, className: string, formConfigItems: { [
 
       } else if (code === 'selectDict') {
 
-        const mainTableName = className
+        const tableName = className
 
         let tableInfos = result['tableInfos']
         if (!tableInfos) {
@@ -520,11 +554,11 @@ export const beforeQuery = (params: any, className: string, formConfigItems: { [
           const parts = url.split("/");
           const innerColumnName = parts[parts.length - 2];
 
-          const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+          const fullRelationTableName = `a_${tableName}_${fieldName}`
           const tableInfo = {
             tableName: fullRelationTableName,
             joinType: 'innerJoin',
-            joinLeftColumn: `a_${mainTableName}_id`,
+            joinLeftColumn: `a_${tableName}_id`,
             conditionGroupVos: [
               {
                 logicalOperator: 'and',
@@ -557,11 +591,11 @@ export const beforeQuery = (params: any, className: string, formConfigItems: { [
           const parts = url.split("/");
           const innerColumnName = parts[parts.length - 2];
 
-          const fullRelationTableName = `a_${mainTableName}_${fieldName}`
+          const fullRelationTableName = `a_${tableName}_${fieldName}`
           const tableInfo = {
             tableName: fullRelationTableName,
             joinType: 'innerJoin',
-            joinLeftColumn: `a_${mainTableName}_id`,
+            joinLeftColumn: `a_${tableName}_id`,
             conditionGroupVos: [
               {
                 logicalOperator: 'and',

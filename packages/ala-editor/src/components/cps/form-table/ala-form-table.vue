@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 11:19:18
+ * @LastEditTime: 2025-12-31 10:22:07
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/form-table/ala-form-table.vue
  * @Description: 
  * 
@@ -260,7 +260,7 @@ watch(() => baseInfo, (v) => {
             //  查询关联数据
             const listUrl = '/l/dynamic/queryForFormTable'
             const params = {
-                mainTableName: baseInfo.module,
+                tableName: baseInfo.module,
                 childTableLowcodingConfig: model.value,
                 mainTableId: data?.value?.id,
             }
