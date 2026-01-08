@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:23:51
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-10-15 21:14:21
+ * @LastEditTime: 2026-01-08 11:07:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/store/locale.ts
  * @Description: 
  * 
@@ -38,7 +38,7 @@ interface CurrentLocale {
 }
 
 const getConfig = () => {
-    let language = lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME)
+    let language = lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT
     logger.warn(`当前localStorage中存储的语言名字为【 ${language} 】`);
     if (!language) {
         language = 'zh-CN'

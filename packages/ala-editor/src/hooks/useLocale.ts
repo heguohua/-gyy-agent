@@ -60,6 +60,9 @@ import router from '@/router';
  */
 export const changLanguage = (locale: any, getLocaleMessage: Function, changeLocale: Function) => {
 
+    if(!locale){
+        return
+    }
     // 切换语言环境
     logger.warn(`正在切换语言环境，新语言【 ${locale} 】`);
 

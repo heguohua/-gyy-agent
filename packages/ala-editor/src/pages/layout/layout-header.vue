@@ -88,7 +88,7 @@ const chang = (locale: any) => {
   changLanguage(locale, getLocaleMessage, changeLocale)
 }
 
-let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME))
+let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT)
 
 const changePasswordRef = ref()
 

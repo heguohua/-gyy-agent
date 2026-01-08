@@ -26,7 +26,7 @@ export async function fetchLocaleMessages(lang?: string) {
     if (lang) {
       lstore.setItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME, lang);
     } else {
-      lang = lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME);
+      lang = lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT;
     }
     // 如果local storage中没有获取到语言类型，则设置默认语言为简体中文
     if (!lang) {
@@ -34,7 +34,7 @@ export async function fetchLocaleMessages(lang?: string) {
       lang = 'zh_CN';
     }
     // const response = await req.get('http://localhost:5173/ala-editor/editor/api/locale', { language: lang });
-    const response = {data:{messages:{}}};
+    const response = { data: { messages: {} } };
     return response;
   } catch (error) {
     console.log(error);
@@ -55,7 +55,7 @@ const {
 } = (await fetchLocaleMessages()) as vmt;
 
 const i18n = createI18n({
-  locale: lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME), // 默认语言
+  locale: lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT, // 默认语言
   fallbackLocale: 'zh_CN',
   messages, // 后台返回的语言包
   globalInjection: true

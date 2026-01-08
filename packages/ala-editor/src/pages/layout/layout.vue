@@ -108,7 +108,7 @@ onMounted(() => {
     alaPost(u.url("/u/menu/queryListForUser"), {}, true).then((data: any) => {
 
         // 先加载所有语言包
-        changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME), getLocaleMessage, changeLocale)
+        changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT, getLocaleMessage, changeLocale)
 
         menus.value = data.data
         //注册动态路由

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-14 16:28:41
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-22 18:15:09
+ * @LastEditTime: 2026-01-08 11:05:49
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/alaConsts.ts
  * @Description: 全局唯一的 常量类
  *
@@ -13,6 +13,7 @@ export class alaConsts {
 
   //  自定义常量
   public static readonly I18N_LOCAL_STORAGE_KEY_NAME = 'ala_' + 'i18n_localStorage_key_name';
+  public static readonly I18N_DEFAULT = 'zh-CN' ;
 
   public static readonly USER_ROLE = 'ala_' + 'USER_ROLE';
   public static readonly ACCESS_TOKEN = 'ala_' + 'ACCESS_TOKEN';
