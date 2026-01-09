@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 22:06:01
+ * @LastEditTime: 2026-01-09 17:04:46
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -11,7 +11,9 @@
 <template>
     <!-- 查询条件 -->
     <SearchPanel :baseFields="baseFields" :advancedFields="advancedFields" :params="params" @refresh="refresh"
-        @showAdd="showAdd({ id: null })" labelWidth="180px" :showAddButton="showAddButton" />
+        @showAdd="showAdd({ id: null })" labelWidth="180px" :showAddButton="showAddButton"
+        :showImportButton="showImportButton" :showExportButton="showExportButton" @export="handleExport"
+        @import="handleImport" @importTemplate="handleTemplate" />
 
     <!-- 分页列表 -->
     <PageDynamicTable ref="pageRef" :url="url" :deleteUrl="deleteUrl" :columns="columns" :params="params"
@@ -59,7 +61,7 @@ import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 import { useAlaStore } from '@/store/ala-store';
-import req from '@/utils/req';
+import req, { alaDownload } from '@/utils/req';
 const alaStore = useAlaStore()
 const { t } = useI18n();
 
@@ -198,6 +200,39 @@ const formAttrs = computed(() => {
 const formConfigItems: any = {}
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
+// ############## 分页列表导出、导入 start  ######################################
+
+
+const handleExport = () => {
+    console.log('export')
+}
+
+const handleImport = () => {
+    console.log('import')
+}
+
+const handleTemplate = async () => {
+    console.log('importTemplate')
+
+    const result = await alaDownload(u.url('/l/ieport/template'), { tableName: className }).then((data: any) => {
+        const response = data;
+        return response
+    });
+
+    const blob = new Blob([result.data]);
+    const downloadUrl = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = downloadUrl;
+    a.download = baseInfo.moduleName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(downloadUrl); // 释放内存
+
+}
+
+// ############## 分页列表导出、导入 end ######################################
 
 const beforeQuery = (params: any) => {
     return req.beforeQuery(params, className, formConfigItems.value)
@@ -216,6 +251,8 @@ const showAddButton = ref(false)
 const showDeleteButton = ref(false)
 const showEditButton = ref(false)
 const showDisableButton = ref(false)
+const showImportButton = ref(false)
+const showExportButton = ref(false)
 const showButtonsColumn = ref(false)
 
 onMounted(async () => {
@@ -234,6 +271,8 @@ onMounted(async () => {
     showDeleteButton.value = configs.showDeleteButton
     showEditButton.value = configs.showEditButton
     showDisableButton.value = configs.showDisableButton
+    showImportButton.value = configs.showImportButton
+    showExportButton.value = configs.showExportButton
     showButtonsColumn.value = configs.showButtonsColumn
     formType.value = configs.formType
     u.merged(formAttr.value, configs.formAttr)

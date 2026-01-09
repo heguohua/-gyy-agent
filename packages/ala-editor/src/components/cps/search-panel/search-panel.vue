@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-12 19:11:45
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-19 15:56:21
+ * @LastEditTime: 2026-01-09 16:45:27
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/search-panel/search-panel.vue
  * @Description: 
  * 
@@ -64,6 +64,12 @@
                 <AlaButton :showButton="displayAddButton()" name="add" @add="showAdd()" size="default"
                     buttonType="primary" />
 
+                <AlaButtonGroup v-if="showImportButton || showExportButton" :buttons="[
+                    { name: 'export', popConfirm: false, handle: handleExport, row: {}, buttonType: 'primary' },
+                    { name: 'import', popConfirm: false, handle: handleImport, row: {}, buttonType: 'danger' },
+                    { name: 'import_template', popConfirm: false, handle: handleTemplate, row: {}, buttonType: 'primary' }
+                ]" />
+
             </div>
 
         </el-form>
@@ -113,6 +119,14 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    showImportButton: {
+        type: Boolean,
+        default: false
+    },
+    showExportButton: {
+        type: Boolean,
+        default: false
+    },
     isFormDesign: {
         type: Boolean,
         default: false
@@ -126,7 +140,7 @@ const displayAddButton = () => {
 const advanced = ref(false)
 
 // 触发父节点刷新事件
-const emit = defineEmits(['refresh', 'showAdd'])
+const emit = defineEmits(['refresh', 'showAdd', 'export', 'import', 'importTemplate'])
 
 
 // 切换高级查询条件按钮
@@ -250,6 +264,19 @@ const formItemChangeCallback = (item: any, value: any) => {
     props.params[item.other.startFieldName] = value[item.other.startFieldName]
     props.params[item.other.endFieldName] = value[item.other.endFieldName]
 
+}
+
+
+const handleExport = () => {
+    emit('export')
+}
+
+const handleImport = () => {
+    emit('import')
+}
+
+const handleTemplate = () => {
+    emit('importTemplate')
 }
 
 

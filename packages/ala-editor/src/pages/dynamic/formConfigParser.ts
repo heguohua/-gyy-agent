@@ -61,6 +61,8 @@ export interface LowcodingConfig {
     showDeleteButton: boolean
     showEditButton: boolean
     showDisableButton: boolean
+    showImportButton: boolean
+    showExportButton: boolean
     showButtonsColumn: boolean
     formAttr: any
     className: string
@@ -86,6 +88,8 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
     let showDeleteButton = false
     let showEditButton = false
     let showDisableButton = false
+    let showImportButton = false
+    let showExportButton = false
     let showButtonsColumn = false
     let className = ''
     let formType = ''
@@ -314,6 +318,8 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
                 showEditButton = formData.showEditButton.desktop
                 // 是否显示删除按钮
                 showDisableButton = formData.showDisableButton?.desktop || false
+                showImportButton = formData.showImportButton?.desktop || false
+                showExportButton = formData.showExportButton?.desktop || false
                 // 是否显示按钮列
                 showButtonsColumn = formData.showButtonsColumn.desktop
 
@@ -399,6 +405,8 @@ export const formConfigParse = async (url: string, params: any): Promise<Lowcodi
         detailFields,
         showAddButton,
         showDeleteButton,
+        showImportButton,
+        showExportButton,
         showEditButton,
         showDisableButton,
         showButtonsColumn,

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-22 19:52:42
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-08 15:42:17
+ * @LastEditTime: 2026-01-09 15:43:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/page-schemas-form.ts
  * @Description: 
  * 
@@ -231,6 +231,17 @@ const outApiParams = Type.String({
     ]
 })
 
+const showImportButton = Type.String({
+    code: "config-boolean",
+    title: "显示导入按钮？",
+    default: false,
+})
+
+const showExportButton = Type.String({
+    code: "config-boolean",
+    title: "显示导出按钮？",
+    default: false,
+})
 
 const schema = Type.Object({
     background: schemaAllViewport(background),
@@ -248,6 +259,8 @@ const schema = Type.Object({
     showEditButton: schemaAllViewport(showEditButton),
     showDeleteButton: schemaAllViewport(showDeleteButton),
     showDisableButton: schemaAllViewport(showDisableButton),
+    showImportButton: schemaAllViewport(showImportButton),
+    showExportButton: schemaAllViewport(showExportButton),
     dataPermission: schemaAllViewport(configCollapseItem("数据权限")),
     openDataPermission: schemaAllViewport(openDataPermission),
     dataPermissionColumn: schemaAllViewport(dataPermissionColumn),
