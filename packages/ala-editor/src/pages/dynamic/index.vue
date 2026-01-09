@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-09 17:04:46
+ * @LastEditTime: 2026-01-09 20:54:48
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -62,6 +62,7 @@ import { useI18n } from 'vue-i18n';
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 import { useAlaStore } from '@/store/ala-store';
 import req, { alaDownload } from '@/utils/req';
+import { date } from '@/utils/date';
 const alaStore = useAlaStore()
 const { t } = useI18n();
 
@@ -219,12 +220,16 @@ const handleTemplate = async () => {
         return response
     });
 
-    const blob = new Blob([result.data]);
+    const blob = new Blob([result.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
     const downloadUrl = window.URL.createObjectURL(blob);
+
+    const fileName = `${baseInfo.moduleName}-数据导入模板-${date.format(new Date(), 'YYYYMMDDHHmmss')}.xlsx`;
 
     const a = document.createElement('a');
     a.href = downloadUrl;
-    a.download = baseInfo.moduleName;
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     a.remove();
