@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-09 20:54:48
+ * @LastEditTime: 2026-01-09 21:59:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -48,7 +48,8 @@
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" v-if="showDetailPage" :fields="detailFields"
         :formAttr="formAttrs" />
-
+    <input type="file" ref="fileInput" @change="handleFileChange" :accept="acceptFileTypes" class="hidden-input"
+        :value="fileValue" />
 </template>
 
 <script lang="ts" setup>
@@ -61,7 +62,7 @@ import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import { getLowcodingConfigByClassName } from '@/config/formConfigs';
 import { useAlaStore } from '@/store/ala-store';
-import req, { alaDownload } from '@/utils/req';
+import req, { alaDownload, alaUpload } from '@/utils/req';
 import { date } from '@/utils/date';
 const alaStore = useAlaStore()
 const { t } = useI18n();
@@ -210,6 +211,7 @@ const handleExport = () => {
 
 const handleImport = () => {
     console.log('import')
+    fileInput.value.click()
 }
 
 const handleTemplate = async () => {
@@ -235,6 +237,42 @@ const handleTemplate = async () => {
     a.remove();
     window.URL.revokeObjectURL(downloadUrl); // 释放内存
 
+}
+
+const acceptFileTypes = computed(() => {
+    return 'xlsx'
+})
+
+const fileInput = ref();
+const fileValue = ref('');
+
+const handleFileChange = async (event: any) => {
+
+    const target = event.target as HTMLInputElement
+
+
+    if (target.files && target.files.length > 0) {
+        for (let i = 0; i < target.files.length; i++) {
+            const f: File = target.files[i]
+            const result = await uploadAndImport(f, className)
+            target.value = ''
+
+        }
+        // 上传文件，并更新 model 值
+    }
+}
+
+const uploadAndImport = async (file: File, tableName: string) => {
+    // 假设 params 是一个对象：{ file: File, otherField: string }
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('tableName', tableName)
+    const result = await alaUpload(u.url('/l/ieport/import'), formData, false, 'POST').then((data: any) => {
+        const response = data;
+        return response
+    });
+
+    return result
 }
 
 // ############## 分页列表导出、导入 end ######################################
