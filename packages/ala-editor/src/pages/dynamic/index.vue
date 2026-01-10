@@ -255,6 +255,8 @@ const handleFileChange = async (event: any) => {
         for (let i = 0; i < target.files.length; i++) {
             const f: File = target.files[i]
             const result = await uploadAndImport(f, className)
+            console.log('result:',result);
+            
             target.value = ''
 
         }
@@ -270,6 +272,8 @@ const uploadAndImport = async (file: File, tableName: string) => {
     const result = await alaUpload(u.url('/l/ieport/import'), formData, false, 'POST').then((data: any) => {
         const response = data;
         return response
+    }).catch(()=>{
+        return 'error'
     });
 
     return result

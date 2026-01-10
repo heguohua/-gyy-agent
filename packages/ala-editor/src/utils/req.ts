@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-31 15:46:04
+ * @LastEditTime: 2026-01-10 08:43:12
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -329,11 +329,12 @@ export function alaUpload(url: string, params = {}, showProgress = false, method
         if (data.code != 200) {
           logger.error("服务器返回错误信息", data);
           notify.error("温馨提示：", data.msg)
+          reject(data);
         } else {
           resolve(response.data);
         }
       })
-      .catch((error) => {
+      .catch((error) => {        
         reject(error);
       });
   });
