@@ -255,9 +255,9 @@ const handleFileChange = async (event: any) => {
         for (let i = 0; i < target.files.length; i++) {
             const f: File = target.files[i]
             const result = await uploadAndImport(f, className)
-            console.log('result:',result);
-            
             target.value = ''
+
+            refresh()
 
         }
         // 上传文件，并更新 model 值
