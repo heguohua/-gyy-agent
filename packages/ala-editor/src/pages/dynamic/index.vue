@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-09 21:59:01
+ * @LastEditTime: 2026-01-10 21:32:42
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/dynamic/index.vue
  * @Description: 
  * 
@@ -210,12 +210,10 @@ const handleExport = () => {
 }
 
 const handleImport = () => {
-    console.log('import')
     fileInput.value.click()
 }
 
 const handleTemplate = async () => {
-    console.log('importTemplate')
 
     const result = await alaDownload(u.url('/l/ieport/template'), { tableName: className }).then((data: any) => {
         const response = data;

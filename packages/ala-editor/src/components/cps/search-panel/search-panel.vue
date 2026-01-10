@@ -64,12 +64,18 @@
                 <AlaButton :showButton="displayAddButton()" name="add" @add="showAdd()" size="default"
                     buttonType="primary" />
 
-                <AlaButtonGroup v-if="showImportButton || showExportButton" :buttons="[
+                <AlaButtonGroup v-if="showImportButton && showExportButton" :buttons="[
                     { name: 'export', popConfirm: false, handle: handleExport, row: {}, buttonType: 'primary' },
                     { name: 'import', popConfirm: false, handle: handleImport, row: {}, buttonType: 'danger' },
                     { name: 'import_template', popConfirm: false, handle: handleTemplate, row: {}, buttonType: 'primary' }
                 ]" />
-
+                <AlaButtonGroup v-else-if="showImportButton" :buttons="[
+                    { name: 'import', popConfirm: false, handle: handleImport, row: {}, buttonType: 'danger' },
+                    { name: 'import_template', popConfirm: false, handle: handleTemplate, row: {}, buttonType: 'primary' }
+                ]" />
+                <AlaButtonGroup v-else-if="showExportButton" :buttons="[
+                    { name: 'export', popConfirm: false, handle: handleExport, row: {}, buttonType: 'primary' },
+                ]" />
             </div>
 
         </el-form>

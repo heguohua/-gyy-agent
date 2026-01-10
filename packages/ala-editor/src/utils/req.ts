@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-13 20:59:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-10 08:43:12
+ * @LastEditTime: 2026-01-10 21:34:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/req.ts
  * @Description: axios 使用工具类
  * 
@@ -171,7 +171,7 @@ export function get(url: string, params = {}) {
     if (url.indexOf('/dynamic') > 0) {
       if (params.tableName) {
         alatb = params.tableName
-      }  else {
+      } else {
         notify.error('温馨提示：', '错误：请求参数中没有发现tableName属性！')
       }
     }
@@ -320,6 +320,7 @@ export function alaUpload(url: string, params = {}, showProgress = false, method
       url: url,
       method: method ? method : 'post',
       data: params,
+      timeout: 200 * 1000, // 200 秒
       headers: {
         sp: showProgress
       }
@@ -334,7 +335,7 @@ export function alaUpload(url: string, params = {}, showProgress = false, method
           resolve(response.data);
         }
       })
-      .catch((error) => {        
+      .catch((error) => {
         reject(error);
       });
   });
