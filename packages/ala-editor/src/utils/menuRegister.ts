@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-10 12:57:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-30 10:09:16
+ * @LastEditTime: 2026-01-12 21:40:30
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/menuRegister.ts
  * @Description: 
  * 
@@ -252,6 +252,11 @@ export const allMenuComponents: MenuComponent = {
     "/cloud/applicationInstance": {
         name: "applicationInstancePage",
         component: "../pages/cloud/applicationInstance/index.vue",
+        requiresAuth: true,
+    },
+    "/application/menu": {
+        name: "appMenus",
+        component: "../pages/system/app/index.vue",
         requiresAuth: true,
     },
 

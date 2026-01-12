@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:02:26
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-15 08:39:53
+ * @LastEditTime: 2026-01-12 21:48:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs.ts
  * @Description: 
  * 
@@ -17,6 +17,7 @@ import { physicalServersDisks } from "@/config/formConfigs/cloud/physicalServers
 import { cloudServers } from "@/config/formConfigs/cloud/cloudServers"
 import { physicalServers } from "@/config/formConfigs/cloud/physicalServers"
 import { systemUser } from "@/config/formConfigs/systemUser"
+import { app } from "@/config/formConfigs/app"
 import { systemLog } from "@/config/formConfigs/systemLog"
 import { systemRole } from "@/config/formConfigs/systemRole"
 import { device } from "@/config/formConfigs/device"
@@ -43,6 +44,7 @@ const formConfigs = {
     application,
     applicationInstance,
     lowcodingConfig: lowcodingConfigs,
+    app
 }
 
 
@@ -91,7 +93,7 @@ export const getLowcodingConfigByClassName = async (className: string): Promise<
         const list_url = "/l/lowcodingConfig/list"
         const list_params = { className }
         config = await formConfigParse(list_url, list_params)
-        
+
         if (config) {
             lowcodingConfigWithClassName.set(className, config)
         }
