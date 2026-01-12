@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 11:20:08
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-12 21:47:49
+ * @LastEditTime: 2026-01-12 22:54:17
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/app/index.vue
  * @Description: 
  * 
@@ -36,11 +36,17 @@
 
         </template>
 
+        <template #btns="{ row }">
+            <AlaButton :showButton="true" name="authorize" @authorize="handleAuthorize(row)" buttonType="primary"
+                />
+        </template>
 
     </PageTable>
 
     <!-- 新增、编辑 -->
     <Add @refresh="refresh" v-model="showAddForm" :baseInfo="baseInfo" v-if="showAddForm" />
+    
+    <appMenu v-model="showAuthorizationForm" :baseInfo="baseInfo" v-if="showAuthorizationForm"/>
 
     <AlaDetail :data="detailItem" v-model="showDetailPage" :fields="formConfigs.app.detailFields"
         :formAttr="formConfigs.app.detailAttr" />
@@ -59,6 +65,8 @@ import u from '@/utils/u';
 import { useI18n } from 'vue-i18n';
 import AlaDetail from '@/components/cps/form/ala-detail.vue';
 import formConfigs from '@/config/formConfigs';
+import appMenu from '@/pages/system/app/appMenu.vue';
+
 const { t } = useI18n();
 // ############## 初始化基本数据，该部分代码不用修改 start ######################################
 // 1、获取当前模块名
@@ -166,6 +174,17 @@ const advancedFields: any = []
 
 
 // ############## 分页列表自定义方法，该部分代码需要按需定制 end ######################################
+
+
+
+const showAuthorizationForm = ref(false)
+const handleAuthorize = (item: any) => {
+    u.clear(baseInfo.item)
+    u.merged(baseInfo, { item: { ...item } })
+    logger.info(`【角色授权】方法接收到参数【 item 】`, item);
+    logger.info(`当前模块【 baseInfo 】对象参数为`, baseInfo);
+    showAuthorizationForm.value = true
+}
 
 
 </script>
