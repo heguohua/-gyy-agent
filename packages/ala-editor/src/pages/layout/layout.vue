@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 18:25:42
+ * @LastEditTime: 2026-01-12 11:07:28
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -105,20 +105,29 @@ const menus = ref<Array<Menu>>([])
 onMounted(() => {
     logger.info("onMounted 渲染 layout 页面");
     // 后台加载菜单
-    alaPost(u.url("/u/menu/queryListForUser"), {}, true).then((data: any) => {
+    let system = lstore.getItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME) || alaConsts.SYSTEM_DEFAULT
+    if (system === 'all') {
+        system = ''
+    }
+    alaPost(u.url("/u/menu/queryListForUser"), { "system": system }, true).then((data: any) => {
 
         // 先加载所有语言包
         changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT, getLocaleMessage, changeLocale)
 
-        menus.value = data.data
         //注册动态路由
         const modules = import.meta.glob('@/pages/**/*.vue');
         MenuUtil.registerDynamicRouter(data.data, t, modules)
-        // 从 localStorage 中恢复路由
+        // 从 localStorage 中恢复路由         menus.value = data.data
+
+        alaStore.set('menus', data.data)
 
     });
 })
 
+
+watch(() => alaStore.get('menus'), (ms: Array<Menu>) => {
+    menus.value = ms
+})
 
 
 // State

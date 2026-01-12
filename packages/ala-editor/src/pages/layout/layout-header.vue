@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-11-13 08:03:12
+ * @LastEditTime: 2026-01-12 11:04:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -28,9 +28,17 @@
         <v-icon icon="publish" />
         {{ $t('buttons.publish') }}
       </el-button> -->
+
       <div class="languages">
         <el-select v-model="currentLanguage" :placeholder="$t('common.select_placeholder')" @change="chang">
           <el-option v-for="(value, key) in languages" :key="key" :label="value" :value="key">
+          </el-option>
+        </el-select>
+      </div>
+
+      <div class="systems">
+        <el-select v-model="system" :placeholder="$t('common.select_placeholder')" @change="changSystem">
+          <el-option v-for="(value, key) in systems" :key="key" :label="value" :value="key">
           </el-option>
         </el-select>
       </div>
@@ -88,7 +96,56 @@ const chang = (locale: any) => {
   changLanguage(locale, getLocaleMessage, changeLocale)
 }
 
+const changSystem = (system: any) => {
+
+  if (!system) {
+    return
+  }
+  // 切换语言环境
+  logger.warn(`正在切换项目菜单，项目名称【 ${system} 】`);
+
+
+  // 1、先从 pinia 缓存中加载语言包，如果没有加载到，则从服务器端加载
+  // const alaStore = useAlaStore()
+  // let messages = alaStore.get(system);
+  // if (!messages) {
+
+
+  lstore.setItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME, system)
+
+
+  alaPost(u.url("/u/menu/queryListForUser"), { "system": system }, true).then((data: any) => {
+
+    // 先加载所有语言包
+    changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT, getLocaleMessage, changeLocale)
+
+    const modules = import.meta.glob('@/pages/**/*.vue');
+    // MenuUtil.registerDynamicRouter(data.data, t, modules)
+    // 从 localStorage 中恢复路由
+
+  });
+
+  // } else {
+  //   logger.info(`不需要后台查询，直接从【 缓存 】中加载语言包`, existedMessages);
+
+
+  // }
+
+
+
+}
+
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT)
+
+
+
+enum systems {
+  "all" = '全量功能',
+  "oa" = '办公数字化',
+  'yuanqu' = "智慧园区/建筑"
+}
+
+let system = ref(lstore.getItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME) || alaConsts.SYSTEM_DEFAULT)
 
 const changePasswordRef = ref()
 
@@ -239,6 +296,11 @@ watch(() => user.value, async (v) => {
 
     .languages {
       min-width: 150px;
+      margin-left: 12px;
+    }
+
+    .systems {
+      min-width: 140px;
       margin-left: 12px;
     }
 
