@@ -2,17 +2,16 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-06-08 10:50:04
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-12 22:51:10
+ * @LastEditTime: 2026-01-12 22:52:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/config/formConfigs/app.ts
  * @Description: 
  * 
  * Copyright (c) 2025 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
-import { alaBuildDate, alaBuildHidden, alaBuildImage, alaBuildInput, alaBuildPassword, alaBuildSelectTable, alaBuildSelectTree, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders"
-import { alaEmail, alaPhone, alaRequired } from "@/config/alaRules"
+import { alaBuildHidden, alaBuildImage, alaBuildInput, alaBuildSwitch, alaBuildTextarea } from "@/config/alaBuilders"
+import { alaRequired } from "@/config/alaRules"
 import FormConfig from "@/config/formConfigs/formConfig"
-import { alaDetailBuild, alaDetailDate, alaDetailImage, alaDetailInput, alaDetailSelectTable, alaDetailSelectTree, alaDetailSwitch, alaDetailTextarea } from "../alaDetailBuilder"
-import { dType } from "@/components/cps/dynamic/detailType"
+import { alaDetailDate, alaDetailImage, alaDetailInput, alaDetailSwitch, alaDetailTextarea } from "../alaDetailBuilder"
 
 export const app: FormConfig = {
     formAttr: {
