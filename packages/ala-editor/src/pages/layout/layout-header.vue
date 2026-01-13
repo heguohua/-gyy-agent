@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-12 11:04:41
+ * @LastEditTime: 2026-01-13 10:14:14
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -38,7 +38,7 @@
 
       <div class="systems">
         <el-select v-model="system" :placeholder="$t('common.select_placeholder')" @change="changSystem">
-          <el-option v-for="(value, key) in systems" :key="key" :label="value" :value="key">
+          <el-option v-for="system in systems" :key="system.id" :label="system.name" :value="system.id">
           </el-option>
         </el-select>
       </div>
@@ -113,7 +113,7 @@ const changSystem = (system: any) => {
 
   lstore.setItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME, system)
 
-
+  // 重新加载菜单
   alaPost(u.url("/u/menu/queryListForUser"), { "system": system }, true).then((data: any) => {
 
     // 先加载所有语言包
@@ -138,13 +138,6 @@ const changSystem = (system: any) => {
 let currentLanguage = ref(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT)
 
 
-
-enum systems {
-  "all" = '全量功能',
-  "oa" = '办公数字化',
-  'yuanqu' = "智慧园区/建筑"
-}
-
 let system = ref(lstore.getItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME) || alaConsts.SYSTEM_DEFAULT)
 
 const changePasswordRef = ref()
@@ -164,7 +157,7 @@ let app_types = computed(() => {
 })
 
 const logout = () => {
-  alaPost(u.url('/out'), '', false, "get").then((response: any) => {
+  alaPost(u.url('/out'), {}, false, "get").then((response: any) => {
     console.log('response:', response);
     if (response.code === 200) {
       // 删除本地 localStorage中的token
@@ -183,8 +176,29 @@ const handleCommand = (command: string) => {
 }
 
 const user = ref<any>()
+const systems = ref<any>()
 onMounted(() => {
+
   user.value = lstore.getItem(alaConsts.user_name)
+
+  // 加载应用列表
+  alaPost(u.url('/u/app/list'), {}, false, "post").then((response: any) => {
+
+    if (response.data) {
+
+      const apps = response.data
+      const sys = []
+
+      for (let index = 0; index < apps.length; index++) {
+        const app = apps[index];
+        sys.push({ 'id': app.id, 'name': app.name })
+      }
+
+      systems.value = sys
+    }
+
+  })
+
 })
 
 const imageValue = ref<any>()
