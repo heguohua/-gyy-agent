@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-13 11:04:23
+ * @LastEditTime: 2026-01-13 15:20:41
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -89,6 +89,7 @@ const { changeLocale } = useLocale()
 import u from '@/utils/u';
 import { alaDownload, alaPost, get } from '@/utils/req';
 import { useAlaStore } from '@/store/ala-store';
+import MenuUtil from '@/utils/menuRegister';
 const { getLocaleMessage } = useI18n();
 const alaStore = useAlaStore()
 
@@ -96,32 +97,31 @@ const chang = (locale: any) => {
   changLanguage(locale, getLocaleMessage, changeLocale)
 }
 
-const changSystem = (system: any) => {
+const changSystem = (appId: any) => {
 
-  if (!system) {
+  if (!appId) {
     return
   }
   // 切换语言环境
-  logger.warn(`正在切换项目菜单，项目名称【 ${system} 】`);
-
+  logger.warn(`正在切换项目菜单，项目ID【 ${appId} 】`);
 
   // 1、先从 pinia 缓存中加载语言包，如果没有加载到，则从服务器端加载
   // const alaStore = useAlaStore()
   // let messages = alaStore.get(system);
   // if (!messages) {
 
-
-  lstore.setItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME, system)
+  lstore.setItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME, appId)
 
   // 重新加载菜单
-  alaPost(u.url("/u/menu/queryListForUser"), { "system": system }, true).then((data: any) => {
-
+  alaPost(u.url("/u/menu/queryListForUser"), { appId }, true).then((data: any) => {
+    
     // 先加载所有语言包
     changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT, getLocaleMessage, changeLocale)
 
     const modules = import.meta.glob('@/pages/**/*.vue');
-    // MenuUtil.registerDynamicRouter(data.data, t, modules)
+    MenuUtil.registerDynamicRouter(data.data, t, modules)
     // 从 localStorage 中恢复路由
+    alaStore.set('menus', data.data)
 
   });
 
@@ -187,7 +187,9 @@ onMounted(() => {
     if (response.data) {
 
       const apps = response.data
-      const sys = []
+      const sys = [
+        { 'id': -1, 'name': '全量系统' }
+      ]
 
       for (let index = 0; index < apps.length; index++) {
         const app = apps[index];
