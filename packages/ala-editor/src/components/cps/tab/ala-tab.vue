@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-17 20:42:13
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 18:07:28
+ * @LastEditTime: 2026-01-13 15:43:26
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/tab/ala-tab.vue
  * @Description: 
  * 
@@ -119,6 +119,20 @@ watch(locale, (newLocale, oldLocale) => {
 }, {
     immediate: true
 });
+
+
+watch(() => alaStore.get('clear_tab'), (v) => {
+    if (v) {        
+        tabList.value = [
+            {
+                title: '首页',
+                path: '/welcome',
+                menuCode: 'menu.welcome',
+            }
+        ]
+        router.push('/welcome')
+    }
+})
 
 
 </script>

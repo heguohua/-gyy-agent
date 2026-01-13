@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 13:40:02
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-13 15:20:52
+ * @LastEditTime: 2026-01-13 15:31:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout.vue
  * @Description: 
  * 
@@ -227,9 +227,6 @@ const handleSubmit = () => {
 
 .drag-wrapper {
     .ala_container {
-        .ala_container_inner {
-            .ai-button-icon {}
-        }
 
         .tip {
 

@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 20:21:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-13 15:20:41
+ * @LastEditTime: 2026-01-13 15:39:47
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/layout/layout-header.vue
  * @Description: 
  * 
@@ -90,6 +90,7 @@ import u from '@/utils/u';
 import { alaDownload, alaPost, get } from '@/utils/req';
 import { useAlaStore } from '@/store/ala-store';
 import MenuUtil from '@/utils/menuRegister';
+import { date } from '@/utils/date';
 const { getLocaleMessage } = useI18n();
 const alaStore = useAlaStore()
 
@@ -112,9 +113,11 @@ const changSystem = (appId: any) => {
 
   lstore.setItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME, appId)
 
+  alaStore.set('clear_tab', date.currentDateTime_YYYY_MM_DD__HH_mm_ss())
+
   // 重新加载菜单
   alaPost(u.url("/u/menu/queryListForUser"), { appId }, true).then((data: any) => {
-    
+
     // 先加载所有语言包
     changLanguage(lstore.getItem(alaConsts.I18N_LOCAL_STORAGE_KEY_NAME) || alaConsts.I18N_DEFAULT, getLocaleMessage, changeLocale)
 
@@ -122,6 +125,8 @@ const changSystem = (appId: any) => {
     MenuUtil.registerDynamicRouter(data.data, t, modules)
     // 从 localStorage 中恢复路由
     alaStore.set('menus', data.data)
+
+
 
   });
 
