@@ -2,8 +2,8 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-13 14:24:09
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-26 10:35:43
- * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/role/roleAuthorization.vue
+ * @LastEditTime: 2026-01-13 09:36:43
+ * @FilePath: /1-low-coding/packages/ala-editor/src/pages/system/app/appMenu.vue
  * @Description: 
  * 
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
@@ -68,7 +68,7 @@ watch(() => props.baseInfo.item, (item) => {
 
     if (!item.id) return
     // Methods
-    const url = '/u/menu/findForAuthorization'
+    const url = '/u/menu/findForAppAuthorization'
 
     let params = { id: item.id }
 
@@ -206,20 +206,18 @@ function collectMenuAuthorizedIds(root: TreeNode | TreeNode[]): Array<number | s
 function confirmClick() {
 
     // Methods
-    const url = '/u/role/saveRoleResourceRelations'
+    const url = '/u/appMenu/addBatch'
 
-    const roleId = props.baseInfo.item.id
-    const resourceIds = collectResourceAuthorizedIds(permissionNodes.value)
+    const appId = props.baseInfo.item.id
     const menuIds = collectMenuAuthorizedIds(permissionNodes.value)
 
-    let params = { roleId, resourceIds, menuIds }
+    let params = { appId, menuIds }
 
-
-    logger.info(`【 保存 角色-资源关联关系 】，url【 ${url} 】，参数：`, params);
+    logger.info(`【 保存【应用-菜单】关联关系 】，url【 ${url} 】，参数：`, params);
 
     alaPost(u.url(url), params, false, '').then((response: any) => {
         const data = response.data
-        logger.info(`【 保存 角色-资源关联关系 】，返参data：`, data);
+        logger.info(`【 保存【应用-菜单】关联关系 】，返参data：`, data);
         if (response.code === 200) {
             notify.success(t('pop.warm_title'), "数据保存成功。")
             showDrawer.value = false
@@ -233,7 +231,7 @@ function confirmClick() {
     // })
 }
 const useFormTitle = () => {
-    return "角色授权"
+    return "应用菜单授权"
 }
 const drawerWidth = computed((): string => {
     const paddingWidth = 66

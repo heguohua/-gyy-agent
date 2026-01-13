@@ -70,7 +70,7 @@ watch(() => props.baseInfo.item, (item) => {
     // Methods
     const url = '/u/menu/findForAuthorization'
 
-    let params = { id: item.id }
+    let params = { id: item.id, withResource: true }
 
 
     logger.info(`从 api 加载数据，url【 ${url} 】，查询参数：`, params);
