@@ -341,6 +341,22 @@ import gate from '~icons/mdi/boom-gate-arrow-up';
 import energy from '~icons/mdi/wind-energy';
 import maintenance from '~icons/pajamas/work-item-maintenance';
 
+// 智慧通行
+import wheelchair from '~icons/streamline/wheelchair-remix';
+import apply from '~icons/streamline-plump/task-list-edit';
+import lift from '~icons/streamline-plump/lift';
+import qrCode from '~icons/ion/qr-code';
+import truck from '~icons/material-symbols/delivery-truck-speed-outline-rounded';
+import booking from '~icons/tabler/brand-booking';
+import passkey from '~icons/material-symbols/passkey-rounded';
+import visitor from '~icons/material-symbols/nest-doorbell-visitor-outline-rounded';
+import face from '~icons/mynaui/face-id-solid';
+import accessCard from '~icons/ion/card-outline';
+import visitorProxy from '~icons/streamline-flex/nurse-assistant-emergency-remix';
+import parking from '~icons/fluent/vehicle-car-parking-48-regular';
+import goods from '~icons/lsicon/goods-outline';
+import goodsSlip from '~icons/mingcute/bill-line';
+
 
 
 /*
@@ -354,6 +370,22 @@ import maintenance from '~icons/pajamas/work-item-maintenance';
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 const icon = {
+
+  // 物业通行
+  goodsSlip,
+  goods,
+  parking,
+  visitorProxy,
+  accessCard,
+  face,
+  visitor,
+  passkey,
+  booking,
+  truck,
+  qrCode,
+  lift,
+  apply,
+  wheelchair,
 
   // 物业服务
   services,
