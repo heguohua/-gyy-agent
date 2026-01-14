@@ -44,6 +44,7 @@ import { logger } from '@/utils/logger';
 import u from '@/utils/u';
 import formConfigs from '@/config/formConfigs';
 import AlaPermission, { PermissionNode } from '@/components/cps/permission/ala-permission.vue'
+import lstore from '@/utils/lstore';
 
 
 const props = defineProps({
@@ -70,7 +71,9 @@ watch(() => props.baseInfo.item, (item) => {
     // Methods
     const url = '/u/menu/findForAppAuthorization'
 
-    let params = { id: item.id }
+    let appId = lstore.getItem(alaConsts.SYSTEM_LOCAL_STORAGE_KEY_NAME) || alaConsts.SYSTEM_DEFAULT
+
+    let params = { id: item.id, appId }
 
 
     logger.info(`从 api 加载数据，url【 ${url} 】，查询参数：`, params);
@@ -118,6 +121,7 @@ const beforeSave = (item: any) => {
 import { useI18n } from 'vue-i18n';
 import { alaPost } from '@/utils/req';
 import notify from '@/utils/notify';
+import { alaConsts } from '@/config/alaConsts';
 const { t } = useI18n();
 
 const handleClose = (done: () => void) => {

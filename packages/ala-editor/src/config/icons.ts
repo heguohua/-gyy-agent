@@ -334,6 +334,13 @@ import reward from '~icons/fluent/reward-12-regular';
 import downgrade from '~icons/ic/outline-move-down';
 import donate from '~icons/streamline-flex/blood-donate-drop';
 
+// 物业服务
+import services from '~icons/streamline-freehand/security-it-service';
+import security from '~icons/ic/baseline-security';
+import gate from '~icons/mdi/boom-gate-arrow-up';
+import energy from '~icons/mdi/wind-energy';
+import maintenance from '~icons/pajamas/work-item-maintenance';
+
 
 
 /*
@@ -347,6 +354,14 @@ import donate from '~icons/streamline-flex/blood-donate-drop';
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 const icon = {
+
+  // 物业服务
+  services,
+  security,
+  gate,
+  energy,
+  maintenance,
+
   // 基础组件图标
   row: rowIcon,
   column: columnIcon,
