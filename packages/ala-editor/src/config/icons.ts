@@ -356,6 +356,9 @@ import visitorProxy from '~icons/streamline-flex/nurse-assistant-emergency-remix
 import parking from '~icons/fluent/vehicle-car-parking-48-regular';
 import goods from '~icons/lsicon/goods-outline';
 import goodsSlip from '~icons/mingcute/bill-line';
+import monitoring from '~icons/lsicon/monitoring-filled';
+import menJin from '~icons/temaki/tall-gate';
+import xingShan from '~icons/solar/star-rings-outline';
 
 
 
@@ -372,6 +375,9 @@ import goodsSlip from '~icons/mingcute/bill-line';
 const icon = {
 
   // 物业通行
+  xingShan,
+  menJin,
+  monitoring,
   goodsSlip,
   goods,
   parking,
