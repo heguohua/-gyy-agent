@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 11:20:21
+ * @LastEditTime: 2026-01-19 10:14:21
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/select-tree/ala-select-tree.vue
  * @Description: 
  * 
@@ -112,9 +112,6 @@ const props = defineProps({
   },
   help: {
     type: String,
-  },
-  data: {
-    type: Object,
   },
   noEditable: {
     type: Boolean,
