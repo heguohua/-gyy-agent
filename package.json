@@ -7,7 +7,6 @@
   "scripts": {
     "ed": "pnpm -F @ala/ala-editor dev",
     "ep": "pnpm -F @ala/ala-editor build",
-    "epl": "pnpm -F @ala/ala-editor buildLinux",
     "de": "pnpm -F @ala/ala-demo dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "vp": "pnpm -F @ala/vite-project dev",
