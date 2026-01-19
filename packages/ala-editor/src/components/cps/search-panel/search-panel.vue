@@ -303,11 +303,11 @@ defineExpose({ clear })
         flex-wrap: wrap;
 
 
-        :deep .el-form-item {
+        :deep(.el-form-item) {
             margin-bottom: 12px;
         }
 
-        :deep .el-form-item__label {
+        :deep(.el-form-item__label) {
             font-size: 0.9rem;
             font-weight: bold;
             padding-right: 6px;
@@ -333,7 +333,7 @@ defineExpose({ clear })
             }
         }
 
-        :deep .el-button+.el-button {
+        :deep(.el-button+.el-button) {
             margin: 0px;
         }
 

@@ -189,21 +189,21 @@ const handleSubmit = () => {
     --el-aside-width: v-bind(collapseWidth);
 
     // 修改左侧菜单右侧打开、折叠箭头样式
-    :deep .el-sub-menu__icon-arrow {
+    :deep(.el-sub-menu__icon-arrow) {
         font-size: 1.2rem;
         margin-top: -0.6rem;
     }
 
     // 表格标题字体大小
-    :deep .el-table__header {
+    :deep(.el-table__header) {
         font-size: 1rem;
     }
 
-    :deep .el-table__cell.el-table__expanded-cell {
+    :deep(.el-table__cell.el-table__expanded-cell) {
         padding: 0px 16px;
     }
 
-    :deep .el-table th.el-table__cell {
+    :deep(.el-table th.el-table__cell) {
         background-color: #F9F9FA;
         padding: 8px 0px;
     }

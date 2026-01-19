@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-14 13:31:48
+ * @LastEditTime: 2026-01-19 10:19:23
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/input/ala-customerization-component-demo.vue
  * @Description: 
  * 
@@ -67,7 +67,7 @@ const handleChange = (event: Event) => {
             height: calc(var(--el-input-height, 32px) - 2px);
             border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
         }
-        :deep .el-form-item__content {
+        :deep(.el-form-item__content) {
             border: 1px solid var(--color-border);
             box-shadow: 0 0 0 1px var(--color-border) inset;
             padding: 1px 11px;
@@ -75,7 +75,7 @@ const handleChange = (event: Event) => {
     }
 
     .is-error {
-        :deep .el-form-item__content {
+        :deep(.el-form-item__content) {
             box-shadow: 0 0 0 1px var(--el-color-danger) inset;
         }
     }

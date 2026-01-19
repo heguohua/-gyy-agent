@@ -138,12 +138,12 @@ watch(() => alaStore.get('clear_tab'), (v) => {
 </script>
 <style lang="scss" scoped>
 .ala-tab {
-    :deep .el-tabs__item:not(.is-active) {
+    :deep(.el-tabs__item:not(.is-active)) {
         color: #3E446B;
         font-weight: normal;
     }
 
-    :deep .el-tabs__header {
+    :deep(.el-tabs__header) {
         margin-bottom: 4px;
     }
 }

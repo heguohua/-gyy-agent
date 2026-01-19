@@ -118,7 +118,7 @@ const handleExpandChange = (row: Row, expandedRows: any) => {
 </script>
 
 <style lang="scss" scoped>
-:deep .hide-header .el-table__header {
+:deep(.hide-header .el-table__header) {
     display: none;
 }
 </style>

@@ -301,7 +301,7 @@ const handleSave = () => {
 
     --el-input-inner-height: calc(var(--el-input-height, 24px) - 2px);
 
-    :deep .el-form-item {
+    :deep(.el-form-item) {
         font-size: 0.8rem;
         margin-bottom: 14px;
         font-size: 0.8rem;

@@ -118,7 +118,7 @@ const isDisabled = computed(() => {
             height: inherit;
         }
 
-        :deep .el-radio {
+        :deep(.el-radio) {
             display: inline-flex;
             align-items: center;
         }

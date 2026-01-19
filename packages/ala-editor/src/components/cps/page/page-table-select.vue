@@ -424,11 +424,11 @@ defineExpose({ refresh, cancelSelect, clear })
         margin-top: 8px;
         margin-right: 2px;
 
-        :deep .el-pager li:not(.is-active) {
+        :deep(.el-pager li:not(.is-active)) {
             background-color: #fff;
         }
 
-        :deep button[aria-disabled="false"] {
+        :deep(button[aria-disabled="false"]) {
             background-color: #fff;
         }
     }

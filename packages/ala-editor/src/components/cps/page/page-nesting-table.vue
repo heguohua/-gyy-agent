@@ -375,11 +375,11 @@ defineExpose({ refresh })
         float: right;
         margin-top: 8px;
 
-        :deep .el-pager li:not(.is-active) {
+        :deep(.el-pager li:not(.is-active)) {
             background-color: #fff;
         }
 
-        :deep button[aria-disabled="false"] {
+        :deep(button[aria-disabled="false"]) {
             background-color: #fff;
         }
     }

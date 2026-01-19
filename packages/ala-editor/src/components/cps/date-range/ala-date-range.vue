@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-11 21:55:35
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-25 11:21:33
+ * @LastEditTime: 2026-01-19 10:18:36
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/date-range/ala-date-range.vue
  * @Description: 
  * 
@@ -194,7 +194,7 @@ const isDisabled = computed(() => {
 
 <style scoped lang="scss">
 .ala-date-range-wrapper {
-    :deep .el-form-item__label {
+    :deep(.el-form-item__label) {
         justify-content: right;
     }
 

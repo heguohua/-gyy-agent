@@ -472,7 +472,7 @@ const contentArray = ['深圳市谷雨云科技有限公司（Guyu Cloud Technol
 
                     // .ala-el-form {
                     //
-                    //     :deep .el-form-item__label {
+                    //     :deep(.el-form-item__label) {
                     //         width: 100%;
                     //         /* 确保标签左对齐 */
                     //         text-align: left;
@@ -519,12 +519,12 @@ const contentArray = ['深圳市谷雨云科技有限公司（Guyu Cloud Technol
                             .agreement-label {
                                 display: inline-block;
 
-                                :deep .el-checkbox__inner {
+                                :deep(.el-checkbox__inner) {
                                     width: 1.1rem;
                                     height: 1.1rem;
                                 }
 
-                                :deep .el-checkbox__inner:after {
+                                :deep(.el-checkbox__inner:after) {
                                     width: 0.41rem;
                                     height: 0.56rem;
                                 }

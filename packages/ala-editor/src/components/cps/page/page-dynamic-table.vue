@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-15 14:45:28
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-31 10:44:27
+ * @LastEditTime: 2026-01-19 10:20:58
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/page/page-dynamic-table.vue
  * @Description: 
  * 
@@ -447,11 +447,11 @@ defineExpose({ refresh })
         float: right;
         margin-top: 8px;
 
-        :deep .el-pager li:not(.is-active) {
+        :deep(.el-pager li:not(.is-active)) {
             background-color: #fff;
         }
 
-        :deep button[aria-disabled="false"] {
+        :deep(button[aria-disabled="false"]) {
             background-color: #fff;
         }
     }

@@ -142,7 +142,7 @@ const isDisabled = computed(() => {
         flex-wrap: wrap;
         column-gap: 16px;
 
-        :deep .el-checkbox {
+        :deep(.el-checkbox) {
             display: inline-flex;
             align-items: center;
         }

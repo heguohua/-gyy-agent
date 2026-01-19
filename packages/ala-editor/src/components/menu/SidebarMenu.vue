@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-08-25 18:11:45
+ * @LastEditTime: 2026-01-19 10:23:20
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -180,18 +180,18 @@ watch(() => route, (route) => {
 
         }
 
-        :deep .el-menu-item:hover {
+        :deep(.el-menu-item:hover) {
             background: var(--el-menu-active-bg);
             color: var(--el-menu-active-color) !important;
         }
 
-        :deep .el-sub-menu .is-active,
-        :deep .el-sub-menu.is-active {
+        :deep(.el-sub-menu .is-active),
+        :deep(.el-sub-menu.is-active) {
             background-color: var(--el-menu-active-bg);
             // font-weight: bold;
         }
 
-        :deep .el-sub-menu .is-active {
+        :deep(.el-sub-menu .is-active) {
             font-weight: bold;
 
             &::before {
@@ -213,13 +213,8 @@ watch(() => route, (route) => {
             }
         }
 
-        // :deep .el-sub-menu__title{
-        //     padding-left: calc(var(--el-menu-base-level-padding) + var(--el-menu-level)* var(--el-menu-level-padding)) !important;
-        // }
-        // :deep .el-menu-item{
-        //     padding-left: calc(var(--el-menu-base-level-padding) + var(--el-menu-level)* var(--el-menu-level-padding)) !important;
-        // }
-        :deep .el-icon-circle-plus-outline {
+
+        :deep(.el-icon-circle-plus-outline) {
             width: 0px !important;
         }
 

@@ -175,7 +175,7 @@ const isDisabled = computed(() => {
 
 <style scoped lang="scss">
 .ala-date-wrapper {
-    :deep .el-form-item__label {
+    :deep(.el-form-item__label) {
         justify-content: right;
     }
 

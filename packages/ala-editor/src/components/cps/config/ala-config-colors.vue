@@ -184,7 +184,7 @@ watch(() => editorStore.globalParams[bType], () => {
 
 <style scoped lang="scss">
 .config-colors {
-    :deep .el-input__wrapper {
+    :deep(.el-input__wrapper) {
         background: var(--color-config-block-bg);
 
         input {
