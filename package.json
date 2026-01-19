@@ -10,7 +10,7 @@
     "de": "pnpm -F @ala/ala-demo dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "vp": "pnpm -F @ala/vite-project dev",
-    "i": "pnpm install -r --prefer-offline",
+    "i": "pnpm install --prefer-offline -r",
     "clean": "sh clean.sh",
     "led": "pnpm -F @ala/ala-editor lint",
     "lde": "pnpm -F @ala/ala-demo lint",
