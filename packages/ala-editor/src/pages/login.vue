@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 19:49:38
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-28 08:07:52
+ * @LastEditTime: 2026-01-19 10:32:01
  * @FilePath: /1-low-coding/packages/ala-editor/src/pages/login.vue
  * @Description: 
  * 
@@ -131,11 +131,11 @@
 // import img_dianhua_400 "@/"
 import { date } from "@/utils/date"
 
-import icon from '@/config/icons';
-import dianhua_400 from '/dianhua-400.png'
-import dianhua_guoji from '/dianhua-guoji.png'
-import weixin from '/weixin.png'
-import gongzhonghao from '/weixin.png'
+// import icon from '@/config/icons';
+// import dianhua_400 from '/dianhua-400.png'
+// import dianhua_guoji from '/dianhua-guoji.png'
+// import weixin from '/weixin.png'
+// import gongzhonghao from '/weixin.png'
 import AlaTypewriterOneLine from '@/components/cps/typewriter/AlaTypewriterOneLine.vue';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();

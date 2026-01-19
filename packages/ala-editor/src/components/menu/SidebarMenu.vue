@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-08 21:13:37
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2026-01-19 10:23:20
+ * @LastEditTime: 2026-01-19 10:31:22
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/menu/SidebarMenu.vue
  * @Description: 
  * 
@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { ref } from 'vue';
 import SidebarMenuItem from '@/components/menu/SidebarMenuItem.vue'; // 引入递归子组件
 import Menu from '@/types/menuType';
 import { logger } from '@/utils/logger';
