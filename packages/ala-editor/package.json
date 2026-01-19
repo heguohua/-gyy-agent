@@ -7,6 +7,7 @@
     "dev": "vite --mode dev",
     "prd": "vite --mode prd",
     "build": "rimraf dist && vite build --mode prd",
+    "buildLinux": "rm -rf dist && vite build --mode prd",
     "preview": "vite preview",
     "lint": "eslint ."
   },
