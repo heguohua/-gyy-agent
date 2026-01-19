@@ -1,4 +1,14 @@
 #!/bin/bash
+###
+ # @Author: darcy.zhang , tech.darcy.zhang@outlook.com
+ # @Date: 2026-01-18 20:48:03
+ # @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
+ # @LastEditTime: 2026-01-19 10:10:27
+ # @FilePath: /1-low-coding/deploy.sh
+ # @Description: 
+ # 
+ # Copyright (c) 2026 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
+### 
 
 
 branch=$(git branch --show-current)
@@ -22,7 +32,7 @@ rsync -a \
   --exclude=dist.zip \
   ../1-low-coding/ source/
 
-tar -zcf source.tgz source
+tar --no-xattrs -zcf source.tgz source
 
 rm -rf source
 
