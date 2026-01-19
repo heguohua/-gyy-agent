@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-10-12 16:06:36
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-23 20:59:50
+ * @LastEditTime: 2026-01-19 10:16:24
  * @FilePath: /1-low-coding/packages/ala-editor/vite.config.js
  * @Description:
  *
@@ -108,6 +108,7 @@ const dc = defineConfig(({ command, mode }) => {
       preprocessorOptions: {
         scss: {
           additionalData: `@use "./src/assets/styles/vite-import.scss" as *;`,
+          quietDeps: true
         }
       }
     },
