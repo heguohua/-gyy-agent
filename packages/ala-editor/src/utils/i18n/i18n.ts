@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2024-11-16 14:36:21
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2024-11-17 18:48:12
+ * @LastEditTime: 2026-01-19 08:46:24
  * @FilePath: /1-low-coding/packages/ala-editor/src/utils/i18n/i18n.ts
  * @Description: 
  * 
@@ -12,7 +12,7 @@
 import { useLocaleStore } from '@/store/locale'
 
 import en from "@/locales/en"
-import zh_CN from "@/locales/zh-CN"
+import zh_CN from "@/locales/zh-cn"
 import zh_TW from "@/locales/zh-TW"
 import zh from "@/locales/zh"
 import ru from "@/locales/ru"
