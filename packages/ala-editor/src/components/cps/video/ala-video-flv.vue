@@ -2,7 +2,7 @@
  * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
  * @Date: 2025-08-04 19:15:30
  * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-12-24 22:56:24
+ * @LastEditTime: 2026-01-24 10:41:32
  * @FilePath: /1-low-coding/packages/ala-editor/src/components/cps/video/ala-video-flv.vue
  * @Description: 
  * 
@@ -44,20 +44,19 @@ const props = defineProps({
     }
 })
 
+const video_logo = import.meta.env.VITE_VIDEO_LOGO
 
 const playerRef = ref(null)
 let player = null
 
-
 onMounted(() => {
-    console.log('props.url:',props.url);
-    
+
     player = new Player({
         el: playerRef.value,
         url: props.url,
         isLive: true,
         playsinline: true,
-        poster: '/charts/logo.svg',
+        poster: '/charts/' + video_logo,
         plugins: [FlvPlayer],
     })
 })
