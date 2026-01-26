@@ -9,12 +9,12 @@
  * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
  */
 // router.js
+import { alaConsts } from '@/config/alaConsts';
 import { useAlaStore } from '@/store/ala-store';
 import { logger } from '@/utils/logger';
-import { createRouter, createWebHashHistory } from 'vue-router';
-import { alaConsts } from '@/config/alaConsts';
 import lstore from '@/utils/lstore';
 import notify from '@/utils/notify';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 // 定义路由
 const routes = [
@@ -56,6 +56,15 @@ const routes = [
         meta: {
             requiresAuth: true,
             menuCode: 'welcome',
+        }
+    },
+    {
+        path: '/wujie/demo',
+        name: "WujieDemoPage",
+        component: () => import('../pages/wujie/wujie-demo.vue'),
+        meta: {
+            requiresAuth: true,
+            menuCode: 'wujie-demo',
         }
     },
 

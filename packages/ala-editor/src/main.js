@@ -17,6 +17,9 @@ import './style.css';
 import 'animate.css';
 // 引入路由器
 import router from './router';
+// Wujie 微前端
+import WujieVue from 'wujie-vue3';
+import { setupNavigateToMainListener } from '@/config/wujie';
 
 // 创建一个应用
 const app = createApp(App);
@@ -27,6 +30,10 @@ app.use(pinia);
 
 // 使用路由器
 app.use(router);
+
+// Wujie 微前端：注册插件，并监听子应用 navigateToMain 事件
+app.use(WujieVue);
+setupNavigateToMainListener(router);
 
 
 // 注册拖拽指令
@@ -106,6 +113,13 @@ import * as echarts from 'echarts'
 app.component('e-charts', Echarts)
 // 全局挂载 echarts
 app.config.globalProperties.$echarts = echarts
+// ✅ 全局暴露（用于调试）
+
+// ✅ 确保 bus 存在
+if (!WujieVue.bus) {
+  console.error('无界 bus 未初始化')
+}
+window.$wujieGlobalBus =  WujieVue.bus;
 
 // 挂载整个应用到app容器中
 app.mount('#app');
