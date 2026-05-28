@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 
-import { move, clone, dragGroup } from "@/components/editor/nested"
+import { clone, move } from "@/components/editor/nested";
 
 const props = defineProps({
     list: {

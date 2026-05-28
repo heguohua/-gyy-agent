@@ -24,7 +24,6 @@
 
                             <template class="" v-for="(component, innerIndex) in item.components"
                                 :key="bType + '-' + index+'-'+innerIndex">
-
                                 <component v-if="getComponent(component)" :is="getComponent(component)"
                                     :data="component" v-bind="component.properties.desktop.other"
                                     :viewport="editorStore.viewport[bType]" @callback="callback"
@@ -181,5 +180,7 @@ const handleChange = (name: string) => {
             border-bottom: 1px solid var(--el-collapse-border-color);
         }
     }
+
+    
 }
 </style>

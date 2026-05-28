@@ -1,13 +1,4 @@
-<!--
- * @Author: darcy.zhang , tech.darcy.zhang@outlook.com
- * @Date: 2024-10-17 10:02:47
- * @LastEditors: darcy.zhang , tech.darcy.zhang@outlook.com
- * @LastEditTime: 2025-05-31 17:02:27
- * @FilePath: /1-low-coding/packages/ala-editor/src/components/editor/editor-block-drag-page.vue
- * @Description: 
- * 
- * Copyright (c) 2024 by 【 tech.darcy.zhang@outlook.com 】, All Rights Reserved. 
--->
+
 <template>
     <draggable :list="list" :group="group" :sort="sort" animation="200" item-key="id" ghost-class="ghost-class"
         class="edit-block-drag" :clone="clone" :move="move">
@@ -29,9 +20,8 @@
 
 <script setup lang="ts">
 
-import { move, clone, dragGroup } from "@/components/editor/nested"
+import { clone, move } from "@/components/editor/nested"
 import u from "@/utils/u"
-import { el } from "element-plus/es/locale"
 
 const props = defineProps({
     list: {

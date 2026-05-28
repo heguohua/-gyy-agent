@@ -57,6 +57,7 @@ const props = defineProps({
 
 const bType = props.bType
 
+
 const emit = defineEmits(['copy', 'clear', 'top', 'clone'])
 
 const copy = () => {
